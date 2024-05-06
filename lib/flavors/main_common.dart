@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/views/screens/auth/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/theme/themes.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
 
 import '../router/app_router.dart';
-import '../views/screens/demo_home_page.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -56,7 +56,7 @@ class MyAppState extends State<MyApp> {
             ],
             darkTheme: darkTheme(context),
             locale: currentLocale,
-            home: const MyHomePage(title: 'Flutter Demo Home Page'),
+            home: const SplashScreen(),
           );
         });
   }

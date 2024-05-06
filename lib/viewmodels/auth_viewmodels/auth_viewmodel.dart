@@ -3,8 +3,8 @@ import 'package:cpcb_tyre/controllers/auth/auth_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
-import '../models/request/login_request_model.dart';
-import '../models/response/login_response_model.dart';
+import '../../models/request/login_request_model.dart';
+import '../../models/response/login_response_model.dart';
 
 class AuthViewModel extends BaseViewModel {
   final _authRepo = AuthRepository();
