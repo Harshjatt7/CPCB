@@ -4,4 +4,6 @@ class ImageConstants {
 
   // Splash Screen
   final String splashScreenLogo = "assets/images/logo/spalsh_logo.png";
+  final String info = "assets/images/icons/info.svg";
+
 }

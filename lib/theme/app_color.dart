@@ -7,4 +7,7 @@ class AppColor {
 
   final Color primaryGreen = const Color(0xFF1BB934);
   final Color primaryGreen1 = const Color(0xFF18632E);
+  final Color grey03 = const Color(0x00D3D3D3);
+ 
+
 }
