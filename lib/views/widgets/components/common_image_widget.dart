@@ -34,11 +34,11 @@ class CommonImageWidget extends StatelessWidget {
     imageSource.split(".").last.contains("svg") ? isSvg = true : null;
     return Container(
       decoration: BoxDecoration(
-        borderRadius: borderRadius ?? BorderRadius.circular(12),
-        color: bgColor ?? AppColor().white,
+        borderRadius: borderRadius,
+        color: bgColor ?? AppColor().transparent,
       ),
       child: ClipRRect(
-        borderRadius: borderRadius ?? BorderRadius.circular(12),
+        borderRadius: borderRadius ?? BorderRadius.circular(0),
         child: isNetworkImage == true
             ? isSvg == true
                 ? SvgPicture.network(

@@ -4,4 +4,6 @@ class AppRoutes {
 
   // Demo route
   static const String demoRoute = "demo route";
+  static const String producerRoute = "producerRoute";
+  
 }
