@@ -4,4 +4,8 @@ class ImageConstants {
   final String contactPage = "assets/images/logo/contact_page.svg";
   final String calendarToday="assets/images/logo/calendar_today.svg";
 
+  // Splash Screen
+  final String splashScreenLogo = "assets/images/logo/spalsh_logo.png";
+  final String info = "assets/images/icons/info.svg";
+
 }

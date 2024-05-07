@@ -1,5 +1,7 @@
 ///[AppRoutes] class will be used to store the navgation routes key for the application.
 class AppRoutes {
-  static const String homePageRoute = "/homePageRoute";
-  static const String demoPage = "/demoPage";
+  static const String splashScreenRoute = "/splashScreenRoute";
+
+  // Demo route
+  static const String demoRoute = "demo route";
 }
