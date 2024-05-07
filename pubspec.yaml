@@ -71,6 +71,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/logo/
+    - assets/images/icons/
+    - assets/images/background/
     - lib/i18n/es.json
     - lib/i18n/en.json
   #   - images/a_dot_ham.jpeg
