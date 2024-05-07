@@ -8,4 +8,5 @@ class ImageConstants {
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";
   final String blueLogo = "assets/images/logo/blue_logo.svg";
+  final String info = "assets/images/icons/info.svg";
 }
