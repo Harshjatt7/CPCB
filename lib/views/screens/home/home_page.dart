@@ -23,7 +23,7 @@ class ProducerScreen extends StatelessWidget {
              ProducerEnvironmentTile(
                 title: "Date of EC",
                 subtitle: "24 April 2024",
-                image: ImageConstants().calendar),
+                image: ImageConstants().calender),
                  ProducerEnvironmentTile(
                 title: "Current Status",
                 subtitle: "Paid",
