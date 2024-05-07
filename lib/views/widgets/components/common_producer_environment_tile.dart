@@ -2,7 +2,6 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProducerEnvironmentTile extends StatelessWidget {
@@ -63,7 +62,6 @@ class ProducerEnvironmentTile extends StatelessWidget {
                 const SizedBox(height: 8.0),
                 CommonTextWidget(
                   subtitle,
-                  
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium

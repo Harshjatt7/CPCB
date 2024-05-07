@@ -17,19 +17,24 @@ class ProducerScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const CommonNote(note: "You have to complete the registration process to access your dashboard, Click on the “Initiate Registration” to start the process."),
+            const CommonNote(
+                note:
+                    "You have to complete the registration process to access your dashboard, Click on the “Initiate Registration” to start the process."),
             const ProducerListTile(title: "User Type", subtitle: "Producer"),
-           Row(children: [
-             ProducerEnvironmentTile(
-                title: "Date of EC",
-                subtitle: "24 April 2024",
-                image: ImageConstants().calender),
-                 ProducerEnvironmentTile(
-                title: "Current Status",
-                subtitle: "Paid",
-                image: ImageConstants().environmentInfo,
-                subtitleColor: AppColor().green2E9331,)
-           ],),
+            Row(
+              children: [
+                ProducerEnvironmentTile(
+                    title: "Date of EC",
+                    subtitle: "24 April 2024",
+                    image: ImageConstants().calendar),
+                ProducerEnvironmentTile(
+                  title: "Current Status",
+                  subtitle: "Paid",
+                  image: ImageConstants().environmentInfo,
+                  subtitleColor: AppColor().green2E9331,
+                )
+              ],
+            ),
           ],
         ),
       ),
