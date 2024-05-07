@@ -1,3 +1,7 @@
+import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_producer_erp_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
@@ -41,6 +45,29 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                   ProducerErpTile(
+                    image: ImageConstants().contactPage,
+                      title: 'Credits Received', subTitle: '34,734'),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  CommonButtonWidget(
+                      onPressed: null,
+                      label: 'Download Application',
+                      color: AppColor().darkGreen18632E,
+                      fontWeight: FontWeight.w600,
+                      fontColor: AppColor().white),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  CommonButtonWidget(
+                    onPressed: null,
+                    label: 'Download Payment Recipt',
+                    color: AppColor().white,
+                    fontWeight: FontWeight.w600,
+                    fontColor: AppColor().darkGreen18632E,
+                    borderColor: AppColor().darkGreen18632E,
+                  ),
                   CommonTextWidget(
                     StringConstants().welcomeText,
                   ),
