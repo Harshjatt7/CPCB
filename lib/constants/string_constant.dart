@@ -2,5 +2,5 @@
 class StringConstants {
   final String welcomeText = "welcome-text";
   final String cartCount = "cart-count";
-  final String note = "NOTE*";
+  final String note = "note";
 }

@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProducerEnvironmentTile extends StatelessWidget {
@@ -13,7 +14,7 @@ class ProducerEnvironmentTile extends StatelessWidget {
   ///
   /// [image] is optional, it will use a default info icon.
   ///
-  /// [subtitleColor]is optional, it will will use a default default subtitle color.
+  /// [subtitleColor]is optional, it will will use a default subtitle color.
   const ProducerEnvironmentTile({
     super.key,
     required this.title,
@@ -41,32 +42,35 @@ class ProducerEnvironmentTile extends StatelessWidget {
               ),
               child: CommonImageWidget(
                 fit: BoxFit.fitWidth,
-                imageSource: ImageConstants().calender,
+                imageSource: ImageConstants().calendar,
                 isNetworkImage: false,
                 imageColor: AppColor().black,
               )),
           const SizedBox(
             width: 10,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommonTextWidget(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall
-                    ?.copyWith(color: AppColor().black999999),
-              ),
-              const SizedBox(height: 8.0),
-              CommonTextWidget(
-                subtitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium
-                    ?.copyWith(color: subtitleColor ?? AppColor().black),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CommonTextWidget(
+                  title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(color: AppColor().black999999),
+                ),
+                const SizedBox(height: 8.0),
+                CommonTextWidget(
+                  subtitle,
+                  
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium
+                      ?.copyWith(color: subtitleColor ?? AppColor().black),
+                ),
+              ],
+            ),
           ),
         ],
       ),
