@@ -19,12 +19,12 @@ class CommonButtonWidget extends StatelessWidget {
       this.radius,
       required this.color,
       required this.fontColor,
-      required this.fontWeight,
+       this.fontWeight,
       this.borderColor});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: Responsive().givenWidth,
+      width: Responsive().screenWidth(context),
       child: TextButton(
           onPressed: onPressed,
           style: TextButton.styleFrom(
@@ -40,7 +40,7 @@ class CommonButtonWidget extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .displayLarge!
-                .copyWith(color: fontColor, fontWeight: fontWeight),
+                .copyWith(color: fontColor, fontWeight: fontWeight ?? FontWeight.w600),
           )),
     );
   }
