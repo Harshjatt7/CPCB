@@ -10,4 +10,7 @@ class ImageConstants {
   final String environmentInfo = "assets/images/icons/environment_info.svg";
   final String calendar = "assets/images/icons/calendar_today.svg";
 
+  
+  
+  
 }
