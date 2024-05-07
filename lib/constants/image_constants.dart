@@ -6,4 +6,10 @@ class ImageConstants {
   final String splashScreenLogo = "assets/images/logo/spalsh_logo.png";
   final String info = "assets/images/icons/info.svg";
 
+  // Producer Screen
+  final String calender = "assets/images/icons/calendar_today.svg";
+  final String environmentInfo = "assets/images/icons/environment_info.svg";
+  
+  
+  
 }
