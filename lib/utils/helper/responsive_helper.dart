@@ -30,4 +30,8 @@ class Responsive {
 
     return data < 600 ? false : true;
   }
+
+  double statusBarHeight(BuildContext context) {
+    return MediaQuery.of(context).viewPadding.top;
+  }
 }

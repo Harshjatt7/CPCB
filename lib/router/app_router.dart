@@ -1,4 +1,5 @@
-import 'package:cpcb_tyre/views/screens/auth/splash_screen.dart';
+import 'package:cpcb_tyre/views/screens/auth/login_page.dart';
+import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
 
@@ -8,6 +9,8 @@ class PageRouter {
       // Splash Screen
       case AppRoutes.splashScreenRoute:
         return _getPageRoute(const SplashScreen(), settings);
+      case AppRoutes.loginPageRoute:
+        return _getPageRoute(const LoginPage(), settings);
 
       // Will be displayed if no specified route is found.
       default:
