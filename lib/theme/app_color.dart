@@ -27,4 +27,5 @@ class AppColor {
   final Color borderColor = const Color(0xFFE5E5E5);
   final Color deepGreyTextColor = const Color(0xFF4D4D4D);
   final Color textGreen = const Color(0xFF2E9331);
+  final Color appBarSubTitleText = const Color(0xFF94A1B1);
 }

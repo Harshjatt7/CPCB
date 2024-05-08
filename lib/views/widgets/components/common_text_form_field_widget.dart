@@ -7,19 +7,36 @@ import 'package:flutter/material.dart';
 class CommonTextFormFieldWidget extends StatefulWidget {
   final String hintText;
   final bool isMandatory;
-  final bool isobscure;
+  final bool isObscure;
   final String? icon;
-  final bool? isPassword;
+  final bool? isPasswordField;
   final VoidCallback? onSuffixTap;
   final TextEditingController controller;
+
+  /// [CommonTextFormFieldWidget] will be used as the common appbar in this project.
+  ///
+  /// [hintText] is required field for hintText.
+  ///
+  /// [isMandatory] is required field for marking TextformField as Mandatory
+  ///
+  /// [controller] is required field for controller
+  ///
+  /// [isObscure] is optional field for making text obscure, by default is false
+  ///
+  /// [icon] is optional field for suffix image icon
+  ///
+  /// [isPasswordField] is optional field for password icons, by default is false
+  ///
+  /// [onSuffixTap] is optional field for onTap function of gestureDetector
+
   const CommonTextFormFieldWidget(
       {super.key,
       required this.hintText,
       required this.isMandatory,
       required this.controller,
-      this.isobscure = false,
+      this.isObscure = false,
       this.icon,
-      this.isPassword = false,
+      this.isPasswordField = false,
       this.onSuffixTap});
 
   @override
@@ -75,12 +92,12 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
             onClickTextField();
             removeEmptySpace();
           },
-          obscureText: widget.isobscure,
+          obscureText: widget.isObscure,
           obscuringCharacter: '*',
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
               color: AppColor().black1A1A1A,
-              fontWeight: widget.isobscure ? FontWeight.w400 : FontWeight.w400,
-              letterSpacing: widget.isobscure ? 5 : null),
+              fontWeight: widget.isObscure ? FontWeight.w400 : FontWeight.w400,
+              letterSpacing: widget.isObscure ? 5 : null),
           decoration: InputDecoration(
               prefixIcon: isClick == true
                   ? Padding(
@@ -97,7 +114,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                     )
                   : null,
               contentPadding:
-                  const EdgeInsets.only(top: 25, bottom: 25, left: 20),
+                  const EdgeInsets.only(top: 20, bottom: 20, left: 20),
               hintStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: AppColor().redFF3333, fontWeight: FontWeight.w400),
               hintText: widget.isMandatory
@@ -115,7 +132,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                       BorderSide(color: AppColor().greyCCCCCC, width: 2)),
               suffixIcon: widget.icon != null
                   ? suffixWidget()
-                  : widget.isPassword == true
+                  : widget.isPasswordField == true
                       ? GestureDetector(
                           onTap: widget.onSuffixTap,
                           child: Padding(
@@ -123,7 +140,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                             child: CommonImageWidget(
                                 width: 30,
                                 fit: BoxFit.fitWidth,
-                                imageSource: widget.isobscure
+                                imageSource: widget.isObscure
                                     ? ImageConstants().eyesClose
                                     : ImageConstants().eyesOpen,
                                 isNetworkImage: false),
