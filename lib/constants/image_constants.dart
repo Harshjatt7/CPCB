@@ -18,6 +18,5 @@ class ImageConstants {
   final String tyreIcon = "assets/images/icons/tyre_icon.svg";
   final String calendarIcon = "assets/images/icons/calendar_info.svg";
   final String mdiTireIcon = "assets/images/icons/mdi_tire_icon.svg";
-
   final String document = "assets/images/icons/document.svg";
 }
