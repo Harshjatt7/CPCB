@@ -22,6 +22,7 @@ class AppColor {
   final Color black999999 = const Color(0xFF999999);
   final Color blackE5E5E5 = const Color(0xFFE5E5E5);
   final Color greenEAF4EA = const Color(0xFFEAF4EA);
+  final Color black1A1A1A = const Color(0xFF1A1A1A);
 
   final Color borderColor = const Color(0xFFE5E5E5);
   final Color deepGreyTextColor = const Color(0xFF4D4D4D);
