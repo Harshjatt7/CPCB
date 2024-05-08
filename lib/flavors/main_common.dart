@@ -1,5 +1,4 @@
-
-import 'package:cpcb_tyre/views/screens/home/home_page.dart';
+import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/theme/themes.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
@@ -57,7 +56,7 @@ class MyAppState extends State<MyApp> {
             ],
             darkTheme: darkTheme(context),
             locale: currentLocale,
-            home: const ProducerScreen(),
+            home: const SplashScreen(),
           );
         });
   }

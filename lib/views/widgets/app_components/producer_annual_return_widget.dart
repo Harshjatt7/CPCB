@@ -68,7 +68,7 @@ class ProducerAnnualReturnWidget extends StatelessWidget {
                             title: "Current Status",
                             subtitle: status,
                             image: ImageConstants().environmentInfo,
-                            subtitleColor: AppColor().orangeDD7700,
+                            subtitleColor: AppColor().orange,
                           ),
                           const SizedBox(
                             height: 12,
