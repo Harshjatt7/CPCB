@@ -3,12 +3,12 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget {
+class ProfileAppBar extends StatelessWidget {
   final String image;
   final String name;
   final String designation;
 
-  /// [CustomAppBar] will be used as the common appbar in this project.
+  /// [ProfileAppBar] will be used as the common appbar in this project.
   ///
   /// [image] is required field for avatar image.
   ///
@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget {
   /// [designation] is required field for designation
   ///
 
-  const CustomAppBar(
+  const ProfileAppBar(
       {super.key,
       required this.image,
       required this.designation,
@@ -33,7 +33,7 @@ class CustomAppBar extends StatelessWidget {
           child: Container(
             height: 60,
             clipBehavior: Clip.antiAlias,
-            padding: const EdgeInsets.all(6),
+            padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColor().blackCCCCCC, width: 1.5)),
@@ -49,21 +49,24 @@ class CustomAppBar extends StatelessWidget {
         const SizedBox(
           width: 5,
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: CommonTextWidget(name,
-                  style: Theme.of(context).textTheme.bodyLarge!),
-            ),
-            CommonTextWidget(designation,
-                textAlign: TextAlign.start,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: AppColor().appBarSubTitleText,
-                    )),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: CommonTextWidget(name,
+                    style: Theme.of(context).textTheme.bodyLarge!),
+              ),
+              CommonTextWidget(designation,
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppColor().appBarSubTitleText,
+                      )),
+            ],
+          ),
         )
       ],
     ));

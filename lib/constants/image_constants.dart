@@ -14,6 +14,8 @@ class ImageConstants {
   final String environmentInfo = "assets/images/icons/environment_info.svg";
   final String calendar = "assets/images/icons/calendar_today.svg";
   final String avatar = "assets/images/logo/avatar.png";
+  final String notification = "assets/images/icons/notifications.svg";
+  final String arrowBack = "assets/images/icons/arrow_back.svg";
 
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";
