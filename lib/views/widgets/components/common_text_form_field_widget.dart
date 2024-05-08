@@ -55,7 +55,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         if (didPop) {
           return;
         }
-          onClickTextField();
+        onClickTextField();
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -78,7 +78,8 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
           obscureText: widget.isobscure,
           obscuringCharacter: '*',
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
-              fontWeight: widget.isobscure ? FontWeight.w700 : FontWeight.w400,
+              color: AppColor().black1A1A1A,
+              fontWeight: widget.isobscure ? FontWeight.w400 : FontWeight.w400,
               letterSpacing: widget.isobscure ? 5 : null),
           decoration: InputDecoration(
               prefixIcon: isClick == true
@@ -89,7 +90,9 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                         style: Theme.of(context)
                             .textTheme
                             .displayLarge!
-                            .copyWith(color: AppColor().grey919191),
+                            .copyWith(
+                                fontWeight: FontWeight.w400,
+                                color: AppColor().grey919191),
                       ),
                     )
                   : null,
@@ -97,22 +100,21 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                   const EdgeInsets.only(top: 25, bottom: 25, left: 20),
               hintStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: AppColor().redFF3333, fontWeight: FontWeight.w400),
-              hintText: isClick ? '  *' : "",
-              border: OutlineInputBorder(
+              hintText: widget.isMandatory
+                  ? isClick
+                      ? '  *'
+                      : ""
+                  : "",
+              enabledBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  borderSide: BorderSide(color: AppColor().greyCCCCCC)),
+                  borderSide:
+                      BorderSide(color: AppColor().greyCCCCCC, width: 2)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  borderSide:
+                      BorderSide(color: AppColor().greyCCCCCC, width: 2)),
               suffixIcon: widget.icon != null
-                  ? GestureDetector(
-                      onTap: widget.onSuffixTap,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30.0),
-                        child: CommonImageWidget(
-                            width: 30,
-                            fit: BoxFit.fitWidth,
-                            imageSource: widget.icon ?? "",
-                            isNetworkImage: false),
-                      ),
-                    )
+                  ? suffixWidget()
                   : widget.isPassword == true
                       ? GestureDetector(
                           onTap: widget.onSuffixTap,
@@ -129,6 +131,20 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                         )
                       : null),
         ),
+      ),
+    );
+  }
+
+  GestureDetector suffixWidget() {
+    return GestureDetector(
+      onTap: widget.onSuffixTap,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 30.0),
+        child: CommonImageWidget(
+            width: 30,
+            fit: BoxFit.fitWidth,
+            imageSource: widget.icon ?? "",
+            isNetworkImage: false),
       ),
     );
   }
