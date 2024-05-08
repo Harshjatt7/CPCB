@@ -17,7 +17,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final TextInputType? textInputType;
   final String? Function(String?)? validator;
 
-  /// [CommonTextFormFieldWidget] will be used as the common appbar in this project.
+  /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
   /// [hintText] is required field for hintText.
   ///
