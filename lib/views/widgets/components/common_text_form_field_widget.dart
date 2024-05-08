@@ -10,15 +10,21 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final bool isobscure;
   final String? icon;
   final bool? isPassword;
+  final bool? isReadOnly;
   final VoidCallback? onSuffixTap;
   final TextEditingController controller;
+  final TextInputType? textInputType;
+  final String? Function(String?)? validator;
   const CommonTextFormFieldWidget(
       {super.key,
       required this.hintText,
       required this.isMandatory,
       required this.controller,
+      this.textInputType = TextInputType.text,
       this.isobscure = false,
       this.icon,
+      this.validator,
+      this.isReadOnly,
       this.isPassword = false,
       this.onSuffixTap});
 
@@ -75,8 +81,13 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
             onClickTextField();
             removeEmptySpace();
           },
+          cursorColor: AppColor().grey919191,
+          autovalidateMode: AutovalidateMode.always,
+          validator: widget.validator,
           obscureText: widget.isobscure,
           obscuringCharacter: '*',
+          readOnly: widget.isReadOnly ?? false,
+          keyboardType: widget.textInputType,
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
               color: AppColor().black1A1A1A,
               fontWeight: widget.isobscure ? FontWeight.w400 : FontWeight.w400,
@@ -97,7 +108,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                     )
                   : null,
               contentPadding:
-                  const EdgeInsets.only(top: 25, bottom: 25, left: 20),
+                  const EdgeInsets.only(top: 20, bottom: 20, left: 20),
               hintStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: AppColor().redFF3333, fontWeight: FontWeight.w400),
               hintText: widget.isMandatory
