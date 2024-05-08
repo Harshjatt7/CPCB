@@ -12,6 +12,10 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final bool? isPasswordField;
   final VoidCallback? onSuffixTap;
   final TextEditingController controller;
+  final bool? isPassword;
+  final bool? isReadOnly;
+  final TextInputType? textInputType;
+  final String? Function(String?)? validator;
 
   /// [CommonTextFormFieldWidget] will be used as the common appbar in this project.
   ///
@@ -37,6 +41,10 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isObscure = false,
       this.icon,
       this.isPasswordField = false,
+      this.textInputType = TextInputType.text,
+      this.validator,
+      this.isReadOnly,
+      this.isPassword = false,
       this.onSuffixTap});
 
   @override
@@ -93,7 +101,12 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
             removeEmptySpace();
           },
           obscureText: widget.isObscure,
+          cursorColor: AppColor().grey919191,
+          autovalidateMode: AutovalidateMode.always,
+          validator: widget.validator,
           obscuringCharacter: '*',
+          readOnly: widget.isReadOnly ?? false,
+          keyboardType: widget.textInputType,
           style: Theme.of(context).textTheme.displayLarge!.copyWith(
               color: AppColor().black1A1A1A,
               fontWeight: widget.isObscure ? FontWeight.w400 : FontWeight.w400,
