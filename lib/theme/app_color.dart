@@ -15,6 +15,9 @@ class AppColor {
   final Color blackE5E5E5 = const Color(0xFFE5E5E5);
   final Color greenEAF4EA = const Color(0xFFEAF4EA);
 
+  final Color orangeDD7700 = const Color(0xFFDD7700);
+  
+
 
   
   

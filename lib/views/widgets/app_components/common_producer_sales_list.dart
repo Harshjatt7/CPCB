@@ -5,8 +5,29 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProducerSalesList extends StatelessWidget {
-  const ProducerSalesList({super.key});
-
+  const ProducerSalesList({
+    super.key,
+    required this.title,
+    this.car,
+    this.train,
+    this.scooter,
+    this.deliveryTruck,
+    this.truck,
+    this.tyre,
+    required this.year,
+    required this.month,
+    required this.count,
+  });
+  final String title;
+  final String? car;
+  final String? train;
+  final String? scooter;
+  final String? deliveryTruck;
+  final String? truck;
+  final String? tyre;
+  final String year;
+  final String month;
+  final String count;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,37 +39,53 @@ class ProducerSalesList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CommonTextWidget("BiasPly"),
+          CommonTextWidget(title,style: Theme.of(context).textTheme.displayMedium,),
           const SizedBox(
             height: 16,
           ),
           Row(
             children: [
-              saleItemWidget(context, ImageConstants().carIcon, "2"),
-              const SizedBox(
-                width: 48,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  saleItemWidget(context, ImageConstants().carIcon, car ?? ""),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  saleItemWidget(
+                      context, ImageConstants().trainIcon, train ?? ""),
+                ],
               ),
-              saleItemWidget(context, ImageConstants().scooterIcon, "2"),
-              const SizedBox(
-                width: 44,
-              ),
-              saleItemWidget(context, ImageConstants().truckIcon, "2"),
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              saleItemWidget(context, ImageConstants().trainIcon, "2"),
               const SizedBox(
                 width: 44,
               ),
-              saleItemWidget(context, ImageConstants().bigTruckIcon, "2"),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  saleItemWidget(
+                      context, ImageConstants().scooterIcon, scooter ?? ""),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  saleItemWidget(context, ImageConstants().deliveryTruck,
+                      deliveryTruck ?? ""),
+                ],
+              ),
               const SizedBox(
                 width: 44,
               ),
-              saleItemWidget(context, ImageConstants().tyreIcon, "2"),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  saleItemWidget(
+                      context, ImageConstants().truckIcon, truck ?? ""),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  saleItemWidget(
+                      context, ImageConstants().tyreIcon, tyre ?? ""),
+                ],
+              ),
             ],
           ),
           const SizedBox(
@@ -62,16 +99,15 @@ class ProducerSalesList extends StatelessWidget {
           ),
           Row(
             children: [
-              saleItemWidget(
-                  context, ImageConstants().calendarIcon, "2022-2023"),
+              saleItemWidget(context, ImageConstants().calendarIcon, year),
               const SizedBox(
                 width: 32,
               ),
-              saleItemWidget(context, ImageConstants().calendarIcon, "January"),
+              saleItemWidget(context, ImageConstants().calendarIcon, month),
               const SizedBox(
                 width: 32,
               ),
-              saleItemWidget(context, ImageConstants().mdiTireIcon, "19"),
+              saleItemWidget(context, ImageConstants().mdiTireIcon, count),
             ],
           ),
         ],
@@ -80,7 +116,7 @@ class ProducerSalesList extends StatelessWidget {
   }
 }
 
-saleItemWidget(BuildContext context, String image, String count) {
+Widget saleItemWidget(BuildContext context, String image, String count) {
   return Row(
     children: [
       CommonImageWidget(

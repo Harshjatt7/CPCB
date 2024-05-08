@@ -1,8 +1,6 @@
-import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProducerEnvironmentTile extends StatelessWidget {
@@ -30,50 +28,53 @@ class ProducerEnvironmentTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Row(
-        children: [
-          Container(
-              padding: const EdgeInsets.all(15),
+    return Row(
+      children: [
+        Flexible(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.center,
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: AppColor().greenEAF4EA,
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColor().blackE5E5E5),
               ),
               child: CommonImageWidget(
-                fit: BoxFit.fitWidth,
-                imageSource: ImageConstants().calendar,
+               
+                imageSource: image,
                 isNetworkImage: false,
                 imageColor: AppColor().black,
               )),
-          const SizedBox(
-            width: 10,
+        ),
+        // const SizedBox(
+        //   width: 10,
+        // ),
+        Flexible(
+          flex:2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CommonTextWidget(
+                title,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(color: AppColor().black999999),
+              ),
+              const SizedBox(height: 8.0),
+              CommonTextWidget(
+                subtitle,
+                
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium
+                    ?.copyWith(color: subtitleColor ?? AppColor().black),
+              ),
+            ],
           ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CommonTextWidget(
-                  title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall
-                      ?.copyWith(color: AppColor().black999999),
-                ),
-                const SizedBox(height: 8.0),
-                CommonTextWidget(
-                  subtitle,
-                  
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium
-                      ?.copyWith(color: subtitleColor ?? AppColor().black),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
