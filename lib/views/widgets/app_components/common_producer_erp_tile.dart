@@ -20,7 +20,7 @@ class ProducerErpTile extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10, top: 22, bottom: 22),
       width: Responsive().givenWidth,
       decoration: BoxDecoration(
-          border: Border.all(color: AppColor().blackCCCCCC, width: 1.5),
+          border: Border.all(color: AppColor().blackCCCCCC, width: 1),
           borderRadius: const BorderRadius.all(Radius.circular(5))),
       child: Row(
         children: [
@@ -31,7 +31,7 @@ class ProducerErpTile extends StatelessWidget {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border:
-                      Border.all(color: AppColor().blackCCCCCC, width: 1.5)),
+                      Border.all(color: AppColor().blackCCCCCC, width: 1)),
               child: CommonImageWidget(
                   fit: BoxFit.cover, imageSource: image, isNetworkImage: false),
             ),
@@ -44,14 +44,14 @@ class ProducerErpTile extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 8),
                 child: CommonTextWidget(
                   title,
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
                       color: AppColor().grey808080,
-                      fontWeight: FontWeight.w600),
+                     ),
                 ),
               ),
               CommonTextWidget(subTitle,
                   textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
                       color: AppColor().black333333,
                       fontWeight: FontWeight.w700,
                       fontSize: 24)),

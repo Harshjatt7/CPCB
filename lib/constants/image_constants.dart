@@ -25,6 +25,9 @@ class ImageConstants {
   final String calendarIcon = "assets/images/icons/calendar_info.svg";
   final String mdiTireIcon = "assets/images/icons/mdi_tire_icon.svg";
   final String document = "assets/images/icons/document.svg";
+  final String dollar = "assets/images/icons/dollar.svg";
+  final String infoEnv = "assets/images/icons/infoEnv.svg";
+
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";
   final String blueLogo = "assets/images/logo/blue_logo.svg";

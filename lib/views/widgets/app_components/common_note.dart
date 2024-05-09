@@ -7,7 +7,7 @@ class CommonNote extends StatelessWidget {
   /// [CommonNote] will be used as the common note in this project.
   ///
   /// [note] is required field to use this widget.
-  /// 
+  ///
   /// [color] is optional, it will use a default info icon. it will use a default green color.
   const CommonNote({super.key, required this.note, this.color});
   final String note;
@@ -18,6 +18,7 @@ class CommonNote extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
+          color: AppColor().white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             color: AppColor().greyD3D3D3,

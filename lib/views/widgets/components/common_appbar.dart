@@ -68,49 +68,53 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       {required String image,
       required String designation,
       required String name}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Center(
-          child: Container(
-            height: 60,
-            clipBehavior: Clip.antiAlias,
-            padding: const EdgeInsets.all(3),
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColor().blackCCCCCC, width: 1.5)),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(1000)),
-              child: CommonImageWidget(
-                  fit: BoxFit.contain,
-                  imageSource: image,
-                  isNetworkImage: false),
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: AppColor().appBarBorder))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Center(
+            child: Container(
+              height: 60,
+              clipBehavior: Clip.antiAlias,
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColor().blackCCCCCC, width: 1)),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(1000)),
+                child: CommonImageWidget(
+                    fit: BoxFit.contain,
+                    imageSource: image,
+                    isNetworkImage: false),
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          width: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: CommonTextWidget(name,
-                    style: Theme.of(context).textTheme.bodyLarge!),
-              ),
-              CommonTextWidget(designation,
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: AppColor().appBarSubTitleText,
-                      )),
-            ],
+          const SizedBox(
+            width: 5,
           ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: CommonTextWidget(name,
+                      style: Theme.of(context).textTheme.bodyLarge!),
+                ),
+                CommonTextWidget(designation,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: AppColor().appBarSubTitleText,
+                        )),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
