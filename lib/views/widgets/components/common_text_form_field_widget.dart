@@ -111,6 +111,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
           keyboardType: widget.textInputType,
           style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: widget.textColor ?? AppColor().black1A1A1A,
+          
               letterSpacing: widget.isObscure ? 5 : null),
           decoration: InputDecoration(
               prefixIcon: isClick == true
@@ -131,7 +132,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                   .textTheme
                   .labelSmall!
                   .copyWith(color: AppColor().redFF3333),
-              hintText: widget.isMandatory
+  hintText: widget.isMandatory
                   ? isClick
                       ? '  *'
                       : ""
