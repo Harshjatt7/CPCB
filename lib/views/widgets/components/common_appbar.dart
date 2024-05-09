@@ -23,6 +23,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   ///
   /// [leadingIcon] is optional, and can be used if any other widget is needed, instead it will use a
   /// default chevron icon, which will pop current screen if tapped.
+  /// else [onLeadingTapped] can be used if a custom action is required.
   ///
   /// [actions] will take list of widgets, add the corresponding action [VoidCallback] while sending the widgets.
   ///
