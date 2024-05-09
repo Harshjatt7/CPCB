@@ -1,7 +1,7 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_producer_environment_tile.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_producer_environment_tile.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
