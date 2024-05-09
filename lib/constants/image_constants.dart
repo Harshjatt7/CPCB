@@ -27,8 +27,6 @@ class ImageConstants {
   final String document = "assets/images/icons/document.svg";
 
   final String dropdownIcon = "assets/images/icons/dropdown_icon.svg";
-
-  final String fileUpload = "assets/images/icons/file_upload.svg";
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";
   final String blueLogo = "assets/images/logo/blue_logo.svg";

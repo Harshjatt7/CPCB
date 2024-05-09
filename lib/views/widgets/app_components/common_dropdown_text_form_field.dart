@@ -24,51 +24,57 @@ class CommonDropdownTextFormField extends StatelessWidget {
           )),
       child: Padding(
         padding: const EdgeInsets.only(left: 16),
-        child: DropdownButtonFormField(
-          decoration: InputDecoration(
-            isDense: true,
-            border: InputBorder.none,
-            label: RichText(
-              text: TextSpan(
-                  text: labelText,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall
-                      ?.copyWith(color: AppColor().grey919191),
-                  children: [
-                    TextSpan(
-                      text: "*",
+        child: Column(
+          children: [
+            DropdownButtonFormField(
+              alignment: Alignment.bottomCenter,
+              decoration: InputDecoration(
+                isDense: true,
+                border: InputBorder.none,
+                label: RichText(
+                  text: TextSpan(
+                      text: labelText,
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall
-                          ?.copyWith(color: AppColor().redFF3333),
-                    )
-                  ]),
-            ),
-            suffixIcon: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 17),
-              child: CommonImageWidget(
-                imageSource: ImageConstants().dropdownIcon,
-                isNetworkImage: false,
+                          ?.copyWith(color: AppColor().grey919191),
+                      children: [
+                        TextSpan(
+                          text: " *",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(color: AppColor().redFF3333),
+                        )
+                      ]),
+                ),
+                suffixIcon: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 17),
+                  child: CommonImageWidget(
+                    imageSource: ImageConstants().dropdownIcon,
+                    isNetworkImage: false,
+                  ),
+                ),
               ),
+              icon: const SizedBox.shrink(),
+              items: dropDownItem
+                  .map((label) => DropdownMenuItem(
+                        value: label,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 2,
+                          ),
+                          child: CommonTextWidget(
+                            label.toString(),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ),
+                      ))
+                  .toList(),
+              onChanged: onChanged,
             ),
-          ),
-          icon: const SizedBox.shrink(),
-          items: dropDownItem
-              .map((label) => DropdownMenuItem(
-                    value: label,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 2,
-                      ),
-                      child: CommonTextWidget(
-                        label.toString(),
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                    ),
-                  ))
-              .toList(),
-          onChanged: onChanged,
+          ],
         ),
       ),
     );
