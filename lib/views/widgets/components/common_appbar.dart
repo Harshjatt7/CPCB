@@ -145,9 +145,10 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Row(
         children: [
           InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: onLeadingTapped ??
+                () {
+                  Navigator.pop(context);
+                },
             child: CommonImageWidget(
               imageSource: leadingIcon ?? ImageConstants().arrowBack,
               isNetworkImage: false,
