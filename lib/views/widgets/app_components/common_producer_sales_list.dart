@@ -34,12 +34,15 @@ class ProducerSalesList extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColor().blackE5E5E5),
+        border: Border.all(color: AppColor().blackDisabledButton),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonTextWidget(title,style: Theme.of(context).textTheme.displayMedium,),
+          CommonTextWidget(
+            title,
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
           const SizedBox(
             height: 16,
           ),
@@ -92,7 +95,7 @@ class ProducerSalesList extends StatelessWidget {
             height: 8,
           ),
           Divider(
-            color: AppColor().blackE5E5E5,
+            color: AppColor().blackDisabledButton,
           ),
           const SizedBox(
             height: 8,

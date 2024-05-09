@@ -22,7 +22,7 @@ class ProducerAnnualReturnWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColor().blackE5E5E5),
+        border: Border.all(color: AppColor().blackDisabledButton),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +35,7 @@ class ProducerAnnualReturnWidget extends StatelessWidget {
             ),
           ),
           Divider(
-            color: AppColor().blackE5E5E5,
+            color: AppColor().blackDisabledButton,
           ),
           Padding(
             padding: const EdgeInsets.all(20),

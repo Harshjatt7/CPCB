@@ -83,7 +83,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         onClickTextField();
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(0.0),
         child: TextFormField(
           controller: widget.controller,
           onTap: () {
@@ -127,7 +127,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                     )
                   : null,
               contentPadding:
-                  const EdgeInsets.only(top: 20, bottom: 20, left: 20),
+                  const EdgeInsets.only(top: 16, bottom: 16, left: 20),
               hintStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: AppColor().redFF3333, fontWeight: FontWeight.w400),
               hintText: widget.isMandatory
@@ -138,11 +138,11 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
               enabledBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   borderSide:
-                      BorderSide(color: AppColor().greyCCCCCC, width: 2)),
+                      BorderSide(color: AppColor().greyCCCCCC, width: 1)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   borderSide:
-                      BorderSide(color: AppColor().greyCCCCCC, width: 2)),
+                      BorderSide(color: AppColor().greyCCCCCC, width: 1)),
               suffixIcon: widget.icon != null
                   ? suffixWidget()
                   : widget.isPasswordField == true

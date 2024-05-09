@@ -10,6 +10,7 @@ class CommonButtonWidget extends StatelessWidget {
   final double? radius;
   final Color? borderColor;
   final TextStyle? labelStyle;
+  final double? height;
 
   const CommonButtonWidget(
       {super.key,
@@ -18,15 +19,16 @@ class CommonButtonWidget extends StatelessWidget {
       this.radius,
       this.color,
       this.labelStyle,
+      this.height = 50,
       this.borderColor});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: height,
       width: Responsive().screenWidth(context),
       child: TextButton(
           onPressed: onPressed,
           style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 20),
               backgroundColor: color ?? AppColor().black,
               shape: RoundedRectangleBorder(
                   side: BorderSide(

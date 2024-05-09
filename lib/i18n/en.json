@@ -1,5 +1,12 @@
 {
     "welcome-text": "This text is in english",
     "cart-count": "Cart Count",
-    "note": "NOTE*"
+    "note": "NOTE*",
+    "login-to-your-acc": "Login to your account",
+    "enter-email-pass-to-sign-in": "Enter Email and password to sign in.",
+    "forgot-password-label": "I forgot my password",
+    "login-btn-label": "Login",
+    "email-id-hint": "Email ID",
+    "select-user-hint": "Select User",
+    "password-hint": "Password"
 }

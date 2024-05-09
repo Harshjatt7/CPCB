@@ -33,22 +33,21 @@ class ProducerEnvironmentTile extends StatelessWidget {
         Flexible(
           flex: 1,
           child: Container(
-            alignment: Alignment.center,
+              alignment: Alignment.center,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: AppColor().greenEAF4EA,
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColor().blackE5E5E5),
+                border: Border.all(color: AppColor().blackDisabledButton),
               ),
               child: CommonImageWidget(
-               
                 imageSource: image,
                 isNetworkImage: false,
                 imageColor: AppColor().black,
               )),
         ),
         Flexible(
-          flex:2,
+          flex: 2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -62,7 +61,6 @@ class ProducerEnvironmentTile extends StatelessWidget {
               const SizedBox(height: 8.0),
               CommonTextWidget(
                 subtitle,
-                
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium
