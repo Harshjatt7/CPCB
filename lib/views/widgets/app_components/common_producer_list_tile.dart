@@ -12,17 +12,24 @@ class ProducerListTile extends StatelessWidget {
   /// [subtitle] is required field to use this widget.
   /// [image] is optional, and can be used if any other widget if needed, instead it will use a
   /// default info icon.
+  /// [color] is optional, it will use a defualt white color.
+  /// 
   const ProducerListTile(
-      {super.key, required this.title, required this.subtitle, this.image});
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      this.image,
+      this.color});
   final String title;
   final String subtitle;
   final String? image;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: AppColor().white,
+          color: color ?? AppColor().white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             color: AppColor().greyD3D3D3,

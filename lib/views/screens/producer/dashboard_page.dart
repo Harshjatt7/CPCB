@@ -21,9 +21,9 @@ class DashBoardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<DashboardViewModel>(
-        onModelReady: (p0) {},
+        onModelReady: (viewModel) {},
         viewModel: DashboardViewModel(),
-        builder: (context, model, child) {
+        builder: (context, viewModel, child) {
           return CustomScaffold(
               appBar: CommonAppBar(
                 isProfileBar: true,
@@ -145,8 +145,13 @@ class DashBoardPage extends StatelessWidget {
                                       Theme.of(context).textTheme.labelMedium,
                                 ),
                               ),
-                              Divider(
-                                color: AppColor().blackDisabledButton,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 0),
+                                child: Divider(
+                                  height: 1,
+                                  color: AppColor().blackDisabledButton,
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(20),

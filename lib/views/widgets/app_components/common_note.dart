@@ -8,9 +8,13 @@ class CommonNote extends StatelessWidget {
   ///
   /// [note] is required field to use this widget.
   ///
-  /// [color] is optional, it will use a default info icon. it will use a default green color.
-  const CommonNote({super.key, required this.note, this.color});
+  /// [textColor] is optional, it will use a default info icon. it will use a default green color.
+  ///
+  /// [color] is optional, it will use a defualt white color.
+  ///
+  const CommonNote({super.key, required this.note, this.textColor, this.color});
   final String note;
+  final Color? textColor;
   final Color? color;
 
   @override
@@ -18,7 +22,7 @@ class CommonNote extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          color: AppColor().white,
+          color: color ?? AppColor().white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
             color: AppColor().greyD3D3D3,
@@ -28,11 +32,12 @@ class CommonNote extends StatelessWidget {
         children: [
           CommonTextWidget(StringConstants().note,
               style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    color: color ?? AppColor().green2E9331,
+                    color: textColor ?? AppColor().green2E9331,
                   )),
           const SizedBox(width: 10.0),
           Flexible(
-            child: Text(note, style: Theme.of(context).textTheme.displaySmall),
+            child: CommonTextWidget(note,
+                style: Theme.of(context).textTheme.displaySmall),
           ),
         ],
       ),
