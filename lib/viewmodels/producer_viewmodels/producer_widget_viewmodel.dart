@@ -6,18 +6,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ProducerViewModel extends BaseViewModel {
+class ProducerWidgetViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey();
-  String? dropdownValue;
-  changeDropdownValue(newValue) {
-    dropdownValue = newValue;
-    log(dropdownValue??"");
-    updateUI();
-  }
 
   String? filename;
-  String? response;
+  String? fileError;
   openFileManager(context) async {
+    fileError = null;
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       final file = File(result.files.single.path ?? "");
@@ -25,7 +20,7 @@ class ProducerViewModel extends BaseViewModel {
       log(filename ?? "");
       updateUI();
     } else {
-      response= "Please select a file";
+      fileError = "Please select a file";
       updateUI();
     }
   }
