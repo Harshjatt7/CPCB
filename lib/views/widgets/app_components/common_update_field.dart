@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 class CommonDocumentField extends StatelessWidget {
   final VoidCallback? onTap;
   final String? fileName;
-  const CommonDocumentField({super.key, required this.onTap, this.fileName});
+  final String label;
+  const CommonDocumentField(
+      {super.key, required this.onTap, this.fileName, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +24,13 @@ class CommonDocumentField extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                    text: fileName ?? "File",
+                    text: fileName ?? label,
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall
                         ?.copyWith(color: AppColor().grey919191)),
                 TextSpan(
-                    text: " *",
+                    text: fileName == null ? " *" : "",
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall
