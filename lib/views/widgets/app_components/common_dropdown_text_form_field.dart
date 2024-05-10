@@ -8,12 +8,14 @@ class CommonDropdownTextFormField extends StatelessWidget {
   final List dropDownItem;
   final String labelText;
   final void Function(Object?)? onChanged;
+  final String? value;
   const CommonDropdownTextFormField(
       {super.key,
       required this.labelText,
       required this.dropDownItem,
-      required this.onChanged});
-
+      required this.onChanged,
+      this.value
+      });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,27 +29,38 @@ class CommonDropdownTextFormField extends StatelessWidget {
         child: Column(
           children: [
             DropdownButtonFormField(
-              alignment: Alignment.bottomCenter,
+              
+              value: value,
+              validator: (value) {
+                if(value==null){
+                  return "Please select data";
+                }else{
+                  return null;
+                }
+              },
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 isDense: true,
                 border: InputBorder.none,
                 label: RichText(
                   text: TextSpan(
-                      text: labelText,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelSmall
-                          ?.copyWith(color: AppColor().grey919191),
-                      children: [
-                        TextSpan(
-                          text: " *",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall
-                              ?.copyWith(color: AppColor().redFF3333),
-                        )
-                      ]),
+                    text: labelText,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(color: AppColor().grey919191),
+                    children: [
+                      TextSpan(
+                        text: " *",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall
+                            ?.copyWith(color: AppColor().redFF3333),
+                      ),
+                    ],
+                  ),
                 ),
+                
                 suffixIcon: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 18, vertical: 17),
