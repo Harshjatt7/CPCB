@@ -30,6 +30,7 @@ class ImageConstants {
   final String passKey = "assets/images/icons/passkey.svg";
   final String phoneNo = "assets/images/icons/phoneNo.svg";
 
+  final String dropdownIcon = "assets/images/icons/dropdown_icon.svg";
   final String fileUpload = "assets/images/icons/file_upload.svg";
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";
