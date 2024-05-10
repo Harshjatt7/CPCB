@@ -1,5 +1,3 @@
-import 'package:cpcb_tyre/models/request/month_model.dart';
-import 'package:cpcb_tyre/viewmodels/onborading/producer_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_note.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_update_field.dart';

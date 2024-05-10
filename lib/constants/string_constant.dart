@@ -10,4 +10,5 @@ class StringConstants {
   final String emailIdHint = "email-id-hint";
   final String selectUserHint = "select-user-hint";
   final String passwordHint = "Password";
+
 }

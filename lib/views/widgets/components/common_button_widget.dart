@@ -32,7 +32,7 @@ class CommonButtonWidget extends StatelessWidget {
               backgroundColor: color ?? AppColor().black,
               shape: RoundedRectangleBorder(
                   side: BorderSide(
-                      color: borderColor ?? AppColor().transparent, width: 2),
+                      color: borderColor ?? AppColor().transparent, width: 1),
                   borderRadius:
                       BorderRadius.all(Radius.circular(radius ?? 5)))),
           child: CommonTextWidget(

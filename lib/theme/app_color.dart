@@ -32,6 +32,10 @@ class AppColor {
   final Color textGreen = const Color(0xFF2E9331);
   final Color appBarSubTitleText = const Color(0xFF94A1B1);
   final Color appBarTitle = const Color(0xFF171717);
+  final Color dashBoardCardBorder = const Color(0xFFB2B2B2);
+  final Color dashBoardCardBg = const Color(0xFFF2F2F2);
+  final Color environmentTileSubTitle = const Color(0xFF2E9331);
+  final Color environmentDesc = const Color(0xFF999999);
   final Color profileBlackPrimary = const Color(0xFF222222);
   final Color profileBlackSecondary = const Color(0xFF808080);
 }
