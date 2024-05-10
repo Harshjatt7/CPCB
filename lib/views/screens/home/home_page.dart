@@ -42,12 +42,12 @@ class ProducerScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                
                 CommonDocumentField(
-                  fileName: model.fileName,
-                  onTap: () async{
-                  model.openFileManager(context);
-                }),
+                    label: "File",
+                    fileName: model.fileName,
+                    onTap: () async {
+                      model.openFileManager(context);
+                    }),
                 const CommonNote(
                     note:
                         "Please carefully examine the following documents. If verified, please upload the document PDF; if not, please mention remarks"),
