@@ -1,52 +1,75 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CommonDocumentField extends StatelessWidget {
   final VoidCallback? onTap;
   final String? fileName;
   final String label;
+  final String? error;
   const CommonDocumentField(
-      {super.key, required this.onTap, this.fileName, required this.label});
+      {super.key,
+      required this.onTap,
+      this.fileName,
+      required this.label,
+      this.error});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: AppColor().greyD3D3D3)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                    text: fileName ?? label,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(color: AppColor().grey919191)),
-                TextSpan(
-                    text: fileName == null ? " *" : "",
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(color: AppColor().redFF3333)),
-              ],
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: AppColor().greyD3D3D3)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RichText(
+                text: TextSpan(
+                  children: [
+                    WidgetSpan(
+                      child: CommonTextWidget(fileName ?? label,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(color: AppColor().grey919191)),
+                    ),
+                    WidgetSpan(
+                      child: CommonTextWidget(fileName == null ? " *" : "",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(color: AppColor().redFF3333)),
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: onTap,
+                child: CommonImageWidget(
+                  imageSource: ImageConstants().fileUpload,
+                  isNetworkImage: false,
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (error != null)
+          Align(
+            alignment: Alignment.topLeft,
+            child: CommonTextWidget(
+              error.toString(),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: AppColor().redFF3333),
             ),
           ),
-          InkWell(
-            onTap: onTap,
-            child: CommonImageWidget(
-              imageSource: ImageConstants().fileUpload,
-              isNetworkImage: false,
-            ),
-          ),
-        ],
-      ),
+      ],
     );
   }
 }
