@@ -27,6 +27,10 @@ class ImageConstants {
   final String document = "assets/images/icons/document.svg";
   final String dollar = "assets/images/icons/dollar.svg";
   final String infoEnv = "assets/images/icons/infoEnv.svg";
+  final String account = "assets/images/icons/account.svg";
+  final String mail = "assets/images/icons/mail.svg";
+  final String passKey = "assets/images/icons/passkey.svg";
+  final String phoneNo = "assets/images/icons/phoneNo.svg";
 
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";
