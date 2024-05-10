@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 class ProducerWidgetScreen extends StatelessWidget {
   const ProducerWidgetScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BaseView<ProducerWidgetViewModel>(

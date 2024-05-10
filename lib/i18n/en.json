@@ -8,5 +8,7 @@
     "login-btn-label": "Login",
     "email-id-hint": "Email ID",
     "select-user-hint": "Select User",
-    "password-hint": "Password"
+    "password-hint": "Password",
+    "environment-text":"Lorem Ipsum lorem ipsum lorem lorem ipsum lorem ipsum Lorem Ipsum...",
+    "producer-dash-board-note":"You have to complete the registration process to access your dashboard, Click on the “Initiate Registration” to start the process."
 }

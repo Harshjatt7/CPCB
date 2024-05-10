@@ -25,6 +25,10 @@ class ImageConstants {
   final String calendarIcon = "assets/images/icons/calendar_info.svg";
   final String mdiTireIcon = "assets/images/icons/mdi_tire_icon.svg";
   final String document = "assets/images/icons/document.svg";
+  final String dollar = "assets/images/icons/dollar.svg";
+  final String infoEnv = "assets/images/icons/infoEnv.svg";
+
+  final String dropdownIcon = "assets/images/icons/dropdown_icon.svg";
   final String account = "assets/images/icons/account.svg";
   final String mail = "assets/images/icons/mail.svg";
   final String passKey = "assets/images/icons/passkey.svg";
@@ -34,6 +38,4 @@ class ImageConstants {
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";
   final String blueLogo = "assets/images/logo/blue_logo.svg";
-
-  
 }
