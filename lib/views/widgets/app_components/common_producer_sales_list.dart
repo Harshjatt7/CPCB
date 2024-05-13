@@ -8,23 +8,27 @@ class ProducerSalesList extends StatelessWidget {
   const ProducerSalesList({
     super.key,
     required this.title,
-    this.car,
-    this.train,
+    this.motorcycle,
+    this.bus,
     this.scooter,
-    this.deliveryTruck,
+    this.passengerCar,
     this.truck,
-    this.tyre,
+    this.tcv,
+    this.tRear,
+    this.other,
     required this.year,
     required this.month,
     required this.count,
   });
   final String title;
-  final String? car;
-  final String? train;
+  final String? motorcycle;
+  final String? bus;
   final String? scooter;
-  final String? deliveryTruck;
+  final String? passengerCar;
   final String? truck;
-  final String? tyre;
+  final String? tcv;
+  final String? tRear;
+  final String? other;
   final String year;
   final String month;
   final String count;
@@ -51,27 +55,12 @@ class ProducerSalesList extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  saleItemWidget(context, ImageConstants().carIcon, car ?? ""),
+                  saleItemWidget(
+                      context, ImageConstants().motorcycle, motorcycle ?? ""),
                   const SizedBox(
                     height: 8,
                   ),
-                  saleItemWidget(
-                      context, ImageConstants().trainIcon, train ?? ""),
-                ],
-              ),
-              const SizedBox(
-                width: 44,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  saleItemWidget(
-                      context, ImageConstants().scooterIcon, scooter ?? ""),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  saleItemWidget(context, ImageConstants().deliveryTruck,
-                      deliveryTruck ?? ""),
+                  saleItemWidget(context, ImageConstants().bus, bus ?? ""),
                 ],
               ),
               const SizedBox(
@@ -85,8 +74,35 @@ class ProducerSalesList extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
+                  saleItemWidget(context, ImageConstants().tcv, tcv ?? ""),
+                ],
+              ),
+              const SizedBox(
+                width: 44,
+              ),
+               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   saleItemWidget(
-                      context, ImageConstants().tyreIcon, tyre ?? ""),
+                      context, ImageConstants().scooterIcon, scooter ?? "0"),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  saleItemWidget(context, ImageConstants().tRear, tRear ?? "0"),
+                ],
+              ),
+              const SizedBox(
+                width: 44,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  saleItemWidget(context, ImageConstants().passengerCar,
+                      passengerCar ?? ""),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  saleItemWidget(context, ImageConstants().other, other ?? ""),
                 ],
               ),
             ],

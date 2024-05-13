@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/key_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/producer_widget_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -32,56 +33,56 @@ class SalesDataScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.producerError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(KeyConstants().producer,null);
                           },
                           labelText: 'Type of producer',
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue(KeyConstants().producer,value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.tyreError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(KeyConstants().tyre, null);
                           },
                           labelText: 'Type of tyre',
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue(KeyConstants().tyre, value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.yearError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(KeyConstants().year,null);
                           },
                           labelText: 'Financial year',
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue(KeyConstants().year,value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.monthError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(KeyConstants().month,null);
                           },
                           labelText: 'Choose month',
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue(KeyConstants().month,value);
                           },
                         ),
                       ),

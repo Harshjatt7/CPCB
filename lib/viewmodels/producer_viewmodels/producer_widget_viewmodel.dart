@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cpcb_tyre/constants/key_constants.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -9,19 +11,39 @@ import 'package:flutter/widgets.dart';
 class ProducerWidgetViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey();
   String? dropdownValue;
-  String? dropdownError;
+  String? producerError;
+  String? tyreError;
+  String? yearError;
+  String? monthError;
 
-  changeDropdownValue(newValue) {
-    dropdownError = null;
+  changeDropdownValue(String dropdownKey, newValue) {
+    producerError = null;
+    tyreError = null;
+    yearError =null;
+    monthError =null;
     dropdownValue = newValue;
+    HelperFunctions().logger(dropdownValue.toString());
     updateUI();
     if (dropdownValue == null) {
-      dropdownError = "Please select the value";
+      switch (dropdownKey) {
+        case "producer":
+          producerError = "Please select the value";
+          break;
+        case "tyre":
+          tyreError = "Please select the value";
+          break;
+        case "year":
+          yearError = "Please select the value";
+          break;
+        case "month":
+          monthError = "Please select the value";
+          break;
+        default:
+          break;
+      }
       updateUI();
     }
   }
-
-
 
   String? filename;
   String? fileError;
