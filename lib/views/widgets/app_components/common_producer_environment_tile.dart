@@ -46,6 +46,9 @@ class ProducerEnvironmentTile extends StatelessWidget {
                 imageColor: AppColor().black,
               )),
         ),
+        const SizedBox(
+          width: 14,
+        ),
         Flexible(
           flex: 2,
           child: Column(

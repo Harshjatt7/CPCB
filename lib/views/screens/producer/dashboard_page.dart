@@ -13,7 +13,9 @@ import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class DashBoardPage extends StatelessWidget {
   const DashBoardPage({super.key});
@@ -156,82 +158,84 @@ class DashBoardPage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(20),
                                 child: Column(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Row(
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Expanded(
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 8, bottom: 8),
-                                                child: ProducerEnvironmentTile(
-                                                    title: 'Date of EC',
-                                                    subtitle: '24 Jan 2024',
-                                                    image: ImageConstants()
-                                                        .calendar),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8, right: 8),
-                                                child: ProducerEnvironmentTile(
-                                                    title: 'Type',
-                                                    subtitle: 'Lorem Ipsum',
-                                                    image: ImageConstants()
-                                                        .infoEnv),
-                                              ),
-                                            ],
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8, bottom: 8),
+                                            child: ProducerEnvironmentTile(
+                                                title: 'Date of EC',
+                                                subtitle: '24 Jan 2024',
+                                                image: ImageConstants().calendar),
                                           ),
                                         ),
-                                        Expanded(
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8, bottom: 8),
-                                                child: ProducerEnvironmentTile(
-                                                    title: 'Current Status',
-                                                    subtitle: 'Paid',
-                                                    subtitleColor: AppColor()
-                                                        .environmentTileSubTitle,
-                                                    image: ImageConstants()
-                                                        .infoEnv),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8, top: 8),
-                                                child: ProducerEnvironmentTile(
-                                                    title: 'Amount',
-                                                    subtitle: '5234',
-                                                    image: ImageConstants()
-                                                        .dollar),
-                                              ),
-                                            ],
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8, bottom: 8),
+                                            child: ProducerEnvironmentTile(
+                                                title: 'Current Status',
+                                                subtitle: 'Paid',
+                                                subtitleColor: AppColor()
+                                                    .environmentTileSubTitle,
+                                                image: ImageConstants().infoEnv),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 16, bottom: 10),
-                                        child: CommonTextWidget(
-                                          'Descripsion',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall!
-                                              .copyWith(
-                                                  color: AppColor()
-                                                      .environmentDesc),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8, right: 8),
+                                            child: ProducerEnvironmentTile(
+                                                title: 'Type',
+                                                subtitle: 'Lorem Ipsum',
+                                                image: ImageConstants().infoEnv),
+                                          ),
                                         ),
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8, top: 8),
+                                            child: ProducerEnvironmentTile(
+                                                title: 'Amount',
+                                                subtitle: '5234',
+                                                image: ImageConstants().dollar),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, bottom: 10),
+                                      child: CommonTextWidget(
+                                        'Descripsion',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall!
+                                            .copyWith(
+                                                color: AppColor()
+                                                    .environmentDesc),
                                       ),
                                     ),
-                                    CommonTextWidget(
-                                      MessageConstant().environmentText,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall,
+                                  ),
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: CommonTextWidget(
+                                        MessageConstant().environmentText,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                      ),
                                     )
                                   ],
                                 ),
