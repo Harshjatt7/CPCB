@@ -10,6 +10,9 @@ class ImageConstants {
   final String splashScreenLogo = "assets/images/logo/spalsh_logo.svg";
 
   // Producer Screen
+  final String homeTabIcon = "assets/images/icons/home_tab_icon.svg";
+  final String calendarTabIcon = "assets/images/icons/calendar_tab_icon.svg";
+  final String profileTabIcon = "assets/images/icons/profile_tab_icon.svg";
   final String environmentInfo = "assets/images/icons/environment_info.svg";
   final String calendar = "assets/images/icons/calendar_today.svg";
   final String avatar = "assets/images/logo/avatar.png";
@@ -33,7 +36,7 @@ class ImageConstants {
   final String mail = "assets/images/icons/mail.svg";
   final String passKey = "assets/images/icons/passkey.svg";
   final String phoneNo = "assets/images/icons/phoneNo.svg";
-  
+
   final String fileUpload = "assets/images/icons/file_upload.svg";
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";

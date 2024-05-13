@@ -19,155 +19,155 @@ class SalesDataScreen extends StatelessWidget {
         viewModel: ProducerWidgetViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
-            backgroundColor: AppColor().offWhite,
-            appBar: const CommonAppBar(
-              title: 'Add Sales Data',
-            ),
-            body: CommonSingleChildScrollView(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonDropdownTextFormField(
-                        error: viewModel.dropdownError,
-                        onTap: () {
-                          viewModel.changeDropdownValue(null);
-                        },
-                        labelText: 'Type of producer',
-                        dropDownItem: const ['text1', 'text2'],
-                        onChanged: (value) {
-                          viewModel.changeDropdownValue(value);
-                        },
+              backgroundColor: AppColor().offWhite,
+              appBar: const CommonAppBar(
+                title: 'Add Sales Data',
+              ),
+              body: CommonSingleChildScrollView(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonDropdownTextFormField(
+                          error: viewModel.dropdownError,
+                          onTap: () {
+                            viewModel.changeDropdownValue(null);
+                          },
+                          labelText: 'Type of producer',
+                          dropDownItem: const ['text1', 'text2'],
+                          onChanged: (value) {
+                            viewModel.changeDropdownValue(value);
+                          },
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonDropdownTextFormField(
-                        error: viewModel.dropdownError,
-                        onTap: () {
-                          viewModel.changeDropdownValue(null);
-                        },
-                        labelText: 'Type of tyre',
-                        dropDownItem: const ['text1', 'text2'],
-                        onChanged: (value) {
-                          viewModel.changeDropdownValue(value);
-                        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonDropdownTextFormField(
+                          error: viewModel.dropdownError,
+                          onTap: () {
+                            viewModel.changeDropdownValue(null);
+                          },
+                          labelText: 'Type of tyre',
+                          dropDownItem: const ['text1', 'text2'],
+                          onChanged: (value) {
+                            viewModel.changeDropdownValue(value);
+                          },
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonDropdownTextFormField(
-                        error: viewModel.dropdownError,
-                        onTap: () {
-                          viewModel.changeDropdownValue(null);
-                        },
-                        labelText: 'Financial year',
-                        dropDownItem: const ['text1', 'text2'],
-                        onChanged: (value) {
-                          viewModel.changeDropdownValue(value);
-                        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonDropdownTextFormField(
+                          error: viewModel.dropdownError,
+                          onTap: () {
+                            viewModel.changeDropdownValue(null);
+                          },
+                          labelText: 'Financial year',
+                          dropDownItem: const ['text1', 'text2'],
+                          onChanged: (value) {
+                            viewModel.changeDropdownValue(value);
+                          },
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonDropdownTextFormField(
-                        error: viewModel.dropdownError,
-                        onTap: () {
-                          viewModel.changeDropdownValue(null);
-                        },
-                        labelText: 'Choose month',
-                        dropDownItem: const ['text1', 'text2'],
-                        onChanged: (value) {
-                          viewModel.changeDropdownValue(value);
-                        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonDropdownTextFormField(
+                          error: viewModel.dropdownError,
+                          onTap: () {
+                            viewModel.changeDropdownValue(null);
+                          },
+                          labelText: 'Choose month',
+                          dropDownItem: const ['text1', 'text2'],
+                          onChanged: (value) {
+                            viewModel.changeDropdownValue(value);
+                          },
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "Motorcycle",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "Passenger car",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "Scooter",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "Truck",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "Bus",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "LCV",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "T Rear",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "Other",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 16),
-                      child: CommonTextFormFieldWidget(
-                          hintText: "Total",
-                          isMandatory: false,
-                          controller: TextEditingController()),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "Motorcycle",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "Passenger car",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "Scooter",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "Truck",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "Bus",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "LCV",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "T Rear",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "Other",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8, bottom: 16),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "Total",
+                            isMandatory: false,
+                            controller: TextEditingController()),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            bottomNavigationBar: Container(
-              padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
-              decoration: BoxDecoration(
-                color: AppColor().white,
-              ),
-              child: CommonButtonWidget(
-                height: 60,
-                label: 'Submit',
-                color: AppColor().darkGreen18632E,
-                labelStyle: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .copyWith(color: AppColor().white),
-              ),
-            ),
-          );
+              persistentFooterButtons: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColor().white,
+                  ),
+                  child: CommonButtonWidget(
+                    height: 50,
+                    label: 'Submit',
+                    color: AppColor().darkGreen18632E,
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: AppColor().white),
+                  ),
+                ),
+              ]);
         });
   }
 }

@@ -18,6 +18,7 @@ class CustomScaffold extends StatefulWidget {
 
   final Future<bool> Function()? onWillPop;
   final Widget? floatingActionButton;
+  final List<Widget>? persistentFooterButtons;
 
   const CustomScaffold(
       {super.key,
@@ -31,7 +32,8 @@ class CustomScaffold extends StatefulWidget {
       this.resizeToBottomInset,
       this.bottomNavigationBar,
       this.onWillPop,
-      this.floatingActionButton});
+      this.floatingActionButton,
+      this.persistentFooterButtons});
 
   @override
   State<CustomScaffold> createState() => _CustomScaffoldState();
@@ -68,6 +70,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             body: widget.body,
             floatingActionButton: widget.floatingActionButton,
             bottomNavigationBar: widget.bottomNavigationBar,
+            persistentFooterButtons: widget.persistentFooterButtons,
           ),
           if (widget.isLoading == true)
             widget.customLoader == null

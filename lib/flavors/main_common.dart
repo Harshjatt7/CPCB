@@ -39,7 +39,7 @@ class MyAppState extends State<MyApp> {
         builder: (context, viewmodel, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'CPCB Tyre',
             localizationsDelegates: [
               // delegate from flutter_localization
               GlobalMaterialLocalizations.delegate,
