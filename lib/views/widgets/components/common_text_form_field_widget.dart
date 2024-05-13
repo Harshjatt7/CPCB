@@ -143,7 +143,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         obscuringCharacter: '*',
         readOnly: widget.isReadOnly ?? false,
         keyboardType: widget.textInputType ?? TextInputType.text,
-        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+        style: Theme.of(context).textTheme.displaySmall!.copyWith(
             color: widget.textColor ?? AppColor().black1A1A1A,
             letterSpacing: widget.isObscure ? 5 : null),
         decoration: InputDecoration(
