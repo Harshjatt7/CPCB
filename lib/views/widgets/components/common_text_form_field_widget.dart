@@ -138,7 +138,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         obscureText: widget.isObscure,
         cursorColor: AppColor().grey919191,
         onTapAlwaysCalled: true,
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: widget.validator,
         obscuringCharacter: '*',
         readOnly: widget.isReadOnly ?? false,
