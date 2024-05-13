@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/key_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/producer_widget_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -21,8 +22,8 @@ class SalesDataScreen extends StatelessWidget {
         builder: (context, viewModel, child) {
           return CustomScaffold(
               backgroundColor: AppColor().offWhite,
-              appBar: const CommonAppBar(
-                title: 'Add Sales Data',
+              appBar: CommonAppBar(
+                title: StringConstants().addSalesDataBtnLabel,
               ),
               body: CommonSingleChildScrollView(
                 child: Container(
@@ -38,7 +39,7 @@ class SalesDataScreen extends StatelessWidget {
                             viewModel.changeDropdownValue(
                                 KeyConstants().producer, null);
                           },
-                          labelText: 'Type of producer',
+                          labelText: StringConstants().typeOfProducerLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
                             viewModel.changeDropdownValue("producer", value);
@@ -52,7 +53,7 @@ class SalesDataScreen extends StatelessWidget {
                           onTap: () {
                             viewModel.changeDropdownValue("tyre", null);
                           },
-                          labelText: 'Type of tyre',
+                          labelText: StringConstants().typeOfTyreLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
                             viewModel.changeDropdownValue("tyre", value);
@@ -66,7 +67,7 @@ class SalesDataScreen extends StatelessWidget {
                           onTap: () {
                             viewModel.changeDropdownValue("year", null);
                           },
-                          labelText: 'Financial year',
+                          labelText: StringConstants().financialYearLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
                             viewModel.changeDropdownValue("year", value);
@@ -80,7 +81,7 @@ class SalesDataScreen extends StatelessWidget {
                           onTap: () {
                             viewModel.changeDropdownValue("month", null);
                           },
-                          labelText: 'Choose month',
+                          labelText: StringConstants().chooseMonthLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
                             viewModel.changeDropdownValue("month", value);
@@ -90,63 +91,63 @@ class SalesDataScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonTextFormFieldWidget(
-                            hintText: "Motorcycle",
+                            hintText: StringConstants().motorcycleLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonTextFormFieldWidget(
-                            hintText: "Passenger car",
+                            hintText: StringConstants().passengerCarLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonTextFormFieldWidget(
-                            hintText: "Scooter",
+                            hintText: StringConstants().scooterLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonTextFormFieldWidget(
-                            hintText: "Truck",
+                            hintText: StringConstants().truckLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonTextFormFieldWidget(
-                            hintText: "Bus",
+                            hintText: StringConstants().busLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonTextFormFieldWidget(
-                            hintText: "LCV",
+                            hintText: StringConstants().lcvLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonTextFormFieldWidget(
-                            hintText: "T Rear",
+                            hintText: StringConstants().tRearLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonTextFormFieldWidget(
-                            hintText: "Other",
+                            hintText: StringConstants().otherLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8, bottom: 16),
                         child: CommonTextFormFieldWidget(
-                            hintText: "Total",
+                            hintText: StringConstants().totalLabel,
                             isMandatory: false,
                             controller: TextEditingController()),
                       ),

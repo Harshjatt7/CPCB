@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/sales_viewmodel.dart';
@@ -41,7 +42,7 @@ class SalesScreen extends StatelessWidget {
                               color: AppColor().appBarBorder,
                             ))),
                     child: CommonTextWidget(
-                      'Sales data producer listing',
+                      StringConstants().salesDataProducerListingTitle,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
