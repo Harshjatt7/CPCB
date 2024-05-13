@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class CommonDropdownTextFormField extends StatelessWidget {
   final List dropDownItem;
@@ -43,7 +44,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
                   border: InputBorder.none,
                   label: RichText(
                     text: TextSpan(
-                      text: labelText,
+                      text: labelText.i18n(),
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall
