@@ -21,7 +21,6 @@ class StringConstants {
   final String addSalesDataBtnLabel = "add-sales-data-btn-label";
   final String submitBtnLable = "submit-btn-label";
   final String profileTitle="profile-Title";
-  final String emailId="email-id";
   final String mobileNumber="mobile-number";
   final String typeOfProducerLabel="type-of-producer-label";
   final String typeOfTyreLabel="type-of-tyre-label";
@@ -36,7 +35,7 @@ class StringConstants {
   final String tRearLabel="t-rear-label";
   final String otherLabel="other-label";
   final String totalLabel="total-label";
-  
+
 
 
 

@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                                       imageSource: ImageConstants().mail,
                                       isNetworkImage: false),
                                   CommonTextWidget(
-                                    StringConstants().emailId,
+                                    StringConstants().emailIdHint,
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelSmall!
