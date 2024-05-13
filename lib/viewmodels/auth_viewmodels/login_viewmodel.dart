@@ -22,8 +22,9 @@ class LoginViewModel extends BaseViewModel {
   ];
 
   bool isEnabled() {
-    isBtnEnabled =
-        (emailController.text.isNotEmpty && passController.text.isNotEmpty);
+    isBtnEnabled = (emailController.text.isNotEmpty &&
+        passController.text.isNotEmpty &&
+        selectedUserType != null);
     notifyListeners();
     return isBtnEnabled;
   }
