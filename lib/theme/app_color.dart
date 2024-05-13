@@ -12,9 +12,10 @@ class AppColor {
   final Color primaryGreen = const Color(0xFF1BB934);
   final Color primaryGreen1 = const Color(0xFF18632E);
   final Color grey03 = const Color(0x00D3D3D3);
-  final Color greyCCCCCC = const Color(0xFFCCCCCC);
+  final Color greyLight = const Color(0xFFCCCCCC);
   final Color grey919191 = const Color(0xFF919191);
   final Color redFF3333 = const Color(0xFFFF3333);
+  final Color offWhite = const Color(0xFFF9F9F9);
 
   final Color greyD3D3D3 = const Color(0xFFD3D3D3);
   final Color black4D4D4D = const Color(0xFF4D4D4D);

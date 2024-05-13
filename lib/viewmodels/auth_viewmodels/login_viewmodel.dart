@@ -7,13 +7,30 @@ class LoginViewModel extends BaseViewModel {
   final TextEditingController passController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+  String? selectedUserType;
+  bool isObscure = false;
 
   bool isBtnEnabled = false;
+  final List<String> userTypes = [
+    "Admin",
+    "Other Users (SPCB, Auditor, RD’S) ",
+    "Inspection",
+    "Producer",
+    "Retreader",
+    "Recycler",
+    "Custom"
+  ];
 
   bool isEnabled() {
-    isBtnEnabled =
-        (emailController.text.isNotEmpty && passController.text.isNotEmpty);
+    isBtnEnabled = (emailController.text.isNotEmpty &&
+        passController.text.isNotEmpty &&
+        selectedUserType != null);
     notifyListeners();
     return isBtnEnabled;
+  }
+
+  void onUserTypeChanged(dynamic value) {
+    selectedUserType = value;
+    notifyListeners();
   }
 }

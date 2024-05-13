@@ -5,11 +5,13 @@ import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/utils/helper/text_theme_helper.dart';
 import 'package:cpcb_tyre/viewmodels/auth_viewmodels/login_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import '../../../constants/routes_constant.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -86,27 +88,57 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    // TODO: to be replaced with dropdown widget
-                    textFormField(
-                        hintText: StringConstants().selectUserHint,
-                        controller: viewmodel.userTypeController),
+                    CommonDropdownTextFormField(
+                        labelText: StringConstants().selectUserHint,
+                        dropDownItem: viewmodel.userTypes,
+                        value: viewmodel.selectedUserType,
+                        onChanged: (val) {
+                          viewmodel.onUserTypeChanged(val);
+                        }),
                     const SizedBox(
                       height: 16,
                     ),
-                    textFormField(
-                        hintText: StringConstants().emailIdHint,
-                        controller: viewmodel.emailController),
+                    CommonTextFormFieldWidget(
+                      hintText: StringConstants().emailIdHint,
+                      isMandatory: true,
+                      controller: viewmodel.emailController,
+                      validator: (val) {
+                        if (viewmodel.emailController.text.isEmpty) {
+                          return "Required";
+                        }
+                        return null;
+                      },
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
-                    textFormField(
-                        hintText: StringConstants().passwordHint,
-                        controller: viewmodel.passController),
+                    CommonTextFormFieldWidget(
+                      hintText: StringConstants().passwordHint,
+                      isMandatory: true,
+                      controller: viewmodel.passController,
+                      isObscure: viewmodel.isObscure,
+                      onSuffixTap: () {
+                        viewmodel.isObscure = !viewmodel.isObscure;
+                      },
+                      isPasswordField: true,
+                      validator: (val) {
+                        if (viewmodel.passController.text.isEmpty) {
+                          return "Required";
+                        }
+                        return null;
+                      },
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
-
                     CommonButtonWidget(
+                      onPressed: () {
+                        if (viewmodel.formKey.currentState?.validate() ??
+                            false) {
+                          Navigator.pushNamed(
+                              context, AppRoutes.producerHomeScreen);
+                        }
+                      },
                       label: StringConstants().loginBtnLabel,
                       color: viewmodel.isBtnEnabled
                           ? AppColor().black
@@ -137,12 +169,6 @@ class LoginPage extends StatelessWidget {
             ],
           )),
     );
-  }
-
-  Widget textFormField(
-      {required TextEditingController controller, required String hintText}) {
-    return CommonTextFormFieldWidget(
-        hintText: hintText, isMandatory: true, controller: controller);
   }
 
   Container logoWidget() {

@@ -55,11 +55,12 @@ class CommonTextFormFieldWidget extends StatefulWidget {
 }
 
 class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
+  late FocusNode _focusNode;
   bool isClick = true;
   void onClickTextField() {
     setState(() {
-      if (widget.controller.text.isEmpty ||
-          widget.controller.text.trim() == '') {
+      if ((widget.controller.text.isEmpty ||
+          widget.controller.text.trim() == '')) {
         widget.controller.clear();
         isClick = true;
       }
@@ -72,6 +73,27 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         widget.controller.text = widget.controller.text.trim();
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _focusNode.addListener(_handleFocusChange);
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_handleFocusChange);
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _handleFocusChange() {
+    if (!_focusNode.hasFocus) {
+      onClickTextField();
+      removeEmptySpace();
+    }
   }
 
   @override
@@ -100,13 +122,27 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
           onClickTextField();
           removeEmptySpace();
         },
+        onEditingComplete: () {
+          onClickTextField();
+          removeEmptySpace();
+        },
+        onSaved: (newValue) {
+          onClickTextField();
+          removeEmptySpace();
+        },
+        onAppPrivateCommand: (action, data) {
+          onClickTextField();
+          removeEmptySpace();
+        },
+        focusNode: _focusNode,
         obscureText: widget.isObscure,
         cursorColor: AppColor().grey919191,
-        autovalidateMode: AutovalidateMode.always,
+        onTapAlwaysCalled: true,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: widget.validator,
         obscuringCharacter: '*',
         readOnly: widget.isReadOnly ?? false,
-        keyboardType: widget.textInputType,
+        keyboardType: widget.textInputType ?? TextInputType.text,
         style: Theme.of(context).textTheme.labelSmall!.copyWith(
             color: widget.textColor ?? AppColor().black1A1A1A,
             letterSpacing: widget.isObscure ? 5 : null),
@@ -136,20 +172,16 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                 : "",
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide:
-                    BorderSide(color: AppColor().redFF3333, width: 1)),
+                borderSide: BorderSide(color: AppColor().redFF3333, width: 1)),
             errorBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide:
-                    BorderSide(color: AppColor().redFF3333, width: 1)),
+                borderSide: BorderSide(color: AppColor().redFF3333, width: 1)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide:
-                    BorderSide(color: AppColor().greyCCCCCC, width: 1)),
+                borderSide: BorderSide(color: AppColor().greyLight, width: 1)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide:
-                    BorderSide(color: AppColor().greyCCCCCC, width: 1)),
+                borderSide: BorderSide(color: AppColor().greyLight, width: 1)),
             suffixIcon: widget.icon != null
                 ? suffixWidget()
                 : widget.isPasswordField == true
