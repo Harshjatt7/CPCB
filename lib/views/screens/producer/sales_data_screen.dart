@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/producer_widget_viewmodel.dart';
@@ -33,56 +34,57 @@ class SalesDataScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.producerDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(
+                                KeyConstants().producer, null);
                           },
                           labelText: StringConstants().typeOfProducerLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue("producer", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.tyreDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue("tyre", null);
                           },
                           labelText: StringConstants().typeOfTyreLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue("tyre", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.yearDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue("year", null);
                           },
                           labelText: StringConstants().financialYearLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue("year", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.monthDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue("month", null);
                           },
                           labelText: StringConstants().chooseMonthLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue("month", value);
                           },
                         ),
                       ),
@@ -160,8 +162,8 @@ class SalesDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     height: 50,
-                    label: StringConstants().submitBtnLable,
-                    color: AppColor().darkGreen18632E,
+                    label: 'Submit',
+                    color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .labelSmall!

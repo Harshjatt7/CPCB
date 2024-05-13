@@ -24,7 +24,7 @@ class CommonDocumentField extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: AppColor().greyD3D3D3)),
+              border: Border.all(color: AppColor().greyUltraLight)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -36,14 +36,14 @@ class CommonDocumentField extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall
-                              ?.copyWith(color: AppColor().grey919191)),
+                              ?.copyWith(color: AppColor().grey)),
                     ),
                     WidgetSpan(
                       child: CommonTextWidget(fileName == null ? " *" : "",
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall
-                              ?.copyWith(color: AppColor().redFF3333)),
+                              ?.copyWith(color: AppColor().red)),
                     ),
                   ],
                 ),
@@ -66,7 +66,7 @@ class CommonDocumentField extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodySmall
-                  ?.copyWith(color: AppColor().redFF3333),
+                  ?.copyWith(color: AppColor().red),
             ),
           ),
       ],

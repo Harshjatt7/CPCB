@@ -14,9 +14,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DashBoardPage extends StatelessWidget {
   const DashBoardPage({super.key});
@@ -74,9 +72,8 @@ class DashBoardPage extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16),
                                 child: CommonButtonWidget(
-                                  label: StringConstants()
-                                      .downloadApplicationBtnLabel,
-                                  color: AppColor().darkGreen18632E,
+                                  label: 'Download Application',
+                                  color: AppColor().darkGreen,
                                   labelStyle: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
@@ -87,12 +84,12 @@ class DashBoardPage extends StatelessWidget {
                                 label: StringConstants()
                                     .downloadPaymentReciptBtnLabel,
                                 color: AppColor().white,
-                                borderColor: AppColor().darkGreen18632E,
+                                borderColor: AppColor().darkGreen,
                                 labelStyle: Theme.of(context)
                                     .textTheme
                                     .labelMedium!
                                     .copyWith(
-                                        color: AppColor().darkGreen18632E),
+                                        color: AppColor().darkGreen),
                               )
                             ],
                           ),
@@ -106,7 +103,7 @@ class DashBoardPage extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
-                              .copyWith(color: AppColor().black1A1A1A),
+                              .copyWith(color: AppColor().blackDark),
                         ),
                       ),
                       ListView.builder(

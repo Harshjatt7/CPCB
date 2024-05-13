@@ -63,12 +63,14 @@ class SalesScreen extends StatelessWidget {
                                   year: '2022-2023',
                                   month: 'January',
                                   count: '19',
-                                  car: '2',
+                                  motorcycle: '2',
                                   scooter: '4',
-                                  deliveryTruck: '5',
-                                  train: '1',
+                                  passengerCar: '5',
+                                  bus: '1',
                                   truck: '6',
-                                  tyre: '9',
+                                  tRear: '2',
+                                  tcv: '9',
+                                  other: '0',
                                 ),
                               );
                             },
@@ -79,8 +81,8 @@ class SalesScreen extends StatelessWidget {
                             Navigator.pushNamed(
                                 context, AppRoutes.addSalesDataScreen);
                           },
-                          label: StringConstants().addSalesDataBtnLabel,
-                          color: AppColor().darkGreen18632E,
+                          label: 'Add sales data',
+                          color: AppColor().darkGreen,
                           labelStyle: Theme.of(context)
                               .textTheme
                               .labelSmall!
