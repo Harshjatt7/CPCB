@@ -8,6 +8,7 @@ final _textStyleConstants = TextStyleConstants();
 ThemeData lightTheme(BuildContext context) {
   return ThemeData(
       dividerColor: AppColor().white,
+      dividerTheme: DividerThemeData(color: AppColor().transparent),
       fontFamily: FontConstants().baseFont,
       textTheme: TextTheme(
         bodySmall: _textStyleConstants.extraSmallTextStyle400(),
@@ -28,6 +29,7 @@ ThemeData darkTheme(BuildContext context) {
   return ThemeData(
       fontFamily: FontConstants().baseFont,
       dividerColor: AppColor().white,
+      dividerTheme: DividerThemeData(color: AppColor().transparent),
       textTheme: TextTheme(
         bodySmall: _textStyleConstants.extraSmallTextStyle400(),
         bodyMedium: _textStyleConstants.extraSmallTextStyle600(),
