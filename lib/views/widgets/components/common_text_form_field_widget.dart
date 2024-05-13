@@ -122,15 +122,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
           onClickTextField();
           removeEmptySpace();
         },
-        onEditingComplete: () {
-          onClickTextField();
-          removeEmptySpace();
-        },
         onSaved: (newValue) {
-          onClickTextField();
-          removeEmptySpace();
-        },
-        onAppPrivateCommand: (action, data) {
           onClickTextField();
           removeEmptySpace();
         },
