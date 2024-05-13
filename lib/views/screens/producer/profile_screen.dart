@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/profile_viewmodel.dart';
@@ -37,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                               bottom:
                                   BorderSide(color: AppColor().appBarBorder))),
                       child: CommonTextWidget(
-                        'Profile',
+                        StringConstants().profileTitle,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                     ),
@@ -69,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                                       imageSource: ImageConstants().mail,
                                       isNetworkImage: false),
                                   CommonTextWidget(
-                                    'Email ID:',
+                                    StringConstants().emailId,
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelSmall!
@@ -95,7 +96,7 @@ class ProfileScreen extends StatelessWidget {
                                     imageSource: ImageConstants().phoneNo,
                                     isNetworkImage: false),
                                 CommonTextWidget(
-                                  'Mobile Number:',
+                                  StringConstants().mobileNumber,
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelSmall!
