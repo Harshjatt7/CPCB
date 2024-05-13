@@ -16,9 +16,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProfileViewModel>(
-        onModelReady: (viewmodel) {},
+        onModelReady: (viewModel) {},
         viewModel: ProfileViewModel(),
-        builder: (context, model, child) {
+        builder: (context, viewModel, child) {
           return CustomScaffold(
               appBar: const CommonAppBar(
                 isIconBar: true,

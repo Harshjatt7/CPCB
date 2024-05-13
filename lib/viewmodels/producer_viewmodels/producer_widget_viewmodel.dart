@@ -8,6 +8,20 @@ import 'package:flutter/widgets.dart';
 
 class ProducerWidgetViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey();
+  String? dropdownValue;
+  String? dropdownError;
+
+  changeDropdownValue(newValue) {
+    dropdownError = null;
+    dropdownValue = newValue;
+    updateUI();
+    if (dropdownValue == null) {
+      dropdownError = "Please select the value";
+      updateUI();
+    }
+  }
+
+
 
   String? filename;
   String? fileError;

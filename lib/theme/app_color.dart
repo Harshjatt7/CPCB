@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class AppColor {
@@ -15,6 +16,7 @@ class AppColor {
   final Color greyCCCCCC = const Color(0xFFCCCCCC);
   final Color grey919191 = const Color(0xFF919191);
   final Color redFF3333 = const Color(0xFFFF3333);
+  final Color offWhite = const Color(0xFFF9F9F9);
 
   final Color greyD3D3D3 = const Color(0xFFD3D3D3);
   final Color black4D4D4D = const Color(0xFF4D4D4D);

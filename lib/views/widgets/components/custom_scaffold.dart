@@ -12,6 +12,8 @@ class CustomScaffold extends StatefulWidget {
   final bool? showAppBar;
 
   final Widget? customLoader;
+  final Widget? bottomNavigationBar;
+
   final bool? resizeToBottomInset;
 
   final Future<bool> Function()? onWillPop;
@@ -27,6 +29,7 @@ class CustomScaffold extends StatefulWidget {
       this.showAppBar = true,
       this.customLoader,
       this.resizeToBottomInset,
+      this.bottomNavigationBar,
       this.onWillPop,
       this.floatingActionButton});
 
@@ -64,6 +67,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             backgroundColor: widget.backgroundColor ?? AppColor().white,
             body: widget.body,
             floatingActionButton: widget.floatingActionButton,
+            bottomNavigationBar: widget.bottomNavigationBar,
           ),
           if (widget.isLoading == true)
             widget.customLoader == null

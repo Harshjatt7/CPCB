@@ -16,9 +16,9 @@ class SalesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<SalesViewModel>(
-        onModelReady: (p0) {},
+        onModelReady: (viewModel) {},
         viewModel: SalesViewModel(),
-        builder: (context, model, child) {
+        builder: (context, viewModel, child) {
           return CustomScaffold(
               appBar: CommonAppBar(
                 isProfileBar: true,
