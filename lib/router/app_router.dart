@@ -2,6 +2,8 @@ import 'package:cpcb_tyre/views/screens/auth/login_page.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
+import '../views/screens/producer/producer_home_page.dart';
+import '../views/screens/producer/sales_data_screen.dart';
 
 class PageRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -11,6 +13,10 @@ class PageRouter {
         return _getPageRoute(const SplashScreen(), settings);
       case AppRoutes.loginPageRoute:
         return _getPageRoute(const LoginPage(), settings);
+      case AppRoutes.producerHomeScreen:
+        return _getPageRoute(const ProducerHomePage(), settings);
+      case AppRoutes.addSalesDataScreen:
+        return _getPageRoute(const SalesDataScreen(), settings);
 
       // Will be displayed if no specified route is found.
       default:

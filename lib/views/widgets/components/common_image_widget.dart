@@ -71,6 +71,7 @@ class CommonImageWidget extends StatelessWidget {
                     height: height,
                     width: width,
                     fit: fit ?? BoxFit.fill,
+                    color: imageColor,
                   )
                 : Image.asset(
                     imageSource,

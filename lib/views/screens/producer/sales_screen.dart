@@ -10,6 +10,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/routes_constant.dart';
+
 class SalesScreen extends StatelessWidget {
   const SalesScreen({super.key});
 
@@ -72,6 +74,10 @@ class SalesScreen extends StatelessWidget {
                           ),
                         ),
                         CommonButtonWidget(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, AppRoutes.addSalesDataScreen);
+                          },
                           label: 'Add sales data',
                           color: AppColor().darkGreen18632E,
                           labelStyle: Theme.of(context)

@@ -10,6 +10,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import '../../../constants/routes_constant.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -107,6 +108,10 @@ class LoginPage extends StatelessWidget {
                     ),
 
                     CommonButtonWidget(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, AppRoutes.producerHomeScreen);
+                      },
                       label: StringConstants().loginBtnLabel,
                       color: viewmodel.isBtnEnabled
                           ? AppColor().black
