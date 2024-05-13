@@ -33,56 +33,57 @@ class SalesDataScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.producerError,
+                          error: viewModel.producerDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(KeyConstants().producer,null);
+                            viewModel.changeDropdownValue(
+                                KeyConstants().producer, null);
                           },
                           labelText: 'Type of producer',
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(KeyConstants().producer,value);
+                            viewModel.changeDropdownValue("producer", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.tyreError,
+                          error: viewModel.tyreDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(KeyConstants().tyre, null);
+                            viewModel.changeDropdownValue("tyre", null);
                           },
                           labelText: 'Type of tyre',
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(KeyConstants().tyre, value);
+                            viewModel.changeDropdownValue("tyre", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.yearError,
+                          error: viewModel.yearDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(KeyConstants().year,null);
+                            viewModel.changeDropdownValue("year", null);
                           },
                           labelText: 'Financial year',
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(KeyConstants().year,value);
+                            viewModel.changeDropdownValue("year", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.monthError,
+                          error: viewModel.monthDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(KeyConstants().month,null);
+                            viewModel.changeDropdownValue("month", null);
                           },
                           labelText: 'Choose month',
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(KeyConstants().month,value);
+                            viewModel.changeDropdownValue("month", value);
                           },
                         ),
                       ),
@@ -161,7 +162,7 @@ class SalesDataScreen extends StatelessWidget {
                   child: CommonButtonWidget(
                     height: 50,
                     label: 'Submit',
-                    color: AppColor().darkGreen18632E,
+                    color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .labelSmall!

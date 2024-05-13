@@ -122,21 +122,13 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
           onClickTextField();
           removeEmptySpace();
         },
-        onEditingComplete: () {
-          onClickTextField();
-          removeEmptySpace();
-        },
         onSaved: (newValue) {
-          onClickTextField();
-          removeEmptySpace();
-        },
-        onAppPrivateCommand: (action, data) {
           onClickTextField();
           removeEmptySpace();
         },
         focusNode: _focusNode,
         obscureText: widget.isObscure,
-        cursorColor: AppColor().grey919191,
+        cursorColor: AppColor().grey,
         onTapAlwaysCalled: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: widget.validator,
@@ -144,7 +136,9 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         readOnly: widget.isReadOnly ?? false,
         keyboardType: widget.textInputType ?? TextInputType.text,
         style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: widget.textColor ?? AppColor().black1A1A1A,
+            color: widget.textColor ?? AppColor().blackDark,
+            decoration: TextDecoration.none,
+            // decorationColor: AppColor().transparent,
             letterSpacing: widget.isObscure ? 5 : null),
         decoration: InputDecoration(
             prefixIcon: isClick == true
@@ -155,7 +149,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                       style: Theme.of(context)
                           .textTheme
                           .displaySmall!
-                          .copyWith(color: AppColor().grey919191),
+                          .copyWith(color: AppColor().grey),
                     ),
                   )
                 : null,
@@ -164,7 +158,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
             hintStyle: Theme.of(context)
                 .textTheme
                 .labelSmall!
-                .copyWith(color: AppColor().redFF3333),
+                .copyWith(color: AppColor().red),
             hintText: widget.isMandatory
                 ? isClick
                     ? '  *'
@@ -172,10 +166,10 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                 : "",
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: AppColor().redFF3333, width: 1)),
+                borderSide: BorderSide(color: AppColor().red, width: 1)),
             errorBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: AppColor().redFF3333, width: 1)),
+                borderSide: BorderSide(color: AppColor().red, width: 1)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
                 borderSide: BorderSide(color: AppColor().greyLight, width: 1)),

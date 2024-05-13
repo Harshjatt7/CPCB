@@ -70,7 +70,7 @@ class ProducerSalesList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   saleItemWidget(
-                      context, ImageConstants().truckIcon, truck ?? ""),
+                      context, ImageConstants().passengerCar, passengerCar ?? ""),
                   const SizedBox(
                     height: 8,
                   ),
@@ -97,14 +97,15 @@ class ProducerSalesList extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  saleItemWidget(context, ImageConstants().passengerCar,
-                      passengerCar ?? ""),
+                  saleItemWidget(context, ImageConstants().truckIcon,
+                      truck ?? "0"),
                   const SizedBox(
                     height: 8,
                   ),
-                  saleItemWidget(context, ImageConstants().other, other ?? ""),
+                  saleItemWidget(context, ImageConstants().other, other ?? "0"),
                 ],
               ),
+             
             ],
           ),
           const SizedBox(
@@ -151,7 +152,7 @@ Widget saleItemWidget(BuildContext context, String image, String count) {
         style: Theme.of(context)
             .textTheme
             .bodyMedium
-            ?.copyWith(color: AppColor().black999999),
+            ?.copyWith(color: AppColor().blackLight),
       ),
     ],
   );

@@ -49,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(5)),
-                            color: AppColor().greenEAF4EA),
+                            color: AppColor().lightGreen),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

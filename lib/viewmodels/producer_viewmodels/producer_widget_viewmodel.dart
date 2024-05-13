@@ -1,7 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:cpcb_tyre/constants/key_constants.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:file_picker/file_picker.dart';
@@ -10,44 +8,47 @@ import 'package:flutter/widgets.dart';
 
 class ProducerWidgetViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey();
-  String? dropdownValue;
-  String? producerError;
-  String? tyreError;
-  String? yearError;
-  String? monthError;
-
-  changeDropdownValue(String dropdownKey, newValue) {
-    producerError = null;
-    tyreError = null;
-    yearError =null;
-    monthError =null;
-    dropdownValue = newValue;
-    HelperFunctions().logger(dropdownValue.toString());
+  String? producerDropdownError;
+  String? tyreDropdownError;
+  String? yearDropdownError;
+  String? monthDropdownError;
+  String? changeDropdown;
+  
+  void changeDropdownValue(dropdownValue, newValue) {
+    producerDropdownError = null;
+    tyreDropdownError = null;
+    yearDropdownError = null;
+    monthDropdownError = null;
+    changeDropdown = newValue;
     updateUI();
-    if (dropdownValue == null) {
-      switch (dropdownKey) {
+    HelperFunctions().logger(changeDropdown.toString());
+    if (changeDropdown == null) {
+      switch (dropdownValue) {
         case "producer":
-          producerError = "Please select the value";
+          producerDropdownError = "Please select the value";
+          updateUI();
           break;
         case "tyre":
-          tyreError = "Please select the value";
+          tyreDropdownError = "Please select the value";
+          updateUI();
           break;
         case "year":
-          yearError = "Please select the value";
+          yearDropdownError = "Please select the value";
+          updateUI();
           break;
         case "month":
-          monthError = "Please select the value";
+          monthDropdownError = "Please select the value";
+          updateUI();
           break;
         default:
-          break;
+          updateUI();
       }
-      updateUI();
     }
   }
 
   String? filename;
   String? fileError;
-  openFileManager(context) async {
+  void openFileManager(context) async {
     fileError = null;
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {

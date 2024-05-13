@@ -81,7 +81,7 @@ class SalesScreen extends StatelessWidget {
                                 context, AppRoutes.addSalesDataScreen);
                           },
                           label: 'Add sales data',
-                          color: AppColor().darkGreen18632E,
+                          color: AppColor().darkGreen,
                           labelStyle: Theme.of(context)
                               .textTheme
                               .labelSmall!
