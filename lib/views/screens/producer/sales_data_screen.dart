@@ -37,7 +37,8 @@ class SalesDataScreen extends StatelessWidget {
                           error: viewModel.producerDropdownError,
                           onTap: () {
                             viewModel.changeDropdownValue(
-                                KeyConstants().producer, null);
+                                KeyConstants().producer,
+                                viewModel.changeDropdown);
                           },
                           labelText: StringConstants().typeOfProducerLabel,
                           dropDownItem: const ['text1', 'text2'],
@@ -51,7 +52,8 @@ class SalesDataScreen extends StatelessWidget {
                         child: CommonDropdownTextFormField(
                           error: viewModel.tyreDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue("tyre", null);
+                            viewModel.changeDropdownValue(
+                                "tyre", viewModel.changeDropdown);
                           },
                           labelText: StringConstants().typeOfTyreLabel,
                           dropDownItem: const ['text1', 'text2'],
@@ -65,7 +67,8 @@ class SalesDataScreen extends StatelessWidget {
                         child: CommonDropdownTextFormField(
                           error: viewModel.yearDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue("year", null);
+                            viewModel.changeDropdownValue(
+                                "year", viewModel.changeDropdown);
                           },
                           labelText: StringConstants().financialYearLabel,
                           dropDownItem: const ['text1', 'text2'],
@@ -79,7 +82,8 @@ class SalesDataScreen extends StatelessWidget {
                         child: CommonDropdownTextFormField(
                           error: viewModel.monthDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue("month", null);
+                            viewModel.changeDropdownValue(
+                                "month", viewModel.changeDropdown);
                           },
                           labelText: StringConstants().chooseMonthLabel,
                           dropDownItem: const ['text1', 'text2'],

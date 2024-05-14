@@ -29,7 +29,7 @@ class SplashScreen extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                       AppColor().primaryGreen,
-                      AppColor().primaryGreen1
+                      AppColor().darkGreen
                     ])),
                 child: CommonImageWidget(
                     height: 150,
