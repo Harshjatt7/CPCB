@@ -82,7 +82,7 @@ class SalesScreen extends StatelessWidget {
                             Navigator.pushNamed(
                                 context, AppRoutes.addSalesDataScreen);
                           },
-                          label: 'Add sales data',
+                          label: StringConstants().addSalesDataBtnLabel,
                           color: AppColor().darkGreen,
                           labelStyle: Theme.of(context)
                               .textTheme

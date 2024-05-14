@@ -186,7 +186,7 @@ class SalesDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     height: 50,
-                    label: 'Submit',
+                    label: StringConstants().submitBtnLable,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme

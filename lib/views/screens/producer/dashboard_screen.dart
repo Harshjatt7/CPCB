@@ -16,8 +16,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class DashBoardPage extends StatelessWidget {
-  const DashBoardPage({super.key});
+class DashBoardScreen extends StatelessWidget {
+  const DashBoardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
