@@ -7,4 +7,5 @@ class AppRoutes {
   static const String loginPageRoute = "/loginPageRoute";
   static const String producerHomeScreen = "/producerHomeScreen";
   static const String addSalesDataScreen = "/addSalesDataScreen";
+  static const String retraderHomeScreen = "/retraderHomeScreen";
 }

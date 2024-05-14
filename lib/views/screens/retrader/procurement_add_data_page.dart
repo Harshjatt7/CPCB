@@ -26,93 +26,95 @@ class ProcurementAddDataPage extends StatelessWidget {
                 title: StringConstants().addProcurement,
               ),
               body: CommonSingleChildScrollView(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonDropdownTextFormField(
-                          labelText: StringConstants().financialYearLabel,
-                          dropDownItem: const ["Text1", "Text2"],
-                          onChanged: (value) {},
+                child: Form(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonDropdownTextFormField(
+                            labelText: StringConstants().financialYearLabel,
+                            dropDownItem: const ["Text1", "Text2"],
+                            onChanged: (value) {},
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().nameOfWasteTyreSupplier,
-                            isMandatory: false,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().contactDetails,
-                            isMandatory: false,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().supplierContactDetails,
-                            isMandatory: false,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText:
-                                StringConstants().addressOfWasteTyreSupplier,
-                            isMandatory: false,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().typeOfRawMaterial,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().quantityReceived,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonDocumentField(
-                            onTap: () {},
-                            label: StringConstants().uploadInvoice),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().invoiceNumber,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText:
-                                StringConstants().gstNumberOfWasteTyreSupplier,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText:
-                                StringConstants().dateOfPurchaseOfRawMaterial,
-                            isMandatory: true,
-                            icon: ImageConstants().calendar,
-                            controller: TextEditingController()),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText: StringConstants().nameOfWasteTyreSupplier,
+                              isMandatory: false,
+                              controller: TextEditingController()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText: StringConstants().contactDetails,
+                              isMandatory: false,
+                              controller: TextEditingController()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText: StringConstants().supplierContactDetails,
+                              isMandatory: false,
+                              controller: TextEditingController()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText:
+                                  StringConstants().addressOfWasteTyreSupplier,
+                              isMandatory: false,
+                              controller: TextEditingController()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText: StringConstants().typeOfRawMaterial,
+                              isMandatory: true,
+                              controller: TextEditingController()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText: StringConstants().quantityReceived,
+                              isMandatory: true,
+                              controller: TextEditingController()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonDocumentField(
+                              onTap: () {},
+                              label: StringConstants().uploadInvoice),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText: StringConstants().invoiceNumber,
+                              isMandatory: true,
+                              controller: TextEditingController()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText:
+                                  StringConstants().gstNumberOfWasteTyreSupplier,
+                              isMandatory: true,
+                              controller: TextEditingController()),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              hintText:
+                                  StringConstants().dateOfPurchaseOfRawMaterial,
+                              isMandatory: true,
+                              icon: ImageConstants().calendar,
+                              controller: TextEditingController()),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
