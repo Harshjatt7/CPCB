@@ -43,11 +43,11 @@ class DashBoardPage extends StatelessWidget {
                         child: Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                              color: AppColor().dashBoardCardBg,
+                              color: AppColor().black05,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(5)),
                               border: Border.all(
-                                color: AppColor().dashBoardCardBorder,
+                                color: AppColor().black30,
                                 width: 1,
                               )),
                           child: Column(
@@ -103,7 +103,7 @@ class DashBoardPage extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
-                              .copyWith(color: AppColor().blackDark),
+                              .copyWith(color: AppColor().black90),
                         ),
                       ),
                       ListView.builder(
@@ -133,7 +133,7 @@ class DashBoardPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border:
-                              Border.all(color: AppColor().blackDisabledButton),
+                              Border.all(color: AppColor().black10),
                         ),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +153,7 @@ class DashBoardPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 0),
                                 child: Divider(
                                   height: 1,
-                                  color: AppColor().blackDisabledButton,
+                                  color: AppColor().black10,
                                 ),
                               ),
                               Padding(
@@ -183,7 +183,7 @@ class DashBoardPage extends StatelessWidget {
                                                 title: 'Current Status',
                                                 subtitle: 'Paid',
                                                 subtitleColor: AppColor()
-                                                    .environmentTileSubTitle,
+                                                    .green,
                                                 image:
                                                     ImageConstants().infoEnv),
                                           ),
@@ -228,7 +228,7 @@ class DashBoardPage extends StatelessWidget {
                                               .displaySmall!
                                               .copyWith(
                                                   color: AppColor()
-                                                      .environmentDesc),
+                                                      .black40),
                                         ),
                                       ),
                                     ),

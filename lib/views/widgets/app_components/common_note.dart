@@ -25,7 +25,7 @@ class CommonNote extends StatelessWidget {
           color: color ?? AppColor().white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: AppColor().greyUltraLight,
+            color: AppColor().grey03,
           )),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

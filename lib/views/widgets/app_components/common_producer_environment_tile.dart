@@ -36,9 +36,9 @@ class ProducerEnvironmentTile extends StatelessWidget {
               alignment: Alignment.center,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColor().lightGreen,
+                color: AppColor().green10,
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColor().blackDisabledButton),
+                border: Border.all(color: AppColor().black10),
               ),
               child: CommonImageWidget(
                 imageSource: image,
@@ -59,7 +59,7 @@ class ProducerEnvironmentTile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall
-                    ?.copyWith(color: AppColor().blackLight),
+                    ?.copyWith(color: AppColor().black40),
               ),
               const SizedBox(height: 8.0),
               CommonTextWidget(

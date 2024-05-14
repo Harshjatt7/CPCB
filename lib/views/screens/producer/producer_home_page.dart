@@ -31,7 +31,7 @@ class _ProducerHomePageState extends State<ProducerHomePage> {
           icon: CommonImageWidget(
             imageSource: ImageConstants().homeTabIcon,
             isNetworkImage: false,
-            imageColor: AppColor().greyLight,
+            imageColor: AppColor().black20,
             height: 20,
             width: 20,
           )),

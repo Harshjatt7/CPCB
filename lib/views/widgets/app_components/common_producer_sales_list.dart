@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_type_badge.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class ProducerSalesList extends StatelessWidget {
     required this.year,
     required this.month,
     required this.count,
+    required this.producerType,
   });
   final String title;
   final String? motorcycle;
@@ -32,25 +34,33 @@ class ProducerSalesList extends StatelessWidget {
   final String year;
   final String month;
   final String count;
+  final String producerType;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColor().blackDisabledButton),
+        border: Border.all(color: AppColor().black10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonTextWidget(
-            title,
-            style: Theme.of(context).textTheme.displayMedium,
+          Row(
+            children: [
+              CommonTextWidget(
+                title,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+              const SizedBox(width: 10,),
+              CommonTypeBadge(text: producerType),
+            ],
           ),
           const SizedBox(
             height: 16,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,9 +73,7 @@ class ProducerSalesList extends StatelessWidget {
                   saleItemWidget(context, ImageConstants().bus, bus ?? ""),
                 ],
               ),
-              const SizedBox(
-                width: 44,
-              ),
+              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -77,9 +85,7 @@ class ProducerSalesList extends StatelessWidget {
                   saleItemWidget(context, ImageConstants().tcv, tcv ?? ""),
                 ],
               ),
-              const SizedBox(
-                width: 44,
-              ),
+              
                Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -91,9 +97,7 @@ class ProducerSalesList extends StatelessWidget {
                   saleItemWidget(context, ImageConstants().tRear, tRear ?? "0"),
                 ],
               ),
-              const SizedBox(
-                width: 44,
-              ),
+             
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -112,7 +116,7 @@ class ProducerSalesList extends StatelessWidget {
             height: 8,
           ),
           Divider(
-            color: AppColor().blackDisabledButton,
+            color: AppColor().black10,
           ),
           const SizedBox(
             height: 8,
@@ -152,7 +156,7 @@ Widget saleItemWidget(BuildContext context, String image, String count) {
         style: Theme.of(context)
             .textTheme
             .bodyMedium
-            ?.copyWith(color: AppColor().blackLight),
+            ?.copyWith(color: AppColor().black40),
       ),
     ],
   );
