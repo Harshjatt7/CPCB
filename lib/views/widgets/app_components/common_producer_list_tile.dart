@@ -32,7 +32,7 @@ class ProducerListTile extends StatelessWidget {
           color: color ?? AppColor().white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: AppColor().greyUltraLight,
+            color: AppColor().grey03,
           )),
       child: ListTile(
         minVerticalPadding: 17,
@@ -47,7 +47,7 @@ class ProducerListTile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall
-                    ?.copyWith(color: AppColor().blackMediumLight))),
+                    ?.copyWith(color: AppColor().black70))),
         subtitle: CommonTextWidget(
           subtitle,
           style: Theme.of(context).textTheme.labelMedium,
