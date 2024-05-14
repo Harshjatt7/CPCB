@@ -36,6 +36,6 @@ class StringConstants {
   final String tRearLabel = "t-rear-label";
   final String otherLabel = "other-label";
   final String totalLabel = "total-label";
-  final String authorizedPersonDetails = "authorized-person-details";
   final String logOut = "log-out";
+  final String authorizedPersonDetails = "authorized-person-detail";
 }
