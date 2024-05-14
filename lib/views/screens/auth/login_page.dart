@@ -65,7 +65,7 @@ class LoginPage extends StatelessWidget {
                     color: AppColor().white,
                     borderRadius: BorderRadius.circular(10),
                     border:
-                        Border.all(color: AppColor().borderColor, width: 1.5)),
+                        Border.all(color: AppColor().black10, width: 1.5)),
                 child: Column(
                   children: [
                     const SizedBox(
@@ -82,7 +82,7 @@ class LoginPage extends StatelessWidget {
                     CommonTextWidget(
                       StringConstants().enterEmailPasswordToLogin,
                       style: context.textThemeHelper.displayMedium?.copyWith(
-                          color: AppColor().deepGreyTextColor,
+                          color: AppColor().black70,
                           fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
@@ -142,14 +142,14 @@ class LoginPage extends StatelessWidget {
                       label: StringConstants().loginBtnLabel,
                       color: viewmodel.isBtnEnabled
                           ? AppColor().black
-                          : AppColor().blackDisabledButton,
+                          : AppColor().black10,
                       labelStyle: Theme.of(context)
                           .textTheme
                           .labelMedium
                           ?.copyWith(
                               color: viewmodel.isBtnEnabled
                                   ? AppColor().white
-                                  : AppColor().appBarSubTitleText),
+                                  : AppColor().darkBlue60),
                     ),
                     const SizedBox(
                       height: 12,
@@ -157,7 +157,7 @@ class LoginPage extends StatelessWidget {
                     CommonTextWidget(
                       StringConstants().forgotPassLabel,
                       style: context.textThemeHelper.displayMedium?.copyWith(
-                          color: AppColor().textGreen,
+                          color: AppColor().green,
                           fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(

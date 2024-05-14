@@ -10,7 +10,6 @@ class CommonDropdownTextFormField extends StatelessWidget {
   final String labelText;
   final void Function(Object?)? onChanged;
   final void Function()? onTap;
-
   final String? value;
   final String? error;
   const CommonDropdownTextFormField({
@@ -29,7 +28,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
-              color: AppColor().greyUltraLight,
+              color: AppColor().grey03,
             )),
         child: Padding(
           padding: const EdgeInsets.only(left: 16),
@@ -49,7 +48,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall
-                          ?.copyWith(color: AppColor().grey),
+                          ?.copyWith(color: AppColor().grey01),
                       children: [
                         TextSpan(
                           text: " *",
