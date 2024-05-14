@@ -17,6 +17,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final TextInputType? textInputType;
   final String? Function(String?)? validator;
   final Color? textColor;
+   final bool isClear;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -45,7 +46,8 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isPasswordField = false,
       this.textInputType = TextInputType.text,
       this.validator,
-      this.isReadOnly,
+      this.isClear=false,
+      this.isReadOnly = false,
       this.isPassword = false,
       this.onSuffixTap});
 
@@ -98,6 +100,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -109,9 +112,11 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
       child: TextFormField(
         controller: widget.controller,
         onTap: () {
-          setState(() {
-            isClick = false;
-          });
+          if (widget.isReadOnly == false) {
+            setState(() {
+              isClick = false;
+            });
+          }
         },
         onTapOutside: (event) {
           FocusManager.instance.primaryFocus?.unfocus();
@@ -138,10 +143,9 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         style: Theme.of(context).textTheme.labelSmall!.copyWith(
             color: widget.textColor ?? AppColor().blackDark,
             decoration: TextDecoration.none,
-            // decorationColor: AppColor().transparent,
             letterSpacing: widget.isObscure ? 5 : null),
         decoration: InputDecoration(
-            prefixIcon: isClick == true
+            prefixIcon: isClick == true && widget.isClear==false
                 ? Padding(
                     padding: const EdgeInsets.only(top: 14, left: 20),
                     child: CommonTextWidget(

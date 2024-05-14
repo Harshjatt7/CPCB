@@ -38,7 +38,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
               DropdownButtonFormField(
                 isExpanded: true,
                 onTap: onTap,
-                value: value,
+                value:value,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   isDense: true,
