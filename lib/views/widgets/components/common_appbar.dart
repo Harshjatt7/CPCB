@@ -70,7 +70,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       required String name}) {
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColor().appBarBorder))),
+          border: Border(bottom: BorderSide(color: AppColor().black10))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -80,7 +80,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColor().blackCCCCCC, width: 1)),
+                  border: Border.all(color: AppColor().black20, width: 1)),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(1000)),
                 child: CommonImageWidget(
@@ -109,7 +109,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 CommonTextWidget(designation,
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: AppColor().appBarSubTitleText,
+                          color: AppColor().darkBlue60,
                         )),
               ],
             ),
@@ -122,7 +122,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget iconAppBar() {
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColor().appBarBorder))),
+          border: Border(bottom: BorderSide(color: AppColor().black10))),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Row(
@@ -148,7 +148,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Container normalAppBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColor().appBarBorder))),
+          border: Border(bottom: BorderSide(color: AppColor().black10))),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: [
@@ -172,7 +172,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelMedium
-                ?.copyWith(color: AppColor().appBarTitle),
+                ?.copyWith(color: AppColor().codGrey),
           ),
         ],
       ),

@@ -37,9 +37,9 @@ class SalesScreen extends StatelessWidget {
                         vertical: 12, horizontal: 16),
                     decoration: BoxDecoration(
                         border: Border(
-                            top: BorderSide(color: AppColor().appBarBorder),
+                            top: BorderSide(color: AppColor().black10),
                             bottom: BorderSide(
-                              color: AppColor().appBarBorder,
+                              color: AppColor().black10,
                             ))),
                     child: CommonTextWidget(
                       StringConstants().salesDataProducerListingTitle,
@@ -59,16 +59,19 @@ class SalesScreen extends StatelessWidget {
                               return const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 8),
                                 child: ProducerSalesList(
+                                  producerType: "P1",
                                   title: 'BiasPly',
                                   year: '2022-2023',
                                   month: 'January',
                                   count: '19',
-                                  car: '2',
-                                  scooter: '4',
-                                  deliveryTruck: '5',
-                                  train: '1',
-                                  truck: '6',
-                                  tyre: '9',
+                                  motorcycle: '23',
+                                  scooter: '44',
+                                  passengerCar: '233',
+                                  bus: '13',
+                                  truck: '53',
+                                  tRear: '22',
+                                  tcv: '92',
+                                  other: '25456',
                                 ),
                               );
                             },
@@ -79,8 +82,8 @@ class SalesScreen extends StatelessWidget {
                             Navigator.pushNamed(
                                 context, AppRoutes.addSalesDataScreen);
                           },
-                          label: StringConstants().addSalesDataBtnLabel,
-                          color: AppColor().darkGreen18632E,
+                          label: 'Add sales data',
+                          color: AppColor().darkGreen,
                           labelStyle: Theme.of(context)
                               .textTheme
                               .labelSmall!

@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/producer_widget_viewmodel.dart';
@@ -35,56 +36,61 @@ class SalesDataScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.producerDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(
+                                KeyConstants().producer,
+                                viewModel.changeDropdown);
                           },
                           labelText: StringConstants().typeOfProducerLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue("producer", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.tyreDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(
+                                "tyre", viewModel.changeDropdown);
                           },
                           labelText: StringConstants().typeOfTyreLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue("tyre", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.yearDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(
+                                "year", viewModel.changeDropdown);
                           },
                           labelText: StringConstants().financialYearLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue("year", value);
                           },
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonDropdownTextFormField(
-                          error: viewModel.dropdownError,
+                          error: viewModel.monthDropdownError,
                           onTap: () {
-                            viewModel.changeDropdownValue(null);
+                            viewModel.changeDropdownValue(
+                                "month", viewModel.changeDropdown);
                           },
                           labelText: StringConstants().chooseMonthLabel,
                           dropDownItem: const ['text1', 'text2'],
                           onChanged: (value) {
-                            viewModel.changeDropdownValue(value);
+                            viewModel.changeDropdownValue("month", value);
                           },
                         ),
                       ),
@@ -165,8 +171,8 @@ class SalesDataScreen extends StatelessWidget {
                       popUpMessage(context);
                     },
                     height: 50,
-                    label: StringConstants().submitBtnLable,
-                    color: AppColor().darkGreen18632E,
+                    label: 'Submit',
+                    color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .labelSmall!
@@ -184,7 +190,7 @@ class SalesDataScreen extends StatelessWidget {
         return AlertDialog(
             contentPadding: const EdgeInsets.all(0),
             insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-            backgroundColor: AppColor().redFF3333,
+            backgroundColor: AppColor().red,
             content: Container(
               height: 200,
               width: double.infinity,
@@ -221,7 +227,7 @@ class SalesDataScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 24),
                             child: CommonButtonWidget(
                               label: "Yes",
-                              color: AppColor().darkGreen18632E,
+                              color: AppColor().darkGreen,
                               labelStyle: Theme.of(context)
                                   .textTheme
                                   .labelMedium!

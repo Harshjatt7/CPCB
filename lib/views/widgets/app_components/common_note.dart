@@ -25,14 +25,14 @@ class CommonNote extends StatelessWidget {
           color: color ?? AppColor().white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: AppColor().greyD3D3D3,
+            color: AppColor().grey03,
           )),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonTextWidget(StringConstants().note,
               style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    color: textColor ?? AppColor().green2E9331,
+                    color: textColor ?? AppColor().darkGreen,
                   )),
           const SizedBox(width: 10.0),
           Flexible(
