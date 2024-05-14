@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/key_constants.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,51 @@ class SalesDataViewModel extends BaseViewModel {
       return "Please enter data in atleast one of the above fields";
     }
     return null;
+  }
+
+  void textFormListener() {
+    motorcycleController.addListener(() {
+      totalValue();
+    });
+    passengerCarController.addListener(() {
+      totalValue();
+    });
+    scrollController.addListener(() {
+      totalValue();
+    });
+    truckController.addListener(() {
+      totalValue();
+    });
+    busController.addListener(() {
+      totalValue();
+    });
+    lcvController.addListener(() {
+      totalValue();
+    });
+    tRearController.addListener(() {
+      totalValue();
+    });
+    otherController.addListener(() {
+      totalValue();
+    });
+  }
+
+  void dropDownValidation() {
+    if (changeDropdown == null) {
+      changeDropdownValue(KeyConstants().month, null);
+      changeDropdownValue(KeyConstants().producer, null);
+      changeDropdownValue(KeyConstants().tyre, null);
+      changeDropdownValue(KeyConstants().year, null);
+    }
+  }
+
+  void formValidation() {
+    if (formKey.currentState?.validate() ?? false) {
+    } else {
+      clearMethod();
+      totalValue();
+      scrollController.jumpTo(scrollController.position.maxScrollExtent + 80);
+    }
   }
 
   void totalValue() {

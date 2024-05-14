@@ -18,31 +18,7 @@ class SalesDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<SalesDataViewModel>(
         onModelReady: (viewModel) {
-          
-          viewModel.motorcycleController.addListener(() {
-            viewModel.totalValue();
-          });
-          viewModel.passengerCarController.addListener(() {
-            viewModel.totalValue();
-          });
-           viewModel.scrollController.addListener(() {
-            viewModel.totalValue();
-          });
-           viewModel.truckController.addListener(() {
-            viewModel.totalValue();
-          });
-           viewModel.busController.addListener(() {
-            viewModel.totalValue();
-          });
-           viewModel.lcvController.addListener(() {
-            viewModel.totalValue();
-          });
-           viewModel.tRearController.addListener(() {
-            viewModel.totalValue();
-          });
-           viewModel.otherController.addListener(() {
-            viewModel.totalValue();
-          });
+          viewModel.textFormListener();
         },
         viewModel: SalesDataViewModel(),
         builder: (context, viewModel, child) {
@@ -190,10 +166,7 @@ class SalesDataScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 8, bottom: 16),
                           child: CommonTextFormFieldWidget(
                               validator: (value) {
-                                if (viewModel.totalController.text.isEmpty || viewModel.totalController.text=="0") {
                                 return viewModel.totalValidation();
-                                }
-                                return null;
                               },
                               isClear: viewModel.isClear,
                               isReadOnly: true,
@@ -220,24 +193,8 @@ class SalesDataScreen extends StatelessWidget {
                         .labelSmall!
                         .copyWith(color: AppColor().white),
                     onPressed: () {
-                      if (viewModel.changeDropdown == null) {
-                        viewModel.changeDropdownValue(
-                            KeyConstants().month, null);
-                        viewModel.changeDropdownValue(
-                            KeyConstants().producer, null);
-                        viewModel.changeDropdownValue(
-                            KeyConstants().tyre, null);
-                        viewModel.changeDropdownValue(
-                            KeyConstants().year, null);
-                      }
-                      if (viewModel.formKey.currentState?.validate() ?? false) {
-                      } else {
-                        viewModel.clearMethod();
-                        viewModel.totalValue();
-                        viewModel.scrollController.jumpTo(viewModel
-                                .scrollController.position.maxScrollExtent +
-                            80);
-                      }
+                      viewModel.dropDownValidation();
+                      viewModel.formValidation();
                     },
                   ),
                 ),

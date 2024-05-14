@@ -17,7 +17,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final TextInputType? textInputType;
   final String? Function(String?)? validator;
   final Color? textColor;
-   final bool isClear;
+  final bool isClear;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -46,7 +46,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isPasswordField = false,
       this.textInputType = TextInputType.text,
       this.validator,
-      this.isClear=false,
+      this.isClear = false,
       this.isReadOnly = false,
       this.isPassword = false,
       this.onSuffixTap});
@@ -100,7 +100,6 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -143,9 +142,10 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         style: Theme.of(context).textTheme.labelSmall!.copyWith(
             color: widget.textColor ?? AppColor().black90,
             decoration: TextDecoration.none,
+            decorationColor: AppColor().transparent,
             letterSpacing: widget.isObscure ? 5 : null),
         decoration: InputDecoration(
-            prefixIcon: isClick == true && widget.isClear==false
+            prefixIcon: isClick == true && widget.isClear == false
                 ? Padding(
                     padding: const EdgeInsets.only(top: 14, left: 20),
                     child: CommonTextWidget(
