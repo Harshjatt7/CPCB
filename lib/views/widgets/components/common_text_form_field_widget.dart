@@ -201,9 +201,9 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
     return GestureDetector(
       onTap: widget.onSuffixTap,
       child: Padding(
-        padding: const EdgeInsets.only(right: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         child: CommonImageWidget(
-            width: 30,
+            width: 20,
             fit: BoxFit.fitWidth,
             imageSource: widget.icon ?? "",
             isNetworkImage: false),
