@@ -41,7 +41,7 @@ class ProducerSalesList extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColor().blackDisabledButton),
+        border: Border.all(color: AppColor().black10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ class ProducerSalesList extends StatelessWidget {
             height: 8,
           ),
           Divider(
-            color: AppColor().blackDisabledButton,
+            color: AppColor().black10,
           ),
           const SizedBox(
             height: 8,
@@ -156,7 +156,7 @@ Widget saleItemWidget(BuildContext context, String image, String count) {
         style: Theme.of(context)
             .textTheme
             .bodyMedium
-            ?.copyWith(color: AppColor().blackLight),
+            ?.copyWith(color: AppColor().black40),
       ),
     ],
   );

@@ -37,9 +37,9 @@ class SalesScreen extends StatelessWidget {
                         vertical: 12, horizontal: 16),
                     decoration: BoxDecoration(
                         border: Border(
-                            top: BorderSide(color: AppColor().appBarBorder),
+                            top: BorderSide(color: AppColor().black10),
                             bottom: BorderSide(
-                              color: AppColor().appBarBorder,
+                              color: AppColor().black10,
                             ))),
                     child: CommonTextWidget(
                       StringConstants().salesDataProducerListingTitle,
@@ -71,7 +71,7 @@ class SalesScreen extends StatelessWidget {
                                   truck: '53',
                                   tRear: '22',
                                   tcv: '92',
-                                  other: '254',
+                                  other: '25456',
                                 ),
                               );
                             },

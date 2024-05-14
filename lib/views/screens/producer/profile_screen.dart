@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(5)),
                           border: Border(
                               bottom:
-                                  BorderSide(color: AppColor().appBarBorder))),
+                                  BorderSide(color: AppColor().black10))),
                       child: CommonTextWidget(
                         StringConstants().profileTitle,
                         style: Theme.of(context).textTheme.labelLarge,
@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(5)),
-                            color: AppColor().lightGreen),
+                            color: AppColor().green10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -60,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                                   .textTheme
                                   .labelMedium!
                                   .copyWith(
-                                      color: AppColor().profileBlackPrimary),
+                                      color: AppColor().black01),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -76,7 +76,7 @@ class ProfileScreen extends StatelessWidget {
                                         .labelSmall!
                                         .copyWith(
                                             color:
-                                                AppColor().profileBlackPrimary),
+                                                AppColor().black01),
                                   ),
                                   CommonTextWidget(
                                     'rks@grid-india.in',
@@ -85,7 +85,7 @@ class ProfileScreen extends StatelessWidget {
                                         .labelMedium!
                                         .copyWith(
                                             color:
-                                                AppColor().profileBlackPrimary),
+                                                AppColor().black01),
                                   ),
                                 ],
                               ),
@@ -102,7 +102,7 @@ class ProfileScreen extends StatelessWidget {
                                       .labelSmall!
                                       .copyWith(
                                           color:
-                                              AppColor().profileBlackPrimary),
+                                              AppColor().black01),
                                 ),
                                 CommonTextWidget(
                                   '+91 9999012345',
@@ -111,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                                       .labelMedium!
                                       .copyWith(
                                           color:
-                                              AppColor().profileBlackPrimary),
+                                              AppColor().black01),
                                 ),
                               ],
                             )

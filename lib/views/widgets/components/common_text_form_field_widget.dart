@@ -128,7 +128,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         },
         focusNode: _focusNode,
         obscureText: widget.isObscure,
-        cursorColor: AppColor().grey,
+        cursorColor: AppColor().grey01,
         onTapAlwaysCalled: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: widget.validator,
@@ -136,7 +136,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
         readOnly: widget.isReadOnly ?? false,
         keyboardType: widget.textInputType ?? TextInputType.text,
         style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: widget.textColor ?? AppColor().blackDark,
+            color: widget.textColor ?? AppColor().black90,
             decoration: TextDecoration.none,
             // decorationColor: AppColor().transparent,
             letterSpacing: widget.isObscure ? 5 : null),
@@ -149,7 +149,7 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                       style: Theme.of(context)
                           .textTheme
                           .displaySmall!
-                          .copyWith(color: AppColor().grey),
+                          .copyWith(color: AppColor().grey01),
                     ),
                   )
                 : null,
@@ -172,10 +172,10 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
                 borderSide: BorderSide(color: AppColor().red, width: 1)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: AppColor().greyLight, width: 1)),
+                borderSide: BorderSide(color: AppColor().black20, width: 1)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: AppColor().greyLight, width: 1)),
+                borderSide: BorderSide(color: AppColor().black20, width: 1)),
             suffixIcon: widget.icon != null
                 ? suffixWidget()
                 : widget.isPasswordField == true

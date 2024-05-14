@@ -12,7 +12,7 @@ class CommonTypeBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: backgroundColor ?? AppColor().lightGreen,
+          color: backgroundColor ?? AppColor().green10,
           borderRadius: BorderRadius.circular(4)),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
