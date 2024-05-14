@@ -19,9 +19,9 @@ class ImageConstants {
   final String notification = "assets/images/icons/notifications.svg";
   final String arrowBack = "assets/images/icons/arrow_back.svg";
 
-  final String other= "assets/images/icons/other.svg";
-  final String tRear= "assets/images/icons/t_rear.svg";
-  final String motorcycle= "assets/images/icons/motorcycle.svg";
+  final String other = "assets/images/icons/other.svg";
+  final String tRear = "assets/images/icons/t_rear.svg";
+  final String motorcycle = "assets/images/icons/motorcycle.svg";
   final String scooterIcon = "assets/images/icons/scooter_icon.svg";
   final String truckIcon = "assets/images/icons/truck_icon.svg";
   final String bus = "assets/images/icons/bus.svg";
@@ -43,4 +43,8 @@ class ImageConstants {
   // Login Page
   final String backgroundWatermark = "assets/images/background/background.png";
   final String blueLogo = "assets/images/logo/blue_logo.svg";
+
+  // Retrader Screen
+  final String notificationTabIcon =
+      "assets/images/icons/notification_tab_icon.svg";
 }
