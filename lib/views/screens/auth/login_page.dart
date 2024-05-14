@@ -8,10 +8,10 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/routes_constant.dart';
+import '../../widgets/components/common_text_form_field_widget.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -64,8 +64,7 @@ class LoginPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: AppColor().white,
                     borderRadius: BorderRadius.circular(10),
-                    border:
-                        Border.all(color: AppColor().black10, width: 1.5)),
+                    border: Border.all(color: AppColor().black10, width: 1.5)),
                 child: Column(
                   children: [
                     const SizedBox(
@@ -136,10 +135,7 @@ class LoginPage extends StatelessWidget {
                         if (viewmodel.formKey.currentState?.validate() ??
                             false) {
                           Navigator.pushNamed(
-                              context,
-                              AppRoutes
-                                  //.producerHomeScreen
-                                  .retraderHomeScreen);
+                              context, AppRoutes.producerHomeScreen);
                         }
                       },
                       label: StringConstants().loginBtnLabel,
@@ -160,8 +156,7 @@ class LoginPage extends StatelessWidget {
                     CommonTextWidget(
                       StringConstants().forgotPassLabel,
                       style: context.textThemeHelper.displayMedium?.copyWith(
-                          color: AppColor().green,
-                          fontWeight: FontWeight.w600),
+                          color: AppColor().green, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(
                       height: 24,
