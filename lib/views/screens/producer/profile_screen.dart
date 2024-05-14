@@ -36,8 +36,7 @@ class ProfileScreen extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5)),
                         border: Border(
-                            bottom:
-                                BorderSide(color: AppColor().appBarBorder))),
+                            bottom: BorderSide(color: AppColor().black10))),
                     child: CommonTextWidget(
                       StringConstants().profileTitle,
                       style: Theme.of(context).textTheme.labelLarge,
