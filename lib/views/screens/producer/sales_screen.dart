@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/sales_viewmodel.dart';
@@ -41,7 +42,7 @@ class SalesScreen extends StatelessWidget {
                               color: AppColor().appBarBorder,
                             ))),
                     child: CommonTextWidget(
-                      'Sales data producer listing',
+                      StringConstants().salesDataProducerListingTitle,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
@@ -62,12 +63,14 @@ class SalesScreen extends StatelessWidget {
                                   year: '2022-2023',
                                   month: 'January',
                                   count: '19',
-                                  car: '2',
+                                  motorcycle: '2',
                                   scooter: '4',
-                                  deliveryTruck: '5',
-                                  train: '1',
+                                  passengerCar: '5',
+                                  bus: '1',
                                   truck: '6',
-                                  tyre: '9',
+                                  tRear: '2',
+                                  tcv: '9',
+                                  other: '0',
                                 ),
                               );
                             },
@@ -79,7 +82,7 @@ class SalesScreen extends StatelessWidget {
                                 context, AppRoutes.addSalesDataScreen);
                           },
                           label: 'Add sales data',
-                          color: AppColor().darkGreen18632E,
+                          color: AppColor().darkGreen,
                           labelStyle: Theme.of(context)
                               .textTheme
                               .labelSmall!

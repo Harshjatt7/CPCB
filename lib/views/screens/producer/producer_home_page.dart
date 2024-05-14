@@ -22,7 +22,7 @@ class _ProducerHomePageState extends State<ProducerHomePage> {
       BottomNavigationBarItem(
           label: "",
           activeIcon: CommonImageWidget(
-            imageColor: AppColor().green2E9331,
+            imageColor: AppColor().darkGreen,
             imageSource: ImageConstants().homeTabIcon,
             isNetworkImage: false,
             height: 20,
@@ -37,7 +37,7 @@ class _ProducerHomePageState extends State<ProducerHomePage> {
           )),
       BottomNavigationBarItem(
           activeIcon: CommonImageWidget(
-            imageColor: AppColor().green2E9331,
+            imageColor: AppColor().darkGreen,
             imageSource: ImageConstants().calendarTabIcon,
             isNetworkImage: false,
             height: 20,
@@ -53,7 +53,7 @@ class _ProducerHomePageState extends State<ProducerHomePage> {
       BottomNavigationBarItem(
           label: "",
           activeIcon: CommonImageWidget(
-            imageColor: AppColor().green2E9331,
+            imageColor: AppColor().darkGreen,
             imageSource: ImageConstants().profileTabIcon,
             isNetworkImage: false,
             height: 20,

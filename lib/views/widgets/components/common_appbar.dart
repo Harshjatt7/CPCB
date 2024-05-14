@@ -76,15 +76,16 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Center(
             child: Container(
-              height: 60,
               clipBehavior: Clip.antiAlias,
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColor().blackCCCCCC, width: 1)),
+                  border: Border.all(color: AppColor().blackUltraLight, width: 1)),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(1000)),
                 child: CommonImageWidget(
+                    height: 38,
+                    width: 38,
                     fit: BoxFit.contain,
                     imageSource: image,
                     isNetworkImage: false),
@@ -92,7 +93,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           const SizedBox(
-            width: 5,
+            width: 8,
           ),
           Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -101,7 +102,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
+                  padding: const EdgeInsets.only(bottom: 1),
                   child: CommonTextWidget(name,
                       style: Theme.of(context).textTheme.bodyLarge!),
                 ),
@@ -127,12 +128,14 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             CommonImageWidget(
-                height: 50,
+                height: 44,
+                width: 34,
                 imageSource: ImageConstants().blueLogo,
                 isNetworkImage: false),
             const Spacer(),
             CommonImageWidget(
-                height: 30,
+                height: 24,
+                width: 24,
                 fit: BoxFit.cover,
                 imageSource: ImageConstants().notification,
                 isNetworkImage: false)

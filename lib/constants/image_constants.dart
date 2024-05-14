@@ -19,12 +19,14 @@ class ImageConstants {
   final String notification = "assets/images/icons/notifications.svg";
   final String arrowBack = "assets/images/icons/arrow_back.svg";
 
-  final String carIcon = "assets/images/icons/car_icon.svg";
+  final String other= "assets/images/icons/other.svg";
+  final String tRear= "assets/images/icons/t_rear.svg";
+  final String motorcycle= "assets/images/icons/motorcycle.svg";
   final String scooterIcon = "assets/images/icons/scooter_icon.svg";
   final String truckIcon = "assets/images/icons/truck_icon.svg";
-  final String trainIcon = "assets/images/icons/train_icon.svg";
-  final String deliveryTruck = "assets/images/icons/delivery_truck_icon.svg";
-  final String tyreIcon = "assets/images/icons/tyre_icon.svg";
+  final String bus = "assets/images/icons/bus.svg";
+  final String passengerCar = "assets/images/icons/passenger_car.svg";
+  final String tcv = "assets/images/icons/tcv.svg";
   final String calendarIcon = "assets/images/icons/calendar_info.svg";
   final String mdiTireIcon = "assets/images/icons/mdi_tire_icon.svg";
   final String document = "assets/images/icons/document.svg";

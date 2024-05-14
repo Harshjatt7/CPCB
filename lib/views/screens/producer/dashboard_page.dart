@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -13,9 +14,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DashBoardPage extends StatelessWidget {
   const DashBoardPage({super.key});
@@ -74,7 +73,7 @@ class DashBoardPage extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 16),
                                 child: CommonButtonWidget(
                                   label: 'Download Application',
-                                  color: AppColor().darkGreen18632E,
+                                  color: AppColor().darkGreen,
                                   labelStyle: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
@@ -82,14 +81,15 @@ class DashBoardPage extends StatelessWidget {
                                 ),
                               ),
                               CommonButtonWidget(
-                                label: 'Download Payment Recipt',
+                                label: StringConstants()
+                                    .downloadPaymentReciptBtnLabel,
                                 color: AppColor().white,
-                                borderColor: AppColor().darkGreen18632E,
+                                borderColor: AppColor().darkGreen,
                                 labelStyle: Theme.of(context)
                                     .textTheme
                                     .labelMedium!
                                     .copyWith(
-                                        color: AppColor().darkGreen18632E),
+                                        color: AppColor().darkGreen),
                               )
                             ],
                           ),
@@ -98,12 +98,12 @@ class DashBoardPage extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: CommonTextWidget(
-                          'EPR Compliance',
+                          StringConstants().eprComplianceTitle,
                           textAlign: TextAlign.start,
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
-                              .copyWith(color: AppColor().black1A1A1A),
+                              .copyWith(color: AppColor().blackDark),
                         ),
                       ),
                       ListView.builder(
@@ -142,7 +142,8 @@ class DashBoardPage extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 16),
                                 child: CommonTextWidget(
-                                  'Environment Compensation',
+                                  StringConstants()
+                                      .environmentCompensationTitle,
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
                                 ),
@@ -170,7 +171,8 @@ class DashBoardPage extends StatelessWidget {
                                             child: ProducerEnvironmentTile(
                                                 title: 'Date of EC',
                                                 subtitle: '24 Jan 2024',
-                                                image: ImageConstants().calendar),
+                                                image:
+                                                    ImageConstants().calendar),
                                           ),
                                         ),
                                         Flexible(
@@ -182,7 +184,8 @@ class DashBoardPage extends StatelessWidget {
                                                 subtitle: 'Paid',
                                                 subtitleColor: AppColor()
                                                     .environmentTileSubTitle,
-                                                image: ImageConstants().infoEnv),
+                                                image:
+                                                    ImageConstants().infoEnv),
                                           ),
                                         ),
                                       ],
@@ -197,7 +200,8 @@ class DashBoardPage extends StatelessWidget {
                                             child: ProducerEnvironmentTile(
                                                 title: 'Type',
                                                 subtitle: 'Lorem Ipsum',
-                                                image: ImageConstants().infoEnv),
+                                                image:
+                                                    ImageConstants().infoEnv),
                                           ),
                                         ),
                                         Flexible(
@@ -212,22 +216,22 @@ class DashBoardPage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 16, bottom: 10),
-                                      child: CommonTextWidget(
-                                        'Descripsion',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall!
-                                            .copyWith(
-                                                color: AppColor()
-                                                    .environmentDesc),
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 16, bottom: 10),
+                                        child: CommonTextWidget(
+                                          StringConstants().descripsionTitle,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall!
+                                              .copyWith(
+                                                  color: AppColor()
+                                                      .environmentDesc),
+                                        ),
                                       ),
                                     ),
-                                  ),
                                     Align(
                                       alignment: Alignment.topLeft,
                                       child: CommonTextWidget(
