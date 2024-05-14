@@ -13,19 +13,19 @@ class RetraderHomePage extends StatelessWidget {
       bottomNavigationBarWidget(
           imgColor: AppColor().darkGreen,
           imgSrc: ImageConstants().homeTabIcon,
-          inactiveColor: AppColor().greyLight),
+          inactiveColor: AppColor().black20),
       bottomNavigationBarWidget(
           imgColor: AppColor().darkGreen,
           imgSrc: ImageConstants().calendarTabIcon,
-          inactiveColor: AppColor().greyLight),
+          inactiveColor: AppColor().black20),
       bottomNavigationBarWidget(
           imgColor: AppColor().darkGreen,
           imgSrc: ImageConstants().notificationTabIcon,
-          inactiveColor: AppColor().greyLight),
+          inactiveColor: AppColor().black20),
       bottomNavigationBarWidget(
           imgColor: AppColor().darkGreen,
           imgSrc: ImageConstants().profileTabIcon,
-          inactiveColor: AppColor().greyLight)
+          inactiveColor: AppColor().black20)
     ], screens: [
       Container(),
       Container(),

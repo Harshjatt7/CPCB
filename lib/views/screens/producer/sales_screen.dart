@@ -89,6 +89,7 @@ class SalesScreen extends StatelessWidget {
                               .labelSmall!
                               .copyWith(color: AppColor().white),
                         ),
+                        
                       ]),
                     ),
                   ),
