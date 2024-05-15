@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
+import 'package:cpcb_tyre/views/screens/retrader/retrader_home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
 import '../views/screens/producer/producer_home_screen.dart';
@@ -17,6 +18,8 @@ class PageRouter {
         return _getPageRoute(const ProducerHomeScreen(), settings);
       case AppRoutes.addSalesDataScreenRoute:
         return _getPageRoute(const SalesDataScreen(), settings);
+      case AppRoutes.retraderHomeScreenRoute:
+        return _getPageRoute(RetraderHomePage(), settings);
 
       // Will be displayed if no specified route is found.
       default:

@@ -135,7 +135,7 @@ class LoginScreen extends StatelessWidget {
                         if (viewmodel.formKey.currentState?.validate() ??
                             false) {
                           Navigator.pushNamed(
-                              context, AppRoutes.producerHomeScreenRoute);
+                              context, AppRoutes.retraderHomeScreenRoute);
                         }
                       },
                       label: StringConstants().loginBtnLabel,

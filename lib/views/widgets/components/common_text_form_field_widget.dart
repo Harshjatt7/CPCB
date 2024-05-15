@@ -173,8 +173,8 @@ class _CommonTextFormFieldWidgetNewState
                             child: Padding(
                               padding: const EdgeInsets.only(right: 30.0),
                               child: CommonImageWidget(
-                                  width: 30,
-                                  fit: BoxFit.fitWidth,
+                                  width: 20,
+                                  fit: BoxFit.contain,
                                   imageSource: widget.isObscure
                                       ? ImageConstants().eyesClose
                                       : ImageConstants().eyesOpen,
