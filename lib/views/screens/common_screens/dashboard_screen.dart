@@ -120,6 +120,74 @@ class DashBoardScreen extends StatelessWidget {
                           );
                         },
                       ),
+                       Align(
+                        alignment: Alignment.topLeft,
+                        child: CommonTextWidget(
+                          StringConstants().procurementStockData,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: AppColor().black90),
+                        ),
+                      ),
+
+                       Align(
+                        alignment: Alignment.topLeft,
+                        child: CommonTextWidget(
+                          "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(color: AppColor().black),
+                        ),
+                      ),
+                      
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: ProducerErpTile(
+                              image: ImageConstants().contactPage,
+                              title: 'Total Procurement',
+                              subTitle: '34,734',
+                            ),
+                          );
+                        },
+                      ),
+
+
+                       Align(
+                        alignment: Alignment.topLeft,
+                        child: CommonTextWidget(
+                          StringConstants().processedData,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: AppColor().black90),
+                        ),
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: ProducerErpTile(
+                              image: ImageConstants().contactPage,
+                              title: 'Total Procurement',
+                              subTitle: '34,734',
+                            ),
+                          );
+                        },
+                      ),
+
 
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 8),

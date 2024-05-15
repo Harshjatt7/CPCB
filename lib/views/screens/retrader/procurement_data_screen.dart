@@ -72,16 +72,17 @@ class ProcurementDataScreen extends StatelessWidget {
                               date: retraderDetails.date,
                               year: retraderDetails.date,
                             ),
+                           
                           );
                         },
                       ),
                     ),
                     CommonButtonWidget(
+                      label: "",
                       onPressed: () {
                         Navigator.pushNamed(
                             context, AppRoutes.addSalesDataScreenRoute);
                       },
-                      label: 'Add Procurement',
                       color: AppColor().darkGreen,
                       labelStyle: Theme.of(context)
                           .textTheme

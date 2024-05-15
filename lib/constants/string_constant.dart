@@ -61,4 +61,5 @@ class StringConstants {
   final String gstNumberOfWasteTyreSupplier =
       "gst-number-of-waste-tyre-supplier";
   final String dateOfPurchaseOfRawMaterial = "date-of-purchase-of-raw-material";
+  final String processedData = "processed-data";
 }

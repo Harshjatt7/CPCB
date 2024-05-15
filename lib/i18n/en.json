@@ -57,5 +57,6 @@
     "upload-invoice": "Upload invoice",
     "invoice-number": "Invoice Number",
     "gst-number-of-waste-tyre-supplier": "GST number of waste tyre supplier",
-    "date-of-purchase-of-raw-material": "Date of purchase of raw material"
+    "date-of-purchase-of-raw-material": "Date of purchase of raw material",
+    "processed-data": "Processed Data"
 }
