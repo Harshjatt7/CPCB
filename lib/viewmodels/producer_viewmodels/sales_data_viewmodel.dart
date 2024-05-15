@@ -1,5 +1,4 @@
-import 'package:cpcb_tyre/constants/key_constants.dart';
-import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +23,30 @@ class SalesDataViewModel extends BaseViewModel {
   TextEditingController tRearController = TextEditingController();
   TextEditingController otherController = TextEditingController();
   TextEditingController totalController = TextEditingController();
+  List typesOfTyreList = <String>["Radials", "Bias Ply", "Solid"];
+  List producerCategoryList = <String>["P1", "P2", "P3", "P4", "P5", "P6"];
+  List financialYearList = <String>[];
+  List monthList = <String>[
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  void addYear() {
+    for (int i = 0; i < 50; i++) {
+      financialYearList.add("${DateTime.now().year + (i)}");
+    }
+  }
+
   bool isTotalValidated = false;
   void validateTotal(bool val) {
     isTotalValidated = val;
@@ -46,7 +69,7 @@ class SalesDataViewModel extends BaseViewModel {
     passengerCarController.addListener(() {
       totalValue();
     });
-    scrollController.addListener(() {
+    scooterController.addListener(() {
       totalValue();
     });
     truckController.addListener(() {
@@ -64,14 +87,15 @@ class SalesDataViewModel extends BaseViewModel {
     otherController.addListener(() {
       totalValue();
     });
+    
   }
 
   void dropDownValidation() {
     if (changeDropdown == null) {
-      changeDropdownValue(KeyConstants().month, null);
-      changeDropdownValue(KeyConstants().producer, null);
-      changeDropdownValue(KeyConstants().tyre, null);
-      changeDropdownValue(KeyConstants().year, null);
+      changeDropdownValue(SalesDataDropdown.month, null);
+      changeDropdownValue(SalesDataDropdown.producerType, null);
+      changeDropdownValue(SalesDataDropdown.typeOfTyre, null);
+      changeDropdownValue(SalesDataDropdown.financialYear, null);
     }
   }
 
@@ -105,7 +129,6 @@ class SalesDataViewModel extends BaseViewModel {
     int total =
         motorcycle + passenger + scooter + truck + bus + lcv + tRear + other;
     totalController.text = total.toString();
-    HelperFunctions().logger(total.toString());
 
     notifyListeners();
   }
@@ -116,20 +139,20 @@ class SalesDataViewModel extends BaseViewModel {
     updateUI();
     if (changeDropdown == null) {
       switch (dropdownValue) {
-        case "producer":
+        case SalesDataDropdown.producerType:
           producerDropdownError = "Please select the value";
 
           updateUI();
           break;
-        case "tyre":
+        case SalesDataDropdown.typeOfTyre:
           tyreDropdownError = "Please select the value";
           updateUI();
           break;
-        case "year":
+        case SalesDataDropdown.financialYear:
           yearDropdownError = "Please select the value";
           updateUI();
           break;
-        case "month":
+        case SalesDataDropdown.month:
           monthDropdownError = "Please select the value";
           updateUI();
           break;

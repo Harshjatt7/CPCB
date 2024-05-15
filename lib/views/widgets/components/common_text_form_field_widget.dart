@@ -19,8 +19,8 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final TextInputType? textInputType;
   final String? Function(String?)? validator;
   final Color? textColor;
-  final bool isClear;
   final List<TextInputFormatter>? inputFormatters;
+  final void Function()? onTap;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -51,10 +51,10 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isPasswordField = false,
       this.textInputType = TextInputType.text,
       this.validator,
-      this.isClear = false,
       this.isReadOnly = false,
       this.isPassword = false,
       this.onSuffixTap,
+      this.onTap,
       this.inputFormatters});
 
   @override
@@ -107,12 +107,16 @@ class _CommonTextFormFieldWidgetNewState
                   border: Border.all(color: AppColor().black20),
                   borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
+            onTap: widget.onTap,
             inputFormatters: widget.inputFormatters ??
                 [
                   FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@ ]')),
                 ],
+            enableInteractiveSelection: false,
             controller: widget.controller,
-            focusNode: _focusNode,
+            focusNode: widget.isReadOnly == true
+                ? AlwaysDisabledFocusNode()
+                : _focusNode,
             obscureText: widget.isObscure,
             cursorColor: AppColor().grey01,
             showCursor: true,
@@ -128,8 +132,9 @@ class _CommonTextFormFieldWidgetNewState
                   : widget.validator!(widget.controller.text);
             },
             obscuringCharacter: '*',
+            scrollPadding: EdgeInsets.zero,
             readOnly: widget.isReadOnly ?? false,
-            cursorHeight: 16,
+            cursorHeight: 20,
             keyboardType: widget.textInputType ?? TextInputType.text,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
                 color: widget.textColor ?? AppColor().black90,
@@ -173,8 +178,8 @@ class _CommonTextFormFieldWidgetNewState
                             child: Padding(
                               padding: const EdgeInsets.only(right: 30.0),
                               child: CommonImageWidget(
-                                  width: 30,
-                                  fit: BoxFit.fitWidth,
+                                  width: 20,
+                                  fit: BoxFit.contain,
                                   imageSource: widget.isObscure
                                       ? ImageConstants().eyesClose
                                       : ImageConstants().eyesOpen,
@@ -212,6 +217,11 @@ class _CommonTextFormFieldWidgetNewState
       ),
     );
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
 
 
