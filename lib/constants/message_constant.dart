@@ -2,6 +2,8 @@
 class MessageConstant {
   final String producerDashBoardNote = "producer-dash-board-note";
   final String environmentText = "environment-text";
+  final String salesDataSubmitAlertTitle="sales-data-submit-alert-title";
+  final String salesDataSubmitAlertMessage="sales-data-submit-alert-message";
 
    
 }
