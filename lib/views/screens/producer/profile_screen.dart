@@ -35,8 +35,7 @@ class ProfileScreen extends StatelessWidget {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(5)),
                           border: Border(
-                              bottom:
-                                  BorderSide(color: AppColor().black10))),
+                              bottom: BorderSide(color: AppColor().black10))),
                       child: CommonTextWidget(
                         StringConstants().profileTitle,
                         style: Theme.of(context).textTheme.labelLarge,
@@ -59,8 +58,7 @@ class ProfileScreen extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .labelMedium!
-                                  .copyWith(
-                                      color: AppColor().black01),
+                                  .copyWith(color: AppColor().black01),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -74,18 +72,14 @@ class ProfileScreen extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelSmall!
-                                        .copyWith(
-                                            color:
-                                                AppColor().black01),
+                                        .copyWith(color: AppColor().black01),
                                   ),
                                   CommonTextWidget(
                                     'rks@grid-india.in',
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelMedium!
-                                        .copyWith(
-                                            color:
-                                                AppColor().black01),
+                                        .copyWith(color: AppColor().black01),
                                   ),
                                 ],
                               ),
@@ -100,18 +94,14 @@ class ProfileScreen extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelSmall!
-                                      .copyWith(
-                                          color:
-                                              AppColor().black01),
+                                      .copyWith(color: AppColor().black01),
                                 ),
                                 CommonTextWidget(
                                   '+91 9999012345',
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
-                                      .copyWith(
-                                          color:
-                                              AppColor().black01),
+                                      .copyWith(color: AppColor().black01),
                                 ),
                               ],
                             )

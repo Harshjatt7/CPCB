@@ -39,6 +39,12 @@ class StringConstants {
   final String addProcurement = "add-procurement";
   final String logOut = "log-out";
   final String authorizedPersonDetails = "authorized-person-detail";
+  final String procurementData = "procurement-data";
+  final String dashboard = "dashboard";
+  final String retreadedData = "retreaded-data";
+  final String addRetreadedDataButton = "add-retreaded-data-button";
+  final String addProcurementButton = "add-procurement-button";
+  final String procurementStockData = "procurement-stock-data";
   final String quantityProcessed = "quantity-processed";
   final String quantityProduced = "quantity-produced";
   final String quantityOfWasteGenerated = "quantity-of-waste-generated";
