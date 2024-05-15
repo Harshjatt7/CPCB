@@ -116,7 +116,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     height: 50,
-                    label: StringConstants().submitBtnLable,
+                    label: StringConstants().submitBtnLabel,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme

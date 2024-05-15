@@ -19,7 +19,7 @@ class StringConstants {
   final String salesDataProducerListingTitle =
       "sales-data-producer-listing-title";
   final String addSalesDataBtnLabel = "add-sales-data-btn-label";
-  final String submitBtnLable = "submit-btn-label";
+  final String submitBtnLabel = "submit-btn-label";
   final String profileTitle = "profile-Title";
   final String emailId = "email-id";
   final String mobileNumber = "mobile-number";
@@ -36,23 +36,23 @@ class StringConstants {
   final String tRearLabel = "t-rear-label";
   final String otherLabel = "other-label";
   final String totalLabel = "total-label";
+  final String addProcurement = "add-procurement";
   final String logOut = "log-out";
   final String authorizedPersonDetails = "authorized-person-detail";
-  final String quantityProcessed="quantity-processed";
-  final String quantityProduced="quantity-produced";
-  final String quantityOfWasteGenerated="quantity-of-waste-generated";
-  final String retreadedDate="retreaded-date";
-  final String addRetreadedData="add-retreaded-data";
+  final String quantityProcessed = "quantity-processed";
+  final String quantityProduced = "quantity-produced";
+  final String quantityOfWasteGenerated = "quantity-of-waste-generated";
+  final String retreadedDate = "retreaded-date";
+  final String addRetreadedData = "add-retreaded-data";
   final String nameOfWasteTyreSupplier = "name-of-waste-tyre-supplier";
-  final String contactDetails="contact-details";
-  final String supplierContactDetails="supplier-contact-details";
-  final String addressOfWasteTyreSupplier="address-of-waste-tyre-supplier";
-  final String typeOfRawMaterial="type-of-raw-material";
-  final String quantityReceived="quantity-received";
-  final String uploadInvoice="upload-invoice";
-  final String invoiceNumber="invoice-number";
-  final String gstNumberOfWasteTyreSupplier="gst-number-of-waste-tyre-supplier";
-  final String dateOfPurchaseOfRawMaterial="date-of-purchase-of-raw-material";
-
-
+  final String contactDetails = "contact-details";
+  final String supplierContactDetails = "supplier-contact-details";
+  final String addressOfWasteTyreSupplier = "address-of-waste-tyre-supplier";
+  final String typeOfRawMaterial = "type-of-raw-material";
+  final String quantityReceived = "quantity-received";
+  final String uploadInvoice = "upload-invoice";
+  final String invoiceNumber = "invoice-number";
+  final String gstNumberOfWasteTyreSupplier =
+      "gst-number-of-waste-tyre-supplier";
+  final String dateOfPurchaseOfRawMaterial = "date-of-purchase-of-raw-material";
 }
