@@ -1,5 +1,5 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/views/screens/producer/dashboard_page.dart';
+import 'package:cpcb_tyre/views/screens/producer/dashboard_screen.dart';
 import 'package:cpcb_tyre/views/screens/producer/profile_screen.dart';
 import 'package:cpcb_tyre/views/screens/producer/sales_screen.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_bottom_navigation_bar_screen_widget.dart';
@@ -66,7 +66,7 @@ class _ProducerHomePageState extends State<ProducerHomePage> {
             width: 20,
           ))
     ], screens: const [
-      DashBoardPage(),
+      DashBoardScreen(),
       SalesScreen(),
       ProfileScreen()
     ]);

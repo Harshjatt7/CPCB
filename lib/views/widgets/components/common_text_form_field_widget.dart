@@ -18,6 +18,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final TextInputType? textInputType;
   final String? Function(String?)? validator;
   final Color? textColor;
+  final bool isClear;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -47,7 +48,8 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isPasswordField = false,
       this.textInputType = TextInputType.text,
       this.validator,
-      this.isReadOnly,
+      this.isClear = false,
+      this.isReadOnly = false,
       this.isPassword = false,
       this.onSuffixTap});
 
