@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../constants/image_constants.dart';
 import '../../../theme/app_color.dart';

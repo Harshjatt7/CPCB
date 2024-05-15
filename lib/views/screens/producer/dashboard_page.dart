@@ -88,8 +88,7 @@ class DashBoardPage extends StatelessWidget {
                                 labelStyle: Theme.of(context)
                                     .textTheme
                                     .labelMedium!
-                                    .copyWith(
-                                        color: AppColor().darkGreen),
+                                    .copyWith(color: AppColor().darkGreen),
                               )
                             ],
                           ),
@@ -121,6 +120,7 @@ class DashBoardPage extends StatelessWidget {
                           );
                         },
                       ),
+
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 8),
                         child: ProducerAnnualReturnWidget(
@@ -132,8 +132,7 @@ class DashBoardPage extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          border:
-                              Border.all(color: AppColor().black10),
+                          border: Border.all(color: AppColor().black10),
                         ),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,8 +181,7 @@ class DashBoardPage extends StatelessWidget {
                                             child: ProducerEnvironmentTile(
                                                 title: 'Current Status',
                                                 subtitle: 'Paid',
-                                                subtitleColor: AppColor()
-                                                    .green,
+                                                subtitleColor: AppColor().green,
                                                 image:
                                                     ImageConstants().infoEnv),
                                           ),
@@ -227,8 +225,7 @@ class DashBoardPage extends StatelessWidget {
                                               .textTheme
                                               .displaySmall!
                                               .copyWith(
-                                                  color: AppColor()
-                                                      .black40),
+                                                  color: AppColor().black40),
                                         ),
                                       ),
                                     ),

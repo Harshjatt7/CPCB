@@ -60,6 +60,10 @@ class ProfileScreen extends StatelessWidget {
               CommonButtonWidget(
                 label: StringConstants().logOut,
                 color: AppColor().darkGreen,
+                labelStyle:  Theme.of(context)
+                          .textTheme
+                          .labelSmall!
+                          .copyWith(color: AppColor().white),
               )
             ],
           );

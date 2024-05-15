@@ -36,5 +36,12 @@
     "environment-text": "Lorem Ipsum lorem ipsum lorem lorem ipsum lorem ipsum Lorem Ipsum...",
     "producer-dash-board-note": "You have to complete the registration process to access your dashboard, Click on the “Initiate Registration” to start the process.",
     "log-out": "Log Out",
-    "authorized-person-detail": "Authorized Person Details"
+    "authorized-person-detail": "Authorized Person Details",
+    "procurement-data" : "Procurement Data",
+    "dashboard": "Dashboard",
+    "retreaded-data": "Retreaded Data",
+    "add-retreaded-data-button": "Add Retreaded Data",
+    "add-procurement-button": "Add Procurement",
+    "procurement-stock-data": "Procurement stock data"
+
 }

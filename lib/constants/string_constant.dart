@@ -38,6 +38,10 @@ class StringConstants {
   final String totalLabel = "total-label";
   final String logOut = "log-out";
   final String authorizedPersonDetails = "authorized-person-detail";
-  final String notificationTabIcon =
-      "assets/images/icons/notification_tab_icon.svg";
+  final String procurementData = "procurement-data";
+  final String dashboard = "dashboard";
+  final String retreadedData = "retreaded-data";
+  final String addRetreadedDataButton = "add-retreaded-data-button";
+  final String addProcurementButton = "add-procurement-button";
+  final String procurementStockData = "procurement-stock-data";
 }

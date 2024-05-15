@@ -46,5 +46,6 @@ class ImageConstants {
 
   //Retrader's screen
   final String verified = "assets/images/icons/verified.svg";
-  
+  final String notificationTabIcon =
+      "assets/images/icons/notification_tab_icon.svg";
 }
