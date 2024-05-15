@@ -107,6 +107,7 @@ class _CommonTextFormFieldWidgetNewState
             cursorColor: AppColor().grey01,
             showCursor: true,
             cursorErrorColor: AppColor().grey01,
+            scrollPadding: EdgeInsets.zero,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (val) {
               if (widget.validator != null) {
@@ -119,7 +120,7 @@ class _CommonTextFormFieldWidgetNewState
             },
             obscuringCharacter: '*',
             readOnly: widget.isReadOnly ?? false,
-            cursorHeight: 16,
+            cursorHeight: 20,
             keyboardType: widget.textInputType ?? TextInputType.text,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
                 color: widget.textColor ?? AppColor().black90,
