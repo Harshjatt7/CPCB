@@ -42,6 +42,7 @@
     "retreaded-data": "Retreaded Data",
     "add-retreaded-data-button": "Add Retreaded Data",
     "add-procurement-button": "Add Procurement",
+    "add-procurement":"Add Procurement",
     "procurement-stock-data": "Procurement stock data",
     "quantity-processed": "Quantity processed",
     "quantity-produced": "Quantity produced",
@@ -58,5 +59,25 @@
     "invoice-number": "Invoice Number",
     "gst-number-of-waste-tyre-supplier": "GST number of waste tyre supplier",
     "date-of-purchase-of-raw-material": "Date of purchase of raw material",
-    "processed-data": "Processed Data"
+    "processed-data": "Processed Data",
+    "epr-credits": "EPR Credits",
+    "no" : "No",
+    "yes" : "Yes",
+    "downloadApplication" : "Download Application",
+    "totalEprObligations" : "Total EPR Obligations",
+    "amount" : "Amount",
+    "type" : "Type",
+    "currentStatus" : "Current Status",
+    "dateOfEc" : "Date of EC",
+    "annual-returns" : "Annual Returns",
+    "required" : "Required",
+    "admin" : "Admin",
+    "other" : "Other Users (SPCB, Auditor, RD'S) ",
+    "inspection" : "Inspection",
+    "producer" : "Producer",
+    "retreader" : "Retreader",
+    "recycler" : "Recycler",
+    "custom" : "Custom"
+
+
 }

@@ -13,14 +13,9 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class RetraderDataScreen extends StatelessWidget {
-  const RetraderDataScreen({super.key});
+class RetreaderDataScreen extends StatelessWidget {
+  const RetreaderDataScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
   @override
   Widget build(BuildContext context) {
     return BaseView<ProducerWidgetViewModel>(
@@ -33,8 +28,8 @@ class RetraderDataScreen extends StatelessWidget {
           appBar: CommonAppBar(
             isProfileBar: true,
             image: ImageConstants().avatar,
-            name: "Vibhor Singh",
-            designation: "Producer",
+            name: StringConstants().name,
+            designation: StringConstants().userType,
           ),
           body: Column(
             children: [
@@ -67,8 +62,7 @@ class RetraderDataScreen extends StatelessWidget {
                           final retraderDetails = retraderDataList[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: 
-                            CommonRetraderDataCard(
+                            child: CommonRetraderDataCard(
                               name: retraderDetails.name ?? "",
                               contactDetails: retraderDetails.contactDetails,
                               address: retraderDetails.address,
@@ -83,10 +77,13 @@ class RetraderDataScreen extends StatelessWidget {
                         },
                       ),
                     ),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     CommonButtonWidget(
                       onPressed: () {
                         Navigator.pushNamed(
-                            context, AppRoutes.addSalesDataScreenRoute);
+                            context, AppRoutes.retreadedAddDataScreenRoute);
                       },
                       label: StringConstants().addRetreadedDataButton,
                       color: AppColor().darkGreen,
@@ -104,3 +101,4 @@ class RetraderDataScreen extends StatelessWidget {
       },
     );
   }
+}

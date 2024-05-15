@@ -27,8 +27,8 @@ class ProcurementDataScreen extends StatelessWidget {
           appBar: CommonAppBar(
             isProfileBar: true,
             image: ImageConstants().avatar,
-            name: "Vibhor Singh",
-            designation: "Producer",
+            name: StringConstants().name,
+            designation: StringConstants().userType,
           ),
           body: Column(
             children: [
@@ -77,11 +77,12 @@ class ProcurementDataScreen extends StatelessWidget {
                         },
                       ),
                     ),
+                    const SizedBox(height: 16,),
                     CommonButtonWidget(
-                      label: "",
+                      label: StringConstants().addProcurementButton,
                       onPressed: () {
                         Navigator.pushNamed(
-                            context, AppRoutes.addSalesDataScreenRoute);
+                            context, AppRoutes.procurementAddDataScreenRoute);
                       },
                       color: AppColor().darkGreen,
                       labelStyle: Theme.of(context)

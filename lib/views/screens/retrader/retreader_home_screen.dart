@@ -1,56 +1,54 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/screens/common_screens/dashboard_screen.dart';
 import 'package:cpcb_tyre/views/screens/common_screens/profile_screen.dart';
+import 'package:cpcb_tyre/views/screens/retrader/procurement_data_screen.dart';
+import 'package:cpcb_tyre/views/screens/retrader/retreader_data_screen.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_bottom_navigation_bar_screen_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:flutter/material.dart';
 
-class RetraderHomePage extends StatelessWidget {
-  const RetraderHomePage({super.key});
+class RetraderHomeScreen extends StatelessWidget {
+  const RetraderHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
       bottomNavigationBarWidget(
-          imgColor: AppColor().darkGreen,
-          imgSrc: ImageConstants().homeTabIcon,
-          inactiveColor: AppColor().black20),
+        imgSrc: ImageConstants().homeTabIcon,
+      ),
       bottomNavigationBarWidget(
-          imgColor: AppColor().darkGreen,
-          imgSrc: ImageConstants().calendarTabIcon,
-          inactiveColor: AppColor().black20),
+        imgSrc: ImageConstants().calendarTabIcon,
+      ),
       bottomNavigationBarWidget(
-          imgColor: AppColor().darkGreen,
-          imgSrc: ImageConstants().notificationTabIcon,
-          inactiveColor: AppColor().black20),
+        imgSrc: ImageConstants().notificationTabIcon,
+      ),
       bottomNavigationBarWidget(
-          imgColor: AppColor().darkGreen,
-          imgSrc: ImageConstants().profileTabIcon,
-          inactiveColor: AppColor().black20)
-    ], screens: [
-      Container(),
-      Container(),
-      Container(),
-      const ProfileScreen()
+        imgSrc: ImageConstants().profileTabIcon,
+      )
+    ], screens: const [
+      DashBoardScreen(),
+      ProcurementDataScreen(),
+      RetreaderDataScreen(),
+      ProfileScreen()
     ]);
   }
 
-  BottomNavigationBarItem bottomNavigationBarWidget(
-          {required String imgSrc,
-          required Color imgColor,
-          required Color inactiveColor}) =>
+  BottomNavigationBarItem bottomNavigationBarWidget({
+    required String imgSrc,
+  }) =>
       BottomNavigationBarItem(
           label: "",
           activeIcon: CommonImageWidget(
               height: 20,
               width: 20,
-              imageColor: imgColor,
+              imageColor: AppColor().darkGreen,
               imageSource: imgSrc,
               isNetworkImage: false),
           icon: CommonImageWidget(
               height: 20,
               width: 20,
-              imageColor: inactiveColor,
+              imageColor: AppColor().black20,
               imageSource: imgSrc,
               isNetworkImage: false));
 }

@@ -68,14 +68,14 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonDropdownTextFormField(
                   error: viewModel.producerDropdownError,
                   onTap: () {
-                    viewModel.changeDropdownValue(
-                        KeyConstants().producer, null);
+                    viewModel.changeDropdownValue(KeyConstants().producer,
+                        viewModel.producerDropdownValue);
                   },
                   labelText: StringConstants().typeOfProducerLabel,
                   value: viewModel.producerDropdownValue,
                   dropDownItem: const ['text1', 'text2'],
                   onChanged: (value) {
-                    viewModel.changeDropdownValue("producer", value);
+                    viewModel.changeDropdownValue(KeyConstants().producer, value);
                     viewModel.producerDropdownError = null;
                   },
                 ),
@@ -85,13 +85,14 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonDropdownTextFormField(
                   error: viewModel.tyreDropdownError,
                   onTap: () {
-                    viewModel.changeDropdownValue("tyre", null);
+                    viewModel.changeDropdownValue(
+                        KeyConstants().tyre, viewModel.tyreDropdownValue);
                   },
                   value: viewModel.tyreDropdownValue,
                   labelText: StringConstants().typeOfTyreLabel,
                   dropDownItem: const ['text1', 'text2'],
                   onChanged: (value) {
-                    viewModel.changeDropdownValue("tyre", value);
+                    viewModel.changeDropdownValue(KeyConstants().tyre, value);
                     viewModel.tyreDropdownError = null;
                   },
                 ),
@@ -101,13 +102,14 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonDropdownTextFormField(
                   error: viewModel.yearDropdownError,
                   onTap: () {
-                    viewModel.changeDropdownValue("year", null);
+                    viewModel.changeDropdownValue(
+                        KeyConstants().year, viewModel.yearDropdownValue);
                   },
                   value: viewModel.yearDropdownValue,
                   labelText: StringConstants().financialYearLabel,
                   dropDownItem: const ['text1', 'text2'],
                   onChanged: (value) {
-                    viewModel.changeDropdownValue("year", value);
+                    viewModel.changeDropdownValue(KeyConstants().year, value);
                     viewModel.yearDropdownError = null;
                   },
                 ),
@@ -117,13 +119,14 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonDropdownTextFormField(
                   error: viewModel.monthDropdownError,
                   onTap: () {
-                    viewModel.changeDropdownValue("month", null);
+                    viewModel.changeDropdownValue(
+                        KeyConstants().month, viewModel.monthDropdownValue);
                   },
                   value: viewModel.monthDropdownValue,
                   labelText: StringConstants().chooseMonthLabel,
                   dropDownItem: const ['text1', 'text2'],
                   onChanged: (value) {
-                    viewModel.changeDropdownValue("month", value);
+                    viewModel.changeDropdownValue(KeyConstants().month, value);
                     viewModel.monthDropdownError = null;
                   },
                 ),
@@ -252,7 +255,7 @@ class SalesDataScreen extends StatelessWidget {
                         Flexible(
                           flex: 2,
                           child: CommonButtonWidget(
-                            label: "No",
+                            label: StringConstants().no,
                             color: AppColor().white,
                             labelStyle: Theme.of(context).textTheme.labelMedium,
                           ),
@@ -262,7 +265,7 @@ class SalesDataScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 24),
                             child: CommonButtonWidget(
-                              label: "Yes",
+                              label: StringConstants().yes,
                               color: AppColor().darkGreen,
                               labelStyle: Theme.of(context)
                                   .textTheme

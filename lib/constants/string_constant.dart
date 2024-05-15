@@ -62,4 +62,44 @@ class StringConstants {
       "gst-number-of-waste-tyre-supplier";
   final String dateOfPurchaseOfRawMaterial = "date-of-purchase-of-raw-material";
   final String processedData = "processed-data";
+  final String eprCredits = "epr-credits";
+
+  final String no = "no";
+  final String yes = "yes";
+  final String downloadApplication = "downloadApplication";
+  final String totalEprObligations = 'totalEprObligations';
+  final String amount = "amount";
+  final String type = "type";
+  final String currentStatus = "currentStatus";
+  final String dateOfEc = "dateOfEc";
+  final String annualReturns = "annual-returns";
+  final String required = "required";
+
+  //User Types
+  static const String admin = "admin";
+  static const String other = "other";
+  static const String inspection = "inspection";
+  static const String producer = "producer";
+  static const String retreader = "retreader";
+  static const String recycler = "recycler";
+  static const String custom = "custom";
+
+  // dummy
+  final String name = "Vibhor Singh";
+  final String userType = "User Type";
+  final String manager = "Manager";
+  final String rajendra = "Rajendra Kumar Sahu";
+  final String rajendraEmail = "rks@grid-india.in";
+  final String rajendraPhone = "+91 9999012345";
+  final String erpTileCount = '34,734';
+  final String lorem = "Lorem Ipsum";
+  final String paid = "Paid";
+  final String demoDate = "24 Jan 2024";
+  final String delayed = "Delayed";
+  final String totalProcurement = "Total Procurement";
+  final String demoAmount = "3532";
+  final String procurementStockDesc =
+      "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.";
+  final String remainingEprObligation = "Remaining EPR obligation";
+  final String totalEprFullFilled = "Total EPR Full-Filled";
 }

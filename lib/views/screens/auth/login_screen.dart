@@ -1,16 +1,19 @@
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/utils/helper/text_theme_helper.dart';
 import 'package:cpcb_tyre/viewmodels/auth_viewmodels/login_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import '../../../constants/routes_constant.dart';
 import '../../widgets/components/common_text_form_field_widget.dart';
 import '../../widgets/components/common_text_widget.dart';
 
@@ -21,7 +24,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<LoginViewModel>(
         viewModel: LoginViewModel(),
-        onModelReady: (viewmodel) {},
+        onModelReady: (viewmodel) {
+          viewmodel.getCurrentUserType(context);
+        },
         builder: (context, viewmodel, child) {
           WidgetsBinding.instance.addPostFrameCallback((v) {
             viewmodel.isEnabled();
@@ -103,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                       controller: viewmodel.emailController,
                       validator: (val) {
                         if (viewmodel.emailController.text.isEmpty) {
-                          return "Required";
+                          return StringConstants().required;
                         }
                         return null;
                       },
@@ -122,7 +127,7 @@ class LoginScreen extends StatelessWidget {
                       isPasswordField: true,
                       validator: (val) {
                         if (viewmodel.passController.text.isEmpty) {
-                          return "Required";
+                          return StringConstants().required;
                         }
                         return null;
                       },
@@ -131,11 +136,18 @@ class LoginScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CommonButtonWidget(
-                      onPressed: () {
+                      onPressed: () async {
                         if (viewmodel.formKey.currentState?.validate() ??
                             false) {
-                          Navigator.pushNamed(
-                              context, AppRoutes.producerHomeScreenRoute);
+                          await context.globalProvider.updateUserType(
+                              viewmodel.selectedUserType ?? "", context);
+
+                          if (context.mounted) {
+                            HelperFunctions()
+                                .logger(MaterialAppViewModel.userTypeEnum.toString());
+                            viewmodel.onLoginButtonTapped(context,
+                                MaterialAppViewModel.userTypeEnum??UserTypes.custom);
+                          }
                         }
                       },
                       label: StringConstants().loginBtnLabel,
