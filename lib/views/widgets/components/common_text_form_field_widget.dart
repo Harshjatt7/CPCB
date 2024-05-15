@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 
 class CommonTextFormFieldWidget extends StatefulWidget {
@@ -18,6 +19,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final TextInputType? textInputType;
   final String? Function(String?)? validator;
   final Color? textColor;
+  final List<TextInputFormatter>? inputFormatters;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -35,6 +37,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   ///
   /// [onSuffixTap] is optional field for onTap function of gestureDetector
   ///
+  /// [inputFormatters] will be used to send any input formatters if required.
 
   const CommonTextFormFieldWidget(
       {super.key,
@@ -47,9 +50,10 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isPasswordField = false,
       this.textInputType = TextInputType.text,
       this.validator,
-      this.isReadOnly,
+      this.isReadOnly = false,
       this.isPassword = false,
-      this.onSuffixTap});
+      this.onSuffixTap,
+      this.inputFormatters});
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
@@ -101,8 +105,15 @@ class _CommonTextFormFieldWidgetNewState
                   border: Border.all(color: AppColor().black20),
                   borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
+            inputFormatters: widget.inputFormatters ??
+                [
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@ ]')),
+                ],
+            enableInteractiveSelection: false,
             controller: widget.controller,
-            focusNode: _focusNode,
+            focusNode: widget.isReadOnly == true
+                ? AlwaysDisabledFocusNode()
+                : _focusNode,
             obscureText: widget.isObscure,
             cursorColor: AppColor().grey01,
             showCursor: true,
@@ -119,6 +130,7 @@ class _CommonTextFormFieldWidgetNewState
                   : widget.validator!(widget.controller.text);
             },
             obscuringCharacter: '*',
+            scrollPadding: EdgeInsets.zero,
             readOnly: widget.isReadOnly ?? false,
             cursorHeight: 20,
             keyboardType: widget.textInputType ?? TextInputType.text,
@@ -164,8 +176,8 @@ class _CommonTextFormFieldWidgetNewState
                             child: Padding(
                               padding: const EdgeInsets.only(right: 30.0),
                               child: CommonImageWidget(
-                                  width: 30,
-                                  fit: BoxFit.fitWidth,
+                                  width: 20,
+                                  fit: BoxFit.contain,
                                   imageSource: widget.isObscure
                                       ? ImageConstants().eyesClose
                                       : ImageConstants().eyesOpen,
@@ -194,15 +206,20 @@ class _CommonTextFormFieldWidgetNewState
     return GestureDetector(
       onTap: widget.onSuffixTap,
       child: Padding(
-        padding: const EdgeInsets.only(right: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         child: CommonImageWidget(
-            width: 30,
+            width: 20,
             fit: BoxFit.fitWidth,
             imageSource: widget.icon ?? "",
             isNetworkImage: false),
       ),
     );
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
 
 

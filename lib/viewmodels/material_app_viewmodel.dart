@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 
@@ -12,5 +13,15 @@ class MaterialAppViewModel extends BaseViewModel {
     } else {
       MyApp.of(context)!.setLocale(const Locale('en'));
     }
+  }
+
+  String userType = "";
+
+  void updateUserType(String userType, BuildContext context) async {
+    await HelperFunctions().setUserType(userType, context);
+  }
+
+  Future<void> getUserType(BuildContext context) async {
+    await HelperFunctions().getUserType(context);
   }
 }

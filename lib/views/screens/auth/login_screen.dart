@@ -14,8 +14,8 @@ import '../../../constants/routes_constant.dart';
 import '../../widgets/components/common_text_form_field_widget.dart';
 import '../../widgets/components/common_text_widget.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -135,12 +135,12 @@ class LoginPage extends StatelessWidget {
                         if (viewmodel.formKey.currentState?.validate() ??
                             false) {
                           Navigator.pushNamed(
-                              context, AppRoutes.producerHomeScreen);
+                              context, AppRoutes.retraderHomeScreenRoute);
                         }
                       },
                       label: StringConstants().loginBtnLabel,
                       color: viewmodel.isBtnEnabled
-                          ? AppColor().black
+                          ? AppColor().darkGreen
                           : AppColor().black10,
                       labelStyle: Theme.of(context)
                           .textTheme
@@ -177,7 +177,7 @@ class LoginPage extends StatelessWidget {
       decoration: BoxDecoration(
           color: AppColor().white,
           shape: BoxShape.circle,
-          border: Border.all(color: AppColor().primaryGreen, width: 0.8)),
+          border: Border.all(color: AppColor().green60, width: 0.8)),
       child: CommonImageWidget(
           borderRadius: BorderRadius.zero,
           height: 72,

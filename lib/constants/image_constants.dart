@@ -31,7 +31,7 @@ class ImageConstants {
   final String mdiTireIcon = "assets/images/icons/mdi_tire_icon.svg";
   final String document = "assets/images/icons/document.svg";
   final String dollar = "assets/images/icons/dollar.svg";
-  final String infoEnv = "assets/images/icons/infoEnv.svg";
+  final String infoEnv = "assets/images/icons/info_env.svg";
 
   final String dropdownIcon = "assets/images/icons/dropdown_icon.svg";
   final String account = "assets/images/icons/account.svg";
@@ -44,7 +44,8 @@ class ImageConstants {
   final String backgroundWatermark = "assets/images/background/background.png";
   final String blueLogo = "assets/images/logo/blue_logo.svg";
 
-  // Retrader Screen
+  //Retrader's screen
+  final String verified = "assets/images/icons/verified.svg";
   final String notificationTabIcon =
       "assets/images/icons/notification_tab_icon.svg";
 }

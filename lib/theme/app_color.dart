@@ -5,7 +5,7 @@ class AppColor {
   final Color transparent = Colors.transparent;
   final Color white = const Color(0xFFFFFFFF);
   final Color offWhite = const Color(0xFFF9F9F9);
-  
+
   final Color black = const Color(0xFF000000);
   final Color black90 = const Color(0xFF1A1A1A);
   final Color black80 = const Color(0xFF333333);
@@ -27,6 +27,7 @@ class AppColor {
   final Color primaryGreen = const Color(0xFF1BB934);
   final Color green = const Color(0xFF2E9331);
   final Color green10 = const Color(0xFFEAF4EA);
+  final Color green60 = const Color(0xFF82BE83);
 
   final Color red = const Color(0xFFFF3333);
   final Color orange = const Color(0xFFDD7700);

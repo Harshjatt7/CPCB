@@ -58,6 +58,7 @@ class SalesScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 8),
+                                // TODO: to be removed when API is integrated.
                                 child: ProducerSalesList(
                                   producerType: "P1",
                                   title: 'BiasPly',
@@ -80,9 +81,9 @@ class SalesScreen extends StatelessWidget {
                         CommonButtonWidget(
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, AppRoutes.addSalesDataScreen);
+                                context, AppRoutes.addSalesDataScreenRoute);
                           },
-                          label: 'Add sales data',
+                          label: StringConstants().addSalesDataBtnLabel,
                           color: AppColor().darkGreen,
                           labelStyle: Theme.of(context)
                               .textTheme

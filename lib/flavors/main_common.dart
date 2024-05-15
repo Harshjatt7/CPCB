@@ -45,7 +45,6 @@ class MyAppState extends State<MyApp> {
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
-
               LocalJsonLocalization.delegate,
             ],
             onGenerateRoute: PageRouter.generateRoute,
