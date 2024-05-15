@@ -1,16 +1,17 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/procurement_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_upload_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ProcurementAddDataScreen extends StatelessWidget {
   const ProcurementAddDataScreen({super.key});
@@ -19,7 +20,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<ProcurementAddDataViewModel>(
         viewModel: ProcurementAddDataViewModel(),
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) {
+          viewModel.addYear();
+        },
         builder: (context, viewModel, child) {
           return CustomScaffold(
               appBar: CommonAppBar(
@@ -27,6 +30,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
               ),
               body: CommonSingleChildScrollView(
                 child: Form(
+                  key: viewModel.formKey,
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -35,9 +39,18 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonDropdownTextFormField(
+                            error: viewModel.yearDropdownError,
+                            onTap: () {
+                              viewModel.changeDropdownValue(
+                                  viewModel.yearDropdownValue);
+                            },
+                            value: viewModel.yearDropdownValue,
                             labelText: StringConstants().financialYearLabel,
-                            dropDownItem: const ["Text1", "Text2"],
-                            onChanged: (value) {},
+                            dropDownItem: viewModel.financialYearList,
+                            onChanged: (value) {
+                              viewModel.changeDropdownValue(value);
+                              viewModel.yearDropdownError = null;
+                            },
                           ),
                         ),
                         Padding(
@@ -45,66 +58,122 @@ class ProcurementAddDataScreen extends StatelessWidget {
                           child: CommonTextFormFieldWidget(
                               hintText:
                                   StringConstants().nameOfWasteTyreSupplier,
-                              isMandatory: false,
-                              controller: TextEditingController()),
+                              isMandatory: true,
+                              validator: (value) {
+                                return viewModel.valueValidation(viewModel
+                                    .nameOfWasteTyreSupplierController);
+                              },
+                              controller:
+                                  viewModel.nameOfWasteTyreSupplierController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
                               hintText: StringConstants().contactDetails,
-                              isMandatory: false,
-                              controller: TextEditingController()),
+                              isMandatory: true,
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.contactDetailsController);
+                              },
+                              controller: viewModel.contactDetailsController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
                               hintText:
                                   StringConstants().supplierContactDetails,
-                              isMandatory: false,
-                              controller: TextEditingController()),
+                              isMandatory: true,
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.supplierContactDetailsController);
+                              },
+                              controller:
+                                  viewModel.supplierContactDetailsController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
                               hintText:
                                   StringConstants().addressOfWasteTyreSupplier,
-                              isMandatory: false,
-                              controller: TextEditingController()),
+                              isMandatory: true,
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.addressController);
+                              },
+                              controller: viewModel.addressController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
                               hintText: StringConstants().typeOfRawMaterial,
                               isMandatory: true,
-                              controller: TextEditingController()),
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.typeOfRawMaterialController);
+                              },
+                              controller:
+                                  viewModel.typeOfRawMaterialController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    Validations().numbericWithDotRegex)
+                              ],
+                              textInputType: TextInputType.number,
                               hintText: StringConstants().quantityReceived,
                               isMandatory: true,
-                              controller: TextEditingController()),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonDocumentField(
-                              onTap: () {},
-                              label: StringConstants().uploadInvoice),
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.quantityReceivedController);
+                              },
+                              controller: viewModel.quantityReceivedController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              isReadOnly: true,
+                              hintText: StringConstants().uploadInvoice,
+                              icon: ImageConstants().fileUpload,
+                              onTap: () {
+                                viewModel.openFileManager(context);
+                              },
+                              onSuffixTap: () {
+                                viewModel.openFileManager(context);
+                              },
+                              validator: (value) {
+                                return viewModel.uploadInvoiceValidation();
+                              },
+                              isMandatory: true,
+                              controller: viewModel.uploadInvoiceController),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonTextFormFieldWidget(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              textInputType: TextInputType.number,
                               hintText: StringConstants().invoiceNumber,
                               isMandatory: true,
-                              controller: TextEditingController()),
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.invoiceNumberController);
+                              },
+                              controller: viewModel.invoiceNumberController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
                               hintText: StringConstants()
                                   .gstNumberOfWasteTyreSupplier,
+                              validator: (value) {
+                                return viewModel
+                                    .valueValidation(viewModel.gstController);
+                              },
                               isMandatory: true,
-                              controller: TextEditingController()),
+                              controller: viewModel.gstController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
@@ -112,8 +181,11 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,
+                              validator: (value) {
+                                return viewModel.dateValidation();
+                              },
                               icon: ImageConstants().calendar,
-                              controller: TextEditingController()),
+                              controller: viewModel.dateController),
                         ),
                       ],
                     ),
@@ -126,6 +198,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
                     color: AppColor().white,
                   ),
                   child: CommonButtonWidget(
+                    onPressed: () {
+                      viewModel.formValidation();
+                    },
                     height: 50,
                     label: StringConstants().submitBtnLabel,
                     color: AppColor().darkGreen,

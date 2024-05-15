@@ -19,7 +19,7 @@ class PageRouter {
       case AppRoutes.addSalesDataScreenRoute:
         return _getPageRoute(const SalesDataScreen(), settings);
       case AppRoutes.retraderHomeScreenRoute:
-        return _getPageRoute(RetraderHomePage(), settings);
+        return _getPageRoute(const RetraderHomePage(), settings);
 
       // Will be displayed if no specified route is found.
       default:
