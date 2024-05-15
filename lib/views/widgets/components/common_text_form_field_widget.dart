@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 
 class CommonTextFormFieldWidget extends StatefulWidget {
@@ -19,6 +20,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final String? Function(String?)? validator;
   final Color? textColor;
   final bool isClear;
+  final List<TextInputFormatter>? inputFormatters;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -36,6 +38,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   ///
   /// [onSuffixTap] is optional field for onTap function of gestureDetector
   ///
+  /// [inputFormatters] will be used to send any input formatters if required.
 
   const CommonTextFormFieldWidget(
       {super.key,
@@ -51,7 +54,8 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isClear = false,
       this.isReadOnly = false,
       this.isPassword = false,
-      this.onSuffixTap});
+      this.onSuffixTap,
+      this.inputFormatters});
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
@@ -103,6 +107,10 @@ class _CommonTextFormFieldWidgetNewState
                   border: Border.all(color: AppColor().black20),
                   borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
+            inputFormatters: widget.inputFormatters ??
+                [
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@ ]')),
+                ],
             controller: widget.controller,
             focusNode: _focusNode,
             obscureText: widget.isObscure,

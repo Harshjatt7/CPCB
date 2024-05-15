@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../store/secure_storage.dart';
 import '../../theme/app_color.dart';
 import '../../views/widgets/components/common_text_widget.dart';
 
@@ -27,5 +29,21 @@ class HelperFunctions {
               .displaySmall
               ?.copyWith(color: AppColor().white, fontWeight: FontWeight.bold),
         )));
+  }
+
+  /// [setUserType] is a method to store user type in keychain
+  Future<void> setUserType(String userType, BuildContext context) async {
+    await SecureStorage.instance.storeSensitiveInfo("userType", userType);
+    if (context.mounted) {
+      context.globalProvider.userType = userType;
+    }
+  }
+
+  /// [getUserType] is a method to store user type in keychain
+  Future<void> getUserType(BuildContext context) async {
+    String userType = await SecureStorage.instance.getSensitiveInfo("userType");
+    if (context.mounted) {
+      context.globalProvider.userType = userType;
+    }
   }
 }

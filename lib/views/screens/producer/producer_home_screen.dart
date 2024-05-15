@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 
 import '../../../theme/app_color.dart';
 
-class ProducerHomePage extends StatefulWidget {
-  const ProducerHomePage({super.key});
+class ProducerHomeScreen extends StatefulWidget {
+  const ProducerHomeScreen({super.key});
 
   @override
-  State<ProducerHomePage> createState() => _ProducerHomePageState();
+  State<ProducerHomeScreen> createState() => _ProducerHomePageState();
 }
 
-class _ProducerHomePageState extends State<ProducerHomePage> {
+class _ProducerHomePageState extends State<ProducerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [

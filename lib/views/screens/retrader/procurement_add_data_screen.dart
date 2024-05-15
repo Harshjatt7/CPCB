@@ -12,8 +12,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class ProcurementAddDataPage extends StatelessWidget {
-  const ProcurementAddDataPage({super.key});
+class ProcurementAddDataScreen extends StatelessWidget {
+  const ProcurementAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,8 @@ class ProcurementAddDataPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
-                              hintText: StringConstants().nameOfWasteTyreSupplier,
+                              hintText:
+                                  StringConstants().nameOfWasteTyreSupplier,
                               isMandatory: false,
                               controller: TextEditingController()),
                         ),
@@ -57,7 +58,8 @@ class ProcurementAddDataPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
-                              hintText: StringConstants().supplierContactDetails,
+                              hintText:
+                                  StringConstants().supplierContactDetails,
                               isMandatory: false,
                               controller: TextEditingController()),
                         ),
@@ -99,8 +101,8 @@ class ProcurementAddDataPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
-                              hintText:
-                                  StringConstants().gstNumberOfWasteTyreSupplier,
+                              hintText: StringConstants()
+                                  .gstNumberOfWasteTyreSupplier,
                               isMandatory: true,
                               controller: TextEditingController()),
                         ),

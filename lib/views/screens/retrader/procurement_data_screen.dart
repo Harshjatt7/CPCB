@@ -79,7 +79,7 @@ class ProcurementDataScreen extends StatelessWidget {
                     CommonButtonWidget(
                       onPressed: () {
                         Navigator.pushNamed(
-                            context, AppRoutes.addSalesDataScreen);
+                            context, AppRoutes.addSalesDataScreenRoute);
                       },
                       label: 'Add Procurement',
                       color: AppColor().darkGreen,
@@ -93,45 +93,6 @@ class ProcurementDataScreen extends StatelessWidget {
               ),
             ],
           ),
-          // persistentFooterButtons: [
-          //   CommonScreenWithBottomNavigationBar(
-          //     bottomNavBarItems: [
-          //       BottomNavigationBarItem(
-          //           activeIcon: CommonImageWidget(
-          //             imageColor: AppColor().darkGreen,
-          //             imageSource: ImageConstants().calendarTabIcon,
-          //             isNetworkImage: false,
-          //             height: 20,
-          //             width: 20,
-          //           ),
-          //           label: "",
-          //           icon: CommonImageWidget(
-          //               imageSource: ImageConstants().homeTabIcon,
-          //               isNetworkImage: false)),
-          //       BottomNavigationBarItem(
-          //           label: "",
-          //           icon: CommonImageWidget(
-          //               imageSource: ImageConstants().calendar,
-          //               isNetworkImage: false)),
-          //       BottomNavigationBarItem(
-          //           label: "",
-          //           icon: CommonImageWidget(
-          //               imageSource: ImageConstants().notification,
-          //               isNetworkImage: false)),
-          //       BottomNavigationBarItem(
-          //           label: "",
-          //           icon: CommonImageWidget(
-          //               imageSource: ImageConstants().profileTabIcon,
-          //               isNetworkImage: false)),
-          //     ],
-          //     screens: const [
-          //       RetraderDashboardScreen(),
-          //       ProcurementDataScreen(),
-          //       RetraderDataScreen(),
-          //       RetraderProfileScreen(),
-          //     ],
-          //   ),
-          // ],
         );
       },
     );

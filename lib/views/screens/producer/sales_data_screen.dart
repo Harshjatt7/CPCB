@@ -12,6 +12,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SalesDataScreen extends StatelessWidget {
   const SalesDataScreen({super.key});
@@ -29,158 +30,7 @@ class SalesDataScreen extends StatelessWidget {
               appBar: CommonAppBar(
                 title: StringConstants().addSalesDataBtnLabel,
               ),
-              body: CommonSingleChildScrollView(
-                controller: viewModel.scrollController,
-                child: Form(
-                  key: viewModel.formKey,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonDropdownTextFormField(
-                            error: viewModel.producerDropdownError,
-                            onTap: () {
-                              viewModel.changeDropdownValue(
-                                  KeyConstants().producer, null);
-                            },
-                            labelText: StringConstants().typeOfProducerLabel,
-                            value: viewModel.producerDropdownValue,
-                            dropDownItem: const ['text1', 'text2'],
-                            onChanged: (value) {
-                              viewModel.changeDropdownValue("producer", value);
-                              viewModel.producerDropdownError = null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonDropdownTextFormField(
-                            error: viewModel.tyreDropdownError,
-                            onTap: () {
-                              viewModel.changeDropdownValue("tyre", null);
-                            },
-                            value: viewModel.tyreDropdownValue,
-                            labelText: StringConstants().typeOfTyreLabel,
-                            dropDownItem: const ['text1', 'text2'],
-                            onChanged: (value) {
-                              viewModel.changeDropdownValue("tyre", value);
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonDropdownTextFormField(
-                            error: viewModel.yearDropdownError,
-                            onTap: () {
-                              viewModel.changeDropdownValue("year", null);
-                            },
-                            value: viewModel.yearDropdownValue,
-                            labelText: StringConstants().financialYearLabel,
-                            dropDownItem: const ['text1', 'text2'],
-                            onChanged: (value) {
-                              viewModel.changeDropdownValue("year", value);
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonDropdownTextFormField(
-                            error: viewModel.monthDropdownError,
-                            onTap: () {
-                              viewModel.changeDropdownValue("month", null);
-                            },
-                            value: viewModel.monthDropdownValue,
-                            labelText: StringConstants().chooseMonthLabel,
-                            dropDownItem: const ['text1', 'text2'],
-                            onChanged: (value) {
-                              viewModel.changeDropdownValue("month", value);
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              textInputType: TextInputType.number,
-                              hintText: StringConstants().motorcycleLabel,
-                              isMandatory: false,
-                              controller: viewModel.motorcycleController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              textInputType: TextInputType.number,
-                              hintText: StringConstants().passengerCarLabel,
-                              isMandatory: false,
-                              controller: viewModel.passengerCarController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              textInputType: TextInputType.number,
-                              hintText: StringConstants().scooterLabel,
-                              isMandatory: false,
-                              controller: viewModel.scooterController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              textInputType: TextInputType.number,
-                              hintText: StringConstants().truckLabel,
-                              isMandatory: false,
-                              controller: viewModel.truckController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              textInputType: TextInputType.number,
-                              hintText: StringConstants().busLabel,
-                              isMandatory: false,
-                              controller: viewModel.busController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              textInputType: TextInputType.number,
-                              hintText: StringConstants().lcvLabel,
-                              isMandatory: false,
-                              controller: viewModel.lcvController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              textInputType: TextInputType.number,
-                              hintText: StringConstants().tRearLabel,
-                              isMandatory: false,
-                              controller: viewModel.tRearController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              textInputType: TextInputType.number,
-                              hintText: StringConstants().otherLabel,
-                              isMandatory: false,
-                              controller: viewModel.otherController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8, bottom: 16),
-                          child: CommonTextFormFieldWidget(
-                              validator: (value) {
-                                return viewModel.totalValidation();
-                              },
-                              isClear: viewModel.isClear,
-                              isReadOnly: true,
-                              hintText: StringConstants().totalLabel,
-                              isMandatory: false,
-                              controller: viewModel.totalController),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              body: formSection(viewModel),
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
@@ -202,6 +52,171 @@ class SalesDataScreen extends StatelessWidget {
                 ),
               ]);
         });
+  }
+
+  CommonSingleChildScrollView formSection(SalesDataViewModel viewModel) {
+    return CommonSingleChildScrollView(
+      controller: viewModel.scrollController,
+      child: Form(
+        key: viewModel.formKey,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonDropdownTextFormField(
+                  error: viewModel.producerDropdownError,
+                  onTap: () {
+                    viewModel.changeDropdownValue(
+                        KeyConstants().producer, null);
+                  },
+                  labelText: StringConstants().typeOfProducerLabel,
+                  value: viewModel.producerDropdownValue,
+                  dropDownItem: const ['text1', 'text2'],
+                  onChanged: (value) {
+                    viewModel.changeDropdownValue("producer", value);
+                    viewModel.producerDropdownError = null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonDropdownTextFormField(
+                  error: viewModel.tyreDropdownError,
+                  onTap: () {
+                    viewModel.changeDropdownValue("tyre", null);
+                  },
+                  value: viewModel.tyreDropdownValue,
+                  labelText: StringConstants().typeOfTyreLabel,
+                  dropDownItem: const ['text1', 'text2'],
+                  onChanged: (value) {
+                    viewModel.changeDropdownValue("tyre", value);
+                    viewModel.tyreDropdownError = null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonDropdownTextFormField(
+                  error: viewModel.yearDropdownError,
+                  onTap: () {
+                    viewModel.changeDropdownValue("year", null);
+                  },
+                  value: viewModel.yearDropdownValue,
+                  labelText: StringConstants().financialYearLabel,
+                  dropDownItem: const ['text1', 'text2'],
+                  onChanged: (value) {
+                    viewModel.changeDropdownValue("year", value);
+                    viewModel.yearDropdownError = null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonDropdownTextFormField(
+                  error: viewModel.monthDropdownError,
+                  onTap: () {
+                    viewModel.changeDropdownValue("month", null);
+                  },
+                  value: viewModel.monthDropdownValue,
+                  labelText: StringConstants().chooseMonthLabel,
+                  dropDownItem: const ['text1', 'text2'],
+                  onChanged: (value) {
+                    viewModel.changeDropdownValue("month", value);
+                    viewModel.monthDropdownError = null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputType: TextInputType.number,
+                    hintText: StringConstants().motorcycleLabel,
+                    isMandatory: false,
+                    controller: viewModel.motorcycleController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputType: TextInputType.number,
+                    hintText: StringConstants().passengerCarLabel,
+                    isMandatory: false,
+                    controller: viewModel.passengerCarController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputType: TextInputType.number,
+                    hintText: StringConstants().scooterLabel,
+                    isMandatory: false,
+                    controller: viewModel.scooterController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputType: TextInputType.number,
+                    hintText: StringConstants().truckLabel,
+                    isMandatory: false,
+                    controller: viewModel.truckController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputType: TextInputType.number,
+                    hintText: StringConstants().busLabel,
+                    isMandatory: false,
+                    controller: viewModel.busController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputType: TextInputType.number,
+                    hintText: StringConstants().lcvLabel,
+                    isMandatory: false,
+                    controller: viewModel.lcvController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputType: TextInputType.number,
+                    hintText: StringConstants().tRearLabel,
+                    isMandatory: false,
+                    controller: viewModel.tRearController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputType: TextInputType.number,
+                    hintText: StringConstants().otherLabel,
+                    isMandatory: false,
+                    controller: viewModel.otherController),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 16),
+                child: CommonTextFormFieldWidget(
+                    validator: (value) {
+                      return viewModel.totalValidation();
+                    },
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    isReadOnly: true,
+                    hintText: StringConstants().totalLabel,
+                    isMandatory: false,
+                    controller: viewModel.totalController),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   popUpMessage(BuildContext context) {

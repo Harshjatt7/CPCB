@@ -24,17 +24,18 @@ class SalesDataViewModel extends BaseViewModel {
   TextEditingController tRearController = TextEditingController();
   TextEditingController otherController = TextEditingController();
   TextEditingController totalController = TextEditingController();
-  bool isClear = false;
-  void clearMethod() {
-    isClear = true;
+  bool isTotalValidated = false;
+  void validateTotal(bool val) {
+    isTotalValidated = val;
 
     updateUI();
   }
 
   String? totalValidation() {
-    if (totalController.text.isEmpty || totalController.text == "0") {
+    if ((totalController.text.isEmpty || totalController.text == "0")) {
       return "Please enter data in atleast one of the above fields";
     }
+
     return null;
   }
 
@@ -76,8 +77,9 @@ class SalesDataViewModel extends BaseViewModel {
 
   void formValidation() {
     if (formKey.currentState?.validate() ?? false) {
+      validateTotal(false);
     } else {
-      clearMethod();
+      validateTotal(true);
       totalValue();
       scrollController.jumpTo(scrollController.position.maxScrollExtent + 80);
     }
@@ -105,17 +107,18 @@ class SalesDataViewModel extends BaseViewModel {
     totalController.text = total.toString();
     HelperFunctions().logger(total.toString());
 
-    clearMethod();
     notifyListeners();
   }
 
   void changeDropdownValue(dropdownValue, newValue) {
     changeDropdown = newValue;
+
     updateUI();
     if (changeDropdown == null) {
       switch (dropdownValue) {
         case "producer":
           producerDropdownError = "Please select the value";
+
           updateUI();
           break;
         case "tyre":
