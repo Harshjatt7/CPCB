@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,6 @@ class ProducerWidgetViewModel extends BaseViewModel {
     monthDropdownError = null;
     changeDropdown = newValue;
     updateUI();
-    HelperFunctions().logger(changeDropdown.toString());
     if (changeDropdown == null) {
       switch (dropdownValue) {
         case "producer":

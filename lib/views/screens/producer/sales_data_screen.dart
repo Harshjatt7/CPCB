@@ -1,5 +1,5 @@
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
-import 'package:cpcb_tyre/constants/key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/sales_data_viewmodel.dart';
@@ -21,6 +21,7 @@ class SalesDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<SalesDataViewModel>(
         onModelReady: (viewModel) {
+          viewModel.addYear();
           viewModel.textFormListener();
         },
         viewModel: SalesDataViewModel(),
@@ -69,13 +70,14 @@ class SalesDataScreen extends StatelessWidget {
                   error: viewModel.producerDropdownError,
                   onTap: () {
                     viewModel.changeDropdownValue(
-                        KeyConstants().producer, null);
+                        SalesDataDropdown.producerType, null);
                   },
                   labelText: StringConstants().typeOfProducerLabel,
                   value: viewModel.producerDropdownValue,
-                  dropDownItem: const ['text1', 'text2'],
+                  dropDownItem: viewModel.producerCategoryList,
                   onChanged: (value) {
-                    viewModel.changeDropdownValue("producer", value);
+                    viewModel.changeDropdownValue(
+                        SalesDataDropdown.producerType, value);
                     viewModel.producerDropdownError = null;
                   },
                 ),
@@ -85,13 +87,15 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonDropdownTextFormField(
                   error: viewModel.tyreDropdownError,
                   onTap: () {
-                    viewModel.changeDropdownValue("tyre", null);
+                    viewModel.changeDropdownValue(
+                        SalesDataDropdown.typeOfTyre, null);
                   },
                   value: viewModel.tyreDropdownValue,
                   labelText: StringConstants().typeOfTyreLabel,
-                  dropDownItem: const ['text1', 'text2'],
+                  dropDownItem: viewModel.typesOfTyreList,
                   onChanged: (value) {
-                    viewModel.changeDropdownValue("tyre", value);
+                    viewModel.changeDropdownValue(
+                        SalesDataDropdown.typeOfTyre, value);
                     viewModel.tyreDropdownError = null;
                   },
                 ),
@@ -101,13 +105,15 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonDropdownTextFormField(
                   error: viewModel.yearDropdownError,
                   onTap: () {
-                    viewModel.changeDropdownValue("year", null);
+                    viewModel.changeDropdownValue(
+                        SalesDataDropdown.financialYear, null);
                   },
                   value: viewModel.yearDropdownValue,
                   labelText: StringConstants().financialYearLabel,
-                  dropDownItem: const ['text1', 'text2'],
+                  dropDownItem: viewModel.financialYearList,
                   onChanged: (value) {
-                    viewModel.changeDropdownValue("year", value);
+                    viewModel.changeDropdownValue(
+                        SalesDataDropdown.financialYear, value);
                     viewModel.yearDropdownError = null;
                   },
                 ),
@@ -117,13 +123,15 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonDropdownTextFormField(
                   error: viewModel.monthDropdownError,
                   onTap: () {
-                    viewModel.changeDropdownValue("month", null);
+                    viewModel.changeDropdownValue(
+                        SalesDataDropdown.month, null);
                   },
                   value: viewModel.monthDropdownValue,
                   labelText: StringConstants().chooseMonthLabel,
-                  dropDownItem: const ['text1', 'text2'],
+                  dropDownItem: viewModel.monthList,
                   onChanged: (value) {
-                    viewModel.changeDropdownValue("month", value);
+                    viewModel.changeDropdownValue(
+                        SalesDataDropdown.month, value);
                     viewModel.monthDropdownError = null;
                   },
                 ),
