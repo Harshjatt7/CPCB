@@ -8,7 +8,7 @@ class LoginViewModel extends BaseViewModel {
 
   final formKey = GlobalKey<FormState>();
   String? selectedUserType;
-  bool isObscure = false;
+  bool isObscure = true;
 
   bool isBtnEnabled = false;
   final List<String> userTypes = [
