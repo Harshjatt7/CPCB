@@ -68,54 +68,59 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       {required String image,
       required String designation,
       required String name}) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColor().black10))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Center(
-            child: Container(
-              clipBehavior: Clip.antiAlias,
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColor().black20, width: 1)),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(1000)),
-                child: CommonImageWidget(
-                    height: 38,
-                    width: 38,
-                    fit: BoxFit.contain,
-                    imageSource: image,
-                    isNetworkImage: false),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: CommonImageWidget(
+              height: 44,
+              width: 34,
+              imageSource: ImageConstants().blueLogo,
+              isNetworkImage: false),
+        ),
+        const Spacer(),
+        Center(
+          child: Container(
+            clipBehavior: Clip.antiAlias,
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColor().black20, width: 1)),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(1000)),
+              child: CommonImageWidget(
+                  height: 38,
+                  width: 38,
+                  fit: BoxFit.contain,
+                  imageSource: image,
+                  isNetworkImage: false),
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 1),
+                child: CommonTextWidget(name,
+                    style: Theme.of(context).textTheme.bodyLarge!),
               ),
-            ),
+              CommonTextWidget(designation,
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppColor().darkBlue60,
+                      )),
+            ],
           ),
-          const SizedBox(
-            width: 8,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 1),
-                  child: CommonTextWidget(name,
-                      style: Theme.of(context).textTheme.bodyLarge!),
-                ),
-                CommonTextWidget(designation,
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: AppColor().darkBlue60,
-                        )),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

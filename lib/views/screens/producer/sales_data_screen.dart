@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
@@ -8,6 +9,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -186,7 +188,7 @@ class SalesDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     height: 50,
-                    label: StringConstants().submitBtnLable,
+                    label: StringConstants().submitBtnLabel,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
@@ -200,5 +202,67 @@ class SalesDataScreen extends StatelessWidget {
                 ),
               ]);
         });
+  }
+
+  popUpMessage(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            contentPadding: const EdgeInsets.all(0),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+            backgroundColor: AppColor().red,
+            content: Container(
+              height: 200,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: AppColor().white,
+                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: CommonTextWidget(
+                      MessageConstant().salesDataSubmitAlertTitle,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Flexible(flex: 5, child: SizedBox()),
+                        Flexible(
+                          flex: 2,
+                          child: CommonButtonWidget(
+                            label: "No",
+                            color: AppColor().white,
+                            labelStyle: Theme.of(context).textTheme.labelMedium,
+                          ),
+                        ),
+                        Flexible(
+                          flex: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 24),
+                            child: CommonButtonWidget(
+                              label: "Yes",
+                              color: AppColor().darkGreen,
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(color: AppColor().white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ));
+      },
+    );
   }
 }

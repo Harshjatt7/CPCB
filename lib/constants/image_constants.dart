@@ -44,7 +44,8 @@ class ImageConstants {
   final String backgroundWatermark = "assets/images/background/background.png";
   final String blueLogo = "assets/images/logo/blue_logo.svg";
 
-  // Retrader Screen
+  //Retrader's screen
+  final String verified = "assets/images/icons/verified.svg";
   final String notificationTabIcon =
       "assets/images/icons/notification_tab_icon.svg";
 }
