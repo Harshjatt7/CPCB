@@ -38,4 +38,21 @@ class StringConstants {
   final String totalLabel = "total-label";
   final String logOut = "log-out";
   final String authorizedPersonDetails = "authorized-person-detail";
+  final String quantityProcessed="quantity-processed";
+  final String quantityProduced="quantity-produced";
+  final String quantityOfWasteGenerated="quantity-of-waste-generated";
+  final String retreadedDate="retreaded-date";
+  final String addRetreadedData="add-retreaded-data";
+  final String nameOfWasteTyreSupplier = "name-of-waste-tyre-supplier";
+  final String contactDetails="contact-details";
+  final String supplierContactDetails="supplier-contact-details";
+  final String addressOfWasteTyreSupplier="address-of-waste-tyre-supplier";
+  final String typeOfRawMaterial="type-of-raw-material";
+  final String quantityReceived="quantity-received";
+  final String uploadInvoice="upload-invoice";
+  final String invoiceNumber="invoice-number";
+  final String gstNumberOfWasteTyreSupplier="gst-number-of-waste-tyre-supplier";
+  final String dateOfPurchaseOfRawMaterial="date-of-purchase-of-raw-material";
+
+
 }
