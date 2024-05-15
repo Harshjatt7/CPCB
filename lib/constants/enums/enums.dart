@@ -1,0 +1,1 @@
+enum SalesDataDropdown{producerType, typeOfTyre, financialYear, month}
