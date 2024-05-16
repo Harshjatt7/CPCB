@@ -10,7 +10,7 @@ class AuthRepository {
 
   Future login(LoginRequestModel requestModel) async {
     APIResponse<LoginResponseModel>? response =
-        await _apiBase.postRequest<LoginResponseModel>(_apiRoutes.demoRoute,
+        await _apiBase.postRequest<LoginResponseModel>(_apiRoutes.loginAPIRoute,
             data: requestModel.toJson());
     return response;
   }
