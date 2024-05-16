@@ -8,3 +8,4 @@ enum UserTypes {
   custom;
 }
 enum SalesDataDropdown{producerType, typeOfTyre, financialYear, month}
+enum UserTypeDropdown{userType}

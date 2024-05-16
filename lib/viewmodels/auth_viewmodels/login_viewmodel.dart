@@ -39,9 +39,20 @@ class LoginViewModel extends BaseViewModel {
     return isBtnEnabled;
   }
 
-  void onUserTypeChanged(dynamic value) {
-    selectedUserType = value;
-    notifyListeners();
+  void dropDownValidation() {
+    if (selectedUserType == null) {
+      onUserTypeChanged(UserTypeDropdown.userType, null);
+    }
+  }
+
+  String? selectedUserTypeError;
+  void onUserTypeChanged(dropdownValue, newValue) {
+    selectedUserType = newValue;
+    updateUI();
+    if (selectedUserType == null) {
+      selectedUserTypeError = "Please select the value";
+      updateUI();
+    }
   }
 
   void onLoginButtonTapped(BuildContext context) {
