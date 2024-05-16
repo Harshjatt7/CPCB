@@ -23,6 +23,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Color? disabledBgColor;
   final void Function()? onTap;
+  final void Function(String)? onChanged;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -59,6 +60,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isReadOnly = false,
       this.isPassword = false,
       this.onSuffixTap,
+      this.onChanged,
       this.disabledBgColor,
       this.onTap,
       this.inputFormatters});
@@ -113,6 +115,7 @@ class _CommonTextFormFieldWidgetNewState
                   color: error != null ? AppColor().red : AppColor().black20),
               borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
+            onChanged:widget.onChanged ,
             onTap: widget.onTap,
             inputFormatters: widget.inputFormatters ??
                 [
