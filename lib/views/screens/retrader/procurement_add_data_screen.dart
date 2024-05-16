@@ -133,14 +133,20 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              isDocument:
+                                  viewModel.filePath == null ? false : true,
+                              disabledBgColor: AppColor().transparent,
                               isReadOnly: true,
                               hintText: StringConstants().uploadInvoice,
-                              icon: ImageConstants().fileUpload,
-                              onTap: () {
-                                viewModel.openFileManager(context);
+                              icon:
+                                  viewModel.uploadInvoiceController.text.isEmpty
+                                      ? ImageConstants().fileUpload
+                                      : ImageConstants().removeIcon,
+                              onTap: ()  {
+                                viewModel.handleOnTap(context);
                               },
                               onSuffixTap: () {
-                                viewModel.openFileManager(context);
+                                viewModel.handleOnSuffixTap(context);
                               },
                               validator: (value) {
                                 return viewModel.uploadInvoiceValidation();

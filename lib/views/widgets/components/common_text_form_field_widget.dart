@@ -23,6 +23,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Color? disabledBgColor;
   final void Function()? onTap;
+  final bool? isDocument;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -61,7 +62,8 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.onSuffixTap,
       this.disabledBgColor,
       this.onTap,
-      this.inputFormatters});
+      this.inputFormatters,
+      this.isDocument});
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
@@ -106,6 +108,7 @@ class _CommonTextFormFieldWidgetNewState
           height: 60,
           alignment: Alignment.center,
           decoration: BoxDecoration(
+          
               color: widget.isReadOnly == true
                   ? widget.disabledBgColor ?? AppColor().grey03
                   : AppColor().transparent,
@@ -147,12 +150,12 @@ class _CommonTextFormFieldWidgetNewState
             keyboardType: widget.textInputType ?? TextInputType.text,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
                 color: widget.textColor ?? AppColor().black90,
-                decoration: TextDecoration.none,
+                decoration: widget.isDocument==true ? TextDecoration.underline:TextDecoration.none,
                 letterSpacing: widget.isObscure ? 5 : null),
             decoration: InputDecoration(
                 fillColor: widget.isReadOnly == true
-                    ? AppColor().grey03
-                    : AppColor().transparent,
+                  ? widget.disabledBgColor ?? AppColor().grey03
+                  : AppColor().transparent,
                 filled: widget.isReadOnly ?? false,
                 label: RichText(
                   text: TextSpan(

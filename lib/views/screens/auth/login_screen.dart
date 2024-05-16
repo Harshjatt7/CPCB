@@ -31,17 +31,19 @@ class LoginScreen extends StatelessWidget {
           return CustomScaffold(
             showAppBar: false,
             backgroundColor: AppColor().white,
-            resizeToBottomInset: false,
-            body: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                CommonImageWidget(
-                    width: Responsive().screenWidth(context),
-                    height: Responsive().screenHeight(context),
-                    imageSource: ImageConstants().backgroundWatermark,
-                    isNetworkImage: false),
-                formSection(viewmodel, context)
-              ],
+            // resizeToBottomInset: false,
+            body: SingleChildScrollView(
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  CommonImageWidget(
+                      width: Responsive().screenWidth(context),
+                      height: Responsive().screenHeight(context),
+                      imageSource: ImageConstants().backgroundWatermark,
+                      isNetworkImage: false),
+                  formSection(viewmodel, context)
+                ],
+              ),
             ),
           );
         });
