@@ -4,7 +4,10 @@ class AppRoutes {
 
   // Demo route
   static const String demoRoute = "demo route";
-  static const String loginPageRoute = "/loginPageRoute";
-  static const String producerHomeScreen = "/producerHomeScreen";
-  static const String addSalesDataScreen = "/addSalesDataScreen";
+  static const String loginScreenRoute = "/loginScreenRoute";
+  static const String producerHomeScreenRoute = "/producerHomeScreenRoute";
+  static const String addSalesDataScreenRoute = "/addSalesDataScreenRoute";
+  static const String retraderHomeScreenRoute = "/retraderHomeScreenRoute";
+  static const String procurementAddDataScreenRoute = "/procurementAddDataScreenRoute";
+  static const String retreadedAddDataScreenRoute = "/retreadedAddDataScreenRoute";
 }

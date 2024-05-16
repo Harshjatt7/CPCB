@@ -3,6 +3,9 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:localization/localization.dart';
 
 class CommonTextFormFieldWidget extends StatefulWidget {
   final String hintText;
@@ -17,6 +20,9 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final TextInputType? textInputType;
   final String? Function(String?)? validator;
   final Color? textColor;
+  final List<TextInputFormatter>? inputFormatters;
+  final Color? disabledBgColor;
+  final void Function()? onTap;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -33,6 +39,11 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   /// [isPasswordField] is optional field for password icons, by default is false
   ///
   /// [onSuffixTap] is optional field for onTap function of gestureDetector
+  ///
+  /// [inputFormatters] will be used to send any input formatters if required.
+  ///
+  /// [disabledBgColor] will be used to set the background color of textfield where [isReadOnly] is true,
+  /// if no color is given it will use the default disabled background color.
 
   const CommonTextFormFieldWidget(
       {super.key,
@@ -45,41 +56,35 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.isPasswordField = false,
       this.textInputType = TextInputType.text,
       this.validator,
-      this.isReadOnly,
+      this.isReadOnly = false,
       this.isPassword = false,
-      this.onSuffixTap});
+      this.onSuffixTap,
+      this.disabledBgColor,
+      this.onTap,
+      this.inputFormatters});
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
-      _CommonTextFormFieldWidgetState();
+      _CommonTextFormFieldWidgetNewState();
 }
 
-class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
+class _CommonTextFormFieldWidgetNewState
+    extends State<CommonTextFormFieldWidget> {
   late FocusNode _focusNode;
   bool isClick = true;
-  void onClickTextField() {
-    setState(() {
-      if ((widget.controller.text.isEmpty ||
-          widget.controller.text.trim() == '')) {
-        widget.controller.clear();
-        isClick = true;
-      }
-    });
-  }
-
-  void removeEmptySpace() {
-    setState(() {
-      if (widget.controller.text.isNotEmpty) {
-        widget.controller.text = widget.controller.text.trim();
-      }
-    });
-  }
+  String? error;
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
     _focusNode.addListener(_handleFocusChange);
+    widget.controller.addListener(() {
+      if (widget.validator != null) {
+        error = widget.validator!(widget.controller.text);
+      }
+      setState(() {});
+    });
   }
 
   @override
@@ -90,116 +95,125 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
   }
 
   void _handleFocusChange() {
-    if (!_focusNode.hasFocus) {
-      onClickTextField();
-      removeEmptySpace();
-    }
+    if (!_focusNode.hasFocus) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) {
-        if (didPop) {
-          return;
-        }
-        onClickTextField();
-      },
-      child: TextFormField(
-        controller: widget.controller,
-        onTap: () {
-          setState(() {
-            isClick = false;
-          });
-        },
-        onTapOutside: (event) {
-          FocusManager.instance.primaryFocus?.unfocus();
-          removeEmptySpace();
-          onClickTextField();
-        },
-        onFieldSubmitted: (value) {
-          onClickTextField();
-          removeEmptySpace();
-        },
-        onEditingComplete: () {
-          onClickTextField();
-          removeEmptySpace();
-        },
-        onSaved: (newValue) {
-          onClickTextField();
-          removeEmptySpace();
-        },
-        onAppPrivateCommand: (action, data) {
-          onClickTextField();
-          removeEmptySpace();
-        },
-        focusNode: _focusNode,
-        obscureText: widget.isObscure,
-        cursorColor: AppColor().grey919191,
-        onTapAlwaysCalled: true,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: widget.validator,
-        obscuringCharacter: '*',
-        readOnly: widget.isReadOnly ?? false,
-        keyboardType: widget.textInputType ?? TextInputType.text,
-        style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: widget.textColor ?? AppColor().black1A1A1A,
-            letterSpacing: widget.isObscure ? 5 : null),
-        decoration: InputDecoration(
-            prefixIcon: isClick == true
-                ? Padding(
-                    padding: const EdgeInsets.only(top: 14, left: 20),
-                    child: CommonTextWidget(
-                      widget.hintText,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displaySmall!
-                          .copyWith(color: AppColor().grey919191),
-                    ),
-                  )
-                : null,
-            contentPadding:
-                const EdgeInsets.only(top: 16, bottom: 16, left: 20),
-            hintStyle: Theme.of(context)
-                .textTheme
-                .labelSmall!
-                .copyWith(color: AppColor().redFF3333),
-            hintText: widget.isMandatory
-                ? isClick
-                    ? '  *'
-                    : ""
-                : "",
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: AppColor().redFF3333, width: 1)),
-            errorBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: AppColor().redFF3333, width: 1)),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: AppColor().greyLight, width: 1)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: AppColor().greyLight, width: 1)),
-            suffixIcon: widget.icon != null
-                ? suffixWidget()
-                : widget.isPasswordField == true
-                    ? GestureDetector(
-                        onTap: widget.onSuffixTap,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 30.0),
-                          child: CommonImageWidget(
-                              width: 30,
-                              fit: BoxFit.fitWidth,
-                              imageSource: widget.isObscure
-                                  ? ImageConstants().eyesClose
-                                  : ImageConstants().eyesOpen,
-                              isNetworkImage: false),
-                        ),
-                      )
-                    : null),
-      ),
+    return Column(
+      children: [
+        Container(
+          height: 60,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: widget.isReadOnly == true
+                  ? widget.disabledBgColor ?? AppColor().grey03
+                  : AppColor().transparent,
+              border: Border.all(
+                  color: error != null ? AppColor().red : AppColor().black20),
+              borderRadius: BorderRadius.circular(5)),
+          child: TextFormField(
+            onTap: widget.onTap,
+            inputFormatters: widget.inputFormatters ??
+                [
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@ ]')),
+                ],
+            enableInteractiveSelection: false,
+            controller: widget.controller,
+            focusNode: widget.isReadOnly == true
+                ? AlwaysDisabledFocusNode()
+                : _focusNode,
+            obscureText: widget.isObscure,
+            cursorColor: AppColor().grey01,
+            showCursor: true,
+            cursorErrorColor: AppColor().grey01,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (val) {
+              if (widget.validator != null) {
+                error = widget.validator!(widget.controller.text);
+
+                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                  setState(() {});
+                });
+              }
+
+              return widget.validator == null
+                  ? null
+                  : widget.validator!(widget.controller.text);
+            },
+            obscuringCharacter: '*',
+            readOnly: widget.isReadOnly ?? false,
+            cursorHeight: 20,
+            keyboardType: widget.textInputType ?? TextInputType.text,
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: widget.textColor ?? AppColor().black90,
+                decoration: TextDecoration.none,
+                letterSpacing: widget.isObscure ? 5 : null),
+            decoration: InputDecoration(
+                fillColor: widget.isReadOnly == true
+                    ? AppColor().grey03
+                    : AppColor().transparent,
+                filled: widget.isReadOnly ?? false,
+                label: RichText(
+                  text: TextSpan(
+                    text: widget.hintText.i18n(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(color: AppColor().grey01),
+                    children: [
+                      TextSpan(
+                        text: widget.isMandatory ? " *" : "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall
+                            ?.copyWith(color: AppColor().red),
+                      ),
+                    ],
+                  ),
+                ),
+                contentPadding:
+                    const EdgeInsets.only(top: 8, bottom: 8, left: 20),
+                errorStyle: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(color: AppColor().transparent, fontSize: 1),
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                border: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                suffixIcon: widget.icon != null
+                    ? suffixWidget()
+                    : widget.isPasswordField == true
+                        ? GestureDetector(
+                            onTap: widget.onSuffixTap,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 30.0),
+                              child: CommonImageWidget(
+                                  width: 20,
+                                  fit: BoxFit.contain,
+                                  imageSource: widget.isObscure
+                                      ? ImageConstants().eyesClose
+                                      : ImageConstants().eyesOpen,
+                                  isNetworkImage: false),
+                            ),
+                          )
+                        : null),
+          ),
+        ),
+        if (error != null)
+          Align(
+            alignment: Alignment.topLeft,
+            child: CommonTextWidget(
+              error.toString(),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: AppColor().red),
+            ),
+          ),
+      ],
     );
   }
 
@@ -207,13 +221,18 @@ class _CommonTextFormFieldWidgetState extends State<CommonTextFormFieldWidget> {
     return GestureDetector(
       onTap: widget.onSuffixTap,
       child: Padding(
-        padding: const EdgeInsets.only(right: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         child: CommonImageWidget(
-            width: 30,
+            width: 20,
             fit: BoxFit.fitWidth,
             imageSource: widget.icon ?? "",
             isNetworkImage: false),
       ),
     );
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }

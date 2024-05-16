@@ -1,4 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/demo/producer_sales_data_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/sales_viewmodel.dart';
@@ -24,8 +26,8 @@ class SalesScreen extends StatelessWidget {
           return CustomScaffold(
               appBar: CommonAppBar(
                 isProfileBar: true,
-                name: "Vibhor Singh",
-                designation: "Manager",
+                name: StringConstants().name,
+                designation: StringConstants().manager,
                 image: ImageConstants().avatar,
               ),
               body: Column(
@@ -36,12 +38,12 @@ class SalesScreen extends StatelessWidget {
                         vertical: 12, horizontal: 16),
                     decoration: BoxDecoration(
                         border: Border(
-                            top: BorderSide(color: AppColor().appBarBorder),
+                            top: BorderSide(color: AppColor().black10),
                             bottom: BorderSide(
-                              color: AppColor().appBarBorder,
+                              color: AppColor().black10,
                             ))),
                     child: CommonTextWidget(
-                      'Sales data producer listing',
+                      StringConstants().salesDataProducerListingTitle,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
@@ -53,21 +55,25 @@ class SalesScreen extends StatelessWidget {
                           child: ListView.builder(
                             shrinkWrap: true,
                             physics: const PageScrollPhysics(),
-                            itemCount: 10,
+                            itemCount: producerSalesDataList.length,
                             itemBuilder: (context, index) {
-                              return const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
+                              final producerSalesDetail = producerSalesDataList[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: ProducerSalesList(
-                                  title: 'BiasPly',
-                                  year: '2022-2023',
-                                  month: 'January',
-                                  count: '19',
-                                  car: '2',
-                                  scooter: '4',
-                                  deliveryTruck: '5',
-                                  train: '1',
-                                  truck: '6',
-                                  tyre: '9',
+                                  producerType: producerSalesDetail.producerType??"",
+                                  title: producerSalesDetail.title??"",
+                                  year: producerSalesDetail.year??"",
+                                  month: producerSalesDetail.month??"",
+                                  count: producerSalesDetail.count??"",
+                                  motorcycle: producerSalesDetail.motorcycle,
+                                  scooter: producerSalesDetail.scooter,
+                                  passengerCar: producerSalesDetail.passengerCar,
+                                  bus: producerSalesDetail.bus,
+                                  truck: producerSalesDetail.truck,
+                                  tRear: producerSalesDetail.tRear,
+                                  tcv: producerSalesDetail.tcv,
+                                  other: producerSalesDetail.other,
                                 ),
                               );
                             },
@@ -76,10 +82,10 @@ class SalesScreen extends StatelessWidget {
                         CommonButtonWidget(
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, AppRoutes.addSalesDataScreen);
+                                context, AppRoutes.addSalesDataScreenRoute);
                           },
-                          label: 'Add sales data',
-                          color: AppColor().darkGreen18632E,
+                          label: StringConstants().addSalesDataBtnLabel,
+                          color: AppColor().darkGreen,
                           labelStyle: Theme.of(context)
                               .textTheme
                               .labelSmall!

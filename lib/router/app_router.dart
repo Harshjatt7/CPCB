@@ -1,8 +1,11 @@
-import 'package:cpcb_tyre/views/screens/auth/login_page.dart';
+import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
+import 'package:cpcb_tyre/views/screens/retrader/procurement_add_data_screen.dart';
+import 'package:cpcb_tyre/views/screens/retrader/retreaded_add_data_screen.dart';
+import 'package:cpcb_tyre/views/screens/retrader/retreader_home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
-import '../views/screens/producer/producer_home_page.dart';
+import '../views/screens/producer/producer_home_screen.dart';
 import '../views/screens/producer/sales_data_screen.dart';
 
 class PageRouter {
@@ -11,12 +14,18 @@ class PageRouter {
       // Splash Screen
       case AppRoutes.splashScreenRoute:
         return _getPageRoute(const SplashScreen(), settings);
-      case AppRoutes.loginPageRoute:
-        return _getPageRoute(const LoginPage(), settings);
-      case AppRoutes.producerHomeScreen:
-        return _getPageRoute(const ProducerHomePage(), settings);
-      case AppRoutes.addSalesDataScreen:
+      case AppRoutes.loginScreenRoute:
+        return _getPageRoute(const LoginScreen(), settings);
+      case AppRoutes.producerHomeScreenRoute:
+        return _getPageRoute(const ProducerHomeScreen(), settings);
+      case AppRoutes.retraderHomeScreenRoute:
+        return _getPageRoute(const RetraderHomeScreen(), settings);
+      case AppRoutes.addSalesDataScreenRoute:
         return _getPageRoute(const SalesDataScreen(), settings);
+      case AppRoutes.procurementAddDataScreenRoute:
+        return _getPageRoute(const ProcurementAddDataScreen(), settings);
+      case AppRoutes.retreadedAddDataScreenRoute:
+        return _getPageRoute(const RetreadedAddDataScreen(), settings);
 
       // Will be displayed if no specified route is found.
       default:
