@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/utils/helper/text_theme_helper.dart';
 import 'package:cpcb_tyre/viewmodels/auth_viewmodels/login_viewmodel.dart';
@@ -93,8 +92,14 @@ class LoginScreen extends StatelessWidget {
                         labelText: StringConstants().selectUserHint,
                         dropDownItem: viewmodel.userTypes,
                         value: viewmodel.selectedUserType,
+                        error: viewmodel.userTypeDropdownError,
+                        onTap: () {
+                          viewmodel
+                              .changeDropdownValue(viewmodel.selectedUserType);
+                        },
                         onChanged: (val) {
                           viewmodel.onUserTypeChanged(val);
+                          viewmodel.userTypeDropdownError = null;
                         }),
                     const SizedBox(
                       height: 16,
@@ -104,10 +109,7 @@ class LoginScreen extends StatelessWidget {
                       isMandatory: true,
                       controller: viewmodel.emailController,
                       validator: (val) {
-                        if (viewmodel.emailController.text.isEmpty) {
-                          return StringConstants().required;
-                        }
-                        return null;
+                        return viewmodel.emailValidation();
                       },
                     ),
                     const SizedBox(
@@ -123,29 +125,18 @@ class LoginScreen extends StatelessWidget {
                       },
                       isPasswordField: true,
                       validator: (val) {
-                        if (viewmodel.passController.text.isEmpty) {
-                          return StringConstants().required;
-                        }
-                        return null;
+                        return viewmodel.passValidation();
                       },
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     CommonButtonWidget(
-                      onPressed: () async {
-                        if (viewmodel.formKey.currentState?.validate() ??
-                            false) {
-                          await context.globalProvider.updateUserType(
-                              viewmodel.selectedUserType ?? "", context);
-
-                          if (context.mounted) {
-                            viewmodel.onLoginButtonTapped(
-                              context,
-                            );
-                          }
-                        }
-                      },
+                      onPressed: viewmodel.isBtnEnabled
+                          ? () async {
+                              viewmodel.formValidation(context);
+                            }
+                          : null,
                       label: StringConstants().loginBtnLabel,
                       color: viewmodel.isBtnEnabled
                           ? AppColor().darkGreen

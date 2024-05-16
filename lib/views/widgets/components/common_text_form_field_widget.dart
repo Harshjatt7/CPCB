@@ -119,7 +119,7 @@ class _CommonTextFormFieldWidgetNewState
             onTap: widget.onTap,
             inputFormatters: widget.inputFormatters ??
                 [
-                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@ ]')),
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@. ]')),
                 ],
             enableInteractiveSelection: false,
             controller: widget.controller,
