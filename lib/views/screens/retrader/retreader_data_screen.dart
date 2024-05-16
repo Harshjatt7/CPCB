@@ -13,8 +13,9 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class ProcurementDataScreen extends StatelessWidget {
-  const ProcurementDataScreen({super.key});
+class RetreaderDataScreen extends StatelessWidget {
+  const RetreaderDataScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BaseView<ProducerWidgetViewModel>(
@@ -43,7 +44,7 @@ class ProcurementDataScreen extends StatelessWidget {
                           color: AppColor().black10,
                         ))),
                 child: CommonTextWidget(
-                  StringConstants().procurementData,
+                  StringConstants().retreadedData,
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
@@ -72,18 +73,19 @@ class ProcurementDataScreen extends StatelessWidget {
                               date: retraderDetails.date,
                               year: retraderDetails.date,
                             ),
-                           
                           );
                         },
                       ),
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     CommonButtonWidget(
-                      label: StringConstants().addProcurementButton,
                       onPressed: () {
                         Navigator.pushNamed(
-                            context, AppRoutes.procurementAddDataScreenRoute);
+                            context, AppRoutes.retreadedAddDataScreenRoute);
                       },
+                      label: StringConstants().addRetreadedDataButton,
                       color: AppColor().darkGreen,
                       labelStyle: Theme.of(context)
                           .textTheme

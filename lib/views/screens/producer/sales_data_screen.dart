@@ -260,7 +260,7 @@ class SalesDataScreen extends StatelessWidget {
                         Flexible(
                           flex: 2,
                           child: CommonButtonWidget(
-                            label: "No",
+                            label: StringConstants().no,
                             color: AppColor().white,
                             labelStyle: Theme.of(context).textTheme.labelMedium,
                           ),
@@ -270,7 +270,7 @@ class SalesDataScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 24),
                             child: CommonButtonWidget(
-                              label: "Yes",
+                              label: StringConstants().yes,
                               color: AppColor().darkGreen,
                               labelStyle: Theme.of(context)
                                   .textTheme

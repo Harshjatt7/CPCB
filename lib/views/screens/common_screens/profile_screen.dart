@@ -46,13 +46,13 @@ class ProfileScreen extends StatelessWidget {
                     height: 8,
                   ),
                   detailContainer(context,
-                      title: 'Rajendra Kumar Sahu',
-                      email: 'rks@grid-india.in',
-                      phoneNo: '+91 9999012345'),
+                      title: StringConstants().rajendra,
+                      email:StringConstants().rajendraEmail,
+                      phoneNo:StringConstants().rajendraPhone),
                   detailContainer(context,
                       title: StringConstants().authorizedPersonDetails,
-                      email: 'rks@grid-india.in',
-                      phoneNo: '+91 9999012345')
+                      email: StringConstants().rajendraEmail,
+                      phoneNo: StringConstants().rajendraPhone)
                 ],
               ),
             ),
