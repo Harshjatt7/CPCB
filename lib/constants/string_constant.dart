@@ -76,13 +76,13 @@ class StringConstants {
   final String required = "required";
 
   //User Types
-  static const String admin = "admin";
-  static const String other = "other";
-  static const String inspection = "inspection";
-  static const String producer = "producer";
-  static const String retreader = "retreader";
-  static const String recycler = "recycler";
-  static const String custom = "custom";
+  static const String admin = "Admin";
+  static const String other = "Other";
+  static const String inspection = "Inspection";
+  static const String producer = "Producer";
+  static const String retreader = "Retreader";
+  static const String recycler = "Recycler";
+  static const String custom = "Custom";
 
   // dummy
   final String name = "Vibhor Singh";

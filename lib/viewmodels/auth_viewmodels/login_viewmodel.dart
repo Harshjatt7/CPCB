@@ -12,7 +12,8 @@ class LoginViewModel extends BaseViewModel {
 
   final formKey = GlobalKey<FormState>();
   String? selectedUserType;
-  bool isObscure = false;
+  bool isObscure = true;
+
   bool isBtnEnabled = false;
   UserTypes? currentUser;
 
@@ -43,8 +44,8 @@ class LoginViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void onLoginButtonTapped(BuildContext context, UserTypes userType) {
-    switch (userType) {
+  void onLoginButtonTapped(BuildContext context) {
+    switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
       case UserTypes.admin:
         Navigator.pushNamed(context, AppRoutes.producerHomeScreenRoute);
         break;
