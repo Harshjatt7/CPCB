@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
@@ -143,12 +142,8 @@ class LoginScreen extends StatelessWidget {
                               viewmodel.selectedUserType ?? "", context);
 
                           if (context.mounted) {
-                            HelperFunctions().logger(
-                                MaterialAppViewModel.userTypeEnum.toString());
                             viewmodel.onLoginButtonTapped(
                               context,
-                              // MaterialAppViewModel.userTypeEnum ??
-                              //     UserTypes.custom
                             );
                           }
                         }
