@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
@@ -96,14 +95,12 @@ class LoginScreen extends StatelessWidget {
                       labelText: StringConstants().selectUserHint,
                       error: viewmodel.selectedUserTypeError,
                       onTap: () {
-                        viewmodel.onUserTypeChanged(
-                            UserTypeDropdown.userType, null);
+                        viewmodel.onUserTypeChanged(null);
                       },
                       value: viewmodel.selectedUserType,
                       dropDownItem: viewmodel.userTypes,
                       onChanged: (value) {
-                        viewmodel.onUserTypeChanged(
-                            UserTypeDropdown.userType, value);
+                        viewmodel.onUserTypeChanged(value);
                         viewmodel.selectedUserTypeError = null;
                       },
                     ),

@@ -41,12 +41,12 @@ class LoginViewModel extends BaseViewModel {
 
   void dropDownValidation() {
     if (selectedUserType == null) {
-      onUserTypeChanged(UserTypeDropdown.userType, null);
+      onUserTypeChanged(null);
     }
   }
 
   String? selectedUserTypeError;
-  void onUserTypeChanged(dropdownValue, newValue) {
+  void onUserTypeChanged(newValue) {
     selectedUserType = newValue;
     updateUI();
     if (selectedUserType == null) {
