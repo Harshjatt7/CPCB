@@ -125,8 +125,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText: StringConstants().quantityReceived,
                               isMandatory: true,
                               validator: (value) {
-                                return viewModel.valueValidation(
-                                    viewModel.quantityReceivedController);
+                                return viewModel.quantityReceivedValidation();
                               },
                               controller: viewModel.quantityReceivedController),
                         ),
@@ -166,11 +165,13 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(15)
+                              ],
                               hintText: StringConstants()
                                   .gstNumberOfWasteTyreSupplier,
                               validator: (value) {
-                                return viewModel
-                                    .valueValidation(viewModel.gstController);
+                                return viewModel.gstNumberValidation();
                               },
                               isMandatory: true,
                               controller: viewModel.gstController),
@@ -178,6 +179,13 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              onChanged: (value) {
+                                viewModel.onChange();
+                              },
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10),
+                              ],
+                              textInputType: TextInputType.datetime,
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,
