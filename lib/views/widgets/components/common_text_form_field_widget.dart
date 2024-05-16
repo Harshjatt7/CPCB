@@ -115,7 +115,7 @@ class _CommonTextFormFieldWidgetNewState
                   color: error != null ? AppColor().red : AppColor().black20),
               borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
-            onChanged: widget.onChanged,
+            onChanged:widget.onChanged ,
             onTap: widget.onTap,
             inputFormatters: widget.inputFormatters ??
                 [
