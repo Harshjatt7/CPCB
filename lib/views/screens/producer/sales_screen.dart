@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/demo/producer_sales_data_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/producer_viewmodels/sales_viewmodel.dart';
@@ -25,8 +26,8 @@ class SalesScreen extends StatelessWidget {
           return CustomScaffold(
               appBar: CommonAppBar(
                 isProfileBar: true,
-                name: "Vibhor Singh",
-                designation: "Manager",
+                name: StringConstants().name,
+                designation: StringConstants().manager,
                 image: ImageConstants().avatar,
               ),
               body: Column(
@@ -54,25 +55,25 @@ class SalesScreen extends StatelessWidget {
                           child: ListView.builder(
                             shrinkWrap: true,
                             physics: const PageScrollPhysics(),
-                            itemCount: 10,
+                            itemCount: producerSalesDataList.length,
                             itemBuilder: (context, index) {
-                              return const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                // TODO: to be removed when API is integrated.
+                              final producerSalesDetail = producerSalesDataList[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: ProducerSalesList(
-                                  producerType: "P1",
-                                  title: 'BiasPly',
-                                  year: '2022-2023',
-                                  month: 'January',
-                                  count: '19',
-                                  motorcycle: '23',
-                                  scooter: '44',
-                                  passengerCar: '233',
-                                  bus: '13',
-                                  truck: '53',
-                                  tRear: '22',
-                                  tcv: '92',
-                                  other: '25456',
+                                  producerType: producerSalesDetail.producerType??"",
+                                  title: producerSalesDetail.title??"",
+                                  year: producerSalesDetail.year??"",
+                                  month: producerSalesDetail.month??"",
+                                  count: producerSalesDetail.count??"",
+                                  motorcycle: producerSalesDetail.motorcycle,
+                                  scooter: producerSalesDetail.scooter,
+                                  passengerCar: producerSalesDetail.passengerCar,
+                                  bus: producerSalesDetail.bus,
+                                  truck: producerSalesDetail.truck,
+                                  tRear: producerSalesDetail.tRear,
+                                  tcv: producerSalesDetail.tcv,
+                                  other: producerSalesDetail.other,
                                 ),
                               );
                             },

@@ -19,56 +19,38 @@ class _ProducerHomePageState extends State<ProducerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
-      BottomNavigationBarItem(
-          label: "",
-          activeIcon: CommonImageWidget(
-            imageColor: AppColor().darkGreen,
-            imageSource: ImageConstants().homeTabIcon,
-            isNetworkImage: false,
-            height: 20,
-            width: 20,
-          ),
-          icon: CommonImageWidget(
-            imageSource: ImageConstants().homeTabIcon,
-            isNetworkImage: false,
-            imageColor: AppColor().black20,
-            height: 20,
-            width: 20,
-          )),
-      BottomNavigationBarItem(
-          activeIcon: CommonImageWidget(
-            imageColor: AppColor().darkGreen,
-            imageSource: ImageConstants().calendarTabIcon,
-            isNetworkImage: false,
-            height: 20,
-            width: 20,
-          ),
-          label: "",
-          icon: CommonImageWidget(
-            imageSource: ImageConstants().calendarTabIcon,
-            isNetworkImage: false,
-            height: 20,
-            width: 20,
-          )),
-      BottomNavigationBarItem(
-          label: "",
-          activeIcon: CommonImageWidget(
-            imageColor: AppColor().darkGreen,
-            imageSource: ImageConstants().profileTabIcon,
-            isNetworkImage: false,
-            height: 20,
-            width: 20,
-          ),
-          icon: CommonImageWidget(
-            imageSource: ImageConstants().profileTabIcon,
-            isNetworkImage: false,
-            height: 20,
-            width: 20,
-          ))
+      bottomNavigationBarWidget(
+        imgSrc: ImageConstants().homeTabIcon,
+      ),
+      bottomNavigationBarWidget(
+        imgSrc: ImageConstants().calendarTabIcon,
+      ),
+     
+      bottomNavigationBarWidget(
+        imgSrc: ImageConstants().profileTabIcon,
+      )
     ], screens: const [
       DashBoardScreen(),
       SalesScreen(),
       ProfileScreen()
     ]);
   }
+
+  BottomNavigationBarItem bottomNavigationBarWidget({
+    required String imgSrc,
+  }) =>
+      BottomNavigationBarItem(
+          label: "",
+          activeIcon: CommonImageWidget(
+              height: 20,
+              width: 20,
+              imageColor: AppColor().darkGreen,
+              imageSource: imgSrc,
+              isNetworkImage: false),
+          icon: CommonImageWidget(
+              height: 20,
+              width: 20,
+              imageColor: AppColor().black20,
+              imageSource: imgSrc,
+              isNetworkImage: false));
 }

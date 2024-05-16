@@ -1,11 +1,14 @@
 import 'dart:developer';
 
+import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../store/secure_storage.dart';
 import '../../theme/app_color.dart';
+import '../../viewmodels/material_app_viewmodel.dart';
 import '../../views/widgets/components/common_text_widget.dart';
 
 class HelperFunctions {
@@ -36,6 +39,23 @@ class HelperFunctions {
     await SecureStorage.instance.storeSensitiveInfo("userType", userType);
     if (context.mounted) {
       context.globalProvider.userType = userType;
+      switch (userType) {
+        case StringConstants.admin:
+          MaterialAppViewModel.userTypeEnum = UserTypes.admin;
+          break;
+        case StringConstants.other:
+          MaterialAppViewModel.userTypeEnum = UserTypes.other;
+        case StringConstants.inspection:
+          MaterialAppViewModel.userTypeEnum = UserTypes.inspection;
+        case StringConstants.producer:
+          MaterialAppViewModel.userTypeEnum = UserTypes.producer;
+        case StringConstants.recycler:
+          MaterialAppViewModel.userTypeEnum = UserTypes.recycler;
+        case StringConstants.retreader:
+          MaterialAppViewModel.userTypeEnum = UserTypes.retreader;
+        case StringConstants.custom:
+         MaterialAppViewModel.userTypeEnum = UserTypes.custom;
+      }
     }
   }
 
