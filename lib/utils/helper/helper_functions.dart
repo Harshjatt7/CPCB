@@ -45,16 +45,22 @@ class HelperFunctions {
           break;
         case StringConstants.other:
           MaterialAppViewModel.userTypeEnum = UserTypes.other;
+          break;
         case StringConstants.inspection:
           MaterialAppViewModel.userTypeEnum = UserTypes.inspection;
+          break;
         case StringConstants.producer:
           MaterialAppViewModel.userTypeEnum = UserTypes.producer;
+          break;
         case StringConstants.recycler:
           MaterialAppViewModel.userTypeEnum = UserTypes.recycler;
+          break;
         case StringConstants.retreader:
           MaterialAppViewModel.userTypeEnum = UserTypes.retreader;
+          break;
         case StringConstants.custom:
-         MaterialAppViewModel.userTypeEnum = UserTypes.custom;
+          MaterialAppViewModel.userTypeEnum = UserTypes.custom;
+          break;
       }
     }
   }

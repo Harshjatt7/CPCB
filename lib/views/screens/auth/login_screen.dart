@@ -1,13 +1,10 @@
-import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
-import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/utils/helper/text_theme_helper.dart';
 import 'package:cpcb_tyre/viewmodels/auth_viewmodels/login_viewmodel.dart';
-import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
@@ -143,10 +140,9 @@ class LoginScreen extends StatelessWidget {
                               viewmodel.selectedUserType ?? "", context);
 
                           if (context.mounted) {
-                            HelperFunctions()
-                                .logger(MaterialAppViewModel.userTypeEnum.toString());
-                            viewmodel.onLoginButtonTapped(context,
-                                MaterialAppViewModel.userTypeEnum??UserTypes.custom);
+                            viewmodel.onLoginButtonTapped(
+                              context,
+                            );
                           }
                         }
                       },
