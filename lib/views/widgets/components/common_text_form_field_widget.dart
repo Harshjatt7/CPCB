@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 
@@ -130,6 +131,10 @@ class _CommonTextFormFieldWidgetNewState
             validator: (val) {
               if (widget.validator != null) {
                 error = widget.validator!(widget.controller.text);
+
+                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                  setState(() {});
+                });
               }
 
               return widget.validator == null
