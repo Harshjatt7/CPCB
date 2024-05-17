@@ -110,7 +110,6 @@ class _CommonTextFormFieldWidgetNewState
           height: 60,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-          
               color: widget.isReadOnly == true
                   ? widget.disabledBgColor ?? AppColor().grey03
                   : AppColor().transparent,
@@ -139,7 +138,9 @@ class _CommonTextFormFieldWidgetNewState
                 error = widget.validator!(widget.controller.text);
 
                 SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                  setState(() {});
+                  if (context.mounted) {
+                    setState(() {});
+                  }
                 });
               }
 

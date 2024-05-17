@@ -2,7 +2,7 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
-import 'package:cpcb_tyre/viewmodels/producer_viewmodels/profile_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/producer/profile_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
@@ -47,8 +47,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   detailContainer(context,
                       title: StringConstants().rajendra,
-                      email:StringConstants().rajendraEmail,
-                      phoneNo:StringConstants().rajendraPhone),
+                      email: StringConstants().rajendraEmail,
+                      phoneNo: StringConstants().rajendraPhone),
                   detailContainer(context,
                       title: StringConstants().authorizedPersonDetails,
                       email: StringConstants().rajendraEmail,
@@ -60,8 +60,8 @@ class ProfileScreen extends StatelessWidget {
               CommonButtonWidget(
                 label: StringConstants().logOut,
                 color: AppColor().darkGreen,
-                onPressed: (){
-                   viewModel.clearAppData(context);
+                onPressed: () {
+                  viewModel.clearAppData(context);
                 },
               )
             ],

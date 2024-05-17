@@ -1,15 +1,14 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/producer_viewmodels/dashboard_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/producer/dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_note.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_environment_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_erp_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_list_tile.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/producer_annual_return_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
@@ -23,12 +22,15 @@ class DashBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<DashboardViewModel>(
-        onModelReady: (viewModel) {
+        onModelReady: (viewModel) async {
           viewModel.getCurrentUserType(context);
+
+          await viewModel.getDasboardData();
         },
         viewModel: DashboardViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+              isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
                 isProfileBar: true,
                 image: ImageConstants().avatar,
@@ -55,44 +57,68 @@ class DashBoardScreen extends StatelessWidget {
                               )),
                           child: Column(
                             children: [
-                              ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: 6,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(bottom: 12),
-                                    child: ProducerListTile(
-                                        title: StringConstants().userType,
-                                        subtitle: StringConstants.producer),
-                                  );
-                                },
-                              ),
-                              CommonNote(
-                                  note:
-                                      MessageConstant().producerDashBoardNote),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                child: CommonButtonWidget(
-                                  label: StringConstants().downloadApplication,
-                                  color: AppColor().darkGreen,
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: ProducerListTile(
+                                    title: StringConstants().userType,
+                                    subtitle: viewModel.data?.userType ?? ""),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: ProducerListTile(
+                                    title: StringConstants().currentStatus,
+                                    subtitle:
+                                        viewModel.data?.currentStatus ?? ""),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: ProducerListTile(
+                                    title: StringConstants().applicationNumber,
+                                    subtitle: viewModel
+                                            .data?.uniqueRegistrationNumber ??
+                                        ""),
+                              ),
+                              // ListView.builder(
+                              //   shrinkWrap: true,
+                              //   itemCount: viewModel.dashboardResponseModel?.,
+                              //   physics: const NeverScrollableScrollPhysics(),
+                              //   itemBuilder: (context, index) {
+                              //     return Padding(
+                              //       padding: const EdgeInsets.only(bottom: 12),
+                              //       child: ProducerListTile(
+                              //           title: StringConstants().userType,
+                              //           subtitle: StringConstants.producer),
+                              //     );
+                              //   },
+                              // ),
+                              // CommonNote(
+                              //     note:
+                              //         MessageConstant().producerDashBoardNote),
+                              if (viewModel.data?.downloadApplication == true)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
+                                  child: CommonButtonWidget(
+                                    label:
+                                        StringConstants().downloadApplication,
+                                    color: AppColor().darkGreen,
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium!
+                                        .copyWith(color: AppColor().white),
+                                  ),
+                                ),
+                              if (viewModel.data?.downloadInvoice == true)
+                                CommonButtonWidget(
+                                  label: StringConstants()
+                                      .downloadPaymentReciptBtnLabel,
+                                  color: AppColor().white,
+                                  borderColor: AppColor().darkGreen,
                                   labelStyle: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
-                                      .copyWith(color: AppColor().white),
-                                ),
-                              ),
-                              CommonButtonWidget(
-                                label: StringConstants()
-                                    .downloadPaymentReciptBtnLabel,
-                                color: AppColor().white,
-                                borderColor: AppColor().darkGreen,
-                                labelStyle: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium!
-                                    .copyWith(color: AppColor().darkGreen),
-                              )
+                                      .copyWith(color: AppColor().darkGreen),
+                                )
                             ],
                           ),
                         ),
@@ -115,7 +141,8 @@ class DashBoardScreen extends StatelessWidget {
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
                               title: StringConstants().totalEprObligations,
-                              subTitle: StringConstants().erpTileCount,
+                              subTitle:
+                                  "${viewModel.data?.eprCompliance?.eprObligation ?? 0}",
                             ),
                           ),
                           Padding(
@@ -123,7 +150,8 @@ class DashBoardScreen extends StatelessWidget {
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
                               title: StringConstants().totalEprFullFilled,
-                              subTitle: StringConstants().erpTileCount,
+                              subTitle:
+                                  "${viewModel.data?.eprCompliance?.eprFulfilled ?? 0}",
                             ),
                           ),
                           Padding(
@@ -131,7 +159,8 @@ class DashBoardScreen extends StatelessWidget {
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
                               title: StringConstants().totalEprObligations,
-                              subTitle: StringConstants().erpTileCount,
+                              subTitle:
+                                  "${viewModel.data?.eprCompliance?.eprObligationRemaining ?? 0}",
                             ),
                           ),
                         ],
@@ -218,7 +247,9 @@ class DashBoardScreen extends StatelessWidget {
                             );
                           },
                         ),
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       if (viewModel.currentUser == UserTypes.retreader)
                         Align(
                           alignment: Alignment.topLeft,
@@ -247,14 +278,14 @@ class DashBoardScreen extends StatelessWidget {
                             );
                           },
                         ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: ProducerAnnualReturnWidget(
-                            title: StringConstants().annualReturns,
-                            date: StringConstants().demoDate,
-                            status: StringConstants().delayed,
-                            fillingDate: StringConstants().demoDate),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(vertical: 8),
+                      //   child: ProducerAnnualReturnWidget(
+                      //       title: StringConstants().annualReturns,
+                      //       date: StringConstants().demoDate,
+                      //       status: StringConstants().delayed,
+                      //       fillingDate: StringConstants().demoDate),
+                      // ),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
@@ -297,7 +328,7 @@ class DashBoardScreen extends StatelessWidget {
                                                 title:
                                                     StringConstants().dateOfEc,
                                                 subtitle:
-                                                    StringConstants().demoDate,
+                                                    "${viewModel.data?.environmentCompensation?.dateOfEc}",
                                                 image:
                                                     ImageConstants().calendar),
                                           ),
@@ -310,7 +341,7 @@ class DashBoardScreen extends StatelessWidget {
                                                 title: StringConstants()
                                                     .currentStatus,
                                                 subtitle:
-                                                    StringConstants().paid,
+                                                    "${viewModel.data?.environmentCompensation?.currentStatus}",
                                                 subtitleColor: AppColor().green,
                                                 image:
                                                     ImageConstants().infoEnv),
@@ -328,7 +359,7 @@ class DashBoardScreen extends StatelessWidget {
                                             child: ProducerEnvironmentTile(
                                                 title: StringConstants().type,
                                                 subtitle:
-                                                    StringConstants().lorem,
+                                                    "${viewModel.data?.environmentCompensation?.type}",
                                                 image:
                                                     ImageConstants().infoEnv),
                                           ),
@@ -339,8 +370,8 @@ class DashBoardScreen extends StatelessWidget {
                                                 left: 8, top: 8),
                                             child: ProducerEnvironmentTile(
                                                 title: StringConstants().amount,
-                                                subtitle: StringConstants()
-                                                    .demoAmount,
+                                                subtitle:
+                                                    "${viewModel.data?.environmentCompensation?.amount}",
                                                 image: ImageConstants().dollar),
                                           ),
                                         ),

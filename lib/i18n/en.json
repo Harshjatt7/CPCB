@@ -78,5 +78,6 @@
     "retreader": "Retreader",
     "recycler": "Recycler",
     "custom": "Custom",
-    "error-message": "Something went wrong!"
+    "error-message": "Something went wrong!",
+    "application-number": "Application Number"
 }
