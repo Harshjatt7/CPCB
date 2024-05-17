@@ -30,6 +30,7 @@ class LoginScreen extends StatelessWidget {
             viewmodel.isEnabled();
           });
           return CustomScaffold(
+            isLoading: viewmodel.state == ViewState.busy,
             showAppBar: false,
             backgroundColor: AppColor().white,
             // resizeToBottomInset: false,

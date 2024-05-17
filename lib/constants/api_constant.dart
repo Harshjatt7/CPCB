@@ -8,6 +8,7 @@ class APIRoutes {
   static String baseUrl = "";
 
   final String loginAPIRoute = "api/login";
+  final String producerDashboardAPIRoute = "api/producer/dashboard";
 }
 
 extension ApiBaseURL on ApiEnvironments {

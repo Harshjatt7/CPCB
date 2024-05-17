@@ -76,7 +76,7 @@ class LoginViewModel extends BaseViewModel {
       await context.globalProvider
           .updateUserType(selectedUserType ?? "", context);
 
-      var res = await login(request);
+      var res = await login(context, request);
 
       if (context.mounted && res?.isSuccess == true) {
         HelperFunctions().logger(
@@ -127,7 +127,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<LoginResponseModel>?> login(
-      LoginRequestModel request) async {
+      BuildContext context, LoginRequestModel request) async {
     state = ViewState.busy;
     APIResponse<LoginResponseModel>? response;
 
@@ -136,6 +136,11 @@ class LoginViewModel extends BaseViewModel {
       if (response?.isSuccess == true) {
         // Any logic that needs to be implemented after successful login.
         response?.data = LoginResponseModel.fromJson(response.completeResponse);
+
+        await HelperFunctions()
+            .storeToken(context, response?.data?.data?.token ?? "");
+        await HelperFunctions().storeRefreshToken(
+            context, response?.data?.data?.refreshToken ?? "");
       } else {
         // Any logic that needs to be implemented after un-successful login.
       }
