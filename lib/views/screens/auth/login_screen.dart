@@ -32,18 +32,19 @@ class LoginScreen extends StatelessWidget {
           return CustomScaffold(
             showAppBar: false,
             backgroundColor: AppColor().white,
-            resizeToBottomInset: false,
-            isLoading: viewmodel.state == ViewState.busy,
-            body: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                CommonImageWidget(
-                    width: Responsive().screenWidth(context),
-                    height: Responsive().screenHeight(context),
-                    imageSource: ImageConstants().backgroundWatermark,
-                    isNetworkImage: false),
-                formSection(viewmodel, context)
-              ],
+            // resizeToBottomInset: false,
+            body: SingleChildScrollView(
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  CommonImageWidget(
+                      width: Responsive().screenWidth(context),
+                      height: Responsive().screenHeight(context),
+                      imageSource: ImageConstants().backgroundWatermark,
+                      isNetworkImage: false),
+                  formSection(viewmodel, context)
+                ],
+              ),
             ),
           );
         });
@@ -95,8 +96,14 @@ class LoginScreen extends StatelessWidget {
                         labelText: StringConstants().selectUserHint,
                         dropDownItem: viewmodel.userTypes,
                         value: viewmodel.selectedUserType,
+                        error: viewmodel.userTypeDropdownError,
+                        onTap: () {
+                          viewmodel
+                              .changeDropdownValue(viewmodel.selectedUserType);
+                        },
                         onChanged: (val) {
                           viewmodel.onUserTypeChanged(val);
+                          viewmodel.userTypeDropdownError = null;
                         }),
                     const SizedBox(
                       height: 16,
@@ -106,10 +113,7 @@ class LoginScreen extends StatelessWidget {
                       isMandatory: true,
                       controller: viewmodel.emailController,
                       validator: (val) {
-                        if (viewmodel.emailController.text.isEmpty) {
-                          return StringConstants().required;
-                        }
-                        return null;
+                        return viewmodel.emailValidation();
                       },
                     ),
                     const SizedBox(
@@ -125,10 +129,7 @@ class LoginScreen extends StatelessWidget {
                       },
                       isPasswordField: true,
                       validator: (val) {
-                        if (viewmodel.passController.text.isEmpty) {
-                          return StringConstants().required;
-                        }
-                        return null;
+                        return viewmodel.passValidation();
                       },
                     ),
                     const SizedBox(
@@ -136,17 +137,14 @@ class LoginScreen extends StatelessWidget {
                     ),
                     CommonButtonWidget(
                       onPressed: () async {
-                        if (viewmodel.formKey.currentState?.validate() ??
-                            false) {
-                          if (context.mounted) {
-                            await viewmodel.onLoginButtonTapped(
-                                context,
-                                LoginRequestModel(
-                                    email: viewmodel.emailController.text,
-                                    password: viewmodel.passController.text,
-                                    userType: viewmodel.selectedUserType
-                                        ?.toLowerCase()));
-                          }
+                        if (context.mounted) {
+                          await viewmodel.onLoginButtonTapped(
+                              context,
+                              LoginRequestModel(
+                                  email: viewmodel.emailController.text,
+                                  password: viewmodel.passController.text,
+                                  userType: viewmodel.selectedUserType
+                                      ?.toLowerCase()));
                         }
                       },
                       label: StringConstants().loginBtnLabel,

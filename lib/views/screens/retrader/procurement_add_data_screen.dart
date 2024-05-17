@@ -69,11 +69,13 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10)
+                              ],
                               hintText: StringConstants().contactDetails,
                               isMandatory: true,
                               validator: (value) {
-                                return viewModel.valueValidation(
-                                    viewModel.contactDetailsController);
+                                return viewModel.contactDetailsValidation();
                               },
                               controller: viewModel.contactDetailsController),
                         ),
@@ -125,22 +127,27 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText: StringConstants().quantityReceived,
                               isMandatory: true,
                               validator: (value) {
-                                return viewModel.valueValidation(
-                                    viewModel.quantityReceivedController);
+                                return viewModel.quantityReceivedValidation();
                               },
                               controller: viewModel.quantityReceivedController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              isDocument:
+                                  viewModel.filePath == null ? false : true,
+                              disabledBgColor: AppColor().transparent,
                               isReadOnly: true,
                               hintText: StringConstants().uploadInvoice,
-                              icon: ImageConstants().fileUpload,
-                              onTap: () {
-                                viewModel.openFileManager(context);
+                              icon:
+                                  viewModel.uploadInvoiceController.text.isEmpty
+                                      ? ImageConstants().fileUpload
+                                      : ImageConstants().removeIcon,
+                              onTap: ()  {
+                                viewModel.handleOnTap(context);
                               },
                               onSuffixTap: () {
-                                viewModel.openFileManager(context);
+                                viewModel.handleOnSuffixTap(context);
                               },
                               validator: (value) {
                                 return viewModel.uploadInvoiceValidation();
@@ -166,11 +173,13 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(15)
+                              ],
                               hintText: StringConstants()
                                   .gstNumberOfWasteTyreSupplier,
                               validator: (value) {
-                                return viewModel
-                                    .valueValidation(viewModel.gstController);
+                                return viewModel.gstNumberValidation();
                               },
                               isMandatory: true,
                               controller: viewModel.gstController),
@@ -178,6 +187,13 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              onChanged: (value) {
+                                viewModel.onChange();
+                              },
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10),
+                              ],
+                              textInputType: TextInputType.datetime,
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,

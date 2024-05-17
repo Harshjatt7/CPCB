@@ -28,7 +28,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
-              color: AppColor().grey03,
+              color: error==null? AppColor().grey03:AppColor().red,
             )),
         child: Padding(
           padding: const EdgeInsets.only(left: 16),

@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
+import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -22,6 +23,8 @@ class LoginViewModel extends BaseViewModel {
 
   final formKey = GlobalKey<FormState>();
   String? selectedUserType;
+  String? userTypeDropdownError;
+  String? changeDropdown;
   bool isObscure = true;
 
   bool isBtnEnabled = false;
@@ -45,66 +48,80 @@ class LoginViewModel extends BaseViewModel {
   bool isEnabled() {
     isBtnEnabled = (emailController.text.isNotEmpty &&
         passController.text.isNotEmpty &&
+        (formKey.currentState?.validate() ?? false) &&
         selectedUserType != null);
     notifyListeners();
     return isBtnEnabled;
   }
 
-  void onUserTypeChanged(dynamic value) {
-    selectedUserType = value;
-    notifyListeners();
+  void dropDownValidation() {
+    if (selectedUserType == null) {
+      onUserTypeChanged(null);
+    }
+  }
+
+  String? selectedUserTypeError;
+  void onUserTypeChanged(newValue) {
+    selectedUserType = newValue;
+    updateUI();
+    if (selectedUserType == null) {
+      selectedUserTypeError = "Please select the value";
+      updateUI();
+    }
   }
 
   Future<void> onLoginButtonTapped(
       BuildContext context, LoginRequestModel request) async {
-    await context.globalProvider
-        .updateUserType(selectedUserType ?? "", context);
+    if (formKey.currentState?.validate() ?? false) {
+      await context.globalProvider
+          .updateUserType(selectedUserType ?? "", context);
 
-    var res = await login(request);
+      var res = await login(request);
 
-    if (context.mounted && res?.isSuccess == true) {
-      HelperFunctions().logger(
-          "res?.data?.data?.refreshToken >> ${res?.data?.data?.refreshToken}");
-      HelperFunctions()
-          .logger("res?.data?.data?.token >> ${res?.data?.data?.token}");
-      switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
-        case UserTypes.admin:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.producerHomeScreenRoute);
-          break;
-        case UserTypes.other:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.producerHomeScreenRoute);
-          break;
-        case UserTypes.inspection:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.producerHomeScreenRoute);
-          break;
-        case UserTypes.producer:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.producerHomeScreenRoute);
-          break;
-        case UserTypes.recycler:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.producerHomeScreenRoute);
-          break;
-        case UserTypes.retreader:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.retraderHomeScreenRoute);
-          break;
-        case UserTypes.custom:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.producerHomeScreenRoute);
-          break;
-      }
-    } else {
-      if (context.mounted) {
+      if (context.mounted && res?.isSuccess == true) {
         HelperFunctions().logger(
-            "res?.error?.errorResponse?.errorDescription >> ${res?.error?.errorResponse?.errorDescription}");
-        HelperFunctions().showErrorSnackBar(
-            context,
-            res?.error?.errorResponse?.errorDescription ??
-                MessageConstant().errorMessage.i18n());
+            "res?.data?.data?.refreshToken >> ${res?.data?.data?.refreshToken}");
+        HelperFunctions()
+            .logger("res?.data?.data?.token >> ${res?.data?.data?.token}");
+        switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
+          case UserTypes.admin:
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.producerHomeScreenRoute);
+            break;
+          case UserTypes.other:
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.producerHomeScreenRoute);
+            break;
+          case UserTypes.inspection:
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.producerHomeScreenRoute);
+            break;
+          case UserTypes.producer:
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.producerHomeScreenRoute);
+            break;
+          case UserTypes.recycler:
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.producerHomeScreenRoute);
+            break;
+          case UserTypes.retreader:
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.retraderHomeScreenRoute);
+            break;
+          case UserTypes.custom:
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.producerHomeScreenRoute);
+            break;
+        }
+      } else {
+        if (context.mounted) {
+          HelperFunctions().logger(
+              "res?.error?.errorResponse?.errorDescription >> ${res?.error?.errorResponse?.errorDescription}");
+          HelperFunctions().showErrorSnackBar(
+              context,
+              res?.error?.errorResponse?.errorDescription ??
+                  MessageConstant().errorMessage.i18n());
+        }
       }
     }
   }
@@ -129,5 +146,21 @@ class LoginViewModel extends BaseViewModel {
     state = ViewState.idle;
 
     return response;
+  }
+
+  void changeDropdownValue(newValue) {
+    changeDropdown = newValue;
+    if (changeDropdown == null) {
+      userTypeDropdownError = "Please select a value from dropdown";
+    }
+    updateUI();
+  }
+
+  String? emailValidation() {
+    return Validations().validateEmail(emailController.text);
+  }
+
+  String? passValidation() {
+    return Validations().validatePassword(passController.text);
   }
 }
