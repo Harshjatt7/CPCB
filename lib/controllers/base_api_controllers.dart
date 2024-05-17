@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/models/response/error_response_model.dart';
+import 'package:localization/localization.dart';
 import '../constants/api_constant.dart';
 import '../models/response/base_response_model.dart';
 
 class APIBase {
   Dio? _dio;
-  //final _apiRoutes = APIRoutes();
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  Duration timeoutDuration = const Duration(seconds: 180);
+  Duration timeoutDuration = const Duration(seconds: 60);
 
   Dio? getDio({bool? isAuthorizationRequired = false}) {
     _dio = Dio(BaseOptions(
@@ -244,22 +245,16 @@ class APIBase {
 
       return APIResponse<T>(
         completeResponse: resp.data,
-        isSuccess:
-            (resp.data['statusCode'] == 200 || resp.data['statusCode'] == 201)
+        isSuccess: (resp.data['status'] == 200 || resp.data['status'] == 201)
+            ? true
+            : resp.statusCode == 200
                 ? true
-                : resp.statusCode == 200
-                    ? true
-                    : false,
+                : false,
       );
     } on SocketException {
       return APIResponse<T>(
         isSuccess: false,
         data: null,
-      );
-    } on DioException catch (error) {
-      return APIResponse<T>(
-        completeResponse: (error.response?.data ?? {})['data'] ?? {},
-        isSuccess: error.response?.statusCode == 200 ? true : false,
       );
     }
   }
@@ -268,8 +263,9 @@ class APIBase {
     if (ex is DioException) {
       ErrorResponseModel errorResponseModel = ex.response?.data.isEmpty
           ? ErrorResponseModel(
-              error: Error(errorCode: "0", errorDescription: ""),
-              statusCode: ex.response?.statusCode ?? 0)
+              errorResponse: Error(
+                  errorDescription: MessageConstant().errorMessage.i18n()),
+            )
           : ErrorResponseModel.fromJson(ex.response?.data);
 
       return APIResponse(isSuccess: false, error: errorResponseModel);

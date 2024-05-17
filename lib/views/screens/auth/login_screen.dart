@@ -1,5 +1,7 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/request/login_request_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/utils/helper/text_theme_helper.dart';
@@ -134,11 +136,17 @@ class LoginScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CommonButtonWidget(
-                      onPressed: viewmodel.isBtnEnabled
-                          ? () async {
-                              viewmodel.formValidation(context);
-                            }
-                          : null,
+                      onPressed: () async {
+                        if (context.mounted) {
+                          await viewmodel.onLoginButtonTapped(
+                              context,
+                              LoginRequestModel(
+                                  email: viewmodel.emailController.text,
+                                  password: viewmodel.passController.text,
+                                  userType: viewmodel.selectedUserType
+                                      ?.toLowerCase()));
+                        }
+                      },
                       label: StringConstants().loginBtnLabel,
                       color: viewmodel.isBtnEnabled
                           ? AppColor().darkGreen
