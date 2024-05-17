@@ -1,12 +1,9 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
-import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/utils/helper/text_theme_helper.dart';
 import 'package:cpcb_tyre/viewmodels/auth_viewmodels/login_viewmodel.dart';
-import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
@@ -33,17 +30,19 @@ class LoginScreen extends StatelessWidget {
           return CustomScaffold(
             showAppBar: false,
             backgroundColor: AppColor().white,
-            resizeToBottomInset: false,
-            body: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                CommonImageWidget(
-                    width: Responsive().screenWidth(context),
-                    height: Responsive().screenHeight(context),
-                    imageSource: ImageConstants().backgroundWatermark,
-                    isNetworkImage: false),
-                formSection(viewmodel, context)
-              ],
+            // resizeToBottomInset: false,
+            body: SingleChildScrollView(
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  CommonImageWidget(
+                      width: Responsive().screenWidth(context),
+                      height: Responsive().screenHeight(context),
+                      imageSource: ImageConstants().backgroundWatermark,
+                      isNetworkImage: false),
+                  formSection(viewmodel, context)
+                ],
+              ),
             ),
           );
         });
@@ -92,18 +91,18 @@ class LoginScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CommonDropdownTextFormField(
-                      labelText: StringConstants().selectUserHint,
-                      error: viewmodel.selectedUserTypeError,
-                      onTap: () {
-                        viewmodel.onUserTypeChanged(null);
-                      },
-                      value: viewmodel.selectedUserType,
-                      dropDownItem: viewmodel.userTypes,
-                      onChanged: (value) {
-                        viewmodel.onUserTypeChanged(value);
-                        viewmodel.selectedUserTypeError = null;
-                      },
-                    ),
+                        labelText: StringConstants().selectUserHint,
+                        dropDownItem: viewmodel.userTypes,
+                        value: viewmodel.selectedUserType,
+                        error: viewmodel.userTypeDropdownError,
+                        onTap: () {
+                          viewmodel
+                              .changeDropdownValue(viewmodel.selectedUserType);
+                        },
+                        onChanged: (val) {
+                          viewmodel.onUserTypeChanged(val);
+                          viewmodel.userTypeDropdownError = null;
+                        }),
                     const SizedBox(
                       height: 16,
                     ),
@@ -112,10 +111,7 @@ class LoginScreen extends StatelessWidget {
                       isMandatory: true,
                       controller: viewmodel.emailController,
                       validator: (val) {
-                        if (viewmodel.emailController.text.isEmpty) {
-                          return StringConstants().required;
-                        }
-                        return null;
+                        return viewmodel.emailValidation();
                       },
                     ),
                     const SizedBox(
@@ -131,33 +127,18 @@ class LoginScreen extends StatelessWidget {
                       },
                       isPasswordField: true,
                       validator: (val) {
-                        if (viewmodel.passController.text.isEmpty) {
-                          return StringConstants().required;
-                        }
-                        return null;
+                        return viewmodel.passValidation();
                       },
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     CommonButtonWidget(
-                      onPressed: () async {
-                        viewmodel.dropDownValidation();
-                        if ((viewmodel.formKey.currentState?.validate() ??
-                                false) &&
-                            viewmodel.selectedUserType != null) {
-                          await context.globalProvider.updateUserType(
-                              viewmodel.selectedUserType ?? "", context);
-
-                          if (context.mounted) {
-                            viewmodel.onLoginButtonTapped(
-                              context,
-                            );
-                            HelperFunctions().logger(
-                                MaterialAppViewModel.userTypeEnum.toString());
-                          }
-                        }
-                      },
+                      onPressed: viewmodel.isBtnEnabled
+                          ? () async {
+                              viewmodel.formValidation(context);
+                            }
+                          : null,
                       label: StringConstants().loginBtnLabel,
                       color: viewmodel.isBtnEnabled
                           ? AppColor().darkGreen
