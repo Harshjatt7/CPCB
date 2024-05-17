@@ -33,7 +33,6 @@ class RetreadedAddDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     onPressed: () {
-                      viewModel.changeDropdownValue(null);
                       viewModel.formValidation();
                     },
                     height: 50,
