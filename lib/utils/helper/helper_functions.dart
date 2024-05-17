@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:flutter/foundation.dart';
@@ -36,7 +37,7 @@ class HelperFunctions {
 
   /// [setUserType] is a method to store user type in keychain
   Future<void> setUserType(String userType, BuildContext context) async {
-    await SecureStorage.instance.storeSensitiveInfo("userType", userType);
+    await SecureStorage.instance.storeSensitiveInfo(StoreKeyConstants().userType, userType);
     if (context.mounted) {
       context.globalProvider.userType = userType;
       switch (userType) {
@@ -67,7 +68,7 @@ class HelperFunctions {
 
   /// [getUserType] is a method to store user type in keychain
   Future<void> getUserType(BuildContext context) async {
-    String userType = await SecureStorage.instance.getSensitiveInfo("userType");
+    String userType = await SecureStorage.instance.getSensitiveInfo(StoreKeyConstants().userType);
     if (context.mounted) {
       context.globalProvider.userType = userType;
     }
