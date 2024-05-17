@@ -38,8 +38,8 @@ class Validations {
     }
   }
 
-  String? validatePhoneWithCountryCode(String value) {
-    RegExp regex = RegExp(r"^(?:[+0]9)?[0-9]{12}$");
+  String? validatePhone(String value) {
+    RegExp regex = RegExp(r'^[6-9]\d{9}$');
     final containsUpperCase = value.contains(RegExp(r'[1-9]'));
     if (!regex.hasMatch(value)) {
       return 'Please enter a valid phone number';
@@ -49,7 +49,6 @@ class Validations {
       return null;
     }
   }
-
   String? numbericWithDotValidation(String value) {
     String pattern = r'^\d*\.?\d*$';
     RegExp regExp = RegExp(pattern);

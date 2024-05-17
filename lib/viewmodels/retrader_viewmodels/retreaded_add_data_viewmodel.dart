@@ -46,9 +46,8 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     return null;
   }
 
-  String? contactValidation() {
-    return Validations()
-        .validatePhoneWithCountryCode(contactDetailsController.text);
+ String? contactDetailsValidation() {
+    return Validations().validatePhone(contactDetailsController.text);
   }
 
   String? quantityOfWasteGeneratedValidation() {
