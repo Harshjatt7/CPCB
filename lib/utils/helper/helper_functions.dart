@@ -23,8 +23,8 @@ class HelperFunctions {
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showErrorSnackBar(
       BuildContext context, String errorMsg) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        behavior: SnackBarBehavior.fixed,
-        backgroundColor: AppColor().black,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColor().codGrey,
         content: CommonTextWidget(
           errorMsg.toString(),
           style: Theme.of(context)

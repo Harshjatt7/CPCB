@@ -1,7 +1,8 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/request/login_request_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/utils/helper/text_theme_helper.dart';
 import 'package:cpcb_tyre/viewmodels/auth_viewmodels/login_viewmodel.dart';
@@ -32,6 +33,7 @@ class LoginScreen extends StatelessWidget {
             showAppBar: false,
             backgroundColor: AppColor().white,
             resizeToBottomInset: false,
+            isLoading: viewmodel.state == ViewState.busy,
             body: Stack(
               alignment: AlignmentDirectional.center,
               children: [
@@ -136,13 +138,14 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () async {
                         if (viewmodel.formKey.currentState?.validate() ??
                             false) {
-                          await context.globalProvider.updateUserType(
-                              viewmodel.selectedUserType ?? "", context);
-
                           if (context.mounted) {
-                            viewmodel.onLoginButtonTapped(
-                              context,
-                            );
+                            await viewmodel.onLoginButtonTapped(
+                                context,
+                                LoginRequestModel(
+                                    email: viewmodel.emailController.text,
+                                    password: viewmodel.passController.text,
+                                    userType: viewmodel.selectedUserType
+                                        ?.toLowerCase()));
                           }
                         }
                       },

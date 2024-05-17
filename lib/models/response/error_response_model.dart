@@ -1,27 +1,34 @@
-class ErrorResponseModel {
-  Error? error;
-  int? statusCode;
+// To parse this JSON data, do
+//
+//     final errorResponseModel = errorResponseModelFromJson(jsonString);
 
-  ErrorResponseModel({this.error, this.statusCode});
+import 'dart:convert';
+
+ErrorResponseModel errorResponseModelFromJson(String str) =>
+    ErrorResponseModel.fromJson(json.decode(str));
+
+class ErrorResponseModel {
+  Error? errorResponse;
+
+  ErrorResponseModel({
+    this.errorResponse,
+  });
 
   factory ErrorResponseModel.fromJson(Map<String, dynamic> json) =>
       ErrorResponseModel(
-        statusCode: json["statusCode"],
-        error: json["error"] == null ? null : Error.fromJson(json["error"]),
+        errorResponse:
+            json["error"] == null ? null : Error.fromJson(json["error"]),
       );
 }
 
 class Error {
-  String? errorCode;
   String? errorDescription;
 
   Error({
-    this.errorCode,
     this.errorDescription,
   });
 
   factory Error.fromJson(Map<String, dynamic> json) => Error(
-        errorCode: json["errorCode"],
         errorDescription: json["errorDescription"],
       );
 }
