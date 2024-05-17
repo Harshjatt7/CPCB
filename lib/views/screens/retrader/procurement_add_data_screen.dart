@@ -69,11 +69,13 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10)
+                              ],
                               hintText: StringConstants().contactDetails,
                               isMandatory: true,
                               validator: (value) {
-                                return viewModel.valueValidation(
-                                    viewModel.contactDetailsController);
+                                return viewModel.contactDetailsValidation();
                               },
                               controller: viewModel.contactDetailsController),
                         ),

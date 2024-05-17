@@ -58,6 +58,9 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     }
     return result;
   }
+  String? contactDetailsValidation() {
+    return Validations().validatePhone(contactDetailsController.text);
+  }
 
   Future<FileSizeModel> getFileSize(String filepath, int decimals) async {
     var file = File(filepath);
