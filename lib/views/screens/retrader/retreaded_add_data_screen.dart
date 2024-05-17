@@ -10,6 +10,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class RetreadedAddDataScreen extends StatelessWidget {
   const RetreadedAddDataScreen({super.key});
@@ -24,97 +25,17 @@ class RetreadedAddDataScreen extends StatelessWidget {
               appBar: CommonAppBar(
                 title: StringConstants().addRetreadedData,
               ),
-              body: CommonSingleChildScrollView(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonDropdownTextFormField(
-                          labelText: StringConstants().financialYearLabel,
-                          dropDownItem: const ["Text1", "Text2"],
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().nameOfWasteTyreSupplier,
-                            isMandatory: false,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().contactDetails,
-                            isMandatory: false,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText:
-                                StringConstants().addressOfWasteTyreSupplier,
-                            isMandatory: false,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().typeOfRawMaterial,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText:
-                                StringConstants().gstNumberOfWasteTyreSupplier,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().quantityProcessed,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().quantityProduced,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText:
-                                StringConstants().quantityOfWasteGenerated,
-                            isMandatory: true,
-                            controller: TextEditingController()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonTextFormFieldWidget(
-                            hintText: StringConstants().retreadedDate,
-                            isMandatory: true,
-                            icon: ImageConstants().calendar,
-                            controller: TextEditingController()),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              body: formSection(viewModel),
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
                     color: AppColor().white,
                   ),
                   child: CommonButtonWidget(
+                    onPressed: () {
+                      viewModel.changeDropdownValue(null);
+                      viewModel.formValidation();
+                    },
                     height: 50,
                     label: StringConstants().submitBtnLabel,
                     color: AppColor().darkGreen,
@@ -126,5 +47,126 @@ class RetreadedAddDataScreen extends StatelessWidget {
                 ),
               ]);
         });
+  }
+
+  CommonSingleChildScrollView formSection(RetreadedAddDataViewModel viewModel) {
+    return CommonSingleChildScrollView(
+      child: Form(
+        key: viewModel.formKey,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonDropdownTextFormField(
+                  labelText: StringConstants().financialYearLabel,
+                  dropDownItem: viewModel.financialYearList,
+                  error: viewModel.yearDropdownError,
+                  value: viewModel.yearDropdownValue,
+                  onTap: () {
+                    viewModel.changeDropdownValue(viewModel.yearDropdownValue);
+                  },
+                  onChanged: (value) {
+                    viewModel.changeDropdownValue(value);
+                    viewModel.yearDropdownError = null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    hintText: StringConstants().nameOfWasteTyreSupplier,
+                    isMandatory: false,
+                    controller: viewModel.nameOfWasteTyreSupplierController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    hintText: StringConstants().contactDetails,
+                    isMandatory: false,
+                    controller: viewModel.contactDetailsController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    hintText: StringConstants().addressOfWasteTyreSupplier,
+                    isMandatory: false,
+                    controller: viewModel.addressController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    hintText: StringConstants().typeOfRawMaterial,
+                    isMandatory: true,
+                    controller: viewModel.typeOfRawMaterialController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [LengthLimitingTextInputFormatter(15)],
+                    hintText: StringConstants().gstNumberOfWasteTyreSupplier,
+                    validator: (value) {
+                      return viewModel.gstNumberValidation();
+                    },
+                    isMandatory: true,
+                    controller: viewModel.gstController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    hintText: StringConstants().quantityProcessed,
+                    isMandatory: true,
+                    validator: (value) {
+                      return viewModel.quantityProcessedValidation();
+                    },
+                    controller: viewModel.quantityProcessedController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    hintText: StringConstants().quantityProduced,
+                    validator: (value) {
+                      return viewModel.quantityProducedValidation();
+                    },
+                    isMandatory: true,
+                    controller: viewModel.quantityProducedController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    hintText: StringConstants().quantityOfWasteGenerated,
+                    isMandatory: true,
+                    validator: (value) {
+                      return viewModel.quantityOfWasteGeneratedValidation();
+                    },
+                    controller: viewModel.quantityOfWasteGeneratedController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    hintText: StringConstants().retreadedDate,
+                    isMandatory: true,
+                    onChanged: (value) {
+                      viewModel.onDateChange();
+                    },
+                    validator: (value) {
+                      return viewModel.dateValidation();
+                    },
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(10),
+                    ],
+                    textInputType: TextInputType.datetime,
+                    icon: ImageConstants().calendar,
+                    controller: viewModel.dateController),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

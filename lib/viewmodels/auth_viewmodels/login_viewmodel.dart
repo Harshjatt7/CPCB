@@ -1,4 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
+import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +14,12 @@ class LoginViewModel extends BaseViewModel {
 
   final formKey = GlobalKey<FormState>();
   String? selectedUserType;
+  String? userTypeDropdownError;
+  String? changeDropdown;
   bool isObscure = true;
 
   bool isBtnEnabled = false;
   UserTypes? currentUser;
-
   void getCurrentUserType(BuildContext context) {
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
@@ -32,8 +35,10 @@ class LoginViewModel extends BaseViewModel {
   ];
 
   bool isEnabled() {
-    isBtnEnabled = (emailController.text.isNotEmpty &&
+    isBtnEnabled = (
+      emailController.text.isNotEmpty &&
         passController.text.isNotEmpty &&
+        (formKey.currentState?.validate() ?? false) &&
         selectedUserType != null);
     notifyListeners();
     return isBtnEnabled;
@@ -67,6 +72,38 @@ class LoginViewModel extends BaseViewModel {
       case UserTypes.custom:
         Navigator.pushNamed(context, AppRoutes.producerHomeScreenRoute);
         break;
+    }
+  }
+
+  void changeDropdownValue(newValue) {
+    changeDropdown = newValue;
+    if (changeDropdown == null) {
+      userTypeDropdownError = "Please select a value from dropdown";
+    }
+    updateUI();
+  }
+
+  String? emailValidation() {
+    return Validations().validateEmail(emailController.text);
+  }
+
+  String? passValidation() {
+    return Validations().validatePassword(passController.text);
+  }
+
+  void formValidation(BuildContext context) async {
+    updateUI();
+    // changeDropdownValue(null);
+    if (formKey.currentState?.validate() ?? false) {
+      updateUI();
+      await context.globalProvider
+          .updateUserType(selectedUserType ?? "", context);
+
+      if (context.mounted) {
+        onLoginButtonTapped(
+          context,
+        );
+      }
     }
   }
 }
