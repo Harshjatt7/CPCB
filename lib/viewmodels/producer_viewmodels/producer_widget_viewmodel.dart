@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class ProducerWidgetViewModel extends BaseViewModel {
   GlobalKey<FormState> formKey = GlobalKey();
@@ -46,7 +46,7 @@ class ProducerWidgetViewModel extends BaseViewModel {
 
   String? filename;
   String? fileError;
-  void openFileManager(context) async {
+  Future<FilePickerResult?> openFileManager(context) async {
     fileError = null;
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -58,7 +58,16 @@ class ProducerWidgetViewModel extends BaseViewModel {
       fileError = "Please select a file";
       updateUI();
     }
+    return result;
   }
+
+    void viewPDF(BuildContext context, String path) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PDFView(filePath: path)),
+    );
+  }
+
 
   Future wait(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 4));
