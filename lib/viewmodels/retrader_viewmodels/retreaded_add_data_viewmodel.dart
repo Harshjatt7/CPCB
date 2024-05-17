@@ -26,8 +26,9 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   List financialYearList = <String>[];
 
   void addYear() {
-    for (int i = 0; i < 50; i++) {
-      financialYearList.add("${DateTime.now().year + (i)}");
+    for (int i = 0; i < 5; i++) {
+      financialYearList
+          .add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
     }
   }
 
@@ -46,7 +47,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     return null;
   }
 
- String? contactDetailsValidation() {
+  String? contactDetailsValidation() {
     return Validations().validatePhone(contactDetailsController.text);
   }
 
@@ -94,6 +95,9 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   }
 
   void formValidation() {
+    if (changeDropdown == null) {
+      changeDropdownValue(null);
+    }
     if (formKey.currentState?.validate() ?? false) {}
   }
 }

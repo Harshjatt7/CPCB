@@ -87,7 +87,6 @@ class SalesDataViewModel extends BaseViewModel {
     otherController.addListener(() {
       totalValue();
     });
-    
   }
 
   void dropDownValidation() {
@@ -100,6 +99,10 @@ class SalesDataViewModel extends BaseViewModel {
   }
 
   void formValidation() {
+    if (changeDropdown == null) {
+      dropDownValidation();
+    }
+
     if (formKey.currentState?.validate() ?? false) {
       validateTotal(false);
     } else {
