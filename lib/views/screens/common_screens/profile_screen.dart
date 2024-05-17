@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
@@ -18,10 +19,13 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProfileViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) async {
+          await viewModel.getProfileData();
+        },
         viewModel: ProfileViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+            isLoading: viewModel.state == ViewState.busy,
             appBar: const CommonAppBar(
               isIconBar: true,
             ),
@@ -46,13 +50,13 @@ class ProfileScreen extends StatelessWidget {
                     height: 8,
                   ),
                   detailContainer(context,
-                      title: StringConstants().rajendra,
-                      email: StringConstants().rajendraEmail,
-                      phoneNo: StringConstants().rajendraPhone),
+                      title: viewModel.data?.name ?? '',
+                      email: viewModel.data?.email ?? '',
+                      phoneNo: viewModel.data?.mobileNumber ?? ''),
                   detailContainer(context,
                       title: StringConstants().authorizedPersonDetails,
-                      email: StringConstants().rajendraEmail,
-                      phoneNo: StringConstants().rajendraPhone)
+                      email: viewModel.data?.authorizedPersonName ?? '',
+                      phoneNo: viewModel.data?.authorizedcontactNumber ?? '')
                 ],
               ),
             ),

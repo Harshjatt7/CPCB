@@ -13,6 +13,8 @@ import '../../utils/helper/helper_functions.dart';
 class DashboardViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
   final _commonRepo = CommonRepository();
+
+  
   UserTypes? currentUser;
   APIResponse<DashboardResponseModel?>? _dashboardResponseModel;
   APIResponse<DashboardResponseModel?>? get dashboardResponseModel =>
