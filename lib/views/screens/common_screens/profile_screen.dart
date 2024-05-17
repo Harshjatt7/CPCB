@@ -60,6 +60,9 @@ class ProfileScreen extends StatelessWidget {
               CommonButtonWidget(
                 label: StringConstants().logOut,
                 color: AppColor().darkGreen,
+                onPressed: (){
+                   viewModel.clearAppData(context);
+                },
               )
             ],
           );
