@@ -24,8 +24,8 @@ class HelperFunctions {
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showErrorSnackBar(
       BuildContext context, String errorMsg) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        behavior: SnackBarBehavior.fixed,
-        backgroundColor: AppColor().black,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColor().codGrey,
         content: CommonTextWidget(
           errorMsg.toString(),
           style: Theme.of(context)
@@ -37,7 +37,8 @@ class HelperFunctions {
 
   /// [setUserType] is a method to store user type in keychain
   Future<void> setUserType(String userType, BuildContext context) async {
-    await SecureStorage.instance.storeSensitiveInfo(StoreKeyConstants().userType, userType);
+    await SecureStorage.instance
+        .storeSensitiveInfo(StoreKeyConstants().userType, userType);
     if (context.mounted) {
       context.globalProvider.userType = userType;
       switch (userType) {
@@ -68,9 +69,48 @@ class HelperFunctions {
 
   /// [getUserType] is a method to store user type in keychain
   Future<void> getUserType(BuildContext context) async {
-    String userType = await SecureStorage.instance.getSensitiveInfo(StoreKeyConstants().userType);
+    String userType = await SecureStorage.instance
+        .getSensitiveInfo(StoreKeyConstants().userType);
     if (context.mounted) {
       context.globalProvider.userType = userType;
+    }
+  }
+
+  /// [storeToken] is a method to store login token.
+  Future<void> storeToken(BuildContext context, String value) async {
+    await SecureStorage.instance
+        .storeSensitiveInfo(StoreKeyConstants().token, value);
+
+    if (context.mounted) {
+      MaterialAppViewModel.token = value;
+    }
+  }
+
+  /// [storeRefreshToken] is a method to store login token.
+  Future<void> storeRefreshToken(BuildContext context, String value) async {
+    await SecureStorage.instance
+        .storeSensitiveInfo(StoreKeyConstants().refreshToken, value);
+
+    if (context.mounted) {
+      MaterialAppViewModel.refreshToken = value;
+    }
+  }
+
+  /// [getToken] is a method to store login token.
+  Future<void> getToken() async {
+    String value = await SecureStorage.instance
+        .getSensitiveInfo(StoreKeyConstants().token);
+
+    MaterialAppViewModel.token = value;
+  }
+
+  /// [getRefreshToken] is a method to store login token.
+  Future<void> getRefreshToken(BuildContext context, String value) async {
+    String value = await SecureStorage.instance
+        .getSensitiveInfo(StoreKeyConstants().refreshToken);
+
+    if (context.mounted) {
+      MaterialAppViewModel.refreshToken = value;
     }
   }
 }

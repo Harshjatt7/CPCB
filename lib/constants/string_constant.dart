@@ -64,6 +64,9 @@ class StringConstants {
   final String processedData = "processed-data";
   final String eprCredits = "epr-credits";
 
+  // Dashboard
+  final String applicationNumber = "application-number";
+
   final String no = "no";
   final String yes = "yes";
   final String downloadApplication = "downloadApplication";

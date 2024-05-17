@@ -18,6 +18,8 @@ class MaterialAppViewModel extends BaseViewModel {
 
   String userType = "";
   static UserTypes? userTypeEnum;
+  static String? token;
+  static String? refreshToken;
 
   Future<void> updateUserType(String userType, BuildContext context) async {
     await HelperFunctions().setUserType(userType, context);
