@@ -214,6 +214,7 @@ class SalesDataScreen extends StatelessWidget {
                     validator: (value) {
                       return viewModel.totalValidation();
                     },
+                    disabledBgColor: AppColor().white,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     isReadOnly: true,
                     hintText: StringConstants().totalLabel,

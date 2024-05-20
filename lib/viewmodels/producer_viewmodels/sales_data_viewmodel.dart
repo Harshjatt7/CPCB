@@ -26,7 +26,6 @@ class SalesDataViewModel extends BaseViewModel {
   List typesOfTyreList = <String>["Radials", "Bias Ply", "Solid"];
   List producerCategoryList = <String>["P1", "P2", "P3", "P4", "P5", "P6"];
   List financialYearList = <String>[];
-  List listController = [];
   List monthList = <String>[
     "January",
     "February",
@@ -42,10 +41,9 @@ class SalesDataViewModel extends BaseViewModel {
     "December"
   ];
 
-   void addYear() {
-    for (int i = 0; i < 5; i++) {
-      financialYearList
-          .add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
+  void addYear() {
+    for (int i = 0; i < 50; i++) {
+      financialYearList.add("${DateTime.now().year + (i)}");
     }
   }
 
@@ -101,27 +99,7 @@ class SalesDataViewModel extends BaseViewModel {
   }
 
   void formValidation() {
-    if (changeDropdown == null) {
-      dropDownValidation();
-    }
-
     if (formKey.currentState?.validate() ?? false) {
-      listController = [
-        motorcycleController,
-        passengerCarController,
-        scooterController,
-        truckController,
-        busController,
-        lcvController,
-        tRearController,
-        otherController
-      ];
-      for (TextEditingController controller in listController) {
-        if (controller.text.isEmpty) {
-          controller.text = "0";
-        }
-      }
-
       validateTotal(false);
     } else {
       validateTotal(true);
@@ -146,6 +124,7 @@ class SalesDataViewModel extends BaseViewModel {
         int.parse(tRearController.text.isEmpty ? "0" : tRearController.text);
     int other =
         int.parse(otherController.text.isEmpty ? "0" : otherController.text);
+
     int total =
         motorcycle + passenger + scooter + truck + bus + lcv + tRear + other;
     totalController.text = total.toString();

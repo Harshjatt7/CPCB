@@ -9,6 +9,7 @@ class APIRoutes {
 
   final String loginAPIRoute = "api/login";
   final String producerDashboardAPIRoute = "api/producer/dashboard";
+  final String profileAPIRoute = "api/user";
 }
 
 extension ApiBaseURL on ApiEnvironments {
