@@ -7,7 +7,6 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -321,6 +320,44 @@ class HelperFunctions {
         .getSensitiveInfo(StoreKeyConstants().userType);
     if (context.mounted) {
       context.globalProvider.userType = userType;
+    }
+  }
+
+  /// [storeToken] is a method to store login token.
+  Future<void> storeToken(BuildContext context, String value) async {
+    await SecureStorage.instance
+        .storeSensitiveInfo(StoreKeyConstants().token, value);
+
+    if (context.mounted) {
+      MaterialAppViewModel.token = value;
+    }
+  }
+
+  /// [storeRefreshToken] is a method to store login token.
+  Future<void> storeRefreshToken(BuildContext context, String value) async {
+    await SecureStorage.instance
+        .storeSensitiveInfo(StoreKeyConstants().refreshToken, value);
+
+    if (context.mounted) {
+      MaterialAppViewModel.refreshToken = value;
+    }
+  }
+
+  /// [getToken] is a method to store login token.
+  Future<void> getToken() async {
+    String value = await SecureStorage.instance
+        .getSensitiveInfo(StoreKeyConstants().token);
+
+    MaterialAppViewModel.token = value;
+  }
+
+  /// [getRefreshToken] is a method to store login token.
+  Future<void> getRefreshToken(BuildContext context, String value) async {
+    String value = await SecureStorage.instance
+        .getSensitiveInfo(StoreKeyConstants().refreshToken);
+
+    if (context.mounted) {
+      MaterialAppViewModel.refreshToken = value;
     }
   }
 }

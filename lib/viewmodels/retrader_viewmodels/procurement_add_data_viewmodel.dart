@@ -28,7 +28,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   TextEditingController dateController = TextEditingController();
   TextEditingController uploadInvoiceController = TextEditingController();
   List financialYearList = <String>[];
-  
+
   String? filePath;
   String? fileError;
   String? fileName;
@@ -55,6 +55,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     }
     return result;
   }
+
   String? contactDetailsValidation() {
     return Validations().validatePhone(contactDetailsController.text);
   }
@@ -75,18 +76,20 @@ class ProcurementAddDataViewModel extends BaseViewModel {
         fileSizeNum: fileSizeNum ?? 0);
     // return '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}';
   }
-    void viewPDF(BuildContext context, String path) {
+
+  void viewPDF(BuildContext context, String path) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PDFView(filePath: path)),
     );
   }
+
   void addYear() {
-    for (int i = 0; i < 50; i++) {
-      financialYearList.add("${DateTime.now().year + (i)}");
+    for (int i = 0; i < 5; i++) {
+      financialYearList
+          .add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
     }
   }
-
 
   void handleOnTap(BuildContext context) async {
     if (uploadInvoiceController.text.isEmpty) {
@@ -163,8 +166,12 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   void formValidation() {
     updateUI();
-    changeDropdownValue(null);
-    if (formKey.currentState?.validate() ?? false) {}
+    if (changeDropdown == null) {
+      changeDropdownValue(null);
+    }
+    if (formKey.currentState?.validate() ?? false) {
+     
+    }
   }
 }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColor {
   /// numeric value with color signifies opacity of base color.
-  final Color transparent = Colors.transparent;
+  final Color transparent = const Color(0x00FFFFFF);
   final Color white = const Color(0xFFFFFFFF);
   final Color offWhite = const Color(0xFFF9F9F9);
 

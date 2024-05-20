@@ -1,17 +1,21 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/models/response/error_response_model.dart';
+import 'package:localization/localization.dart';
 import '../constants/api_constant.dart';
 import '../models/response/base_response_model.dart';
+import '../viewmodels/material_app_viewmodel.dart';
 
 class APIBase {
   Dio? _dio;
-  //final _apiRoutes = APIRoutes();
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  // static BuildContext globalContext = navigatorKey.currentState?.context ?? BuildContext();
 
-  Duration timeoutDuration = const Duration(seconds: 180);
+  Duration timeoutDuration = const Duration(seconds: 60);
 
   Dio? getDio({bool? isAuthorizationRequired = false}) {
     _dio = Dio(BaseOptions(
@@ -46,12 +50,19 @@ class APIBase {
   // Interceptor for authorized API calls
   var authorizationInterceptor = InterceptorsWrapper(
     onRequest: (options, handler) async {
+      String? token;
+      await HelperFunctions().getToken();
+
+      token = MaterialAppViewModel.token;
+
       options.headers["Accept"] = "application/json";
-      String? token = ""; // Code to get the access token
+
       options.headers['Content-Type'] = "application/json";
       options.headers['Accept'] = "*/*";
       options.headers['Connection'] = "keep-alive";
       options.headers['Authorization'] = "Bearer $token";
+
+      HelperFunctions().logger("token ?>>> $token");
 
       return handler.next(options);
     },
@@ -64,7 +75,7 @@ class APIBase {
     },
   );
 
-// GET Request
+// GET $Request
   Future<APIResponse<T>?> getRequest<T>(
     String url, {
     bool isAuthorizationRequired = false,
@@ -244,22 +255,16 @@ class APIBase {
 
       return APIResponse<T>(
         completeResponse: resp.data,
-        isSuccess:
-            (resp.data['statusCode'] == 200 || resp.data['statusCode'] == 201)
+        isSuccess: (resp.data['status'] == 200 || resp.data['status'] == 201)
+            ? true
+            : resp.statusCode == 200
                 ? true
-                : resp.statusCode == 200
-                    ? true
-                    : false,
+                : false,
       );
     } on SocketException {
       return APIResponse<T>(
         isSuccess: false,
         data: null,
-      );
-    } on DioException catch (error) {
-      return APIResponse<T>(
-        completeResponse: (error.response?.data ?? {})['data'] ?? {},
-        isSuccess: error.response?.statusCode == 200 ? true : false,
       );
     }
   }
@@ -268,8 +273,9 @@ class APIBase {
     if (ex is DioException) {
       ErrorResponseModel errorResponseModel = ex.response?.data.isEmpty
           ? ErrorResponseModel(
-              error: Error(errorCode: "0", errorDescription: ""),
-              statusCode: ex.response?.statusCode ?? 0)
+              errorResponse: Error(
+                  errorDescription: MessageConstant().errorMessage.i18n()),
+            )
           : ErrorResponseModel.fromJson(ex.response?.data);
 
       return APIResponse(isSuccess: false, error: errorResponseModel);

@@ -7,16 +7,18 @@ class APIRoutes {
 
   static String baseUrl = "";
 
-  final String demoRoute = "/api/abc";
+  final String loginAPIRoute = "api/login";
+  final String producerDashboardAPIRoute = "api/producer/dashboard";
+  final String profileAPIRoute = "api/user";
 }
 
 extension ApiBaseURL on ApiEnvironments {
   String get baseUrl {
     switch (this) {
       case ApiEnvironments.dev:
-        return "DEV BASE URL";
+        return "https://dev-cpcb-tyre.writso.com/";
       case ApiEnvironments.qa:
-        return "QA BASE URL";
+        return "https://qa2-cpcb-tyre.writso.com/";
       case ApiEnvironments.prod:
         return "PROD BASE URL";
     }

@@ -4,7 +4,7 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/demo/retrader_data_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
-import 'package:cpcb_tyre/viewmodels/producer_viewmodels/producer_widget_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/producer/producer_widget_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/retrader_common_components/common_retrader_data_card.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -72,12 +72,13 @@ class ProcurementDataScreen extends StatelessWidget {
                               date: retraderDetails.date,
                               year: retraderDetails.date,
                             ),
-                           
                           );
                         },
                       ),
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     CommonButtonWidget(
                       label: StringConstants().addProcurementButton,
                       onPressed: () {

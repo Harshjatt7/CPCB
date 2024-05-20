@@ -3,7 +3,7 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/demo/producer_sales_data_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
-import 'package:cpcb_tyre/viewmodels/producer_viewmodels/sales_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/producer/sales_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_sales_list.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -57,18 +57,22 @@ class SalesScreen extends StatelessWidget {
                             physics: const PageScrollPhysics(),
                             itemCount: producerSalesDataList.length,
                             itemBuilder: (context, index) {
-                              final producerSalesDetail = producerSalesDataList[index];
+                              final producerSalesDetail =
+                                  producerSalesDataList[index];
                               return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
                                 child: ProducerSalesList(
-                                  producerType: producerSalesDetail.producerType??"",
-                                  title: producerSalesDetail.title??"",
-                                  year: producerSalesDetail.year??"",
-                                  month: producerSalesDetail.month??"",
-                                  count: producerSalesDetail.count??"",
+                                  producerType:
+                                      producerSalesDetail.producerType ?? "",
+                                  title: producerSalesDetail.title ?? "",
+                                  year: producerSalesDetail.year ?? "",
+                                  month: producerSalesDetail.month ?? "",
+                                  count: producerSalesDetail.count ?? "",
                                   motorcycle: producerSalesDetail.motorcycle,
                                   scooter: producerSalesDetail.scooter,
-                                  passengerCar: producerSalesDetail.passengerCar,
+                                  passengerCar:
+                                      producerSalesDetail.passengerCar,
                                   bus: producerSalesDetail.bus,
                                   truck: producerSalesDetail.truck,
                                   tRear: producerSalesDetail.tRear,
