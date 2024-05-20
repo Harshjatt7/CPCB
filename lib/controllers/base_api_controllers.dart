@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/models/response/auth/login_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +9,19 @@ import 'package:cpcb_tyre/models/response/error_response_model.dart';
 import 'package:localization/localization.dart';
 import '../constants/api_constant.dart';
 import '../models/response/base_response_model.dart';
+import '../utils/helper/debouncing_helper.dart';
 import '../viewmodels/material_app_viewmodel.dart';
 
 class APIBase {
   Dio? _dio;
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  // static BuildContext globalContext = navigatorKey.currentState?.context ?? BuildContext();
 
   Duration timeoutDuration = const Duration(seconds: 60);
+  static final debouncer = Debouncer(milliseconds: 1000);
 
-  Dio? getDio({bool? isAuthorizationRequired = false}) {
+  Dio? getDio(
+      {bool? isAuthorizationRequired = false,
+      bool? isRefreshTokenAuthorizationRequired = false}) {
     _dio = Dio(BaseOptions(
       baseUrl: APIRoutes.baseUrl,
       connectTimeout: timeoutDuration,
@@ -26,6 +30,8 @@ class APIBase {
 
     if (isAuthorizationRequired == true) {
       _dio?.interceptors.add(authorizationInterceptor);
+    } else if (isRefreshTokenAuthorizationRequired == true) {
+      _dio?.interceptors.add(refreshTokenAuthorizationInterceptor);
     } else {
       _dio?.interceptors.add(noAuthorizationInterceptor);
     }
@@ -36,9 +42,9 @@ class APIBase {
   // Interceptor for non authorized API calls
   var noAuthorizationInterceptor = InterceptorsWrapper(
     onRequest: (options, handler) async {
-      options.headers['Content-Type'] = "application/json";
-      options.headers['Accept'] = "*/*";
-      options.headers['Connection'] = "keep-alive";
+      // options.headers['Content-Type'] = "application/json";
+      // // options.headers['Accept'] = "*/*";
+      // options.headers['Connection'] = "keep-alive";
 
       return handler.next(options);
     },
@@ -47,7 +53,7 @@ class APIBase {
     },
   );
 
-  // Interceptor for authorized API calls
+  // Refresh Token Intrerceptor
   var authorizationInterceptor = InterceptorsWrapper(
     onRequest: (options, handler) async {
       String? token;
@@ -57,9 +63,6 @@ class APIBase {
 
       options.headers["Accept"] = "application/json";
 
-      options.headers['Content-Type'] = "application/json";
-      options.headers['Accept'] = "*/*";
-      options.headers['Connection'] = "keep-alive";
       options.headers['Authorization'] = "Bearer $token";
 
       HelperFunctions().logger("token ?>>> $token");
@@ -69,9 +72,70 @@ class APIBase {
     onError: (error, handler) async {
       if (error.response?.statusCode == 401) {
         // Handle refresh token here.
+        APIResponse<LoginResponseModel?>? res;
+
+        debouncer.run(() async {
+          res = await MaterialAppViewModel().getRefreshToken();
+
+          if (res?.isSuccess == false) {
+            HelperFunctions().logger("message");
+            return handler.reject(error);
+          } else {
+            return handler.resolve(await Dio().fetch(error.requestOptions));
+          }
+        });
+
+        //if()
       } else {
         return handler.next(error);
       }
+    },
+  );
+
+  // Interceptor for authorized API calls
+  var refreshTokenAuthorizationInterceptor = InterceptorsWrapper(
+    onRequest: (options, handler) async {
+      String? token;
+      await HelperFunctions().getRefreshToken();
+
+      token = MaterialAppViewModel.refreshToken;
+
+      options.headers["Accept"] = "application/json";
+
+      // options.headers['Content-Type'] = "application/json";
+      // options.headers['Accept'] = "*/*";
+      // options.headers['Connection'] = "keep-alive";
+      // op
+      // options.headers['X-CSRF-TOKEN'] = "";
+      //options.headers['Accept-Encoding'] = "gzip, deflate, br";
+      options.headers['Authorization'] =
+          //"";
+          "Bearer $token";
+
+      HelperFunctions().logger("token ?>>> $token");
+
+      return handler.next(options);
+    },
+    onError: (error, handler) async {
+      // if (error.response?.statusCode == 401) {
+      //   // Handle refresh token here.
+      //   await HelperFunctions().getRefreshToken();
+      //   // error.requestOptions.headers["Authorization"] =
+      //   //     "Bearer ${MaterialAppViewModel.refreshToken}";
+
+      //   var res = await MaterialAppViewModel().getRefreshToken();
+
+      //   if (res?.isSuccess == false) {
+      //     HelperFunctions().logger("message");
+      //     return handler.reject(error);
+      //   } else {
+      //     return handler.resolve(await Dio().fetch(error.requestOptions));
+      //   }
+
+      //   //if()
+      // } else {
+      //   return handler.next(error);
+      // }
     },
   );
 
@@ -103,11 +167,10 @@ class APIBase {
   }
 
 // POST Request
-  Future<APIResponse<T>?> postRequest<T>(
-    String url, {
-    dynamic data,
-    bool isAuthorizationRequired = false,
-  }) async {
+  Future<APIResponse<T>?> postRequest<T>(String url,
+      {dynamic data,
+      bool isAuthorizationRequired = false,
+      bool isRefreshTokenAuthorizationRequired = false}) async {
     APIResponse<T>? apiResponse;
 
     if (data == null ||
@@ -119,6 +182,8 @@ class APIBase {
     }
     Response response;
     Dio dio = getDio(
+          isRefreshTokenAuthorizationRequired:
+              isRefreshTokenAuthorizationRequired,
           isAuthorizationRequired: isAuthorizationRequired,
         ) ??
         Dio();

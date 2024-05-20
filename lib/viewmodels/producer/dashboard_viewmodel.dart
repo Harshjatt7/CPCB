@@ -14,7 +14,6 @@ class DashboardViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
   final _commonRepo = CommonRepository();
 
-  
   UserTypes? currentUser;
   APIResponse<DashboardResponseModel?>? _dashboardResponseModel;
   APIResponse<DashboardResponseModel?>? get dashboardResponseModel =>
@@ -22,7 +21,8 @@ class DashboardViewModel extends BaseViewModel {
   DashboardData? data;
   String? url;
 
-  void getCurrentUserType(BuildContext context) {
+  void getCurrentUserType(BuildContext context) async {
+    await HelperFunctions().getUserType(context);
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
 

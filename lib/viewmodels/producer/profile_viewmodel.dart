@@ -20,6 +20,11 @@ class ProfileViewModel extends BaseViewModel {
   void clearAppData(context) async {
     await SecureStorage.instance
         .deleteSensitiveInfo(StoreKeyConstants().userType);
+    await SecureStorage.instance.deleteSensitiveInfo(StoreKeyConstants().token);
+    await SecureStorage.instance
+        .deleteSensitiveInfo(StoreKeyConstants().refreshToken);
+    await SecureStorage.instance
+        .storeSensitiveInfo(StoreKeyConstants().isLogin, false);
     Navigator.pushNamedAndRemoveUntil(
         context, AppRoutes.loginScreenRoute, (route) => false);
   }
