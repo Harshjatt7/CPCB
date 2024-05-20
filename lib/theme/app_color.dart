@@ -31,4 +31,30 @@ class AppColor {
 
   final Color red = const Color(0xFFFF3333);
   final Color orange = const Color(0xFFDD7700);
+
+  final Color snackbarBlueBorder = const Color(0xFFA4BCFD);
+  final Color snackbarBlueBackground = const Color(0xFFF5F8FF);
+  final Color snackbarBlueContentColor = const Color(0xFF204E9F);
+  final Color snackbarBlueOuterBorder = const Color(0xFFEEF4FF);
+  final Color snackbarBlueInnerBorder = const Color(0xFFBCCAE2);
+  final Color snackbarBlueIconColor = const Color(0xFF444CE7);
+
+  final Color snackbarRedBorder = const Color(0xFFE89372);
+  final Color snackbarRedBackground = const Color(0xFFFCF0EB);
+  final Color snackbarRedContentColor = const Color(0xFFDE6435);
+  final Color snackbarRedOuterBorder = const Color(0xFFF2C1AE);
+  final Color snackbarRedInnerBorder = const Color(0xFFF8E0D7);
+
+  final Color snackbarYellowBorder = const Color(0xFFFEC84B);
+  final Color snackbarYellowBackground = const Color(0xFFFFFCF5);
+  final Color snackbarYellowContentColor = const Color(0xFFB54708);
+  final Color snackbarYellowOuterBorder = const Color(0xFFFFFAEB);
+  final Color snackbarYellowInnerBorder = const Color(0xFFFEF0C7);
+  final Color snackbarYellowRemoveIcon = const Color(0xFFF79009);
+  final Color snackbarYellowIconColor = const Color(0xFFDC6803);
+
+  final Color snackbarGreenBorder = const Color(0xFFA3CDAA);
+  final Color snackbarGreenBackground = const Color(0xFFEDF5EE);
+  final Color snackbarGreenContentColor = const Color(0xFF469A55);
+  final Color snackbarGreenOuterBorder = const Color(0xFFC8E1CC);
 }

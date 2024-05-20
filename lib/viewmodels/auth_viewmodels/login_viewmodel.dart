@@ -117,7 +117,7 @@ class LoginViewModel extends BaseViewModel {
         if (context.mounted) {
           HelperFunctions().logger(
               "res?.error?.errorResponse?.errorDescription >> ${res?.error?.errorResponse?.errorDescription}");
-          HelperFunctions().showErrorSnackBar(
+          HelperFunctions().commonErrorSnackBar(
               context,
               res?.error?.errorResponse?.errorDescription ??
                   MessageConstant().errorMessage.i18n());
