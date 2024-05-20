@@ -49,4 +49,7 @@ class ImageConstants {
   final String notificationTabIcon =
       "assets/images/icons/notification_tab_icon.svg";
   final String removeIcon = "assets/images/icons/remove.svg";
+  final String closeX = "assets/images/icons/close_x.svg";
+  final String informationalIcon= "assets/images/icons/informational_icon.svg";
+  
 }
