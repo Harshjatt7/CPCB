@@ -47,10 +47,16 @@ class DashboardData {
   factory DashboardData.fromJson(Map<String, dynamic> json) => DashboardData(
         userType: json["user_type"],
         currentStatus: json["current_status"],
-        dateOfApplication: json["date_of_application"],
+        dateOfApplication: json["date_of_application"] != null
+            ? getFormattedDate(json['date_of_application'].toString())
+            : null,
         uniqueRegistrationNumber: json["unique_registration_number"],
-        dateOfRegistration: json["date_of_registration"],
-        registrationExpiryDate: json["registration_expiry_date"],
+        dateOfRegistration: json["date_of_registration"] != null
+            ? getFormattedDate(json['date_of_registration'].toString())
+            : null,
+        registrationExpiryDate: json["registration_expiry_date"] != null
+            ? getFormattedDate(json['registration_expiry_date'].toString())
+            : null,
         downloadApplication: json["download_application"],
         downloadInvoice: json["download_invoice"],
         eprCompliance: json["epr_compliance"] == null
@@ -199,4 +205,10 @@ class ProcurementData {
         totalProcurementProcessed: json["total_procurement_processed"],
         availableStock: json["available_stock"],
       );
+}
+
+String getFormattedDate(String dtStr) {
+  var dt = DateTime.parse(dtStr);
+
+  return "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
 }

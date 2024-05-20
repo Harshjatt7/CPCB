@@ -102,7 +102,7 @@ class LoginViewModel extends BaseViewModel {
             break;
           case UserTypes.recycler:
             Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
+                context, AppRoutes.recyclerHomeScreenRoute);
             break;
           case UserTypes.retreader:
             Navigator.pushReplacementNamed(
