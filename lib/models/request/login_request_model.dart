@@ -6,5 +6,5 @@ class LoginRequestModel {
   LoginRequestModel({this.password, this.email, this.userType});
 
   Map<String, dynamic> toJson() =>
-      {"email": email, "password": password, "user_type": userType};
+      {"email": email, "password": password, "user_type": userType?.toLowerCase()};
 }
