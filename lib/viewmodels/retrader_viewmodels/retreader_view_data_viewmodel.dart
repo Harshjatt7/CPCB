@@ -33,7 +33,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
 
   void loadMoreData() async {
     state = ViewState.busy;
-    var res = await getRetreaderData(isPaginating: true);
+    await getRetreaderData(isPaginating: true);
 
     state = ViewState.idle;
     updateUI();
