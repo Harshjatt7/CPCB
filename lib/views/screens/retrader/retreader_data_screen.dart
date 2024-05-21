@@ -1,10 +1,10 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/models/demo/retrader_data_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
-import 'package:cpcb_tyre/viewmodels/producer/producer_widget_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreader_view_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/retrader_common_components/common_retrader_data_card.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -18,13 +18,14 @@ class RetreaderDataScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<ProducerWidgetViewModel>(
-      onModelReady: (viewmodel) {
-        viewmodel.wait(context);
+    return BaseView<RetreaderViewDataViewmodel>(
+      onModelReady: (viewModel) {
+        viewModel.getRetreaderData();
       },
-      viewModel: ProducerWidgetViewModel(),
+      viewModel: RetreaderViewDataViewmodel(),
       builder: (context, viewModel, child) {
         return CustomScaffold(
+          isLoading: viewModel.state == ViewState.busy,
           appBar: CommonAppBar(
             isProfileBar: true,
             image: ImageConstants().avatar,
@@ -39,7 +40,9 @@ class RetreaderDataScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 decoration: BoxDecoration(
                     border: Border(
-                        top: BorderSide(color: AppColor().black10),
+                        top: BorderSide(
+                          color: AppColor().black10,
+                        ),
                         bottom: BorderSide(
                           color: AppColor().black10,
                         ))),
@@ -48,51 +51,74 @@ class RetreaderDataScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const PageScrollPhysics(),
-                        itemCount: retraderDataList.length,
-                        itemBuilder: (context, index) {
-                          final retraderDetails = retraderDataList[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: CommonRetraderDataCard(
-                              name: retraderDetails.name ?? "",
-                              contactDetails: retraderDetails.contactDetails,
-                              address: retraderDetails.address,
-                              invoiceNumber: retraderDetails.invoiceNumber,
-                              gstNumber: retraderDetails.gstNumber,
-                              typeOfRaw: retraderDetails.typeOfRaw,
-                              total: retraderDetails.total,
-                              date: retraderDetails.date,
-                              year: retraderDetails.date,
-                            ),
-                          );
-                        },
+              NotificationListener<ScrollNotification>(
+                onNotification: (notification) {
+                  if (notification is ScrollEndNotification &&
+                      notification.metrics.extentAfter == 0) {
+
+                        if((viewModel?.retreaderResponseModel?.data?.meta?.lastPage ?? 0 ) >= viewModel.page) {
+                          viewModel.page ++;
+                          viewModel.loadMoreData();
+                        }
+                  }
+                  return false;
+                },
+                child: Expanded(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const PageScrollPhysics(),
+                          itemCount: viewModel.data?.length,
+                          itemBuilder: (context, index) {
+                            if (index < (viewModel.data?.length ?? 0)) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: CommonRetraderDataCard(
+                                  name: viewModel.data?[index].wasteTyreSupplierName ??
+                                      "",
+                                  contactDetails:
+                                      viewModel.data?[index].contactDetails,
+                                  address: viewModel
+                                      .data?[index].addressOfWasteTyreSupplier,
+                                  gstNumber: viewModel.data?[index].gstNumber,
+                                  typeOfRaw: viewModel.data?[index].typeOfRawMaterial,
+                                  total: viewModel.data?[index].quantityProcessed
+                                      .toString(),
+                                  date: viewModel.data?[index].retreadedDate,
+                                  year: viewModel.data?[index].financialYear,
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                  child: viewModel.isLoading
+                                      ? const CircularProgressIndicator()
+                                      : const SizedBox());
+                            }
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    CommonButtonWidget(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                            context, AppRoutes.retreadedAddDataScreenRoute);
-                      },
-                      label: StringConstants().addRetreadedDataButton,
-                      color: AppColor().darkGreen,
-                      labelStyle: Theme.of(context)
-                          .textTheme
-                          .labelSmall!
-                          .copyWith(color: AppColor().white),
-                    ),
-                  ]),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      CommonButtonWidget(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, AppRoutes.retreadedAddDataScreenRoute);
+                        },
+                        label: StringConstants().addRetreadedDataButton,
+                        color: AppColor().darkGreen,
+                        labelStyle: Theme.of(context)
+                            .textTheme
+                            .labelSmall!
+                            .copyWith(color: AppColor().white),
+                      ),
+                    ]),
+                  ),
                 ),
               ),
             ],

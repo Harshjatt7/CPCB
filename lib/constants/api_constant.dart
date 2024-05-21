@@ -10,6 +10,7 @@ class APIRoutes {
   final String loginAPIRoute = "api/login";
   final String producerDashboardAPIRoute = "api/producer/dashboard";
   final String profileAPIRoute = "api/user";
+  final String retreaderAPIRoute = "api/retreader/retreaded-data";
 }
 
 extension ApiBaseURL on ApiEnvironments {
