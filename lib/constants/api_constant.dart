@@ -9,9 +9,10 @@ class APIRoutes {
 
   final String loginAPIRoute = "api/login";
   final String producerDashboardAPIRoute = "api/producer/dashboard";
-  final String retreaderDashboardAPIRoute="api/retreader/dashboard";
-  final String recyclerDashboardAPIRoute="api/recycler/dashboard";
+  final String retreaderDashboardAPIRoute = "api/retreader/dashboard";
+  final String recyclerDashboardAPIRoute = "api/recycler/dashboard";
   final String profileAPIRoute = "api/user";
+  final String retreaderAPIRoute = "api/retreader/retreaded-data";
   final String refreshTokenAPIRoute = "api/refresh-token";
   final String logoutAPIRoute = "api/logout";
 }

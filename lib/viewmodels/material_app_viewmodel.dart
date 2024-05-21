@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/controllers/auth/auth_repository.dart';
@@ -61,14 +63,16 @@ class MaterialAppViewModel extends BaseViewModel {
       await SecureStorage.instance
           .storeSensitiveInfo(StoreKeyConstants().isLogin, false);
 
-      HelperFunctions().commonErrorSnackBar(
-          APIBase.navigatorKey.currentState!.context,
-          MessageConstant().refreshTokenExpiredMessage);
+      if (APIBase.navigatorKey.currentState!.context.mounted) {
+        HelperFunctions().commonErrorSnackBar(
+            APIBase.navigatorKey.currentState!.context,
+            MessageConstant().refreshTokenExpiredMessage);
 
-      Navigator.pushNamedAndRemoveUntil(
-          APIBase.navigatorKey.currentState!.context,
-          AppRoutes.loginScreenRoute,
-          (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            APIBase.navigatorKey.currentState!.context,
+            AppRoutes.loginScreenRoute,
+            (route) => false);
+      }
     }
 
     return res;
