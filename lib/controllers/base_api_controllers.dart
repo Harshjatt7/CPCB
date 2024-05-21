@@ -21,7 +21,8 @@ class APIBase {
 
   Dio? getDio(
       {bool? isAuthorizationRequired = false,
-      bool? isRefreshTokenAuthorizationRequired = false}) {
+      bool? isRefreshTokenAuthorizationRequired = false,
+      bool? isMediaAuthorizationRequired = false}) {
     _dio = Dio(BaseOptions(
       baseUrl: APIRoutes.baseUrl,
       connectTimeout: timeoutDuration,
@@ -32,12 +33,51 @@ class APIBase {
       _dio?.interceptors.add(authorizationInterceptor);
     } else if (isRefreshTokenAuthorizationRequired == true) {
       _dio?.interceptors.add(refreshTokenAuthorizationInterceptor);
+    } else if (isMediaAuthorizationRequired == true) {
+      _dio?.interceptors.add(authorizationInterceptorForMedia);
     } else {
       _dio?.interceptors.add(noAuthorizationInterceptor);
     }
 
     return _dio;
   }
+
+  // Interceptor for media API calls
+  var authorizationInterceptorForMedia = InterceptorsWrapper(
+    onRequest: (options, handler) async {
+      String? token;
+      await HelperFunctions().getToken();
+
+      token = MaterialAppViewModel.token;
+
+      options.headers["Accept"] = "*/*";
+
+      options.headers['Authorization'] = "Bearer $token";
+
+      HelperFunctions().logger("token ?>>> $token");
+
+      return handler.next(options);
+    },
+    onError: (error, handler) async {
+      if (error.response?.statusCode == 401) {
+        // Handle refresh token here.
+        APIResponse<LoginResponseModel?>? res;
+
+        debouncer.run(() async {
+          res = await MaterialAppViewModel().getRefreshToken();
+
+          if (res?.isSuccess == false) {
+            HelperFunctions().logger("message");
+            return handler.reject(error);
+          } else {
+            return handler.resolve(await Dio().fetch(error.requestOptions));
+          }
+        });
+      } else {
+        return handler.next(error);
+      }
+    },
+  );
 
   // Interceptor for non authorized API calls
   var noAuthorizationInterceptor = InterceptorsWrapper(
@@ -84,8 +124,6 @@ class APIBase {
             return handler.resolve(await Dio().fetch(error.requestOptions));
           }
         });
-
-        //if()
       } else {
         return handler.next(error);
       }
@@ -140,15 +178,17 @@ class APIBase {
   );
 
 // GET $Request
-  Future<APIResponse<T>?> getRequest<T>(
-    String url, {
-    bool isAuthorizationRequired = false,
-  }) async {
+  Future<APIResponse<T>?> getRequest<T>(String url,
+      {bool isAuthorizationRequired = false,
+      bool isRefreshTokenAuthorizationRequired = false,
+      bool isMediaAuthorizationRequired = false}) async {
     Response response;
     APIResponse<T>? apiResponse;
     Dio dio = getDio(
-          isAuthorizationRequired: isAuthorizationRequired,
-        ) ??
+            isAuthorizationRequired: isAuthorizationRequired,
+            isMediaAuthorizationRequired: isMediaAuthorizationRequired,
+            isRefreshTokenAuthorizationRequired:
+                isRefreshTokenAuthorizationRequired) ??
         Dio();
 
     try {
@@ -170,7 +210,8 @@ class APIBase {
   Future<APIResponse<T>?> postRequest<T>(String url,
       {dynamic data,
       bool isAuthorizationRequired = false,
-      bool isRefreshTokenAuthorizationRequired = false}) async {
+      bool isRefreshTokenAuthorizationRequired = false,
+      bool isMediaAuthorizationRequired = false}) async {
     APIResponse<T>? apiResponse;
 
     if (data == null ||
@@ -182,10 +223,10 @@ class APIBase {
     }
     Response response;
     Dio dio = getDio(
-          isRefreshTokenAuthorizationRequired:
-              isRefreshTokenAuthorizationRequired,
-          isAuthorizationRequired: isAuthorizationRequired,
-        ) ??
+            isRefreshTokenAuthorizationRequired:
+                isRefreshTokenAuthorizationRequired,
+            isAuthorizationRequired: isAuthorizationRequired,
+            isMediaAuthorizationRequired: isMediaAuthorizationRequired) ??
         Dio();
 
     try {
@@ -205,11 +246,10 @@ class APIBase {
   }
 
   // Patch Request
-  Future<APIResponse<T>?> patchRequest<T>(
-    String url,
-    dynamic data, {
-    bool isAuthorizationRequired = false,
-  }) async {
+  Future<APIResponse<T>?> patchRequest<T>(String url, dynamic data,
+      {bool isAuthorizationRequired = false,
+      bool isRefreshTokenAuthorizationRequired = false,
+      bool isMediaAuthorizationRequired = false}) async {
     if (data == null ||
         data == "" ||
         data == '' ||
@@ -220,8 +260,10 @@ class APIBase {
     Response response;
     APIResponse<T>? apiResponse;
     Dio dio = getDio(
-          isAuthorizationRequired: isAuthorizationRequired,
-        ) ??
+            isAuthorizationRequired: isAuthorizationRequired,
+            isMediaAuthorizationRequired: isMediaAuthorizationRequired,
+            isRefreshTokenAuthorizationRequired:
+                isRefreshTokenAuthorizationRequired) ??
         Dio();
 
     try {
@@ -242,11 +284,10 @@ class APIBase {
   }
 
 // PUT Request
-  Future<APIResponse<T>?> putRequest<T>(
-    String url,
-    dynamic data, {
-    bool isAuthorizationRequired = false,
-  }) async {
+  Future<APIResponse<T>?> putRequest<T>(String url, dynamic data,
+      {bool isAuthorizationRequired = false,
+      bool isRefreshTokenAuthorizationRequired = false,
+      bool isMediaAuthorizationRequired = false}) async {
     if (data == null ||
         data == "" ||
         data == '' ||
@@ -257,8 +298,10 @@ class APIBase {
     Response response;
     APIResponse<T>? apiResponse;
     Dio dio = getDio(
-          isAuthorizationRequired: isAuthorizationRequired,
-        ) ??
+            isAuthorizationRequired: isAuthorizationRequired,
+            isMediaAuthorizationRequired: isMediaAuthorizationRequired,
+            isRefreshTokenAuthorizationRequired:
+                isRefreshTokenAuthorizationRequired) ??
         Dio();
 
     try {
@@ -277,13 +320,13 @@ class APIBase {
   }
 
 // DELETE Request
-  Future<APIResponse<T>?> deleteRequest<T>(
-    String url, {
-    dynamic data,
-    Map<String, dynamic>? header,
-    dynamic id,
-    bool? isAuthorizationRequired,
-  }) async {
+  Future<APIResponse<T>?> deleteRequest<T>(String url,
+      {dynamic data,
+      Map<String, dynamic>? header,
+      dynamic id,
+      bool? isAuthorizationRequired,
+      bool isRefreshTokenAuthorizationRequired = false,
+      bool isMediaAuthorizationRequired = false}) async {
     if (data == null ||
         data == "" ||
         data == '' ||
@@ -295,8 +338,12 @@ class APIBase {
     APIResponse<T>? apiResponse;
 
     try {
-      Dio dio =
-          getDio(isAuthorizationRequired: isAuthorizationRequired) ?? Dio();
+      Dio dio = getDio(
+              isAuthorizationRequired: isAuthorizationRequired,
+              isMediaAuthorizationRequired: isMediaAuthorizationRequired,
+              isRefreshTokenAuthorizationRequired:
+                  isRefreshTokenAuthorizationRequired) ??
+          Dio();
 
       response = await dio
           .delete(

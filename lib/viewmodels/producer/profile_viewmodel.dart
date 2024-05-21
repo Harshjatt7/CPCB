@@ -18,15 +18,20 @@ class ProfileViewModel extends BaseViewModel {
   ProfileData? data;
 
   void clearAppData(context) async {
-    await SecureStorage.instance
-        .deleteSensitiveInfo(StoreKeyConstants().userType);
-    await SecureStorage.instance.deleteSensitiveInfo(StoreKeyConstants().token);
-    await SecureStorage.instance
-        .deleteSensitiveInfo(StoreKeyConstants().refreshToken);
-    await SecureStorage.instance
-        .storeSensitiveInfo(StoreKeyConstants().isLogin, false);
-    Navigator.pushNamedAndRemoveUntil(
-        context, AppRoutes.loginScreenRoute, (route) => false);
+    var res = await logout();
+    if (res?.isSuccess == true) {
+      await SecureStorage.instance
+          .deleteSensitiveInfo(StoreKeyConstants().userType);
+      await SecureStorage.instance
+          .deleteSensitiveInfo(StoreKeyConstants().token);
+      await SecureStorage.instance
+          .deleteSensitiveInfo(StoreKeyConstants().refreshToken);
+      await SecureStorage.instance
+          .storeSensitiveInfo(StoreKeyConstants().isLogin, false);
+
+      Navigator.pushNamedAndRemoveUntil(
+          context, AppRoutes.loginScreenRoute, (route) => false);
+    }
   }
 
   Future<APIResponse<ProfileResponseModel?>?> getProfileData() async {
@@ -49,5 +54,14 @@ class ProfileViewModel extends BaseViewModel {
     state = ViewState.idle;
 
     return _profileResponseModel;
+  }
+
+  Future<APIResponse?> logout() async {
+    state = ViewState.busy;
+    var res = await _commonRepo.logout();
+
+    state = ViewState.idle;
+
+    return res;
   }
 }
