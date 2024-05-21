@@ -43,6 +43,8 @@ class StringConstants {
   final String dashboard = "dashboard";
   final String retreadedData = "retreaded-data";
   final String addRetreadedDataButton = "add-retreaded-data-button";
+  final String recyclerData = "recycler-data";
+  final String addRecyclerData = "add-recycler-data";
   final String addProcurementButton = "add-procurement-button";
   final String procurementStockData = "procurement-stock-data";
   final String quantityProcessed = "quantity-processed";
@@ -62,6 +64,7 @@ class StringConstants {
       "gst-number-of-waste-tyre-supplier";
   final String dateOfPurchaseOfRawMaterial = "date-of-purchase-of-raw-material";
   final String processedData = "processed-data";
+  final String processedStock = "processed-stock";
   final String eprCredits = "epr-credits";
 
   // Dashboard
@@ -77,6 +80,15 @@ class StringConstants {
   final String dateOfEc = "dateOfEc";
   final String annualReturns = "annual-returns";
   final String required = "required";
+  final String creditsGenerated = "credits-generated";
+  final String creditsTransferred = "credits-transferred";
+  final String creditsAvailable = "credits-available";
+  final String totalProcessed = "total-processed";
+  final String availableStock = "available-stock";
+  final String totalSold = "total-sold";
+  final String dateOfApplication = "date-of-application";
+  final String dateOfRegistration = "date-of-registration";
+  final String registrationExpiryDate = "registration-expiry-date";
 
   //User Types
   static const String admin = "Admin";

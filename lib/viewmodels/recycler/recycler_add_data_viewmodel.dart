@@ -1,11 +1,8 @@
-import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
-import 'package:cpcb_tyre/models/request/retreader/retreader_view_request_model.dart';
-import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
-class RetreadedAddDataViewModel extends BaseViewModel {
+class RecyclerAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
 
   String? yearDropdownValue;
@@ -27,22 +24,11 @@ class RetreadedAddDataViewModel extends BaseViewModel {
       TextEditingController();
 
   List financialYearList = <String>[];
-  final _retreaderRepo = RetreaderRepository();
-
-  Future<void> addRetreadedData(
-      BuildContext context, RetreaderRequestModel request) async {
-    var res;
-    if (formKey.currentState?.validate() ?? false) {
-      res = await _retreaderRepo.postRetreaderData(request);
-      HelperFunctions().logger(res);
-    } else {
-      HelperFunctions().commonErrorSnackBar(context, res);
-    }
-  }
 
   void addYear() {
     for (int i = 0; i < 5; i++) {
-      financialYearList.add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
+      financialYearList
+          .add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
     }
   }
 
