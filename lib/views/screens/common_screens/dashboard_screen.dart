@@ -26,8 +26,6 @@ class DashBoardScreen extends StatelessWidget {
           viewModel.getCurrentUserType(context);
 
           await viewModel.getDasboardData();
-
-          
         },
         viewModel: DashboardViewModel(),
         builder: (context, viewModel, child) {
@@ -112,6 +110,9 @@ class DashBoardScreen extends StatelessWidget {
                                 ),
                               if (viewModel.data?.downloadInvoice == true)
                                 CommonButtonWidget(
+                                  onPressed: () {
+                                    viewModel.getDownloadPaymentReceipt();
+                                  },
                                   label: StringConstants()
                                       .downloadPaymentReciptBtnLabel,
                                   color: AppColor().white,

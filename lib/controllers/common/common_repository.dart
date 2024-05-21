@@ -21,4 +21,12 @@ class CommonRepository {
     );
     return response;
   }
+
+  Future getDownloadPaymentReceipt() async {
+    APIResponse<ProfileResponseModel?>? response = await _apiBase.getRequest(
+      _apiRoutes.profileAPIRoute,
+      isAuthorizationRequired: true,
+    );
+    return response;
+  }
 }

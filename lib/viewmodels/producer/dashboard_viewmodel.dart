@@ -14,7 +14,6 @@ class DashboardViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
   final _commonRepo = CommonRepository();
 
-  
   UserTypes? currentUser;
   APIResponse<DashboardResponseModel?>? _dashboardResponseModel;
   APIResponse<DashboardResponseModel?>? get dashboardResponseModel =>
@@ -46,6 +45,20 @@ class DashboardViewModel extends BaseViewModel {
     state = ViewState.idle;
 
     return _dashboardResponseModel;
+  }
+
+  Future getDownloadPaymentReceipt() async {
+    state = ViewState.busy;
+    try {
+      var value = await _commonRepo.getDownloadPaymentReceipt();
+      return value;
+    } catch (err) {
+      HelperFunctions().logger("$err");
+    }
+
+    state = ViewState.idle;
+
+    return null;
   }
 
   String? getUrl() {
