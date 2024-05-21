@@ -54,10 +54,8 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
         } else {
           data = _retreaderResponseModel?.data?.data ?? [];
         }
-
-        //data?.addAll(_retreaderResponseModel?.data?.data ?? [])
       } else {
-        HelperFunctions().logger("drfsxrfdesxfdsxf");
+        HelperFunctions().logger("");
       }
     } catch (err) {
       HelperFunctions().logger("$err");
