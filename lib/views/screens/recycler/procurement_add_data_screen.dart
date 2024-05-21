@@ -13,8 +13,8 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ProcurementAddDataScreen extends StatelessWidget {
-  const ProcurementAddDataScreen({super.key});
+class RecyclerProcurementAddDataScreen extends StatelessWidget {
+  const RecyclerProcurementAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

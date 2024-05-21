@@ -4,6 +4,7 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/random.dart';
 import 'package:cpcb_tyre/viewmodels/producer/dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_environment_tile.dart';
@@ -22,9 +23,8 @@ class DashBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<DashboardViewModel>(
-        onModelReady: (viewModel) async {
-          viewModel.getCurrentUserType(context);
-
+      onModelReady: (viewModel) async {
+        viewModel.getCurrentUserType(context);
           await viewModel.getDasboardData();
         },
         viewModel: DashboardViewModel(),
@@ -60,72 +60,85 @@ class DashBoardScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
                                 child: ProducerListTile(
-                                    title: StringConstants().userType,
-                                    subtitle: viewModel.data?.userType ?? ""),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 12),
-                                child: ProducerListTile(
-                                    title: StringConstants().currentStatus,
+                                    title: StringConstants().dateOfApplication,
                                     subtitle:
-                                        viewModel.data?.currentStatus ?? ""),
+                                        viewModel.data?.dateOfApplication ??
+                                            ""),
                               ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: ProducerListTile(
+                                  title: StringConstants().applicationNumber,
+                                  subtitle: viewModel
+                                          .data?.uniqueRegistrationNumber ??
+                                      ""),
+                            ),
+                            if (viewModel.currentUser == UserTypes.retreader ||
+                                viewModel.currentUser == UserTypes.recycler)
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
                                 child: ProducerListTile(
-                                    title: StringConstants().applicationNumber,
+                                    title: StringConstants().dateOfRegistration,
+                                    subtitle:
+                                        viewModel.data?.dateOfRegistration ??
+                                            ""),
+                              ),
+                            if (viewModel.currentUser == UserTypes.retreader ||
+                                viewModel.currentUser == UserTypes.recycler)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: ProducerListTile(
+                                    title: StringConstants()
+                                        .registrationExpiryDate,
                                     subtitle: viewModel
-                                            .data?.uniqueRegistrationNumber ??
+                                            .data?.registrationExpiryDate ??
                                         ""),
                               ),
-                              // ListView.builder(
-                              //   shrinkWrap: true,
-                              //   itemCount: viewModel.dashboardResponseModel?.,
-                              //   physics: const NeverScrollableScrollPhysics(),
-                              //   itemBuilder: (context, index) {
-                              //     return Padding(
-                              //       padding: const EdgeInsets.only(bottom: 12),
-                              //       child: ProducerListTile(
-                              //           title: StringConstants().userType,
-                              //           subtitle: StringConstants.producer),
-                              //     );
-                              //   },
-                              // ),
-                              // CommonNote(
-                              //     note:
-                              //         MessageConstant().producerDashBoardNote),
-                              if (viewModel.data?.downloadApplication == true)
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 16),
-                                  child: CommonButtonWidget(
-                                    label:
-                                        StringConstants().downloadApplication,
-                                    color: AppColor().darkGreen,
-                                    labelStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium!
-                                        .copyWith(color: AppColor().white),
-                                  ),
-                                ),
-                              if (viewModel.data?.downloadInvoice == true)
-                                CommonButtonWidget(
-                                  onPressed: () {
-                                    viewModel.getDownloadPaymentReceipt();
-                                  },
-                                  label: StringConstants()
-                                      .downloadPaymentReciptBtnLabel,
-                                  color: AppColor().white,
-                                  borderColor: AppColor().darkGreen,
+                            // ListView.builder(
+                            //   shrinkWrap: true,
+                            //   itemCount: viewModel.dashboardResponseModel?.,
+                            //   physics: const NeverScrollableScrollPhysics(),
+                            //   itemBuilder: (context, index) {
+                            //     return Padding(
+                            //       padding: const EdgeInsets.only(bottom: 12),
+                            //       child: ProducerListTile(
+                            //           title: StringConstants().userType,
+                            //           subtitle: StringConstants.producer),
+                            //     );
+                            //   },
+                            // ),
+                            // CommonNote(
+                            //     note:
+                            //         MessageConstant().producerDashBoardNote),
+                            if (viewModel.data?.downloadApplication == true)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: CommonButtonWidget(
+                                  label: StringConstants().downloadApplication,
+                                  color: AppColor().darkGreen,
                                   labelStyle: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
-                                      .copyWith(color: AppColor().darkGreen),
-                                )
-                            ],
-                          ),
+                                      .copyWith(color: AppColor().white),
+                                ),
+                              ),
+                            if (viewModel.data?.downloadInvoice == true)
+                              CommonButtonWidget(
+                                label: StringConstants()
+                                    .downloadPaymentReciptBtnLabel,
+                                color: AppColor().white,
+                                borderColor: AppColor().darkGreen,
+                                labelStyle: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(color: AppColor().darkGreen),
+                              )
+                          ],
                         ),
                       ),
+                    ),
+                    if (viewModel.currentUser == UserTypes.producer)
                       Align(
                         alignment: Alignment.topLeft,
                         child: CommonTextWidget(
@@ -137,282 +150,327 @@ class DashBoardScreen extends StatelessWidget {
                               .copyWith(color: AppColor().black90),
                         ),
                       ),
-                      Column(
-                        children: [
+                    Column(
+                      children: [
+                        if (viewModel.currentUser == UserTypes.producer)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
                               title: StringConstants().totalEprObligations,
                               subTitle:
-                                  "${viewModel.data?.eprCompliance?.eprObligation ?? 0}",
+                                  "${viewModel.data?.eprCompliance?.eprObligation.toString().formatToFinancial() ?? 0}",
                             ),
                           ),
+                        if (viewModel.currentUser == UserTypes.producer)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
                               title: StringConstants().totalEprFullFilled,
                               subTitle:
-                                  "${viewModel.data?.eprCompliance?.eprFulfilled ?? 0}",
+                                  "${viewModel.data?.eprCompliance?.eprFulfilled.toString().formatToFinancial() ?? 0}",
                             ),
                           ),
+                        if (viewModel.currentUser == UserTypes.producer)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
                               title: StringConstants().totalEprObligations,
                               subTitle:
-                                  "${viewModel.data?.eprCompliance?.eprObligationRemaining ?? 0}",
+                                  "${viewModel.data?.eprCompliance?.eprObligationRemaining.toString().formatToFinancial() ?? 0}",
                             ),
                           ),
-                        ],
+                      ],
+                    ),
+                    if (viewModel.currentUser == UserTypes.retreader)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: CommonTextWidget(
+                          StringConstants().eprCredits,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: AppColor().black90),
+                        ),
                       ),
-                      if (viewModel.currentUser == UserTypes.retreader)
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: CommonTextWidget(
-                            StringConstants().eprCredits,
-                            textAlign: TextAlign.start,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(color: AppColor().black90),
+                    if (viewModel.currentUser == UserTypes.retreader)
+                      Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().creditsGenerated,
+                            subTitle:
+                                "${viewModel.data?.eprCredits?.creditsGenerated.toString().formatToFinancial() ?? 0}",
                           ),
                         ),
-                      if (viewModel.currentUser == UserTypes.retreader)
-                        Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: ProducerErpTile(
-                              image: ImageConstants().contactPage,
-                              title: StringConstants().totalEprObligations,
-                              subTitle: StringConstants().erpTileCount,
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().creditsTransferred,
+                            subTitle:
+                                "${viewModel.data?.eprCredits?.creditsTransferred.toString().formatToFinancial() ?? 0}",
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: ProducerErpTile(
-                              image: ImageConstants().contactPage,
-                              title: StringConstants().totalEprFullFilled,
-                              subTitle: StringConstants().erpTileCount,
-                            ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().creditsAvailable,
+                            subTitle:
+                                "${viewModel.data?.eprCredits?.creditsAvailable.toString().formatToFinancial() ?? 0}",
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: ProducerErpTile(
-                              image: ImageConstants().contactPage,
-                              title: StringConstants().remainingEprObligation,
-                              subTitle: StringConstants().erpTileCount,
-                            ),
-                          ),
-                        ]),
-                      const SizedBox(
-                        height: 8,
+                        ),
+                      ]),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    if (viewModel.currentUser == UserTypes.retreader)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: CommonTextWidget(
+                          StringConstants().procurementStockData,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: AppColor().black90),
+                        ),
                       ),
-                      if (viewModel.currentUser == UserTypes.retreader)
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: CommonTextWidget(
-                            StringConstants().procurementStockData,
-                            textAlign: TextAlign.start,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(color: AppColor().black90),
-                          ),
+                    if (viewModel.currentUser == UserTypes.retreader)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: CommonTextWidget(
+                          StringConstants().procurementStockDesc,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(color: AppColor().black),
                         ),
-                      if (viewModel.currentUser == UserTypes.retreader)
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: CommonTextWidget(
-                            StringConstants().procurementStockDesc,
-                            textAlign: TextAlign.start,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(color: AppColor().black),
-                          ),
-                        ),
-                      if (viewModel.currentUser == UserTypes.retreader)
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 3,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: ProducerErpTile(
-                                image: ImageConstants().contactPage,
-                                title: StringConstants().totalProcurement,
-                                subTitle: StringConstants().erpTileCount,
-                              ),
-                            );
-                          },
-                        ),
-                      const SizedBox(
-                        height: 8,
                       ),
-                      if (viewModel.currentUser == UserTypes.retreader)
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: CommonTextWidget(
-                            StringConstants().processedData,
-                            textAlign: TextAlign.start,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(color: AppColor().black90),
+                    if (viewModel.currentUser == UserTypes.retreader)
+                      Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().totalProcurement,
+                            subTitle:
+                                "${viewModel.data?.procurementData?.totalProcurement.toString().formatToFinancial() ?? 0}",
                           ),
                         ),
-                      if (viewModel.currentUser == UserTypes.retreader)
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 3,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: ProducerErpTile(
-                                image: ImageConstants().contactPage,
-                                title: StringConstants().totalProcurement,
-                                subTitle: StringConstants().erpTileCount,
-                              ),
-                            );
-                          },
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().totalProcessed,
+                            subTitle:
+                                "${viewModel.data?.procurementData?.totalProcurementProcessed.toString().formatToFinancial() ?? 0}",
+                          ),
                         ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(vertical: 8),
-                      //   child: ProducerAnnualReturnWidget(
-                      //       title: StringConstants().annualReturns,
-                      //       date: StringConstants().demoDate,
-                      //       status: StringConstants().delayed,
-                      //       fillingDate: StringConstants().demoDate),
-                      // ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: AppColor().black10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().availableStock,
+                            subTitle:
+                                "${viewModel.data?.procurementData?.availableStock.toString().formatToFinancial() ?? 0}",
+                          ),
                         ),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 16),
-                                child: CommonTextWidget(
-                                  StringConstants()
-                                      .environmentCompensationTitle,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
+                      ]),
+                    const SizedBox(
+                      height: 8,
+                    ),
+
+                    if (viewModel.currentUser == UserTypes.retreader)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: CommonTextWidget(
+                          StringConstants().processedData,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: AppColor().black90),
+                        ),
+                      ),
+                    if (viewModel.currentUser == UserTypes.retreader)
+                      Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().totalProcessed,
+                            subTitle:
+                                "${viewModel.data?.processedStock?.totalProduced?.toString().formatToFinancial() ?? 0}",
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().totalSold,
+                            subTitle:
+                                "${viewModel.data?.processedStock?.totalSold.toString().formatToFinancial() ?? 0}",
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ProducerErpTile(
+                            image: ImageConstants().contactPage,
+                            title: StringConstants().availableStock,
+                            subTitle:
+                                "${viewModel.data?.processedStock?.availableProcessedStock.toString().formatToFinancial() ?? 0}",
+                          ),
+                        ),
+                      ]),
+                    const SizedBox(
+                      height: 8,
+                    ),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(vertical: 8),
+                    //   child: ProducerAnnualReturnWidget(
+                    //       title: StringConstants().annualReturns,
+                    //       date: StringConstants().demoDate,
+                    //       status: StringConstants().delayed,
+                    //       fillingDate: StringConstants().demoDate),
+                    // ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColor().black10),
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 16),
+                              child: CommonTextWidget(
+                                StringConstants().environmentCompensationTitle,
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 0),
-                                child: Divider(
-                                  height: 1,
-                                  color: AppColor().black10,
-                                ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 0),
+                              child: Divider(
+                                height: 1,
+                                color: AppColor().black10,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Flexible(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 8, bottom: 8),
-                                            child: ProducerEnvironmentTile(
-                                                title:
-                                                    StringConstants().dateOfEc,
-                                                subtitle:
-                                                    "${viewModel.data?.environmentCompensation?.dateOfEc}",
-                                                image:
-                                                    ImageConstants().calendar),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8, bottom: 8),
-                                            child: ProducerEnvironmentTile(
-                                                title: StringConstants()
-                                                    .currentStatus,
-                                                subtitle:
-                                                    "${viewModel.data?.environmentCompensation?.currentStatus}",
-                                                subtitleColor: AppColor().green,
-                                                image:
-                                                    ImageConstants().infoEnv),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Flexible(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 8, right: 8),
-                                            child: ProducerEnvironmentTile(
-                                                title: StringConstants().type,
-                                                subtitle:
-                                                    "${viewModel.data?.environmentCompensation?.type}",
-                                                image:
-                                                    ImageConstants().infoEnv),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8, top: 8),
-                                            child: ProducerEnvironmentTile(
-                                                title: StringConstants().amount,
-                                                subtitle:
-                                                    "${viewModel.data?.environmentCompensation?.amount}",
-                                                image: ImageConstants().dollar),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 16, bottom: 10),
-                                        child: CommonTextWidget(
-                                          StringConstants().descripsionTitle,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall!
-                                              .copyWith(
-                                                  color: AppColor().black40),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Flexible(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 8, bottom: 8),
+                                          child: ProducerEnvironmentTile(
+                                              title: StringConstants().dateOfEc,
+                                              subtitle: viewModel
+                                                      .data
+                                                      ?.environmentCompensation
+                                                      ?.dateOfEc ??
+                                                  "",
+                                              image: ImageConstants().calendar),
                                         ),
                                       ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.topLeft,
+                                      Flexible(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8, bottom: 8),
+                                          child: ProducerEnvironmentTile(
+                                              title: StringConstants()
+                                                  .currentStatus,
+                                              subtitle: viewModel
+                                                      .data
+                                                      ?.environmentCompensation
+                                                      ?.currentStatus ??
+                                                  "",
+                                              subtitleColor: AppColor().green,
+                                              image: ImageConstants().infoEnv),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Flexible(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8, right: 8),
+                                          child: ProducerEnvironmentTile(
+                                              title: StringConstants().type,
+                                              subtitle: viewModel
+                                                      .data
+                                                      ?.environmentCompensation
+                                                      ?.type ??
+                                                  "",
+                                              image: ImageConstants().infoEnv),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8, top: 8),
+                                          child: ProducerEnvironmentTile(
+                                              title: StringConstants().amount,
+                                              subtitle: viewModel
+                                                      .data
+                                                      ?.environmentCompensation
+                                                      ?.amount ??
+                                                  "",
+                                              image: ImageConstants().dollar),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, bottom: 10),
                                       child: CommonTextWidget(
-                                        MessageConstant().environmentText,
+                                        StringConstants().descripsionTitle,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .displaySmall,
+                                            .displaySmall!
+                                            .copyWith(
+                                                color: AppColor().black40),
                                       ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ]),
-                      )
-                    ],
-                  ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: CommonTextWidget(
+                                      MessageConstant().environmentText,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ]),
+                    )
+                  ],
                 ),
-              ));
-        });
+              ),
+            ));
+      },
+    );
   }
 }

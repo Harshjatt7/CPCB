@@ -22,11 +22,10 @@ class CommonRepository {
     return response;
   }
 
-  Future getDownloadPaymentReceipt() async {
-    APIResponse<ProfileResponseModel?>? response = await _apiBase.getRequest(
-      _apiRoutes.profileAPIRoute,
-      isAuthorizationRequired: true,
-    );
+  Future logout() async {
+    APIResponse? response = await _apiBase
+        .postRequest(_apiRoutes.logoutAPIRoute, isAuthorizationRequired: true);
+
     return response;
   }
 }

@@ -21,7 +21,8 @@ class DashboardViewModel extends BaseViewModel {
   DashboardData? data;
   String? url;
 
-  void getCurrentUserType(BuildContext context) {
+  void getCurrentUserType(BuildContext context) async {
+    await HelperFunctions().getUserType(context);
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
 
@@ -47,38 +48,40 @@ class DashboardViewModel extends BaseViewModel {
     return _dashboardResponseModel;
   }
 
-  Future getDownloadPaymentReceipt() async {
-    state = ViewState.busy;
-    try {
-      var value = await _commonRepo.getDownloadPaymentReceipt();
-      return value;
-    } catch (err) {
-      HelperFunctions().logger("$err");
-    }
+  // Future getDownloadPaymentReceipt() async {
+  //   state = ViewState.busy;
+  //   try {
+  //     var value = await _commonRepo.getDownloadPaymentReceipt();
+  //     return value;
+  //   } catch (err) {
+  //     HelperFunctions().logger("$err");
+  //   }
 
-    state = ViewState.idle;
+  //   state = ViewState.idle;
 
-    return null;
-  }
+  //   return null;
+  // }
 
   String? getUrl() {
     switch (MaterialAppViewModel.userTypeEnum) {
       case UserTypes.producer:
         return _apiRoutes.producerDashboardAPIRoute;
       case UserTypes.recycler:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return _apiRoutes.recyclerDashboardAPIRoute;
       case UserTypes.retreader:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return _apiRoutes.retreaderDashboardAPIRoute;
       case UserTypes.inspection:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return '';
       case UserTypes.admin:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return '';
       case UserTypes.custom:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return '';
       case UserTypes.other:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return '';
       default:
         return null;
     }
   }
 }
+
+
