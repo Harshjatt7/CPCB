@@ -81,10 +81,6 @@ class APIBase {
   // Interceptor for non authorized API calls
   var noAuthorizationInterceptor = InterceptorsWrapper(
     onRequest: (options, handler) async {
-      // options.headers['Content-Type'] = "application/json";
-      // // options.headers['Accept'] = "*/*";
-      // options.headers['Connection'] = "keep-alive";
-
       return handler.next(options);
     },
     onError: (error, handler) async {
@@ -132,48 +128,20 @@ class APIBase {
   // Interceptor for authorized API calls
   var refreshTokenAuthorizationInterceptor = InterceptorsWrapper(
     onRequest: (options, handler) async {
-      String? token;
+      String? refreshToken;
       await HelperFunctions().getRefreshToken();
 
-      token = MaterialAppViewModel.refreshToken;
+      refreshToken = MaterialAppViewModel.refreshToken;
 
       options.headers["Accept"] = "application/json";
 
-      // options.headers['Content-Type'] = "application/json";
-      // options.headers['Accept'] = "*/*";
-      // options.headers['Connection'] = "keep-alive";
-      // op
-      // options.headers['X-CSRF-TOKEN'] = "";
-      //options.headers['Accept-Encoding'] = "gzip, deflate, br";
-      options.headers['Authorization'] =
-          //"";
-          "Bearer $token";
+      options.headers['Authorization'] = "Bearer $refreshToken";
 
-      HelperFunctions().logger("token ?>>> $token");
+      HelperFunctions().logger("refreshToken ?>>> $refreshToken");
 
       return handler.next(options);
     },
-    onError: (error, handler) async {
-      // if (error.response?.statusCode == 401) {
-      //   // Handle refresh token here.
-      //   await HelperFunctions().getRefreshToken();
-      //   // error.requestOptions.headers["Authorization"] =
-      //   //     "Bearer ${MaterialAppViewModel.refreshToken}";
-
-      //   var res = await MaterialAppViewModel().getRefreshToken();
-
-      //   if (res?.isSuccess == false) {
-      //     HelperFunctions().logger("message");
-      //     return handler.reject(error);
-      //   } else {
-      //     return handler.resolve(await Dio().fetch(error.requestOptions));
-      //   }
-
-      //   //if()
-      // } else {
-      //   return handler.next(error);
-      // }
-    },
+    onError: (error, handler) async {},
   );
 
 // GET $Request
