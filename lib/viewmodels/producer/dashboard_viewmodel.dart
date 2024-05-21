@@ -53,19 +53,21 @@ class DashboardViewModel extends BaseViewModel {
       case UserTypes.producer:
         return _apiRoutes.producerDashboardAPIRoute;
       case UserTypes.recycler:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return _apiRoutes.recyclerDashboardAPIRoute;
       case UserTypes.retreader:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return _apiRoutes.retreaderDashboardAPIRoute;
       case UserTypes.inspection:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return '';
       case UserTypes.admin:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return '';
       case UserTypes.custom:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return '';
       case UserTypes.other:
-        return _apiRoutes.producerDashboardAPIRoute;
+        return '';
       default:
         return null;
     }
   }
 }
+
+
