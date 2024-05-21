@@ -21,7 +21,8 @@ class DashboardViewModel extends BaseViewModel {
   DashboardData? data;
   String? url;
 
-  void getCurrentUserType(BuildContext context) {
+  void getCurrentUserType(BuildContext context) async {
+    await HelperFunctions().getUserType(context);
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
 

@@ -12,6 +12,8 @@ class APIRoutes {
   final String retreaderDashboardAPIRoute="api/retreader/dashboard";
   final String recyclerDashboardAPIRoute="api/recycler/dashboard";
   final String profileAPIRoute = "api/user";
+  final String refreshTokenAPIRoute = "api/refresh-token";
+  final String logoutAPIRoute = "api/logout";
 }
 
 extension ApiBaseURL on ApiEnvironments {

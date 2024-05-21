@@ -12,7 +12,7 @@ import '../../constants/routes_constant.dart';
 import '../../controllers/auth/auth_repository.dart';
 import '../../models/request/login_request_model.dart';
 import '../../models/response/base_response_model.dart';
-import '../../models/response/login_response_model.dart';
+import '../../models/response/auth/login_response_model.dart';
 import '../../utils/helper/helper_functions.dart';
 import '../material_app_viewmodel.dart';
 
@@ -72,55 +72,57 @@ class LoginViewModel extends BaseViewModel {
 
   Future<void> onLoginButtonTapped(
       BuildContext context, LoginRequestModel request) async {
-    if (formKey.currentState?.validate() ?? false) {
-      await context.globalProvider
-          .updateUserType(selectedUserType ?? "", context);
+    if (context.mounted) {
+      if (formKey.currentState?.validate() ?? false) {
+        await context.globalProvider
+            .updateUserType(selectedUserType ?? "", context);
 
-      var res = await login(context, request);
+        var res = await login(context, request);
 
-      if (context.mounted && res?.isSuccess == true) {
-        HelperFunctions().logger(
-            "res?.data?.data?.refreshToken >> ${res?.data?.data?.refreshToken}");
-        HelperFunctions()
-            .logger("res?.data?.data?.token >> ${res?.data?.data?.token}");
-        switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
-          case UserTypes.admin:
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
-            break;
-          case UserTypes.other:
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
-            break;
-          case UserTypes.inspection:
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
-            break;
-          case UserTypes.producer:
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
-            break;
-          case UserTypes.recycler:
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.recyclerHomeScreenRoute);
-            break;
-          case UserTypes.retreader:
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.retraderHomeScreenRoute);
-            break;
-          case UserTypes.custom:
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
-            break;
-        }
-      } else {
-        if (context.mounted) {
+        if (context.mounted && res?.isSuccess == true) {
           HelperFunctions().logger(
-              "res?.error?.errorResponse?.errorDescription >> ${res?.error?.errorResponse?.errorDescription}");
-          HelperFunctions().commonErrorSnackBar(
-              context,
-              res?.error?.errorResponse?.errorDescription ??
-                  MessageConstant().errorMessage.i18n());
+              "res?.data?.data?.refreshToken >> ${res?.data?.data?.refreshToken}");
+          HelperFunctions()
+              .logger("res?.data?.data?.token >> ${res?.data?.data?.token}");
+          switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
+            case UserTypes.admin:
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.producerHomeScreenRoute);
+              break;
+            case UserTypes.other:
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.producerHomeScreenRoute);
+              break;
+            case UserTypes.inspection:
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.producerHomeScreenRoute);
+              break;
+            case UserTypes.producer:
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.producerHomeScreenRoute);
+              break;
+            case UserTypes.recycler:
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.producerHomeScreenRoute);
+              break;
+            case UserTypes.retreader:
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.retraderHomeScreenRoute);
+              break;
+            case UserTypes.custom:
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.producerHomeScreenRoute);
+              break;
+          }
+        } else {
+          if (context.mounted) {
+            HelperFunctions().logger(
+                "res?.error?.errorResponse?.errorDescription >> ${res?.error?.errorResponse?.errorDescription}");
+            HelperFunctions().commonErrorSnackBar(
+                context,
+                res?.error?.errorResponse?.errorDescription ??
+                    MessageConstant().errorMessage.i18n());
+          }
         }
       }
     }
@@ -137,10 +139,13 @@ class LoginViewModel extends BaseViewModel {
         // Any logic that needs to be implemented after successful login.
         response?.data = LoginResponseModel.fromJson(response.completeResponse);
 
+        await HelperFunctions().storeToken(response?.data?.data?.token ?? "");
         await HelperFunctions()
-            .storeToken(context, response?.data?.data?.token ?? "");
-        await HelperFunctions().storeRefreshToken(
-            context, response?.data?.data?.refreshToken ?? "");
+            .storeRefreshToken(response?.data?.data?.refreshToken ?? "");
+
+        if (context.mounted) {
+          await HelperFunctions().setLoginStatus(context, true);
+        }
       } else {
         // Any logic that needs to be implemented after un-successful login.
       }

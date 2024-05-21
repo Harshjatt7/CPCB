@@ -314,33 +314,79 @@ class HelperFunctions {
     }
   }
 
+  /// [setLoginStatus] is a method to set login status in keychain
+  Future<void> setLoginStatus(BuildContext context, bool value) async {
+    await SecureStorage.instance
+        .storeSensitiveInfo(StoreKeyConstants().isLogin, value);
+
+    if (context.mounted) {
+      context.globalProvider.isLogin = value;
+    }
+  }
+
+  /// [getLoginStatus] is a method to get login status from keychain
+  Future<void> getLoginStatus(BuildContext context) async {
+    bool isLogin = await SecureStorage.instance
+            .getSensitiveInfo(StoreKeyConstants().isLogin) ??
+        false;
+
+    if (context.mounted) {
+      context.globalProvider.isLogin = isLogin;
+    }
+  }
+
   /// [getUserType] is a method to store user type in keychain
   Future<void> getUserType(BuildContext context) async {
     String userType = await SecureStorage.instance
-        .getSensitiveInfo(StoreKeyConstants().userType);
+            .getSensitiveInfo(StoreKeyConstants().userType) ??
+        "";
+
+    if (context.mounted) {
+      context.globalProvider.userType = userType;
+      switch (userType) {
+        case StringConstants.admin:
+          MaterialAppViewModel.userTypeEnum = UserTypes.admin;
+          break;
+        case StringConstants.other:
+          MaterialAppViewModel.userTypeEnum = UserTypes.other;
+          break;
+        case StringConstants.inspection:
+          MaterialAppViewModel.userTypeEnum = UserTypes.inspection;
+          break;
+        case StringConstants.producer:
+          MaterialAppViewModel.userTypeEnum = UserTypes.producer;
+          break;
+        case StringConstants.recycler:
+          MaterialAppViewModel.userTypeEnum = UserTypes.recycler;
+          break;
+        case StringConstants.retreader:
+          MaterialAppViewModel.userTypeEnum = UserTypes.retreader;
+          break;
+        case StringConstants.custom:
+          MaterialAppViewModel.userTypeEnum = UserTypes.custom;
+          break;
+      }
+    }
+
     if (context.mounted) {
       context.globalProvider.userType = userType;
     }
   }
 
   /// [storeToken] is a method to store login token.
-  Future<void> storeToken(BuildContext context, String value) async {
+  Future<void> storeToken(String value) async {
     await SecureStorage.instance
         .storeSensitiveInfo(StoreKeyConstants().token, value);
 
-    if (context.mounted) {
-      MaterialAppViewModel.token = value;
-    }
+    MaterialAppViewModel.token = value;
   }
 
   /// [storeRefreshToken] is a method to store login token.
-  Future<void> storeRefreshToken(BuildContext context, String value) async {
+  Future<void> storeRefreshToken(String value) async {
     await SecureStorage.instance
         .storeSensitiveInfo(StoreKeyConstants().refreshToken, value);
 
-    if (context.mounted) {
-      MaterialAppViewModel.refreshToken = value;
-    }
+    MaterialAppViewModel.refreshToken = value;
   }
 
   /// [getToken] is a method to store login token.
@@ -352,13 +398,11 @@ class HelperFunctions {
   }
 
   /// [getRefreshToken] is a method to store login token.
-  Future<void> getRefreshToken(BuildContext context, String value) async {
+  Future<void> getRefreshToken() async {
     String value = await SecureStorage.instance
         .getSensitiveInfo(StoreKeyConstants().refreshToken);
 
-    if (context.mounted) {
-      MaterialAppViewModel.refreshToken = value;
-    }
+    MaterialAppViewModel.refreshToken = value;
   }
 
   /// [getFormattedDate] is a method to change Date format.
