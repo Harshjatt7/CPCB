@@ -1,3 +1,5 @@
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+
 class DashboardResponseModel {
   DashboardData? data;
 
@@ -47,10 +49,19 @@ class DashboardData {
   factory DashboardData.fromJson(Map<String, dynamic> json) => DashboardData(
         userType: json["user_type"],
         currentStatus: json["current_status"],
-        dateOfApplication: json["date_of_application"],
+        dateOfApplication: json["date_of_application"] != null
+            ? HelperFunctions()
+                .getFormattedDate(json['date_of_application'].toString())
+            : null,
         uniqueRegistrationNumber: json["unique_registration_number"],
-        dateOfRegistration: json["date_of_registration"],
-        registrationExpiryDate: json["registration_expiry_date"],
+        dateOfRegistration: json["date_of_registration"] != null
+            ? HelperFunctions()
+                .getFormattedDate(json['date_of_registration'].toString())
+            : null,
+        registrationExpiryDate: json["registration_expiry_date"] != null
+            ? HelperFunctions()
+                .getFormattedDate(json['registration_expiry_date'].toString())
+            : null,
         downloadApplication: json["download_application"],
         downloadInvoice: json["download_invoice"],
         eprCompliance: json["epr_compliance"] == null

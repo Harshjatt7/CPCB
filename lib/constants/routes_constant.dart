@@ -8,6 +8,8 @@ class AppRoutes {
   static const String producerHomeScreenRoute = "/producerHomeScreenRoute";
   static const String addSalesDataScreenRoute = "/addSalesDataScreenRoute";
   static const String retraderHomeScreenRoute = "/retraderHomeScreenRoute";
+  static const String recyclerHomeScreenRoute="/recyclerHomeScreenRoute";
   static const String procurementAddDataScreenRoute = "/procurementAddDataScreenRoute";
   static const String retreadedAddDataScreenRoute = "/retreadedAddDataScreenRoute";
+  static const String recyclerAddDataScreenRoute="/recyclerAddDataScreenRoute";
 }

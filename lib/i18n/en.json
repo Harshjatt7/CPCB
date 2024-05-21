@@ -79,5 +79,17 @@
     "recycler": "Recycler",
     "custom": "Custom",
     "error-message": "Something went wrong!",
-    "application-number": "Application Number"
+    "application-number": "Application Number",
+    "recycler-data":"Recycler Data",
+    "add-recycler-data":"Add Recycler data",
+    "credits-generated":"Credits Generated",
+    "credits-transferred":"Credits Transferred",
+    "credits-available":"Credits Available",
+    "total-processed":"Total Processed",
+    "available-stock":"Available Stock",
+    "total-sold":"Total Sold",
+    "processed-stock":"Processed Stock",
+    "date-of-application":"Date of Application",
+    "date-of-registration":"Date of Registration",
+    "registration-expiry-date":"registration-expiry-date"
 }
