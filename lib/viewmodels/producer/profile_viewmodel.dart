@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/controllers/common/common_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
@@ -31,6 +32,11 @@ class ProfileViewModel extends BaseViewModel {
 
       Navigator.pushNamedAndRemoveUntil(
           context, AppRoutes.loginScreenRoute, (route) => false);
+    } else {
+      HelperFunctions().commonErrorSnackBar(
+          context,
+          res?.error?.errorResponse?.errorDescription ??
+              MessageConstant().errorMessage);
     }
   }
 

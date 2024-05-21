@@ -67,7 +67,6 @@ class APIBase {
           res = await MaterialAppViewModel().getRefreshToken();
 
           if (res?.isSuccess == false) {
-            HelperFunctions().logger("message");
             return handler.reject(error);
           } else {
             return handler.resolve(await Dio().fetch(error.requestOptions));

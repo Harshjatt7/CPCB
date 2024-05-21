@@ -79,5 +79,6 @@
     "recycler": "Recycler",
     "custom": "Custom",
     "error-message": "Something went wrong!",
-    "application-number": "Application Number"
+    "application-number": "Application Number",
+    "refresh-token-expired": "Invalid refresh token!. Please login again."
 }
