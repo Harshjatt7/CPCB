@@ -32,25 +32,15 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   bool isLoading = false;
 
   void loadMoreData() async {
-    
     state = ViewState.busy;
-   var res = await getRetreaderData();
-
-//     if(res?.isSuccess == true){
-//       data?.addAll(_retreaderResponseModel?.data?.data ?? [])
-// ;
-
-//     }
-
-
-    
-
+    var res = await getRetreaderData(isPaginating: true);
 
     state = ViewState.idle;
     updateUI();
   }
 
-  Future<APIResponse<RetreaderResponseModel?>?> getRetreaderData() async {
+  Future<APIResponse<RetreaderResponseModel?>?> getRetreaderData(
+      {bool? isPaginating = false}) async {
     state = ViewState.busy;
 
     try {
@@ -59,10 +49,13 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       if (_retreaderResponseModel?.isSuccess == true) {
         _retreaderResponseModel?.data = RetreaderResponseModel.fromJson(
             _retreaderResponseModel?.completeResponse);
-        //data = _retreaderResponseModel?.data?.data ?? [];
+        if (isPaginating == true) {
+          data?.addAll(_retreaderResponseModel?.data?.data ?? []);
+        } else {
+          data = _retreaderResponseModel?.data?.data ?? [];
+        }
 
-        data?.addAll(_retreaderResponseModel?.data?.data ?? [])
-;
+        //data?.addAll(_retreaderResponseModel?.data?.data ?? [])
       } else {
         HelperFunctions().logger("drfsxrfdesxfdsxf");
       }
