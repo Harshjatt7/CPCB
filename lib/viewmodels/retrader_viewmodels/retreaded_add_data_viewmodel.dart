@@ -27,8 +27,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
 
   void addYear() {
     for (int i = 0; i < 5; i++) {
-      financialYearList
-          .add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
+      financialYearList.add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
     }
   }
 

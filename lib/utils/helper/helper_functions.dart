@@ -260,7 +260,7 @@ class HelperFunctions {
           ),
           const SizedBox(width: 8),
           Expanded(
-            flex:8,
+            flex: 8,
             child: CommonTextWidget(message,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     color: textColor ?? AppColor().snackbarGreenContentColor)),
@@ -360,4 +360,12 @@ class HelperFunctions {
       MaterialAppViewModel.refreshToken = value;
     }
   }
+
+  /// [getFormattedDate] is a method to change Date format.
+  String getFormattedDate(String dtStr) {
+    var dt = DateTime.parse(dtStr);
+
+    return "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
+  }
+
 }
