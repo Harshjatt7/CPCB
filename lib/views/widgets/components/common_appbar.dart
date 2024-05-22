@@ -12,7 +12,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final double? appBarHeight;
   final bool? isIconBar;
-  final bool? isProfileBar;
+  final bool? showNotificationIcon;
   final String? image;
   final String? name;
   final String? designation;
@@ -31,9 +31,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   ///
   /// [isIconBar] will take boolen value for [iconAppBar] widget
   ///
-  /// [isProfileBar] will take boolen value for [profileAppBar] widget and [name],[image],[designation] are manually have to be added if true
-  ///
-
+  /// [showNotificationIcon] will take boolen value to show/hide notification icon from Icon App Bar.
   const CommonAppBar(
       {super.key,
       this.title,
@@ -44,7 +42,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.image,
       this.designation,
       this.isIconBar = false,
-      this.isProfileBar = false,
+      this.showNotificationIcon = false,
       this.appBarHeight = 70});
 
   @override
@@ -53,14 +51,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: isProfileBar == true
-          ? profileAppBar(context,
-              image: image ?? '',
-              designation: designation ?? '',
-              name: name ?? '')
-          : isIconBar == true
-              ? iconAppBar()
-              : normalAppBar(context),
+      child: showNotificationIcon == true || isIconBar == true
+          ? iconAppBar()
+          : normalAppBar(context),
     );
   }
 
@@ -137,13 +130,14 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 width: 34,
                 imageSource: ImageConstants().blueLogo,
                 isNetworkImage: false),
-            const Spacer(),
-            CommonImageWidget(
-                height: 24,
-                width: 24,
-                fit: BoxFit.cover,
-                imageSource: ImageConstants().notification,
-                isNetworkImage: false)
+            if (showNotificationIcon == false) const Spacer(),
+            if (showNotificationIcon == false)
+              CommonImageWidget(
+                  height: 24,
+                  width: 24,
+                  fit: BoxFit.cover,
+                  imageSource: ImageConstants().notification,
+                  isNetworkImage: false)
           ],
         ),
       ),

@@ -28,7 +28,7 @@ class RetreaderDataScreen extends StatelessWidget {
         return CustomScaffold(
           isLoading: viewModel.state == ViewState.busy,
           appBar: CommonAppBar(
-            isProfileBar: true,
+            showNotificationIcon: true,
             image: ImageConstants().avatar,
             name: StringConstants().name,
             designation: StringConstants().userType,
