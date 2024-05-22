@@ -32,17 +32,22 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   Future<void> addRetreadedData(
       BuildContext context, RetreaderRequestModel request) async {
     var res;
-    if (formKey.currentState?.validate() ?? false) {
-      res = await _retreaderRepo.postRetreaderData(request);
-      HelperFunctions().logger(res);
-    } else {
-      HelperFunctions().commonErrorSnackBar(context, res);
+    try {
+      if (formKey.currentState?.validate() ?? false) {
+        res = await _retreaderRepo.postRetreaderData(request);
+        HelperFunctions().logger(res);
+      } else {
+        HelperFunctions().commonErrorSnackBar(context, res);
+      }
+    } catch (e) {
+      HelperFunctions().logger("$e");
     }
   }
 
   void addYear() {
     for (int i = 0; i < 5; i++) {
-      financialYearList.add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
+      financialYearList
+          .add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
     }
   }
 

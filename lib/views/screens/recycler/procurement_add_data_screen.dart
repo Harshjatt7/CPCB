@@ -73,6 +73,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                                 LengthLimitingTextInputFormatter(10)
                               ],
                               hintText: StringConstants().contactDetails,
+                              textInputType: TextInputType.number,
                               isMandatory: true,
                               validator: (value) {
                                 return viewModel.contactDetailsValidation();
@@ -85,6 +86,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(10)
                               ],
+                              textInputType: TextInputType.number,
                               hintText:
                                   StringConstants().supplierContactDetails,
                               isMandatory: true,
@@ -217,7 +219,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     onPressed: () {
-                      viewModel.formValidation();
+                      viewModel.formValidation(context);
                     },
                     height: 50,
                     label: StringConstants().submitBtnLabel,
