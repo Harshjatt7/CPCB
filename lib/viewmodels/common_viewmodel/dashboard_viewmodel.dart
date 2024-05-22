@@ -64,15 +64,14 @@ class DashboardViewModel extends BaseViewModel {
             : await getApplicationDocumentsDirectory();
         String tempPath = appDir!.path;
 
-        String fileName = 'hhhh.pdf';
+        String fileName = 'Payment Receipt (${DateTime.timestamp()}).pdf';
         File file = File('$tempPath/$fileName');
-       //// if (!await file.exists()) {
+        if (!await file.exists()) {
           await file.create(recursive: true);
-        // }
+        }
         await file.writeAsBytes(value.completeResponse);
         HelperFunctions().logger(file.path);
         await openFile(file.path);
-       
       }
 
       state = ViewState.idle;

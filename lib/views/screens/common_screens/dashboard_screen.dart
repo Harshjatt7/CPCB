@@ -5,7 +5,6 @@ import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/random.dart';
-import 'package:cpcb_tyre/viewmodels/producer/dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_environment_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_erp_tile.dart';
@@ -16,6 +15,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+
+import '../../../viewmodels/common_viewmodel/dashboard_viewmodel.dart';
 
 class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({super.key});
