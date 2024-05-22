@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
 import 'package:cpcb_tyre/models/request/login_request_model.dart';
-import 'package:cpcb_tyre/models/request/refresh_token_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/auth/login_response_model.dart';
 
@@ -16,7 +15,7 @@ class AuthRepository {
     return response;
   }
 
-  Future refreshToken(RefreshTokenRequestModel request) async {
+  Future refreshToken() async {
     APIResponse<LoginResponseModel>? response = await _apiBase.postRequest(
         _apiRoutes.refreshTokenAPIRoute,
         isRefreshTokenAuthorizationRequired: true);

@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/request/retreader/retreader_view_request_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreaded_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -18,7 +19,9 @@ class RetreadedAddDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<RetreadedAddDataViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) {
+          viewModel.addYear();
+        },
         viewModel: RetreadedAddDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
@@ -32,8 +35,30 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     color: AppColor().white,
                   ),
                   child: CommonButtonWidget(
-                    onPressed: () {
+                    onPressed: () async {
                       viewModel.formValidation();
+                      if (context.mounted) {
+                        await viewModel.addRetreadedData(
+                            context,
+                            RetreaderRequestModel(
+                              financialYear: viewModel.changeDropdown,
+                              supplierName: viewModel
+                                  .nameOfWasteTyreSupplierController.text,
+                              supplierMobile:
+                                  viewModel.contactDetailsController.text,
+                              supplierAddress: viewModel.addressController.text,
+                              typeOfRawMaterial:
+                                  viewModel.typeOfRawMaterialController.text,
+                              supplierGstNo: viewModel.gstController.text,
+                              processedQty:
+                                  viewModel.quantityProcessedController.text,
+                              producedQty:
+                                  viewModel.quantityProducedController.text,
+                              wasteGeneratedQty: viewModel
+                                  .quantityOfWasteGeneratedController.text,
+                              retreadedDate: viewModel.dateController.text,
+                            ));
+                      }
                     },
                     height: 50,
                     label: StringConstants().submitBtnLabel,

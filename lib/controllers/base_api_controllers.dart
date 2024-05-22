@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/models/response/error_response_model.dart';
 import 'package:localization/localization.dart';
 import '../constants/api_constant.dart';
+import '../constants/routes_constant.dart';
+import '../constants/store_key_constants.dart';
 import '../models/response/base_response_model.dart';
+import '../store/secure_storage.dart';
 import '../utils/helper/debouncing_helper.dart';
 import '../viewmodels/material_app_viewmodel.dart';
 
@@ -126,23 +129,41 @@ class APIBase {
   );
 
   // Interceptor for authorized API calls
-  var refreshTokenAuthorizationInterceptor = InterceptorsWrapper(
-    onRequest: (options, handler) async {
-      String? refreshToken;
-      await HelperFunctions().getRefreshToken();
+  var refreshTokenAuthorizationInterceptor =
+      InterceptorsWrapper(onRequest: (options, handler) async {
+    String? refreshToken;
+    await HelperFunctions().getRefreshToken();
 
-      refreshToken = MaterialAppViewModel.refreshToken;
+    refreshToken = MaterialAppViewModel.refreshToken;
 
-      options.headers["Accept"] = "application/json";
+    options.headers["Accept"] = "application/json";
 
-      options.headers['Authorization'] = "Bearer $refreshToken";
+    options.headers['Authorization'] = "Bearer $refreshToken";
 
-      HelperFunctions().logger("refreshToken ?>>> $refreshToken");
+    HelperFunctions().logger("refreshToken ?>>> $refreshToken");
 
-      return handler.next(options);
-    },
-    onError: (error, handler) async {},
-  );
+    return handler.next(options);
+  }, onError: (error, handler) async {
+    HelperFunctions().logger("message");
+    await SecureStorage.instance
+        .deleteSensitiveInfo(StoreKeyConstants().userType);
+    await SecureStorage.instance.deleteSensitiveInfo(StoreKeyConstants().token);
+    await SecureStorage.instance
+        .deleteSensitiveInfo(StoreKeyConstants().refreshToken);
+    await SecureStorage.instance
+        .storeSensitiveInfo(StoreKeyConstants().isLogin, false);
+
+    if (APIBase.navigatorKey.currentState!.context.mounted) {
+      HelperFunctions().commonErrorSnackBar(
+          APIBase.navigatorKey.currentState!.context,
+          MessageConstant().refreshTokenExpiredMessage);
+
+      Navigator.pushNamedAndRemoveUntil(
+          APIBase.navigatorKey.currentState!.context,
+          AppRoutes.loginScreenRoute,
+          (route) => false);
+    }
+  });
 
 // GET $Request
   Future<APIResponse<T>?> getRequest<T>(String url,
