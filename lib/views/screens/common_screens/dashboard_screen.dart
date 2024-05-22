@@ -25,38 +25,54 @@ class DashBoardScreen extends StatelessWidget {
     return BaseView<DashboardViewModel>(
       onModelReady: (viewModel) async {
         viewModel.getCurrentUserType(context);
-          await viewModel.getDasboardData();
-        },
-        viewModel: DashboardViewModel(),
-        builder: (context, viewModel, child) {
-          return CustomScaffold(
-              isLoading: viewModel.state == ViewState.busy,
-              appBar: CommonAppBar(
-                isProfileBar: true,
-                image: ImageConstants().avatar,
-                name: StringConstants().name,
-                designation: StringConstants.producer,
-              ),
-              body: CommonSingleChildScrollView(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                              color: AppColor().black05,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5)),
-                              border: Border.all(
-                                color: AppColor().black30,
-                                width: 1,
-                              )),
-                          child: Column(
-                            children: [
+
+        await viewModel.getDasboardData();
+      },
+      viewModel: DashboardViewModel(),
+      builder: (context, viewModel, child) {
+        return CustomScaffold(
+            isLoading: viewModel.state == ViewState.busy,
+            appBar: CommonAppBar(
+              isProfileBar: true,
+              image: ImageConstants().avatar,
+              name: StringConstants().name,
+              designation: StringConstants.producer,
+            ),
+            body: CommonSingleChildScrollView(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: AppColor().black05,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5)),
+                            border: Border.all(
+                              color: AppColor().black30,
+                              width: 1,
+                            )),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: ProducerListTile(
+                                  title: StringConstants().userType,
+                                  subtitle: viewModel.data?.userType ?? ""),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: ProducerListTile(
+                                  title: StringConstants().currentStatus,
+                                  subtitle:
+                                      viewModel.data?.currentStatus ?? ""),
+                            ),
+                            if (viewModel.currentUser == UserTypes.retreader ||
+                                viewModel.currentUser == UserTypes.recycler)
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
                                 child: ProducerListTile(
@@ -125,6 +141,9 @@ class DashBoardScreen extends StatelessWidget {
                               ),
                             if (viewModel.data?.downloadInvoice == true)
                               CommonButtonWidget(
+                                onPressed: () async{
+                                 await viewModel.getDownloadPaymentReceipt(context);
+                                },
                                 label: StringConstants()
                                     .downloadPaymentReciptBtnLabel,
                                 color: AppColor().white,

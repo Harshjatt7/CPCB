@@ -92,5 +92,6 @@
     "processed-stock": "Processed Stock",
     "date-of-application": "Date of Application",
     "date-of-registration": "Date of Registration",
-    "registration-expiry-date": "registration-expiry-date"
+    "registration-expiry-date": "registration-expiry-date",
+    "date":"Date"
 }

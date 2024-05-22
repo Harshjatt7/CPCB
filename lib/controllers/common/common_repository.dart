@@ -28,4 +28,10 @@ class CommonRepository {
 
     return response;
   }
+
+  Future getDownloadPaymentReceipt(String url) async {
+    final response =
+        await _apiBase.getRequest(url, isMediaAuthorizationRequired: true);
+    return response;
+  }
 }

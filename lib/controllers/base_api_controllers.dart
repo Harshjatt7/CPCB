@@ -50,7 +50,7 @@ class APIBase {
 
       token = MaterialAppViewModel.token;
 
-      options.headers["Accept"] = "*/*";
+      options.headers["Accept"] = "application/pdf";
 
       options.headers['Authorization'] = "Bearer $token";
 
@@ -159,11 +159,21 @@ class APIBase {
         Dio();
 
     try {
-      response = await dio
-          .get(
-            APIRoutes.baseUrl + url,
-          )
-          .timeout(timeoutDuration);
+      if (url.contains("download-invoic")) {
+        response = await dio.get(
+          APIRoutes.baseUrl + url,
+          options: Options(
+            responseType: ResponseType.bytes,
+          ),
+        );
+        apiResponse?.completeResponse = response;
+      } else {
+        response = await dio
+            .get(
+              APIRoutes.baseUrl + url,
+            )
+            .timeout(timeoutDuration);
+      }
 
       apiResponse = await returnResponse<T>(response);
     } catch (err) {
@@ -334,11 +344,11 @@ class APIBase {
 
       return APIResponse<T>(
         completeResponse: resp.data,
-        isSuccess: (resp.data['status'] == 200 || resp.data['status'] == 201)
-            ? true
-            : resp.statusCode == 200
-                ? true
-                : false,
+        isSuccess:
+            //  (resp.data['status'] == 200 || resp.data['status'] == 201)
+            //     ? true
+            //     :
+            resp.statusCode == 200 || resp.statusCode == 201 ? true : false,
       );
     } on SocketException {
       return APIResponse<T>(
