@@ -28,7 +28,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               appBar: CommonAppBar(
                 title: StringConstants().addRetreadedData,
               ),
-              body: formSection(viewModel),
+              body: formSection(viewModel, context),
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
@@ -73,7 +73,8 @@ class RetreadedAddDataScreen extends StatelessWidget {
         });
   }
 
-  CommonSingleChildScrollView formSection(RetreadedAddDataViewModel viewModel) {
+  CommonSingleChildScrollView formSection(
+      RetreadedAddDataViewModel viewModel, BuildContext context) {
     return CommonSingleChildScrollView(
       child: Form(
         key: viewModel.formKey,
@@ -144,6 +145,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
+                    textInputType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     hintText: StringConstants().quantityProcessed,
                     isMandatory: true,
@@ -155,6 +157,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
+                    textInputType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     hintText: StringConstants().quantityProduced,
                     validator: (value) {
@@ -166,6 +169,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
+                    textInputType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     hintText: StringConstants().quantityOfWasteGenerated,
                     isMandatory: true,
@@ -187,7 +191,11 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     },
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(10),
+                      // FilteringTextInputFormatter.allow(Validations().dateRegex)
                     ],
+                    onSuffixTap: () {
+                      datePicker(context);
+                    },
                     textInputType: TextInputType.datetime,
                     icon: ImageConstants().calendar,
                     controller: viewModel.dateController),
@@ -197,5 +205,10 @@ class RetreadedAddDataScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<DateTime?> datePicker(BuildContext context) {
+    return showDatePicker(
+        context: context, firstDate: DateTime(2024), lastDate: DateTime(2030));
   }
 }

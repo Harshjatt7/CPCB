@@ -25,7 +25,7 @@ class SalesScreen extends StatelessWidget {
         builder: (context, viewModel, child) {
           return CustomScaffold(
               appBar: CommonAppBar(
-                isProfileBar: true,
+                showNotificationIcon: true,
                 name: StringConstants().name,
                 designation: StringConstants().manager,
                 image: ImageConstants().avatar,

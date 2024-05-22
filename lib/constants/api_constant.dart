@@ -16,6 +16,12 @@ class APIRoutes {
   final String procurementAPIRoute="api/retreader/add-procurement-data";
   final String refreshTokenAPIRoute = "api/refresh-token";
   final String logoutAPIRoute = "api/logout";
+  final String downloadRetreaderPaymentReciptAPIRoute =
+      "api/retreader/download-invoice";
+  final String downloadRecyclerPaymentReciptAPIRoute =
+      "api/recycler/download-invoice";
+  final String downloadProducerPaymentReciptAPIRoute =
+      "api/producer/download-invoice";
 }
 
 extension ApiBaseURL on ApiEnvironments {

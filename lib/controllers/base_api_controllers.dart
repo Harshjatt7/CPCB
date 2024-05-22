@@ -27,10 +27,12 @@ class APIBase {
       bool? isRefreshTokenAuthorizationRequired = false,
       bool? isMediaAuthorizationRequired = false}) {
     _dio = Dio(BaseOptions(
-      baseUrl: APIRoutes.baseUrl,
-      connectTimeout: timeoutDuration,
-      receiveTimeout: timeoutDuration,
-    ));
+        baseUrl: APIRoutes.baseUrl,
+        connectTimeout: timeoutDuration,
+        receiveTimeout: timeoutDuration,
+        responseType: isMediaAuthorizationRequired == true
+            ? ResponseType.bytes
+            : ResponseType.json));
 
     if (isAuthorizationRequired == true) {
       _dio?.interceptors.add(authorizationInterceptor);
@@ -53,7 +55,7 @@ class APIBase {
 
       token = MaterialAppViewModel.token;
 
-      options.headers["Accept"] = "*/*";
+      options.headers["Accept"] = "application/pdf";
 
       options.headers['Authorization'] = "Bearer $token";
 
@@ -355,11 +357,11 @@ class APIBase {
 
       return APIResponse<T>(
         completeResponse: resp.data,
-        isSuccess: (resp.data['status'] == 200 || resp.data['status'] == 201)
-            ? true
-            : resp.statusCode == 200
-                ? true
-                : false,
+        isSuccess:
+            //  (resp.data['status'] == 200 || resp.data['status'] == 201)
+            //     ? true
+            //     :
+            resp.statusCode == 200 || resp.statusCode == 201 ? true : false,
       );
     } on SocketException {
       return APIResponse<T>(

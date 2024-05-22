@@ -204,6 +204,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               validator: (value) {
                                 return viewModel.dateValidation();
                               },
+                              onSuffixTap: () {
+                                datePicker(context);
+                              },
                               icon: ImageConstants().calendar,
                               controller: viewModel.dateController),
                         ),
@@ -232,5 +235,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                 ),
               ]);
         });
+  }
+  Future<DateTime?> datePicker(BuildContext context) {
+    return showDatePicker(
+        context: context, firstDate: DateTime(2024), lastDate: DateTime(2030));
   }
 }
