@@ -49,7 +49,7 @@ class SplashViewModel extends BaseViewModel {
         case UserTypes.recycler:
           if (context.mounted) {
             Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
+                context, AppRoutes.recyclerHomeScreenRoute);
           }
           break;
         case UserTypes.retreader:
