@@ -87,15 +87,15 @@ class LoginViewModel extends BaseViewModel {
           switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
             case UserTypes.admin:
               Navigator.pushReplacementNamed(
-                  context, AppRoutes.producerHomeScreenRoute);
+                  context, '');
               break;
             case UserTypes.other:
               Navigator.pushReplacementNamed(
-                  context, AppRoutes.producerHomeScreenRoute);
+                  context, '');
               break;
             case UserTypes.inspection:
               Navigator.pushReplacementNamed(
-                  context, AppRoutes.producerHomeScreenRoute);
+                  context, '');
               break;
             case UserTypes.producer:
               Navigator.pushReplacementNamed(
@@ -103,7 +103,7 @@ class LoginViewModel extends BaseViewModel {
               break;
             case UserTypes.recycler:
               Navigator.pushReplacementNamed(
-                  context, AppRoutes.producerHomeScreenRoute);
+                  context, AppRoutes.recyclerHomeScreenRoute);
               break;
             case UserTypes.retreader:
               Navigator.pushReplacementNamed(
@@ -111,7 +111,7 @@ class LoginViewModel extends BaseViewModel {
               break;
             case UserTypes.custom:
               Navigator.pushReplacementNamed(
-                  context, AppRoutes.producerHomeScreenRoute);
+                  context, '');
               break;
           }
         } else {

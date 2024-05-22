@@ -51,6 +51,7 @@ class StringConstants {
   final String quantityProduced = "quantity-produced";
   final String quantityOfWasteGenerated = "quantity-of-waste-generated";
   final String retreadedDate = "retreaded-date";
+  final String date="date";
   final String addRetreadedData = "add-retreaded-data";
   final String nameOfWasteTyreSupplier = "name-of-waste-tyre-supplier";
   final String contactDetails = "contact-details";

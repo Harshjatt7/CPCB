@@ -141,6 +141,9 @@ class DashBoardScreen extends StatelessWidget {
                               ),
                             if (viewModel.data?.downloadInvoice == true)
                               CommonButtonWidget(
+                                onPressed: () async{
+                                 await viewModel.getDownloadPaymentReceipt(context);
+                                },
                                 label: StringConstants()
                                     .downloadPaymentReciptBtnLabel,
                                 color: AppColor().white,

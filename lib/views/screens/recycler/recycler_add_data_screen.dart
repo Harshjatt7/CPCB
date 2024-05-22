@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/recycler/recycler_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
@@ -25,7 +26,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
               appBar: CommonAppBar(
                 title: StringConstants().addRecyclerData,
               ),
-              body: formSection(viewModel),
+              body: formSection(viewModel, context),
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
@@ -48,7 +49,8 @@ class RecyclerAddDataScreen extends StatelessWidget {
         });
   }
 
-  CommonSingleChildScrollView formSection(RecyclerAddDataViewModel viewModel) {
+  CommonSingleChildScrollView formSection(
+      RecyclerAddDataViewModel viewModel, BuildContext context) {
     return CommonSingleChildScrollView(
       child: Form(
         key: viewModel.formKey,
@@ -121,6 +123,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     hintText: StringConstants().quantityProcessed,
+                    textInputType: TextInputType.number,
                     isMandatory: true,
                     validator: (value) {
                       return viewModel.quantityProcessedValidation();
@@ -132,6 +135,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     hintText: StringConstants().quantityProduced,
+                    textInputType: TextInputType.number,
                     validator: (value) {
                       return viewModel.quantityProducedValidation();
                     },
@@ -143,6 +147,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     hintText: StringConstants().quantityOfWasteGenerated,
+                    textInputType: TextInputType.number,
                     isMandatory: true,
                     validator: (value) {
                       return viewModel.quantityOfWasteGeneratedValidation();
@@ -152,8 +157,11 @@ class RecyclerAddDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
-                    hintText: StringConstants().retreadedDate,
+                    hintText: StringConstants().date,
                     isMandatory: true,
+                    onSuffixTap: () {
+                      datePicker(context);
+                    },
                     onChanged: (value) {
                       viewModel.onDateChange();
                     },
@@ -162,6 +170,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
                     },
                     inputFormatters: [
                       LengthLimitingTextInputFormatter(10),
+                      FilteringTextInputFormatter.allow(Validations().dateRegex)
                     ],
                     textInputType: TextInputType.datetime,
                     icon: ImageConstants().calendar,
@@ -172,5 +181,10 @@ class RecyclerAddDataScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<DateTime?> datePicker(BuildContext context) {
+    return showDatePicker(
+        context: context, firstDate: DateTime(2024), lastDate: DateTime(2030));
   }
 }

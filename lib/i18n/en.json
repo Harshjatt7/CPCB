@@ -9,7 +9,7 @@
     "email-id-hint": "Email ID",
     "select-user-hint": "Select User",
     "password-hint": "Password",
-    "download-payment-recipt-btn-label": "Download Payment Recipt",
+    "download-payment-recipt-btn-label": "Download Payment Receipt",
     "download-application-btn-label": "Download Application",
     "epr-compliance-title": "EPR Compliance",
     "descripsion-title": "Descripsion",
@@ -92,5 +92,6 @@
     "processed-stock": "Processed Stock",
     "date-of-application": "Date of Application",
     "date-of-registration": "Date of Registration",
-    "registration-expiry-date": "registration-expiry-date"
+    "registration-expiry-date": "registration-expiry-date",
+    "date":"Date"
 }
