@@ -27,10 +27,12 @@ class APIBase {
       bool? isRefreshTokenAuthorizationRequired = false,
       bool? isMediaAuthorizationRequired = false}) {
     _dio = Dio(BaseOptions(
-      baseUrl: APIRoutes.baseUrl,
-      connectTimeout: timeoutDuration,
-      receiveTimeout: timeoutDuration,
-    ));
+        baseUrl: APIRoutes.baseUrl,
+        connectTimeout: timeoutDuration,
+        receiveTimeout: timeoutDuration,
+        responseType: isMediaAuthorizationRequired == true
+            ? ResponseType.bytes
+            : ResponseType.json));
 
     if (isAuthorizationRequired == true) {
       _dio?.interceptors.add(authorizationInterceptor);
@@ -180,21 +182,11 @@ class APIBase {
         Dio();
 
     try {
-      if (url.contains("download-invoic")) {
-        response = await dio.get(
-          APIRoutes.baseUrl + url,
-          options: Options(
-            responseType: ResponseType.bytes,
-          ),
-        );
-        apiResponse?.completeResponse = response;
-      } else {
-        response = await dio
-            .get(
-              APIRoutes.baseUrl + url,
-            )
-            .timeout(timeoutDuration);
-      }
+      response = await dio
+          .get(
+            APIRoutes.baseUrl + url,
+          )
+          .timeout(timeoutDuration);
 
       apiResponse = await returnResponse<T>(response);
     } catch (err) {
