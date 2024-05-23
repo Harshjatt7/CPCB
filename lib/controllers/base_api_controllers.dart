@@ -20,7 +20,7 @@ class APIBase {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   Duration timeoutDuration = const Duration(seconds: 60);
-  static final debouncer = Debouncer(milliseconds: 1000);
+  static final debouncer = Debouncer(milliseconds: 0);
 
   Dio? getDio(
       {bool? isAuthorizationRequired = false,
@@ -59,8 +59,6 @@ class APIBase {
 
       options.headers['Authorization'] = "Bearer $token";
 
-      HelperFunctions().logger("token ?>>> $token");
-
       return handler.next(options);
     },
     onError: (error, handler) async {
@@ -74,6 +72,10 @@ class APIBase {
           if (res?.isSuccess == false) {
             return handler.reject(error);
           } else {
+            var requestOption = error.requestOptions;
+
+            requestOption.headers['Authorization'] =
+                "Bearer ${res?.data?.data?.token}";
             return handler.resolve(await Dio().fetch(error.requestOptions));
           }
         });
@@ -105,8 +107,6 @@ class APIBase {
 
       options.headers['Authorization'] = "Bearer $token";
 
-      HelperFunctions().logger("token ?>>> $token");
-
       return handler.next(options);
     },
     onError: (error, handler) async {
@@ -121,6 +121,10 @@ class APIBase {
             HelperFunctions().logger("message");
             return handler.reject(error);
           } else {
+            var requestOption = error.requestOptions;
+
+            requestOption.headers['Authorization'] =
+                "Bearer ${res?.data?.data?.token}";
             return handler.resolve(await Dio().fetch(error.requestOptions));
           }
         });
@@ -141,8 +145,6 @@ class APIBase {
     options.headers["Accept"] = "application/json";
 
     options.headers['Authorization'] = "Bearer $refreshToken";
-
-    HelperFunctions().logger("refreshToken ?>>> $refreshToken");
 
     return handler.next(options);
   }, onError: (error, handler) async {
