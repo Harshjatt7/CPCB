@@ -248,7 +248,7 @@ class SalesDataScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(24),
                     child: CommonTextWidget(
-                      MessageConstant().salesDataSubmitAlertTitle,
+                      MessageConstant().submitAlertTitle,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),

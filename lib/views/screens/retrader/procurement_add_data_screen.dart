@@ -1,4 +1,6 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
@@ -9,6 +11,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +28,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(
+              isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
                 title: StringConstants().addProcurement,
               ),
@@ -91,7 +95,8 @@ class ProcurementAddDataScreen extends StatelessWidget {
                                   StringConstants().supplierContactDetails,
                               isMandatory: true,
                               validator: (value) {
-                                return viewModel.contactDetailsValidation();
+                                return viewModel
+                                    .supplierContactDetailsValidation();
                               },
                               controller:
                                   viewModel.supplierContactDetailsController),
@@ -223,6 +228,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
                   child: CommonButtonWidget(
                     onPressed: () async {
                       viewModel.formValidation(context);
+                      if (viewModel.formKey.currentState?.validate() ?? false) {
+                        popUpMessage(context, viewModel);
+                      }
                     },
                     height: 50,
                     label: StringConstants().submitBtnLabel,
@@ -235,6 +243,75 @@ class ProcurementAddDataScreen extends StatelessWidget {
                 ),
               ]);
         });
+  }
+
+  popUpMessage(BuildContext context, ProcurementAddDataViewModel viewModel) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext ctx) {
+        return AlertDialog(
+            contentPadding: const EdgeInsets.all(0),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+            backgroundColor: AppColor().red,
+            content: Container(
+              height: 200,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: AppColor().white,
+                  borderRadius: const BorderRadius.all(Radius.circular(8))),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: CommonTextWidget(
+                      MessageConstant().submitAlertTitle,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Flexible(flex: 5, child: SizedBox()),
+                        Flexible(
+                          flex: 2,
+                          child: CommonButtonWidget(
+                            onPressed: () {
+                              Navigator.pop(ctx);
+                            },
+                            label: StringConstants().no,
+                            color: AppColor().white,
+                            labelStyle: Theme.of(context).textTheme.labelMedium,
+                          ),
+                        ),
+                        Flexible(
+                          flex: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 24),
+                            child: CommonButtonWidget(
+                              label: StringConstants().yes,
+                              onPressed: () {
+                                Navigator.pop(ctx);
+                                viewModel.postRequest(context);
+                              },
+                              color: AppColor().darkGreen,
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(color: AppColor().white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ));
+      },
+    );
   }
 
   Future<DateTime?> datePicker(BuildContext context) {
