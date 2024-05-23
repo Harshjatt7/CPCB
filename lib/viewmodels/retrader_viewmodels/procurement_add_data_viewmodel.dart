@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -69,12 +71,17 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     try {
       if (formKey.currentState?.validate() ?? false) {
         APIResponse response =
-            await _procurementRepo.postRetreaderData(request);
+            await _procurementRepo.postProcurementData(request);
         if (response.isSuccess == true) {
           if (context.mounted) {
             state = ViewState.idle;
             HelperFunctions()
                 .commonSuccessSnackBar(context, "Successfully Submitted");
+            MaterialAppViewModel.selectedPageIndex = 1;
+            Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.retraderHomeScreenRoute,
+                ModalRoute.withName(AppRoutes.retraderHomeScreenRoute));
           }
         }
       } else {

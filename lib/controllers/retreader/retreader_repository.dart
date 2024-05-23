@@ -10,7 +10,7 @@ class RetreaderRepository {
 
   Future getRetreaderData(String url, {String? page = "1",searchValue}) async {
     APIResponse<RetreaderResponseModel?>? response =
-        await _apiBase.getRequest(searchValue == null ?"$url?page=$page" : "$url?page=$page&search=$searchValue", isAuthorizationRequired: true);
+        await _apiBase.getRequest(searchValue == null ?"$url?page=$page" : "$url?page=$page&seller_name=$searchValue", isAuthorizationRequired: true);
     return response;
   }
 

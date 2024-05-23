@@ -54,7 +54,6 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     searchController.text = "";
     if (searchController.text.isEmpty || isSearchExpanded == false) {
       data = _retreaderResponseModel?.data?.data ?? [];
-      _retreaderSearchResponseModel = null;
       HelperFunctions().logger(data.toString());
       updateUI();
     } else {
