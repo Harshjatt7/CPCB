@@ -33,30 +33,25 @@ class RetreaderDataScreen extends StatelessWidget {
             preferredSize: Size.fromHeight(
                 (viewModel.searchController.text.isNotEmpty ||
                         viewModel.isSearchExpanded == true)
-                    ? 145
-                    : 120),
+                    ? 146
+                    : 125),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CommonAppBar(
-                    // isProfileBar: true,
+                    isIconBar: true,
+                    showNotificationIcon: false,
                     image: ImageConstants().avatar,
                     name: StringConstants().name,
                     designation: StringConstants().userType,
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
                   Container(
                     decoration: BoxDecoration(
                         border: Border(
-                            top: BorderSide(
-                              color: AppColor().black10,
-                            ),
                             bottom: BorderSide(
-                              color: AppColor().black10,
-                            ))),
+                      color: AppColor().black10,
+                    ))),
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,
@@ -76,7 +71,7 @@ class RetreaderDataScreen extends StatelessWidget {
                           viewModel.getUpdatedList();
                           viewModel.updateUI();
                         } else {
-                          viewModel.isSearchExpanded =  false;
+                          viewModel.isSearchExpanded = false;
                           viewModel.getUpdatedList();
                         }
                       },
@@ -90,8 +85,7 @@ class RetreaderDataScreen extends StatelessWidget {
             onNotification: (notification) {
               if (notification is ScrollEndNotification &&
                   notification.metrics.extentAfter == 0) {
-                  
-                  viewModel.onScrollEnding();
+                viewModel.onScrollEnding();
               }
               return false;
             },
@@ -102,7 +96,9 @@ class RetreaderDataScreen extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: (viewModel.data?.length ?? 0) == 0
-                        ? Center(child: CommonTextWidget(MessageConstant().noMatchingResultsFound))
+                        ? Center(
+                            child: CommonTextWidget(
+                                MessageConstant().noMatchingResultsFound))
                         : Column(
                             mainAxisSize: MainAxisSize.min,
                             children: List<Widget>.generate(

@@ -130,8 +130,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 width: 34,
                 imageSource: ImageConstants().blueLogo,
                 isNetworkImage: false),
-            if (showNotificationIcon == false) const Spacer(),
-            if (showNotificationIcon == false)
+            if (showNotificationIcon == true) const Spacer(),
+            if (showNotificationIcon == true)
               CommonImageWidget(
                   height: 24,
                   width: 24,
