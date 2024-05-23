@@ -9,11 +9,16 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class RetraderHomeScreen extends StatelessWidget {
-  const RetraderHomeScreen({super.key});
+  // final int? page;
+  const RetraderHomeScreen({super.key, 
+  // this.page 
+  });
 
   @override
   Widget build(BuildContext context) {
-    return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
+    return CommonScreenWithBottomNavigationBar(
+      // currentPage: page,
+      bottomNavBarItems: [
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().homeTabIcon,
       ),

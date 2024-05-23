@@ -76,7 +76,6 @@ class LoginViewModel extends BaseViewModel {
       if (formKey.currentState?.validate() ?? false) {
         await context.globalProvider
             .updateUserType(selectedUserType ?? "", context);
-
         var res = await login(context, request);
 
         if (context.mounted && res?.isSuccess == true) {
@@ -86,16 +85,13 @@ class LoginViewModel extends BaseViewModel {
               .logger("res?.data?.data?.token >> ${res?.data?.data?.token}");
           switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
             case UserTypes.admin:
-              Navigator.pushReplacementNamed(
-                  context, '');
+              Navigator.pushReplacementNamed(context, '');
               break;
             case UserTypes.other:
-              Navigator.pushReplacementNamed(
-                  context, '');
+              Navigator.pushReplacementNamed(context, '');
               break;
             case UserTypes.inspection:
-              Navigator.pushReplacementNamed(
-                  context, '');
+              Navigator.pushReplacementNamed(context, '');
               break;
             case UserTypes.producer:
               Navigator.pushReplacementNamed(
@@ -110,8 +106,7 @@ class LoginViewModel extends BaseViewModel {
                   context, AppRoutes.retraderHomeScreenRoute);
               break;
             case UserTypes.custom:
-              Navigator.pushReplacementNamed(
-                  context, '');
+              Navigator.pushReplacementNamed(context, '');
               break;
           }
         } else {

@@ -6,4 +6,6 @@ class MessageConstant {
   final String salesDataSubmitAlertMessage = "sales-data-submit-alert-message";
   final String errorMessage = "error-message";
   final String refreshTokenExpiredMessage = "refresh-token-expired";
+  final String noMatchingResultsFound = "no-matching-results-found";
+
 }

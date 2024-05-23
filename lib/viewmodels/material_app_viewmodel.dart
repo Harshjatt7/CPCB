@@ -24,6 +24,7 @@ class MaterialAppViewModel extends BaseViewModel {
   static UserTypes? userTypeEnum;
   static String? token;
   static String? refreshToken;
+  static int selectedPageIndex = 0;
   bool isLogin = false;
 
   Future<void> updateUserType(String userType, BuildContext context) async {
@@ -48,7 +49,9 @@ class MaterialAppViewModel extends BaseViewModel {
         HelperFunctions().storeToken(
             res?.data?.data?.token ?? MaterialAppViewModel.token ?? "");
       } else {}
-    } catch (err) {}
+    } catch (err) {
+      HelperFunctions().logger(err.toString());
+    }
 
     return res;
   }
