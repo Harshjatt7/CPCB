@@ -15,7 +15,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   TextEditingController contactDetailsController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController typeOfRawMaterialController =
-      TextEditingController(text: "Retreaded tyre");
+      TextEditingController(text: "Retreaded Tyre");
   TextEditingController gstController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController quantityProcessedController = TextEditingController();

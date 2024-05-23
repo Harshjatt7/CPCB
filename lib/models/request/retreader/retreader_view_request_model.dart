@@ -36,6 +36,6 @@ class RetreaderRequestModel {
         "produced_qty": producedQty,
         "waste_generated_qty": wasteGeneratedQty,
         "supplier_gst_no": supplierGstNo,
-        "retreaded_date": retreadedDate,
+        "retreaded_date": retreadedDate?.replaceAll("-", "/"),
     };
 }

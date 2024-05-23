@@ -22,9 +22,9 @@ class HelperFunctions {
     }
   }
 
-  /// [commonInformationalSnackBar] will be used to shows an Informational snackbar which consists of blue color.
+  /// [commonCommonSnackBar] will be used to shows a common snackbar which consists of blue color.
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
-      commonInformationalSnackBar(
+      commonCommonSnackBar(
     BuildContext context,
     String message, [
     Color? borderColor,
@@ -87,23 +87,17 @@ class HelperFunctions {
     ));
   }
 
-  /// [commonErrorSnackBar] will be used to shows an Error snackbar which consists of red color.
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> commonErrorSnackBar(
+  /// [commonInformationalSnackBar] will be used to shows an Informational snackbar which consists of blue color.
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+      commonInformationalSnackBar(
     BuildContext context,
-    String message, [
-    Color? borderColor,
-    Color? textColor,
-    Color? iconColor,
-    Color? backgroundColor,
-    Color? closeIconColor,
-    Color? outerBorderColor,
-    Color? innerBorderColor,
-  ]) {
+    String message,
+  ) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: backgroundColor ?? AppColor().snackbarRedBackground,
+      backgroundColor: AppColor().snackbarBlueBackground,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: borderColor ?? AppColor().snackbarRedBorder),
+        side: BorderSide(color: AppColor().snackbarBlueBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -112,17 +106,17 @@ class HelperFunctions {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: outerBorderColor ?? AppColor().snackbarRedOuterBorder,
+              color: AppColor().snackbarBlueOuterBorder,
               shape: BoxShape.circle,
             ),
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: innerBorderColor ?? AppColor().snackbarRedInnerBorder,
+                color: AppColor().snackbarBlueInnerBorder,
                 shape: BoxShape.circle,
               ),
               child: CommonImageWidget(
-                imageColor: iconColor ?? AppColor().snackbarRedContentColor,
+                imageColor: AppColor().snackbarBlueIconColor,
                 imageSource: ImageConstants().informationalIcon,
                 isNetworkImage: false,
               ),
@@ -132,15 +126,74 @@ class HelperFunctions {
           Expanded(
             flex: 8,
             child: CommonTextWidget(message,
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    color: textColor ?? AppColor().snackbarRedContentColor)),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(color: AppColor().snackbarBlueContentColor)),
           ),
           const Spacer(),
           IconButton(
             icon: CommonImageWidget(
               imageSource: ImageConstants().closeX,
               isNetworkImage: false,
-              imageColor: closeIconColor ?? AppColor().snackbarRedContentColor,
+              imageColor: AppColor().snackbarBlueContentColor,
+            ),
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        ],
+      ),
+    ));
+  }
+
+  /// [commonErrorSnackBar] will be used to shows an Error snackbar which consists of red color.
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> commonErrorSnackBar(
+      BuildContext context, String message) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: AppColor().snackbarRedBackground,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: AppColor().snackbarRedBorder),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+      content: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: AppColor().snackbarRedOuterBorder,
+              shape: BoxShape.circle,
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: AppColor().snackbarRedInnerBorder,
+                shape: BoxShape.circle,
+              ),
+              child: CommonImageWidget(
+                imageColor: AppColor().snackbarRedContentColor,
+                imageSource: ImageConstants().informationalIcon,
+                isNetworkImage: false,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            flex: 8,
+            child: CommonTextWidget(message,
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(color: AppColor().snackbarRedContentColor)),
+          ),
+          const Spacer(),
+          IconButton(
+            icon: CommonImageWidget(
+              imageSource: ImageConstants().closeX,
+              isNetworkImage: false,
+              imageColor: AppColor().snackbarRedContentColor,
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -153,22 +206,12 @@ class HelperFunctions {
 
   /// [commonWarningSnackBar] will be used to shows a warning snackbar which consists of yellow color.
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
-      commonWarningSnackBar(
-    BuildContext context,
-    String message, {
-    Color? borderColor,
-    Color? textColor,
-    Color? iconColor,
-    Color? backgroundColor,
-    Color? closeIconColor,
-    Color? outerBorderColor,
-    Color? innerBorderColor,
-  }) {
+      commonWarningSnackBar(BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: backgroundColor ?? AppColor().snackbarYellowBackground,
+      backgroundColor: AppColor().snackbarYellowBackground,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: borderColor ?? AppColor().snackbarYellowBorder),
+        side: BorderSide(color: AppColor().snackbarYellowBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -177,17 +220,17 @@ class HelperFunctions {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: outerBorderColor ?? AppColor().snackbarYellowOuterBorder,
+              color: AppColor().snackbarYellowOuterBorder,
               shape: BoxShape.circle,
             ),
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: innerBorderColor ?? AppColor().snackbarYellowInnerBorder,
+                color: AppColor().snackbarYellowInnerBorder,
                 shape: BoxShape.circle,
               ),
               child: CommonImageWidget(
-                imageColor: iconColor ?? AppColor().snackbarYellowIconColor,
+                imageColor: AppColor().snackbarYellowIconColor,
                 imageSource: ImageConstants().informationalIcon,
                 isNetworkImage: false,
               ),
@@ -197,15 +240,17 @@ class HelperFunctions {
           Expanded(
             flex: 8,
             child: CommonTextWidget(message,
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    color: textColor ?? AppColor().snackbarYellowContentColor)),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(color: AppColor().snackbarYellowContentColor)),
           ),
           const Spacer(),
           IconButton(
             icon: CommonImageWidget(
               imageSource: ImageConstants().closeX,
               isNetworkImage: false,
-              imageColor: closeIconColor ?? AppColor().snackbarYellowRemoveIcon,
+              imageColor: AppColor().snackbarYellowRemoveIcon,
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -218,22 +263,12 @@ class HelperFunctions {
 
   /// [commonSuccessSnackBar] will be used to shows a success snackbar which consists of green color.
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
-      commonSuccessSnackBar(
-    BuildContext context,
-    String message, {
-    Color? borderColor,
-    Color? textColor,
-    Color? iconColor,
-    Color? backgroundColor,
-    Color? closeIconColor,
-    Color? outerBorderColor,
-    Color? innerBorderColor,
-  }) {
+      commonSuccessSnackBar(BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: backgroundColor ?? AppColor().snackbarGreenBackground,
+      backgroundColor: AppColor().snackbarGreenBackground,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: borderColor ?? AppColor().snackbarGreenBorder),
+        side: BorderSide(color: AppColor().snackbarGreenBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -242,17 +277,17 @@ class HelperFunctions {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: outerBorderColor ?? AppColor().snackbarGreenOuterBorder,
+              color: AppColor().snackbarGreenOuterBorder,
               shape: BoxShape.circle,
             ),
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: innerBorderColor ?? AppColor().snackbarGreenBackground,
+                color: AppColor().snackbarGreenBackground,
                 shape: BoxShape.circle,
               ),
               child: CommonImageWidget(
-                imageColor: iconColor ?? AppColor().snackbarGreenContentColor,
+                imageColor: AppColor().snackbarGreenContentColor,
                 imageSource: ImageConstants().informationalIcon,
                 isNetworkImage: false,
               ),
@@ -262,16 +297,17 @@ class HelperFunctions {
           Expanded(
             flex: 8,
             child: CommonTextWidget(message,
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    color: textColor ?? AppColor().snackbarGreenContentColor)),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(color: AppColor().snackbarGreenContentColor)),
           ),
           const Spacer(),
           IconButton(
             icon: CommonImageWidget(
               imageSource: ImageConstants().closeX,
               isNetworkImage: false,
-              imageColor:
-                  closeIconColor ?? AppColor().snackbarGreenContentColor,
+              imageColor: AppColor().snackbarGreenContentColor,
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -411,5 +447,4 @@ class HelperFunctions {
 
     return "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
   }
-
 }

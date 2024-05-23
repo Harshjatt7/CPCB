@@ -87,7 +87,9 @@ class _CommonTextFormFieldWidgetNewState
       if (widget.validator != null) {
         error = widget.validator!(widget.controller.text);
       }
-      setState(() {});
+      if(context.mounted){
+        setState(() {});
+      }
     });
   }
 

@@ -21,7 +21,8 @@ class PageRouter {
       case AppRoutes.producerHomeScreenRoute:
         return _getPageRoute(const ProducerHomeScreen(), settings);
       case AppRoutes.retraderHomeScreenRoute:
-        return _getPageRoute(const RetraderHomeScreen(), settings);
+       
+        return _getPageRoute(const RetraderHomeScreen(), settings, );
       case AppRoutes.addSalesDataScreenRoute:
         return _getPageRoute(const SalesDataScreen(), settings);
       case AppRoutes.procurementAddDataScreenRoute:

@@ -67,6 +67,7 @@ class StringConstants {
   final String processedData = "processed-data";
   final String processedStock = "processed-stock";
   final String eprCredits = "epr-credits";
+  
 
   // Dashboard
   final String applicationNumber = "application-number";
@@ -90,6 +91,7 @@ class StringConstants {
   final String dateOfApplication = "date-of-application";
   final String dateOfRegistration = "date-of-registration";
   final String registrationExpiryDate = "registration-expiry-date";
+  final String searchHere = "search-here";
 
   //User Types
   static const String admin = "Admin";
@@ -118,4 +120,5 @@ class StringConstants {
       "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatu.";
   final String remainingEprObligation = "Remaining EPR obligation";
   final String totalEprFullFilled = "Total EPR Full-Filled";
+  final String search = "search";
 }

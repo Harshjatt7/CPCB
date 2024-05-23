@@ -94,5 +94,8 @@
     "date-of-registration": "Date of Registration",
     "registration-expiry-date": "registration-expiry-date",
     "date":"Date",
-    "submit-alert-title":"Are you sure you want to submit this request?"
+    "submit-alert-title":"Are you sure you want to submit this request?",
+    "search": "search",
+    "no-matching-results-found": "No matching results found!!",
+    "search-here": "Search here"
 }
