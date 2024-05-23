@@ -29,6 +29,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   List<RetreadedData>? data;
 
   int page = 1;
+  int searchPage = 1;
   bool isSearchExpanded = false;
 
   TextEditingController searchController = TextEditingController();
@@ -54,6 +55,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     searchController.text = "";
     if (searchController.text.isEmpty || isSearchExpanded == false) {
       data = _retreaderResponseModel?.data?.data ?? [];
+
       HelperFunctions().logger(data.toString());
       updateUI();
     } else {
@@ -64,19 +66,31 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   }
 
   void onScrollEnding() {
-    if ((retreaderResponseModel?.data?.meta?.lastPage ?? 0) >= page) {
-      page++;
-      loadMoreData();
+    if (isSearchExpanded == true && searchController.text.isNotEmpty) {
+      if ((_retreaderSearchResponseModel?.data?.meta?.lastPage ?? 0) >
+          searchPage) {
+        searchPage++;
+        loadMoreData();
+      } else {
+        HelperFunctions().logger(searchPage.toString());
+      }
+    } else {
+      if ((_retreaderResponseModel?.data?.meta?.lastPage ?? 0) > page) {
+        page++;
+        loadMoreData();
+      }
     }
   }
 
   Future<APIResponse<RetreaderResponseModel?>?> performSearch(String value,
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
-    // data?.clear();
+
     try {
-      _retreaderSearchResponseModel = await _retreaderRepo
-          .getRetreaderData(getUrl() ?? "", searchValue: value);
+      _retreaderSearchResponseModel = await _retreaderRepo.getRetreaderData(
+          getUrl() ?? "",
+          searchValue: value,
+          page: searchPage.toString());
       if (_retreaderSearchResponseModel?.isSuccess == true) {
         _retreaderSearchResponseModel?.data = RetreaderResponseModel.fromJson(
             _retreaderSearchResponseModel?.completeResponse);
@@ -99,7 +113,11 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   bool isLoading = false;
   void loadMoreData() async {
     state = ViewState.busy;
-    await getRetreaderData(isPaginating: true);
+    if (isSearchExpanded == true && searchController.text.isNotEmpty) {
+      await performSearch(searchController.text, isPaginating: true);
+    } else {
+      await getRetreaderData(isPaginating: true);
+    }
     state = ViewState.idle;
     updateUI();
   }
