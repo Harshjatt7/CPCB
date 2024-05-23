@@ -40,7 +40,7 @@ class RetreaderDataScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CommonAppBar(
-                    isProfileBar: true,
+                    // isProfileBar: true,
                     image: ImageConstants().avatar,
                     name: StringConstants().name,
                     designation: StringConstants().userType,
@@ -74,7 +74,7 @@ class RetreaderDataScreen extends StatelessWidget {
                           viewModel.isSearchExpanded =
                               !viewModel.isSearchExpanded;
                           viewModel.getUpdatedList();
-                      
+                          viewModel.updateUI();
                         } else {
                           viewModel.isSearchExpanded =  false;
                           viewModel.getUpdatedList();

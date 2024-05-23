@@ -25,7 +25,7 @@ class ProcurementDataScreen extends StatelessWidget {
       builder: (context, viewModel, child) {
         return CustomScaffold(
           appBar: CommonAppBar(
-            isProfileBar: true,
+            showNotificationIcon: true,
             image: ImageConstants().avatar,
             name: StringConstants().name,
             designation: StringConstants().userType,
