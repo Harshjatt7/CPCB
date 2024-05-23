@@ -73,6 +73,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
                                 LengthLimitingTextInputFormatter(10)
                               ],
                               hintText: StringConstants().contactDetails,
+                              textInputType: TextInputType.number,
                               isMandatory: true,
                               validator: (value) {
                                 return viewModel.contactDetailsValidation();
@@ -85,6 +86,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(10)
                               ],
+                              textInputType: TextInputType.number,
                               hintText:
                                   StringConstants().supplierContactDetails,
                               isMandatory: true,
@@ -219,8 +221,8 @@ class ProcurementAddDataScreen extends StatelessWidget {
                     color: AppColor().white,
                   ),
                   child: CommonButtonWidget(
-                    onPressed: () {
-                      viewModel.formValidation();
+                    onPressed: () async {
+                      viewModel.formValidation(context);
                     },
                     height: 50,
                     label: StringConstants().submitBtnLabel,

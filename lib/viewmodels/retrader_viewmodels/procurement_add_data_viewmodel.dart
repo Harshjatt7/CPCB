@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
+import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -28,6 +31,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   TextEditingController dateController = TextEditingController();
   TextEditingController uploadInvoiceController = TextEditingController();
   List financialYearList = <String>[];
+  MultipartFile? uploadInvoiceDoc;
 
   String? filePath;
   String? fileError;
@@ -35,6 +39,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   String? fileSize;
   double? fileSizeNum;
   FileSizeModel? fileSizeModel;
+  final _procurementRepo = ProcurementRepository();
 
   String newText = '';
 
@@ -54,6 +59,21 @@ class ProcurementAddDataViewModel extends BaseViewModel {
       updateUI();
     }
     return result;
+  }
+
+  Future<void> postProcurementData(
+      BuildContext context, ProcurementRequestModel request) async {
+  try{
+
+    if (formKey.currentState?.validate() ?? false) {
+      await _procurementRepo.postRetreaderData(request);
+      HelperFunctions().logger("${request.toJson()}");
+    } else {
+      HelperFunctions().commonErrorSnackBar(context,'error');
+    }
+  }catch(e){
+    HelperFunctions().logger('$e');
+  }
   }
 
   String? contactDetailsValidation() {
@@ -93,15 +113,31 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   void handleOnTap(BuildContext context) async {
     if (uploadInvoiceController.text.isEmpty) {
-      await openFileManager(context);
+      var res = await openFileManager(context);
+
+      if (res != null) {
+        uploadInvoiceController.text =
+            res.files.isEmpty ? "" : res.files.first.name;
+        uploadInvoiceDoc = await MultipartFile.fromFile(
+            res.files.first.path ?? '',
+            filename: "uploadInvoice.pdf");
+      }
     } else {
       viewPDF(context, filePath ?? "");
     }
   }
 
-  void handleOnSuffixTap(BuildContext context) {
+  void handleOnSuffixTap(BuildContext context) async {
     if (uploadInvoiceController.text.isEmpty) {
-      openFileManager(context);
+      var res = await openFileManager(context);
+
+      if (res != null) {
+        uploadInvoiceController.text =
+            res.files.isEmpty ? "" : res.files.first.name;
+        uploadInvoiceDoc = await MultipartFile.fromFile(
+            res.files.first.path ?? '',
+            filename: "uploadInvoice.pdf");
+      }
     } else {
       uploadInvoiceController.text = "";
       filePath = null;
@@ -152,7 +188,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   }
 
   String? uploadInvoiceValidation() {
-    HelperFunctions().logger(fileSizeModel?.fileSize ?? "");
     if (uploadInvoiceController.text.isEmpty) {
       return "Please upload the invoice file";
     }
@@ -164,13 +199,27 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     return null;
   }
 
-  void formValidation() {
+  void formValidation(BuildContext context) {
     updateUI();
     if (changeDropdown == null) {
       changeDropdownValue(null);
     }
     if (formKey.currentState?.validate() ?? false) {
-     
+      postProcurementData(
+          context,
+          ProcurementRequestModel(
+            uploadInvoice: uploadInvoiceDoc,
+            financialYear: changeDropdown,
+            sellerName: nameOfWasteTyreSupplierController.text,
+            contactDetails: contactDetailsController.text,
+            supplierAddress: addressController.text,
+            typeOfRawMaterial: typeOfRawMaterialController.text,
+            purchaseQuantity: quantityReceivedController.text,
+            invoiceNumber: invoiceNumberController.text,
+            supplierGstNo: gstController.text,
+            purchaseDate: dateController.text.replaceAll("-", "/"),
+            sellerMobile: supplierContactDetailsController.text,
+          ));
     }
   }
 }
