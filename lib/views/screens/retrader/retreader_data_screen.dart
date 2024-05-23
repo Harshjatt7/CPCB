@@ -59,6 +59,7 @@ class RetreaderDataScreen extends StatelessWidget {
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
                         viewModel.searchRetreader(value);
+                       
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.getUpdatedList();
                         }
@@ -69,10 +70,11 @@ class RetreaderDataScreen extends StatelessWidget {
                           viewModel.isSearchExpanded =
                               !viewModel.isSearchExpanded;
                           viewModel.getUpdatedList();
-                          viewModel.updateUI();
+                  
                         } else {
                           viewModel.isSearchExpanded = false;
                           viewModel.getUpdatedList();
+              
                         }
                       },
                     ),
