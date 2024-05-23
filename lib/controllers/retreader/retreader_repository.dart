@@ -8,9 +8,9 @@ class RetreaderRepository {
   final _apiBase = APIBase();
   final _apiRoutes = APIRoutes();
 
-  Future getRetreaderData(String url, {String? page = "1"}) async {
+  Future getRetreaderData(String url, {String? page = "1",searchValue}) async {
     APIResponse<RetreaderResponseModel?>? response =
-        await _apiBase.getRequest("$url?page=$page", isAuthorizationRequired: true);
+        await _apiBase.getRequest(searchValue == null ?"$url?page=$page" : "$url?page=$page&search=$searchValue", isAuthorizationRequired: true);
     return response;
   }
 

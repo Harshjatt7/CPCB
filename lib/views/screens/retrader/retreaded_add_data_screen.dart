@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/request/retreader/retreader_view_request_model.dart';
@@ -14,7 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RetreadedAddDataScreen extends StatelessWidget {
-  const RetreadedAddDataScreen({super.key});
+  final int? page;
+  const RetreadedAddDataScreen({super.key, this.page});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
         viewModel: RetreadedAddDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+              isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
                 title: StringConstants().addRetreadedData,
               ),
@@ -76,61 +79,64 @@ class RetreadedAddDataScreen extends StatelessWidget {
   CommonSingleChildScrollView formSection(
       RetreadedAddDataViewModel viewModel, BuildContext context) {
     return CommonSingleChildScrollView(
-      child: Form(
-        key: viewModel.formKey,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonDropdownTextFormField(
-                  labelText: StringConstants().financialYearLabel,
-                  dropDownItem: viewModel.financialYearList,
-                  error: viewModel.yearDropdownError,
-                  value: viewModel.yearDropdownValue,
-                  onTap: () {
-                    viewModel.changeDropdownValue(viewModel.yearDropdownValue);
-                  },
-                  onChanged: (value) {
-                    viewModel.changeDropdownValue(value);
-                    viewModel.yearDropdownError = null;
-                  },
-                ),
+        child: Form(
+      key: viewModel.formKey,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: CommonDropdownTextFormField(
+                labelText: StringConstants().financialYearLabel,
+                dropDownItem: viewModel.financialYearList,
+                error: viewModel.yearDropdownError,
+                value: viewModel.yearDropdownValue,
+                onTap: () {
+                  viewModel.changeDropdownValue(viewModel.yearDropdownValue);
+                },
+                onChanged: (value) {
+                  viewModel.changeDropdownValue(value);
+                  viewModel.yearDropdownError = null;
+                },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonTextFormFieldWidget(
-                    hintText: StringConstants().nameOfWasteTyreSupplier,
-                    isMandatory: false,
-                    controller: viewModel.nameOfWasteTyreSupplierController),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonTextFormFieldWidget(
-                  inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                  hintText: StringConstants().contactDetails,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: CommonTextFormFieldWidget(
+                  hintText: StringConstants().nameOfWasteTyreSupplier,
                   isMandatory: false,
-                  controller: viewModel.contactDetailsController,
-                  validator: (value) {
-                    return viewModel.contactDetailsValidation();
-                  },
-                ),
+                  controller: viewModel.nameOfWasteTyreSupplierController),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: CommonTextFormFieldWidget(
+                inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                hintText: StringConstants().contactDetails,
+                isMandatory: false,
+                controller: viewModel.contactDetailsController,
+                validator: (value) {
+                  return viewModel.contactDetailsValidation();
+                },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonTextFormFieldWidget(
-                    hintText: StringConstants().addressOfWasteTyreSupplier,
-                    isMandatory: false,
-                    controller: viewModel.addressController),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonTextFormFieldWidget(
-                    hintText: StringConstants().typeOfRawMaterial,
-                    isMandatory: true,
-                    controller: viewModel.typeOfRawMaterialController),
-              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: CommonTextFormFieldWidget(
+                  hintText: StringConstants().addressOfWasteTyreSupplier,
+                  isMandatory: false,
+                  controller: viewModel.addressController),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: CommonTextFormFieldWidget(
+                  hintText: StringConstants().typeOfRawMaterial,
+                  isMandatory: true,
+                  controller: viewModel.typeOfRawMaterialController,
+                  isReadOnly: true,
+                  disabledBgColor: AppColor().transparent,
+                  ),
+            ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
@@ -204,7 +210,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
+  );
   }
 
   Future<DateTime?> datePicker(BuildContext context) {

@@ -93,5 +93,8 @@
     "date-of-application": "Date of Application",
     "date-of-registration": "Date of Registration",
     "registration-expiry-date": "registration-expiry-date",
-    "date":"Date"
+    "date":"Date",
+    "search": "search",
+    "no-matching-results-found": "No matching results found!!",
+    "search-here": "Search here"
 }
