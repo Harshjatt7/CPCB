@@ -86,14 +86,14 @@ class ProcurementDataScreen extends StatelessWidget {
             },
             child: Column(
               children: [
-                // Padding(
-                //     padding:
-                //         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                //     child: (viewModel.data?.length ?? 0) == 0
-                //         ? Center(
-                //             child: CommonTextWidget(
-                //                 MessageConstant().noMatchingResultsFound))
-                //         : null),
+                Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: (viewModel.data?.length ?? 0) == 0
+                        ? Center(
+                            child: CommonTextWidget(
+                                MessageConstant().noMatchingResultsFound))
+                        : null),
                 Expanded(
                   child: Padding(
                     padding:
