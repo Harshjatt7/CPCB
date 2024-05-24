@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/retreader_view_request_model.dart';
+import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -28,34 +29,64 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   TextEditingController quantityProducedController = TextEditingController();
   TextEditingController quantityOfWasteGeneratedController =
       TextEditingController();
+      
 
   List financialYearList = <String>[];
   final _retreaderRepo = RetreaderRepository();
+  String dynamicError = "";
+  String financialYearError = "";
+  String producedQtyError = "";
+  String processedQtyError = "";
+  String retreadedDateError = "";
 
-  Future<void> addRetreadedData(
-      BuildContext context, RetreaderRequestModel request) async {
-    var res;
+  Future<void> addRetreadedData(BuildContext context) async {
+    APIResponse? apiResponse;
+    RetreaderRequestModel readerRequestModel = RetreaderRequestModel(
+      financialYear: changeDropdown,
+      supplierName: nameOfWasteTyreSupplierController.text,
+      supplierMobile: contactDetailsController.text,
+      supplierAddress: addressController.text,
+      typeOfRawMaterial: typeOfRawMaterialController.text,
+      supplierGstNo: gstController.text,
+      processedQty: quantityProcessedController.text,
+      producedQty: quantityProducedController.text,
+      wasteGeneratedQty: quantityOfWasteGeneratedController.text,
+      retreadedDate: dateController.text,
+    );
     if (formKey.currentState?.validate() ?? false) {
       state = ViewState.busy;
-      res = await _retreaderRepo.postRetreaderData(request);
-      if (context.mounted) {
-        HelperFunctions()
-            .commonSuccessSnackBar(context, "Data added successfully");
-
-        state = ViewState.idle;
-        MaterialAppViewModel.selectedPageIndex = 2;
-        Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.retraderHomeScreenRoute,
-            ModalRoute.withName(AppRoutes.retraderHomeScreenRoute));
-       
+      apiResponse = await _retreaderRepo.postRetreaderData(readerRequestModel);
+      if (apiResponse?.isSuccess == true) {
+        if (context.mounted) {
+          HelperFunctions()
+              .commonSuccessSnackBar(context, "Data added successfully");
+          state = ViewState.idle;
+          MaterialAppViewModel.selectedPageIndex = 2;
+          Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.retraderHomeScreenRoute,
+              ModalRoute.withName(AppRoutes.retraderHomeScreenRoute));
+        }
+      } else {
+        final apiError = apiResponse?.error?.errorsList;
+        financialYearError = apiError?.financialYear?.length == 0
+            ? ""
+            : apiError?.financialYear?.first ?? "";
+        processedQtyError = apiError?.processedQty?.length == 0
+            ? ""
+            : apiError?.processedQty?.first ?? "";
+        producedQtyError = apiError?.producedQty?.length == 0
+            ? ""
+            : apiError?.producedQty?.first ?? "";
+        retreadedDateError = apiError?.retreadedDate?.length == 0
+            ? ""
+            : apiError?.retreadedDate?.first ?? "";
       }
     } else {
-      HelperFunctions().commonErrorSnackBar(context, res);
+      HelperFunctions().commonErrorSnackBar(context, "Something went wrong...");
       state = ViewState.idle;
     }
-
-     
+    state = ViewState.idle;
   }
 
   void addYear() {

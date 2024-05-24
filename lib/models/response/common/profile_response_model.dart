@@ -43,7 +43,7 @@ class ProfileData {
   dynamic lastChangedPasswordDateTime;
   dynamic authorizedFileName;
   dynamic whitelistedCompany;
-  int? isPublished;
+  num? isPublished;
 
   ProfileData({
     this.id,
