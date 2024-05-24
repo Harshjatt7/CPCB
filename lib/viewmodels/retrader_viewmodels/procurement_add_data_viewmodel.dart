@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
+import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +44,16 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   double? fileSizeNum;
   FileSizeModel? fileSizeModel;
   final _procurementRepo = ProcurementRepository();
+  String? financialYearError;
+  String? supplierNameError;
+  String? supplierContactError;
+  String? addressError;
+  String? rawMaterialError;
+  String? quantityReceivedError;
+  String? uploadInvoiceError;
+  String? invoiceNumberError;
+  String? gstNumberError;
+  String? purchaseDateError;
 
   String newText = '';
 
@@ -63,21 +77,71 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   Future<void> postProcurementData(
       BuildContext context, ProcurementRequestModel request) async {
-  try{
+    state = ViewState.busy;
+    try {
+      if (formKey.currentState?.validate() ?? false) {
+        APIResponse response =
+            await _procurementRepo.postProcurementData(request);
+        if (response.isSuccess == true) {
+          if (context.mounted) {
+            state = ViewState.idle;
+            HelperFunctions()
+                .commonSuccessSnackBar(context, "Successfully Submitted");
+            MaterialAppViewModel.selectedPageIndex = 1;
+            Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.retraderHomeScreenRoute,
+                ModalRoute.withName(AppRoutes.retraderHomeScreenRoute));
+          }
+        } else {
+          final apiError = response.error?.errorsList;
 
-    if (formKey.currentState?.validate() ?? false) {
-      await _procurementRepo.postRetreaderData(request);
-      HelperFunctions().logger("${request.toJson()}");
-    } else {
-      HelperFunctions().commonErrorSnackBar(context,'error');
+          financialYearError = apiError?.financeYear?.length == 0
+              ? ""
+              : apiError?.financeYear?.first ?? "";
+          supplierNameError = apiError?.sellerName?.length == 0
+              ? ""
+              : apiError?.sellerName?.first ?? "";
+          supplierContactError = apiError?.sellerMobile?.length == 0
+              ? ""
+              : apiError?.sellerMobile?.first ?? "";
+          addressError = apiError?.sellerAddress?.length == 0
+              ? ""
+              : apiError?.sellerAddress?.first ?? "";
+          rawMaterialError = apiError?.rawMaterial?.length == 0
+              ? ""
+              : apiError?.rawMaterial?.first ?? "";
+          quantityReceivedError = apiError?.purchasedQuantity?.length == 0
+              ? ""
+              : apiError?.purchasedQuantity?.first ?? "";
+          uploadInvoiceError = apiError?.procurementInvoiceFile?.length == 0
+              ? ""
+              : apiError?.procurementInvoiceFile?.first ?? "";
+          invoiceNumberError = apiError?.invoiceNumber?.length == 0
+              ? ""
+              : apiError?.invoiceNumber?.first ?? "";
+          gstNumberError = apiError?.sellerGstNo?.length == 0
+              ? ""
+              : apiError?.sellerGstNo?.first ?? "";
+          purchaseDateError = apiError?.purchaseDate?.length == 0
+              ? ""
+              : apiError?.purchaseDate?.first ?? "";
+        }
+      } else {
+        HelperFunctions().commonErrorSnackBar(context, 'Something went wrong');
+      }
+    } catch (e) {
+      HelperFunctions().logger('$e');
     }
-  }catch(e){
-    HelperFunctions().logger('$e');
-  }
+    state = ViewState.idle;
   }
 
   String? contactDetailsValidation() {
     return Validations().validatePhone(contactDetailsController.text);
+  }
+
+  String? supplierContactDetailsValidation() {
+    return Validations().validatePhone(supplierContactDetailsController.text);
   }
 
   Future<FileSizeModel> getFileSize(String filepath, int decimals) async {
@@ -205,22 +269,25 @@ class ProcurementAddDataViewModel extends BaseViewModel {
       changeDropdownValue(null);
     }
     if (formKey.currentState?.validate() ?? false) {
-      postProcurementData(
-          context,
-          ProcurementRequestModel(
-            uploadInvoice: uploadInvoiceDoc,
-            financialYear: changeDropdown,
-            sellerName: nameOfWasteTyreSupplierController.text,
-            contactDetails: contactDetailsController.text,
-            supplierAddress: addressController.text,
-            typeOfRawMaterial: typeOfRawMaterialController.text,
-            purchaseQuantity: quantityReceivedController.text,
-            invoiceNumber: invoiceNumberController.text,
-            supplierGstNo: gstController.text,
-            purchaseDate: dateController.text.replaceAll("-", "/"),
-            sellerMobile: supplierContactDetailsController.text,
-          ));
-    }
+    } else {}
+  }
+
+  void postRequest(BuildContext context) {
+    postProcurementData(
+        context,
+        ProcurementRequestModel(
+          uploadInvoice: uploadInvoiceDoc,
+          financialYear: changeDropdown,
+          sellerName: nameOfWasteTyreSupplierController.text,
+          contactDetails: contactDetailsController.text,
+          supplierAddress: addressController.text,
+          typeOfRawMaterial: typeOfRawMaterialController.text,
+          purchaseQuantity: quantityReceivedController.text,
+          invoiceNumber: invoiceNumberController.text,
+          supplierGstNo: gstController.text,
+          purchaseDate: dateController.text.replaceAll("-", "/"),
+          sellerMobile: supplierContactDetailsController.text,
+        ));
   }
 }
 

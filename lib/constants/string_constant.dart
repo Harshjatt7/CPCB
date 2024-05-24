@@ -67,6 +67,7 @@ class StringConstants {
   final String processedData = "processed-data";
   final String processedStock = "processed-stock";
   final String eprCredits = "epr-credits";
+  
 
   // Dashboard
   final String applicationNumber = "application-number";

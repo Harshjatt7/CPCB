@@ -125,7 +125,7 @@ class _CommonTextFormFieldWidgetNewState
                 [
                   FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@. ]')),
                 ],
-            enableInteractiveSelection: false,
+            enableInteractiveSelection: true,
             controller: widget.controller,
             focusNode: widget.isReadOnly == true
                 ? AlwaysDisabledFocusNode()

@@ -1,10 +1,9 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class CommonSearchBarWidget extends StatefulWidget {
   final String hintText;
@@ -43,15 +42,12 @@ class CommonSearchBarWidget extends StatefulWidget {
 }
 
 class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
-  late FocusNode _focusNode;
-
   String? error;
 
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
-    _focusNode.addListener(_handleFocusChange);
+
     widget.controller.addListener(() {
       widget.onChanged;
     });
@@ -59,13 +55,7 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
 
   @override
   void dispose() {
-    _focusNode.removeListener(_handleFocusChange);
-    _focusNode.dispose();
     super.dispose();
-  }
-
-  void _handleFocusChange() {
-    if (!_focusNode.hasFocus) {}
   }
 
   @override
@@ -90,29 +80,71 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
               visible: widget.isSearchExpanded ?? false,
               child: Flexible(
                 child: SizedBox(
-                  width: double.maxFinite,
-                  child: CommonTextFormFieldWidget(
-                    controller: widget.controller,
-                    hintText: StringConstants().search,
-                    isMandatory: false,
-                    isPasswordField: true,
-                    onChanged: widget.onChanged,
-                    icon: widget.isSearchExpanded ?? false
-                        ? ImageConstants().removeIcon
-                        : ImageConstants().searchIcon,
-                      
-                    onSuffixTap: () {
-                      widget.onSuffixTap!();
-                    },
-                  ),
-                ),
+                    width: double.maxFinite,
+                    child: TextFormField(
+                      onChanged: widget.onChanged,
+                      controller: widget.controller,
+                      cursorColor: AppColor().black,
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(
+                              top: 8, bottom: 8, left: 20),
+                          errorStyle: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color: AppColor().transparent, fontSize: 1),
+                          hintText: widget.hintText.i18n(),
+                          hintStyle: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(color: AppColor().grey01),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColor().grey03)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColor().grey03)),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColor().grey03)),
+                          suffixIcon: GestureDetector(
+                            onTap: widget.onSuffixTap,
+                            child: Container(
+                              width: 22,
+                              height: 22,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: CommonImageWidget(
+                                  width: 20,
+                                  height: 20,
+                                  fit: BoxFit.contain,
+                                  imageSource: widget.isSearchExpanded ?? false
+                                      ? ImageConstants().removeIcon
+                                      : ImageConstants().searchIcon,
+                                  isNetworkImage: false),
+                            ),
+                          )),
+                    )
+// TODO: old textfield for reference, to be remoed
+                    //     CommonTextFormFieldWidget(
+                    //   controller: widget.controller,
+                    //   hintText: StringConstants().search,
+                    //   isMandatory: false,
+                    //   isPasswordField: true,
+                    //   onChanged: widget.onChanged,
+                    //   icon: widget.isSearchExpanded ?? false
+                    //       ? ImageConstants().removeIcon
+                    //       : ImageConstants().searchIcon,
+                    //   onSuffixTap: () {
+                    //     widget.onSuffixTap!();
+                    //   },
+                    // ),
+                    ),
               )),
           Visibility(
             visible: !(widget.isSearchExpanded ?? false),
             child: GestureDetector(
                 onTap: () {
-                  widget.onSuffixTap!();
-                  
+                  if (widget.onSuffixTap != null) {
+                    widget.onSuffixTap!();
+                  }
                 },
                 child: widget.isSearchExpanded ?? false
                     ? CommonImageWidget(
@@ -149,7 +181,7 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
   }
 }
 
-class AlwaysDisabledFocusNode extends FocusNode {
-  @override
-  bool get hasFocus => false;
-}
+// class AlwaysDisabledFocusNode extends FocusNode {
+//   @override
+//   bool get hasFocus => false;
+// }
