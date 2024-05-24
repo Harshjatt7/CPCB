@@ -19,13 +19,16 @@ class CommonScreenWithBottomNavigationBar extends StatefulWidget {
 
 class CommonScreenWithBottomNavigationBarState
     extends State<CommonScreenWithBottomNavigationBar> {
+  List<int> pageIndices = [0];
   @override
   void initState() {
     selectedIndex = MaterialAppViewModel.selectedPageIndex;
+
+    if (selectedIndex != 0) {
+      pageIndices.add(selectedIndex ?? 0);
+    }
     super.initState();
   }
-
-  List<int> pageIndices = [0];
 
   int pageIndex = 0;
 
@@ -33,7 +36,10 @@ class CommonScreenWithBottomNavigationBarState
   void onItemTapped(int index) {
     selectedIndex = index;
 
-    if (!pageIndices.contains(index)) {
+    if (pageIndices.contains(index)) {
+      pageIndices.remove(index);
+      pageIndices.add(index);
+    } else {
       pageIndices.add(index);
     }
     setState(() {});
