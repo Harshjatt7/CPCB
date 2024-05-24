@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
@@ -9,13 +7,13 @@ import 'package:cpcb_tyre/models/response/retreader/retreader_view_response_mode
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../utils/helper/debouncing_helper.dart';
 
 class RetreaderViewDataViewmodel extends BaseViewModel {
-  final _apiRoutes = APIRoutes();
   final _retreaderRepo = RetreaderRepository();
   UserTypes? currentUser;
   APIResponse<RetreaderResponseModel?>? _retreaderResponseModel;
@@ -23,8 +21,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       _retreaderResponseModel;
   APIResponse<RetreaderResponseModel?>? _retreaderSearchResponseModel;
   APIResponse<RetreaderResponseModel?>? get retreaderSearchResponseModel =>
-      _retreaderResponseModel;
-  //RetreadedData? data;
+      _retreaderSearchResponseModel;
   String? url;
   List<RetreadedData>? data;
 
@@ -35,6 +32,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   bool isSearchExpanded = false;
 
   TextEditingController searchController = TextEditingController();
+  ScrollController scrollController = ScrollController();
   static final debouncer = Debouncer(milliseconds: 500);
 
   void getCurrentUserType(BuildContext context) {
@@ -54,19 +52,22 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
 
   void getUpdatedList() async {
     state = ViewState.busy;
-    searchController.text = "";
     if (searchController.text.isEmpty || isSearchExpanded == false) {
       data = tempData.isEmpty
           ? _retreaderResponseModel?.data?.data ?? []
           : tempData;
-
       HelperFunctions().logger(data.toString());
-
+      searchController.text = "";
       updateUI();
     } else {
       data = _retreaderSearchResponseModel?.data?.data ?? [];
+      
+      searchController.text = "";
       updateUI();
     }
+    if (searchController.text.isNotEmpty) {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent -50);
+      }
 
     resetPage();
 
@@ -96,9 +97,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
 
     try {
       _retreaderSearchResponseModel = await _retreaderRepo.getRetreaderData(
-          getUrl() ?? "",
-          searchValue: value,
-          page: searchPage.toString());
+          searchValue: value, page: searchPage.toString());
       if (_retreaderSearchResponseModel?.isSuccess == true) {
         _retreaderSearchResponseModel?.data = RetreaderResponseModel.fromJson(
             _retreaderSearchResponseModel?.completeResponse);
@@ -162,7 +161,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
 
     try {
       _retreaderResponseModel =
-          await _retreaderRepo.getRetreaderData(getUrl() ?? "", page: "$page");
+          await _retreaderRepo.getRetreaderData(page: "$page");
       if (_retreaderResponseModel?.isSuccess == true) {
         _retreaderResponseModel?.data = RetreaderResponseModel.fromJson(
             _retreaderResponseModel?.completeResponse);
@@ -181,26 +180,5 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     state = ViewState.idle;
 
     return _retreaderResponseModel;
-  }
-
-  String? getUrl() {
-    switch (MaterialAppViewModel.userTypeEnum) {
-      case UserTypes.producer:
-        return _apiRoutes.producerDashboardAPIRoute;
-      case UserTypes.recycler:
-        return _apiRoutes.producerDashboardAPIRoute;
-      case UserTypes.retreader:
-        return _apiRoutes.retreaderAPIRoute;
-      case UserTypes.inspection:
-        return _apiRoutes.producerDashboardAPIRoute;
-      case UserTypes.admin:
-        return _apiRoutes.producerDashboardAPIRoute;
-      case UserTypes.custom:
-        return _apiRoutes.producerDashboardAPIRoute;
-      case UserTypes.other:
-        return _apiRoutes.producerDashboardAPIRoute;
-      default:
-        return null;
-    }
   }
 }

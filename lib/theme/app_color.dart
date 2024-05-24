@@ -19,6 +19,7 @@ class AppColor {
   final Color black01 = const Color(0xFF222222);
 
   final Color darkBlue60 = const Color(0xFF94A1B1);
+  final Color darkBlue10 = const Color(0xFFEDEFF2);
   final Color codGrey = const Color(0xFF171717);
   final Color grey03 = const Color(0xFFD3D3D3);
   final Color grey01 = const Color(0xFF919191);

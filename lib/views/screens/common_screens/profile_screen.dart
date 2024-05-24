@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/common_viewmodel/profile_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_producer_list_tile.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
@@ -54,35 +55,62 @@ class ProfileScreen extends StatelessWidget {
                       email: viewModel.data?.email ?? '',
                       phoneNo: viewModel.data?.mobileNumber ?? ''),
                   detailContainer(context,
+                      backgroundColor: AppColor().darkBlue10,
+                      borderColor: AppColor().black20,
                       title: StringConstants().authorizedPersonDetails,
-                      email: viewModel.data?.authorizedPersonName ?? '',
-                      phoneNo: viewModel.data?.authorizedcontactNumber ?? '')
+                      email: viewModel.data?.authorizedPersonEmailId ?? '',
+                      phoneNo: viewModel.data?.authorizedcontactNumber ?? ''),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: ProducerListTile(
+                      isBackgroundIcon: true,
+                        image: ImageConstants().person,
+                        title: StringConstants().userType,
+                        subtitle: viewModel.data?.userType ?? ""),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: ProducerListTile(
+                      isBackgroundIcon: true,
+                        image: ImageConstants().passKey,
+                        title: StringConstants().currentStatus,
+                        subtitle: viewModel.data?.state ?? ""),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: CommonButtonWidget(
+                      label: StringConstants().logOut,
+                      color: AppColor().darkGreen,
+                      onPressed: () {
+                        viewModel.clearAppData(context);
+                      },
+                    ),
+                  )
                 ],
               ),
             ),
-            persistentFooterButtons: [
-              CommonButtonWidget(
-                label: StringConstants().logOut,
-                color: AppColor().darkGreen,
-                onPressed: () {
-                  viewModel.clearAppData(context);
-                },
-              )
-            ],
           );
         });
   }
 
   Padding detailContainer(BuildContext context,
-      {required String title, required String email, required String phoneNo}) {
+      {required String title,
+      required String email,
+      required String phoneNo,
+      Color? backgroundColor,
+      Color? borderColor}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Container(
         width: Responsive().screenHeight(context),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
+            border: Border.all(color: borderColor ?? AppColor().transparent),
             borderRadius: const BorderRadius.all(Radius.circular(5)),
-            color: AppColor().green10),
+            color: backgroundColor ?? AppColor().green10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,15 +1,16 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/models/request/retreader/retreader_view_request_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreaded_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_pop_up.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,27 +41,24 @@ class RetreadedAddDataScreen extends StatelessWidget {
                   child: CommonButtonWidget(
                     onPressed: () async {
                       viewModel.formValidation();
-                      if (context.mounted) {
-                        await viewModel.addRetreadedData(
-                            context,
-                            RetreaderRequestModel(
-                              financialYear: viewModel.changeDropdown,
-                              supplierName: viewModel
-                                  .nameOfWasteTyreSupplierController.text,
-                              supplierMobile:
-                                  viewModel.contactDetailsController.text,
-                              supplierAddress: viewModel.addressController.text,
-                              typeOfRawMaterial:
-                                  viewModel.typeOfRawMaterialController.text,
-                              supplierGstNo: viewModel.gstController.text,
-                              processedQty:
-                                  viewModel.quantityProcessedController.text,
-                              producedQty:
-                                  viewModel.quantityProducedController.text,
-                              wasteGeneratedQty: viewModel
-                                  .quantityOfWasteGeneratedController.text,
-                              retreadedDate: viewModel.dateController.text,
-                            ));
+                      if (viewModel.formKey.currentState?.validate() ?? false) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return CommonPopUp(
+                                onPressedNo: () {
+                                  Navigator.pop(ctx);
+                                },
+                                onPressedYes: () async {
+                                  Navigator.pop(ctx);
+                                  if (context.mounted) {
+                                    await viewModel.addRetreadedData(
+                                      context,
+                                    );
+                                  }
+                                },
+                              );
+                            });
                       }
                     },
                     height: 50,
@@ -79,64 +77,67 @@ class RetreadedAddDataScreen extends StatelessWidget {
   CommonSingleChildScrollView formSection(
       RetreadedAddDataViewModel viewModel, BuildContext context) {
     return CommonSingleChildScrollView(
-        child: Form(
-      key: viewModel.formKey,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonDropdownTextFormField(
-                labelText: StringConstants().financialYearLabel,
-                dropDownItem: viewModel.financialYearList,
-                error: viewModel.yearDropdownError,
-                value: viewModel.yearDropdownValue,
-                onTap: () {
-                  viewModel.changeDropdownValue(viewModel.yearDropdownValue);
-                },
-                onChanged: (value) {
-                  viewModel.changeDropdownValue(value);
-                  viewModel.yearDropdownError = null;
-                },
+
+      child: Form(
+        key: viewModel.formKey,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonDropdownTextFormField(
+                  labelText: StringConstants().financialYearLabel,
+                  dropDownItem: viewModel.financialYearList,
+                  error: viewModel.yearDropdownError,
+                  value: viewModel.yearDropdownValue,
+                  onTap: () {
+                    viewModel.changeDropdownValue(viewModel.yearDropdownValue);
+                  },
+                  onChanged: (value) {
+                    viewModel.changeDropdownValue(value);
+                    viewModel.yearDropdownError = null;
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonTextFormFieldWidget(
-                  hintText: StringConstants().nameOfWasteTyreSupplier,
-                  isMandatory: false,
-                  controller: viewModel.nameOfWasteTyreSupplierController),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonTextFormFieldWidget(
-                inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                hintText: StringConstants().contactDetails,
-                isMandatory: false,
-                controller: viewModel.contactDetailsController,
-                validator: (value) {
-                  return viewModel.contactDetailsValidation();
-                },
+              if (viewModel.financialYearError.isNotEmpty)
+                showErrorMessage(context, viewModel.financialYearError),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    hintText: StringConstants().nameOfWasteTyreSupplier,
+                    isMandatory: false,
+                    controller: viewModel.nameOfWasteTyreSupplierController),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonTextFormFieldWidget(
-                  hintText: StringConstants().addressOfWasteTyreSupplier,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                  inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                  hintText: StringConstants().contactDetails,
                   isMandatory: false,
-                  controller: viewModel.addressController),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonTextFormFieldWidget(
+                  controller: viewModel.contactDetailsController,
+                  validator: (value) {
+                    return viewModel.contactDetailsValidation();
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
+                    hintText: StringConstants().addressOfWasteTyreSupplier,
+                    isMandatory: false,
+                    controller: viewModel.addressController),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CommonTextFormFieldWidget(
                   hintText: StringConstants().typeOfRawMaterial,
                   isMandatory: true,
                   controller: viewModel.typeOfRawMaterialController,
                   isReadOnly: true,
                   disabledBgColor: AppColor().transparent,
-                  ),
-            ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
@@ -160,6 +161,8 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     },
                     controller: viewModel.quantityProcessedController),
               ),
+              if (viewModel.processedQtyError.isNotEmpty)
+                showErrorMessage(context, viewModel.processedQtyError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
@@ -172,6 +175,8 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     isMandatory: true,
                     controller: viewModel.quantityProducedController),
               ),
+              if (viewModel.producedQtyError.isNotEmpty)
+                showErrorMessage(context, viewModel.producedQtyError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
@@ -206,15 +211,33 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     icon: ImageConstants().calendar,
                     controller: viewModel.dateController),
               ),
+              if (viewModel.retreadedDateError.isNotEmpty)
+                showErrorMessage(context, viewModel.retreadedDateError),
             ],
           ),
         ),
       ),
-  );
+    );
   }
 
   Future<DateTime?> datePicker(BuildContext context) {
     return showDatePicker(
         context: context, firstDate: DateTime(2024), lastDate: DateTime(2030));
   }
+}
+
+showErrorMessage(BuildContext context, String message) {
+  return Align(
+    alignment: Alignment.centerLeft,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+      child: CommonTextWidget(
+        message,
+        style: Theme.of(context)
+            .textTheme
+            .bodySmall
+            ?.copyWith(color: AppColor().red),
+      ),
+    ),
+  );
 }

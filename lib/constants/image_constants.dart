@@ -53,4 +53,5 @@ class ImageConstants {
   final String informationalIcon= "assets/images/icons/informational_icon.svg";
   final String searchIcon = "assets/images/icons/search.svg";
   final String filter = "assets/images/icons/filter.svg";  
+  final String person = "assets/images/icons/person.svg";  
 }

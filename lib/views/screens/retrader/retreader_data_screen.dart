@@ -59,7 +59,7 @@ class RetreaderDataScreen extends StatelessWidget {
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
                         viewModel.searchRetreader(value);
-                       
+
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.getUpdatedList();
                         }
@@ -70,11 +70,9 @@ class RetreaderDataScreen extends StatelessWidget {
                           viewModel.isSearchExpanded =
                               !viewModel.isSearchExpanded;
                           viewModel.getUpdatedList();
-                  
                         } else {
                           viewModel.isSearchExpanded = false;
                           viewModel.getUpdatedList();
-              
                         }
                       },
                     ),
@@ -92,6 +90,7 @@ class RetreaderDataScreen extends StatelessWidget {
               return false;
             },
             child: CommonSingleChildScrollView(
+              controller: viewModel.scrollController,
               child: Column(
                 children: [
                   Padding(
@@ -109,7 +108,6 @@ class RetreaderDataScreen extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8),
                                 child: CommonRetraderDataCard(
-                                  // TODO:
                                   name: viewModel
                                           .data?[index].wasteTyreSupplierName ??
                                       "",

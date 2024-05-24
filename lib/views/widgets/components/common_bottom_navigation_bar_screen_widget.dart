@@ -5,34 +5,43 @@ import 'package:flutter/material.dart';
 class CommonScreenWithBottomNavigationBar extends StatefulWidget {
   final List<BottomNavigationBarItem> bottomNavBarItems;
   final List<Widget> screens;
-  
+
   const CommonScreenWithBottomNavigationBar(
       {super.key, required this.bottomNavBarItems, required this.screens});
 
   @override
   State<CommonScreenWithBottomNavigationBar> createState() =>
       CommonScreenWithBottomNavigationBarState();
-      static CommonScreenWithBottomNavigationBarState? of(BuildContext context) =>
-      context.findAncestorStateOfType<CommonScreenWithBottomNavigationBarState>();
-
-
+  static CommonScreenWithBottomNavigationBarState? of(BuildContext context) =>
+      context
+          .findAncestorStateOfType<CommonScreenWithBottomNavigationBarState>();
 }
-
-
 
 class CommonScreenWithBottomNavigationBarState
     extends State<CommonScreenWithBottomNavigationBar> {
-
-      @override
-      void initState() {
+  List<int> pageIndices = [0];
+  @override
+  void initState() {
     selectedIndex = MaterialAppViewModel.selectedPageIndex;
+
+    if (selectedIndex != 0) {
+      pageIndices.add(selectedIndex ?? 0);
+    }
     super.initState();
   }
- int pageIndex = 0;
+
+  int pageIndex = 0;
 
   int? selectedIndex = 0;
   void onItemTapped(int index) {
     selectedIndex = index;
+
+    if (pageIndices.contains(index)) {
+      pageIndices.remove(index);
+      pageIndices.add(index);
+    } else {
+      pageIndices.add(index);
+    }
     setState(() {});
   }
 
@@ -40,12 +49,23 @@ class CommonScreenWithBottomNavigationBarState
   Widget build(BuildContext context) {
     return CustomScaffold(
         showAppBar: false,
+        onWillPop: () async {
+          if (selectedIndex != 0) {
+            pageIndices.remove(selectedIndex);
+            selectedIndex = pageIndices.last;
+            setState(() {});
+          } else {
+            return true;
+          }
+          return false;
+        },
         bottomNavigationBar: BottomNavigationBar(
             elevation: 20,
             onTap: onItemTapped,
             currentIndex: selectedIndex ?? 0,
             items: widget.bottomNavBarItems),
         body: IndexedStack(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           index: selectedIndex,
           children: widget.screens,
         ));
