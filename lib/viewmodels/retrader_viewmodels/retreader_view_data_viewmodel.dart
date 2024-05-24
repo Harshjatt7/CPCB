@@ -28,7 +28,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   String? url;
   List<RetreadedData>? data;
 
-  List<RetreadedData>? tempData = [];
+  List<RetreadedData> tempData = [];
 
   int page = 1;
   int searchPage = 1;
@@ -56,9 +56,9 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     state = ViewState.busy;
     searchController.text = "";
     if (searchController.text.isEmpty || isSearchExpanded == false) {
-      // page = 1;
-      // await getRetreaderData();
-      data = tempData ?? _retreaderResponseModel?.data?.data ?? [];
+      data = tempData.isEmpty
+          ? _retreaderResponseModel?.data?.data ?? []
+          : tempData;
 
       HelperFunctions().logger(data.toString());
 
