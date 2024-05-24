@@ -17,6 +17,8 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       _procurementSearchResponseModel;
 
   List<ProcurementAddData>? data;
+  List<ProcurementAddData>? tempData = [];
+
   TextEditingController searchController = TextEditingController();
   static final debouncer = Debouncer(milliseconds: 500);
 
@@ -55,8 +57,9 @@ class ProcurementViewDataViewModel extends BaseViewModel {
   void getUpdatedList() {
     state = ViewState.busy;
 
+
     if (searchController.text.isEmpty || isSearchExpanded == false) {
-      data = _procurementResponseModel?.data?.data ?? [];
+      data = tempData ?? _procurementResponseModel?.data?.data ?? [];
       searchController.text = "";
       updateUI();
     } else {
@@ -64,6 +67,8 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       searchController.text = "";
       updateUI();
     }
+    resetPage();
+
     state = ViewState.idle;
   }
 
@@ -73,9 +78,36 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       await performSearch(searchController.text, isPaginating: true);
     } else {
       await getProcurementData(isPaginating: true);
+      tempData?.clear();
+      data?.forEach((e) {
+        tempData?.add(ProcurementAddData(
+            financeYear: e.financeYear,
+            invoiceNumber: e.invoiceNumber,
+            isOpeningBalance: e.isOpeningBalance,
+            isPublished: e.isPublished,
+            openingBalance: e.openingBalance,
+            purchasedDate: e.purchasedDate,
+            purchasedQuantity: e.purchasedQuantity,
+            rawMaterial: e.rawMaterial,
+            sellerAddress: e.sellerAddress,
+            sellerGstNo: e.sellerGstNo,
+            sellerMobile: e.sellerMobile,
+            sellerName: e.sellerName));
+      });
+
+      HelperFunctions()
+          .logger("tempData?.length tgfhtgcvhgv >>>>>> ${tempData?.length}");
     }
     state = ViewState.idle;
     updateUI();
+  }
+
+  void resetPage() {
+    if (searchController.text.isEmpty) {
+      searchPage = 1;
+    } else {
+      page = 1;
+    }
   }
 
   Future<APIResponse<ProcurementResponseModel?>?> getProcurementData(
