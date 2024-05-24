@@ -84,6 +84,7 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                     child: TextFormField(
                       onChanged: widget.onChanged,
                       controller: widget.controller,
+                      cursorColor: AppColor().black,
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(
                               top: 8, bottom: 8, left: 20),
