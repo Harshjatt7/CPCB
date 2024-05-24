@@ -57,19 +57,25 @@ class ProcurementAddDataScreen extends StatelessWidget {
                             },
                           ),
                         ),
+                        if (viewModel.financialYearError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.financialYearError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
                               hintText:
                                   StringConstants().nameOfWasteTyreSupplier,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.valueValidation(viewModel
-                                    .nameOfWasteTyreSupplierController);
-                              },
+                              // validator: (value) {
+                              //   return viewModel.valueValidation(viewModel
+                              //       .nameOfWasteTyreSupplierController);
+                              // },
                               controller:
                                   viewModel.nameOfWasteTyreSupplierController),
                         ),
+                        if (viewModel.supplierNameError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.supplierNameError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -79,9 +85,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText: StringConstants().contactDetails,
                               textInputType: TextInputType.number,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.contactDetailsValidation();
-                              },
+                              // validator: (value) {
+                              //   return viewModel.contactDetailsValidation();
+                              // },
                               controller: viewModel.contactDetailsController),
                         ),
                         Padding(
@@ -94,37 +100,46 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText:
                                   StringConstants().supplierContactDetails,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel
-                                    .supplierContactDetailsValidation();
-                              },
+                              // validator: (value) {
+                              //   return viewModel
+                              //       .supplierContactDetailsValidation();
+                              // },
                               controller:
                                   viewModel.supplierContactDetailsController),
                         ),
+                        if (viewModel.supplierContactError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.supplierContactError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
                               hintText:
                                   StringConstants().addressOfWasteTyreSupplier,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.valueValidation(
-                                    viewModel.addressController);
-                              },
+                              // validator: (value) {
+                              //   return viewModel.valueValidation(
+                              //       viewModel.addressController);
+                              // },
                               controller: viewModel.addressController),
                         ),
+                        if (viewModel.addressError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.addressError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
                               hintText: StringConstants().typeOfRawMaterial,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.valueValidation(
-                                    viewModel.typeOfRawMaterialController);
-                              },
+                              // validator: (value) {
+                              //   return viewModel.valueValidation(
+                              //       viewModel.typeOfRawMaterialController);
+                              // },
                               controller:
                                   viewModel.typeOfRawMaterialController),
                         ),
+                        if (viewModel.rawMaterialError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.rawMaterialError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -135,11 +150,15 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               textInputType: TextInputType.number,
                               hintText: StringConstants().quantityReceived,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.quantityReceivedValidation();
-                              },
+                              // validator: (value) {
+                              //   return viewModel.quantityReceivedValidation();
+                              // },
                               controller: viewModel.quantityReceivedController),
                         ),
+                        if (viewModel.quantityReceivedError?.isNotEmpty ??
+                            false)
+                          showErrorMessage(
+                              context, viewModel.quantityReceivedError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -158,12 +177,15 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               onSuffixTap: () {
                                 viewModel.handleOnSuffixTap(context);
                               },
-                              validator: (value) {
-                                return viewModel.uploadInvoiceValidation();
-                              },
+                              // validator: (value) {
+                              //   return viewModel.uploadInvoiceValidation();
+                              // },
                               isMandatory: true,
                               controller: viewModel.uploadInvoiceController),
                         ),
+                        if (viewModel.uploadInvoiceError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.uploadInvoiceError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -173,12 +195,15 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               textInputType: TextInputType.number,
                               hintText: StringConstants().invoiceNumber,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.valueValidation(
-                                    viewModel.invoiceNumberController);
-                              },
+                              // validator: (value) {
+                              //   return viewModel.valueValidation(
+                              //       viewModel.invoiceNumberController);
+                              // },
                               controller: viewModel.invoiceNumberController),
                         ),
+                        if (viewModel.invoiceNumberError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.invoiceNumberError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -187,12 +212,15 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               ],
                               hintText: StringConstants()
                                   .gstNumberOfWasteTyreSupplier,
-                              validator: (value) {
-                                return viewModel.gstNumberValidation();
-                              },
+                              // validator: (value) {
+                              //   return viewModel.gstNumberValidation();
+                              // },
                               isMandatory: true,
                               controller: viewModel.gstController),
                         ),
+                        if (viewModel.gstNumberError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.gstNumberError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -206,15 +234,18 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.dateValidation();
-                              },
+                              // validator: (value) {
+                              //   return viewModel.dateValidation();
+                              // },
                               onSuffixTap: () {
                                 datePicker(context);
                               },
                               icon: ImageConstants().calendar,
                               controller: viewModel.dateController),
                         ),
+                        if (viewModel.purchaseDateError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.purchaseDateError ?? ''),
                       ],
                     ),
                   ),
@@ -243,6 +274,22 @@ class ProcurementAddDataScreen extends StatelessWidget {
                 ),
               ]);
         });
+  }
+
+  showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: AppColor().red),
+        ),
+      ),
+    );
   }
 
   popUpMessage(BuildContext context, ProcurementAddDataViewModel viewModel) {

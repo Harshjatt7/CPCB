@@ -44,6 +44,16 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   double? fileSizeNum;
   FileSizeModel? fileSizeModel;
   final _procurementRepo = ProcurementRepository();
+  String? financialYearError;
+  String? supplierNameError;
+  String? supplierContactError;
+  String? addressError;
+  String? rawMaterialError;
+  String? quantityReceivedError;
+  String? uploadInvoiceError;
+  String? invoiceNumberError;
+  String? gstNumberError;
+  String? purchaseDateError;
 
   String newText = '';
 
@@ -83,13 +93,47 @@ class ProcurementAddDataViewModel extends BaseViewModel {
                 AppRoutes.retraderHomeScreenRoute,
                 ModalRoute.withName(AppRoutes.retraderHomeScreenRoute));
           }
+        } else {
+          final apiError = response.error?.errorsList;
+
+          financialYearError = apiError?.financeYear?.length == 0
+              ? ""
+              : apiError?.financeYear?.first ?? "";
+          supplierNameError = apiError?.sellerName?.length == 0
+              ? ""
+              : apiError?.sellerName?.first ?? "";
+          supplierContactError = apiError?.sellerMobile?.length == 0
+              ? ""
+              : apiError?.sellerMobile?.first ?? "";
+          addressError = apiError?.sellerAddress?.length == 0
+              ? ""
+              : apiError?.sellerAddress?.first ?? "";
+          rawMaterialError = apiError?.rawMaterial?.length == 0
+              ? ""
+              : apiError?.rawMaterial?.first ?? "";
+          quantityReceivedError = apiError?.purchasedQuantity?.length == 0
+              ? ""
+              : apiError?.purchasedQuantity?.first ?? "";
+          uploadInvoiceError = apiError?.procurementInvoiceFile?.length == 0
+              ? ""
+              : apiError?.procurementInvoiceFile?.first ?? "";
+          invoiceNumberError = apiError?.invoiceNumber?.length == 0
+              ? ""
+              : apiError?.invoiceNumber?.first ?? "";
+          gstNumberError = apiError?.sellerGstNo?.length == 0
+              ? ""
+              : apiError?.sellerGstNo?.first ?? "";
+          purchaseDateError = apiError?.purchaseDate?.length == 0
+              ? ""
+              : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        HelperFunctions().commonErrorSnackBar(context, 'error');
+        HelperFunctions().commonErrorSnackBar(context, 'Something went wrong');
       }
     } catch (e) {
       HelperFunctions().logger('$e');
     }
+    state = ViewState.idle;
   }
 
   String? contactDetailsValidation() {
@@ -224,7 +268,8 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     if (changeDropdown == null) {
       changeDropdownValue(null);
     }
-    if (formKey.currentState?.validate() ?? false) {}
+    if (formKey.currentState?.validate() ?? false) {
+    } else {}
   }
 
   void postRequest(BuildContext context) {

@@ -11,8 +11,7 @@ class ProcurementRepository {
 
   Future postProcurementData(ProcurementRequestModel requestModel) async {
     FormData request = FormData.fromMap(requestModel.toJson());
-    APIResponse? response =
-        await _apiBase.postRequest(
+    APIResponse? response = await _apiBase.postRequest(
       _apiRoutes.procurementAPIRoute,
       data: request,
       isAuthorizationRequired: true,
@@ -20,11 +19,11 @@ class ProcurementRepository {
     return response;
   }
 
-  Future getProcurementData({String? page = '1', searchValue}) async {
+  Future getProcurementData({String? page = '1', sellerName}) async {
     APIResponse<ProcurementResponseModel?>? response = await _apiBase.getRequest(
-        searchValue == null
+        sellerName == null
             ? "${_apiRoutes.retreaderGetProcurementDataAPIRoute}?page=$page"
-            : "${_apiRoutes.retreaderGetProcurementDataAPIRoute}?page=$page&seller_name=$searchValue",
+            : "${_apiRoutes.retreaderGetProcurementDataAPIRoute}?page=$page&seller_name=$sellerName",
         isAuthorizationRequired: true);
     return response;
   }

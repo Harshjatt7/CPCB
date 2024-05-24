@@ -9,6 +9,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,6 +54,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                             },
                           ),
                         ),
+                        if (viewModel.financialYearError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.financialYearError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -66,6 +70,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               controller:
                                   viewModel.nameOfWasteTyreSupplierController),
                         ),
+                        if (viewModel.supplierNameError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.supplierNameError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -80,6 +87,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               },
                               controller: viewModel.contactDetailsController),
                         ),
+                       
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -96,6 +104,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               controller:
                                   viewModel.supplierContactDetailsController),
                         ),
+                         if (viewModel.supplierContactError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.supplierContactError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -108,6 +119,10 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               },
                               controller: viewModel.addressController),
                         ),
+                         if (viewModel.addressError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.addressError ?? ''),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -120,6 +135,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               controller:
                                   viewModel.typeOfRawMaterialController),
                         ),
+                         if (viewModel.rawMaterialError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.rawMaterialError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -135,6 +153,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               },
                               controller: viewModel.quantityReceivedController),
                         ),
+                         if (viewModel.quantityReceivedError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.quantityReceivedError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -159,6 +180,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               isMandatory: true,
                               controller: viewModel.uploadInvoiceController),
                         ),
+                         if (viewModel.uploadInvoiceError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.uploadInvoiceError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -174,6 +198,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               },
                               controller: viewModel.invoiceNumberController),
                         ),
+                         if (viewModel.invoiceNumberError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.invoiceNumberError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -188,6 +215,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               isMandatory: true,
                               controller: viewModel.gstController),
                         ),
+                         if (viewModel.gstNumberError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.gstNumberError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -210,6 +240,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               icon: ImageConstants().calendar,
                               controller: viewModel.dateController),
                         ),
+                         if (viewModel.purchaseDateError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.purchaseDateError ?? ''),
                       ],
                     ),
                   ),
@@ -236,8 +269,25 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
               ]);
         });
   }
+
   Future<DateTime?> datePicker(BuildContext context) {
     return showDatePicker(
         context: context, firstDate: DateTime(2024), lastDate: DateTime(2030));
+  }
+
+  showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: AppColor().red),
+        ),
+      ),
+    );
   }
 }

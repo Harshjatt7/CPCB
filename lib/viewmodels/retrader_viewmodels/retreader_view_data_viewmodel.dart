@@ -125,9 +125,9 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       await performSearch(searchController.text, isPaginating: true);
     } else {
       await getRetreaderData(isPaginating: true);
-      tempData?.clear();
+      tempData.clear();
       data?.forEach((e) {
-        tempData?.add(RetreadedData(
+        tempData.add(RetreadedData(
             wasteTyreSupplierName: e.wasteTyreSupplierName,
             retreadedDate: e.retreadedDate,
             contactDetails: e.contactDetails,
@@ -142,7 +142,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       });
 
       HelperFunctions()
-          .logger("tempData?.length tgfhtgcvhgv >>>>>> ${tempData?.length}");
+          .logger("tempData?.length tgfhtgcvhgv >>>>>> ${tempData.length}");
     }
     state = ViewState.idle;
     updateUI();

@@ -17,7 +17,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       _procurementSearchResponseModel;
 
   List<ProcurementAddData>? data;
-  List<ProcurementAddData>? tempData = [];
+  List<ProcurementAddData> tempData = [];
 
   TextEditingController searchController = TextEditingController();
   static final debouncer = Debouncer(milliseconds: 500);
@@ -57,9 +57,10 @@ class ProcurementViewDataViewModel extends BaseViewModel {
   void getUpdatedList() {
     state = ViewState.busy;
 
-
     if (searchController.text.isEmpty || isSearchExpanded == false) {
-      data = tempData ?? _procurementResponseModel?.data?.data ?? [];
+      data = tempData.isEmpty
+          ? _procurementResponseModel?.data?.data ?? []
+          : tempData;
       searchController.text = "";
       updateUI();
     } else {
@@ -78,9 +79,9 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       await performSearch(searchController.text, isPaginating: true);
     } else {
       await getProcurementData(isPaginating: true);
-      tempData?.clear();
+      tempData.clear();
       data?.forEach((e) {
-        tempData?.add(ProcurementAddData(
+        tempData.add(ProcurementAddData(
             financeYear: e.financeYear,
             invoiceNumber: e.invoiceNumber,
             isOpeningBalance: e.isOpeningBalance,
@@ -96,7 +97,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       });
 
       HelperFunctions()
-          .logger("tempData?.length tgfhtgcvhgv >>>>>> ${tempData?.length}");
+          .logger("tempData?.length tgfhtgcvhgv >>>>>> ${tempData.length}");
     }
     state = ViewState.idle;
     updateUI();
@@ -142,7 +143,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
     state = ViewState.busy;
     try {
       _procurementSearchResponseModel = await _procurementRepo
-          .getProcurementData(searchValue: value, page: '$searchPage');
+          .getProcurementData(sellerName: value, page: '$searchPage');
       if (_procurementSearchResponseModel?.isSuccess == true) {
         _procurementSearchResponseModel?.data =
             ProcurementResponseModel.fromJson(
