@@ -36,6 +36,8 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   TextEditingController uploadInvoiceController = TextEditingController();
   List financialYearList = <String>[];
   MultipartFile? uploadInvoiceDoc;
+  DateTime startDate = DateTime.now();
+  DateTime? date;
 
   String? filePath;
   String? fileError;
@@ -73,6 +75,11 @@ class ProcurementAddDataViewModel extends BaseViewModel {
       updateUI();
     }
     return result;
+  }
+  dateTimeConvert() {
+    String dateText=  date.toString();
+    dateController.text=HelperFunctions().getFormattedDate(dateText);
+    HelperFunctions().logger(dateController.text);
   }
 
   Future<void> postProcurementData(
@@ -211,6 +218,13 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   void changeDropdownValue(newValue) {
     changeDropdown = newValue;
+    if (changeDropdown != null) {
+      String startYear = changeDropdown!.split('-').first;
+      int year = int.parse(startYear);
+      startDate = DateTime(year);
+      updateUI();
+      HelperFunctions().logger(startDate.toString());
+    }
     updateUI();
     if (changeDropdown == null) {
       yearDropdownError = "Please select a value from dropdown";

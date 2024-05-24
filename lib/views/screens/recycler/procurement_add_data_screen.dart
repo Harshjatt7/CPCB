@@ -222,6 +222,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                           child: CommonTextFormFieldWidget(
                               disabledBgColor: AppColor().transparent,
                               isReadOnly: true,
+                              onSuffixTap: () {
+                                datePicker(context, viewModel);
+                              },
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,
@@ -258,9 +261,12 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
         });
   }
 
-  Future<DateTime?> datePicker(BuildContext context) {
+  Future<DateTime?> datePicker(
+      BuildContext context, ProcurementAddDataViewModel viewModel) {
     return showDatePicker(
-        context: context, firstDate: DateTime(2024), lastDate: DateTime(2030));
+        context: context,
+        firstDate: viewModel.startDate,
+        lastDate: DateTime.now());
   }
 
   showErrorMessage(BuildContext context, String message) {
