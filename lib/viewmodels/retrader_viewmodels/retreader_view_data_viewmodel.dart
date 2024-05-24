@@ -57,10 +57,15 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       data = _retreaderResponseModel?.data?.data ?? [];
 
       HelperFunctions().logger(data.toString());
+
       updateUI();
     } else {
       data = _retreaderSearchResponseModel?.data?.data ?? [];
       updateUI();
+    }
+
+    if (searchController.text.isEmpty) {
+      resetPage();
     }
     state = ViewState.idle;
   }
@@ -120,6 +125,14 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     }
     state = ViewState.idle;
     updateUI();
+  }
+
+  void resetPage() {
+    if (searchController.text.isEmpty) {
+      searchPage = 1;
+    } else {
+      page = 1;
+    }
   }
 
   Future<APIResponse<RetreaderResponseModel?>?> getRetreaderData(
