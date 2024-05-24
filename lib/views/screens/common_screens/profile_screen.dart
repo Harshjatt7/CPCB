@@ -58,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                       backgroundColor: AppColor().darkBlue10,
                       borderColor: AppColor().black20,
                       title: StringConstants().authorizedPersonDetails,
-                      email: viewModel.data?.authorizedPersonName ?? '',
+                      email: viewModel.data?.authorizedPersonEmailId ?? '',
                       phoneNo: viewModel.data?.authorizedcontactNumber ?? ''),
                   Padding(
                     padding:

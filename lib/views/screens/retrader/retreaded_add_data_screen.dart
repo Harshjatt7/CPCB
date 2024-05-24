@@ -1,11 +1,11 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreaded_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_pop_up.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
@@ -42,7 +42,23 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     onPressed: () async {
                       viewModel.formValidation();
                       if (viewModel.formKey.currentState?.validate() ?? false) {
-                        popUpMessage(context, viewModel);
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return CommonPopUp(
+                                onPressedNo: () {
+                                  Navigator.pop(ctx);
+                                },
+                                onPressedYes: () async {
+                                  Navigator.pop(ctx);
+                                  if (context.mounted) {
+                                    await viewModel.addRetreadedData(
+                                      context,
+                                    );
+                                  }
+                                },
+                              );
+                            });
                       }
                     },
                     height: 50,
@@ -61,6 +77,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
   CommonSingleChildScrollView formSection(
       RetreadedAddDataViewModel viewModel, BuildContext context) {
     return CommonSingleChildScrollView(
+
       child: Form(
         key: viewModel.formKey,
         child: Container(
@@ -84,7 +101,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                 ),
               ),
               if (viewModel.financialYearError.isNotEmpty)
-                CommonTextWidget(viewModel.financialYearError),
+                showErrorMessage(context, viewModel.financialYearError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
@@ -145,21 +162,21 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     controller: viewModel.quantityProcessedController),
               ),
               if (viewModel.processedQtyError.isNotEmpty)
-                CommonTextWidget(viewModel.processedQtyError),
+                showErrorMessage(context, viewModel.processedQtyError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
                     textInputType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     hintText: StringConstants().quantityProduced,
-                    // validator: (value) {
-                    //   return viewModel.quantityProducedValidation();
-                    // },
+                    validator: (value) {
+                      return viewModel.quantityProducedValidation();
+                    },
                     isMandatory: true,
                     controller: viewModel.quantityProducedController),
               ),
               if (viewModel.producedQtyError.isNotEmpty)
-                CommonTextWidget(viewModel.producedQtyError),
+                showErrorMessage(context, viewModel.producedQtyError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
@@ -195,7 +212,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     controller: viewModel.dateController),
               ),
               if (viewModel.retreadedDateError.isNotEmpty)
-                CommonTextWidget(viewModel.retreadedDateError),
+                showErrorMessage(context, viewModel.retreadedDateError),
             ],
           ),
         ),
@@ -209,75 +226,18 @@ class RetreadedAddDataScreen extends StatelessWidget {
   }
 }
 
-popUpMessage(BuildContext context, RetreadedAddDataViewModel viewModel) {
-  return showDialog(
-    context: context,
-    builder: (BuildContext ctx) {
-      return AlertDialog(
-          contentPadding: const EdgeInsets.all(0),
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-          backgroundColor: AppColor().red,
-          content: Container(
-            height: 200,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: AppColor().white,
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: CommonTextWidget(
-                    MessageConstant().salesDataSubmitAlertTitle,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Flexible(flex: 5, child: SizedBox()),
-                      Flexible(
-                        flex: 2,
-                        child: CommonButtonWidget(
-                          label: StringConstants().no,
-                          color: AppColor().white,
-                          labelStyle: Theme.of(context).textTheme.labelMedium,
-                          onPressed: () {
-                            Navigator.pop(ctx);
-                          },
-                        ),
-                      ),
-                      Flexible(
-                        flex: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 24),
-                          child: CommonButtonWidget(
-                            label: StringConstants().yes,
-                            color: AppColor().darkGreen,
-                            labelStyle: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(color: AppColor().white),
-                            onPressed: () async {
-                              Navigator.pop(ctx);
-                              if (context.mounted) {
-                                await viewModel.addRetreadedData(
-                                  context,
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ));
-    },
+showErrorMessage(BuildContext context, String message) {
+  return Align(
+    alignment: Alignment.centerLeft,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+      child: CommonTextWidget(
+        message,
+        style: Theme.of(context)
+            .textTheme
+            .bodySmall
+            ?.copyWith(color: AppColor().red),
+      ),
+    ),
   );
 }

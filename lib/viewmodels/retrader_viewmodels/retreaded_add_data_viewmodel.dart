@@ -29,6 +29,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   TextEditingController quantityProducedController = TextEditingController();
   TextEditingController quantityOfWasteGeneratedController =
       TextEditingController();
+      
 
   List financialYearList = <String>[];
   final _retreaderRepo = RetreaderRepository();
@@ -39,7 +40,6 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   String retreadedDateError = "";
 
   Future<void> addRetreadedData(BuildContext context) async {
-    var res;
     APIResponse? apiResponse;
     RetreaderRequestModel readerRequestModel = RetreaderRequestModel(
       financialYear: changeDropdown,
@@ -55,7 +55,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     );
     if (formKey.currentState?.validate() ?? false) {
       state = ViewState.busy;
-       apiResponse = await _retreaderRepo.postRetreaderData(readerRequestModel);
+      apiResponse = await _retreaderRepo.postRetreaderData(readerRequestModel);
       if (apiResponse?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions()
@@ -69,15 +69,21 @@ class RetreadedAddDataViewModel extends BaseViewModel {
         }
       } else {
         final apiError = apiResponse?.error?.errorsList;
-        financialYearError = apiError?.financialYear.toString() ?? "";
-
-        processedQtyError = apiError?.processedQty?.length==0?"":apiError?.processedQty?.first??"";
-        producedQtyError = apiError?.producedQty?.first?? "";
-        retreadedDateError = apiError?.retreadedDate.toString() ?? "";
-        HelperFunctions().logger(">>>>>>>>$producedQtyError");
+        financialYearError = apiError?.financialYear?.length == 0
+            ? ""
+            : apiError?.financialYear?.first ?? "";
+        processedQtyError = apiError?.processedQty?.length == 0
+            ? ""
+            : apiError?.processedQty?.first ?? "";
+        producedQtyError = apiError?.producedQty?.length == 0
+            ? ""
+            : apiError?.producedQty?.first ?? "";
+        retreadedDateError = apiError?.retreadedDate?.length == 0
+            ? ""
+            : apiError?.retreadedDate?.first ?? "";
       }
     } else {
-      HelperFunctions().commonErrorSnackBar(context, "res");
+      HelperFunctions().commonErrorSnackBar(context, "Something went wrong...");
       state = ViewState.idle;
     }
     state = ViewState.idle;

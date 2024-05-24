@@ -9,16 +9,21 @@ class RetreaderRepository {
   final _apiBase = APIBase();
   final _apiRoutes = APIRoutes();
 
-  Future getRetreaderData(String url, {String? page = "1",searchValue}) async {
-    APIResponse<RetreaderResponseModel?>? response =
-        await _apiBase.getRequest(searchValue == null ?"$url?page=$page" : "$url?page=$page&search=$searchValue", isAuthorizationRequired: true);
+  Future getRetreaderData({String? page = "1", searchValue}) async {
+    APIResponse<RetreaderResponseModel?>? response = await _apiBase.getRequest(
+        searchValue == null
+            ? "${_apiRoutes.retreaderAPIRoute}?page=$page"
+            : "${_apiRoutes.retreaderAPIRoute}?page=$page&search=$searchValue",
+        isAuthorizationRequired: true);
     return response;
   }
 
   Future postRetreaderData(RetreaderRequestModel requestModel) async {
-    APIResponse? response = 
-        await _apiBase.postRequest(_apiRoutes.retreaderAPIRoute,
-            data: requestModel.toJson(), isAuthorizationRequired: true,);
+    APIResponse? response = await _apiBase.postRequest(
+      _apiRoutes.retreaderAPIRoute,
+      data: requestModel.toJson(),
+      isAuthorizationRequired: true,
+    );
     HelperFunctions().logger("$response");
     return response;
   }
