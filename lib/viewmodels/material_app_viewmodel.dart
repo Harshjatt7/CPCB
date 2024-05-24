@@ -42,8 +42,6 @@ class MaterialAppViewModel extends BaseViewModel {
 
       res = await AuthRepository().refreshToken();
 
-      HelperFunctions().logger("hgfvhgvhg >> ${res?.completeResponse}");
-
       if (res?.isSuccess == true) {
         res?.data = LoginResponseModel.fromJson(res.completeResponse);
         HelperFunctions().storeToken(

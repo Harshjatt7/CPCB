@@ -7,7 +7,7 @@ class RetreaderResponseModel {
   List<RetreadedData>? data;
   Links? links;
   Meta? meta;
-  int? status;
+  num? status;
 
   RetreaderResponseModel({
     this.data,
@@ -20,7 +20,8 @@ class RetreaderResponseModel {
       RetreaderResponseModel(
         data: json["data"] == null
             ? []
-            : List<RetreadedData>.from(json["data"]!.map((x) => RetreadedData.fromJson(x))),
+            : List<RetreadedData>.from(
+                json["data"]!.map((x) => RetreadedData.fromJson(x))),
         links: json["links"] == null ? null : Links.fromJson(json["links"]),
         meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
         status: json["status"],
@@ -35,9 +36,9 @@ class RetreadedData {
   String? contactDetails;
   String? gstNumber;
   String? typeOfRawMaterial;
-  int? quantityProcessed;
-  int? quantityProduced;
-  int? quantityOfWasteGenerated;
+  num? quantityProcessed;
+  num? quantityProduced;
+  num? quantityOfWasteGenerated;
   String? retreadedDate;
 
   RetreadedData({
@@ -91,13 +92,13 @@ class Links {
 }
 
 class Meta {
-  int? currentPage;
-  int? from;
-  int? lastPage;
+  num? currentPage;
+  num? from;
+  num? lastPage;
   String? path;
-  int? perPage;
-  int? to;
-  int? total;
+  num? perPage;
+  num? to;
+  num? total;
 
   Meta({
     this.currentPage,

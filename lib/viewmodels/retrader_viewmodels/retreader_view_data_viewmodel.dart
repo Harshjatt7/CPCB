@@ -28,6 +28,8 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   String? url;
   List<RetreadedData>? data;
 
+  List<RetreadedData>? tempData = [];
+
   int page = 1;
   int searchPage = 1;
   bool isSearchExpanded = false;
@@ -50,18 +52,24 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     });
   }
 
-  void getUpdatedList() {
+  void getUpdatedList() async {
     state = ViewState.busy;
     searchController.text = "";
     if (searchController.text.isEmpty || isSearchExpanded == false) {
-      data = _retreaderResponseModel?.data?.data ?? [];
+      // page = 1;
+      // await getRetreaderData();
+      data = tempData ?? _retreaderResponseModel?.data?.data ?? [];
 
       HelperFunctions().logger(data.toString());
+
       updateUI();
     } else {
       data = _retreaderSearchResponseModel?.data?.data ?? [];
       updateUI();
     }
+
+    resetPage();
+
     state = ViewState.idle;
   }
 
@@ -117,9 +125,35 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       await performSearch(searchController.text, isPaginating: true);
     } else {
       await getRetreaderData(isPaginating: true);
+      tempData?.clear();
+      data?.forEach((e) {
+        tempData?.add(RetreadedData(
+            wasteTyreSupplierName: e.wasteTyreSupplierName,
+            retreadedDate: e.retreadedDate,
+            contactDetails: e.contactDetails,
+            gstNumber: e.gstNumber,
+            financialYear: e.financialYear,
+            typeOfRawMaterial: e.typeOfRawMaterial,
+            id: e.id,
+            quantityOfWasteGenerated: e.quantityOfWasteGenerated,
+            quantityProcessed: e.quantityProcessed,
+            quantityProduced: e.quantityProduced,
+            addressOfWasteTyreSupplier: e.addressOfWasteTyreSupplier));
+      });
+
+      HelperFunctions()
+          .logger("tempData?.length tgfhtgcvhgv >>>>>> ${tempData?.length}");
     }
     state = ViewState.idle;
     updateUI();
+  }
+
+  void resetPage() {
+    if (searchController.text.isEmpty) {
+      searchPage = 1;
+    } else {
+      page = 1;
+    }
   }
 
   Future<APIResponse<RetreaderResponseModel?>?> getRetreaderData(
