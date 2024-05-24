@@ -13,17 +13,19 @@ class ProducerListTile extends StatelessWidget {
   /// [image] is optional, and can be used if any other widget if needed, instead it will use a
   /// default info icon.
   /// [color] is optional, it will use a defualt white color.
-  /// 
+  ///
   const ProducerListTile(
       {super.key,
       required this.title,
       required this.subtitle,
       this.image,
-      this.color});
+      this.color,
+      this.isBackgroundIcon = false});
   final String title;
   final String subtitle;
   final String? image;
   final Color? color;
+  final bool isBackgroundIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,25 @@ class ProducerListTile extends StatelessWidget {
           )),
       child: ListTile(
         minVerticalPadding: 17,
-        leading: CommonImageWidget(
-          imageSource: image ?? ImageConstants().info,
-          isNetworkImage: false,
-          width: 47,
-        ),
+        leading: isBackgroundIcon == true
+            ? Container(
+                padding: const EdgeInsets.all(7),
+                decoration: BoxDecoration(
+                  color: AppColor().green10,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColor().black10),
+                ),
+                child: CommonImageWidget(
+                  imageSource: image ?? ImageConstants().info,
+                  isNetworkImage: false,
+                  width: 25,
+                ),
+              )
+            : CommonImageWidget(
+                imageSource: image ?? ImageConstants().info,
+                isNetworkImage: false,
+                width: 47,
+              ),
         title: Padding(
             padding: const EdgeInsetsDirectional.only(bottom: 5),
             child: CommonTextWidget(title,

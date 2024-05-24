@@ -23,8 +23,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       _retreaderResponseModel;
   APIResponse<RetreaderResponseModel?>? _retreaderSearchResponseModel;
   APIResponse<RetreaderResponseModel?>? get retreaderSearchResponseModel =>
-      _retreaderResponseModel;
-  //RetreadedData? data;
+      _retreaderSearchResponseModel;
   String? url;
   List<RetreadedData>? data;
 
@@ -54,17 +53,13 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
 
   void getUpdatedList() async {
     state = ViewState.busy;
-    searchController.text = "";
     if (searchController.text.isEmpty || isSearchExpanded == false) {
-      // page = 1;
-      // await getRetreaderData();
-      data = tempData ?? _retreaderResponseModel?.data?.data ?? [];
-
-      HelperFunctions().logger(data.toString());
-
+      data = _retreaderResponseModel?.data?.data ?? [];
+      searchController.text = "";
       updateUI();
     } else {
       data = _retreaderSearchResponseModel?.data?.data ?? [];
+      searchController.text = "";
       updateUI();
     }
 
@@ -89,6 +84,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       }
     }
   }
+
 
   Future<APIResponse<RetreaderResponseModel?>?> performSearch(String value,
       {bool? isPaginating = false}) async {
