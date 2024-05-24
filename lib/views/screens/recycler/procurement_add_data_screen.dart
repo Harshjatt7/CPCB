@@ -87,7 +87,6 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               },
                               controller: viewModel.contactDetailsController),
                         ),
-                       
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -104,7 +103,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               controller:
                                   viewModel.supplierContactDetailsController),
                         ),
-                         if (viewModel.supplierContactError?.isNotEmpty ?? false)
+                        if (viewModel.supplierContactError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.supplierContactError ?? ''),
                         Padding(
@@ -119,10 +118,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               },
                               controller: viewModel.addressController),
                         ),
-                         if (viewModel.addressError?.isNotEmpty ?? false)
+                        if (viewModel.addressError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.addressError ?? ''),
-
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -135,7 +133,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               controller:
                                   viewModel.typeOfRawMaterialController),
                         ),
-                         if (viewModel.rawMaterialError?.isNotEmpty ?? false)
+                        if (viewModel.rawMaterialError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.rawMaterialError ?? ''),
                         Padding(
@@ -153,7 +151,8 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               },
                               controller: viewModel.quantityReceivedController),
                         ),
-                         if (viewModel.quantityReceivedError?.isNotEmpty ?? false)
+                        if (viewModel.quantityReceivedError?.isNotEmpty ??
+                            false)
                           showErrorMessage(
                               context, viewModel.quantityReceivedError ?? ''),
                         Padding(
@@ -180,7 +179,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               isMandatory: true,
                               controller: viewModel.uploadInvoiceController),
                         ),
-                         if (viewModel.uploadInvoiceError?.isNotEmpty ?? false)
+                        if (viewModel.uploadInvoiceError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.uploadInvoiceError ?? ''),
                         Padding(
@@ -198,7 +197,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               },
                               controller: viewModel.invoiceNumberController),
                         ),
-                         if (viewModel.invoiceNumberError?.isNotEmpty ?? false)
+                        if (viewModel.invoiceNumberError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.invoiceNumberError ?? ''),
                         Padding(
@@ -215,32 +214,21 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               isMandatory: true,
                               controller: viewModel.gstController),
                         ),
-                         if (viewModel.gstNumberError?.isNotEmpty ?? false)
+                        if (viewModel.gstNumberError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.gstNumberError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
-                              onChanged: (value) {
-                                viewModel.onChange();
-                              },
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10),
-                              ],
-                              textInputType: TextInputType.datetime,
+                              disabledBgColor: AppColor().transparent,
+                              isReadOnly: true,
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.dateValidation();
-                              },
-                              onSuffixTap: () {
-                                datePicker(context);
-                              },
                               icon: ImageConstants().calendar,
                               controller: viewModel.dateController),
                         ),
-                         if (viewModel.purchaseDateError?.isNotEmpty ?? false)
+                        if (viewModel.purchaseDateError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.purchaseDateError ?? ''),
                       ],
