@@ -131,6 +131,10 @@ class DashBoardScreen extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16),
                                 child: CommonButtonWidget(
+                                  onPressed: () async {
+                                    await viewModel
+                                        .getDownloadApplication(context);
+                                  },
                                   label: StringConstants().downloadApplication,
                                   color: AppColor().darkGreen,
                                   labelStyle: Theme.of(context)

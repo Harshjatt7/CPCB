@@ -8,7 +8,6 @@ import 'package:cpcb_tyre/models/response/common/dashboard_response_model.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../constants/enums/state_enums.dart';
@@ -61,7 +60,7 @@ class DashboardViewModel extends BaseViewModel {
     state = ViewState.busy;
     try {
       final value = await _commonRepo
-          .getDownloadPaymentReceipt(getDownloadAPIUrl() ?? '');
+          .getDownloadPaymentReceipt(getPaymentReceiptAPIUrl() ?? '');
       if (value != null) {
         final Directory? appDir = Platform.isAndroid
             ? await getExternalStorageDirectory()
@@ -83,9 +82,38 @@ class DashboardViewModel extends BaseViewModel {
     } catch (err) {
       HelperFunctions().logger("$err");
     }
-
     state = ViewState.idle;
 
+    return null;
+  }
+
+  Future getDownloadApplication(BuildContext context) async {
+    state = ViewState.busy;
+    try {
+      final value = await _commonRepo
+          .getDownloadApplication(getDownloadApplicationAPIUrl() ?? '');
+      if (value != null) {
+        final Directory? appDir = Platform.isAndroid
+            ? await getExternalStorageDirectory()
+            : await getApplicationDocumentsDirectory();
+        String tempPath = appDir!.path;
+
+        String fileName =
+            'Application${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.pdf';
+        File file = File('$tempPath/$fileName');
+        if (!await file.exists()) {
+          await file.create(recursive: true);
+        }
+        await file.writeAsBytes(value.completeResponse);
+        HelperFunctions().logger(file.path);
+        await openFile(file.path);
+      }
+      state = ViewState.idle;
+      return value;
+    } catch (err) {
+      HelperFunctions().logger("$err");
+    }
+    state = ViewState.idle;
     return null;
   }
 
@@ -93,15 +121,7 @@ class DashboardViewModel extends BaseViewModel {
     return await OpenFile.open(url);
   }
 
-  Widget viewPDF(BuildContext context, String path) {
-    return PDFView(filePath: path);
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => PDFView(filePath: path)),
-    // );
-  }
-
-  String? getDownloadAPIUrl() {
+  String? getPaymentReceiptAPIUrl() {
     switch (MaterialAppViewModel.userTypeEnum) {
       case UserTypes.producer:
         return _apiRoutes.downloadProducerPaymentReciptAPIRoute;
@@ -109,6 +129,27 @@ class DashboardViewModel extends BaseViewModel {
         return _apiRoutes.downloadRecyclerPaymentReciptAPIRoute;
       case UserTypes.retreader:
         return _apiRoutes.downloadRetreaderPaymentReciptAPIRoute;
+      case UserTypes.inspection:
+        return '';
+      case UserTypes.admin:
+        return '';
+      case UserTypes.custom:
+        return '';
+      case UserTypes.other:
+        return '';
+      default:
+        return null;
+    }
+  }
+
+  String? getDownloadApplicationAPIUrl() {
+    switch (MaterialAppViewModel.userTypeEnum) {
+      case UserTypes.producer:
+        return '';
+      case UserTypes.recycler:
+        return '';
+      case UserTypes.retreader:
+        return _apiRoutes.retreaderDownloadApplicationAPIRoute;
       case UserTypes.inspection:
         return '';
       case UserTypes.admin:
