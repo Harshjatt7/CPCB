@@ -5,7 +5,6 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/common_viewmodel/profile_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_producer_list_tile.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
@@ -60,24 +59,24 @@ class ProfileScreen extends StatelessWidget {
                       title: StringConstants().authorizedPersonDetails,
                       email: viewModel.data?.authorizedPersonEmailId ?? '',
                       phoneNo: viewModel.data?.authorizedcontactNumber ?? ''),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: ProducerListTile(
-                      isBackgroundIcon: true,
-                        image: ImageConstants().person,
-                        title: StringConstants().userType,
-                        subtitle: viewModel.data?.userType ?? ""),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: ProducerListTile(
-                      isBackgroundIcon: true,
-                        image: ImageConstants().passKey,
-                        title: StringConstants().currentStatus,
-                        subtitle: viewModel.data?.state ?? ""),
-                  ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  //   child: ProducerListTile(
+                  //     isBackgroundIcon: true,
+                  //       image: ImageConstants().person,
+                  //       title: StringConstants().userType,
+                  //       subtitle: viewModel.data?.userType ?? ""),
+                  // ),
+                  // Padding(
+                  //   padding:
+                  //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  //   child: ProducerListTile(
+                  //     isBackgroundIcon: true,
+                  //       image: ImageConstants().passKey,
+                  //       title: StringConstants().currentStatus,
+                  //       subtitle: viewModel.data?.state ?? ""),
+                  // ),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -138,6 +137,9 @@ class ProfileScreen extends StatelessWidget {
                         .labelSmall!
                         .copyWith(color: AppColor().black01),
                   ),
+                  const SizedBox(
+                    width: 4,
+                  ),
                   CommonTextWidget(
                     email,
                     style: Theme.of(context)
@@ -162,6 +164,9 @@ class ProfileScreen extends StatelessWidget {
                       .textTheme
                       .labelSmall!
                       .copyWith(color: AppColor().black01),
+                ),
+                const SizedBox(
+                  width: 4,
                 ),
                 CommonTextWidget(
                   phoneNo,

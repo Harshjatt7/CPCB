@@ -11,9 +11,9 @@ class APIRoutes {
   final String producerDashboardAPIRoute = "api/producer/dashboard";
   final String retreaderDashboardAPIRoute = "api/retreader/dashboard";
   final String recyclerDashboardAPIRoute = "api/recycler/dashboard";
-  final String profileAPIRoute = "api/user";
+  final String profileAPIRoute = "api/user-profile";
   final String retreaderAPIRoute = "api/retreader/retreaded-data";
-  final String procurementAPIRoute="api/retreader/add-procurement-data";
+  final String procurementAPIRoute = "api/retreader/add-procurement-data";
   final String refreshTokenAPIRoute = "api/refresh-token";
   final String logoutAPIRoute = "api/logout";
   final String downloadRetreaderPaymentReciptAPIRoute =
@@ -22,7 +22,8 @@ class APIRoutes {
       "api/recycler/download-invoice";
   final String downloadProducerPaymentReciptAPIRoute =
       "api/producer/download-invoice";
-  final String retreaderGetProcurementDataAPIRoute="api/retreader/get-procurement-data";
+  final String retreaderGetProcurementDataAPIRoute =
+      "api/retreader/get-procurement-data";
 }
 
 extension ApiBaseURL on ApiEnvironments {

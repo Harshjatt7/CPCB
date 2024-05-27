@@ -138,14 +138,16 @@ class LoginScreen extends StatelessWidget {
                     ),
                     CommonButtonWidget(
                       onPressed: () async {
-                        if (context.mounted) {
-                          await viewmodel.onLoginButtonTapped(
-                              context,
-                              LoginRequestModel(
-                                  email: viewmodel.emailController.text,
-                                  password: viewmodel.passController.text,
-                                  userType: viewmodel.selectedUserType
-                                      ?.toLowerCase()));
+                        if (viewmodel.isBtnEnabled) {
+                          if (context.mounted) {
+                            await viewmodel.onLoginButtonTapped(
+                                context,
+                                LoginRequestModel(
+                                    email: viewmodel.emailController.text,
+                                    password: viewmodel.passController.text,
+                                    userType: viewmodel.selectedUserType
+                                        ?.toLowerCase()));
+                          }
                         }
                       },
                       label: StringConstants().loginBtnLabel,

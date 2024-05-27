@@ -76,9 +76,10 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     }
     return result;
   }
+
   dateTimeConvert() {
-    String dateText=  date.toString();
-    dateController.text=HelperFunctions().getFormattedDate(dateText);
+    String dateText = date.toString();
+    dateController.text = HelperFunctions().getFormattedDate(dateText);
     HelperFunctions().logger(dateController.text);
   }
 
@@ -103,34 +104,34 @@ class ProcurementAddDataViewModel extends BaseViewModel {
         } else {
           final apiError = response.error?.errorsList;
 
-          financialYearError = apiError?.financeYear?.length == 0
+          financialYearError = (apiError?.financeYear ?? []).isEmpty
               ? ""
               : apiError?.financeYear?.first ?? "";
-          supplierNameError = apiError?.sellerName?.length == 0
+          supplierNameError = (apiError?.sellerName ?? []).isEmpty
               ? ""
               : apiError?.sellerName?.first ?? "";
-          supplierContactError = apiError?.sellerMobile?.length == 0
+          supplierContactError = (apiError?.sellerMobile ?? []).isEmpty
               ? ""
               : apiError?.sellerMobile?.first ?? "";
-          addressError = apiError?.sellerAddress?.length == 0
+          addressError = (apiError?.sellerAddress ?? []).isEmpty
               ? ""
               : apiError?.sellerAddress?.first ?? "";
-          rawMaterialError = apiError?.rawMaterial?.length == 0
+          rawMaterialError = (apiError?.rawMaterial ?? []).isEmpty
               ? ""
               : apiError?.rawMaterial?.first ?? "";
-          quantityReceivedError = apiError?.purchasedQuantity?.length == 0
+          quantityReceivedError = (apiError?.purchasedQuantity ?? []).isEmpty
               ? ""
               : apiError?.purchasedQuantity?.first ?? "";
-          uploadInvoiceError = apiError?.procurementInvoiceFile?.length == 0
+          uploadInvoiceError = (apiError?.procurementInvoiceFile ?? []).isEmpty
               ? ""
               : apiError?.procurementInvoiceFile?.first ?? "";
-          invoiceNumberError = apiError?.invoiceNumber?.length == 0
+          invoiceNumberError = (apiError?.invoiceNumber ?? []).isEmpty
               ? ""
               : apiError?.invoiceNumber?.first ?? "";
-          gstNumberError = apiError?.sellerGstNo?.length == 0
+          gstNumberError = (apiError?.sellerGstNo ?? []).isEmpty
               ? ""
               : apiError?.sellerGstNo?.first ?? "";
-          purchaseDateError = apiError?.purchaseDate?.length == 0
+          purchaseDateError = (apiError?.purchaseDate ?? []).isEmpty
               ? ""
               : apiError?.purchaseDate?.first ?? "";
         }

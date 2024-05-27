@@ -95,9 +95,6 @@ class ProcurementViewDataViewModel extends BaseViewModel {
             sellerMobile: e.sellerMobile,
             sellerName: e.sellerName));
       });
-
-      HelperFunctions()
-          .logger("tempData?.length tgfhtgcvhgv >>>>>> ${tempData.length}");
     }
     state = ViewState.idle;
     updateUI();

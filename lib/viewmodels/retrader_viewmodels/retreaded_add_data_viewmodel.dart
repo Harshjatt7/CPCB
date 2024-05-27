@@ -29,7 +29,6 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   TextEditingController quantityProducedController = TextEditingController();
   TextEditingController quantityOfWasteGeneratedController =
       TextEditingController();
-      
 
   List financialYearList = <String>[];
   final _retreaderRepo = RetreaderRepository();
@@ -69,16 +68,16 @@ class RetreadedAddDataViewModel extends BaseViewModel {
         }
       } else {
         final apiError = apiResponse?.error?.errorsList;
-        financialYearError = apiError?.financialYear?.length == 0
+        financialYearError = (apiError?.financialYear ?? []).isEmpty
             ? ""
             : apiError?.financialYear?.first ?? "";
-        processedQtyError = apiError?.processedQty?.length == 0
+        processedQtyError = (apiError?.processedQty ?? []).isEmpty
             ? ""
             : apiError?.processedQty?.first ?? "";
-        producedQtyError = apiError?.producedQty?.length == 0
+        producedQtyError = (apiError?.producedQty ?? []).isEmpty
             ? ""
             : apiError?.producedQty?.first ?? "";
-        retreadedDateError = apiError?.retreadedDate?.length == 0
+        retreadedDateError = (apiError?.retreadedDate ?? []).isEmpty
             ? ""
             : apiError?.retreadedDate?.first ?? "";
       }

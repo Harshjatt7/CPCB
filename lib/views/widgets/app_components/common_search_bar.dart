@@ -126,22 +126,7 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                                   isNetworkImage: false),
                             ),
                           )),
-                    )
-// TODO: old textfield for reference, to be remoed
-                    //     CommonTextFormFieldWidget(
-                    //   controller: widget.controller,
-                    //   hintText: StringConstants().search,
-                    //   isMandatory: false,
-                    //   isPasswordField: true,
-                    //   onChanged: widget.onChanged,
-                    //   icon: widget.isSearchExpanded ?? false
-                    //       ? ImageConstants().removeIcon
-                    //       : ImageConstants().searchIcon,
-                    //   onSuffixTap: () {
-                    //     widget.onSuffixTap!();
-                    //   },
-                    // ),
-                    ),
+                    )),
               )),
           Visibility(
             visible: !(widget.isSearchExpanded ?? false),
@@ -185,8 +170,3 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
     );
   }
 }
-
-// class AlwaysDisabledFocusNode extends FocusNode {
-//   @override
-//   bool get hasFocus => false;
-// }

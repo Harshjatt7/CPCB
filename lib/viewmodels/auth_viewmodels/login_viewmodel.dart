@@ -72,11 +72,15 @@ class LoginViewModel extends BaseViewModel {
 
   Future<void> onLoginButtonTapped(
       BuildContext context, LoginRequestModel request) async {
+    APIResponse<LoginResponseModel>? res;
     if (context.mounted) {
       if (formKey.currentState?.validate() ?? false) {
         await context.globalProvider
             .updateUserType(selectedUserType ?? "", context);
-        var res = await login(context, request);
+
+        if (context.mounted) {
+          res = await login(context, request);
+        }
 
         if (context.mounted && res?.isSuccess == true) {
           HelperFunctions().logger(

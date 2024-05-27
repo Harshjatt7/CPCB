@@ -61,13 +61,13 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       updateUI();
     } else {
       data = _retreaderSearchResponseModel?.data?.data ?? [];
-      
+
       searchController.text = "";
       updateUI();
     }
     if (searchController.text.isNotEmpty) {
-        scrollController.jumpTo(scrollController.position.maxScrollExtent -50);
-      }
+      scrollController.jumpTo(scrollController.position.maxScrollExtent - 50);
+    }
 
     resetPage();
 
@@ -139,9 +139,6 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
             quantityProduced: e.quantityProduced,
             addressOfWasteTyreSupplier: e.addressOfWasteTyreSupplier));
       });
-
-      HelperFunctions()
-          .logger("tempData?.length tgfhtgcvhgv >>>>>> ${tempData.length}");
     }
     state = ViewState.idle;
     updateUI();
