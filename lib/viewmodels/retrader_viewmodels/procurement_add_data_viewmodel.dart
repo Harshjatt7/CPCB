@@ -94,8 +94,8 @@ class ProcurementAddDataViewModel extends BaseViewModel {
         if (response.isSuccess == true) {
           if (context.mounted) {
             state = ViewState.idle;
-            HelperFunctions()
-                .commonSuccessSnackBar(context,MessageConstant().successfullySubmitted);
+            HelperFunctions().commonSuccessSnackBar(
+                context, MessageConstant().successfullySubmitted);
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -137,7 +137,8 @@ class ProcurementAddDataViewModel extends BaseViewModel {
               : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        HelperFunctions().commonErrorSnackBar(context,MessageConstant().somethingWentWrong);
+        HelperFunctions()
+            .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
       }
     } catch (e) {
       HelperFunctions().logger('$e');
@@ -178,9 +179,11 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   }
 
   void addYear() {
-    for (int i = 0; i < 5; i++) {
-      financialYearList
-          .add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
+    int year = 2022;
+    int currentYear = DateTime.now().year;
+    while (year <= currentYear) {
+      financialYearList.add('$year-${year + 1}');
+      year++;
     }
   }
 
@@ -223,7 +226,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     if (changeDropdown != null) {
       String startYear = changeDropdown!.split('-').first;
       int year = int.parse(startYear);
-      startDate = DateTime(year);
+      startDate = DateTime(year,4,1);
       updateUI();
       HelperFunctions().logger(startDate.toString());
     }
@@ -306,6 +309,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
         ));
   }
 }
+
 class FileSizeModel {
   String fileSize;
   double fileSizeNum;

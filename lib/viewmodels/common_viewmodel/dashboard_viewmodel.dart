@@ -59,9 +59,9 @@ class DashboardViewModel extends BaseViewModel {
   Future getDownloadPaymentReceipt(BuildContext context) async {
     state = ViewState.busy;
     try {
-      final value = await _commonRepo
+      APIResponse value = await _commonRepo
           .getDownloadPaymentReceipt(getPaymentReceiptAPIUrl() ?? '');
-      if (value != null) {
+      if (value.isSuccess == true) {
         final Directory? appDir = Platform.isAndroid
             ? await getExternalStorageDirectory()
             : await getApplicationDocumentsDirectory();
@@ -75,11 +75,21 @@ class DashboardViewModel extends BaseViewModel {
         await file.writeAsBytes(value.completeResponse);
         HelperFunctions().logger(file.path);
         await openFile(file.path);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+
+        if (context.mounted) {
+          HelperFunctions()
+              .commonErrorSnackBar(context, value.error?.message ?? '');
+        }
+      }
+    } catch (err) {
+      if (context.mounted) {
+        HelperFunctions().commonErrorSnackBar(context, 'No Payment Found');
       }
 
-      state = ViewState.idle;
-      return value;
-    } catch (err) {
       HelperFunctions().logger("$err");
     }
     state = ViewState.idle;
@@ -90,9 +100,9 @@ class DashboardViewModel extends BaseViewModel {
   Future getDownloadApplication(BuildContext context) async {
     state = ViewState.busy;
     try {
-      final value = await _commonRepo
+      APIResponse value = await _commonRepo
           .getDownloadApplication(getDownloadApplicationAPIUrl() ?? '');
-      if (value != null) {
+      if (value.isSuccess == true) {
         final Directory? appDir = Platform.isAndroid
             ? await getExternalStorageDirectory()
             : await getApplicationDocumentsDirectory();
@@ -107,10 +117,20 @@ class DashboardViewModel extends BaseViewModel {
         await file.writeAsBytes(value.completeResponse);
         HelperFunctions().logger(file.path);
         await openFile(file.path);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+
+        if (context.mounted) {
+          HelperFunctions()
+              .commonErrorSnackBar(context, value.error?.message ?? '');
+        }
       }
-      state = ViewState.idle;
-      return value;
     } catch (err) {
+      if (context.mounted) {
+        HelperFunctions().commonErrorSnackBar(context, 'No Payment Found');
+      }
       HelperFunctions().logger("$err");
     }
     state = ViewState.idle;
