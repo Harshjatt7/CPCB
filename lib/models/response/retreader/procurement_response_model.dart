@@ -31,7 +31,7 @@ class ProcurementAddData {
   String? sellerGstNo;
   String? rawMaterial;
   int? isPublished;
-  DateTime? purchasedDate;
+  String? purchasedDate;
   int? isOpeningBalance;
   dynamic openingBalance;
   String? purchasedQuantity;
@@ -60,9 +60,7 @@ class ProcurementAddData {
         sellerGstNo: json["seller_gst_no"],
         rawMaterial: json["raw_material"],
         isPublished: json["is_published"],
-        purchasedDate: json["purchased_date"] == null
-            ? null
-            : DateTime.parse(json["purchased_date"]),
+        purchasedDate: json["purchased_date"],
         isOpeningBalance: json["is_opening_balance"],
         openingBalance: json["opening_balance"],
         purchasedQuantity: json["purchased_quantity"],
@@ -94,7 +92,6 @@ class Meta {
   int? currentPage;
   int? from;
   int? lastPage;
-  List<Link>? links;
   String? path;
   int? perPage;
   int? to;
@@ -104,7 +101,6 @@ class Meta {
     this.currentPage,
     this.from,
     this.lastPage,
-    this.links,
     this.path,
     this.perPage,
     this.to,
@@ -115,9 +111,7 @@ class Meta {
         currentPage: json["current_page"],
         from: json["from"],
         lastPage: json["last_page"],
-        links: json["links"] == null
-            ? []
-            : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
+
         path: json["path"],
         perPage: json["per_page"],
         to: json["to"],
@@ -125,32 +119,3 @@ class Meta {
       );
 }
 
-class Link {
-  String? url;
-  String? label;
-  bool? active;
-
-  Link({
-    this.url,
-    this.label,
-    this.active,
-  });
-
-  factory Link.fromJson(Map<String, dynamic> json) => Link(
-        url: json["url"],
-        label: json["label"],
-        active: json["active"],
-      );
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
-}
