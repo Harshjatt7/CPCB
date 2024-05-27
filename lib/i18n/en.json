@@ -98,6 +98,19 @@
     "search": "search",
     "no-matching-results-found": "No matching results found!!",
     "search-here": "Search here",
-    "submit-alert-title":"Are you sure you want to submit this request?"
+    "max-file-size": "Max file size 2 mb",
+    "please-upload-invoice" : "Please upload the invoice file",
+    "please-provide-value" : "Please provide a value",
+    "please-select-dropdown-value" : "Please select a value from dropdown",
+    "somethingWentWrong" : "Something Went Wrong",
+    "successfully-bubmitted" : "Successfully Submitted",
+    "please-select-file" : "Please Select a value",
+    "quantity-produced-error" : "Quantity Produced can't be more than quantity processed",
+    "mandatory--add-quantity-produced" : "It is mandatory to add Quantity Produced",
+    "mandatory-add-waste-generated" : "It is mandatory to add waste generated",
+    "mandatory-quantity-processed" :"It is mandatory to add Quantity Processed",
+    "mandatory-financial-year" : "It is mandatory to select Financial year",
+    "please-select-value" : "Please select the value",
+    "please-enter-data-in-field" : "Please enter data in atleast one of the above fields"
 
 }
