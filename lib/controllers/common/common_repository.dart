@@ -34,4 +34,10 @@ class CommonRepository {
         await _apiBase.getRequest(url, isMediaAuthorizationRequired: true);
     return response;
   }
+
+  Future getDownloadApplication(String url) async {
+    final response =
+        await _apiBase.getRequest(url, isMediaAuthorizationRequired: true);
+    return response;
+  }
 }

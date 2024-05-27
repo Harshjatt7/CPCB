@@ -97,7 +97,7 @@ class ProcurementDataScreen extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       Expanded(
                         child: ListView.builder(
