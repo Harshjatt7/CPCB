@@ -156,7 +156,7 @@ class LoginViewModel extends BaseViewModel {
   void changeDropdownValue(newValue) {
     changeDropdown = newValue;
     if (changeDropdown == null) {
-      userTypeDropdownError = "Please select a value from dropdown";
+      userTypeDropdownError = MessageConstant().pleaseSelectDropdownValue;
     }
     updateUI();
   }

@@ -66,10 +66,10 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText:
                                   StringConstants().nameOfWasteTyreSupplier,
                               isMandatory: true,
-                              // validator: (value) {
-                              //   return viewModel.valueValidation(viewModel
-                              //       .nameOfWasteTyreSupplierController);
-                              // },
+                              validator: (value) {
+                                return viewModel.valueValidation(viewModel
+                                    .nameOfWasteTyreSupplierController);
+                              },
                               controller:
                                   viewModel.nameOfWasteTyreSupplierController),
                         ),
@@ -85,9 +85,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText: StringConstants().contactDetails,
                               textInputType: TextInputType.number,
                               isMandatory: true,
-                              // validator: (value) {
-                              //   return viewModel.contactDetailsValidation();
-                              // },
+                              validator: (value) {
+                                return viewModel.contactDetailsValidation();
+                              },
                               controller: viewModel.contactDetailsController),
                         ),
                         Padding(
@@ -100,10 +100,10 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText:
                                   StringConstants().supplierContactDetails,
                               isMandatory: true,
-                              // validator: (value) {
-                              //   return viewModel
-                              //       .supplierContactDetailsValidation();
-                              // },
+                              validator: (value) {
+                                return viewModel
+                                    .supplierContactDetailsValidation();
+                              },
                               controller:
                                   viewModel.supplierContactDetailsController),
                         ),
@@ -116,10 +116,10 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText:
                                   StringConstants().addressOfWasteTyreSupplier,
                               isMandatory: true,
-                              // validator: (value) {
-                              //   return viewModel.valueValidation(
-                              //       viewModel.addressController);
-                              // },
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.addressController);
+                              },
                               controller: viewModel.addressController),
                         ),
                         if (viewModel.addressError?.isNotEmpty ?? false)
@@ -130,10 +130,10 @@ class ProcurementAddDataScreen extends StatelessWidget {
                           child: CommonTextFormFieldWidget(
                               hintText: StringConstants().typeOfRawMaterial,
                               isMandatory: true,
-                              // validator: (value) {
-                              //   return viewModel.valueValidation(
-                              //       viewModel.typeOfRawMaterialController);
-                              // },
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.typeOfRawMaterialController);
+                              },
                               controller:
                                   viewModel.typeOfRawMaterialController),
                         ),
@@ -150,9 +150,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               textInputType: TextInputType.number,
                               hintText: StringConstants().quantityReceived,
                               isMandatory: true,
-                              // validator: (value) {
-                              //   return viewModel.quantityReceivedValidation();
-                              // },
+                              validator: (value) {
+                                return viewModel.quantityReceivedValidation();
+                              },
                               controller: viewModel.quantityReceivedController),
                         ),
                         if (viewModel.quantityReceivedError?.isNotEmpty ??
@@ -177,9 +177,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               onSuffixTap: () {
                                 viewModel.handleOnSuffixTap(context);
                               },
-                              // validator: (value) {
-                              //   return viewModel.uploadInvoiceValidation();
-                              // },
+                              validator: (value) {
+                                return viewModel.uploadInvoiceValidation();
+                              },
                               isMandatory: true,
                               controller: viewModel.uploadInvoiceController),
                         ),
@@ -195,10 +195,10 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               textInputType: TextInputType.number,
                               hintText: StringConstants().invoiceNumber,
                               isMandatory: true,
-                              // validator: (value) {
-                              //   return viewModel.valueValidation(
-                              //       viewModel.invoiceNumberController);
-                              // },
+                              validator: (value) {
+                                return viewModel.valueValidation(
+                                    viewModel.invoiceNumberController);
+                              },
                               controller: viewModel.invoiceNumberController),
                         ),
                         if (viewModel.invoiceNumberError?.isNotEmpty ?? false)
@@ -234,9 +234,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,
-                              // validator: (value) {
-                              //   return viewModel.dateValidation();
-                              // },
+                              validator: (value) {
+                                return viewModel.dateValidation();
+                              },
                               onSuffixTap: () {
                                 datePicker(context);
                               },

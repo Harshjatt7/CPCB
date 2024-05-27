@@ -1,15 +1,14 @@
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class RecyclerAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
-
   String? yearDropdownValue;
   String? yearDropdownError;
   String? changeDropdown;
   String newText = '';
-
   TextEditingController nameOfWasteTyreSupplierController =
       TextEditingController();
   TextEditingController contactDetailsController = TextEditingController();
@@ -36,13 +35,13 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     changeDropdown = newValue;
     updateUI();
     if (changeDropdown == null) {
-      yearDropdownError = "It is mandatory to select Financial year";
+      yearDropdownError = MessageConstant().mandatoryFinancialYear;
     }
   }
 
   String? quantityProcessedValidation() {
     if (quantityProcessedController.text.isEmpty) {
-      return "It is mandatory to add Quantity Processed";
+      return MessageConstant().quantityProcessed;
     }
     return null;
   }
@@ -53,7 +52,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
 
   String? quantityOfWasteGeneratedValidation() {
     if (quantityOfWasteGeneratedController.text.isEmpty) {
-      return "It is mandatory to add waste generated";
+      return MessageConstant().mandatoryToAddWasteGenerated;
     }
     return null;
   }
@@ -70,25 +69,22 @@ class RecyclerAddDataViewModel extends BaseViewModel {
       }
     }
   }
-
   String? dateValidation() {
     return Validations().dateValidation(dateController.text);
   }
-
   String? gstNumberValidation() {
     return Validations().gstValidation(gstController.text);
   }
-
   String? quantityProducedValidation() {
     if (quantityProducedController.text.isEmpty) {
-      return "It is mandatory to add Quantity Produced";
+      return MessageConstant().mandatoryToAddQuantityProduced;
     }
     if (quantityProducedController.text.isNotEmpty &&
         quantityProcessedController.text.isNotEmpty) {
       int quantityProcessed = int.parse(quantityProcessedController.text);
       int quantityProduced = int.parse(quantityProducedController.text);
       if (quantityProduced > quantityProcessed) {
-        return "Quantity Produced can't be more than quantity processed";
+        return MessageConstant().quantityProducedError;
       }
     }
     return null;

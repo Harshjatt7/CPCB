@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
@@ -69,7 +70,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
       fileName = file.path.split('/').last;
       updateUI();
     } else {
-      fileError = "Please select a file";
+      fileError = MessageConstant().pleaseSelectFile;
       updateUI();
     }
     return result;
@@ -86,7 +87,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
           if (context.mounted) {
             state = ViewState.idle;
             HelperFunctions()
-                .commonSuccessSnackBar(context, "Successfully Submitted");
+                .commonSuccessSnackBar(context,MessageConstant().successfullySubmitted);
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -128,7 +129,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
               : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        HelperFunctions().commonErrorSnackBar(context, 'Something went wrong');
+        HelperFunctions().commonErrorSnackBar(context,MessageConstant().somethingWentWrong);
       }
     } catch (e) {
       HelperFunctions().logger('$e');
@@ -213,7 +214,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     changeDropdown = newValue;
     updateUI();
     if (changeDropdown == null) {
-      yearDropdownError = "Please select a value from dropdown";
+      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
     }
   }
 
@@ -237,7 +238,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   String? valueValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
-      return "Please provide a value";
+      return MessageConstant().pleaseProvideValue;
     } else {
       return null;
     }
@@ -253,11 +254,11 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   String? uploadInvoiceValidation() {
     if (uploadInvoiceController.text.isEmpty) {
-      return "Please upload the invoice file";
+      return MessageConstant().pleaseUploadInvoice;
     }
     if (fileSizeModel?.fileSize.contains("MB") ?? false) {
       if (fileSizeModel!.fileSizeNum > 2.0) {
-        return "Max file size 2 mb";
+        return MessageConstant().maxFileSize;
       }
     }
     return null;
@@ -290,7 +291,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
         ));
   }
 }
-
 class FileSizeModel {
   String fileSize;
   double fileSizeNum;

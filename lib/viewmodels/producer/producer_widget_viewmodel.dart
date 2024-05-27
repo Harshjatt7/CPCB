@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -23,19 +24,19 @@ class ProducerWidgetViewModel extends BaseViewModel {
     if (changeDropdown == null) {
       switch (dropdownValue) {
         case "producer":
-          producerDropdownError = "Please select the value";
+          producerDropdownError = MessageConstant().pleaseSelectValue;
           updateUI();
           break;
         case "tyre":
-          tyreDropdownError = "Please select the value";
+          tyreDropdownError = MessageConstant().pleaseSelectValue;
           updateUI();
           break;
         case "year":
-          yearDropdownError = "Please select the value";
+          yearDropdownError = MessageConstant().pleaseSelectValue;
           updateUI();
           break;
         case "month":
-          monthDropdownError = "Please select the value";
+          monthDropdownError = MessageConstant().pleaseSelectValue;
           updateUI();
           break;
         default:
@@ -55,7 +56,7 @@ class ProducerWidgetViewModel extends BaseViewModel {
       log(filename ?? "");
       updateUI();
     } else {
-      fileError = "Please select a file";
+      fileError = MessageConstant().pleaseSelectFile;
       updateUI();
     }
     return result;
