@@ -38,9 +38,9 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   void searchRetreader(String value) {
     debouncer.run(() {
       if (value.length >= 3) {
-        performSearch(value).then((_) {
-          scrollController.jumpTo(0);
-        });
+        // performSearch(value).then((_) {
+        //   scrollController.jumpTo(0);
+        // });
       } else {
         data = _retreaderResponseModel?.data?.data ?? [];
         updateUI();

@@ -69,12 +69,15 @@ class RecyclerAddDataViewModel extends BaseViewModel {
       }
     }
   }
+
   String? dateValidation() {
     return Validations().dateValidation(dateController.text);
   }
+
   String? gstNumberValidation() {
     return Validations().gstValidation(gstController.text);
   }
+
   String? quantityProducedValidation() {
     if (quantityProducedController.text.isEmpty) {
       return MessageConstant().mandatoryToAddQuantityProduced;

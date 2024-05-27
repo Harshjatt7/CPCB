@@ -24,6 +24,9 @@ class APIRoutes {
       "api/producer/download-invoice";
   final String retreaderGetProcurementDataAPIRoute =
       "api/retreader/get-procurement-data";
+  final String getRecyclerData = "api/recycler/get-recycled-data";
+  final String getRecyclerDataConstants =
+      "api/recycler/add-recycled-data-constant";
 }
 
 extension ApiBaseURL on ApiEnvironments {
