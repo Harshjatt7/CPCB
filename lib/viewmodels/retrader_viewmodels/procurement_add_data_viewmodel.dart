@@ -79,9 +79,8 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   }
 
   dateTimeConvert() {
-    String dateText = date.toString();
-    dateController.text = HelperFunctions().getFormattedDate(dateText);
-    HelperFunctions().logger(dateController.text);
+    String dateText=  date.toString();
+    dateController.text=HelperFunctions().getFormattedDate(dateText);
   }
 
   Future<void> postProcurementData(
@@ -225,7 +224,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
       int year = int.parse(startYear);
       startDate = DateTime(year);
       updateUI();
-      HelperFunctions().logger(startDate.toString());
     }
     updateUI();
     if (changeDropdown == null) {
