@@ -212,9 +212,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               ],
                               hintText: StringConstants()
                                   .gstNumberOfWasteTyreSupplier,
-                              // validator: (value) {
-                              //   return viewModel.gstNumberValidation();
-                              // },
+                              validator: (value) {
+                                return viewModel.gstNumberValidation();
+                              },
                               isMandatory: true,
                               controller: viewModel.gstController),
                         ),
@@ -224,21 +224,18 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
-                              onChanged: (value) {
-                                viewModel.onChange();
-                              },
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10),
-                              ],
-                              textInputType: TextInputType.datetime,
+                              isReadOnly: true,
+                              disabledBgColor: AppColor().transparent,
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,
-                              validator: (value) {
-                                return viewModel.dateValidation();
-                              },
-                              onSuffixTap: () {
-                                datePicker(context);
+                             
+                              onTap: () async {
+                                viewModel.date =
+                                    await datePicker(context, viewModel);
+                                if (viewModel.date != null) {
+                                  viewModel.dateTimeConvert();
+                                }
                               },
                               icon: ImageConstants().calendar,
                               controller: viewModel.dateController),
@@ -361,8 +358,12 @@ class ProcurementAddDataScreen extends StatelessWidget {
     );
   }
 
-  Future<DateTime?> datePicker(BuildContext context) {
+  Future<DateTime?> datePicker(
+      BuildContext context, ProcurementAddDataViewModel viewModel) {
     return showDatePicker(
-        context: context, firstDate: DateTime(2024), lastDate: DateTime(2030));
+      context: context,
+      firstDate: viewModel.startDate,
+      lastDate: DateTime.now(),
+    );
   }
 }

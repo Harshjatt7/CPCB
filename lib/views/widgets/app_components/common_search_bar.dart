@@ -85,6 +85,11 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                       onChanged: widget.onChanged,
                       controller: widget.controller,
                       cursorColor: AppColor().black,
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                          color: widget.textColor ?? AppColor().black90,
+                          decoration: TextDecoration.none,
+                          decorationColor: AppColor().transparent,
+                          letterSpacing: 0),
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(
                               top: 8, bottom: 8, left: 20),
