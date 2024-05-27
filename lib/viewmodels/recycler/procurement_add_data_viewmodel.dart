@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -51,7 +52,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
       fileName = file.path.split('/').last;
       updateUI();
     } else {
-      fileError = "Please select a file";
+      fileError = MessageConstant().pleaseSelectFile;
       updateUI();
     }
     return result;
@@ -114,7 +115,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     changeDropdown = newValue;
     updateUI();
     if (changeDropdown == null) {
-      yearDropdownError = "Please select a value from dropdown";
+      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
     }
   }
 
@@ -138,7 +139,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
 
   String? valueValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
-      return "Please provide a value";
+      return MessageConstant().pleaseProvideValue;
     } else {
       return null;
     }
@@ -155,11 +156,11 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   String? uploadInvoiceValidation() {
     HelperFunctions().logger(fileSizeModel?.fileSize ?? "");
     if (uploadInvoiceController.text.isEmpty) {
-      return "Please upload the invoice file";
+      return MessageConstant().pleaseUploadInvoice;
     }
     if (fileSizeModel?.fileSize.contains("MB") ?? false) {
       if (fileSizeModel!.fileSizeNum > 2.0) {
-        return "Max file size 2 mb";
+        return MessageConstant().maxFileSize;
       }
     }
     return null;

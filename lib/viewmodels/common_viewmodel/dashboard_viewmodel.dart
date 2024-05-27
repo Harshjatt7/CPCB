@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/controllers/common/common_repository.dart';
 import 'package:cpcb_tyre/models/response/common/dashboard_response_model.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -10,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../../constants/enums/state_enums.dart';
 import '../../models/response/base_response_model.dart';
 import '../../utils/helper/helper_functions.dart';
@@ -31,7 +31,8 @@ class DashboardViewModel extends BaseViewModel {
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
 
-  Future<APIResponse<DashboardResponseModel?>?> getDasboardData() async {
+  Future<APIResponse<DashboardResponseModel?>?> getDasboardData(
+      BuildContext context) async {
     state = ViewState.busy;
 
     try {
@@ -42,7 +43,10 @@ class DashboardViewModel extends BaseViewModel {
             _dashboardResponseModel?.completeResponse);
         data = _dashboardResponseModel?.data?.data;
       } else {
-        HelperFunctions().logger("drfsxrfdesxfdsxf");
+        if (context.mounted) {
+          HelperFunctions().commonErrorSnackBar(
+              context, MessageConstant().somethingWentWrong);
+        }
       }
     } catch (err) {
       HelperFunctions().logger("$err");

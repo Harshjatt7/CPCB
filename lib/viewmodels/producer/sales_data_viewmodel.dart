@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -58,7 +59,7 @@ class SalesDataViewModel extends BaseViewModel {
 
   String? totalValidation() {
     if ((totalController.text.isEmpty || totalController.text == "0")) {
-      return "Please enter data in atleast one of the above fields";
+      return MessageConstant().pleaseEnterDataInField;
     }
 
     return null;
@@ -160,20 +161,20 @@ class SalesDataViewModel extends BaseViewModel {
     if (changeDropdown == null) {
       switch (dropdownValue) {
         case SalesDataDropdown.producerType:
-          producerDropdownError = "Please select the value";
+          producerDropdownError = MessageConstant().pleaseSelectValue;
 
           updateUI();
           break;
         case SalesDataDropdown.typeOfTyre:
-          tyreDropdownError = "Please select the value";
+          tyreDropdownError = MessageConstant().pleaseSelectValue;
           updateUI();
           break;
         case SalesDataDropdown.financialYear:
-          yearDropdownError = "Please select the value";
+          yearDropdownError = MessageConstant().pleaseSelectValue;
           updateUI();
           break;
         case SalesDataDropdown.month:
-          monthDropdownError = "Please select the value";
+          monthDropdownError = MessageConstant().pleaseSelectValue;
           updateUI();
           break;
         default:

@@ -7,5 +7,18 @@ class MessageConstant {
   final String errorMessage = "error-message";
   final String refreshTokenExpiredMessage = "refresh-token-expired";
   final String noMatchingResultsFound = "no-matching-results-found";
-
+  final String pleaseUploadInvoice = "please-upload-invoice";
+  final String maxFileSize = "max-file-size";
+  final String pleaseProvideValue = "please-provide-value";
+  final String pleaseSelectDropdownValue = "please-select-dropdown-value";
+  final String somethingWentWrong ='something-went-wrong';
+  final String successfullySubmitted = "Successfully Submitted";
+  final String pleaseSelectFile = "please-select-file";
+  final String quantityProducedError = "quantity-produced-error";
+  final String mandatoryToAddQuantityProduced  = "mandatory--add-quantity-produced";
+  final String mandatoryToAddWasteGenerated = "mandatory-add-waste-generated";
+  final String quantityProcessed = "mandatory-quantity-processed";
+  final String mandatoryFinancialYear = "mandatory-financial-year";
+  final String pleaseSelectValue = "please-select-value";
+  final String pleaseEnterDataInField = "please-enter-data-in-field";
 }

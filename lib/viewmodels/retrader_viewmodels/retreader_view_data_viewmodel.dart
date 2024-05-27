@@ -24,17 +24,13 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       _retreaderSearchResponseModel;
   String? url;
   List<RetreadedData>? data;
-
   List<RetreadedData> tempData = [];
-
   int page = 1;
   int searchPage = 1;
   bool isSearchExpanded = false;
-
   TextEditingController searchController = TextEditingController();
   ScrollController scrollController = ScrollController();
   static final debouncer = Debouncer(milliseconds: 500);
-
   void getCurrentUserType(BuildContext context) {
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
@@ -42,7 +38,9 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   void searchRetreader(String value) {
     debouncer.run(() {
       if (value.length >= 3) {
-        performSearch(value);
+        performSearch(value).then((_) {
+          scrollController.jumpTo(0);
+        });
       } else {
         data = _retreaderResponseModel?.data?.data ?? [];
         updateUI();
@@ -56,21 +54,13 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       data = tempData.isEmpty
           ? _retreaderResponseModel?.data?.data ?? []
           : tempData;
-      HelperFunctions().logger(data.toString());
       searchController.text = "";
-      updateUI();
     } else {
       data = _retreaderSearchResponseModel?.data?.data ?? [];
-
       searchController.text = "";
-      updateUI();
     }
-    if (searchController.text.isNotEmpty) {
-      scrollController.jumpTo(scrollController.position.maxScrollExtent - 50);
-    }
-
+    updateUI();
     resetPage();
-
     state = ViewState.idle;
   }
 
@@ -112,12 +102,10 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     } catch (err) {
       HelperFunctions().logger("$err");
     }
-
     state = ViewState.idle;
     return _retreaderSearchResponseModel;
   }
 
-  bool isLoading = false;
   void loadMoreData() async {
     state = ViewState.busy;
     if (isSearchExpanded == true && searchController.text.isNotEmpty) {
@@ -155,7 +143,6 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   Future<APIResponse<RetreaderResponseModel?>?> getRetreaderData(
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
-
     try {
       _retreaderResponseModel =
           await _retreaderRepo.getRetreaderData(page: "$page");
@@ -173,9 +160,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     } catch (err) {
       HelperFunctions().logger("$err");
     }
-
     state = ViewState.idle;
-
     return _retreaderResponseModel;
   }
 }
