@@ -30,8 +30,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   String? rawMaterialDropdownError;
   String? tyreSourceDropdownError;
 
-  TextEditingController sellerNameController =
-      TextEditingController();
+  TextEditingController sellerNameController = TextEditingController();
   TextEditingController sellerMobileController = TextEditingController();
   TextEditingController supplierContactDetailsController =
       TextEditingController();
@@ -89,9 +88,11 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   }
 
   dateTimeConvert() {
-    String dateText = date.toString();
-    dateController.text = HelperFunctions().getFormattedDate(dateText);
-    HelperFunctions().logger(dateController.text);
+    if (date != null) {
+      dateController.text = HelperFunctions().getFormattedDate(date: date);
+
+      HelperFunctions().logger(dateController.text);
+    }
   }
 
   String? contactDetailsValidation() {
@@ -171,24 +172,21 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     return _recyclerResponseModel;
   }
 
-    Future<void> postData(
-      BuildContext context) async {
+  Future<void> postData(BuildContext context) async {
     state = ViewState.busy;
-    RecyclerProcurementRequestModel request = 
-        
-        RecyclerProcurementRequestModel(
-        financeYear: financialYearDropdownValue,
-        invoiceFile: uploadInvoiceDoc?.filename,
-        purchasedDate: dateController.text,
-        purchasedQuantity: quantityReceivedController.text,
-        rawMaterial: rawMaterialDropdownValue,
-        sellerAddress: addressController.text,
-        sellerGstNo: gstController.text,
-        sourceTyres: tyreSourceDropdownValue,
-        invoiceNumber: invoiceNumberController.text,
-        sellerMobile: sellerMobileController.text,
-        sellerName: sellerNameController.text,
-        );
+    RecyclerProcurementRequestModel request = RecyclerProcurementRequestModel(
+      financeYear: financialYearDropdownValue,
+      invoiceFile: uploadInvoiceDoc?.filename,
+      purchasedDate: dateController.text,
+      purchasedQuantity: quantityReceivedController.text,
+      rawMaterial: rawMaterialDropdownValue,
+      sellerAddress: addressController.text,
+      sellerGstNo: gstController.text,
+      sourceTyres: tyreSourceDropdownValue,
+      invoiceNumber: invoiceNumberController.text,
+      sellerMobile: sellerMobileController.text,
+      sellerName: sellerNameController.text,
+    );
     try {
       if (formKey.currentState?.validate() ?? false) {
         APIResponse response =
@@ -196,8 +194,8 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
         if (response.isSuccess == true) {
           if (context.mounted) {
             state = ViewState.idle;
-            HelperFunctions()
-                .commonSuccessSnackBar(context,MessageConstant().successfullySubmitted);
+            HelperFunctions().commonSuccessSnackBar(
+                context, MessageConstant().successfullySubmitted);
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -239,14 +237,14 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
               : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        HelperFunctions().commonErrorSnackBar(context,MessageConstant().somethingWentWrong);
+        HelperFunctions()
+            .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
       }
     } catch (e) {
       HelperFunctions().logger('$e');
     }
     state = ViewState.idle;
   }
-
 
   void handleOnTap(BuildContext context) async {
     if (uploadInvoiceController.text.isEmpty) {
@@ -283,12 +281,15 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   }
 
   void dropDownValidation() {
-    yearDropdownError =
-        financialYearDropdownValue == null ? MessageConstant().pleaseSelectValue : null;
-    rawMaterialDropdownError =
-        rawMaterialDropdownValue == null ? MessageConstant().pleaseSelectValue : null;
-    tyreSourceDropdownError =
-        tyreSourceDropdownValue == null ? MessageConstant().pleaseSelectValue : null;
+    yearDropdownError = financialYearDropdownValue == null
+        ? MessageConstant().pleaseSelectValue
+        : null;
+    rawMaterialDropdownError = rawMaterialDropdownValue == null
+        ? MessageConstant().pleaseSelectValue
+        : null;
+    tyreSourceDropdownError = tyreSourceDropdownValue == null
+        ? MessageConstant().pleaseSelectValue
+        : null;
     updateUI();
   }
 
@@ -296,7 +297,8 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     switch (dropdownType) {
       case RecyclerProcurementDataDropdown.financialYear:
         financialYearDropdownValue = newValue;
-        yearDropdownError = newValue == null ? MessageConstant().pleaseSelectValue : null;
+        yearDropdownError =
+            newValue == null ? MessageConstant().pleaseSelectValue : null;
         break;
       case RecyclerProcurementDataDropdown.typeOfRawMaterial:
         rawMaterialDropdownValue = newValue;
@@ -306,7 +308,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
       case RecyclerProcurementDataDropdown.tyreSource:
         tyreSourceDropdownValue = newValue;
         tyreSourceDropdownError =
-            newValue == null ? MessageConstant().pleaseSelectValue: null;
+            newValue == null ? MessageConstant().pleaseSelectValue : null;
         break;
       default:
         break;

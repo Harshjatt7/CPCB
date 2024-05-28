@@ -30,7 +30,7 @@ List<RetraderDatamodel> retraderDataList = [
       gstNumber: "L17110MH1973PLC019786",
       typeOfRaw: "Material (23)",
       total: "1024",
-      date: " 24/08/2023",
+      date: "24/08/2023",
       year: "2023"),
   const RetraderDatamodel(
       name: "Name of the tyre supplier",
@@ -40,7 +40,7 @@ List<RetraderDatamodel> retraderDataList = [
       gstNumber: "L17110MH1973PLC019786",
       typeOfRaw: "Material (23)",
       total: "1024",
-      date: " 24/08/2023",
+      date: "24/08/2023",
       year: "2023"),
   const RetraderDatamodel(
       name: "Name of the tyre supplier",
@@ -50,7 +50,7 @@ List<RetraderDatamodel> retraderDataList = [
       gstNumber: "L17110MH1973PLC019786",
       typeOfRaw: "Material (23)",
       total: "1024",
-      date: " 24/08/2023",
+      date: "24/08/2023",
       year: "2023"),
   const RetraderDatamodel(
       name: "Name of the tyre supplier",
@@ -60,6 +60,6 @@ List<RetraderDatamodel> retraderDataList = [
       gstNumber: "L17110MH1973PLC019786",
       typeOfRaw: "Material (23)",
       total: "1024",
-      date: " 24/08/2023",
+      date: "24/08/2023",
       year: "2023"),
 ];
