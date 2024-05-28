@@ -16,11 +16,11 @@ class AddRecyclerDataConstantsResponseModel {
 
 class AddRecyclerDataConstantsData {
   List<String>? tyreOfRecyclerMaterial;
-  // List<String>? financialYear;
+  List<String>? financialYear;
 
   AddRecyclerDataConstantsData({
     this.tyreOfRecyclerMaterial,
-    //this.financialYear,
+    this.financialYear,
   });
 
   factory AddRecyclerDataConstantsData.fromJson(Map<String, dynamic> json) =>
@@ -28,8 +28,8 @@ class AddRecyclerDataConstantsData {
         tyreOfRecyclerMaterial: json["tyreOfRecyclerMaterial"] == null
             ? []
             : List<String>.from(json["tyreOfRecyclerMaterial"]!.map((x) => x)),
-        // financialYear: json["financialYear"] == null
-        //     ? null
-        //     : List<String>.from(json["financialYear"]!.map((x) => x)),
+        financialYear: json["financialYear"] == null
+            ? []
+            : List<String>.from(json["financialYear"]!.map((x) => x)),
       );
 }

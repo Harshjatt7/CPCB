@@ -1,10 +1,16 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/controllers/recycler/recycler_repository.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/response/base_response_model.dart';
+import '../../models/response/recycler/get_recycler_add_data_constants.dart';
+
 class RecyclerAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
+  final _recyclerRepo = RecyclerRepository();
   String? yearDropdownValue;
   String? yearDropdownError;
   String? changeDropdown;
@@ -23,6 +29,25 @@ class RecyclerAddDataViewModel extends BaseViewModel {
       TextEditingController();
 
   List financialYearList = <String>[];
+  List tyreOfRecyclerMaterialList = <String>[];
+  String? tyreOfRecyclerMaterialDropdownValue;
+  String? tyreOfRecyclerMaterialDropdownError;
+
+  Future<APIResponse<AddRecyclerDataConstantsResponseModel?>?>
+      getRecyclerDataConstants() async {
+    state = ViewState.busy;
+    var response = await _recyclerRepo.getRecyclerDataConstants();
+
+    if (response?.isSuccess == true) {
+      response?.data = AddRecyclerDataConstantsResponseModel.fromJson(
+          response.completeResponse);
+      financialYearList.addAll(response?.data?.data?.financialYear ?? []);
+      tyreOfRecyclerMaterialList
+          .addAll(response?.data?.data?.tyreOfRecyclerMaterial ?? []);
+    }
+    state = ViewState.idle;
+    return response;
+  }
 
   void addYear() {
     for (int i = 0; i < 5; i++) {
@@ -36,6 +61,15 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     updateUI();
     if (changeDropdown == null) {
       yearDropdownError = MessageConstant().mandatoryFinancialYear;
+    }
+  }
+
+  void changeRawMaterialDropdownValue(newValue) {
+    changeDropdown = newValue;
+    updateUI();
+    if (changeDropdown == null) {
+      tyreOfRecyclerMaterialDropdownError =
+          MessageConstant().mandatoryFinancialYear;
     }
   }
 
@@ -96,6 +130,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   void formValidation() {
     if (changeDropdown == null) {
       changeDropdownValue(null);
+      changeRawMaterialDropdownValue(null);
     }
     if (formKey.currentState?.validate() ?? false) {}
   }
