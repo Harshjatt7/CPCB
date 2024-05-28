@@ -19,7 +19,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<RecyclerAddDataViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) async {
+          await viewModel.getRecyclerDataConstants();
+        },
         viewModel: RecyclerAddDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
@@ -102,10 +104,20 @@ class RecyclerAddDataScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonTextFormFieldWidget(
-                    hintText: StringConstants().typeOfRawMaterial,
-                    isMandatory: true,
-                    controller: viewModel.typeOfRawMaterialController),
+                child: CommonDropdownTextFormField(
+                  labelText: StringConstants().typeOfRawMaterial,
+                  dropDownItem: viewModel.tyreOfRecyclerMaterialList,
+                  error: viewModel.tyreOfRecyclerMaterialDropdownError,
+                  value: viewModel.tyreOfRecyclerMaterialDropdownValue,
+                  onTap: () {
+                    viewModel.changeRawMaterialDropdownValue(
+                        viewModel.tyreOfRecyclerMaterialDropdownValue);
+                  },
+                  onChanged: (value) {
+                    viewModel.changeRawMaterialDropdownValue(value);
+                    viewModel.tyreOfRecyclerMaterialDropdownError = null;
+                  },
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
