@@ -83,7 +83,7 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                       label: StringConstants().addProcurementButton,
                       onPressed: () {
                         Navigator.pushNamed(
-                            context, AppRoutes.procurementAddDataScreenRoute);
+                            context, AppRoutes.recyclerProcurementAddDataScreenRoute);
                       },
                       color: AppColor().darkGreen,
                       labelStyle: Theme.of(context)

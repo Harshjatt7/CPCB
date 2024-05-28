@@ -10,6 +10,7 @@ class AppRoutes {
   static const String retraderHomeScreenRoute = "/retraderHomeScreenRoute";
   static const String recyclerHomeScreenRoute="/recyclerHomeScreenRoute";
   static const String procurementAddDataScreenRoute = "/procurementAddDataScreenRoute";
+  static const String recyclerProcurementAddDataScreenRoute = "/recyclerProcurementAddDataScreenRoute";
   static const String retreadedAddDataScreenRoute = "/retreadedAddDataScreenRoute";
   static const String recyclerAddDataScreenRoute="/recyclerAddDataScreenRoute";
 }

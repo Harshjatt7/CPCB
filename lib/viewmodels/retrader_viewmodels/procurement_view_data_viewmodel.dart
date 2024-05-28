@@ -111,9 +111,8 @@ class ProcurementViewDataViewModel extends BaseViewModel {
   Future<APIResponse<ProcurementResponseModel?>?> getProcurementData(
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
-
     try {
-      _procurementResponseModel =
+      _procurementResponseModel = 
           await _procurementRepo.getProcurementData(page: "$page");
       if (_procurementResponseModel?.isSuccess == true) {
         _procurementResponseModel?.data = ProcurementResponseModel.fromJson(
@@ -129,9 +128,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
     } catch (err) {
       HelperFunctions().logger("$err");
     }
-
     state = ViewState.idle;
-
     return _procurementResponseModel;
   }
 
@@ -156,7 +153,6 @@ class ProcurementViewDataViewModel extends BaseViewModel {
     } catch (err) {
       HelperFunctions().logger("$err");
     }
-
     state = ViewState.idle;
     return _procurementSearchResponseModel;
   }

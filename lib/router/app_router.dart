@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
+import 'package:cpcb_tyre/views/screens/recycler/procurement_add_data_screen.dart';
 import 'package:cpcb_tyre/views/screens/recycler/recycler_add_data_screen.dart';
 import 'package:cpcb_tyre/views/screens/recycler/recycler_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/retrader/procurement_add_data_screen.dart';
@@ -21,7 +22,6 @@ class PageRouter {
       case AppRoutes.producerHomeScreenRoute:
         return _getPageRoute(const ProducerHomeScreen(), settings);
       case AppRoutes.retraderHomeScreenRoute:
-       
         return _getPageRoute(const RetraderHomeScreen(), settings, );
       case AppRoutes.addSalesDataScreenRoute:
         return _getPageRoute(const SalesDataScreen(), settings);
@@ -33,6 +33,9 @@ class PageRouter {
         return _getPageRoute(const RecyclerHomeScreen(), settings);
       case AppRoutes.recyclerAddDataScreenRoute:
         return _getPageRoute(const RecyclerAddDataScreen(), settings);
+      case AppRoutes.recyclerProcurementAddDataScreenRoute:
+        return _getPageRoute(const RecyclerProcurementAddDataScreen(), settings);
+
 
       // Will be displayed if no specified route is found.
       default:

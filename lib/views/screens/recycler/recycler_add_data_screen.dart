@@ -19,7 +19,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<RecyclerAddDataViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) {
+    
+        },
         viewModel: RecyclerAddDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(

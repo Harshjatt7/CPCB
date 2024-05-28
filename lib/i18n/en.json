@@ -111,6 +111,7 @@
     "mandatory-quantity-processed" :"It is mandatory to add Quantity Processed",
     "mandatory-financial-year" : "It is mandatory to select Financial year",
     "please-select-value" : "Please select the value",
-    "please-enter-data-in-field" : "Please enter data in atleast one of the above fields"
+    "please-enter-data-in-field" : "Please enter data in atleast one of the above fields",
+    "tyre-source-label": "Tyre Source"
 
 }

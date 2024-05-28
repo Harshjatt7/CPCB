@@ -229,7 +229,6 @@ class ProcurementAddDataScreen extends StatelessWidget {
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
                               isMandatory: true,
-                             
                               onTap: () async {
                                 viewModel.date =
                                     await datePicker(context, viewModel);
@@ -294,66 +293,67 @@ class ProcurementAddDataScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
-            contentPadding: const EdgeInsets.all(0),
-            insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-            backgroundColor: AppColor().red,
-            content: Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: AppColor().white,
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: CommonTextWidget(
-                      MessageConstant().submitAlertTitle,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+          contentPadding: const EdgeInsets.all(0),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+          backgroundColor: AppColor().red,
+          content: Container(
+            height: 200,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: AppColor().white,
+                borderRadius: const BorderRadius.all(Radius.circular(8))),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: CommonTextWidget(
+                    MessageConstant().submitAlertTitle,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Flexible(flex: 5, child: SizedBox()),
-                        Flexible(
-                          flex: 2,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Flexible(flex: 5, child: SizedBox()),
+                      Flexible(
+                        flex: 2,
+                        child: CommonButtonWidget(
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                          },
+                          label: StringConstants().no,
+                          color: AppColor().white,
+                          labelStyle: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ),
+                      Flexible(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 24),
                           child: CommonButtonWidget(
+                            label: StringConstants().yes,
                             onPressed: () {
                               Navigator.pop(ctx);
+                              viewModel.postRequest(context);
                             },
-                            label: StringConstants().no,
-                            color: AppColor().white,
-                            labelStyle: Theme.of(context).textTheme.labelMedium,
+                            color: AppColor().darkGreen,
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(color: AppColor().white),
                           ),
                         ),
-                        Flexible(
-                          flex: 3,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 24),
-                            child: CommonButtonWidget(
-                              label: StringConstants().yes,
-                              onPressed: () {
-                                Navigator.pop(ctx);
-                                viewModel.postRequest(context);
-                              },
-                              color: AppColor().darkGreen,
-                              labelStyle: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium!
-                                  .copyWith(color: AppColor().white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ));
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
       },
     );
   }

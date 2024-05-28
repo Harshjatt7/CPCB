@@ -92,6 +92,7 @@ class StringConstants {
   final String dateOfRegistration = "date-of-registration";
   final String registrationExpiryDate = "registration-expiry-date";
   final String searchHere = "search-here";
+  final String tyreSourceLabel = "Tyre Source";
 
   //User Types
   static const String admin = "Admin";
