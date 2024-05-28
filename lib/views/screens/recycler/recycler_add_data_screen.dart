@@ -13,7 +13,6 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 class RecyclerAddDataScreen extends StatelessWidget {
   const RecyclerAddDataScreen({super.key});
@@ -176,8 +175,8 @@ class RecyclerAddDataScreen extends StatelessWidget {
                     onSuffixTap: () async {
                       DateTime? date = await datePicker(context);
                       if (date != null) {
-                        viewModel.dateController.text =
-                            HelperFunctions().getFormattedDate(date.toString());
+                        viewModel.dateController.text = HelperFunctions()
+                            .getFormattedDate(dtstr: date.toString());
                       }
                     },
                     onChanged: (value) {

@@ -51,16 +51,16 @@ class DashboardData {
         currentStatus: json["current_status"],
         dateOfApplication: json["date_of_application"] != null
             ? HelperFunctions()
-                .getFormattedDate(json['date_of_application'].toString())
+                .getFormattedDate(dtstr: json['date_of_application'])
             : null,
         uniqueRegistrationNumber: json["unique_registration_number"],
         dateOfRegistration: json["date_of_registration"] != null
             ? HelperFunctions()
-                .getFormattedDate(json['date_of_registration'].toString())
+                .getFormattedDate(dtstr: json['date_of_registration'])
             : null,
         registrationExpiryDate: json["registration_expiry_date"] != null
             ? HelperFunctions()
-                .getFormattedDate(json['registration_expiry_date'].toString())
+                .getFormattedDate(dtstr: json['registration_expiry_date'])
             : null,
         downloadApplication: json["download_application"],
         downloadInvoice: json["download_invoice"],

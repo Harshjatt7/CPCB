@@ -145,10 +145,10 @@ class RecyclerAddDataViewModel extends BaseViewModel {
           wasteTyreSupplierAddress: addressController.text,
           typeOfRecycledMaterial: tyreOfRecyclerMaterialDropdownValue,
           wasteTyreSupplierGst: gstController.text,
-          processedQty: double.parse(quantityProcessedController?.text ?? "0"),
-          producedQty: double.parse(quantityProducedController?.text ?? "0"),
+          processedQty: double.parse(quantityProcessedController.text),
+          producedQty: double.parse(quantityProducedController.text),
           wasteGeneratedQty:
-              double.parse(quantityOfWasteGeneratedController?.text ?? "0"),
+              double.parse(quantityOfWasteGeneratedController.text),
           recycledDate: DateFormat('yyyy-mm-dd').format(DateTime.now()));
       addRecyclerData(request, context);
     }
