@@ -9,6 +9,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../store/secure_storage.dart';
 import '../../theme/app_color.dart';
@@ -442,15 +443,24 @@ class HelperFunctions {
   }
 
   /// [getFormattedDate] is a method to change Date format.
-  String getFormattedDate(String dtStr) {
+  String getFormattedDate({DateTime? date, String? dtstr}) {
     String formattedDate = "           ";
-
-    try {
-      if (dtStr.isNotEmpty) {
-        var dt = DateTime.parse(dtStr);
-        formattedDate =
-            "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
+    DateTime? dateTime;
+    if (date != null) {
+      dateTime = date;
+    } else if (dtstr != null) {
+      if (dtstr.contains('/')) {
+        dateTime = DateFormat('dd/MM/yyyy').parse(dtstr);
       }
+      else{
+        dateTime=DateTime.tryParse(dtstr);
+      }
+    }
+    try {
+      if (dateTime != null) {
+        formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
+      }
+      // "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
 
       return formattedDate;
     } catch (err) {

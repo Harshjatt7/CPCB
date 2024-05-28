@@ -79,8 +79,10 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   }
 
   dateTimeConvert() {
-    String dateText = date.toString();
-    dateController.text = HelperFunctions().getFormattedDate(dateText);
+    // String dateText = date.toString();
+    if (date != null) {
+      dateController.text = HelperFunctions().getFormattedDate(date: date!);
+    }
     HelperFunctions().logger(dateController.text);
   }
 
@@ -226,7 +228,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     if (changeDropdown != null) {
       String startYear = changeDropdown!.split('-').first;
       int year = int.parse(startYear);
-      startDate = DateTime(year,4,1);
+      startDate = DateTime(year, 4, 1);
       updateUI();
       HelperFunctions().logger(startDate.toString());
     }

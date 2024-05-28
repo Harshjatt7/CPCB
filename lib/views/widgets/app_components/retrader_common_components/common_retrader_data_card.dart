@@ -82,7 +82,7 @@ class CommonRetraderDataCard extends StatelessWidget {
                     width: 4,
                   ),
                   retraderDetailsCard(context,
-                      'Date: ${HelperFunctions().getFormattedDate(date ?? "")}'),
+                      'Date: ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                 ],
               ),
               const SizedBox(width: 32),
