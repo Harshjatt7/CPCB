@@ -1,12 +1,17 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/controllers/recycler/recycler_repository.dart';
+import 'package:cpcb_tyre/models/request/recycler/add_recycler_data_request_model.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../../constants/routes_constant.dart';
 import '../../models/response/base_response_model.dart';
 import '../../models/response/recycler/get_recycler_add_data_constants.dart';
+import '../material_app_viewmodel.dart';
 
 class RecyclerAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
@@ -127,11 +132,50 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     return null;
   }
 
-  void formValidation() {
+  void formValidation(BuildContext context) {
     if (changeDropdown == null) {
       changeDropdownValue(null);
       changeRawMaterialDropdownValue(null);
     }
-    if (formKey.currentState?.validate() ?? false) {}
+    if (formKey.currentState?.validate() ?? false) {
+      AddRecyclerDataRequestModel? request = AddRecyclerDataRequestModel(
+          financialYear: yearDropdownValue,
+          wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
+          wasteTyreSupplierContact: contactDetailsController.text,
+          wasteTyreSupplierAddress: addressController.text,
+          typeOfRecycledMaterial: tyreOfRecyclerMaterialDropdownValue,
+          wasteTyreSupplierGst: gstController.text,
+          processedQty: double.parse(quantityProcessedController?.text ?? "0"),
+          producedQty: double.parse(quantityProducedController?.text ?? "0"),
+          wasteGeneratedQty:
+              double.parse(quantityOfWasteGeneratedController?.text ?? "0"),
+          recycledDate: DateFormat('yyyy-mm-dd').format(DateTime.now()));
+      addRecyclerData(request, context);
+    }
+  }
+
+  Future addRecyclerData(
+      AddRecyclerDataRequestModel? request, BuildContext context) async {
+    state = ViewState.busy;
+
+    var res = await _recyclerRepo.addRecyclerData(request);
+    if (res?.isSuccess == true) {
+      state = ViewState.idle;
+      if (context.mounted) {
+        HelperFunctions().commonSuccessSnackBar(
+            context, MessageConstant().successfullySubmitted);
+        MaterialAppViewModel.selectedPageIndex = 1;
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.retraderHomeScreenRoute,
+            ModalRoute.withName(AppRoutes.retraderHomeScreenRoute));
+      }
+    } else {
+      state = ViewState.idle;
+      if (context.mounted) {
+        HelperFunctions()
+            .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
+      }
+    }
   }
 }
