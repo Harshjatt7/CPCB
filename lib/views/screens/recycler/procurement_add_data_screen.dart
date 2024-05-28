@@ -1,7 +1,9 @@
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
+import 'package:cpcb_tyre/viewmodels/recycler/recycler_procurement_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/procurement_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
@@ -19,10 +21,11 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<ProcurementAddDataViewModel>(
-        viewModel: ProcurementAddDataViewModel(),
+    return BaseView<RecyclerProcurementAddDataViewModel>(
+        viewModel: RecyclerProcurementAddDataViewModel(),
         onModelReady: (viewModel) {
-          viewModel.addYear();
+          // viewModel.addYear();
+          viewModel.getData();
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(
@@ -43,36 +46,39 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                             error: viewModel.yearDropdownError,
                             onTap: () {
                               viewModel.changeDropdownValue(
-                                  viewModel.yearDropdownValue);
+                                  RecyclerProcurementDataDropdown.financialYear,
+                                  null);
                             },
-                            value: viewModel.yearDropdownValue,
+                            value: viewModel.financialYearDropdownValue,
                             labelText: StringConstants().financialYearLabel,
                             dropDownItem: viewModel.financialYearList,
                             onChanged: (value) {
-                              viewModel.changeDropdownValue(value);
+                              viewModel.changeDropdownValue(
+                                  RecyclerProcurementDataDropdown.financialYear,
+                                  value);
                               viewModel.yearDropdownError = null;
                             },
                           ),
                         ),
-                        if (viewModel.financialYearError?.isNotEmpty ?? false)
-                          showErrorMessage(
-                              context, viewModel.financialYearError ?? ''),
+
+                        // if (viewModel.yearDropdownError?.isNotEmpty ?? false)
+                        //   showErrorMessage(context, viewModel.yearDropdownError ?? ''),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(10)
+                              ],
                               hintText:
                                   StringConstants().nameOfWasteTyreSupplier,
+                              textInputType: TextInputType.text,
                               isMandatory: true,
                               validator: (value) {
-                                return viewModel.valueValidation(viewModel
-                                    .nameOfWasteTyreSupplierController);
+                                return viewModel.contactDetailsValidation();
                               },
-                              controller:
-                                  viewModel.nameOfWasteTyreSupplierController),
+                              controller: viewModel.sellerNameController),
                         ),
-                        if (viewModel.supplierNameError?.isNotEmpty ?? false)
-                          showErrorMessage(
-                              context, viewModel.supplierNameError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -85,23 +91,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               validator: (value) {
                                 return viewModel.contactDetailsValidation();
                               },
-                              controller: viewModel.contactDetailsController),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10)
-                              ],
-                              textInputType: TextInputType.number,
-                              hintText:
-                                  StringConstants().supplierContactDetails,
-                              isMandatory: true,
-                              validator: (value) {
-                                return viewModel.contactDetailsValidation();
-                              },
-                              controller:
-                                  viewModel.supplierContactDetailsController),
+                              controller: viewModel.sellerMobileController),
                         ),
                         if (viewModel.supplierContactError?.isNotEmpty ?? false)
                           showErrorMessage(
@@ -121,21 +111,55 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                         if (viewModel.addressError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.addressError ?? ''),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonTextFormFieldWidget(
-                              hintText: StringConstants().typeOfRawMaterial,
-                              isMandatory: true,
-                              validator: (value) {
-                                return viewModel.valueValidation(
-                                    viewModel.typeOfRawMaterialController);
-                              },
-                              controller:
-                                  viewModel.typeOfRawMaterialController),
+                          child: CommonDropdownTextFormField(
+                            error: viewModel.rawMaterialDropdownError,
+                            onTap: () {
+                              viewModel.changeDropdownValue(
+                                  RecyclerProcurementDataDropdown
+                                      .typeOfRawMaterial,
+                                  null);
+                            },
+                            value: viewModel.rawMaterialDropdownValue,
+                            labelText: StringConstants().typeOfRawMaterial,
+                            dropDownItem: viewModel.typeOfRawMaterial,
+                            onChanged: (value) {
+                              viewModel.changeDropdownValue(
+                                  RecyclerProcurementDataDropdown
+                                      .typeOfRawMaterial,
+                                  value);
+                              viewModel.rawMaterialDropdownError = null;
+                            },
+                          ),
                         ),
-                        if (viewModel.rawMaterialError?.isNotEmpty ?? false)
-                          showErrorMessage(
-                              context, viewModel.rawMaterialError ?? ''),
+
+                        // if (viewModel.rawMaterialDropdownError?.isNotEmpty ?? false)
+                        //   showErrorMessage(context, viewModel.rawMaterialDropdownError ?? ''),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: CommonDropdownTextFormField(
+                            error: viewModel.tyreSourceDropdownError,
+                            onTap: () {
+                              viewModel.changeDropdownValue(
+                                  RecyclerProcurementDataDropdown.tyreSource,
+                                  null);
+                            },
+                            value: viewModel.tyreSourceDropdownValue,
+                            labelText: StringConstants().tyreSourceLabel,
+                            dropDownItem: viewModel.tyreSource,
+                            onChanged: (value) {
+                              viewModel.changeDropdownValue(
+                                  RecyclerProcurementDataDropdown.tyreSource,
+                                  value);
+                              viewModel.tyreSourceDropdownError = null;
+                            },
+                          ),
+                        ),
+
+                        // if (viewModel.tyreSourceDropdownError?.isNotEmpty ?? false)
+                        //   showErrorMessage(context, viewModel.tyreSourceDropdownError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -223,7 +247,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               disabledBgColor: AppColor().transparent,
                               isReadOnly: true,
                               onSuffixTap: () {
-                                datePicker(context, viewModel);
+                                // datePicker(context, viewModel);
                               },
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,

@@ -24,6 +24,10 @@ class APIRoutes {
       "api/producer/download-invoice";
   final String retreaderGetProcurementDataAPIRoute =
       "api/retreader/get-procurement-data";
+  final String reyclerProcurementAddDataAPIRoute =
+      "api/recycler/add-procuremnt-data-recycler";
+  final String reyclerProcurementConstantDataAPIRoute =
+      "api/recycler/add-procuremnt-constant-recycler";
   final String recyclerProcurementDataAPIRoute =
       "api/recycler/get-procuremnt-data";
   final String getRecyclerData = "api/recycler/get-recycled-data";

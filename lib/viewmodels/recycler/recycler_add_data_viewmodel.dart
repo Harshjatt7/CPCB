@@ -7,7 +7,6 @@ import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../../constants/routes_constant.dart';
 import '../../models/response/base_response_model.dart';
 import '../../models/response/recycler/get_recycler_add_data_constants.dart';
@@ -54,6 +53,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     return response;
   }
 
+      
   void addYear() {
     for (int i = 0; i < 5; i++) {
       financialYearList
@@ -145,8 +145,8 @@ class RecyclerAddDataViewModel extends BaseViewModel {
           wasteTyreSupplierAddress: addressController.text,
           typeOfRecycledMaterial: tyreOfRecyclerMaterialDropdownValue,
           wasteTyreSupplierGst: gstController.text,
-          processedQty: double.parse(quantityProcessedController.text),
-          producedQty: double.parse(quantityProducedController.text),
+          processedQty: double.parse(quantityProcessedController.text ),
+          producedQty: double.parse(quantityProducedController.text ),
           wasteGeneratedQty:
               double.parse(quantityOfWasteGeneratedController.text),
           recycledDate: DateFormat('yyyy-mm-dd').format(DateTime.now()));
