@@ -69,7 +69,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     updateUI();
     if (changeDropdown == null) {
       tyreOfRecyclerMaterialDropdownError =
-          MessageConstant().mandatoryFinancialYear;
+          MessageConstant().mandatoryTypeRawMaterial;
     }
   }
 
