@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/recycler/recycler_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -19,7 +20,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<RecyclerAddDataViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) async {
+          await viewModel.getRecyclerDataConstants();
+        },
         viewModel: RecyclerAddDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
@@ -34,7 +37,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     onPressed: () {
-                      viewModel.formValidation();
+                      viewModel.formValidation(context);
                     },
                     height: 50,
                     label: StringConstants().submitBtnLabel,
@@ -102,10 +105,20 @@ class RecyclerAddDataScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonTextFormFieldWidget(
-                    hintText: StringConstants().typeOfRawMaterial,
-                    isMandatory: true,
-                    controller: viewModel.typeOfRawMaterialController),
+                child: CommonDropdownTextFormField(
+                  labelText: StringConstants().typeOfRawMaterial,
+                  dropDownItem: viewModel.tyreOfRecyclerMaterialList,
+                  error: viewModel.tyreOfRecyclerMaterialDropdownError,
+                  value: viewModel.tyreOfRecyclerMaterialDropdownValue,
+                  onTap: () {
+                    viewModel.changeRawMaterialDropdownValue(
+                        viewModel.tyreOfRecyclerMaterialDropdownValue);
+                  },
+                  onChanged: (value) {
+                    viewModel.changeRawMaterialDropdownValue(value);
+                    viewModel.tyreOfRecyclerMaterialDropdownError = null;
+                  },
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
@@ -159,8 +172,12 @@ class RecyclerAddDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     hintText: StringConstants().date,
                     isMandatory: true,
-                    onSuffixTap: () {
-                      datePicker(context);
+                    onSuffixTap: () async {
+                      DateTime? date = await datePicker(context);
+                      if (date != null) {
+                        viewModel.dateController.text = HelperFunctions()
+                            .getFormattedDate(dtstr: date.toString());
+                      }
                     },
                     onChanged: (value) {
                       viewModel.onDateChange();

@@ -60,7 +60,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       child: Stack(
         children: [
           Scaffold(
-            resizeToAvoidBottomInset: widget.resizeToBottomInset,
+            resizeToAvoidBottomInset: widget.resizeToBottomInset ?? false,
             key: widget.scaffoldKey ?? scaffoldKey,
             appBar: widget.showAppBar == true
                 ? widget.appBar ??
