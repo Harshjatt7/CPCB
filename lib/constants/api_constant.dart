@@ -28,6 +28,14 @@ class APIRoutes {
       "api/recycler/add-procuremnt-data-recycler";
   final String reyclerProcurementConstantDataAPIRoute =
       "api/recycler/add-procuremnt-constant-recycler";
+  final String recyclerProcurementDataAPIRoute =
+      "api/recycler/get-procuremnt-data";
+  final String getRecyclerData = "api/recycler/get-recycled-data";
+  final String getRecyclerDataConstants =
+      "api/recycler/add-recycled-data-constant";
+  final String addRecycledData = "api/recycler/add-recycled-data";
+  final String retreaderDownloadApplicationAPIRoute =
+      "api/retreader/download-application";
 }
 
 extension ApiBaseURL on ApiEnvironments {

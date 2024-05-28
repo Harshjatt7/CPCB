@@ -443,18 +443,19 @@ class HelperFunctions {
 
   /// [getFormattedDate] is a method to change Date format.
   String getFormattedDate(String dtStr) {
-    String formattedDate = "           ";
+    //TODO 
+    // String formattedDate = "           ";
+    // try {
+    //   if (dtStr.isNotEmpty) {
+    //     var dt = DateTime.parse(dtStr);
+    //     formattedDate =
+    //         "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
+    //   }
 
-    try {
-      if (dtStr.isNotEmpty) {
-        var dt = DateTime.parse(dtStr);
-        formattedDate =
-            "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
-      }
-
-      return formattedDate;
-    } catch (err) {
-      return formattedDate;
-    }
+    //   return formattedDate;
+    // } catch (err) {
+    //   return formattedDate;
+    // }
+    return dtStr;
   }
 }

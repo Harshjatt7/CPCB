@@ -1,8 +1,10 @@
 import 'package:cpcb_tyre/constants/api_constant.dart';
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
 import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/retreader/procurement_response_model.dart';
+import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 
 class ProcurementRepository {
@@ -19,12 +21,15 @@ class ProcurementRepository {
     return response;
   }
 
-  Future getProcurementData({String? page = '1', sellerName}) async {
-    APIResponse<ProcurementResponseModel?>? response = await _apiBase.getRequest(
-        sellerName == null
-            ? "${_apiRoutes.retreaderGetProcurementDataAPIRoute}?page=$page"
-            : "${_apiRoutes.retreaderGetProcurementDataAPIRoute}?page=$page&seller_name=$sellerName",
-        isAuthorizationRequired: true);
+  Future getProcurementData(String url, {String? page = '1', search}) async {
+    APIResponse<ProcurementResponseModel?>? response =
+        await _apiBase.getRequest(
+            search == null
+                ? "$url?page=$page"
+                : MaterialAppViewModel.userTypeEnum == UserTypes.retreader
+                    ? "$url?page=$page&seller_name=$search"
+                    : "$url?page=$page&company_name=$search",
+            isAuthorizationRequired: true);
     return response;
   }
 }

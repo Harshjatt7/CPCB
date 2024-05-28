@@ -93,8 +93,8 @@
     "date-of-application": "Date of Application",
     "date-of-registration": "Date of Registration",
     "registration-expiry-date": "Registration Expiry Date",
-    "date":"Date",
-    "submit-alert-title":"Are you sure you want to submit this request?",
+    "date": "Date",
+    "submit-alert-title": "Are you sure you want to submit this request?",
     "search": "search",
     "no-matching-results-found": "No matching results found!!",
     "search-here": "Search here",
@@ -112,6 +112,7 @@
     "mandatory-financial-year" : "It is mandatory to select Financial year",
     "please-select-value" : "Please select the value",
     "please-enter-data-in-field" : "Please enter data in atleast one of the above fields",
-    "tyre-source-label": "Tyre Source"
-
+    "tyre-source-label": "Tyre Source",
+    "mandatory-raw-material": "It is mandatory to select type of raw material"
+   
 }

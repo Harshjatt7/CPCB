@@ -1,3 +1,5 @@
+import 'package:cpcb_tyre/constants/api_constant.dart';
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
@@ -5,9 +7,11 @@ import 'package:cpcb_tyre/models/response/retreader/procurement_response_model.d
 import 'package:cpcb_tyre/utils/helper/debouncing_helper.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class ProcurementViewDataViewModel extends BaseViewModel {
+  final _apiRoutes = APIRoutes();
   final _procurementRepo = ProcurementRepository();
   APIResponse<ProcurementResponseModel?>? _procurementResponseModel;
   APIResponse<ProcurementResponseModel?>? get procurementResponseModel =>
@@ -112,8 +116,8 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
     try {
-      _procurementResponseModel = 
-          await _procurementRepo.getProcurementData(page: "$page");
+      _procurementResponseModel = await _procurementRepo
+          .getProcurementData(getUrl() ?? '', page: "$page");
       if (_procurementResponseModel?.isSuccess == true) {
         _procurementResponseModel?.data = ProcurementResponseModel.fromJson(
             _procurementResponseModel?.completeResponse);
@@ -136,8 +140,9 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
     try {
-      _procurementSearchResponseModel = await _procurementRepo
-          .getProcurementData(sellerName: value, page: '$searchPage');
+      _procurementSearchResponseModel =
+          await _procurementRepo.getProcurementData(getUrl() ?? '',
+              search: value, page: '$searchPage');
       if (_procurementSearchResponseModel?.isSuccess == true) {
         _procurementSearchResponseModel?.data =
             ProcurementResponseModel.fromJson(
@@ -155,5 +160,26 @@ class ProcurementViewDataViewModel extends BaseViewModel {
     }
     state = ViewState.idle;
     return _procurementSearchResponseModel;
+  }
+
+  String? getUrl() {
+    switch (MaterialAppViewModel.userTypeEnum) {
+      case UserTypes.producer:
+        return '';
+      case UserTypes.recycler:
+        return _apiRoutes.recyclerProcurementDataAPIRoute;
+      case UserTypes.retreader:
+        return _apiRoutes.retreaderGetProcurementDataAPIRoute;
+      case UserTypes.inspection:
+        return '';
+      case UserTypes.admin:
+        return '';
+      case UserTypes.custom:
+        return '';
+      case UserTypes.other:
+        return '';
+      default:
+        return null;
+    }
   }
 }
