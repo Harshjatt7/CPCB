@@ -29,7 +29,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(
-            resizeToBottomInset: true,
+              resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
                 title: StringConstants().addProcurement,
@@ -295,8 +295,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
           hintText: StringConstants().nameOfWasteTyreSupplier,
           isMandatory: true,
           validator: (value) {
-            return viewModel
-                .valueValidation(viewModel.nameOfWasteTyreSupplierController);
+            return viewModel.nameValidation();
           },
           controller: viewModel.nameOfWasteTyreSupplierController),
     );

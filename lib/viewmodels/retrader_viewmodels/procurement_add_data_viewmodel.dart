@@ -85,6 +85,10 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     HelperFunctions().logger(dateController.text);
   }
 
+  String? nameValidation() {
+    return Validations().validateName(nameOfWasteTyreSupplierController.text);
+  }
+
   Future<void> postProcurementData(
       BuildContext context, ProcurementRequestModel request) async {
     state = ViewState.busy;
@@ -240,7 +244,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     return Validations()
         .numbericWithDotValidation(quantityReceivedController.text);
   }
-
 
   String? valueValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
