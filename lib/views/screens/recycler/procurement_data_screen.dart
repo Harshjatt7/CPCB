@@ -43,10 +43,12 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                      color: AppColor().black10,
-                    ))),
+                      border: Border(
+                        bottom: BorderSide(
+                          color: AppColor().black10,
+                        ),
+                      ),
+                    ),
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,
@@ -92,54 +94,62 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                     child: (viewModel.data?.length ?? 0) == 0
                         ? Center(
                             child: CommonTextWidget(
-                                MessageConstant().noMatchingResultsFound))
+                                MessageConstant().noMatchingResultsFound),
+                          )
                         : null),
                 Expanded(
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const PageScrollPhysics(),
-                          itemCount: viewModel.data?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            ProcurementAddData procurementData =
-                                viewModel.data?[index] ?? ProcurementAddData();
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: CommonRetraderDataCard(
-                                name: procurementData.sellerName ?? "",
-                                contactDetails: procurementData.sellerMobile,
-                                address: procurementData.sellerAddress,
-                                invoiceNumber: procurementData.invoiceNumber,
-                                gstNumber: procurementData.sellerGstNo,
-                                typeOfRaw: procurementData.rawMaterial,
-                                total: '${procurementData.purchasedQuantity}',
-                                date: '${procurementData.purchasedDate}',
-                                year: '${procurementData.financeYear}',
-                              ),
-                            );
-                          },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const PageScrollPhysics(),
+                            itemCount: viewModel.data?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              ProcurementAddData procurementData =
+                                  viewModel.data?[index] ??
+                                      ProcurementAddData();
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: CommonRetraderDataCard(
+                                  name: procurementData.sellerName ?? "",
+                                  contactDetails: procurementData.sellerMobile,
+                                  address: procurementData.sellerAddress,
+                                  invoiceNumber: procurementData.invoiceNumber,
+                                  gstNumber: procurementData.sellerGstNo,
+                                  typeOfRaw: procurementData.rawMaterial,
+                                  total: '${procurementData.purchasedQuantity}',
+                                  date: '${procurementData.purchasedDate}',
+                                  year: '${procurementData.financeYear}',
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      CommonButtonWidget(
-                        label: StringConstants().addProcurementButton,
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, AppRoutes.procurementAddDataScreenRoute);
-                        },
-                        color: AppColor().darkGreen,
-                        labelStyle: Theme.of(context)
-                            .textTheme
-                            .labelSmall!
-                            .copyWith(color: AppColor().white),
-                      ),
-                    ]),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        CommonButtonWidget(
+                          label: StringConstants().addProcurementButton,
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context,
+                                AppRoutes
+                                    .recyclerProcurementAddDataScreenRoute);
+                          },
+                          color: AppColor().darkGreen,
+                          labelStyle: Theme.of(context)
+                              .textTheme
+                              .labelSmall!
+                              .copyWith(color: AppColor().white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

@@ -55,6 +55,7 @@ class ErrorsList {
   List<String>? purchaseDate;
   List<String>? procurementInvoiceFile;
   List<String>? financeYear;
+  List<String>? sourceTyre;
 
   ErrorsList(
       {this.financialYear,
@@ -70,7 +71,9 @@ class ErrorsList {
       this.sellerGstNo,
       this.purchaseDate,
       this.procurementInvoiceFile,
-      this.financeYear});
+      this.financeYear,
+      this.sourceTyre,
+      });
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
         financialYear: json["financial_year"] == null
@@ -116,6 +119,9 @@ class ErrorsList {
         financeYear: json["finance_year"] == null
             ? []
             : List<String>.from(json["finance_year"]!.map((x) => x)),
+        sourceTyre: json["source_tyre"] == null
+            ? []
+            : List<String>.from(json["source_tyre"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -161,5 +167,8 @@ class ErrorsList {
         "finance_year": financeYear == null
             ? []
             : List<dynamic>.from(financeYear!.map((x) => x)),
+        "source_tyre": sourceTyre == null
+            ? []
+            : List<dynamic>.from(sourceTyre!.map((x) => x)),
       };
 }

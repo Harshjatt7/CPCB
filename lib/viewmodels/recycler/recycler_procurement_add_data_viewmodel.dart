@@ -64,6 +64,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   String? invoiceNumberError;
   String? gstNumberError;
   String? purchaseDateError;
+  String? sourceTyreError;
 
   String newText = '';
 
@@ -87,14 +88,17 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
 
   dateTimeConvert() {
     if (date != null) {
-      dateController.text = HelperFunctions().getFormattedDate(date: date);
-
-      HelperFunctions().logger(dateController.text);
+      dateController.text = HelperFunctions().getFormattedDate(date: date!);
     }
+    HelperFunctions().logger(dateController.text);
   }
 
   String? contactDetailsValidation() {
     return Validations().validatePhone(sellerMobileController.text);
+  }
+
+  String? nameValidation() {
+    return Validations().validateName(sellerNameController.text);
   }
 
   String? supplierContactDetailsValidation() {
@@ -140,6 +144,9 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   Future<APIResponse<RecyclerProcurementConstantsResponseData?>?>
       getData() async {
     state = ViewState.busy;
+    financialYearList = [];
+    typeOfRawMaterial = [];
+    typeOfRawMaterial = []; 
     try {
       _recyclerResponseModel =
           await _recyclerRepo.getRecyclerProcurementConstantData();
@@ -148,10 +155,8 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
             RecyclerProcurementConstantsResponseData.fromJson(
                 _recyclerResponseModel?.completeResponse);
 
-        if (_recyclerResponseModel?.data?.data?.financialYear != null) {
-          financialYearList
-              .addAll(_recyclerResponseModel?.data?.data?.financialYear ?? []);
-        }
+        financialYearList
+            .addAll(_recyclerResponseModel?.data?.data?.financialYear ?? []);
 
         if (_recyclerResponseModel?.data?.data?.rawMaterialType != null) {
           typeOfRawMaterial.add(
@@ -161,12 +166,9 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
               _recyclerResponseModel?.data?.data?.rawMaterialType?.tyres ?? "");
         }
 
-        if (_recyclerResponseModel?.data?.data?.tyreSource != null) {
-          tyreSource
-              .addAll(_recyclerResponseModel?.data?.data?.tyreSource ?? []);
-        }
+        tyreSource.addAll(_recyclerResponseModel?.data?.data?.tyreSource ?? []);
       } else {
-        HelperFunctions().logger("No response");
+        HelperFunctions().logger(MessageConstant().somethingWentWrong);
       }
     } catch (err) {
       HelperFunctions().logger("$err");
@@ -175,12 +177,14 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     return _recyclerResponseModel;
   }
 
+
   Future<void> postData(BuildContext context) async {
     state = ViewState.busy;
+    String purchasedDate = '$date';
     RecyclerProcurementRequestModel request = RecyclerProcurementRequestModel(
       financeYear: financialYearDropdownValue,
       invoiceFile: uploadInvoiceDoc?.filename,
-      purchasedDate: dateController.text,
+      purchasedDate: purchasedDate.split(' ').first,
       purchasedQuantity: quantityReceivedController.text,
       rawMaterial: rawMaterialDropdownValue == "Scrap tyre/used tyre/cut tyre"
           ? "Tyres"
@@ -192,6 +196,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
       sellerMobile: sellerMobileController.text,
       sellerName: sellerNameController.text,
     );
+
     try {
       if (formKey.currentState?.validate() ?? false) {
         APIResponse response =
@@ -225,6 +230,9 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           rawMaterialError = (apiError?.rawMaterial ?? []).isEmpty
               ? ""
               : apiError?.rawMaterial?.first ?? "";
+          sourceTyreError = (apiError?.sourceTyre ?? []).isEmpty
+              ? ""
+              : apiError?.sourceTyre?.first ?? "";
           quantityReceivedError = (apiError?.purchasedQuantity ?? []).isEmpty
               ? ""
               : apiError?.purchasedQuantity?.first ?? "";
@@ -298,10 +306,24 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     updateUI();
   }
 
+  void financialYearDropDownConverter(newValue) {
+    financialYearDropdownValue = newValue;
+    if (financialYearDropdownValue != null) {
+      String startYear = financialYearDropdownValue!.split('-').first;
+      int year = int.parse(startYear);
+      startDate = DateTime(year, 4, 1);
+      updateUI();
+    }
+    updateUI();
+    if (financialYearDropdownValue == null) {
+      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
+    }
+  }
+
   void changeDropdownValue(dropdownType, newValue) {
     switch (dropdownType) {
       case RecyclerProcurementDataDropdown.financialYear:
-        financialYearDropdownValue = newValue;
+        financialYearDropDownConverter(newValue);
         yearDropdownError =
             newValue == null ? MessageConstant().pleaseSelectValue : null;
         break;
@@ -324,19 +346,6 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   String? quantityReceivedValidation() {
     return Validations()
         .numbericWithDotValidation(quantityReceivedController.text);
-  }
-
-  void onChange() {
-    String text = dateController.text;
-    if (text.length < newText.length) {
-      newText = text;
-    } else if (text.isNotEmpty && text != newText) {
-      String tempText = text.replaceAll("-", "");
-      if (tempText.length == 2 || tempText.length == 4) {
-        newText = '$text-';
-        dateController.text = newText;
-      }
-    }
   }
 
   String? valueValidation(TextEditingController controller) {
@@ -370,7 +379,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   void formValidation(BuildContext context) {
     dropDownValidation();
     if (formKey.currentState?.validate() ?? false) {
-      // Perform form submission
+      postData(context);
     }
   }
 }

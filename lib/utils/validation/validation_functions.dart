@@ -8,6 +8,23 @@ class Validations {
       RegExp(r'^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$');
   final RegExp dateRegex =
       RegExp(r'^(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])\d{2}$');
+  final RegExp nameRegex =
+      RegExp(r'^[A-Za-z ]+$');
+
+  String? validateName(String value) {
+    RegExp regex = RegExp(
+        r'^[A-Za-z ]+$');
+
+    if (value.isEmpty) {
+      return 'Please enter name';
+    } else {
+      if (!regex.hasMatch(value)) {
+        return 'Enter valid name';
+      } else {
+        return null;
+      }
+    }
+  }
 
   String? validateEmail(String value) {
     RegExp regex = RegExp(
