@@ -29,7 +29,7 @@ class RecyclerProcurementRequestModel {
   Map<String, dynamic> toJson() => {
     "invoice_file": invoiceFile,
     "finance_year": financeYear,
-    "source_tyres": sourceTyres,
+    "source_tyre": sourceTyres,
     "seller_name": sellerName,
     "seller_mobile": sellerMobile,
     "seller_address": sellerAddress,

@@ -42,10 +42,12 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                      color: AppColor().black10,
-                    ))),
+                      border: Border(
+                        bottom: BorderSide(
+                          color: AppColor().black10,
+                        ),
+                      ),
+                    ),
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,

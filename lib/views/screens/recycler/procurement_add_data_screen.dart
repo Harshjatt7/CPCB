@@ -7,6 +7,7 @@ import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/recycler/recycler_procurement_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_pop_up.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
@@ -23,13 +24,13 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<RecyclerProcurementAddDataViewModel>(
         viewModel: RecyclerProcurementAddDataViewModel(),
-        onModelReady: (viewModel) async {
+        onModelReady: (viewModel) {
           // viewModel.addYear();
-          await viewModel.getData();
+          viewModel.getData();
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(
-              resizeToBottomInset: true,
+            resizeToBottomInset: true,
               appBar: CommonAppBar(
                 title: StringConstants().addProcurement,
               ),
@@ -62,12 +63,13 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                           ),
                         ),
 
-                        // if (viewModel.yearDropdownError?.isNotEmpty ?? false)
+                        // if (viewModel.financialYearError?.isNotEmpty ?? false)
                         //   showErrorMessage(context, viewModel.yearDropdownError ?? ''),
 
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                            
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(10)
                               ],
@@ -76,10 +78,14 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                               textInputType: TextInputType.text,
                               isMandatory: true,
                               validator: (value) {
-                                return viewModel.contactDetailsValidation();
+                                return viewModel.nameValidation();
                               },
                               controller: viewModel.sellerNameController),
                         ),
+                        if (viewModel.supplierNameError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.supplierNameError ?? ''),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -136,8 +142,8 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                           ),
                         ),
 
-                        // if (viewModel.rawMaterialDropdownError?.isNotEmpty ?? false)
-                        //   showErrorMessage(context, viewModel.rawMaterialDropdownError ?? ''),
+                        // if (viewModel.rawMaterialError?.isNotEmpty ?? false)
+                        //   showErrorMessage(context, viewModel.rawMaterialError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonDropdownTextFormField(
@@ -159,8 +165,8 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                           ),
                         ),
 
-                        // if (viewModel.tyreSourceDropdownError?.isNotEmpty ?? false)
-                        //   showErrorMessage(context, viewModel.tyreSourceDropdownError ?? ''),
+                        // if (viewModel.sourceTyreError?.isNotEmpty ?? false)
+                        //   showErrorMessage(context, viewModel.sourceTyreError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -278,7 +284,25 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     onPressed: () {
-                      viewModel.formValidation(context);
+                      if (viewModel.formKey.currentState?.validate() ?? false) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return CommonPopUp(
+                                onPressedNo: () {
+                                  Navigator.pop(ctx);
+                                },
+                                onPressedYes: () async {
+                                  Navigator.pop(ctx);
+                                  if (context.mounted) {
+                                    viewModel.formValidation(
+                                      context,
+                                    );
+                                  }
+                                },
+                              );
+                            });
+                      }
                     },
                     height: 50,
                     label: StringConstants().submitBtnLabel,
