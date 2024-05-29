@@ -113,6 +113,7 @@ class LoginScreen extends StatelessWidget {
                       hintText: StringConstants().emailIdHint,
                       isMandatory: true,
                       controller: viewmodel.emailController,
+                      isLastField: true,
                       validator: (val) {
                         return viewmodel.emailValidation();
                       },
@@ -125,6 +126,7 @@ class LoginScreen extends StatelessWidget {
                       isMandatory: true,
                       controller: viewmodel.passController,
                       isObscure: viewmodel.isObscure,
+                      isLastField: true,
                       onSuffixTap: () {
                         viewmodel.isObscure = !viewmodel.isObscure;
                       },

@@ -25,6 +25,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final void Function()? onTap;
   final bool? isDocument;
   final void Function(String)? onChanged;
+  final bool? isLastField;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -46,6 +47,9 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   ///
   /// [disabledBgColor] will be used to set the background color of textfield where [isReadOnly] is true,
   /// if no color is given it will use the default disabled background color.
+  ///
+  /// [isLastField] will be true if the textfield is last in any given form to show he "done" or check button in keyboard.
+  /// By default it's value will be false.
 
   const CommonTextFormFieldWidget(
       {super.key,
@@ -65,7 +69,8 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.disabledBgColor,
       this.onTap,
       this.inputFormatters,
-      this.isDocument});
+      this.isDocument,
+      this.isLastField = false});
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
@@ -87,7 +92,7 @@ class _CommonTextFormFieldWidgetNewState
       if (widget.validator != null) {
         error = widget.validator!(widget.controller.text);
       }
-      if(context.mounted){
+      if (context.mounted) {
         setState(() {});
       }
     });
@@ -119,7 +124,7 @@ class _CommonTextFormFieldWidgetNewState
                   color: error != null ? AppColor().red : AppColor().black20),
               borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
-            onChanged:widget.onChanged ,
+            onChanged: widget.onChanged,
             onTap: widget.onTap,
             inputFormatters: widget.inputFormatters ??
                 [
@@ -156,12 +161,18 @@ class _CommonTextFormFieldWidgetNewState
             keyboardType: widget.textInputType ?? TextInputType.text,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
                 color: widget.textColor ?? AppColor().black90,
-                decoration: widget.isDocument==true ? TextDecoration.underline:TextDecoration.none,
+                decoration: widget.isDocument == true
+                    ? TextDecoration.underline
+                    : TextDecoration.none,
                 letterSpacing: widget.isObscure ? 5 : null),
+            textInputAction: widget.isLastField == true ||
+                    widget.textInputType == TextInputType.number
+                ? TextInputAction.done
+                : TextInputAction.next,
             decoration: InputDecoration(
                 fillColor: widget.isReadOnly == true
-                  ? widget.disabledBgColor ?? AppColor().grey03
-                  : AppColor().transparent,
+                    ? widget.disabledBgColor ?? AppColor().grey03
+                    : AppColor().transparent,
                 filled: widget.isReadOnly ?? false,
                 label: RichText(
                   text: TextSpan(
