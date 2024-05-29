@@ -29,6 +29,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
         viewModel: RetreadedAddDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+              resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
                 title: StringConstants().addRetreadedData,
@@ -133,10 +134,6 @@ class RetreadedAddDataScreen extends StatelessWidget {
           validator: (value) {
             return viewModel.dateValidation();
           },
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(10),
-            // FilteringTextInputFormatter.allow(Validations().dateRegex)
-          ],
           onTap: () async {
             viewModel.date = await HelperFunctions()
                 .datePicker(context, viewModel.startDate);
@@ -144,7 +141,6 @@ class RetreadedAddDataScreen extends StatelessWidget {
               viewModel.dateTimeConvert();
             }
           },
-          textInputType: TextInputType.datetime,
           icon: ImageConstants().calendar,
           controller: viewModel.dateController),
     );
@@ -260,8 +256,6 @@ class RetreadedAddDataScreen extends StatelessWidget {
       ),
     );
   }
-
- 
 }
 
 showErrorMessage(BuildContext context, String message) {

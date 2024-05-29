@@ -28,6 +28,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
         viewModel: RecyclerAddDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+              resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
                 title: StringConstants().addRecyclerData,
@@ -119,9 +120,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
                   hintText: StringConstants().contactDetails,
                   isMandatory: false,
                   controller: viewModel.contactDetailsController,
-                   validator: (value) {
-                     return viewModel.contactDetailsValidation();
-                   },
+                  validator: (value) {
+                    return viewModel.contactDetailsValidation();
+                  },
                 ),
               ),
               if (viewModel.wasteTyreSupplierContactError.isNotEmpty)
@@ -162,9 +163,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [LengthLimitingTextInputFormatter(15)],
                     hintText: StringConstants().gstNumberOfWasteTyreSupplier,
-                     validator: (value) {
-                       return viewModel.gstNumberValidation();
-                     },
+                    validator: (value) {
+                      return viewModel.gstNumberValidation();
+                    },
                     isMandatory: true,
                     controller: viewModel.gstController),
               ),
@@ -177,9 +178,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
                     hintText: StringConstants().quantityProcessed,
                     textInputType: TextInputType.number,
                     isMandatory: true,
-                     validator: (value) {
-                       return viewModel.quantityProcessedValidation();
-                     },
+                    validator: (value) {
+                      return viewModel.quantityProcessedValidation();
+                    },
                     controller: viewModel.quantityProcessedController),
               ),
               if (viewModel.processedQtyError.isNotEmpty)
@@ -190,9 +191,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     hintText: StringConstants().quantityProduced,
                     textInputType: TextInputType.number,
-                     validator: (value) {
-                       return viewModel.quantityProducedValidation();
-                     },
+                    validator: (value) {
+                      return viewModel.quantityProducedValidation();
+                    },
                     isMandatory: true,
                     controller: viewModel.quantityProducedController),
               ),
@@ -205,9 +206,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
                     hintText: StringConstants().quantityOfWasteGenerated,
                     textInputType: TextInputType.number,
                     isMandatory: true,
-                     validator: (value) {
-                       return viewModel.quantityOfWasteGeneratedValidation();
-                     },
+                    validator: (value) {
+                      return viewModel.quantityOfWasteGeneratedValidation();
+                    },
                     controller: viewModel.quantityOfWasteGeneratedController),
               ),
               if (viewModel.wasteGeneratedQtyError.isNotEmpty)
@@ -219,6 +220,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
                     isMandatory: true,
                     isReadOnly: true,
                     disabledBgColor: AppColor().transparent,
+                    validator: (value) {
+                      return viewModel.dateValidation();
+                    },
                     onTap: () async {
                       viewModel.date = await HelperFunctions()
                           .datePicker(context, viewModel.startDate);

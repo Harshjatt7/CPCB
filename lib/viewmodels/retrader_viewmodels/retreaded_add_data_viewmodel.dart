@@ -105,7 +105,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     HelperFunctions().logger(dateController.text);
   }
 
-   void changeDropdownValue(newValue) {
+  void changeDropdownValue(newValue) {
     changeDropdown = newValue;
     if (changeDropdown != null) {
       String startYear = changeDropdown!.split('-').first;

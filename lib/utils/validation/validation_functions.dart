@@ -49,6 +49,7 @@ class Validations {
       return null;
     }
   }
+
   String? numbericWithDotValidation(String value) {
     String pattern = r'^\d*\.?\d*$';
     RegExp regExp = RegExp(pattern);
@@ -73,13 +74,11 @@ class Validations {
   }
 
   String? dateValidation(String value) {
-    String pattern =
-        r'^(((0[1-9])|([12][0-9])|(3[01]))-((0[0-9])|(1[012]))-((20[012]\d|19\d\d)|(1\d|2[3])))';
-    RegExp regExp = RegExp(pattern);
+    // String pattern =
+    //     r'^(((0[1-9])|([12][0-9])|(3[01]))-((0[0-9])|(1[012]))-((20[012]\d|19\d\d)|(1\d|2[3])))';
+    // RegExp regExp = RegExp(pattern);
     if (value.toString().isEmpty) {
       return "Please provide a Date";
-    } else if (!regExp.hasMatch(value)) {
-      return "Date Format DD-MM-YYYY";
     }
     return null;
   }

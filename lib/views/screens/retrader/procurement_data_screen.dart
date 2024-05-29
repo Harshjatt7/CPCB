@@ -20,8 +20,8 @@ class ProcurementDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProcurementViewDataViewModel>(
-      onModelReady: (viewmodel) {
-        viewmodel.getProcurementData();
+      onModelReady: (viewmodel) async{
+        await viewmodel.getProcurementData();
       },
       viewModel: ProcurementViewDataViewModel(),
       builder: (context, viewModel, child) {

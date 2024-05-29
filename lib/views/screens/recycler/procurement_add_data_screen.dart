@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/recycler/recycler_procurement_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -28,6 +29,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(
+              resizeToBottomInset: true,
               appBar: CommonAppBar(
                 title: StringConstants().addProcurement,
               ),
@@ -245,8 +247,15 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                           child: CommonTextFormFieldWidget(
                               disabledBgColor: AppColor().transparent,
                               isReadOnly: true,
-                              onSuffixTap: () {
-                                // datePicker(context, viewModel);
+                              onTap: () async {
+                                viewModel.date = await HelperFunctions()
+                                    .datePicker(context, viewModel.startDate);
+                                if (viewModel.date != null) {
+                                  viewModel.dateTimeConvert();
+                                }
+                              },
+                              validator: (value) {
+                                return viewModel.dateValidation();
                               },
                               hintText:
                                   StringConstants().dateOfPurchaseOfRawMaterial,
@@ -283,8 +292,6 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
               ]);
         });
   }
-
-  
 
   showErrorMessage(BuildContext context, String message) {
     return Align(

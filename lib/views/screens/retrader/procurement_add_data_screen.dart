@@ -29,6 +29,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(
+            resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
                 title: StringConstants().addProcurement,
@@ -147,6 +148,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
             if (viewModel.date != null) {
               viewModel.dateTimeConvert();
             }
+          },
+          validator: (value) {
+            return viewModel.dateValidation();
           },
           icon: ImageConstants().calendar,
           controller: viewModel.dateController),
