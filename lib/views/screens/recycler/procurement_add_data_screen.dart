@@ -23,9 +23,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<RecyclerProcurementAddDataViewModel>(
         viewModel: RecyclerProcurementAddDataViewModel(),
-        onModelReady: (viewModel) {
+        onModelReady: (viewModel) async {
           // viewModel.addYear();
-          viewModel.getData();
+          await viewModel.getData();
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(

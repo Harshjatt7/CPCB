@@ -1,39 +1,59 @@
 import 'dart:convert';
 
-RecyclerResponseData responseDataFromJson(String str) =>
-    RecyclerResponseData.fromJson(json.decode(str));
+RecyclerProcurementConstantsResponseData
+    recyclerProcurementConstantsResponseDataFromJson(String str) =>
+        RecyclerProcurementConstantsResponseData.fromJson(json.decode(str));
 
-class RecyclerResponseData {
-  RecyclerData? data;
+class RecyclerProcurementConstantsResponseData {
+  Data? data;
 
-  RecyclerResponseData({
+  RecyclerProcurementConstantsResponseData({
     this.data,
   });
 
-  factory RecyclerResponseData.fromJson(Map<String, dynamic> json) => RecyclerResponseData(
-        data: json["data"] == null ? null : RecyclerData.fromJson(json["data"]),
+  factory RecyclerProcurementConstantsResponseData.fromJson(
+          Map<String, dynamic> json) =>
+      RecyclerProcurementConstantsResponseData(
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 }
 
-class RecyclerData {
-  Map<String, String>? rawMaterialType;
+class Data {
+  RawMaterialType? rawMaterialType;
   List<String>? tyreSource;
   List<String>? financialYear;
 
-  RecyclerData({
+  Data({
     this.rawMaterialType,
     this.tyreSource,
     this.financialYear,
   });
 
-  factory RecyclerData.fromJson(Map<String, dynamic> json) => RecyclerData(
-        rawMaterialType: Map.from(json["rawMaterialType"])
-            .map((k, v) => MapEntry<String, String>(k, v)),
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        rawMaterialType: json["rawMaterialType"] == null
+            ? null
+            : RawMaterialType.fromJson(json["rawMaterialType"]),
         tyreSource: json["tyreSource"] == null
-            ? null
-            : List<String>.from(json["tyreSource"].map((x) => x)),
+            ? []
+            : List<String>.from(json["tyreSource"]!.map((x) => x)),
         financialYear: json["financialYear"] == null
-            ? null
-            : List<String>.from(json["financialYear"].map((x) => x)),
+            ? []
+            : List<String>.from(json["financialYear"]!.map((x) => x)),
+      );
+}
+
+class RawMaterialType {
+  String? tyres;
+  String? flapsTubes;
+
+  RawMaterialType({
+    this.tyres,
+    this.flapsTubes,
+  });
+
+  factory RawMaterialType.fromJson(Map<String, dynamic> json) =>
+      RawMaterialType(
+        tyres: json["Tyres"],
+        flapsTubes: json["Flaps/Tubes"],
       );
 }
