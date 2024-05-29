@@ -20,6 +20,7 @@ class RecyclerProcurementRepository {
     return response;
   }
 
+ 
   Future getRecyclerProcurementConstantData() async {
     APIResponse<RecyclerProcurementConstantsResponseData?>? response =
         await _apiBase.getRequest(

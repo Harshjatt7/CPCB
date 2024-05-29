@@ -8,6 +8,7 @@ import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/controllers/recycler/recycler_procurement_repository.dart';
 import 'package:cpcb_tyre/models/request/recycler/recycler_procurement_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
+import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/models/response/recycler/recycler_procurement_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
@@ -141,12 +142,15 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   APIResponse<RecyclerProcurementConstantsResponseData?>?
       get recyclerResponseModel => _recyclerResponseModel;
 
+  APIResponse<AddDataResponseModel?>? _addResponseModel;
+  APIResponse<AddDataResponseModel?>? get addResponseModel => _addResponseModel;
+
   Future<APIResponse<RecyclerProcurementConstantsResponseData?>?>
       getData() async {
     state = ViewState.busy;
     financialYearList = [];
     typeOfRawMaterial = [];
-    typeOfRawMaterial = []; 
+    typeOfRawMaterial = [];
     try {
       _recyclerResponseModel =
           await _recyclerRepo.getRecyclerProcurementConstantData();
@@ -177,7 +181,6 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     return _recyclerResponseModel;
   }
 
-
   Future<void> postData(BuildContext context) async {
     state = ViewState.busy;
     String purchasedDate = '$date';
@@ -201,11 +204,12 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
       if (formKey.currentState?.validate() ?? false) {
         APIResponse response =
             await _recyclerRepo.postRecyclerProcurementData(request);
+
         if (response.isSuccess == true) {
           if (context.mounted) {
             state = ViewState.idle;
             HelperFunctions().commonSuccessSnackBar(
-                context, MessageConstant().successfullySubmitted);
+                context, response.addResponse?.message.toString() ?? "");
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
