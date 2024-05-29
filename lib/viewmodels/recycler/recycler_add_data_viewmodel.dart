@@ -24,8 +24,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
       TextEditingController();
   TextEditingController contactDetailsController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  TextEditingController typeOfRawMaterialController =
-      TextEditingController();
+  TextEditingController typeOfRawMaterialController = TextEditingController();
   TextEditingController gstController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController quantityProcessedController = TextEditingController();
@@ -152,7 +151,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   void addRecyclerData(BuildContext context) {
     String recyclerDate = '$date';
     AddRecyclerDataRequestModel? request = AddRecyclerDataRequestModel(
-        financialYear: '',
+        financialYear: changeDropdown,
         wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
         wasteTyreSupplierContact: contactDetailsController.text,
         wasteTyreSupplierAddress: addressController.text,
@@ -238,11 +237,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
             (apiError?.wasteTyreSupplierContact ?? []).isEmpty
                 ? ""
                 : apiError?.wasteTyreSupplierContact?.first ?? "";
-
-        // if (context.mounted) {
-        //   HelperFunctions().commonErrorSnackBar(
-        //       context, MessageConstant().somethingWentWrong);
-        // }
       }
     } catch (e) {
       if (context.mounted) {
