@@ -98,6 +98,10 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     }
   }
 
+  String? nameValidation() {
+    return Validations().validateName(nameOfWasteTyreSupplierController.text);
+  }
+
   dateTimeConvert() {
     if (date != null) {
       dateController.text = HelperFunctions().getFormattedDate(date: date!);

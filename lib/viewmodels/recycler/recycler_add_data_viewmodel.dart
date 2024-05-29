@@ -25,7 +25,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   TextEditingController contactDetailsController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController typeOfRawMaterialController =
-      TextEditingController(text: "Retreaded Tyre");
+      TextEditingController();
   TextEditingController gstController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController quantityProcessedController = TextEditingController();
@@ -65,6 +65,10 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
     state = ViewState.idle;
     return response;
+  }
+
+  String? nameValidation() {
+    return Validations().validateName(nameOfWasteTyreSupplierController.text);
   }
 
   void addYear() {

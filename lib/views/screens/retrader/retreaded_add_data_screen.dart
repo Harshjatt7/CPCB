@@ -97,7 +97,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                   isMandatory: false,
                   controller: viewModel.contactDetailsController,
                   validator: (value) {
-                    return viewModel.contactDetailsValidation();
+                    return viewModel.nameValidation();
                   },
                 ),
               ),
