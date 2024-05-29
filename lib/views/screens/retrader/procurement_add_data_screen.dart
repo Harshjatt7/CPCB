@@ -166,6 +166,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
           validator: (value) {
             return viewModel.gstNumberValidation();
           },
+          isLastField: true,
           isMandatory: true,
           controller: viewModel.gstController),
     );
