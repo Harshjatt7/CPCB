@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,7 @@ class RecyclerDataViewModel extends BaseViewModel {
           recyclerData = _recyclerResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger("No response");
+        HelperFunctions().logger(MessageConstant().errorMessage);
       }
     } catch (err) {
       HelperFunctions().logger("$err");
@@ -69,7 +70,7 @@ class RecyclerDataViewModel extends BaseViewModel {
           recyclerData = _recyclerSearchResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger("No response");
+        HelperFunctions().logger(MessageConstant().errorMessage);
       }
     } catch (err) {
       HelperFunctions().logger("$err");
