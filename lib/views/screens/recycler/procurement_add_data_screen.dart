@@ -68,6 +68,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
+                            
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(10)
                               ],
