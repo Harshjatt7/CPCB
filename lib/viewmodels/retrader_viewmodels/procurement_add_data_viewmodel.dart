@@ -241,18 +241,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
         .numbericWithDotValidation(quantityReceivedController.text);
   }
 
-  void onChange() {
-    String text = dateController.text;
-    if (text.length < newText.length) {
-      newText = text;
-    } else if (text.isNotEmpty && text != newText) {
-      String tempText = text.replaceAll("-", "");
-      if (tempText.length == 2 || tempText.length == 4) {
-        newText = '$text-';
-        dateController.text = newText;
-      }
-    }
-  }
 
   String? valueValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
@@ -291,7 +279,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     } else {}
   }
 
-  void postRequest(BuildContext context) {
+  void addProcurementData(BuildContext context) {
     postProcurementData(
         context,
         ProcurementRequestModel(

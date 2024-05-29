@@ -55,6 +55,13 @@ class ErrorsList {
   List<String>? purchaseDate;
   List<String>? procurementInvoiceFile;
   List<String>? financeYear;
+  List<String>? wasteTyreSupplierName;
+  List<String>? wasteTyreSupplierContact;
+  List<String>? wasteTyreSupplierAddress;
+  List<String>? typeOfRecycledMaterial;
+  List<String>? wasteTyreSupplierGst;
+  List<String>? wasteGeneratedQty;
+  List<String>? recycledDate;
 
   ErrorsList(
       {this.financialYear,
@@ -70,7 +77,14 @@ class ErrorsList {
       this.sellerGstNo,
       this.purchaseDate,
       this.procurementInvoiceFile,
-      this.financeYear});
+      this.financeYear,
+      this.wasteTyreSupplierName,
+      this.wasteTyreSupplierContact,
+      this.wasteTyreSupplierAddress,
+      this.typeOfRecycledMaterial,
+      this.wasteTyreSupplierGst,
+      this.wasteGeneratedQty,
+      this.recycledDate});
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
         financialYear: json["financial_year"] == null
@@ -116,6 +130,31 @@ class ErrorsList {
         financeYear: json["finance_year"] == null
             ? []
             : List<String>.from(json["finance_year"]!.map((x) => x)),
+        wasteTyreSupplierName: json["waste_tyre_supplier_name"] == null
+            ? []
+            : List<String>.from(
+                json["waste_tyre_supplier_name"]!.map((x) => x)),
+        wasteTyreSupplierContact: json["waste_tyre_supplier_contact"] == null
+            ? []
+            : List<String>.from(
+                json["waste_tyre_supplier_contact"]!.map((x) => x)),
+        wasteTyreSupplierAddress: json["waste_tyre_supplier_address"] == null
+            ? []
+            : List<String>.from(
+                json["waste_tyre_supplier_address"]!.map((x) => x)),
+        wasteTyreSupplierGst: json["waste_tyre_supplier_gst"] == null
+            ? []
+            : List<String>.from(json["waste_tyre_supplier_gst"]!.map((x) => x)),
+        wasteGeneratedQty: json["waste_generated_qty"] == null
+            ? []
+            : List<String>.from(json["waste_generated_qty"]!.map((x) => x)),
+        recycledDate: json["recycled_date"] == null
+            ? []
+            : List<String>.from(json["recycled_date"]!.map((x) => x)),
+        typeOfRecycledMaterial: json["type_of_recycled_material"] == null
+            ? []
+            : List<String>.from(
+                json["type_of_recycled_material"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -161,5 +200,26 @@ class ErrorsList {
         "finance_year": financeYear == null
             ? []
             : List<dynamic>.from(financeYear!.map((x) => x)),
+        "waste_tyre_supplier_name": wasteTyreSupplierName == null
+            ? []
+            : List<dynamic>.from(wasteTyreSupplierName!.map((x) => x)),
+        "waste_tyre_supplier_contact": wasteTyreSupplierContact == null
+            ? []
+            : List<dynamic>.from(wasteTyreSupplierContact!.map((x) => x)),
+        "waste_tyre_supplier_address": wasteTyreSupplierAddress == null
+            ? []
+            : List<dynamic>.from(wasteTyreSupplierAddress!.map((x) => x)),
+        "waste_tyre_supplier_gst": wasteTyreSupplierGst == null
+            ? []
+            : List<dynamic>.from(wasteTyreSupplierGst!.map((x) => x)),
+        "waste_generated_qty": wasteGeneratedQty == null
+            ? []
+            : List<dynamic>.from(wasteGeneratedQty!.map((x) => x)),
+        "recycled_date": recycledDate == null
+            ? []
+            : List<dynamic>.from(recycledDate!.map((x) => x)),
+        "type_of_recycled_material": typeOfRecycledMaterial == null
+            ? []
+            : List<dynamic>.from(typeOfRecycledMaterial!.map((x) => x)),
       };
 }

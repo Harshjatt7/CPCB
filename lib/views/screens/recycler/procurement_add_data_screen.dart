@@ -4,7 +4,6 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/recycler/recycler_procurement_add_data_viewmodel.dart';
-import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/procurement_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -285,13 +284,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
         });
   }
 
-  Future<DateTime?> datePicker(
-      BuildContext context, ProcurementAddDataViewModel viewModel) {
-    return showDatePicker(
-        context: context,
-        firstDate: viewModel.startDate,
-        lastDate: DateTime.now());
-  }
+  
 
   showErrorMessage(BuildContext context, String message) {
     return Align(

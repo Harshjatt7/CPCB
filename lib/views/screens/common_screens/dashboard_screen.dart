@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/financial_number.dart';
@@ -461,30 +460,30 @@ class DashBoardScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 16, bottom: 10),
-                                      child: CommonTextWidget(
-                                        StringConstants().descripsionTitle,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall!
-                                            .copyWith(
-                                                color: AppColor().black40),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: CommonTextWidget(
-                                      MessageConstant().environmentText,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall,
-                                    ),
-                                  )
+                                  // Align(
+                                  //   alignment: Alignment.topLeft,
+                                  //   child: Padding(
+                                  //     padding: const EdgeInsets.only(
+                                  //         top: 16, bottom: 10),
+                                  //     child: CommonTextWidget(
+                                  //       StringConstants().descripsionTitle,
+                                  //       style: Theme.of(context)
+                                  //           .textTheme
+                                  //           .displaySmall!
+                                  //           .copyWith(
+                                  //               color: AppColor().black40),
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // Align(
+                                  //   alignment: Alignment.topLeft,
+                                  //   child: CommonTextWidget(
+                                  //     MessageConstant().environmentText,
+                                  //     style: Theme.of(context)
+                                  //         .textTheme
+                                  //         .displaySmall,
+                                  //   ),
+                                  // )
                                 ],
                               ),
                             )

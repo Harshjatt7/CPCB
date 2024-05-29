@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/retreader_view_request_model.dart';
@@ -32,6 +33,8 @@ class RetreadedAddDataViewModel extends BaseViewModel {
 
   List financialYearList = <String>[];
   final _retreaderRepo = RetreaderRepository();
+  DateTime startDate = DateTime.now();
+  DateTime? date;
   String dynamicError = "";
   String financialYearError = "";
   String producedQtyError = "";
@@ -95,11 +98,24 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     }
   }
 
-  void changeDropdownValue(newValue) {
+  dateTimeConvert() {
+    if (date != null) {
+      dateController.text = HelperFunctions().getFormattedDate(date: date!);
+    }
+    HelperFunctions().logger(dateController.text);
+  }
+
+   void changeDropdownValue(newValue) {
     changeDropdown = newValue;
+    if (changeDropdown != null) {
+      String startYear = changeDropdown!.split('-').first;
+      int year = int.parse(startYear);
+      startDate = DateTime(year, 4, 1);
+      updateUI();
+    }
     updateUI();
     if (changeDropdown == null) {
-      yearDropdownError = "It is mandatory to select Financial year";
+      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
     }
   }
 

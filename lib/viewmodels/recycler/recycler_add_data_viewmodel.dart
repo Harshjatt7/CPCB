@@ -6,7 +6,6 @@ import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../constants/routes_constant.dart';
 import '../../models/response/base_response_model.dart';
 import '../../models/response/recycler/get_recycler_add_data_constants.dart';
@@ -18,6 +17,8 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   String? yearDropdownValue;
   String? yearDropdownError;
   String? changeDropdown;
+  String? rawMaterialChangeDropDown;
+
   String newText = '';
   TextEditingController nameOfWasteTyreSupplierController =
       TextEditingController();
@@ -31,6 +32,19 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   TextEditingController quantityProducedController = TextEditingController();
   TextEditingController quantityOfWasteGeneratedController =
       TextEditingController();
+  DateTime startDate = DateTime.now();
+  DateTime? date;
+  String financialYearError = "";
+  String producedQtyError = "";
+  String processedQtyError = "";
+  String retreadedDateError = "";
+  String wasteTyreSupplierNameError = '';
+  String wasteTyreSupplierContactError = '';
+  String wasteTyreSupplierAddressError = '';
+  String typeOfRecycledMaterialError = '';
+  String wasteTyreSupplierGstError = '';
+  String wasteGeneratedQtyError = '';
+  String recycledDateError = '';
 
   List financialYearList = <String>[];
   List tyreOfRecyclerMaterialList = <String>[];
@@ -53,7 +67,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     return response;
   }
 
-      
   void addYear() {
     for (int i = 0; i < 5; i++) {
       financialYearList
@@ -63,19 +76,32 @@ class RecyclerAddDataViewModel extends BaseViewModel {
 
   void changeDropdownValue(newValue) {
     changeDropdown = newValue;
+    if (changeDropdown != null) {
+      String startYear = changeDropdown!.split('-').first;
+      int year = int.parse(startYear);
+      startDate = DateTime(year, 4, 1);
+      updateUI();
+    }
     updateUI();
     if (changeDropdown == null) {
-      yearDropdownError = MessageConstant().mandatoryFinancialYear;
+      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
     }
   }
 
   void changeRawMaterialDropdownValue(newValue) {
-    changeDropdown = newValue;
+    rawMaterialChangeDropDown = newValue;
     updateUI();
     if (changeDropdown == null) {
       tyreOfRecyclerMaterialDropdownError =
           MessageConstant().mandatoryTypeRawMaterial;
     }
+  }
+
+  dateTimeConvert() {
+    if (date != null) {
+      dateController.text = HelperFunctions().getFormattedDate(date: date!);
+    }
+    HelperFunctions().logger(dateController.text);
   }
 
   String? quantityProcessedValidation() {
@@ -94,19 +120,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
       return MessageConstant().mandatoryToAddWasteGenerated;
     }
     return null;
-  }
-
-  void onDateChange() {
-    String text = dateController.text;
-    if (text.length < newText.length) {
-      newText = text;
-    } else if (text.isNotEmpty && text != newText) {
-      String tempText = text.replaceAll("-", "");
-      if (tempText.length == 2 || tempText.length == 4) {
-        newText = '$text-';
-        dateController.text = newText;
-      }
-    }
   }
 
   String? dateValidation() {
@@ -132,49 +145,104 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     return null;
   }
 
+  void addRecyclerData(BuildContext context) {
+    String recyclerDate = '$date';
+    AddRecyclerDataRequestModel? request = AddRecyclerDataRequestModel(
+        financialYear: '',
+        wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
+        wasteTyreSupplierContact: contactDetailsController.text,
+        wasteTyreSupplierAddress: addressController.text,
+        typeOfRecycledMaterial: rawMaterialChangeDropDown,
+        // typeOfRecycledMaterial: null,
+        wasteTyreSupplierGst: gstController.text,
+        processedQty: double.parse(quantityProcessedController.text),
+        producedQty: double.parse(quantityProducedController.text),
+        wasteGeneratedQty:
+            double.parse(quantityOfWasteGeneratedController.text),
+        recycledDate: recyclerDate.split(' ').first
+        // processedQty: null,
+        // producedQty: null,
+        // wasteGeneratedQty: null,
+        // recycledDate: null
+        );
+    postRecyclerData(request, context);
+  }
+
   void formValidation(BuildContext context) {
     if (changeDropdown == null) {
       changeDropdownValue(null);
       changeRawMaterialDropdownValue(null);
     }
-    if (formKey.currentState?.validate() ?? false) {
-      AddRecyclerDataRequestModel? request = AddRecyclerDataRequestModel(
-          financialYear: yearDropdownValue,
-          wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
-          wasteTyreSupplierContact: contactDetailsController.text,
-          wasteTyreSupplierAddress: addressController.text,
-          typeOfRecycledMaterial: tyreOfRecyclerMaterialDropdownValue,
-          wasteTyreSupplierGst: gstController.text,
-          processedQty: double.parse(quantityProcessedController.text ),
-          producedQty: double.parse(quantityProducedController.text ),
-          wasteGeneratedQty:
-              double.parse(quantityOfWasteGeneratedController.text),
-          recycledDate: DateFormat('yyyy-mm-dd').format(DateTime.now()));
-      addRecyclerData(request, context);
-    }
+    if (formKey.currentState?.validate() ?? false) {}
   }
 
-  Future addRecyclerData(
+  Future postRecyclerData(
       AddRecyclerDataRequestModel? request, BuildContext context) async {
     state = ViewState.busy;
+    try {
+      var res = await _recyclerRepo.addRecyclerData(request);
+      if (res?.isSuccess == true) {
+        state = ViewState.idle;
+        if (context.mounted) {
+          HelperFunctions().commonSuccessSnackBar(
+              context, MessageConstant().successfullySubmitted);
+          MaterialAppViewModel.selectedPageIndex = 2;
+          Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.recyclerHomeScreenRoute,
+              ModalRoute.withName(AppRoutes.recyclerHomeScreenRoute));
+        } else {}
+      } else {
+        state = ViewState.idle;
+        final apiError = res?.error?.errorsList;
+        financialYearError = (apiError?.financialYear ?? []).isEmpty
+            ? ""
+            : apiError?.financialYear?.first ?? "";
+        processedQtyError = (apiError?.processedQty ?? []).isEmpty
+            ? ""
+            : apiError?.processedQty?.first ?? "";
+        producedQtyError = (apiError?.producedQty ?? []).isEmpty
+            ? ""
+            : apiError?.producedQty?.first ?? "";
+        retreadedDateError = (apiError?.retreadedDate ?? []).isEmpty
+            ? ""
+            : apiError?.retreadedDate?.first ?? "";
+        wasteTyreSupplierNameError =
+            (apiError?.wasteTyreSupplierName ?? []).isEmpty
+                ? ""
+                : apiError?.wasteTyreSupplierName?.first ?? "";
 
-    var res = await _recyclerRepo.addRecyclerData(request);
-    if (res?.isSuccess == true) {
-      state = ViewState.idle;
-      if (context.mounted) {
-        HelperFunctions().commonSuccessSnackBar(
-            context, MessageConstant().successfullySubmitted);
-        MaterialAppViewModel.selectedPageIndex = 1;
-        Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.retraderHomeScreenRoute,
-            ModalRoute.withName(AppRoutes.retraderHomeScreenRoute));
+        wasteTyreSupplierAddressError =
+            (apiError?.wasteTyreSupplierAddress ?? []).isEmpty
+                ? ""
+                : apiError?.wasteTyreSupplierAddress?.first ?? "";
+        typeOfRecycledMaterialError =
+            (apiError?.typeOfRecycledMaterial ?? []).isEmpty
+                ? ""
+                : apiError?.typeOfRecycledMaterial?.first ?? "";
+        wasteGeneratedQtyError = (apiError?.wasteGeneratedQty ?? []).isEmpty
+            ? ""
+            : apiError?.wasteGeneratedQty?.first ?? "";
+        wasteTyreSupplierGstError =
+            (apiError?.wasteTyreSupplierGst ?? []).isEmpty
+                ? ""
+                : apiError?.wasteTyreSupplierGst?.first ?? "";
+        recycledDateError = (apiError?.recycledDate ?? []).isEmpty
+            ? ""
+            : apiError?.recycledDate?.first ?? "";
+        wasteTyreSupplierContactError =
+            (apiError?.wasteTyreSupplierContact ?? []).isEmpty
+                ? ""
+                : apiError?.wasteTyreSupplierContact?.first ?? "";
+
+        // if (context.mounted) {
+        //   HelperFunctions().commonErrorSnackBar(
+        //       context, MessageConstant().somethingWentWrong);
+        // }
       }
-    } else {
-      state = ViewState.idle;
+    } catch (e) {
       if (context.mounted) {
-        HelperFunctions()
-            .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
+        HelperFunctions().commonErrorSnackBar(context, '');
       }
     }
   }

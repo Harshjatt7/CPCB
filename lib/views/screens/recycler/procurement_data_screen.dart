@@ -3,7 +3,6 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/models/response/retreader/procurement_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/procurement_view_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -84,67 +83,63 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
               }
               return false;
             },
-            child: Column(
-              children: [
-                Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: (viewModel.data?.length ?? 0) == 0
-                        ? Center(
-                            child: CommonTextWidget(
-                                MessageConstant().noMatchingResultsFound))
-                        : null),
-                Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const PageScrollPhysics(),
-                          itemCount: viewModel.data?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            ProcurementAddData procurementData =
-                                viewModel.data?[index] ?? ProcurementAddData();
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: CommonRetraderDataCard(
-                                name: procurementData.sellerName ?? "",
-                                contactDetails: procurementData.sellerMobile,
-                                address: procurementData.sellerAddress,
-                                invoiceNumber: procurementData.invoiceNumber,
-                                gstNumber: procurementData.sellerGstNo,
-                                typeOfRaw: procurementData.rawMaterial,
-                                total: '${procurementData.purchasedQuantity}',
-                                date: '${procurementData.purchasedDate}',
-                                year: '${procurementData.financeYear}',
+            child: SingleChildScrollView(
+              controller: viewModel.scrollController,
+              child: Column(
+                children: [
+                  Padding(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: (viewModel.data?.length ?? 0) == 0
+                          ? Center(
+                              child: CommonTextWidget(
+                                  MessageConstant().noMatchingResultsFound))
+                          : Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List<Widget>.generate(
+                                viewModel.data?.length ?? 0,
+                                (index) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  child: CommonRetraderDataCard(
+                                    name: viewModel.data?[index].sellerName ?? "",
+                                    contactDetails:
+                                        viewModel.data?[index].sellerMobile,
+                                    address: viewModel.data?[index].sellerAddress,
+                                    invoiceNumber:
+                                        viewModel.data?[index].invoiceNumber,
+                                    gstNumber: viewModel.data?[index].sellerGstNo,
+                                    typeOfRaw: viewModel.data?[index].rawMaterial,
+                                    total:
+                                        '${viewModel.data?[index].purchasedQuantity}',
+                                    date:
+                                        '${viewModel.data?[index].purchasedDate}',
+                                    year: '${viewModel.data?[index].financeYear}',
+                                  ),
+                                ),
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      CommonButtonWidget(
-                        label: StringConstants().addProcurementButton,
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, AppRoutes.procurementAddDataScreenRoute);
-                        },
-                        color: AppColor().darkGreen,
-                        labelStyle: Theme.of(context)
-                            .textTheme
-                            .labelSmall!
-                            .copyWith(color: AppColor().white),
-                      ),
-                    ]),
-                  ),
-                ),
-              ],
+                            )),
+                ],
+              ),
             ),
           ),
+          persistentFooterButtons: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CommonButtonWidget(
+                onPressed: () {
+                  Navigator.pushNamed(
+                      context, AppRoutes.recyclerProcurementAddDataScreenRoute);
+                },
+                label: StringConstants().addRetreadedDataButton,
+                color: AppColor().darkGreen,
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .labelSmall!
+                    .copyWith(color: AppColor().white),
+              ),
+            ),
+          ],
         );
       },
     );

@@ -18,8 +18,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
-import '../../models/request/retreader/procurement_request_model.dart';
-
 class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
 

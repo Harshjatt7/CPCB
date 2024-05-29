@@ -451,9 +451,8 @@ class HelperFunctions {
     } else if (dtstr != null) {
       if (dtstr.contains('/')) {
         dateTime = DateFormat('dd/MM/yyyy').parse(dtstr);
-      }
-      else{
-        dateTime=DateTime.tryParse(dtstr);
+      } else {
+        dateTime = DateTime.tryParse(dtstr);
       }
     }
     try {
@@ -466,5 +465,10 @@ class HelperFunctions {
     } catch (err) {
       return formattedDate;
     }
+  }
+
+  Future<DateTime?> datePicker(BuildContext context, DateTime firstDate) {
+    return showDatePicker(
+        context: context, firstDate: firstDate, lastDate: DateTime.now());
   }
 }

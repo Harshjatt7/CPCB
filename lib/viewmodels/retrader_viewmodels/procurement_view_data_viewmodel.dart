@@ -20,6 +20,8 @@ class ProcurementViewDataViewModel extends BaseViewModel {
   APIResponse<ProcurementResponseModel?>? get procurementSearchResponseModel =>
       _procurementSearchResponseModel;
 
+  ScrollController scrollController = ScrollController();
+
   List<ProcurementAddData>? data;
   List<ProcurementAddData> tempData = [];
 

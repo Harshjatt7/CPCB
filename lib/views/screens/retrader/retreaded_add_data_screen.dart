@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreaded_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
@@ -136,8 +137,12 @@ class RetreadedAddDataScreen extends StatelessWidget {
             LengthLimitingTextInputFormatter(10),
             // FilteringTextInputFormatter.allow(Validations().dateRegex)
           ],
-          onSuffixTap: () {
-            datePicker(context);
+          onTap: () async {
+            viewModel.date = await HelperFunctions()
+                .datePicker(context, viewModel.startDate);
+            if (viewModel.date != null) {
+              viewModel.dateTimeConvert();
+            }
           },
           textInputType: TextInputType.datetime,
           icon: ImageConstants().calendar,
@@ -256,10 +261,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     );
   }
 
-  Future<DateTime?> datePicker(BuildContext context) {
-    return showDatePicker(
-        context: context, firstDate: DateTime(2024), lastDate: DateTime(2030));
-  }
+ 
 }
 
 showErrorMessage(BuildContext context, String message) {
