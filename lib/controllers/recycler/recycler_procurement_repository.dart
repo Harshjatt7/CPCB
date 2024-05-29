@@ -21,11 +21,11 @@ class RecyclerProcurementRepository {
   }
 
   Future getRecyclerProcurementConstantData() async {
-    APIResponse<RecyclerResponseData?>? response = await _apiBase.getRequest(
-        _apiRoutes.reyclerProcurementConstantDataAPIRoute,
-        isAuthorizationRequired: true,
-        isRefreshTokenAuthorizationRequired: true
-        );
+    APIResponse<RecyclerProcurementConstantsResponseData?>? response =
+        await _apiBase.getRequest(
+            _apiRoutes.reyclerProcurementConstantDataAPIRoute,
+            isAuthorizationRequired: true,
+            isRefreshTokenAuthorizationRequired: true);
     return response;
   }
 }

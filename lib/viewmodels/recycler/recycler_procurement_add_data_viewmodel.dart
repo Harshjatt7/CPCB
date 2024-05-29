@@ -131,19 +131,22 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   }
 
   String? monthDropdownError;
-  RecyclerData? data;
-  APIResponse<RecyclerResponseData?>? _recyclerResponseModel;
-  APIResponse<RecyclerResponseData?>? get recyclerResponseModel =>
-      _recyclerResponseModel;
 
-  Future<APIResponse<RecyclerResponseData?>?> getData() async {
+  APIResponse<RecyclerProcurementConstantsResponseData?>?
+      _recyclerResponseModel;
+  APIResponse<RecyclerProcurementConstantsResponseData?>?
+      get recyclerResponseModel => _recyclerResponseModel;
+
+  Future<APIResponse<RecyclerProcurementConstantsResponseData?>?>
+      getData() async {
     state = ViewState.busy;
     try {
       _recyclerResponseModel =
           await _recyclerRepo.getRecyclerProcurementConstantData();
       if (_recyclerResponseModel?.isSuccess == true) {
-        _recyclerResponseModel?.data = RecyclerResponseData.fromJson(
-            _recyclerResponseModel?.completeResponse);
+        _recyclerResponseModel?.data =
+            RecyclerProcurementConstantsResponseData.fromJson(
+                _recyclerResponseModel?.completeResponse);
 
         if (_recyclerResponseModel?.data?.data?.financialYear != null) {
           financialYearList
@@ -151,9 +154,11 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
         }
 
         if (_recyclerResponseModel?.data?.data?.rawMaterialType != null) {
-          typeOfRawMaterial.addAll(
-              _recyclerResponseModel?.data?.data?.rawMaterialType?.values ??
-                  []);
+          typeOfRawMaterial.add(
+              _recyclerResponseModel?.data?.data?.rawMaterialType?.flapsTubes ??
+                  "");
+          typeOfRawMaterial.add(
+              _recyclerResponseModel?.data?.data?.rawMaterialType?.tyres ?? "");
         }
 
         if (_recyclerResponseModel?.data?.data?.tyreSource != null) {
@@ -177,7 +182,9 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
       invoiceFile: uploadInvoiceDoc?.filename,
       purchasedDate: dateController.text,
       purchasedQuantity: quantityReceivedController.text,
-      rawMaterial: rawMaterialDropdownValue,
+      rawMaterial: rawMaterialDropdownValue == "Scrap tyre/used tyre/cut tyre"
+          ? "Tyres"
+          : rawMaterialDropdownValue,
       sellerAddress: addressController.text,
       sellerGstNo: gstController.text,
       sourceTyres: tyreSourceDropdownValue,
