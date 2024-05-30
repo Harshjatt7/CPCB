@@ -4,6 +4,7 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/financial_number.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_environment_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_erp_tile.dart';
@@ -401,11 +402,13 @@ class DashBoardScreen extends StatelessWidget {
                                               right: 8, bottom: 8),
                                           child: ProducerEnvironmentTile(
                                               title: StringConstants().dateOfEc,
-                                              subtitle: viewModel
-                                                      .data
-                                                      ?.environmentCompensation
-                                                      ?.dateOfEc ??
-                                                  "",
+                                              subtitle: HelperFunctions()
+                                                  .getFormattedDate(
+                                                      dtstr: viewModel
+                                                              .data
+                                                              ?.environmentCompensation
+                                                              ?.dateOfEc ??
+                                                          ""),
                                               image: ImageConstants().calendar),
                                         ),
                                       ),
