@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
-import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
+import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
@@ -47,7 +47,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   String? fileSize;
   double? fileSizeNum;
   FileSizeModel? fileSizeModel;
-  final _procurementRepo = ProcurementRepository();
+  final _retreaderRepo = RetreaderRepository();
   String? financialYearError;
   String? supplierNameError;
   String? supplierContactError;
@@ -96,7 +96,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     try {
       if (formKey.currentState?.validate() ?? false) {
         APIResponse response =
-            await _procurementRepo.postProcurementData(request);
+            await _retreaderRepo.postProcurementData(request);
         if (response.isSuccess == true) {
           if (context.mounted) {
             state = ViewState.idle;

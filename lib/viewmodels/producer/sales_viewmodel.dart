@@ -19,6 +19,8 @@ class SalesViewModel extends BaseViewModel {
   List<SalesData> tempData = [];
   int page = 1;
   ScrollController scrollController = ScrollController();
+  TextEditingController searchController = TextEditingController();
+
   void getCurrentUserType(BuildContext context) {
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
@@ -33,7 +35,7 @@ class SalesViewModel extends BaseViewModel {
   void loadMoreData() async {
     state = ViewState.busy;
 
-    await getRetreaderData(isPaginating: true);
+    await getSalesData(isPaginating: true);
     tempData.clear();
     data?.forEach((e) {
       tempData.add(SalesData(
@@ -57,7 +59,7 @@ class SalesViewModel extends BaseViewModel {
     updateUI();
   }
 
-  Future<APIResponse<SalesDataResponseModel?>?> getRetreaderData(
+  Future<APIResponse<SalesDataResponseModel?>?> getSalesData(
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
     try {

@@ -6,6 +6,8 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer/sales_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_producer_sales_list.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_title_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
@@ -17,13 +19,15 @@ class SalesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<SalesViewModel>(
-      onModelReady: (viewmodel) async {},
+      onModelReady: (viewmodel) async {
+        await viewmodel.getSalesData();
+      },
       viewModel: SalesViewModel(),
       builder: (context, viewModel, child) {
         return CustomScaffold(
           isLoading: viewModel.state == ViewState.busy,
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(146),
+            preferredSize: const Size.fromHeight(125),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -35,6 +39,8 @@ class SalesScreen extends StatelessWidget {
                     name: StringConstants().name,
                     designation: StringConstants().userType,
                   ),
+                  CommonTitleBar(
+                      title: StringConstants().salesDataProducerListingTitle)
                 ],
               ),
             ),
@@ -61,11 +67,33 @@ class SalesScreen extends StatelessWidget {
                           : Column(
                               mainAxisSize: MainAxisSize.min,
                               children: List<Widget>.generate(
-                                10,
+                                viewModel.data?.length ?? 0,
                                 (index) => Padding(
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 8),
-                                    child: Container()),
+                                    child: ProducerSalesList(
+                                      title: viewModel.data?[index]
+                                              .typeOfTyreManufacture ??
+                                          '',
+                                      year: viewModel
+                                              .data?[index].financialYear ??
+                                          '',
+                                      month: viewModel.data?[index].month ?? '',
+                                      count: viewModel.data?[index].total ?? "",
+                                      producerType:
+                                          viewModel.data?[index].producerType ??
+                                              '',
+                                      bus: viewModel.data?[index].bus,
+                                      motorcycle:
+                                          viewModel.data?[index].motorCycle,
+                                      other: viewModel.data?[index].other,
+                                      passengerCar:
+                                          viewModel.data?[index].passengerCar,
+                                      scooter: viewModel.data?[index].scooter,
+                                      tRear: viewModel.data?[index].tRear,
+                                      truck: viewModel.data?[index].truck,
+                                      tcv: viewModel.data?[index].lcv,
+                                    )),
                               ),
                             )),
                 ],
@@ -78,7 +106,7 @@ class SalesScreen extends StatelessWidget {
               child: CommonButtonWidget(
                 onPressed: () {
                   Navigator.pushNamed(
-                      context, AppRoutes.recyclerProcurementAddDataScreenRoute);
+                      context, AppRoutes.addSalesDataScreenRoute);
                 },
                 label: StringConstants().addSalesDataBtnLabel,
                 color: AppColor().darkGreen,
