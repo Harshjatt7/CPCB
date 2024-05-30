@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
-import 'package:cpcb_tyre/controllers/recycler/recycler_procurement_repository.dart';
+import 'package:cpcb_tyre/controllers/recycler/recycler_repository.dart';
 import 'package:cpcb_tyre/models/request/recycler/recycler_procurement_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
@@ -54,7 +54,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   String? fileSize;
   double? fileSizeNum;
   FileSizeModel? fileSizeModel;
-  final _recyclerRepo = RecyclerProcurementRepository();
+  final _recyclerRepo = RecyclerRepository();
   String? financialYearError;
   String? supplierNameError;
   String? supplierContactError;
