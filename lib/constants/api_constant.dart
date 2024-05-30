@@ -36,6 +36,7 @@ class APIRoutes {
   final String addRecycledData = "api/recycler/add-recycled-data";
   final String retreaderDownloadApplicationAPIRoute =
       "api/retreader/download-application";
+  final String producerSalesDataList="api/producer/sales-data-list";
 }
 
 extension ApiBaseURL on ApiEnvironments {

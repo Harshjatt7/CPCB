@@ -92,9 +92,11 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   }
 
   void addYear() {
-    for (int i = 0; i < 5; i++) {
-      financialYearList
-          .add("${DateTime.now().year + (i)}-${DateTime.now().year + (i + 1)}");
+    int year = 2022;
+    int currentYear = DateTime.now().year;
+    while (year <= currentYear) {
+      financialYearList.add('$year-${year + 1}');
+      year++;
     }
   }
 
@@ -141,7 +143,6 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     return null;
   }
 
-  
   String? dateValidation() {
     return Validations().dateValidation(dateController.text);
   }
