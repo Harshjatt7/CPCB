@@ -108,6 +108,7 @@ class RetreaderDataScreen extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8),
                                 child: CommonRetraderDataCard(
+                                  isRetraderContainer: true,
                                   name: viewModel
                                           .data?[index].wasteTyreSupplierName ??
                                       "",

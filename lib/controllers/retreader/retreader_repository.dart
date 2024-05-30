@@ -10,6 +10,8 @@ import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 
+import '../../models/response/common/add_data_response_model.dart';
+
 class RetreaderRepository {
   final _apiBase = APIBase();
   final _apiRoutes = APIRoutes();
@@ -23,8 +25,9 @@ class RetreaderRepository {
     return response;
   }
 
-  Future postRetreaderData(RetreaderRequestModel requestModel) async {
-    APIResponse? response = await _apiBase.postRequest(
+  Future<APIResponse<AddDataResponseModel?>?> postRetreaderData(
+      RetreaderRequestModel requestModel) async {
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
       _apiRoutes.retreaderAPIRoute,
       data: requestModel.toJson(),
       isAuthorizationRequired: true,

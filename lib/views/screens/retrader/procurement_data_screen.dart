@@ -20,7 +20,7 @@ class ProcurementDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProcurementViewDataViewModel>(
-      onModelReady: (viewmodel) async{
+      onModelReady: (viewmodel) async {
         await viewmodel.getProcurementData();
       },
       viewModel: ProcurementViewDataViewModel(),
@@ -137,7 +137,7 @@ class ProcurementDataScreen extends StatelessWidget {
                   Navigator.pushNamed(
                       context, AppRoutes.procurementAddDataScreenRoute);
                 },
-                label: StringConstants().addRetreadedDataButton,
+                label: StringConstants().addProcurement,
                 color: AppColor().darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme

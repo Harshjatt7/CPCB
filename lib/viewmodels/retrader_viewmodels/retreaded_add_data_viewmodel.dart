@@ -4,6 +4,7 @@ import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/retreader_view_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
+import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -42,7 +43,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   String retreadedDateError = "";
 
   Future<void> addRetreadedData(BuildContext context) async {
-    APIResponse? apiResponse;
+    APIResponse<AddDataResponseModel?>? apiResponse;
     RetreaderRequestModel readerRequestModel = RetreaderRequestModel(
       financialYear: changeDropdown,
       supplierName: nameOfWasteTyreSupplierController.text,
@@ -59,9 +60,13 @@ class RetreadedAddDataViewModel extends BaseViewModel {
       state = ViewState.busy;
       apiResponse = await _retreaderRepo.postRetreaderData(readerRequestModel);
       if (apiResponse?.isSuccess == true) {
+        apiResponse?.data =
+            AddDataResponseModel.fromJson(apiResponse.completeResponse);
         if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, "Data added successfully");
+          HelperFunctions().commonSuccessSnackBar(
+              context,
+              apiResponse?.data?.message ??
+                  MessageConstant().successfullySubmitted);
           state = ViewState.idle;
           MaterialAppViewModel.selectedPageIndex = 2;
           Navigator.pushNamedAndRemoveUntil(

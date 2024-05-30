@@ -37,7 +37,8 @@ class LoginViewModel extends BaseViewModel {
 
   final List<String> userTypes = [
     StringConstants.admin,
-    StringConstants.other,
+    StringConstants.auditor,
+    StringConstants.spcb,
     StringConstants.inspection,
     StringConstants.producer,
     StringConstants.retreader,
@@ -91,7 +92,10 @@ class LoginViewModel extends BaseViewModel {
             case UserTypes.admin:
               Navigator.pushReplacementNamed(context, '');
               break;
-            case UserTypes.other:
+            case UserTypes.auditor:
+              Navigator.pushReplacementNamed(context, '');
+              break;
+            case UserTypes.spcb:
               Navigator.pushReplacementNamed(context, '');
               break;
             case UserTypes.inspection:

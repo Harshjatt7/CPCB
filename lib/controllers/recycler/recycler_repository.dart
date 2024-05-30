@@ -33,9 +33,9 @@ class RecyclerRepository {
     return response;
   }
 
-  Future<APIResponse?> addRecyclerData(
+  Future<APIResponse<AddDataResponseModel?>?> addRecyclerData(
       AddRecyclerDataRequestModel? request) async {
-    APIResponse? response = await _apiBase.postRequest(
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
         _apiRoutes.addRecycledData,
         data: request?.toJson(),
         isAuthorizationRequired: true);

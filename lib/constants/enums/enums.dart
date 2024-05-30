@@ -1,11 +1,19 @@
 enum UserTypes {
   admin,
-  other,
+  //other,
+  auditor,
+  spcb,
   inspection,
   producer,
   retreader,
   recycler,
   custom;
 }
-enum SalesDataDropdown{producerType, typeOfTyre, financialYear, month}
-enum RecyclerProcurementDataDropdown{financialYear, typeOfRawMaterial, tyreSource}
+
+enum SalesDataDropdown { producerType, typeOfTyre, financialYear, month }
+
+enum RecyclerProcurementDataDropdown {
+  financialYear,
+  typeOfRawMaterial,
+  tyreSource
+}

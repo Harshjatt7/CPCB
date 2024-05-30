@@ -329,8 +329,11 @@ class HelperFunctions {
         case StringConstants.admin:
           MaterialAppViewModel.userTypeEnum = UserTypes.admin;
           break;
-        case StringConstants.other:
-          MaterialAppViewModel.userTypeEnum = UserTypes.other;
+        case StringConstants.auditor:
+          MaterialAppViewModel.userTypeEnum = UserTypes.auditor;
+          break;
+        case StringConstants.spcb:
+          MaterialAppViewModel.userTypeEnum = UserTypes.spcb;
           break;
         case StringConstants.inspection:
           MaterialAppViewModel.userTypeEnum = UserTypes.inspection;
@@ -384,8 +387,11 @@ class HelperFunctions {
         case StringConstants.admin:
           MaterialAppViewModel.userTypeEnum = UserTypes.admin;
           break;
-        case StringConstants.other:
-          MaterialAppViewModel.userTypeEnum = UserTypes.other;
+        case StringConstants.auditor:
+          MaterialAppViewModel.userTypeEnum = UserTypes.auditor;
+          break;
+        case StringConstants.spcb:
+          MaterialAppViewModel.userTypeEnum = UserTypes.spcb;
           break;
         case StringConstants.inspection:
           MaterialAppViewModel.userTypeEnum = UserTypes.inspection;
@@ -470,6 +476,40 @@ class HelperFunctions {
   ///[datePicker] Common Date Picker
   Future<DateTime?> datePicker(BuildContext context, DateTime firstDate) {
     return showDatePicker(
-        context: context, firstDate: firstDate, lastDate: DateTime.now());
+        builder: (context, child) {
+          return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(
+                    onPrimary: AppColor().white, // selected text color
+                    onSurface: AppColor().darkGreen, // default text color
+                    primary: AppColor().darkGreen // circle color
+                    ),
+                textButtonTheme: TextButtonThemeData(
+                    style: TextButton.styleFrom(
+                        foregroundColor: AppColor().darkGreen,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColor()
+                                    .white), // color of button's letters
+
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: AppColor().transparent,
+                                width: 1,
+                                style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(12)))),
+                dialogTheme: DialogTheme(
+                    backgroundColor: AppColor().white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12)))),
+              ),
+              child: child!);
+        },
+        context: context,
+        firstDate: firstDate,
+        lastDate: DateTime.now());
   }
 }
