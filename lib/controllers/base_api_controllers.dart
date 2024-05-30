@@ -366,7 +366,6 @@ class APIBase {
             //     ? true
             //     :
             resp.statusCode == 200 || resp.statusCode == 201 ? true : false,
-        addResponse: AddDataResponseModel(message: resp.data['message']),
       );
     } on SocketException {
       return APIResponse<T>(

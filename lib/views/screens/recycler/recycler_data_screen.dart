@@ -46,12 +46,11 @@ class RecyclerDataScreen extends StatelessWidget {
         },
         child: Column(
           children: [
-            (viewModel.recyclerData ?? []).isEmpty
-                ? noResultsFoundView()
-                : recyclerDataList(viewModel, context),
+            recyclerDataList(viewModel, context),
           ],
         ),
       ),
+      persistentFooterButtons: [buttonSection(context)],
     );
   }
 
@@ -66,48 +65,55 @@ class RecyclerDataScreen extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Expanded(
-            child: ListView.builder(
-              controller: viewModel.scrollController,
-              shrinkWrap: true,
-              physics: const PageScrollPhysics(),
-              itemCount: viewModel.recyclerData?.length,
-              itemBuilder: (context, index) {
-                final recyclerDetails = viewModel.recyclerData?[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: CommonRetraderDataCard(
-                    name: recyclerDetails?.wasteTyreSupplierName ?? "",
-                    contactDetails:
-                        recyclerDetails?.wasteTyreSupplierContact ?? "",
-                    address: recyclerDetails?.wasteTyreSupplierAddress ?? "",
-                    invoiceNumber: "",
-                    gstNumber: recyclerDetails?.wasteTyreSupplierGst ?? "",
-                    typeOfRaw: recyclerDetails?.typeOfRecycledMaterial ?? "",
-                    total: "",
-                    date: recyclerDetails?.recycledDate ?? "",
-                    year: recyclerDetails?.financialYear ?? "",
+          (viewModel.recyclerData ?? []).isEmpty
+              ? noResultsFoundView()
+              : Expanded(
+                  child: ListView.builder(
+                    controller: viewModel.scrollController,
+                    shrinkWrap: true,
+                    physics: const PageScrollPhysics(),
+                    itemCount: viewModel.recyclerData?.length,
+                    itemBuilder: (context, index) {
+                      final recyclerDetails = viewModel.recyclerData?[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonRetraderDataCard(
+                          name: recyclerDetails?.wasteTyreSupplierName ?? "",
+                          contactDetails:
+                              recyclerDetails?.wasteTyreSupplierContact ?? "",
+                          address:
+                              recyclerDetails?.wasteTyreSupplierAddress ?? "",
+                          invoiceNumber: "",
+                          gstNumber:
+                              recyclerDetails?.wasteTyreSupplierGst ?? "",
+                          typeOfRaw:
+                              recyclerDetails?.typeOfRecycledMaterial ?? "",
+                          total: "",
+                          date: recyclerDetails?.recycledDate ?? "",
+                          year: recyclerDetails?.financialYear ?? "",
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 12),
-            child: CommonButtonWidget(
-              onPressed: () {
-                Navigator.pushNamed(
-                    context, AppRoutes.recyclerAddDataScreenRoute);
-              },
-              label: StringConstants().addRecyclerData,
-              color: AppColor().darkGreen,
-              labelStyle: Theme.of(context)
-                  .textTheme
-                  .labelSmall!
-                  .copyWith(color: AppColor().white),
-            ),
-          ),
+                ),
         ]),
+      ),
+    );
+  }
+
+  buttonSection(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 12),
+      child: CommonButtonWidget(
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.recyclerAddDataScreenRoute);
+        },
+        label: StringConstants().addRecyclerData,
+        color: AppColor().darkGreen,
+        labelStyle: Theme.of(context)
+            .textTheme
+            .labelSmall!
+            .copyWith(color: AppColor().white),
       ),
     );
   }

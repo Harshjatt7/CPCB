@@ -94,10 +94,11 @@ class RecyclerAddDataScreen extends StatelessWidget {
                   error: viewModel.yearDropdownError,
                   value: viewModel.yearDropdownValue,
                   onTap: () {
-                    viewModel.changeDropdownValue(viewModel.yearDropdownValue);
+                    viewModel.changeFinancialDropdownValue(
+                        viewModel.yearDropdownValue);
                   },
                   onChanged: (value) {
-                    viewModel.changeDropdownValue(value);
+                    viewModel.changeFinancialDropdownValue(value);
                     viewModel.yearDropdownError = null;
                   },
                 ),
@@ -151,6 +152,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
                   },
                   onChanged: (value) {
                     viewModel.changeRawMaterialDropdownValue(value);
+          
                     viewModel.tyreOfRecyclerMaterialDropdownError = null;
                   },
                 ),

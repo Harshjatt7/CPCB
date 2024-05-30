@@ -74,19 +74,19 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
   }
 
-  void changeDropdownValue(newValue) {
-    changeDropdown = newValue;
-    if (changeDropdown != null) {
-      String startYear = changeDropdown!.split('-').first;
-      int year = int.parse(startYear);
-      startDate = DateTime(year, 4, 1);
-      updateUI();
-    }
-    updateUI();
-    if (changeDropdown == null) {
-      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
-    }
-  }
+  // void changeDropdownValue(newValue) {
+  //   changeDropdown = newValue;
+  //   if (changeDropdown != null) {
+  //     String startYear = changeDropdown!.split('-').first;
+  //     int year = int.parse(startYear);
+  //     startDate = DateTime(year, 4, 1);
+  //     updateUI();
+  //   }
+  //   updateUI();
+  //   if (changeDropdown == null) {
+  //     yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
+  //   }
+  // }
 
   void changeRawMaterialDropdownValue(newValue) {
     rawMaterialChangeDropDown = newValue;
@@ -94,6 +94,21 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     if (changeDropdown == null) {
       tyreOfRecyclerMaterialDropdownError =
           MessageConstant().mandatoryTypeRawMaterial;
+    }
+  }
+
+  String? financialYearDropdownValue;
+  void changeFinancialDropdownValue(newValue) {
+    financialYearDropdownValue = newValue;
+    if (financialYearDropdownValue != null) {
+      String startYear = financialYearDropdownValue!.split('-').first;
+      int year = int.parse(startYear);
+      startDate = DateTime(year, 4, 1);
+      updateUI();
+    }
+    updateUI();
+    if (financialYearDropdownValue == null) {
+      yearDropdownError = MessageConstant().mandatoryFinancialYear;
     }
   }
 
@@ -169,11 +184,15 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   }
 
   void formValidation(BuildContext context) {
-    if (changeDropdown == null) {
-      changeDropdownValue(null);
-      changeRawMaterialDropdownValue(null);
+    if (formKey.currentState?.validate() ?? false) {
+    } else {
+      if (financialYearDropdownValue == null) {
+        changeFinancialDropdownValue(null);
+      }
+      if (rawMaterialChangeDropDown == null) {
+        changeRawMaterialDropdownValue(null);
+      }
     }
-    if (formKey.currentState?.validate() ?? false) {}
   }
 
   Future postRecyclerData(

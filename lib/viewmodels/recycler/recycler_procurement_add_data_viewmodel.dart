@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
@@ -67,6 +66,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   String? purchaseDateError;
   String? sourceTyreError;
 
+  String? changeDropdown;
   String newText = '';
 
   Future<FilePickerResult?> openFileManager(context) async {
@@ -135,8 +135,6 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     }
   }
 
-  String? monthDropdownError;
-
   APIResponse<RecyclerProcurementConstantsResponseData?>?
       _recyclerResponseModel;
   APIResponse<RecyclerProcurementConstantsResponseData?>?
@@ -169,7 +167,6 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           typeOfRawMaterial.add(
               _recyclerResponseModel?.data?.data?.rawMaterialType?.tyres ?? "");
         }
-
         tyreSource.addAll(_recyclerResponseModel?.data?.data?.tyreSource ?? []);
       } else {
         HelperFunctions().logger(MessageConstant().somethingWentWrong);
@@ -202,14 +199,17 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
 
     try {
       if (formKey.currentState?.validate() ?? false) {
-        APIResponse response =
+        APIResponse<AddDataResponseModel?>? response =
             await _recyclerRepo.postRecyclerProcurementData(request);
 
-        if (response.isSuccess == true) {
+        if (response?.isSuccess == true) {
+          response?.data =
+              AddDataResponseModel.fromJson(response.completeResponse);
           if (context.mounted) {
             state = ViewState.idle;
-            HelperFunctions().commonSuccessSnackBar(
-                context, response.addResponse?.message.toString() ?? "");
+
+            HelperFunctions()
+                .commonSuccessSnackBar(context, response?.data?.message ?? "");
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -217,8 +217,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
                 ModalRoute.withName(AppRoutes.recyclerHomeScreenRoute));
           }
         } else {
-          final apiError = response.error?.errorsList;
-
+          final apiError = response?.error?.errorsList;
           financialYearError = (apiError?.financeYear ?? []).isEmpty
               ? ""
               : apiError?.financeYear?.first ?? "";
@@ -297,19 +296,6 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     }
   }
 
-  void dropDownValidation() {
-    yearDropdownError = financialYearDropdownValue == null
-        ? MessageConstant().pleaseSelectValue
-        : null;
-    rawMaterialDropdownError = rawMaterialDropdownValue == null
-        ? MessageConstant().pleaseSelectValue
-        : null;
-    tyreSourceDropdownError = tyreSourceDropdownValue == null
-        ? MessageConstant().pleaseSelectValue
-        : null;
-    updateUI();
-  }
-
   void financialYearDropDownConverter(newValue) {
     financialYearDropdownValue = newValue;
     if (financialYearDropdownValue != null) {
@@ -324,27 +310,35 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     }
   }
 
-  void changeDropdownValue(dropdownType, newValue) {
-    switch (dropdownType) {
-      case RecyclerProcurementDataDropdown.financialYear:
-        financialYearDropDownConverter(newValue);
-        yearDropdownError =
-            newValue == null ? MessageConstant().pleaseSelectValue : null;
-        break;
-      case RecyclerProcurementDataDropdown.typeOfRawMaterial:
-        rawMaterialDropdownValue = newValue;
-        rawMaterialDropdownError =
-            newValue == null ? MessageConstant().pleaseSelectValue : null;
-        break;
-      case RecyclerProcurementDataDropdown.tyreSource:
-        tyreSourceDropdownValue = newValue;
-        tyreSourceDropdownError =
-            newValue == null ? MessageConstant().pleaseSelectValue : null;
-        break;
-      default:
-        break;
+  void changeRawMaterialDropdownValue(newValue) {
+    rawMaterialDropdownValue = newValue;
+    updateUI();
+    if (changeDropdown == null) {
+      rawMaterialDropdownError = MessageConstant().mandatoryTypeRawMaterial;
+    }
+  }
+
+  void changetyreSourceDropdownValue(newValue) {
+    tyreSourceDropdownValue = newValue;
+    updateUI();
+    if (changeDropdown == null) {
+      tyreSourceDropdownError =
+          MessageConstant().mandatoryTypeRawMaterial; //to change
+    }
+  }
+
+  void changeFinancialDropdownValue(newValue) {
+    financialYearDropdownValue = newValue;
+    if (financialYearDropdownValue != null) {
+      String startYear = financialYearDropdownValue!.split('-').first;
+      int year = int.parse(startYear);
+      startDate = DateTime(year, 4, 1);
+      updateUI();
     }
     updateUI();
+    if (financialYearDropdownValue == null) {
+      yearDropdownError = MessageConstant().mandatoryFinancialYear;
+    }
   }
 
   String? quantityReceivedValidation() {
@@ -381,9 +375,17 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   }
 
   void formValidation(BuildContext context) {
-    dropDownValidation();
     if (formKey.currentState?.validate() ?? false) {
-      postData(context);
+    } else {
+      if (financialYearDropdownValue == null) {
+        changeFinancialDropdownValue(null);
+      }
+      if (rawMaterialDropdownValue == null) {
+        changeRawMaterialDropdownValue(null);
+      }
+      if (tyreSourceDropdownValue == null) {
+        changetyreSourceDropdownValue(null);
+      }
     }
   }
 }
