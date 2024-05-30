@@ -9,6 +9,7 @@ import 'package:cpcb_tyre/controllers/recycler/recycler_procurement_repository.d
 import 'package:cpcb_tyre/models/request/recycler/recycler_procurement_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
+import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/models/response/recycler/recycler_procurement_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
@@ -386,10 +387,4 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
       postData(context);
     }
   }
-}
-
-class FileSizeModel {
-  String fileSize;
-  double fileSizeNum;
-  FileSizeModel({required this.fileSize, required this.fileSizeNum});
 }

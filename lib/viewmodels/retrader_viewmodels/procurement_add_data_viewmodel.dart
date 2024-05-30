@@ -7,6 +7,7 @@ import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
+import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -165,7 +166,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     if (bytes <= 0) {
       return FileSizeModel(fileSize: "0 B", fileSizeNum: 0);
     }
-    //  "0 B";
     const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
     var i = (log(bytes) / log(1024)).floor();
     fileSizeNum = bytes / pow(1024, i);
@@ -173,7 +173,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
         fileSize:
             '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}',
         fileSizeNum: fileSizeNum ?? 0);
-    // return '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}';
   }
 
   void viewPDF(BuildContext context, String path) {
@@ -299,10 +298,4 @@ class ProcurementAddDataViewModel extends BaseViewModel {
           sellerMobile: supplierContactDetailsController.text,
         ));
   }
-}
-
-class FileSizeModel {
-  String fileSize;
-  double fileSizeNum;
-  FileSizeModel({required this.fileSize, required this.fileSizeNum});
 }

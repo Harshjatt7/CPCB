@@ -23,4 +23,8 @@ class MessageConstant {
   final String mandatoryTypeRawMaterial = "mandatory-raw-material";
   final String pleaseSelectValue = "please-select-value";
   final String pleaseEnterDataInField = "please-enter-data-in-field";
+  final String quantityProcessedValidation="quantity-processed-validation";
+  final String wasteGeneratedValidation="waste-generated-validation";
+  final String quantityProducedValidation="quantity-produced-validation";
+  final String quantityProducedMoreValidation="quantity-produced-more-validation";
 }
