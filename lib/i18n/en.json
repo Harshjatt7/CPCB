@@ -41,7 +41,7 @@
     "dashboard": "Dashboard",
     "retreaded-data": "Retreaded Data",
     "add-retreaded-data-button": "Add Retreaded Data",
-    "add-procurement-button": "Add Procurement",
+    "add-procurement-button": "Add Procurement Data",
     "add-procurement": "Add Procurement",
     "procurement-stock-data": "Procurement stock data",
     "quantity-processed": "Quantity processed",
@@ -113,6 +113,10 @@
     "please-select-value" : "Please select the value",
     "please-enter-data-in-field" : "Please enter data in atleast one of the above fields",
     "tyre-source-label": "Tyre Source",
-    "mandatory-raw-material": "It is mandatory to select type of raw material"
+    "mandatory-raw-material": "It is mandatory to select type of raw material",
+    "quantity-processed-validation":"It is mandatory to add Quantity Processed",
+    "waste-generated-validation":"It is mandatory to add waste generated",
+    "quantity-produced-validation":"It is mandatory to add Quantity Produced",
+    "quantity-produced-more-validation":"Quantity Produced can't be more than quantity processed"
    
 }

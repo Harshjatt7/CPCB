@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
@@ -24,13 +25,13 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<RecyclerProcurementAddDataViewModel>(
         viewModel: RecyclerProcurementAddDataViewModel(),
-        onModelReady: (viewModel) {
-          // viewModel.addYear();
-          viewModel.getData();
+        onModelReady: (viewModel) async {
+          await viewModel.getData();
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(
-            resizeToBottomInset: true,
+              isLoading: viewModel.state == ViewState.busy,
+              resizeToBottomInset: true,
               appBar: CommonAppBar(
                 title: StringConstants().addProcurement,
               ),
@@ -47,29 +48,27 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                           child: CommonDropdownTextFormField(
                             error: viewModel.yearDropdownError,
                             onTap: () {
-                              viewModel.changeDropdownValue(
-                                  RecyclerProcurementDataDropdown.financialYear,
-                                  null);
+                              viewModel.changeFinancialDropdownValue(
+                                viewModel.financialYearDropdownValue,
+                              );
                             },
                             value: viewModel.financialYearDropdownValue,
                             labelText: StringConstants().financialYearLabel,
                             dropDownItem: viewModel.financialYearList,
                             onChanged: (value) {
-                              viewModel.changeDropdownValue(
-                                  RecyclerProcurementDataDropdown.financialYear,
-                                  value);
+                              viewModel.changeFinancialDropdownValue(
+                                value,
+                              );
                               viewModel.yearDropdownError = null;
                             },
                           ),
                         ),
-
-                        // if (viewModel.financialYearError?.isNotEmpty ?? false)
-                        //   showErrorMessage(context, viewModel.yearDropdownError ?? ''),
-
+                        if (viewModel.financialYearError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.financialYearError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
-                            
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(10)
                               ],
@@ -85,7 +84,6 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                         if (viewModel.supplierNameError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.supplierNameError ?? ''),
-
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -118,55 +116,52 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                         if (viewModel.addressError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.addressError ?? ''),
-
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonDropdownTextFormField(
                             error: viewModel.rawMaterialDropdownError,
                             onTap: () {
-                              viewModel.changeDropdownValue(
-                                  RecyclerProcurementDataDropdown
-                                      .typeOfRawMaterial,
-                                  null);
+                              viewModel.changeRawMaterialDropdownValue(
+                                viewModel.tyreSourceDropdownValue,
+                              );
                             },
                             value: viewModel.rawMaterialDropdownValue,
                             labelText: StringConstants().typeOfRawMaterial,
                             dropDownItem: viewModel.typeOfRawMaterial,
                             onChanged: (value) {
-                              viewModel.changeDropdownValue(
-                                  RecyclerProcurementDataDropdown
-                                      .typeOfRawMaterial,
-                                  value);
+                              viewModel.changeRawMaterialDropdownValue(
+                                value,
+                              );
                               viewModel.rawMaterialDropdownError = null;
                             },
                           ),
                         ),
-
-                        // if (viewModel.rawMaterialError?.isNotEmpty ?? false)
-                        //   showErrorMessage(context, viewModel.rawMaterialError ?? ''),
+                        if (viewModel.rawMaterialError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.rawMaterialError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonDropdownTextFormField(
                             error: viewModel.tyreSourceDropdownError,
                             onTap: () {
-                              viewModel.changeDropdownValue(
-                                  RecyclerProcurementDataDropdown.tyreSource,
-                                  null);
+                              viewModel.changetyreSourceDropdownValue(
+                                viewModel.tyreSourceDropdownValue,
+                              );
                             },
                             value: viewModel.tyreSourceDropdownValue,
                             labelText: StringConstants().tyreSourceLabel,
                             dropDownItem: viewModel.tyreSource,
                             onChanged: (value) {
-                              viewModel.changeDropdownValue(
-                                  RecyclerProcurementDataDropdown.tyreSource,
-                                  value);
+                              viewModel.changetyreSourceDropdownValue(
+                                value,
+                              );
                               viewModel.tyreSourceDropdownError = null;
                             },
                           ),
                         ),
-
-                        // if (viewModel.sourceTyreError?.isNotEmpty ?? false)
-                        //   showErrorMessage(context, viewModel.sourceTyreError ?? ''),
+                        if (viewModel.sourceTyreError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.sourceTyreError ?? ''),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
@@ -284,6 +279,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     onPressed: () {
+                      viewModel.formValidation(
+                        context,
+                      );
                       if (viewModel.formKey.currentState?.validate() ?? false) {
                         showDialog(
                             context: context,
@@ -295,9 +293,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                                 onPressedYes: () async {
                                   Navigator.pop(ctx);
                                   if (context.mounted) {
-                                    viewModel.formValidation(
-                                      context,
-                                    );
+                                    viewModel.postData(context);
                                   }
                                 },
                               );

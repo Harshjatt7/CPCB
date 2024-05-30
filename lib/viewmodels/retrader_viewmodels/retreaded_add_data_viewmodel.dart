@@ -125,7 +125,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
 
   String? quantityProcessedValidation() {
     if (quantityProcessedController.text.isEmpty) {
-      return "It is mandatory to add Quantity Processed";
+      return MessageConstant().quantityProcessedValidation;
     }
     return null;
   }
@@ -136,24 +136,12 @@ class RetreadedAddDataViewModel extends BaseViewModel {
 
   String? quantityOfWasteGeneratedValidation() {
     if (quantityOfWasteGeneratedController.text.isEmpty) {
-      return "It is mandatory to add waste generated";
+      return MessageConstant().wasteGeneratedValidation;
     }
     return null;
   }
 
-  void onDateChange() {
-    String text = dateController.text;
-    if (text.length < newText.length) {
-      newText = text;
-    } else if (text.isNotEmpty && text != newText) {
-      String tempText = text.replaceAll("-", "");
-      if (tempText.length == 2 || tempText.length == 4) {
-        newText = '$text-';
-        dateController.text = newText;
-      }
-    }
-  }
-
+  
   String? dateValidation() {
     return Validations().dateValidation(dateController.text);
   }
@@ -164,14 +152,14 @@ class RetreadedAddDataViewModel extends BaseViewModel {
 
   String? quantityProducedValidation() {
     if (quantityProducedController.text.isEmpty) {
-      return "It is mandatory to add Quantity Produced";
+      return MessageConstant().quantityProducedValidation;
     }
     if (quantityProducedController.text.isNotEmpty &&
         quantityProcessedController.text.isNotEmpty) {
       int quantityProcessed = int.parse(quantityProcessedController.text);
       int quantityProduced = int.parse(quantityProducedController.text);
       if (quantityProduced > quantityProcessed) {
-        return "Quantity Produced can't be more than quantity processed";
+        return MessageConstant().quantityProducedMoreValidation;
       }
     }
     return null;

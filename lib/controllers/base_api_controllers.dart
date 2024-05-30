@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/models/response/auth/login_response_model.dart';
-import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -362,11 +361,7 @@ class APIBase {
       return APIResponse<T>(
         completeResponse: resp.data,
         isSuccess:
-            //  (resp.data['status'] == 200 || resp.data['status'] == 201)
-            //     ? true
-            //     :
             resp.statusCode == 200 || resp.statusCode == 201 ? true : false,
-        addResponse: AddDataResponseModel(message: resp.data['message']),
       );
     } on SocketException {
       return APIResponse<T>(
