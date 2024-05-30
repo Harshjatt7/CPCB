@@ -97,7 +97,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                   isMandatory: false,
                   controller: viewModel.contactDetailsController,
                   validator: (value) {
-                    return viewModel.contactDetailsValidation();
+                    return viewModel.nameValidation();
                   },
                 ),
               ),
@@ -128,12 +128,11 @@ class RetreadedAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           hintText: StringConstants().retreadedDate,
           isMandatory: true,
-          onChanged: (value) {
-            viewModel.onDateChange();
-          },
+          isReadOnly: true,
           validator: (value) {
             return viewModel.dateValidation();
           },
+          disabledBgColor: AppColor().transparent,
           onTap: () async {
             viewModel.date = await HelperFunctions()
                 .datePicker(context, viewModel.startDate);

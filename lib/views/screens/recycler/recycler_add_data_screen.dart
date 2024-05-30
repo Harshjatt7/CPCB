@@ -109,6 +109,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
                     hintText: StringConstants().nameOfWasteTyreSupplier,
+                    validator: (value) {
+                      return viewModel.nameValidation();
+                    },
                     isMandatory: false,
                     controller: viewModel.nameOfWasteTyreSupplierController),
               ),
