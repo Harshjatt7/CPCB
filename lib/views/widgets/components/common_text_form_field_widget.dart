@@ -183,7 +183,7 @@ class _CommonTextFormFieldWidgetNewState
                         ?.copyWith(color: AppColor().grey01),
                     children: [
                       TextSpan(
-                        text: widget.isMandatory ? " *" : "",
+                        text: widget.isMandatory == true ? " *" : "",
                         style: Theme.of(context)
                             .textTheme
                             .labelSmall

@@ -178,7 +178,9 @@ class ProcurementViewDataViewModel extends BaseViewModel {
         return '';
       case UserTypes.custom:
         return '';
-      case UserTypes.other:
+      case UserTypes.auditor:
+        return '';
+      case UserTypes.spcb:
         return '';
       default:
         return null;

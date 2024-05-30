@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
 import 'package:cpcb_tyre/models/request/recycler/add_recycler_data_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
+import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import '../../models/response/recycler/get_recycler_add_data_constants.dart';
 import '../../models/response/recycler/get_recycler_data_list_response_model.dart';
 
@@ -28,9 +29,9 @@ class RecyclerRepository {
     return response;
   }
 
-  Future<APIResponse?> addRecyclerData(
+  Future<APIResponse<AddDataResponseModel?>?> addRecyclerData(
       AddRecyclerDataRequestModel? request) async {
-    APIResponse? response = await _apiBase.postRequest(
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
         _apiRoutes.addRecycledData,
         data: request?.toJson(),
         isAuthorizationRequired: true);

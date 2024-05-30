@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
 import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
+import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/models/response/retreader/procurement_response_model.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
@@ -11,9 +12,10 @@ class ProcurementRepository {
   final _apiBase = APIBase();
   final _apiRoutes = APIRoutes();
 
-  Future postProcurementData(ProcurementRequestModel requestModel) async {
+  Future<APIResponse<AddDataResponseModel?>?> postProcurementData(
+      ProcurementRequestModel requestModel) async {
     FormData request = FormData.fromMap(requestModel.toJson());
-    APIResponse? response = await _apiBase.postRequest(
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
       _apiRoutes.procurementAPIRoute,
       data: request,
       isAuthorizationRequired: true,

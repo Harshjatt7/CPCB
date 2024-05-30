@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/controllers/recycler/recycler_repository.dart';
 import 'package:cpcb_tyre/models/request/recycler/add_recycler_data_request_model.dart';
+import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -14,7 +15,7 @@ import '../material_app_viewmodel.dart';
 class RecyclerAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final _recyclerRepo = RecyclerRepository();
-  String? yearDropdownValue;
+
   String? yearDropdownError;
   String? changeDropdown;
   String? rawMaterialChangeDropDown;
@@ -92,7 +93,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   // }
 
   void changeRawMaterialDropdownValue(newValue) {
-    rawMaterialChangeDropDown = newValue;
+    tyreOfRecyclerMaterialDropdownValue = newValue;
     updateUI();
     if (changeDropdown == null) {
       tyreOfRecyclerMaterialDropdownError =
@@ -133,6 +134,10 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     return Validations().validatePhone(contactDetailsController.text);
   }
 
+  String? addressValidation() {
+    return Validations().validateAddress(addressController.text);
+  }
+
   String? quantityOfWasteGeneratedValidation() {
     if (quantityOfWasteGeneratedController.text.isEmpty) {
       return MessageConstant().mandatoryToAddWasteGenerated;
@@ -163,27 +168,21 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     return null;
   }
 
-  void addRecyclerData(BuildContext context) {
+  Future addRecyclerData(BuildContext context) async {
     String recyclerDate = '$date';
     AddRecyclerDataRequestModel? request = AddRecyclerDataRequestModel(
-        financialYear: changeDropdown,
+        financialYear: financialYearDropdownValue,
         wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
         wasteTyreSupplierContact: contactDetailsController.text,
         wasteTyreSupplierAddress: addressController.text,
-        typeOfRecycledMaterial: rawMaterialChangeDropDown,
-        // typeOfRecycledMaterial: null,
+        typeOfRecycledMaterial: tyreOfRecyclerMaterialDropdownValue,
         wasteTyreSupplierGst: gstController.text,
         processedQty: double.parse(quantityProcessedController.text),
         producedQty: double.parse(quantityProducedController.text),
         wasteGeneratedQty:
             double.parse(quantityOfWasteGeneratedController.text),
-        recycledDate: recyclerDate.split(' ').first
-        // processedQty: null,
-        // producedQty: null,
-        // wasteGeneratedQty: null,
-        // recycledDate: null
-        );
-    postRecyclerData(request, context);
+        recycledDate: recyclerDate.split(' ').first);
+    await postRecyclerData(request, context);
   }
 
   void formValidation(BuildContext context) {
@@ -198,16 +197,18 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
   }
 
-  Future postRecyclerData(
+  Future<APIResponse<AddDataResponseModel?>?> postRecyclerData(
       AddRecyclerDataRequestModel? request, BuildContext context) async {
     state = ViewState.busy;
+    APIResponse<AddDataResponseModel?>? res;
     try {
-      var res = await _recyclerRepo.addRecyclerData(request);
+      res = await _recyclerRepo.addRecyclerData(request);
       if (res?.isSuccess == true) {
+        res?.data = AddDataResponseModel.fromJson(res.completeResponse);
         state = ViewState.idle;
         if (context.mounted) {
-          HelperFunctions().commonSuccessSnackBar(
-              context, MessageConstant().successfullySubmitted);
+          HelperFunctions().commonSuccessSnackBar(context,
+              res?.data?.message ?? MessageConstant().successfullySubmitted);
           MaterialAppViewModel.selectedPageIndex = 2;
           Navigator.pushNamedAndRemoveUntil(
               context,
@@ -262,5 +263,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
         HelperFunctions().commonErrorSnackBar(context, '');
       }
     }
+    return res;
   }
 }

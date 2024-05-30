@@ -28,7 +28,13 @@ class SplashViewModel extends BaseViewModel {
                 context, AppRoutes.producerHomeScreenRoute);
           }
           break;
-        case UserTypes.other:
+        case UserTypes.auditor:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.producerHomeScreenRoute);
+          }
+          break;
+        case UserTypes.spcb:
           if (context.mounted) {
             Navigator.pushReplacementNamed(
                 context, AppRoutes.producerHomeScreenRoute);

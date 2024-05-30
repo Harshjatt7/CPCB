@@ -110,7 +110,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
                                   onPressedYes: () async {
                                     Navigator.pop(ctx);
                                     if (context.mounted) {
-                                      viewModel.addProcurementData(
+                                      await viewModel.addProcurementData(
                                         context,
                                       );
                                     }
