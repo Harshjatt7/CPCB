@@ -9,6 +9,7 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_environment_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_erp_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_list_tile.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_title_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
@@ -32,11 +33,20 @@ class DashBoardScreen extends StatelessWidget {
       builder: (context, viewModel, child) {
         return CustomScaffold(
             isLoading: viewModel.state == ViewState.busy,
-            appBar: CommonAppBar(
-              showNotificationIcon: true,
-              image: ImageConstants().avatar,
-              name: StringConstants().name,
-              designation: StringConstants.producer,
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(125),
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const CommonAppBar(
+                      isIconBar: true,
+                      showNotificationIcon: false,
+                    ),
+                    CommonTitleBar(title: StringConstants().dashboard)
+                  ],
+                ),
+              ),
             ),
             body: CommonSingleChildScrollView(
               child: Container(

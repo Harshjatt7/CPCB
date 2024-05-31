@@ -4,7 +4,6 @@ import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/retrader_common_components/common_retrader_data_card.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/message_constant.dart';
 import '../../../viewmodels/recycler/view_recycler_data_viewmodel.dart';
 import '../../widgets/app_components/common_search_bar.dart';
+import '../../widgets/app_components/recycler_detail_container.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class RecyclerDataScreen extends StatelessWidget {
@@ -77,18 +77,16 @@ class RecyclerDataScreen extends StatelessWidget {
                       final recyclerDetails = viewModel.recyclerData?[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonRetraderDataCard(
+                        child: RecyclerDetailsContainer(
                           name: recyclerDetails?.wasteTyreSupplierName ?? "",
                           contactDetails:
                               recyclerDetails?.wasteTyreSupplierContact ?? "",
                           address:
                               recyclerDetails?.wasteTyreSupplierAddress ?? "",
-                          invoiceNumber: "",
                           gstNumber:
                               recyclerDetails?.wasteTyreSupplierGst ?? "",
                           typeOfRaw:
                               recyclerDetails?.typeOfRecycledMaterial ?? "",
-                          total: "",
                           date: recyclerDetails?.recycledDate ?? "",
                           year: recyclerDetails?.financialYear ?? "",
                         ),

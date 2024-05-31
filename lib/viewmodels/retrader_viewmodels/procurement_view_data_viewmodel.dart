@@ -1,7 +1,7 @@
 import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
-import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
+import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/retreader/procurement_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/debouncing_helper.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 class ProcurementViewDataViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
-  final _procurementRepo = ProcurementRepository();
+  final _retreaderRepo= RetreaderRepository();
   APIResponse<ProcurementResponseModel?>? _procurementResponseModel;
   APIResponse<ProcurementResponseModel?>? get procurementResponseModel =>
       _procurementResponseModel;
@@ -118,7 +118,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
     try {
-      _procurementResponseModel = await _procurementRepo
+      _procurementResponseModel = await _retreaderRepo
           .getProcurementData(getUrl() ?? '', page: "$page");
       if (_procurementResponseModel?.isSuccess == true) {
         _procurementResponseModel?.data = ProcurementResponseModel.fromJson(
@@ -143,7 +143,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
     state = ViewState.busy;
     try {
       _procurementSearchResponseModel =
-          await _procurementRepo.getProcurementData(getUrl() ?? '',
+          await _retreaderRepo.getProcurementData(getUrl() ?? '',
               search: value, page: '$searchPage');
       if (_procurementSearchResponseModel?.isSuccess == true) {
         _procurementSearchResponseModel?.data =
@@ -178,7 +178,9 @@ class ProcurementViewDataViewModel extends BaseViewModel {
         return '';
       case UserTypes.custom:
         return '';
-      case UserTypes.other:
+      case UserTypes.auditor:
+        return '';
+      case UserTypes.spcb:
         return '';
       default:
         return null;

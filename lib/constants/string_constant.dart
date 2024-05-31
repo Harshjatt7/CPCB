@@ -51,7 +51,7 @@ class StringConstants {
   final String quantityProduced = "quantity-produced";
   final String quantityOfWasteGenerated = "quantity-of-waste-generated";
   final String retreadedDate = "retreaded-date";
-  final String date="date";
+  final String date = "date";
   final String addRetreadedData = "add-retreaded-data";
   final String nameOfWasteTyreSupplier = "name-of-waste-tyre-supplier";
   final String contactDetails = "contact-details";
@@ -67,7 +67,6 @@ class StringConstants {
   final String processedData = "processed-data";
   final String processedStock = "processed-stock";
   final String eprCredits = "epr-credits";
-  
 
   // Dashboard
   final String applicationNumber = "application-number";
@@ -96,7 +95,8 @@ class StringConstants {
 
   //User Types
   static const String admin = "Admin";
-  static const String other = "Other";
+  static const String auditor = "Auditor";
+  static const String spcb = "SPCB";
   static const String inspection = "Inspection";
   static const String producer = "Producer";
   static const String retreader = "Retreader";

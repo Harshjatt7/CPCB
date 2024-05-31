@@ -4,6 +4,7 @@ import 'package:cpcb_tyre/models/request/producer/add_sales_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/models/response/producer/producer_constant_response_model.dart';
+import 'package:cpcb_tyre/models/response/producer/sales_data_response_model.dart';
 
 class ProducerRepository {
   final _apiBase = APIBase();
@@ -25,6 +26,13 @@ class ProducerRepository {
     APIResponse<ProducerConstantResponseModel?>? response =
         await _apiBase.getRequest(_apiRoutes.producerSalesDataConstantAPIRoute,
             isAuthorizationRequired: true);
+    return response;
+  }
+
+  Future getSalesData({String? page = "1"}) async {
+    APIResponse<SalesDataResponseModel?>? response = await _apiBase.getRequest(
+        "${_apiRoutes.producerSalesDataList}?page=$page",
+        isAuthorizationRequired: true);
     return response;
   }
 }

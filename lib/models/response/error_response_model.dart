@@ -63,7 +63,6 @@ class ErrorsList {
   List<String>? wasteGeneratedQty;
   List<String>? recycledDate;
   List<String>? sourceTyre;
-
   List<String>? producerType;
   List<String>? typeOfTyreManufacture;
   List<String>? month;
@@ -92,13 +91,10 @@ class ErrorsList {
       this.wasteGeneratedQty,
       this.sourceTyre,
       this.recycledDate,
-
       this.producerType,
       this.typeOfTyreManufacture,
       this.month,
-      this.total,
-      });
-      
+      this.total});
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
         financialYear: json["financial_year"] == null
@@ -188,84 +184,4 @@ class ErrorsList {
 
       );
 
-  Map<String, dynamic> toJson() => {
-        "financial_year": financialYear == null
-            ? []
-            : List<dynamic>.from(financialYear!.map((x) => x)),
-        "processed_qty": processedQty == null
-            ? []
-            : List<dynamic>.from(processedQty!.map((x) => x)),
-        "produced_qty": producedQty == null
-            ? []
-            : List<dynamic>.from(producedQty!.map((x) => x)),
-        "retreaded_date": retreadedDate == null
-            ? []
-            : List<dynamic>.from(retreadedDate!.map((x) => x)),
-        "seller_name": sellerName == null
-            ? []
-            : List<dynamic>.from(sellerName!.map((x) => x)),
-        "seller_mobile": sellerMobile == null
-            ? []
-            : List<dynamic>.from(sellerMobile!.map((x) => x)),
-        "seller_address": sellerAddress == null
-            ? []
-            : List<dynamic>.from(sellerAddress!.map((x) => x)),
-        "raw_material": rawMaterial == null
-            ? []
-            : List<dynamic>.from(rawMaterial!.map((x) => x)),
-        "purchased_quantity": purchasedQuantity == null
-            ? []
-            : List<dynamic>.from(purchasedQuantity!.map((x) => x)),
-        "invoice_number": invoiceNumber == null
-            ? []
-            : List<dynamic>.from(invoiceNumber!.map((x) => x)),
-        "seller_gst_no": sellerGstNo == null
-            ? []
-            : List<dynamic>.from(sellerGstNo!.map((x) => x)),
-        "purchased_date": purchaseDate == null
-            ? []
-            : List<dynamic>.from(purchaseDate!.map((x) => x)),
-        "procurement_invoice_file": procurementInvoiceFile == null
-            ? []
-            : List<dynamic>.from(procurementInvoiceFile!.map((x) => x)),
-        "finance_year": financeYear == null
-            ? []
-            : List<dynamic>.from(financeYear!.map((x) => x)),
-        "waste_tyre_supplier_name": wasteTyreSupplierName == null
-            ? []
-            : List<dynamic>.from(wasteTyreSupplierName!.map((x) => x)),
-        "waste_tyre_supplier_contact": wasteTyreSupplierContact == null
-            ? []
-            : List<dynamic>.from(wasteTyreSupplierContact!.map((x) => x)),
-        "waste_tyre_supplier_address": wasteTyreSupplierAddress == null
-            ? []
-            : List<dynamic>.from(wasteTyreSupplierAddress!.map((x) => x)),
-        "waste_tyre_supplier_gst": wasteTyreSupplierGst == null
-            ? []
-            : List<dynamic>.from(wasteTyreSupplierGst!.map((x) => x)),
-        "waste_generated_qty": wasteGeneratedQty == null
-            ? []
-            : List<dynamic>.from(wasteGeneratedQty!.map((x) => x)),
-        "recycled_date": recycledDate == null
-            ? []
-            : List<dynamic>.from(recycledDate!.map((x) => x)),
-        "type_of_recycled_material": typeOfRecycledMaterial == null
-            ? []
-            : List<dynamic>.from(typeOfRecycledMaterial!.map((x) => x)),
-        "source_tyre": sourceTyre == null
-            ? []
-            : List<dynamic>.from(sourceTyre!.map((x) => x)),
-        "producer_type": producerType == null 
-            ? [] 
-            : List<dynamic>.from(producerType!.map((x) => x)),
-        "type_of_tyre_manufacture": typeOfTyreManufacture == null 
-            ? [] 
-            : List<dynamic>.from(typeOfTyreManufacture!.map((x) => x)),
-        "month": month == null 
-            ? [] 
-            : List<dynamic>.from(month!.map((x) => x)),
-        "total": total == null 
-            ? [] 
-            : List<dynamic>.from(total!.map((x) => x)),
-      };
 }

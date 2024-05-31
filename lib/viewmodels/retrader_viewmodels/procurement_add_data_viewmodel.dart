@@ -4,9 +4,10 @@ import 'dart:math';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
-import 'package:cpcb_tyre/controllers/retreader/procurement_repository.dart';
+import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
 import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
+import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
@@ -47,7 +48,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   String? fileSize;
   double? fileSizeNum;
   FileSizeModel? fileSizeModel;
-  final _procurementRepo = ProcurementRepository();
+  final _retreaderRepo = RetreaderRepository();
   String? financialYearError;
   String? supplierNameError;
   String? supplierContactError;
@@ -60,6 +61,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   String? purchaseDateError;
 
   String newText = '';
+  FilePickerResult? pickedFile;
 
   Future<FilePickerResult?> openFileManager(context) async {
     fileError = null;
@@ -93,15 +95,20 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   Future<void> postProcurementData(
       BuildContext context, ProcurementRequestModel request) async {
     state = ViewState.busy;
+    APIResponse<AddDataResponseModel?>? response;
     try {
       if (formKey.currentState?.validate() ?? false) {
-        APIResponse response =
-            await _procurementRepo.postProcurementData(request);
-        if (response.isSuccess == true) {
+        HelperFunctions().logger("message >>>> ${request.toJson()}");
+        response = await _retreaderRepo.postProcurementData(request);
+        if (response?.isSuccess == true) {
+          response?.data =
+              AddDataResponseModel.fromJson(response.completeResponse);
           if (context.mounted) {
             state = ViewState.idle;
             HelperFunctions().commonSuccessSnackBar(
-                context, MessageConstant().successfullySubmitted);
+                context,
+                response?.data?.message ??
+                    MessageConstant().successfullySubmitted);
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -109,7 +116,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
                 ModalRoute.withName(AppRoutes.retraderHomeScreenRoute));
           }
         } else {
-          final apiError = response.error?.errorsList;
+          final apiError = response?.error?.errorsList;
 
           financialYearError = (apiError?.financeYear ?? []).isEmpty
               ? ""
@@ -193,14 +200,11 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   void handleOnTap(BuildContext context) async {
     if (uploadInvoiceController.text.isEmpty) {
-      var res = await openFileManager(context);
+      pickedFile = await openFileManager(context);
 
-      if (res != null) {
+      if (pickedFile != null) {
         uploadInvoiceController.text =
-            res.files.isEmpty ? "" : res.files.first.name;
-        uploadInvoiceDoc = await MultipartFile.fromFile(
-            res.files.first.path ?? '',
-            filename: "uploadInvoice.pdf");
+            pickedFile!.files.isEmpty ? "" : pickedFile!.files.first.name;
       }
     } else {
       viewPDF(context, filePath ?? "");
@@ -209,14 +213,11 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   void handleOnSuffixTap(BuildContext context) async {
     if (uploadInvoiceController.text.isEmpty) {
-      var res = await openFileManager(context);
+      pickedFile = await openFileManager(context);
 
-      if (res != null) {
+      if (pickedFile != null) {
         uploadInvoiceController.text =
-            res.files.isEmpty ? "" : res.files.first.name;
-        uploadInvoiceDoc = await MultipartFile.fromFile(
-            res.files.first.path ?? '',
-            filename: "uploadInvoice.pdf");
+            pickedFile!.files.isEmpty ? "" : pickedFile!.files.first.name;
       }
     } else {
       uploadInvoiceController.text = "";
@@ -281,21 +282,28 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     } else {}
   }
 
-  void addProcurementData(BuildContext context) {
-    postProcurementData(
-        context,
-        ProcurementRequestModel(
-          uploadInvoice: uploadInvoiceDoc,
-          financialYear: changeDropdown,
-          sellerName: nameOfWasteTyreSupplierController.text,
-          contactDetails: contactDetailsController.text,
-          supplierAddress: addressController.text,
-          typeOfRawMaterial: typeOfRawMaterialController.text,
-          purchaseQuantity: quantityReceivedController.text,
-          invoiceNumber: invoiceNumberController.text,
-          supplierGstNo: gstController.text,
-          purchaseDate: dateController.text.replaceAll("-", "/"),
-          sellerMobile: supplierContactDetailsController.text,
-        ));
+  Future addProcurementData(BuildContext context) async {
+    if (pickedFile != null) {
+      uploadInvoiceDoc = await MultipartFile.fromFile(
+          pickedFile!.files.first.path ?? '',
+          filename: "uploadInvoice.pdf");
+    }
+    if (context.mounted) {
+      postProcurementData(
+          context,
+          ProcurementRequestModel(
+            uploadInvoice: uploadInvoiceDoc,
+            financialYear: changeDropdown,
+            sellerName: nameOfWasteTyreSupplierController.text,
+            contactDetails: contactDetailsController.text,
+            supplierAddress: addressController.text,
+            typeOfRawMaterial: typeOfRawMaterialController.text,
+            purchaseQuantity: quantityReceivedController.text,
+            invoiceNumber: invoiceNumberController.text,
+            supplierGstNo: gstController.text,
+            purchaseDate: dateController.text,
+            sellerMobile: supplierContactDetailsController.text,
+          ));
+    }
   }
 }

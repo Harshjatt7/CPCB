@@ -5,26 +5,24 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class CommonRetraderDataCard extends StatelessWidget {
-  const CommonRetraderDataCard(
+class RecyclerDetailsContainer extends StatelessWidget {
+  const RecyclerDetailsContainer(
       {super.key,
       required this.name,
       this.contactDetails,
       this.address,
-      this.invoiceNumber,
       this.gstNumber,
       this.typeOfRaw,
-      this.total,
       this.date,
       this.year,
       this.isRetraderContainer = false});
   final String name;
   final String? contactDetails;
   final String? address;
-  final String? invoiceNumber;
+
   final String? gstNumber;
   final String? typeOfRaw;
-  final String? total;
+
   final String? date;
   final String? year;
   final bool? isRetraderContainer;
@@ -50,9 +48,6 @@ class CommonRetraderDataCard extends StatelessWidget {
           retraderDetailsCard(
               context, "Contact details: ${contactDetails ?? ''}"),
           retraderDetailsCard(context, "Address of buyer: ${address ?? ''}"),
-          if (isRetraderContainer == false)
-            retraderDetailsCard(
-                context, "Invoice number: ${invoiceNumber ?? ''}"),
           retraderDetailsCard(context, "GST number: ${gstNumber ?? ''}"),
           retraderDetailsCard(
               context, "Type of raw material: ${typeOfRaw ?? ''}"),
@@ -61,19 +56,6 @@ class CommonRetraderDataCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Row(
-                children: [
-                  CommonImageWidget(
-                    imageSource: ImageConstants().verified,
-                    isNetworkImage: false,
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  retraderDetailsCard(context, total ?? "")
-                ],
-              ),
-              const SizedBox(width: 32),
               Row(
                 children: [
                   CommonImageWidget(
