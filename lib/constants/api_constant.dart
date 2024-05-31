@@ -37,8 +37,9 @@ class APIRoutes {
   final String retreaderDownloadApplicationAPIRoute =
       "api/retreader/download-application";
   final String producerSalesDataAPIRoute = "api/producer/add-sales-data";
-  final String producerSalesDataConstantAPIRoute = "api/producer/add-sales-data-constant-list";
-  final String producerSalesDataList="api/producer/sales-data-list";
+  final String producerSalesDataConstantAPIRoute =
+      "api/producer/add-sales-data-constant-list";
+  final String producerSalesDataList = "api/producer/sales-data-list";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";

@@ -22,13 +22,13 @@ class SalesDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<SalesDataViewModel>(
         onModelReady: (viewModel) async {
-          // viewModel.addYear();
           viewModel.textFormListener();
           await viewModel.getProducerDataConstants(context);
         },
         viewModel: SalesDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+              resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               backgroundColor: AppColor().offWhite,
               appBar: CommonAppBar(
