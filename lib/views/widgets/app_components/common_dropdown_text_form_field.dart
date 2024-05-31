@@ -28,7 +28,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
-              color: error==null? AppColor().grey03:AppColor().red,
+              color: error == null ? AppColor().grey03 : AppColor().red,
             )),
         child: Padding(
           padding: const EdgeInsets.only(left: 16),
@@ -37,7 +37,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
               DropdownButtonFormField(
                 isExpanded: true,
                 onTap: onTap,
-                value:value,
+                value: value,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   isDense: true,
@@ -79,8 +79,6 @@ class CommonDropdownTextFormField extends StatelessWidget {
                             ),
                             child: CommonTextWidget(
                               label.toString(),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
                               style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ),

@@ -78,20 +78,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
   }
 
-  // void changeDropdownValue(newValue) {
-  //   changeDropdown = newValue;
-  //   if (changeDropdown != null) {
-  //     String startYear = changeDropdown!.split('-').first;
-  //     int year = int.parse(startYear);
-  //     startDate = DateTime(year, 4, 1);
-  //     updateUI();
-  //   }
-  //   updateUI();
-  //   if (changeDropdown == null) {
-  //     yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
-  //   }
-  // }
-
   void changeRawMaterialDropdownValue(newValue) {
     tyreOfRecyclerMaterialDropdownValue = newValue;
     updateUI();
@@ -156,14 +142,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   String? quantityProducedValidation() {
     if (quantityProducedController.text.isEmpty) {
       return MessageConstant().mandatoryToAddQuantityProduced;
-    }
-    if (quantityProducedController.text.isNotEmpty &&
-        quantityProcessedController.text.isNotEmpty) {
-      int quantityProcessed = int.parse(quantityProcessedController.text);
-      int quantityProduced = int.parse(quantityProducedController.text);
-      if (quantityProduced > quantityProcessed) {
-        return MessageConstant().quantityProducedError;
-      }
     }
     return null;
   }

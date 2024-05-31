@@ -160,14 +160,6 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     if (quantityProducedController.text.isEmpty) {
       return MessageConstant().quantityProducedValidation;
     }
-    if (quantityProducedController.text.isNotEmpty &&
-        quantityProcessedController.text.isNotEmpty) {
-      int quantityProcessed = int.parse(quantityProcessedController.text);
-      int quantityProduced = int.parse(quantityProducedController.text);
-      if (quantityProduced > quantityProcessed) {
-        return MessageConstant().quantityProducedMoreValidation;
-      }
-    }
     return null;
   }
 
