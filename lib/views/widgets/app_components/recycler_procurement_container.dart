@@ -3,9 +3,10 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:localization/localization.dart';
+
+import '../../../constants/string_constant.dart';
 
 class RecyclerProcurementDetailsContainer extends StatelessWidget {
   const RecyclerProcurementDetailsContainer({
@@ -43,10 +44,10 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
           const SizedBox(
             height: 6,
           ),
-          retraderDetailsCard(
-              context, "Invoice Number: ${invoiceNumber ?? ''}"),
-          retraderDetailsCard(
-              context, "Type of raw material: ${typeOfRaw ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().invoiceNumberLabel.i18n()} ${invoiceNumber ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
           Divider(
             color: AppColor().black10,
           ),
@@ -64,7 +65,7 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
                       width: 4,
                     ),
                     retraderDetailsCard(context,
-                        'Date: ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                        '${StringConstants().date.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                   ],
                 ),
               ),

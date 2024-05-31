@@ -1,11 +1,11 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:localization/localization.dart';
 
 class RecyclerDetailsContainer extends StatelessWidget {
   const RecyclerDetailsContainer(
@@ -52,16 +52,16 @@ class RecyclerDetailsContainer extends StatelessWidget {
           const SizedBox(
             height: 6,
           ),
-          retraderDetailsCard(
-              context, "Contact details: ${contactDetails ?? ''}"),
-          retraderDetailsCard(
-              context, "Quantity processed (in tonnes): ${qtyProcessed ?? ''}"),
-          retraderDetailsCard(
-              context, "Quantity produced (in tonnes): ${qtyProduced ?? ''}"),
           retraderDetailsCard(context,
-              "Quantity of waste generated (in tonnes): ${wasteQty ?? ''}"),
-          retraderDetailsCard(
-              context, "Type of raw material: ${typeOfRaw ?? ''}"),
+              "${StringConstants().contactDetailLabel.i18n()} ${contactDetails ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().qtyProcessedLabel.i18n()} ${qtyProcessed ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().qtyProducedLabel.i18n()} ${qtyProduced ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().qtyWasteLabel.i18n()} ${wasteQty ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
           Divider(
             color: AppColor().black10,
           ),
@@ -79,7 +79,7 @@ class RecyclerDetailsContainer extends StatelessWidget {
                       width: 4,
                     ),
                     retraderDetailsCard(context,
-                        'Date: ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                        '${StringConstants().dateLabel.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                   ],
                 ),
               ),

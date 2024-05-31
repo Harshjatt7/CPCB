@@ -93,6 +93,16 @@ class StringConstants {
   final String searchHere = "search-here";
   final String tyreSourceLabel = "Tyre Source";
 
+  final String dateLabel = "date-label";
+  final String qtyProducedLabel = "qty-produced-label";
+  final String contactDetailLabel = "contact-details-label";
+  final String addressOfBuyerLabel = "address-of-buyer-label";
+  final String qtyProcessedLabel = "qty-processed-label";
+  final String qtyWasteLabel = "qty-of-waste-generated-label";
+  final String gstNumberLabel = "gst-numebr-label";
+  final String typeOfRawMaterialLabel = "type-of-raw-materail-label";
+  final String invoiceNumberLabel = "invoice-number-label";
+
   //User Types
   static const String admin = "Admin";
   static const String auditor = "Auditor";

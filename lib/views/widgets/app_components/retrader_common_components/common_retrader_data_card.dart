@@ -4,6 +4,9 @@ import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
+
+import '../../../../constants/string_constant.dart';
 
 class CommonRetraderDataCard extends StatelessWidget {
   const CommonRetraderDataCard(
@@ -47,15 +50,17 @@ class CommonRetraderDataCard extends StatelessWidget {
           const SizedBox(
             height: 6,
           ),
-          retraderDetailsCard(
-              context, "Contact details: ${contactDetails ?? ''}"),
-          retraderDetailsCard(context, "Address of buyer: ${address ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().contactDetailLabel.i18n()} ${contactDetails ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().addressOfBuyerLabel.i18n()} ${address ?? ''}"),
           if (isRetraderContainer == false)
-            retraderDetailsCard(
-                context, "Invoice number: ${invoiceNumber ?? ''}"),
-          retraderDetailsCard(context, "GST number: ${gstNumber ?? ''}"),
-          retraderDetailsCard(
-              context, "Type of raw material: ${typeOfRaw ?? ''}"),
+            retraderDetailsCard(context,
+                "${StringConstants().invoiceNumberLabel.i18n()} ${invoiceNumber ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().gstNumberLabel.i18n()} ${gstNumber ?? ''}"),
+          retraderDetailsCard(context,
+              "${StringConstants().typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
           Divider(
             color: AppColor().black10,
           ),
@@ -84,7 +89,7 @@ class CommonRetraderDataCard extends StatelessWidget {
                     width: 4,
                   ),
                   retraderDetailsCard(context,
-                      'Date: ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                      '${StringConstants().date.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                 ],
               ),
               const SizedBox(width: 32),
