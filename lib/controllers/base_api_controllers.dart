@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/models/response/auth/login_response_model.dart';
@@ -194,7 +195,8 @@ class APIBase {
 
       apiResponse = await returnResponse<T>(response);
     } catch (err) {
-      apiResponse = exceptionHandler<T>(err);
+      apiResponse = exceptionHandler<T>(err,
+          isResponseBytes: isMediaAuthorizationRequired == true);
     } finally {}
 
     return apiResponse;
@@ -371,16 +373,36 @@ class APIBase {
     }
   }
 
-  APIResponse<T> exceptionHandler<T>(ex) {
+  APIResponse<T> exceptionHandler<T>(ex, {bool? isResponseBytes = false}) {
     if (ex is DioException) {
-      ErrorResponseModel errorResponseModel = ex.response?.data.isEmpty
-          ? ErrorResponseModel(
-              errorResponse: Error(
-                  errorDescription: MessageConstant().errorMessage.i18n()),
-            )
-          : ErrorResponseModel.fromJson(ex.response?.data);
+      if (isResponseBytes == false) {
+        ErrorResponseModel errorResponseModel = ex.response?.data.isEmpty
+            ? ErrorResponseModel(
+                errorResponse: Error(
+                    errorDescription: MessageConstant().errorMessage.i18n()),
+              )
+            : ErrorResponseModel.fromJson(ex.response?.data);
 
-      return APIResponse(isSuccess: false, error: errorResponseModel);
+        return APIResponse(isSuccess: false, error: errorResponseModel);
+      } else {
+        // If response is in bytes and some error is encountered, we first need to convert the bytes into string.
+        // That will give us the json string, which can then be de-serialized using .fromJson() function.
+        const asciiDecoder = AsciiDecoder();
+        final asciiValues = ex.response?.data;
+        final result = asciiDecoder.convert(asciiValues);
+
+        HelperFunctions()
+            .logger("byte to json error response >>>>>> ${jsonDecode(result)}");
+
+        ErrorResponseModel errorResponseModel = ex.response?.data.isEmpty
+            ? ErrorResponseModel(
+                errorResponse: Error(
+                    errorDescription: MessageConstant().errorMessage.i18n()),
+              )
+            : ErrorResponseModel.fromJson(jsonDecode(result));
+
+        return APIResponse(isSuccess: false, error: errorResponseModel);
+      }
     } else if (ex is SocketException) {
       return APIResponse<T>(
         isSuccess: false,

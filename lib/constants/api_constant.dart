@@ -39,6 +39,9 @@ class APIRoutes {
   final String producerSalesDataAPIRoute = "api/producer/add-sales-data";
   final String producerSalesDataConstantAPIRoute = "api/producer/add-sales-data-constant-list";
   final String producerSalesDataList="api/producer/sales-data-list";
+
+  // WEB URLs
+  final String forgotPasswordWebUrl = "forgotPassword";
 }
 
 extension ApiBaseURL on ApiEnvironments {

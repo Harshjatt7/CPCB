@@ -86,10 +86,6 @@ class DashboardViewModel extends BaseViewModel {
         }
       }
     } catch (err) {
-      if (context.mounted) {
-        HelperFunctions().commonErrorSnackBar(context, 'No Payment Found');
-      }
-
       HelperFunctions().logger("$err");
     }
     state = ViewState.idle;
@@ -128,9 +124,6 @@ class DashboardViewModel extends BaseViewModel {
         }
       }
     } catch (err) {
-      if (context.mounted) {
-        HelperFunctions().commonErrorSnackBar(context, 'No Payment Found');
-      }
       HelperFunctions().logger("$err");
     }
     state = ViewState.idle;
