@@ -10,6 +10,7 @@ import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/routes_constant.dart';
+import '../material_app_viewmodel.dart';
 
 class ProfileViewModel extends BaseViewModel {
   final _commonRepo = CommonRepository();
@@ -29,6 +30,8 @@ class ProfileViewModel extends BaseViewModel {
           .deleteSensitiveInfo(StoreKeyConstants().refreshToken);
       await SecureStorage.instance
           .storeSensitiveInfo(StoreKeyConstants().isLogin, false);
+
+      MaterialAppViewModel.selectedPageIndex = 0;
 
       Navigator.pushNamedAndRemoveUntil(
           context, AppRoutes.loginScreenRoute, (route) => false);

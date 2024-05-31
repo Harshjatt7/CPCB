@@ -36,7 +36,10 @@ class APIRoutes {
   final String addRecycledData = "api/recycler/add-recycled-data";
   final String retreaderDownloadApplicationAPIRoute =
       "api/retreader/download-application";
-  final String producerSalesDataList="api/producer/sales-data-list";
+  final String producerSalesDataList = "api/producer/sales-data-list";
+
+  // WEB URLs
+  final String forgotPasswordWebUrl = "forgotPassword";
 }
 
 extension ApiBaseURL on ApiEnvironments {

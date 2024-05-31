@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
@@ -12,6 +13,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/components/common_text_form_field_widget.dart';
 import '../../widgets/components/common_text_widget.dart';
 
@@ -167,10 +169,17 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    CommonTextWidget(
-                      StringConstants().forgotPassLabel,
-                      style: context.textThemeHelper.displayMedium?.copyWith(
-                          color: AppColor().green, fontWeight: FontWeight.w600),
+                    InkWell(
+                      onTap: () async {
+                        launchUrl(Uri.parse(APIRoutes.baseUrl +
+                            APIRoutes().forgotPasswordWebUrl));
+                      },
+                      child: CommonTextWidget(
+                        StringConstants().forgotPassLabel,
+                        style: context.textThemeHelper.displayMedium?.copyWith(
+                            color: AppColor().green,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ),
                     const SizedBox(
                       height: 24,

@@ -35,9 +35,11 @@ class RetreaderRepository {
     HelperFunctions().logger("$response");
     return response;
   }
-  Future postProcurementData(ProcurementRequestModel requestModel) async {
+
+  Future<APIResponse<AddDataResponseModel?>?> postProcurementData(
+      ProcurementRequestModel requestModel) async {
     FormData request = FormData.fromMap(requestModel.toJson());
-    APIResponse? response = await _apiBase.postRequest(
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
       _apiRoutes.procurementAPIRoute,
       data: request,
       isAuthorizationRequired: true,
