@@ -26,7 +26,6 @@ class DashBoardScreen extends StatelessWidget {
     return BaseView<DashboardViewModel>(
       onModelReady: (viewModel) async {
         viewModel.getCurrentUserType(context);
-
         await viewModel.getDasboardData(context);
       },
       viewModel: DashboardViewModel(),

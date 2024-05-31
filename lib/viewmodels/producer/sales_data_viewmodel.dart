@@ -55,13 +55,12 @@ class SalesDataViewModel extends BaseViewModel {
     if (response?.isSuccess == true) {
       response?.data =
           ProducerConstantResponseModel.fromJson(response.completeResponse);
-      financialYearList.addAll(response?.data?.data?.financialYear ?? []);
-      producerList
-          .addAll(response?.data?.data?.producerType?.values.toList() ?? []);
-      tyreList.addAll(response?.data!.data?.tyreType?.values.toList() ?? []);
-      monthList.addAll(response?.data?.data?.months ?? []);
-
-      producerTypeMap = response?.data?.data?.producerType ?? {};
+      final responseData = response?.data?.data;
+      financialYearList.addAll(responseData?.financialYear ?? []);
+      producerList.addAll(responseData?.producerType?.values.toList() ?? []);
+      tyreList.addAll(responseData?.tyreType?.values.toList() ?? []);
+      monthList.addAll(responseData?.months ?? []);
+      producerTypeMap = responseData?.producerType ?? {};
     } else {
       HelperFunctions()
           .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
@@ -119,7 +118,6 @@ class SalesDataViewModel extends BaseViewModel {
           }
         } else {
           final apiError = response?.error?.errorsList;
-
           financialYearError = (apiError?.financialYear ?? []).isEmpty
               ? ""
               : apiError?.financialYear?.first ?? "";

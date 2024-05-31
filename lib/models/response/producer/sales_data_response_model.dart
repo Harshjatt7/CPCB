@@ -63,7 +63,7 @@ class SalesData {
         tRear: json["t_rear"],
         other: json["other"],
         total: json["total"],
-        producerType: json["producer_type"],
+        producerType: json["ProducerType"],
       );
 }
 
