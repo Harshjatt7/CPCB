@@ -64,6 +64,11 @@ class ErrorsList {
   List<String>? recycledDate;
   List<String>? sourceTyre;
 
+  List<String>? producerType;
+  List<String>? typeOfTyreManufacture;
+  List<String>? month;
+  List<String>? total;
+
   ErrorsList(
       {this.financialYear,
       this.processedQty,
@@ -86,7 +91,13 @@ class ErrorsList {
       this.wasteTyreSupplierGst,
       this.wasteGeneratedQty,
       this.sourceTyre,
-      this.recycledDate});
+      this.recycledDate,
+
+      this.producerType,
+      this.typeOfTyreManufacture,
+      this.month,
+      this.total,
+      });
       
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
@@ -161,6 +172,20 @@ class ErrorsList {
         sourceTyre: json["source_tyre"] == null
             ? []
             : List<String>.from(json["source_tyre"]!.map((x) => x)),
+
+        producerType: json["producer_type"] == null 
+            ? [] 
+            : List<String>.from(json["producer_type"]!.map((x) => x)),
+        typeOfTyreManufacture: json["type_of_tyre_manufacture"] == null 
+            ? [] 
+            : List<String>.from(json["type_of_tyre_manufacture"]!.map((x) => x)),
+        month: json["month"] == null 
+            ? [] 
+            : List<String>.from(json["month"]!.map((x) => x)),
+        total: json["total"] == null 
+            ? [] 
+            : List<String>.from(json["total"]!.map((x) => x)),
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -230,5 +255,17 @@ class ErrorsList {
         "source_tyre": sourceTyre == null
             ? []
             : List<dynamic>.from(sourceTyre!.map((x) => x)),
+        "producer_type": producerType == null 
+            ? [] 
+            : List<dynamic>.from(producerType!.map((x) => x)),
+        "type_of_tyre_manufacture": typeOfTyreManufacture == null 
+            ? [] 
+            : List<dynamic>.from(typeOfTyreManufacture!.map((x) => x)),
+        "month": month == null 
+            ? [] 
+            : List<dynamic>.from(month!.map((x) => x)),
+        "total": total == null 
+            ? [] 
+            : List<dynamic>.from(total!.map((x) => x)),
       };
 }

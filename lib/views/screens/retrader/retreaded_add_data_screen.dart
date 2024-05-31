@@ -129,9 +129,9 @@ class RetreadedAddDataScreen extends StatelessWidget {
           hintText: StringConstants().retreadedDate,
           isMandatory: true,
           isReadOnly: true,
-          validator: (value) {
-            return viewModel.dateValidation();
-          },
+          // validator: (value) {
+          //   return viewModel.dateValidation();
+          // },
           disabledBgColor: AppColor().transparent,
           onTap: () async {
             viewModel.date = await HelperFunctions()
@@ -153,9 +153,9 @@ class RetreadedAddDataScreen extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           hintText: StringConstants().quantityOfWasteGenerated,
           isMandatory: true,
-          validator: (value) {
-            return viewModel.quantityOfWasteGeneratedValidation();
-          },
+          // validator: (value) {
+          //   return viewModel.quantityOfWasteGeneratedValidation();
+          // },
           controller: viewModel.quantityOfWasteGeneratedController),
     );
   }
@@ -167,9 +167,9 @@ class RetreadedAddDataScreen extends StatelessWidget {
           textInputType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           hintText: StringConstants().quantityProduced,
-          validator: (value) {
-            return viewModel.quantityProducedValidation();
-          },
+          // validator: (value) {
+          //   return viewModel.quantityProducedValidation();
+          // },
           isMandatory: true,
           controller: viewModel.quantityProducedController),
     );
@@ -183,9 +183,9 @@ class RetreadedAddDataScreen extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           hintText: StringConstants().quantityProcessed,
           isMandatory: true,
-          validator: (value) {
-            return viewModel.quantityProcessedValidation();
-          },
+          // validator: (value) {
+          //   return viewModel.quantityProcessedValidation();
+          // },
           controller: viewModel.quantityProcessedController),
     );
   }

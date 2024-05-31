@@ -1,13 +1,16 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer/sales_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_pop_up.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,18 +21,20 @@ class SalesDataScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<SalesDataViewModel>(
-        onModelReady: (viewModel) {
-          viewModel.addYear();
+        onModelReady: (viewModel) async {
+          // viewModel.addYear();
           viewModel.textFormListener();
+          await viewModel.getProducerDataConstants(context);
         },
         viewModel: SalesDataViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+              isLoading: viewModel.state == ViewState.busy,
               backgroundColor: AppColor().offWhite,
               appBar: CommonAppBar(
                 title: StringConstants().addSalesDataBtnLabel,
               ),
-              body: formSection(viewModel),
+              body: formSection(context, viewModel),
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
@@ -44,8 +49,26 @@ class SalesDataScreen extends StatelessWidget {
                         .labelSmall!
                         .copyWith(color: AppColor().white),
                     onPressed: () {
-                      viewModel.dropDownValidation();
-                      viewModel.formValidation();
+                      viewModel.formValidation(
+                        context,
+                      );
+                      if (viewModel.formKey.currentState?.validate() ?? false) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext ctx) {
+                              return CommonPopUp(
+                                onPressedNo: () {
+                                  Navigator.pop(ctx);
+                                },
+                                onPressedYes: () async {
+                                  Navigator.pop(ctx);
+                                  if (context.mounted) {
+                                    viewModel.postProducerData(context);
+                                  }
+                                },
+                              );
+                            });
+                      }
                     },
                   ),
                 ),
@@ -53,7 +76,8 @@ class SalesDataScreen extends StatelessWidget {
         });
   }
 
-  CommonSingleChildScrollView formSection(SalesDataViewModel viewModel) {
+  CommonSingleChildScrollView formSection(
+      BuildContext context, SalesDataViewModel viewModel) {
     return CommonSingleChildScrollView(
       controller: viewModel.scrollController,
       child: Form(
@@ -68,11 +92,12 @@ class SalesDataScreen extends StatelessWidget {
                   error: viewModel.producerDropdownError,
                   onTap: () {
                     viewModel.changeDropdownValue(
-                        SalesDataDropdown.producerType, null);
+                        SalesDataDropdown.producerType,
+                        viewModel.producerDropdownValue);
                   },
                   labelText: StringConstants().typeOfProducerLabel,
                   value: viewModel.producerDropdownValue,
-                  dropDownItem: viewModel.producerCategoryList,
+                  dropDownItem: viewModel.producerList,
                   onChanged: (value) {
                     viewModel.changeDropdownValue(
                         SalesDataDropdown.producerType, value);
@@ -80,17 +105,19 @@ class SalesDataScreen extends StatelessWidget {
                   },
                 ),
               ),
+              if (viewModel.producerError.isNotEmpty)
+                showErrorMessage(context, viewModel.producerError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonDropdownTextFormField(
                   error: viewModel.tyreDropdownError,
                   onTap: () {
-                    viewModel.changeDropdownValue(
-                        SalesDataDropdown.typeOfTyre, null);
+                    viewModel.changeDropdownValue(SalesDataDropdown.typeOfTyre,
+                        viewModel.tyreDropdownValue);
                   },
                   value: viewModel.tyreDropdownValue,
                   labelText: StringConstants().typeOfTyreLabel,
-                  dropDownItem: viewModel.typesOfTyreList,
+                  dropDownItem: viewModel.tyreList,
                   onChanged: (value) {
                     viewModel.changeDropdownValue(
                         SalesDataDropdown.typeOfTyre, value);
@@ -98,13 +125,16 @@ class SalesDataScreen extends StatelessWidget {
                   },
                 ),
               ),
+              if (viewModel.tyreError.isNotEmpty)
+                showErrorMessage(context, viewModel.tyreError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonDropdownTextFormField(
                   error: viewModel.yearDropdownError,
                   onTap: () {
                     viewModel.changeDropdownValue(
-                        SalesDataDropdown.financialYear, null);
+                        SalesDataDropdown.financialYear,
+                        viewModel.yearDropdownValue);
                   },
                   value: viewModel.yearDropdownValue,
                   labelText: StringConstants().financialYearLabel,
@@ -116,13 +146,15 @@ class SalesDataScreen extends StatelessWidget {
                   },
                 ),
               ),
+              if (viewModel.financialYearError.isNotEmpty)
+                showErrorMessage(context, viewModel.financialYearError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonDropdownTextFormField(
                   error: viewModel.monthDropdownError,
                   onTap: () {
                     viewModel.changeDropdownValue(
-                        SalesDataDropdown.month, null);
+                        SalesDataDropdown.month, viewModel.monthDropdownValue);
                   },
                   value: viewModel.monthDropdownValue,
                   labelText: StringConstants().chooseMonthLabel,
@@ -134,6 +166,8 @@ class SalesDataScreen extends StatelessWidget {
                   },
                 ),
               ),
+              if (viewModel.monthError.isNotEmpty)
+                showErrorMessage(context, viewModel.monthError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
@@ -219,8 +253,26 @@ class SalesDataScreen extends StatelessWidget {
                     isMandatory: false,
                     controller: viewModel.totalController),
               ),
+              if (viewModel.totalError.isNotEmpty)
+                showErrorMessage(context, viewModel.totalError),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: AppColor().red),
         ),
       ),
     );

@@ -77,20 +77,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
   }
 
-  // void changeDropdownValue(newValue) {
-  //   changeDropdown = newValue;
-  //   if (changeDropdown != null) {
-  //     String startYear = changeDropdown!.split('-').first;
-  //     int year = int.parse(startYear);
-  //     startDate = DateTime(year, 4, 1);
-  //     updateUI();
-  //   }
-  //   updateUI();
-  //   if (changeDropdown == null) {
-  //     yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
-  //   }
-  // }
-
   void changeRawMaterialDropdownValue(newValue) {
     rawMaterialChangeDropDown = newValue;
     updateUI();
@@ -152,14 +138,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     if (quantityProducedController.text.isEmpty) {
       return MessageConstant().mandatoryToAddQuantityProduced;
     }
-    if (quantityProducedController.text.isNotEmpty &&
-        quantityProcessedController.text.isNotEmpty) {
-      int quantityProcessed = int.parse(quantityProcessedController.text);
-      int quantityProduced = int.parse(quantityProducedController.text);
-      if (quantityProduced > quantityProcessed) {
-        return MessageConstant().quantityProducedError;
-      }
-    }
     return null;
   }
 
@@ -171,17 +149,12 @@ class RecyclerAddDataViewModel extends BaseViewModel {
         wasteTyreSupplierContact: contactDetailsController.text,
         wasteTyreSupplierAddress: addressController.text,
         typeOfRecycledMaterial: rawMaterialChangeDropDown,
-        // typeOfRecycledMaterial: null,
         wasteTyreSupplierGst: gstController.text,
         processedQty: double.parse(quantityProcessedController.text),
         producedQty: double.parse(quantityProducedController.text),
         wasteGeneratedQty:
             double.parse(quantityOfWasteGeneratedController.text),
         recycledDate: recyclerDate.split(' ').first
-        // processedQty: null,
-        // producedQty: null,
-        // wasteGeneratedQty: null,
-        // recycledDate: null
         );
     postRecyclerData(request, context);
   }
