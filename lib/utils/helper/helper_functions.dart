@@ -450,16 +450,18 @@ class HelperFunctions {
 
   /// [getFormattedDate] is a method to change Date format.
   String getFormattedDate({DateTime? date, String? dtstr}) {
-    String formattedDate = "           ";
+    String formattedDate = "";
     DateTime? dateTime;
     if (date != null) {
       dateTime = date;
-    } else if (dtstr != null) {
+    } else if (dtstr != null && dtstr != 'N/A') {
       if (dtstr.contains('/')) {
         dateTime = DateFormat('dd/MM/yyyy').parse(dtstr);
       } else {
         dateTime = DateTime.tryParse(dtstr);
       }
+    } else if (dtstr != null && dtstr == 'N/A') {
+      return dtstr;
     }
     try {
       if (dateTime != null) {

@@ -79,6 +79,11 @@ class RecyclerDataScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: RecyclerDetailsContainer(
                           name: recyclerDetails?.wasteTyreSupplierName ?? "",
+                          qtyProcessed:
+                              "${recyclerDetails?.processedQty ?? ""}",
+                          qtyProduced: "${recyclerDetails?.producedQty ?? ""}",
+                          wasteQty:
+                              "${recyclerDetails?.wasteGeneratedQty ?? ""}",
                           contactDetails:
                               recyclerDetails?.wasteTyreSupplierContact ?? "",
                           address:

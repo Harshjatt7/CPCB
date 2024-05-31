@@ -4,7 +4,7 @@ class RecyclerDataListResponseModel {
   List<RecyclerDataListData>? data;
   Links? links;
   Meta? meta;
-  int? status;
+  num? status;
 
   RecyclerDataListResponseModel({
     this.data,
@@ -32,9 +32,9 @@ class RecyclerDataListData {
   dynamic wasteTyreSupplierAddress;
   String? typeOfRecycledMaterial;
   String? wasteTyreSupplierGst;
-  int? processedQty;
-  int? producedQty;
-  int? wasteGeneratedQty;
+  num? processedQty;
+  num? producedQty;
+  num? wasteGeneratedQty;
   String? recycledDate;
 
   RecyclerDataListData({

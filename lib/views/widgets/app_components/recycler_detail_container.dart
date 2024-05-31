@@ -3,7 +3,9 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class RecyclerDetailsContainer extends StatelessWidget {
   const RecyclerDetailsContainer(
@@ -12,6 +14,9 @@ class RecyclerDetailsContainer extends StatelessWidget {
       this.contactDetails,
       this.address,
       this.gstNumber,
+      this.qtyProcessed,
+      this.qtyProduced,
+      this.wasteQty,
       this.typeOfRaw,
       this.date,
       this.year,
@@ -22,7 +27,9 @@ class RecyclerDetailsContainer extends StatelessWidget {
 
   final String? gstNumber;
   final String? typeOfRaw;
-
+  final String? qtyProcessed;
+  final String? qtyProduced;
+  final String? wasteQty;
   final String? date;
   final String? year;
   final bool? isRetraderContainer;
@@ -47,8 +54,12 @@ class RecyclerDetailsContainer extends StatelessWidget {
           ),
           retraderDetailsCard(
               context, "Contact details: ${contactDetails ?? ''}"),
-          retraderDetailsCard(context, "Address of buyer: ${address ?? ''}"),
-          retraderDetailsCard(context, "GST number: ${gstNumber ?? ''}"),
+          retraderDetailsCard(
+              context, "Quantity processed (in tonnes): ${qtyProcessed ?? ''}"),
+          retraderDetailsCard(
+              context, "Quantity produced (in tonnes): ${qtyProduced ?? ''}"),
+          retraderDetailsCard(context,
+              "Quantity of waste generated (in tonnes): ${wasteQty ?? ''}"),
           retraderDetailsCard(
               context, "Type of raw material: ${typeOfRaw ?? ''}"),
           Divider(
@@ -56,31 +67,36 @@ class RecyclerDetailsContainer extends StatelessWidget {
           ),
           Row(
             children: [
-              Row(
-                children: [
-                  CommonImageWidget(
-                    imageSource: ImageConstants().calendarIcon,
-                    isNetworkImage: false,
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  retraderDetailsCard(context,
-                      'Date: ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
-                ],
+              Flexible(
+                flex: 1,
+                child: Row(
+                  children: [
+                    CommonImageWidget(
+                      imageSource: ImageConstants().calendarIcon,
+                      isNetworkImage: false,
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    retraderDetailsCard(context,
+                        'Date: ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                  ],
+                ),
               ),
-              const SizedBox(width: 32),
-              Row(
-                children: [
-                  CommonImageWidget(
-                    imageSource: ImageConstants().calendarIcon,
-                    isNetworkImage: false,
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  retraderDetailsCard(context, year ?? ""),
-                ],
+              Flexible(
+                flex: 1,
+                child: Row(
+                  children: [
+                    CommonImageWidget(
+                      imageSource: ImageConstants().calendarIcon,
+                      isNetworkImage: false,
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    retraderDetailsCard(context, year ?? ""),
+                  ],
+                ),
               )
             ],
           )

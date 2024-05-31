@@ -7,12 +7,13 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/procurement_view_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/retrader_common_components/common_retrader_data_card.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/app_components/recycler_procurement_container.dart';
 
 class RecyclerProcurementDataScreen extends StatelessWidget {
   const RecyclerProcurementDataScreen({super.key});
@@ -90,8 +91,8 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       child: (viewModel.data?.length ?? 0) == 0
                           ? Center(
                               child: CommonTextWidget(
@@ -103,20 +104,17 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                                 (index) => Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 8),
-                                  child: CommonRetraderDataCard(
-                                    name: viewModel.data?[index].sellerName ?? "",
-                                    contactDetails:
-                                        viewModel.data?[index].sellerMobile,
-                                    address: viewModel.data?[index].sellerAddress,
+                                  child: RecyclerProcurementDetailsContainer(
+                                    name:
+                                        viewModel.data?[index].sellerName ?? "",
                                     invoiceNumber:
                                         viewModel.data?[index].invoiceNumber,
-                                    gstNumber: viewModel.data?[index].sellerGstNo,
-                                    typeOfRaw: viewModel.data?[index].rawMaterial,
-                                    total:
-                                        '${viewModel.data?[index].purchasedQuantity}',
+                                    typeOfRaw:
+                                        viewModel.data?[index].rawMaterial,
                                     date:
                                         '${viewModel.data?[index].purchasedDate}',
-                                    year: '${viewModel.data?[index].financeYear}',
+                                    year:
+                                        '${viewModel.data?[index].financeYear}',
                                   ),
                                 ),
                               ),
