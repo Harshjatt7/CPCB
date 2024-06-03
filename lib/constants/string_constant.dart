@@ -103,6 +103,32 @@ class StringConstants {
   final String typeOfRawMaterialLabel = "type-of-raw-materail-label";
   final String invoiceNumberLabel = "invoice-number-label";
 
+  final String eprOblications = "epr-oblications";
+  final String newTyreManufacturers = "new-tyre-manufacturers";
+  final String newTyreProducedDomestically = "new-tyre-produced-domestically";
+  final String newTyreImported = "new-tyre-imported";
+  final String newTyreImportedAndImportedVehicles =
+      "new-tyre-imported-and-imported-vehicles";
+  final String newTyreImportedExclusively = "new-tyre-imported-exclusively";
+  final String wasteTyreImporter = "waste-tyre-importer";
+  final String totalApplicationReceived = "total-application-received";
+  final String totalApplication = "total-application";
+  final String eprApplications = "epr-applications";
+  final String applicationsUnderProcessAtCPCB =
+      "applications-under-process-at-cpcb";
+  final String applicationsUnderEvaluationWithDivision =
+      "applications-under-evaluation-with-division";
+  final String applicationsApprovedByAuthority =
+      "applications-approved-by-authority";
+  final String applicationsRejectedByAuthority =
+      "applications-rejected-by-authority";
+  final String applicationsAwaitingApprovalAtAuthority =
+      "applications-awaiting-approval-at-authority";
+  final String returnForDivision = "return-for-division";
+  final String applicationPendingAtTheApplicants =
+      "application-pending-at-the-applicants";
+      final String numberOfRegistrationGrantedToProducers="number-of-registration-granted-to-producers";
+
   //User Types
   static const String admin = "Admin";
   static const String auditor = "Auditor";

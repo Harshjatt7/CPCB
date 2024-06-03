@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/views/screens/admin/admin_producer_tab.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +36,9 @@ class AdminDashboardScreen extends StatelessWidget {
                 ),
               ],
             )),
-        body: Container());
+        body: const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: AdminProucerTab(),
+        ));
   }
 }

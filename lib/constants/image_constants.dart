@@ -58,4 +58,9 @@ class ImageConstants {
   final String searchIcon = "assets/images/icons/search.svg";
   final String filter = "assets/images/icons/filter.svg";
   final String person = "assets/images/icons/person.svg";
+
+  //Admin Dashboard
+  final String statsIcon = "assets/images/icons/stats_icon.svg";
+
+  final String dashboardBackGround = "assets/images/background/dashboard_background.png";
 }
