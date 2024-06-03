@@ -25,7 +25,7 @@ class SplashViewModel extends BaseViewModel {
         case UserTypes.admin:
           if (context.mounted) {
             Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
+                context, AppRoutes.adminHomeScreenRoute);
           }
           break;
         case UserTypes.auditor:

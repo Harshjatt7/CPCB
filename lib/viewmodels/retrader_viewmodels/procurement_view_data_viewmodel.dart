@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 class ProcurementViewDataViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
-  final _retreaderRepo= RetreaderRepository();
+  final _retreaderRepo = RetreaderRepository();
   APIResponse<ProcurementResponseModel?>? _procurementResponseModel;
   APIResponse<ProcurementResponseModel?>? get procurementResponseModel =>
       _procurementResponseModel;
@@ -142,9 +142,10 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
     try {
-      _procurementSearchResponseModel =
-          await _retreaderRepo.getProcurementData(getUrl() ?? '',
-              search: value, page: '$searchPage');
+      _procurementSearchResponseModel = await _retreaderRepo.getProcurementData(
+          getUrl() ?? '',
+          search: value,
+          page: '$searchPage');
       if (_procurementSearchResponseModel?.isSuccess == true) {
         _procurementSearchResponseModel?.data =
             ProcurementResponseModel.fromJson(
