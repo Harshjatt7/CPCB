@@ -472,30 +472,32 @@ class DashBoardScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  // Align(
-                                  //   alignment: Alignment.topLeft,
-                                  //   child: Padding(
-                                  //     padding: const EdgeInsets.only(
-                                  //         top: 16, bottom: 10),
-                                  //     child: CommonTextWidget(
-                                  //       StringConstants().descripsionTitle,
-                                  //       style: Theme.of(context)
-                                  //           .textTheme
-                                  //           .displaySmall!
-                                  //           .copyWith(
-                                  //               color: AppColor().black40),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // Align(
-                                  //   alignment: Alignment.topLeft,
-                                  //   child: CommonTextWidget(
-                                  //     MessageConstant().environmentText,
-                                  //     style: Theme.of(context)
-                                  //         .textTheme
-                                  //         .displaySmall,
-                                  //   ),
-                                  // )
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, bottom: 10),
+                                      child: CommonTextWidget(
+                                        StringConstants().descripsionTitle,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall!
+                                            .copyWith(
+                                                color: AppColor().black40),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: CommonTextWidget(
+                                      viewModel.data?.environmentCompensation
+                                              ?.description ??
+                                          "",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall,
+                                    ),
+                                  )
                                 ],
                               ),
                             )

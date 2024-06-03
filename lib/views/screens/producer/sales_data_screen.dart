@@ -63,7 +63,7 @@ class SalesDataScreen extends StatelessWidget {
                                 onPressedYes: () async {
                                   Navigator.pop(ctx);
                                   if (context.mounted) {
-                                    viewModel.postProducerData(context);
+                                    await viewModel.postProducerData(context);
                                   }
                                 },
                               );

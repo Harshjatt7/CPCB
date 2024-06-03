@@ -140,21 +140,22 @@ class EnvironmentCompensation {
   String? currentStatus;
   String? type;
   String? amount;
+  String? description;
 
-  EnvironmentCompensation({
-    this.dateOfEc,
-    this.currentStatus,
-    this.type,
-    this.amount,
-  });
+  EnvironmentCompensation(
+      {this.dateOfEc,
+      this.currentStatus,
+      this.type,
+      this.amount,
+      this.description});
 
   factory EnvironmentCompensation.fromJson(Map<String, dynamic> json) =>
       EnvironmentCompensation(
-        dateOfEc: json["date_of_ec"],
-        currentStatus: json["current_status"],
-        type: json["type"],
-        amount: json["amount"],
-      );
+          dateOfEc: json["date_of_ec"],
+          currentStatus: json["current_status"],
+          type: json["type"],
+          amount: json["amount"],
+          description: json["description"]);
 }
 
 class EprCredits {
