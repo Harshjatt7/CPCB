@@ -8,6 +8,7 @@ import 'package:cpcb_tyre/views/screens/retrader/retreaded_add_data_screen.dart'
 import 'package:cpcb_tyre/views/screens/retrader/retreader_home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
+import '../views/screens/admin/admin_homescreen.dart';
 import '../views/screens/producer/producer_home_screen.dart';
 import '../views/screens/producer/sales_data_screen.dart';
 
@@ -22,7 +23,10 @@ class PageRouter {
       case AppRoutes.producerHomeScreenRoute:
         return _getPageRoute(const ProducerHomeScreen(), settings);
       case AppRoutes.retraderHomeScreenRoute:
-        return _getPageRoute(const RetraderHomeScreen(), settings, );
+        return _getPageRoute(
+          const RetraderHomeScreen(),
+          settings,
+        );
       case AppRoutes.addSalesDataScreenRoute:
         return _getPageRoute(const SalesDataScreen(), settings);
       case AppRoutes.procurementAddDataScreenRoute:
@@ -34,8 +38,10 @@ class PageRouter {
       case AppRoutes.recyclerAddDataScreenRoute:
         return _getPageRoute(const RecyclerAddDataScreen(), settings);
       case AppRoutes.recyclerProcurementAddDataScreenRoute:
-        return _getPageRoute(const RecyclerProcurementAddDataScreen(), settings);
-
+        return _getPageRoute(
+            const RecyclerProcurementAddDataScreen(), settings);
+      case AppRoutes.adminHomeScreenRoute:
+        return _getPageRoute(const AdminHomeScreen(), settings);
 
       // Will be displayed if no specified route is found.
       default:

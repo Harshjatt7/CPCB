@@ -14,7 +14,8 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final bool? isAdmin;
+  const ProfileScreen({super.key, this.isAdmin = false});
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +54,13 @@ class ProfileScreen extends StatelessWidget {
                       title: viewModel.data?.name ?? '',
                       email: viewModel.data?.email ?? '',
                       phoneNo: viewModel.data?.mobileNumber ?? ''),
-                  detailContainer(context,
-                      backgroundColor: AppColor().darkBlue10,
-                      borderColor: AppColor().black20,
-                      title: StringConstants().authorizedPersonDetails,
-                      email: viewModel.data?.authorizedPersonEmailId ?? '',
-                      phoneNo: viewModel.data?.authorizedcontactNumber ?? ''),
+                  if (isAdmin == false)
+                    detailContainer(context,
+                        backgroundColor: AppColor().darkBlue10,
+                        borderColor: AppColor().black20,
+                        title: StringConstants().authorizedPersonDetails,
+                        email: viewModel.data?.authorizedPersonEmailId ?? '',
+                        phoneNo: viewModel.data?.authorizedcontactNumber ?? ''),
                   // Padding(
                   //   padding:
                   //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

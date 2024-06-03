@@ -90,7 +90,8 @@ class LoginViewModel extends BaseViewModel {
               .logger("res?.data?.data?.token >> ${res?.data?.data?.token}");
           switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
             case UserTypes.admin:
-              Navigator.pushReplacementNamed(context, '');
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.adminHomeScreenRoute);
               break;
             case UserTypes.auditor:
               Navigator.pushReplacementNamed(context, '');
