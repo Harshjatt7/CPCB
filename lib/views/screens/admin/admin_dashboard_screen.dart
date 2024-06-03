@@ -2,8 +2,10 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/string_constant.dart';
+import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
 import '../../../theme/app_color.dart';
 import '../../../utils/helper/responsive_helper.dart';
+import '../../widgets/app_components/admin_tabbar.dart';
 import '../../widgets/components/common_appbar.dart';
 import '../../widgets/components/common_text_widget.dart';
 
@@ -35,6 +37,33 @@ class AdminDashboardScreen extends StatelessWidget {
                 ),
               ],
             )),
-        body: Container());
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              AdminTabBar(
+                tabs: [
+                  TabBarModel(
+                      tab: demoWidgetToBeChanged(AppColor().green),
+                      label: StringConstants.producer),
+                  TabBarModel(
+                      tab: demoWidgetToBeChanged(AppColor().red),
+                      label: StringConstants.recycler),
+                  TabBarModel(
+                      tab: demoWidgetToBeChanged(AppColor().black),
+                      label: StringConstants.retreader)
+                ],
+              )
+            ],
+          ),
+        ));
+  }
+
+  Container demoWidgetToBeChanged(Color color) {
+    return Container(
+      height: 100,
+      width: double.infinity,
+      color: color,
+    );
   }
 }
