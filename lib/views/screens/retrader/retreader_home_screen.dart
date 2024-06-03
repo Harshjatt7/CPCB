@@ -9,21 +9,21 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class RetraderHomeScreen extends StatelessWidget {
-  const RetraderHomeScreen({super.key, 
+  const RetraderHomeScreen({
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CommonScreenWithBottomNavigationBar(
-      bottomNavBarItems: [
+    return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().homeTabIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().calendarTabIcon,
+        imgSrc: ImageConstants().dbIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().notificationTabIcon,
+        imgSrc: ImageConstants().refreshIcon,
       ),
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().profileTabIcon,

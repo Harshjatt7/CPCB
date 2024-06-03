@@ -3,6 +3,10 @@ class ImageConstants {
   final String contactPage = "assets/images/logo/contact_page.svg";
   final String calendarToday = "assets/images/logo/calendar_today.svg";
 
+  final String addSlaesDataIcon = "assets/images/icons/add_sales_data_icon.svg";
+  final String refreshIcon = "assets/images/icons/refresh_icon.svg";
+  final String dbIcon = "assets/images/icons/db_icon.svg";
+
   // Splash Screen
   final String info = "assets/images/icons/info.svg";
   final String eyesOpen = "assets/images/icons/eyes_open.svg";
@@ -50,8 +54,8 @@ class ImageConstants {
       "assets/images/icons/notification_tab_icon.svg";
   final String removeIcon = "assets/images/icons/remove.svg";
   final String closeX = "assets/images/icons/close_x.svg";
-  final String informationalIcon= "assets/images/icons/informational_icon.svg";
+  final String informationalIcon = "assets/images/icons/informational_icon.svg";
   final String searchIcon = "assets/images/icons/search.svg";
-  final String filter = "assets/images/icons/filter.svg";  
-  final String person = "assets/images/icons/person.svg";  
+  final String filter = "assets/images/icons/filter.svg";
+  final String person = "assets/images/icons/person.svg";
 }

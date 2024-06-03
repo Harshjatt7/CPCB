@@ -18,10 +18,10 @@ class RecyclerHomeScreen extends StatelessWidget {
         imgSrc: ImageConstants().homeTabIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().calendarTabIcon,
+        imgSrc: ImageConstants().dbIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().notificationTabIcon,
+        imgSrc: ImageConstants().refreshIcon,
       ),
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().profileTabIcon,

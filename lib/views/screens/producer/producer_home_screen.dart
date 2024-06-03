@@ -23,9 +23,8 @@ class _ProducerHomePageState extends State<ProducerHomeScreen> {
         imgSrc: ImageConstants().homeTabIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().calendarTabIcon,
+        imgSrc: ImageConstants().addSlaesDataIcon,
       ),
-     
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().profileTabIcon,
       )
