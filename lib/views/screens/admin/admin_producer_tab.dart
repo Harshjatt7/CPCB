@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_oblication_tile.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +12,9 @@ class AdminProucerTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return CommonSingleChildScrollView(
       child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Column(
           children: [
             dashBoardHeading(context, StringConstants().eprOblications,
