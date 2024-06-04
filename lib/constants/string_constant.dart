@@ -127,7 +127,8 @@ class StringConstants {
   final String returnForDivision = "return-for-division";
   final String applicationPendingAtTheApplicants =
       "application-pending-at-the-applicants";
-      final String numberOfRegistrationGrantedToProducers="number-of-registration-granted-to-producers";
+  final String numberOfRegistrationGrantedToProducers =
+      "number-of-registration-granted-to-producers";
 
   //User Types
   static const String admin = "Admin";
@@ -158,4 +159,7 @@ class StringConstants {
   final String remainingEprObligation = "Remaining EPR obligation";
   final String totalEprFullFilled = "Total EPR Full-Filled";
   final String search = "search";
+  final String close = "close";
+  final String options = "Options";
+  final String downloadTransactionLabel = "download-transaction-label";
 }
