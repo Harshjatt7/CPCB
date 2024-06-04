@@ -38,48 +38,6 @@ class AdminDashboardScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ),
-                Container(
-                  width: Responsive().screenWidth(context),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                      border: Border(
-                          bottom: BorderSide(color: AppColor().black10))),
-                  child: CommonTextWidget(
-                    StringConstants().dashboard,
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                ),
-              ],
-            )),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: AdminTabBar(
-            tabs: [
-              TabBarModel(
-                  tab: const AdminProducerTab(),
-                  label: StringConstants.producer),
-              TabBarModel(
-                  tab: InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(0)),
-                            ),
-                            constraints: BoxConstraints(
-                                minWidth: Responsive().screenWidth(context)),
-                            builder: (context) {
-                              return DownloadBottomSheet();
-                            });
-                      },
-                      child: demoWidgetToBeChanged(AppColor().red)),
-                  label: StringConstants.recycler),
-              TabBarModel(
-                  tab: demoWidgetToBeChanged(AppColor().black),
-                  label: StringConstants.retreader)
             ],
           )),
       body: Padding(
