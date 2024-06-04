@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/views/screens/admin/admin_producer_tab.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -39,21 +40,17 @@ class AdminDashboardScreen extends StatelessWidget {
             )),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              AdminTabBar(
-                tabs: [
-                  TabBarModel(
-                      tab: demoWidgetToBeChanged(AppColor().green),
-                      label: StringConstants.producer),
-                  TabBarModel(
-                      tab: demoWidgetToBeChanged(AppColor().red),
-                      label: StringConstants.recycler),
-                  TabBarModel(
-                      tab: demoWidgetToBeChanged(AppColor().black),
-                      label: StringConstants.retreader)
-                ],
-              )
+          child: AdminTabBar(
+            tabs: [
+              TabBarModel(
+                  tab: const AdminProducerTab(),
+                  label: StringConstants.producer),
+              TabBarModel(
+                  tab: demoWidgetToBeChanged(AppColor().red),
+                  label: StringConstants.recycler),
+              TabBarModel(
+                  tab: demoWidgetToBeChanged(AppColor().black),
+                  label: StringConstants.retreader)
             ],
           ),
         ));

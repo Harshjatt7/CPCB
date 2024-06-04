@@ -1,5 +1,7 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
@@ -30,18 +32,29 @@ class _AdminTabBarState extends State<AdminTabBar>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List<Widget>.generate(widget.tabs.length, (index) {
-              return Flexible(
-                  flex: 1,
-                  child: tabContainer(index, widget.tabs[index].label));
-            })),
-        // Tab widget to be shown here
-        widget.tabs[tabController.index].tab
-      ],
+    return CustomScaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: Column(
+          children: [
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: List<Widget>.generate(widget.tabs.length, (index) {
+                  return tabContainer(index, widget.tabs[index].label);
+                })),
+            const SizedBox(
+              height: 20,
+            )
+          ],
+        ),
+      ),
+      body: CommonSingleChildScrollView(
+        child: Column(
+          children: [
+            widget.tabs[tabController.index].tab,
+          ],
+        ),
+      ),
     );
   }
 
