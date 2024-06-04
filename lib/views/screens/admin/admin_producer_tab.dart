@@ -7,7 +7,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class AdminProducerTab extends StatelessWidget {
-  const AdminProducerTab({super.key});
+  AdminProducerTab({super.key});
+  final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +16,23 @@ class AdminProducerTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          dashBoardHeading(context, StringConstants().eprOblications,
+          dashBoardHeading(context, stringConstants.eprOblications,
               StringConstants.producer),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreManufacturers, count: '1321'),
+              title: stringConstants.newTyreManufacturers, count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreProducedDomestically,
+              title: stringConstants.newTyreProducedDomestically,
               count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreImported, count: '1321'),
+              title: stringConstants.newTyreImported, count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreImportedAndImportedVehicles,
+              title: stringConstants.newTyreImportedAndImportedVehicles,
               count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreImportedExclusively,
+              title: stringConstants.newTyreImportedExclusively,
               count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().wasteTyreImporter, count: '1321'),
+              title: stringConstants.wasteTyreImporter, count: '1321'),
           const CommonTotalApplicationCard(
             totalApplication: '4,564',
             onTap: null,

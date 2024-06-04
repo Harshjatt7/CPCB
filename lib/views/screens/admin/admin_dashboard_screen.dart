@@ -45,10 +45,10 @@ class AdminDashboardScreen extends StatelessWidget {
           child: AdminTabBar(
             tabs: [
               TabBarModel(
-                  tab: const AdminProducerTab(),
+                  tab:  AdminProducerTab(),
                   label: StringConstants.producer),
               TabBarModel(
-                  tab: const AdminRecyclerTab(),
+                  tab:  AdminRecyclerTab(),
                   label: StringConstants.recycler),
               TabBarModel(
                   tab: const AdminRetreaderTab(),

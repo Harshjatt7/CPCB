@@ -16,7 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SalesDataScreen extends StatelessWidget {
-  const SalesDataScreen({super.key});
+   SalesDataScreen({super.key});
+    final StringConstants stringConstants=StringConstants();
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class SalesDataScreen extends StatelessWidget {
               isLoading: viewModel.state == ViewState.busy,
               backgroundColor: AppColor().offWhite,
               appBar: CommonAppBar(
-                title: StringConstants().addSalesDataBtnLabel,
+                title: stringConstants.addSalesDataBtnLabel,
               ),
               body: formSection(context, viewModel),
               persistentFooterButtons: [
@@ -42,7 +44,7 @@ class SalesDataScreen extends StatelessWidget {
                   ),
                   child: CommonButtonWidget(
                     height: 50,
-                    label: StringConstants().submitBtnLabel,
+                    label: stringConstants.submitBtnLabel,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
@@ -95,7 +97,7 @@ class SalesDataScreen extends StatelessWidget {
                         SalesDataDropdown.producerType,
                         viewModel.producerDropdownValue);
                   },
-                  labelText: StringConstants().typeOfProducerLabel,
+                  labelText: stringConstants.typeOfProducerLabel,
                   value: viewModel.producerDropdownValue,
                   dropDownItem: viewModel.producerList,
                   onChanged: (value) {
@@ -116,7 +118,7 @@ class SalesDataScreen extends StatelessWidget {
                         viewModel.tyreDropdownValue);
                   },
                   value: viewModel.tyreDropdownValue,
-                  labelText: StringConstants().typeOfTyreLabel,
+                  labelText: stringConstants.typeOfTyreLabel,
                   dropDownItem: viewModel.tyreList,
                   onChanged: (value) {
                     viewModel.changeDropdownValue(
@@ -137,7 +139,7 @@ class SalesDataScreen extends StatelessWidget {
                         viewModel.yearDropdownValue);
                   },
                   value: viewModel.yearDropdownValue,
-                  labelText: StringConstants().financialYearLabel,
+                  labelText: stringConstants.financialYearLabel,
                   dropDownItem: viewModel.financialYearList,
                   onChanged: (value) {
                     viewModel.changeDropdownValue(
@@ -157,7 +159,7 @@ class SalesDataScreen extends StatelessWidget {
                         SalesDataDropdown.month, viewModel.monthDropdownValue);
                   },
                   value: viewModel.monthDropdownValue,
-                  labelText: StringConstants().chooseMonthLabel,
+                  labelText: stringConstants.chooseMonthLabel,
                   dropDownItem: viewModel.monthList,
                   onChanged: (value) {
                     viewModel.changeDropdownValue(
@@ -173,7 +175,7 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textInputType: TextInputType.number,
-                    hintText: StringConstants().motorcycleLabel,
+                    hintText: stringConstants.motorcycleLabel,
                     isMandatory: false,
                     controller: viewModel.motorcycleController),
               ),
@@ -182,7 +184,7 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textInputType: TextInputType.number,
-                    hintText: StringConstants().passengerCarLabel,
+                    hintText: stringConstants.passengerCarLabel,
                     isMandatory: false,
                     controller: viewModel.passengerCarController),
               ),
@@ -191,7 +193,7 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textInputType: TextInputType.number,
-                    hintText: StringConstants().scooterLabel,
+                    hintText: stringConstants.scooterLabel,
                     isMandatory: false,
                     controller: viewModel.scooterController),
               ),
@@ -200,7 +202,7 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textInputType: TextInputType.number,
-                    hintText: StringConstants().truckLabel,
+                    hintText: stringConstants.truckLabel,
                     isMandatory: false,
                     controller: viewModel.truckController),
               ),
@@ -209,7 +211,7 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textInputType: TextInputType.number,
-                    hintText: StringConstants().busLabel,
+                    hintText: stringConstants.busLabel,
                     isMandatory: false,
                     controller: viewModel.busController),
               ),
@@ -218,7 +220,7 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textInputType: TextInputType.number,
-                    hintText: StringConstants().lcvLabel,
+                    hintText: stringConstants.lcvLabel,
                     isMandatory: false,
                     controller: viewModel.lcvController),
               ),
@@ -227,7 +229,7 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textInputType: TextInputType.number,
-                    hintText: StringConstants().tRearLabel,
+                    hintText: stringConstants.tRearLabel,
                     isMandatory: false,
                     controller: viewModel.tRearController),
               ),
@@ -236,7 +238,7 @@ class SalesDataScreen extends StatelessWidget {
                 child: CommonTextFormFieldWidget(
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     textInputType: TextInputType.number,
-                    hintText: StringConstants().otherLabel,
+                    hintText: stringConstants.otherLabel,
                     isMandatory: false,
                     controller: viewModel.otherController),
               ),
@@ -249,7 +251,7 @@ class SalesDataScreen extends StatelessWidget {
                     disabledBgColor: AppColor().white,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     isReadOnly: true,
-                    hintText: StringConstants().totalLabel,
+                    hintText: stringConstants.totalLabel,
                     isMandatory: false,
                     controller: viewModel.totalController),
               ),

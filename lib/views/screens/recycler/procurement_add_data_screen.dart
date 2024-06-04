@@ -18,7 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecyclerProcurementAddDataScreen extends StatelessWidget {
-  const RecyclerProcurementAddDataScreen({super.key});
+   RecyclerProcurementAddDataScreen({super.key});
+    final StringConstants stringConstants=StringConstants();
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
               isLoading: viewModel.state == ViewState.busy,
               resizeToBottomInset: true,
               appBar: CommonAppBar(
-                title: StringConstants().addProcurement,
+                title: stringConstants.addProcurement,
               ),
               body: CommonSingleChildScrollView(
                 child: Form(
@@ -121,7 +123,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                       }
                     },
                     height: 50,
-                    label: StringConstants().submitBtnLabel,
+                    label: stringConstants.submitBtnLabel,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
@@ -150,7 +152,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           validator: (value) {
             return viewModel.dateValidation();
           },
-          hintText: StringConstants().dateOfPurchaseOfRawMaterial,
+          hintText: stringConstants.dateOfPurchaseOfRawMaterial,
           isMandatory: true,
           icon: ImageConstants().calendar,
           controller: viewModel.dateController),
@@ -162,7 +164,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(15)],
-          hintText: StringConstants().gstNumberOfWasteTyreSupplier,
+          hintText: stringConstants.gstNumberOfWasteTyreSupplier,
           validator: (value) {
             return viewModel.gstNumberValidation();
           },
@@ -177,7 +179,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           textInputType: TextInputType.number,
-          hintText: StringConstants().invoiceNumber,
+          hintText: stringConstants.invoiceNumber,
           isMandatory: true,
           validator: (value) {
             return viewModel.valueValidation(viewModel.invoiceNumberController);
@@ -197,7 +199,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           );
         },
         value: viewModel.financialYearDropdownValue,
-        labelText: StringConstants().financialYearLabel,
+        labelText: stringConstants.financialYearLabel,
         dropDownItem: viewModel.financialYearList,
         onChanged: (value) {
           viewModel.changeFinancialDropdownValue(
@@ -217,7 +219,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           isDocument: viewModel.filePath == null ? false : true,
           disabledBgColor: AppColor().transparent,
           isReadOnly: true,
-          hintText: StringConstants().uploadInvoice,
+          hintText: stringConstants.uploadInvoice,
           icon: viewModel.uploadInvoiceController.text.isEmpty
               ? ImageConstants().fileUpload
               : ImageConstants().removeIcon,
@@ -244,7 +246,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                 Validations().numbericWithDotRegex)
           ],
           textInputType: TextInputType.number,
-          hintText: StringConstants().quantityReceived,
+          hintText: stringConstants.quantityReceived,
           isMandatory: true,
           validator: (value) {
             return viewModel.quantityReceivedValidation();
@@ -264,7 +266,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           );
         },
         value: viewModel.tyreSourceDropdownValue,
-        labelText: StringConstants().tyreSourceLabel,
+        labelText: stringConstants.tyreSourceLabel,
         dropDownItem: viewModel.tyreSource,
         onChanged: (value) {
           viewModel.changetyreSourceDropdownValue(
@@ -287,7 +289,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           );
         },
         value: viewModel.rawMaterialDropdownValue,
-        labelText: StringConstants().typeOfRawMaterial,
+        labelText: stringConstants.typeOfRawMaterial,
         dropDownItem: viewModel.typeOfRawMaterial,
         onChanged: (value) {
           viewModel.changeRawMaterialDropdownValue(
@@ -304,7 +306,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: StringConstants().addressOfWasteTyreSupplier,
+          hintText: stringConstants.addressOfWasteTyreSupplier,
           isMandatory: true,
           validator: (value) {
             return viewModel.valueValidation(viewModel.addressController);
@@ -318,7 +320,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          hintText: StringConstants().contactDetails,
+          hintText: stringConstants.contactDetails,
           textInputType: TextInputType.number,
           isMandatory: true,
           validator: (value) {
@@ -333,7 +335,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          hintText: StringConstants().nameOfWasteTyreSupplier,
+          hintText: stringConstants.nameOfWasteTyreSupplier,
           textInputType: TextInputType.text,
           isMandatory: true,
           validator: (value) {

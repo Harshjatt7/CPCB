@@ -16,7 +16,9 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class RetreaderDataScreen extends StatelessWidget {
-  const RetreaderDataScreen({super.key});
+   RetreaderDataScreen({super.key});
+    final StringConstants stringConstants=StringConstants();
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +45,8 @@ class RetreaderDataScreen extends StatelessWidget {
                     isIconBar: true,
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
-                    name: StringConstants().name,
-                    designation: StringConstants().userType,
+                    name: stringConstants.name,
+                    designation: stringConstants.userType,
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -55,7 +57,7 @@ class RetreaderDataScreen extends StatelessWidget {
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,
-                      hintText: StringConstants().searchHere,
+                      hintText: stringConstants.searchHere,
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
                         viewModel.searchRetreader(value);
@@ -64,7 +66,7 @@ class RetreaderDataScreen extends StatelessWidget {
                           viewModel.getUpdatedList();
                         }
                       },
-                      title: StringConstants().retreadedData,
+                      title: stringConstants.retreadedData,
                       onSuffixTap: () {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
@@ -141,7 +143,7 @@ class RetreaderDataScreen extends StatelessWidget {
                   Navigator.pushNamed(
                       context, AppRoutes.retreadedAddDataScreenRoute);
                 },
-                label: StringConstants().addRetreadedDataButton,
+                label: stringConstants.addRetreadedDataButton,
                 color: AppColor().darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme

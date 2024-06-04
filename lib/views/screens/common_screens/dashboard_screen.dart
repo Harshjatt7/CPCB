@@ -19,7 +19,8 @@ import 'package:flutter/material.dart';
 import '../../../viewmodels/common_viewmodel/dashboard_viewmodel.dart';
 
 class DashBoardScreen extends StatelessWidget {
-  const DashBoardScreen({super.key});
+  DashBoardScreen({super.key});
+  final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class DashBoardScreen extends StatelessWidget {
                       isIconBar: true,
                       showNotificationIcon: false,
                     ),
-                    CommonTitleBar(title: StringConstants().dashboard)
+                    CommonTitleBar(title: stringConstants.dashboard)
                   ],
                 ),
               ),
@@ -70,13 +71,13 @@ class DashBoardScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 12),
                               child: ProducerListTile(
-                                  title: StringConstants().userType,
+                                  title: stringConstants.userType,
                                   subtitle: viewModel.data?.userType ?? ""),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 12),
                               child: ProducerListTile(
-                                  title: StringConstants().currentStatus,
+                                  title: stringConstants.currentStatus,
                                   subtitle:
                                       viewModel.data?.currentStatus ?? ""),
                             ),
@@ -85,7 +86,7 @@ class DashBoardScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
                                 child: ProducerListTile(
-                                    title: StringConstants().dateOfApplication,
+                                    title: stringConstants.dateOfApplication,
                                     subtitle:
                                         viewModel.data?.dateOfApplication ??
                                             ""),
@@ -93,7 +94,7 @@ class DashBoardScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 12),
                               child: ProducerListTile(
-                                  title: StringConstants().applicationNumber,
+                                  title: stringConstants.applicationNumber,
                                   subtitle: viewModel
                                           .data?.uniqueRegistrationNumber ??
                                       ""),
@@ -103,7 +104,7 @@ class DashBoardScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
                                 child: ProducerListTile(
-                                    title: StringConstants().dateOfRegistration,
+                                    title: stringConstants.dateOfRegistration,
                                     subtitle:
                                         viewModel.data?.dateOfRegistration ??
                                             ""),
@@ -113,7 +114,7 @@ class DashBoardScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
                                 child: ProducerListTile(
-                                    title: StringConstants()
+                                    title: stringConstants
                                         .registrationExpiryDate,
                                     subtitle: viewModel
                                             .data?.registrationExpiryDate ??
@@ -127,7 +128,7 @@ class DashBoardScreen extends StatelessWidget {
                             //     return Padding(
                             //       padding: const EdgeInsets.only(bottom: 12),
                             //       child: ProducerListTile(
-                            //           title: StringConstants().userType,
+                            //           title: stringConstants.userType,
                             //           subtitle: StringConstants.producer),
                             //     );
                             //   },
@@ -144,7 +145,7 @@ class DashBoardScreen extends StatelessWidget {
                                     await viewModel
                                         .getDownloadApplication(context);
                                   },
-                                  label: StringConstants().downloadApplication,
+                                  label: stringConstants.downloadApplication,
                                   color: AppColor().darkGreen,
                                   labelStyle: Theme.of(context)
                                       .textTheme
@@ -158,7 +159,7 @@ class DashBoardScreen extends StatelessWidget {
                                   await viewModel
                                       .getDownloadPaymentReceipt(context);
                                 },
-                                label: StringConstants()
+                                label: stringConstants
                                     .downloadPaymentReciptBtnLabel,
                                 color: AppColor().white,
                                 borderColor: AppColor().darkGreen,
@@ -175,7 +176,7 @@ class DashBoardScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: CommonTextWidget(
-                          StringConstants().eprComplianceTitle,
+                          stringConstants.eprComplianceTitle,
                           textAlign: TextAlign.start,
                           style: Theme.of(context)
                               .textTheme
@@ -190,7 +191,7 @@ class DashBoardScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
-                              title: StringConstants().totalEprObligations,
+                              title: stringConstants.totalEprObligations,
                               subTitle:
                                   "${viewModel.data?.eprCompliance?.eprObligation.toString().formatToFinancial() ?? 0}",
                             ),
@@ -200,7 +201,7 @@ class DashBoardScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
-                              title: StringConstants().totalEprFullFilled,
+                              title: stringConstants.totalEprFullFilled,
                               subTitle:
                                   "${viewModel.data?.eprCompliance?.eprFulfilled.toString().formatToFinancial() ?? 0}",
                             ),
@@ -210,7 +211,7 @@ class DashBoardScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
                               image: ImageConstants().contactPage,
-                              title: StringConstants().totalEprObligations,
+                              title: stringConstants.totalEprObligations,
                               subTitle:
                                   "${viewModel.data?.eprCompliance?.eprObligationRemaining.toString().formatToFinancial() ?? 0}",
                             ),
@@ -221,7 +222,7 @@ class DashBoardScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: CommonTextWidget(
-                          StringConstants().eprCredits,
+                          stringConstants.eprCredits,
                           textAlign: TextAlign.start,
                           style: Theme.of(context)
                               .textTheme
@@ -235,7 +236,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().creditsGenerated,
+                            title: stringConstants.creditsGenerated,
                             subTitle:
                                 "${viewModel.data?.eprCredits?.creditsGenerated.toString().formatToFinancial() ?? 0}",
                           ),
@@ -244,7 +245,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().creditsTransferred,
+                            title: stringConstants.creditsTransferred,
                             subTitle:
                                 "${viewModel.data?.eprCredits?.creditsTransferred.toString().formatToFinancial() ?? 0}",
                           ),
@@ -253,7 +254,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().creditsAvailable,
+                            title: stringConstants.creditsAvailable,
                             subTitle:
                                 "${viewModel.data?.eprCredits?.creditsAvailable.toString().formatToFinancial() ?? 0}",
                           ),
@@ -266,7 +267,7 @@ class DashBoardScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: CommonTextWidget(
-                          StringConstants().procurementStockData,
+                          stringConstants.procurementStockData,
                           textAlign: TextAlign.start,
                           style: Theme.of(context)
                               .textTheme
@@ -278,7 +279,7 @@ class DashBoardScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: CommonTextWidget(
-                          StringConstants().procurementStockDesc,
+                          stringConstants.procurementStockDesc,
                           textAlign: TextAlign.start,
                           style: Theme.of(context)
                               .textTheme
@@ -292,7 +293,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().totalProcurement,
+                            title: stringConstants.totalProcurement,
                             subTitle:
                                 "${viewModel.data?.procurementData?.totalProcurement.toString().formatToFinancial() ?? 0}",
                           ),
@@ -301,7 +302,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().totalProcessed,
+                            title: stringConstants.totalProcessed,
                             subTitle:
                                 "${viewModel.data?.procurementData?.totalProcurementProcessed.toString().formatToFinancial() ?? 0}",
                           ),
@@ -310,7 +311,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().availableStock,
+                            title: stringConstants.availableStock,
                             subTitle:
                                 "${viewModel.data?.procurementData?.availableStock.toString().formatToFinancial() ?? 0}",
                           ),
@@ -324,7 +325,7 @@ class DashBoardScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: CommonTextWidget(
-                          StringConstants().processedData,
+                          stringConstants.processedData,
                           textAlign: TextAlign.start,
                           style: Theme.of(context)
                               .textTheme
@@ -338,7 +339,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().totalProcessed,
+                            title: stringConstants.totalProcessed,
                             subTitle:
                                 "${viewModel.data?.processedStock?.totalProduced?.toString().formatToFinancial() ?? 0}",
                           ),
@@ -347,7 +348,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().totalSold,
+                            title: stringConstants.totalSold,
                             subTitle:
                                 "${viewModel.data?.processedStock?.totalSold.toString().formatToFinancial() ?? 0}",
                           ),
@@ -356,7 +357,7 @@ class DashBoardScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
                             image: ImageConstants().contactPage,
-                            title: StringConstants().availableStock,
+                            title: stringConstants.availableStock,
                             subTitle:
                                 "${viewModel.data?.processedStock?.availableProcessedStock.toString().formatToFinancial() ?? 0}",
                           ),
@@ -369,10 +370,10 @@ class DashBoardScreen extends StatelessWidget {
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(vertical: 8),
                     //   child: ProducerAnnualReturnWidget(
-                    //       title: StringConstants().annualReturns,
-                    //       date: StringConstants().demoDate,
-                    //       status: StringConstants().delayed,
-                    //       fillingDate: StringConstants().demoDate),
+                    //       title: stringConstants.annualReturns,
+                    //       date: stringConstants.demoDate,
+                    //       status: stringConstants.delayed,
+                    //       fillingDate: stringConstants.demoDate),
                     // ),
                     Container(
                       decoration: BoxDecoration(
@@ -386,7 +387,7 @@ class DashBoardScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 16),
                               child: CommonTextWidget(
-                                StringConstants().environmentCompensationTitle,
+                                stringConstants.environmentCompensationTitle,
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ),
@@ -410,7 +411,7 @@ class DashBoardScreen extends StatelessWidget {
                                           padding: const EdgeInsets.only(
                                               right: 8, bottom: 8),
                                           child: ProducerEnvironmentTile(
-                                              title: StringConstants().dateOfEc,
+                                              title: stringConstants.dateOfEc,
                                               subtitle: HelperFunctions()
                                                   .getFormattedDate(
                                                       dtstr: viewModel
@@ -426,7 +427,7 @@ class DashBoardScreen extends StatelessWidget {
                                           padding: const EdgeInsets.only(
                                               left: 8, bottom: 8),
                                           child: ProducerEnvironmentTile(
-                                              title: StringConstants()
+                                              title: stringConstants
                                                   .currentStatus,
                                               subtitle: viewModel
                                                       .data
@@ -447,7 +448,7 @@ class DashBoardScreen extends StatelessWidget {
                                           padding: const EdgeInsets.only(
                                               top: 8, right: 8),
                                           child: ProducerEnvironmentTile(
-                                              title: StringConstants().type,
+                                              title: stringConstants.type,
                                               subtitle: viewModel
                                                       .data
                                                       ?.environmentCompensation
@@ -461,7 +462,7 @@ class DashBoardScreen extends StatelessWidget {
                                           padding: const EdgeInsets.only(
                                               left: 8, top: 8),
                                           child: ProducerEnvironmentTile(
-                                              title: StringConstants().amount,
+                                              title: stringConstants.amount,
                                               subtitle: viewModel
                                                       .data
                                                       ?.environmentCompensation
@@ -478,7 +479,7 @@ class DashBoardScreen extends StatelessWidget {
                                       padding: const EdgeInsets.only(
                                           top: 16, bottom: 10),
                                       child: CommonTextWidget(
-                                        StringConstants().descripsionTitle,
+                                        stringConstants.descripsionTitle,
                                         style: Theme.of(context)
                                             .textTheme
                                             .displaySmall!

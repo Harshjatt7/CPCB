@@ -19,7 +19,7 @@ class PageRouter {
       case AppRoutes.splashScreenRoute:
         return _getPageRoute(const SplashScreen(), settings);
       case AppRoutes.loginScreenRoute:
-        return _getPageRoute(const LoginScreen(), settings);
+        return _getPageRoute( LoginScreen(), settings);
       case AppRoutes.producerHomeScreenRoute:
         return _getPageRoute(const ProducerHomeScreen(), settings);
       case AppRoutes.retraderHomeScreenRoute:

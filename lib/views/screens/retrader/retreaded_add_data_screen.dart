@@ -18,7 +18,9 @@ import 'package:flutter/services.dart';
 
 class RetreadedAddDataScreen extends StatelessWidget {
   final int? page;
-  const RetreadedAddDataScreen({super.key, this.page});
+   RetreadedAddDataScreen({super.key, this.page});
+    final StringConstants stringConstants=StringConstants();
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
-                title: StringConstants().addRetreadedData,
+                title: stringConstants.addRetreadedData,
               ),
               body: formSection(viewModel, context),
               persistentFooterButtons: [
@@ -64,7 +66,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                       }
                     },
                     height: 50,
-                    label: StringConstants().submitBtnLabel,
+                    label: stringConstants.submitBtnLabel,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
@@ -93,7 +95,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
                   inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                  hintText: StringConstants().contactDetails,
+                  hintText: stringConstants.contactDetails,
                   isMandatory: false,
                   controller: viewModel.contactDetailsController,
                   validator: (value) {
@@ -126,7 +128,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: StringConstants().retreadedDate,
+          hintText: stringConstants.retreadedDate,
           isMandatory: true,
           isReadOnly: true,
           validator: (value) {
@@ -151,7 +153,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           textInputType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: StringConstants().quantityOfWasteGenerated,
+          hintText: stringConstants.quantityOfWasteGenerated,
           isMandatory: true,
           validator: (value) {
             return viewModel.quantityOfWasteGeneratedValidation();
@@ -166,7 +168,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           textInputType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: StringConstants().quantityProduced,
+          hintText: stringConstants.quantityProduced,
           validator: (value) {
             return viewModel.quantityProducedValidation();
           },
@@ -181,7 +183,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           textInputType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: StringConstants().quantityProcessed,
+          hintText: stringConstants.quantityProcessed,
           isMandatory: true,
           validator: (value) {
             return viewModel.quantityProcessedValidation();
@@ -195,7 +197,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(15)],
-          hintText: StringConstants().gstNumberOfWasteTyreSupplier,
+          hintText: stringConstants.gstNumberOfWasteTyreSupplier,
           validator: (value) {
             return viewModel.gstNumberValidation();
           },
@@ -208,7 +210,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-        hintText: StringConstants().typeOfRawMaterial,
+        hintText: stringConstants.typeOfRawMaterial,
         isMandatory: true,
         controller: viewModel.typeOfRawMaterialController,
         isReadOnly: true,
@@ -221,7 +223,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: StringConstants().addressOfWasteTyreSupplier,
+          hintText: stringConstants.addressOfWasteTyreSupplier,
           isMandatory: false,
           controller: viewModel.addressController),
     );
@@ -231,7 +233,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: StringConstants().nameOfWasteTyreSupplier,
+          hintText: stringConstants.nameOfWasteTyreSupplier,
           isMandatory: false,
           controller: viewModel.nameOfWasteTyreSupplierController),
     );
@@ -241,7 +243,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
-        labelText: StringConstants().financialYearLabel,
+        labelText: stringConstants.financialYearLabel,
         dropDownItem: viewModel.financialYearList,
         error: viewModel.yearDropdownError,
         value: viewModel.yearDropdownValue,

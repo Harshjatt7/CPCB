@@ -6,7 +6,8 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_total_application_
 import 'package:flutter/material.dart';
 
 class AdminRecyclerTab extends StatelessWidget {
-  const AdminRecyclerTab({super.key});
+  AdminRecyclerTab({super.key});
+  final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +17,23 @@ class AdminRecyclerTab extends StatelessWidget {
         children: [
           const CommonAdminDashboardHeading(),
           CommonEndProduct(
-              title: StringConstants().reclaimedRubber,
+              title: stringConstants.reclaimedRubber,
               generated: '898',
               transferred: '989'),
           CommonEndProduct(
-              title: StringConstants().recoverCarbon,
+              title: stringConstants.recoverCarbon,
               generated: '8986766',
               transferred: '98967676'),
           CommonEndProduct(
-              title: StringConstants().crumbRubber,
+              title: stringConstants.crumbRubber,
               generated: '898',
               transferred: '989'),
           CommonEndProduct(
-              title: StringConstants().tpoChar,
+              title: stringConstants.tpoChar,
               generated: '898',
               transferred: '989'),
           CommonEndProduct(
-              title: StringConstants().crumbRubberModified,
+              title: stringConstants.crumbRubberModified,
               generated: '898',
               transferred: '989'),
           const CommonTotalApplicationCard(

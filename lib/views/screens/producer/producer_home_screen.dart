@@ -28,9 +28,9 @@ class _ProducerHomePageState extends State<ProducerHomeScreen> {
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().profileTabIcon,
       )
-    ], screens: const [
+    ], screens: [
       DashBoardScreen(),
-      SalesScreen(),
+       SalesScreen(),
       ProfileScreen()
     ]);
   }

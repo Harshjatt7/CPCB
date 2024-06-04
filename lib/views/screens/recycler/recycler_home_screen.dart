@@ -26,10 +26,10 @@ class RecyclerHomeScreen extends StatelessWidget {
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().profileTabIcon,
       )
-    ], screens: const [
+    ], screens:  [
       DashBoardScreen(),
-      RecyclerProcurementDataScreen(),
-      RecyclerDataScreen(),
+       RecyclerProcurementDataScreen(),
+       RecyclerDataScreen(),
       ProfileScreen()
     ]);
   }
