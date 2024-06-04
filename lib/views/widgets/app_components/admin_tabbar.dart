@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
 
@@ -40,7 +41,14 @@ class _AdminTabBarState extends State<AdminTabBar>
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: List<Widget>.generate(widget.tabs.length, (index) {
-                  return tabContainer(index, widget.tabs[index].label);
+                  return Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: index == (widget.tabs.length - 1)
+                            ? EdgeInsets.zero
+                            : const EdgeInsets.only(right: 8),
+                        child: tabContainer(index, widget.tabs[index].label),
+                      ));
                 })),
             const SizedBox(
               height: 20,
@@ -66,7 +74,8 @@ class _AdminTabBarState extends State<AdminTabBar>
       },
       child: Container(
         height: 30,
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 35),
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
         decoration: BoxDecoration(
             color: tabController.index == index
                 ? AppColor().primaryGreen.withOpacity(0.3)
