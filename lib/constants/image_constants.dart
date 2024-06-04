@@ -64,4 +64,8 @@ class ImageConstants {
   final String menuIcon = "assets/images/icons/menu_icon.svg";
   final String dashboardBackGround =
       "assets/images/background/dashboard_background.png";
+  final String downloadTransactionIcon =
+      "assets/images/icons/download_transaction_button_icon.svg";
+  final String downloadApplicationIcon =
+      "assets/images/icons/download_application_icon.svg";
 }

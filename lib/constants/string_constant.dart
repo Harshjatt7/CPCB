@@ -161,4 +161,7 @@ class StringConstants {
   final String remainingEprObligation = "Remaining EPR obligation";
   final String totalEprFullFilled = "Total EPR Full-Filled";
   final String search = "search";
+  final String close = "close";
+  final String options = "Options";
+  final String downloadTransactionLabel = "download-transaction-label";
 }
