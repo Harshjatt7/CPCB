@@ -1,4 +1,6 @@
 import 'package:cpcb_tyre/views/screens/admin/admin_producer_tab.dart';
+import 'package:cpcb_tyre/views/screens/admin/admin_recycler_tab.dart';
+import 'package:cpcb_tyre/views/screens/admin/admin_retreader_tab.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -46,11 +48,11 @@ class AdminDashboardScreen extends StatelessWidget {
                   tab: const AdminProducerTab(),
                   label: StringConstants.producer),
               TabBarModel(
-                  tab: demoWidgetToBeChanged(AppColor().red),
+                  tab: const AdminRecyclerTab(),
                   label: StringConstants.recycler),
               TabBarModel(
-                  tab: demoWidgetToBeChanged(AppColor().black),
-                  label: StringConstants.retreader)
+                  tab: const AdminRetreaderTab(),
+                  label: StringConstants().retrader)
             ],
           ),
         ));
