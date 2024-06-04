@@ -128,6 +128,9 @@ class StringConstants {
   final String applicationPendingAtTheApplicants =
       "application-pending-at-the-applicants";
       final String numberOfRegistrationGrantedToProducers="number-of-registration-granted-to-producers";
+  final String applicationReceived = "application-received";
+  final String lastMarked = "last-marked";
+  final String markedTo = "marked-to";
 
   //User Types
   static const String admin = "Admin";

@@ -14,27 +14,32 @@ class CommonSearchBarWidget extends StatefulWidget {
   final TextInputType? textInputType;
   final Color? textColor;
   final void Function()? onTap;
+  final void Function()? onBackButtonTap;
   final void Function(String)? onChanged;
   final ValueChanged<String>? onStartEditing;
   final bool? isSearchExpanded;
   final bool? showFilter;
+  final bool? isBackButton;
 
   /// [CommonSearchBarWidget] will be used as the common search header.
 
-  const CommonSearchBarWidget(
-      {super.key,
-      this.title,
-      required this.hintText,
-      required this.controller,
-      this.textColor,
-      this.textInputType = TextInputType.text,
-      this.onSuffixTap,
-      this.onChanged,
-      this.onTap,
-      this.onStartEditing,
-      this.suffixIcon,
-      this.isSearchExpanded = false,
-      this.showFilter = false});
+  const CommonSearchBarWidget({
+    super.key,
+    this.title,
+    required this.hintText,
+    required this.controller,
+    this.textColor,
+    this.textInputType = TextInputType.text,
+    this.onSuffixTap,
+    this.onChanged,
+    this.onTap,
+    this.onStartEditing,
+    this.suffixIcon,
+    this.isSearchExpanded = false,
+    this.showFilter = false,
+    this.isBackButton = false,
+    this.onBackButtonTap,
+  });
 
   @override
   State<CommonSearchBarWidget> createState() =>
@@ -65,6 +70,16 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         children: [
+          if (widget.isBackButton == true && widget.isSearchExpanded == false)
+            GestureDetector(
+              onTap: widget.onBackButtonTap,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8, top: 4),
+                child: CommonImageWidget(
+                    imageSource: ImageConstants().arrowBack,
+                    isNetworkImage: false),
+              ),
+            ),
           Visibility(
             visible: !(widget.isSearchExpanded ?? false),
             child: Expanded(

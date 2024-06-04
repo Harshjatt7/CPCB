@@ -144,6 +144,9 @@
     "applications-awaiting-approval-at-authority":"Applications awaiting approval at authority",
     "return-for-division":"Return for division",
     "application-pending-at-the-applicants":"Application pending at the applicants",
-    "number-of-registration-granted-to-producers":"Number of registration granted to producers"
+    "number-of-registration-granted-to-producers":"Number of registration granted to producers",
+    "application-received": "List of Application Received",
+    "last-marked" : "Last Marked",
+    "marked-to": "Marked To"
 
 }
