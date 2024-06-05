@@ -13,9 +13,7 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   APIResponse<EprApplicationResponseModel?>? _eprApplicationResponseModel;
   APIResponse<EprApplicationResponseModel?>? get eprApplicationResponseModel =>
       _eprApplicationResponseModel;
-  int producerTotalApplication = 0;
-  int recyclerTotalApplication = 0;
-  int retreaderTotalApplication = 0;
+
 
   EPRApplicationData? producerData;
   EPRApplicationData? recyclerData;
