@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/views/screens/admin/admin_producer_tab.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
+import 'package:cpcb_tyre/views/widgets/components/download_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/string_constant.dart';
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
@@ -44,7 +45,15 @@ class AdminDashboardScreen extends StatelessWidget {
             TabBarModel(
                 tab: const AdminProducerTab(), label: StringConstants.producer),
             TabBarModel(
-                tab: demoWidgetToBeChanged(AppColor().red),
+                tab: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return const DownloadBottomSheet();
+                          });
+                    },
+                    child: demoWidgetToBeChanged(AppColor().red)),
                 label: StringConstants.recycler),
             TabBarModel(
                 tab: demoWidgetToBeChanged(AppColor().black),
