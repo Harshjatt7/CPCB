@@ -8,21 +8,21 @@ class CommonTextWidget extends StatelessWidget {
   final int? maxLines;
   final TextAlign? textAlign;
   final double? width;
+  final bool? useLocalization;
 
-  const CommonTextWidget(
-    this.data, {
-    super.key,
-    this.maxLines,
-    this.overflow,
-    this.style,
-    this.textAlign,
-    this.width,
-  });
+  const CommonTextWidget(this.data,
+      {super.key,
+      this.maxLines,
+      this.overflow,
+      this.style,
+      this.textAlign,
+      this.width,
+      this.useLocalization = true});
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      data.i18n(),
+      useLocalization == true ? data.i18n() : data,
       style: style ?? Theme.of(context).textTheme.displayMedium,
       overflow: overflow ?? TextOverflow.ellipsis,
       maxLines: maxLines ?? 20,
