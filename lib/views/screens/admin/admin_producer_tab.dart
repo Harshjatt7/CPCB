@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
@@ -36,7 +37,9 @@ class AdminProducerTab extends StatelessWidget {
               title: stringConstants.wasteTyreImporter, count: '1321'),
           CommonTotalApplicationCard(
             totalApplication: "${producerData?.applications??''}",
-            onTap: null,
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute);
+            },
           ),
           CommonEPRApplication(
             data: producerData,
