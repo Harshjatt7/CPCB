@@ -41,6 +41,7 @@ class APIRoutes {
       "api/producer/add-sales-data-constant-list";
   final String producerSalesDataList = "api/producer/sales-data-list";
   final String adminEPRApplicationsAPIRoute = "api/admin/application-counts/";
+  final String adminEPROblicationsAPIRoute = "api/admin/activity-overview/";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";

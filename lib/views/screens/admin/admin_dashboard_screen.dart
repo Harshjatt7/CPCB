@@ -22,6 +22,12 @@ class AdminDashboardScreen extends StatelessWidget {
     return BaseView<AdminDashBoardViewmodel>(
         onModelReady: (viewModel) async {
           await viewModel.getAdminDashBoardData(context);
+          if (context.mounted) {
+            await viewModel.getEprOblications(context);
+          }
+          if (context.mounted) {
+            await viewModel.getCommonEprOblications(context);
+          }
         },
         viewModel: AdminDashBoardViewmodel(),
         builder: (context, viewModel, child) {
@@ -57,16 +63,22 @@ class AdminDashboardScreen extends StatelessWidget {
                     TabBarModel(
                         tab: AdminProducerTab(
                           producerData: viewModel.producerData,
+                          producerEprOblicationsData:
+                              viewModel.producerEprOblicationsData,
                         ),
                         label: StringConstants.producer),
                     TabBarModel(
                         tab: AdminRecyclerTab(
                           recyclerData: viewModel.recyclerData,
+                          recyclerCommonData:
+                              viewModel.recyclerEprOblicationData,
                         ),
                         label: StringConstants.recycler),
                     TabBarModel(
                         tab: AdminRetreaderTab(
                           retreaderData: viewModel.retraderData,
+                          retreaderCommonData:
+                              viewModel.retreaderEprOblicationData,
                         ),
                         label: StringConstants().retrader)
                   ],
