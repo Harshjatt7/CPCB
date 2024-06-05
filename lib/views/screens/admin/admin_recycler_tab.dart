@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_admin_dashboard_heading.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_end_product.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';
@@ -6,8 +7,9 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_total_application_
 import 'package:flutter/material.dart';
 
 class AdminRecyclerTab extends StatelessWidget {
-  AdminRecyclerTab({super.key});
+  AdminRecyclerTab({super.key,required this.recyclerData});
   final StringConstants stringConstants = StringConstants();
+  final EPRApplicationData? recyclerData;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,12 @@ class AdminRecyclerTab extends StatelessWidget {
               title: stringConstants.crumbRubberModified,
               generated: '898',
               transferred: '989'),
-          const CommonTotalApplicationCard(
-            totalApplication: '4,564',
+           CommonTotalApplicationCard(
+            totalApplication: "${recyclerData?.applications}",
             onTap: null,
           ),
-          const CommonEPRApplication(
+           CommonEPRApplication(
+            data: recyclerData,
             userType: StringConstants.recycler,
           ),
         ],

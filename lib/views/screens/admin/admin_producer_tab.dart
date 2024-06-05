@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_oblication_tile.dart';
@@ -7,8 +8,9 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class AdminProducerTab extends StatelessWidget {
-  AdminProducerTab({super.key});
+  AdminProducerTab({super.key, required this.producerData});
   final StringConstants stringConstants = StringConstants();
+  final EPRApplicationData? producerData;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +31,15 @@ class AdminProducerTab extends StatelessWidget {
               title: stringConstants.newTyreImportedAndImportedVehicles,
               count: '1321'),
           CommonEPROblicationsTile(
-              title: stringConstants.newTyreImportedExclusively,
-              count: '1321'),
+              title: stringConstants.newTyreImportedExclusively, count: '1321'),
           CommonEPROblicationsTile(
               title: stringConstants.wasteTyreImporter, count: '1321'),
-          const CommonTotalApplicationCard(
-            totalApplication: '4,564',
+          CommonTotalApplicationCard(
+            totalApplication: "${producerData?.applications}",
             onTap: null,
           ),
-          const CommonEPRApplication(
+          CommonEPRApplication(
+            data: producerData,
             userType: StringConstants.producer,
           ),
         ],

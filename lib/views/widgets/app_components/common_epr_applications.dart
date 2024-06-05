@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_oblication_tile.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
@@ -6,8 +7,9 @@ import 'package:flutter/material.dart';
 
 class CommonEPRApplication extends StatelessWidget {
   final String userType;
-  const CommonEPRApplication({super.key, required this.userType});
-
+  const CommonEPRApplication(
+      {super.key, required this.userType, required this.data});
+  final EPRApplicationData? data;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,27 +42,27 @@ class CommonEPRApplication extends StatelessWidget {
         ),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsUnderProcessAtCPCB,
-            count: '131'),
+            count: "${data?.applicationUnderProcess}"),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsUnderEvaluationWithDivision,
-            count: '125'),
+            count: "${data?.applicationUnderDh}"),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsApprovedByAuthority,
-            count: '131'),
+            count:"${data?.applicationApprovedAuthority}" ),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsRejectedByAuthority,
-            count: '131'),
+            count:"${data?.applicationRejectedAuthority}" ),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsAwaitingApprovalAtAuthority,
-            count: '131'),
-        CommonEPROblicationsTile(
-            title: StringConstants().returnForDivision, count: '131'),
+            count: "${data?.applicationAwaitingApproval}"),
+        // CommonEPROblicationsTile(
+        //     title: StringConstants().returnForDivision, count:"${data?.applicationUnderDh}"),
         CommonEPROblicationsTile(
             title: StringConstants().applicationPendingAtTheApplicants,
-            count: '131'),
+            count: "${data?.applicationPendingApplicant}"),
         CommonEPROblicationsTile(
             title: StringConstants().numberOfRegistrationGrantedToProducers,
-            count: '131'),
+            count: "${data?.applicationGranted}"),
       ],
     );
   }

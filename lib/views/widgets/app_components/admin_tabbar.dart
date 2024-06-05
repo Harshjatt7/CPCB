@@ -40,7 +40,7 @@ class _AdminTabBarState extends State<AdminTabBar>
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: List<Widget>.generate(widget.tabs.length, (index) {
-                  return tabContainer(index, widget.tabs[index].label);
+                  return tabContainer(index, widget.tabs[index].label,onTap: widget.tabs[index].onTap);
                 })),
             const SizedBox(
               height: 20,
@@ -58,11 +58,15 @@ class _AdminTabBarState extends State<AdminTabBar>
     );
   }
 
-  Widget tabContainer(int index, String label) {
+  Widget tabContainer(int index, String label,{VoidCallback? onTap}) {
     return InkWell(
       onTap: () {
         tabController.index = index;
         setState(() {});
+        if(onTap!=null){
+          onTap();
+        }
+
       },
       child: Container(
         height: 30,

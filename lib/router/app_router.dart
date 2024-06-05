@@ -28,18 +28,18 @@ class PageRouter {
           settings,
         );
       case AppRoutes.addSalesDataScreenRoute:
-        return _getPageRoute(const SalesDataScreen(), settings);
+        return _getPageRoute( SalesDataScreen(), settings);
       case AppRoutes.procurementAddDataScreenRoute:
-        return _getPageRoute(const ProcurementAddDataScreen(), settings);
+        return _getPageRoute( ProcurementAddDataScreen(), settings);
       case AppRoutes.retreadedAddDataScreenRoute:
-        return _getPageRoute(const RetreadedAddDataScreen(), settings);
+        return _getPageRoute( RetreadedAddDataScreen(), settings);
       case AppRoutes.recyclerHomeScreenRoute:
         return _getPageRoute(const RecyclerHomeScreen(), settings);
       case AppRoutes.recyclerAddDataScreenRoute:
-        return _getPageRoute(const RecyclerAddDataScreen(), settings);
+        return _getPageRoute( RecyclerAddDataScreen(), settings);
       case AppRoutes.recyclerProcurementAddDataScreenRoute:
         return _getPageRoute(
-            const RecyclerProcurementAddDataScreen(), settings);
+             RecyclerProcurementAddDataScreen(), settings);
       case AppRoutes.adminHomeScreenRoute:
         return _getPageRoute(const AdminHomeScreen(), settings);
 
