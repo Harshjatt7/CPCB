@@ -17,9 +17,9 @@ class AdminRepository {
   }
 
 
-  Future getApplicationData({String? page = "1"}) async {
+  Future getApplicationData({String? userType, String? page = "1"}) async {
     APIResponse<AdminApplicationResponseModel?>? response = await _apiBase
-        .getRequest("${_apiRoutes.adminApplicationReceivedProducer}?page=$page",
+        .getRequest("${_apiRoutes.adminApplicationReceived}/$userType?page=$page",
             isAuthorizationRequired: true);
     return response;
   }

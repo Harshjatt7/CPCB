@@ -5,7 +5,7 @@ AdminApplicationResponseModel adminApplicationResponseModelFromJson(
     AdminApplicationResponseModel.fromJson(json.decode(str));
 
 class AdminApplicationResponseModel {
-  List<ApplicationResponse>? data;
+  List<ApplicationResponsedData>? data;
   Links? links;
   Meta? meta;
   int? status;
@@ -21,26 +21,26 @@ class AdminApplicationResponseModel {
       AdminApplicationResponseModel(
         data: json["data"] == null
             ? []
-            : List<ApplicationResponse>.from(
-                json["data"]!.map((x) => ApplicationResponse.fromJson(x))),
+            : List<ApplicationResponsedData>.from(
+                json["data"]!.map((x) => ApplicationResponsedData.fromJson(x))),
         links: json["links"] == null ? null : Links.fromJson(json["links"]),
         meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
         status: json["status"],
       );
 }
 
-class ApplicationResponse {
+class ApplicationResponsedData {
   String? id;
   String? status;
   String? userId;
   String? companyName;
   String? lastMarked;
-  MarkedBy? markedBy;
-  MarkedTo? markedTo;
+  String? markedBy;
+  String? markedTo;
   DateTime? firstReceived;
   DateTime? lastReceived;
 
-  ApplicationResponse({
+  ApplicationResponsedData({
     this.id,
     this.status,
     this.userId,
@@ -52,15 +52,15 @@ class ApplicationResponse {
     this.lastReceived,
   });
 
-  factory ApplicationResponse.fromJson(Map<String, dynamic> json) =>
-      ApplicationResponse(
+  factory ApplicationResponsedData.fromJson(Map<String, dynamic> json) =>
+      ApplicationResponsedData(
         id: json["id"],
         status: json["status"],
         userId: json["user_id"],
         companyName: json["company_name"],
         lastMarked: json["last_marked"],
-        markedBy: markedByValues.map[json["marked_by"]]!,
-        markedTo: markedToValues.map[json["marked_to"]]!,
+        markedBy: json["marked_by"],
+        markedTo: json["marked_to"],
         firstReceived: json["first_received"] == null
             ? null
             : DateTime.parse(json["first_received"]),
@@ -69,22 +69,6 @@ class ApplicationResponse {
             : DateTime.parse(json["last_received"]),
       );
 }
-
-enum MarkedBy { divisionalHead, memberSecretary, producer }
-
-final markedByValues = EnumValues({
-  "Divisional Head": MarkedBy.divisionalHead,
-  "Member Secretary": MarkedBy.memberSecretary,
-  "Producer": MarkedBy.producer
-});
-
-enum MarkedTo { approvingAuthorityMs, backToRetreader, divisionalHead }
-
-final markedToValues = EnumValues({
-  "Approving Authority(MS)": MarkedTo.approvingAuthorityMs,
-  "Back to Retreader": MarkedTo.backToRetreader,
-  "Divisional Head": MarkedTo.divisionalHead
-});
 
 class Links {
   String? first;

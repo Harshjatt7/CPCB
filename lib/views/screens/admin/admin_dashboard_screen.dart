@@ -55,20 +55,24 @@ class AdminDashboardScreen extends StatelessWidget {
                 child: AdminTabBar(
                   tabs: [
                     TabBarModel(
-                        tab: AdminProducerTab(
-                          producerData: viewModel.producerData,
-                        ),
-                        label: StringConstants.producer),
+                      tab: AdminProducerTab(
+                        producerData: viewModel.producerData,
+                        userType: viewModel.userType,
+                      ),
+                      label: StringConstants.producer,
+                    ),
                     TabBarModel(
-                        tab: AdminRecyclerTab(
-                          recyclerData: viewModel.recyclerData,
-                        ),
-                        label: StringConstants.recycler),
+                      tab: AdminRecyclerTab(
+                        recyclerData: viewModel.recyclerData,
+                      ),
+                      label: StringConstants.recycler,
+                    ),
                     TabBarModel(
-                        tab: AdminRetreaderTab(
-                          retreaderData: viewModel.retraderData,
-                        ),
-                        label: StringConstants().retrader)
+                      tab: AdminRetreaderTab(
+                        retreaderData: viewModel.retraderData,
+                      ),
+                      label: StringConstants().retrader,
+                    )
                   ],
                 ),
               ));

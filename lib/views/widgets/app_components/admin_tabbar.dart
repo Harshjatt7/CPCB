@@ -46,7 +46,7 @@ class _AdminTabBarState extends State<AdminTabBar>
                         padding: index == (widget.tabs.length - 1)
                             ? EdgeInsets.zero
                             : const EdgeInsets.only(right: 8),
-                        child: tabContainer(index, widget.tabs[index].label),
+                        child: tabContainer(index, widget.tabs[index].label, onTapped: widget.tabs[index].onTap),
                       ));
                 })),
             const SizedBox(
@@ -65,15 +65,15 @@ class _AdminTabBarState extends State<AdminTabBar>
     );
   }
 
-  Widget tabContainer(int index, String label,{VoidCallback? onTap}) {
+  Widget tabContainer(int index, String label, {VoidCallback? onTapped}) {
     return InkWell(
       onTap: () {
         tabController.index = index;
-        setState(() {});
-        if(onTap!=null){
-          onTap();
+         if (onTapped != null) {
+          onTapped();
         }
-
+        setState(() {});
+       
       },
       child: Container(
         height: 30,

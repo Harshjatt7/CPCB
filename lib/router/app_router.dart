@@ -44,7 +44,8 @@ class PageRouter {
       case AppRoutes.adminHomeScreenRoute:
         return _getPageRoute(const AdminHomeScreen(), settings);
       case AppRoutes.adminApplicationReceivedRoute:
-        return _getPageRoute(const AdminApplicationReceivedScreen(), settings);
+      String userType = settings.arguments as String;
+        return _getPageRoute(AdminApplicationReceivedScreen(userType: userType,), settings);
 
       // Will be displayed if no specified route is found.
       default:
