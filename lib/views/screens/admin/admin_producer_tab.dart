@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
@@ -9,9 +10,10 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class AdminProducerTab extends StatelessWidget {
-  AdminProducerTab({super.key, required this.producerData});
+  AdminProducerTab({super.key, required this.producerData,this.userType});
   final StringConstants stringConstants = StringConstants();
   final EPRApplicationData? producerData;
+  final String? userType;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class AdminProducerTab extends StatelessWidget {
           CommonTotalApplicationCard(
             totalApplication: "${producerData?.applications??''}",
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute);
+              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute, arguments: AdminUserTypes.producer.text);
             },
           ),
           CommonEPRApplication(

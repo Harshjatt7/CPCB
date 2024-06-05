@@ -6,6 +6,9 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.d
 import 'package:cpcb_tyre/views/widgets/app_components/common_total_application_card.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/enums/enums.dart';
+import '../../../constants/routes_constant.dart';
+
 class AdminRetreaderTab extends StatelessWidget {
   const AdminRetreaderTab({super.key, required this.retreaderData});
   final EPRApplicationData? retreaderData;
@@ -23,7 +26,11 @@ class AdminRetreaderTab extends StatelessWidget {
               transferred: '989'),
           CommonTotalApplicationCard(
             totalApplication: "${retreaderData?.applications}",
-            onTap: null,
+            onTap: () {
+              Navigator.pushNamed(
+                  context, AppRoutes.adminApplicationReceivedRoute,
+                  arguments: AdminUserTypes.retreader.text);
+            },
           ),
           CommonEPRApplication(
             data: retreaderData,

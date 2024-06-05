@@ -10,7 +10,7 @@ import 'package:localization/localization.dart';
 class CommonAdminApplicationCard extends StatelessWidget {
   const CommonAdminApplicationCard({
     super.key,
-    this.applicationName,
+    this.applicationStatus,
     this.applicationNumber,
     this.applicationTitle,
     this.lastMarked,
@@ -20,7 +20,7 @@ class CommonAdminApplicationCard extends StatelessWidget {
     this.year,
     this.onMenuTap,
   });
-  final String? applicationName;
+  final String? applicationStatus;
   final String? applicationNumber;
   final String? applicationTitle;
   final String? lastMarked;
@@ -34,80 +34,77 @@ class CommonAdminApplicationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-                border: Border.all(color: AppColor().black10),
-                borderRadius: BorderRadius.circular(6)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        CommonTypeBadge(
-                          text: applicationName ?? "",
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CommonTextWidget(
-                          applicationNumber ?? "",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(color: AppColor().black40),
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
-                      onTap: onMenuTap,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 6),
-                        child: CommonImageWidget(
-                            imageSource: ImageConstants().menuIcon,
-                            isNetworkImage: false),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              border: Border.all(color: AppColor().black10),
+              borderRadius: BorderRadius.circular(6)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      CommonTypeBadge(
+                        text: applicationStatus ?? "",
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                CommonTextWidget(applicationTitle ?? ""),
-                const SizedBox(
-                  height: 6,
-                ),
-                buildCustomTextWidget(context,
-                    text:
-                        "${StringConstants().lastMarked.i18n()}: $lastMarked"),
-                const SizedBox(
-                  height: 6,
-                ),
-                buildCustomTextWidget(context,
-                    text: "${StringConstants().markedTo.i18n()}: $markedTo"),
-                Divider(
-                  thickness: 1,
-                  color: AppColor().black10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    buildRowWidget(context,
-                        image: ImageConstants().verified, text: total),
-                    buildRowWidget(context,
-                        image: ImageConstants().calendarIcon,
-                        text: "${StringConstants().dateLabel.i18n()}: $date"),
-                    buildRowWidget(context,
-                        image: ImageConstants().calendarIcon, text: year),
-                  ],
-                ),
-              ],
-            ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      CommonTextWidget(
+                        applicationNumber ?? "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(color: AppColor().black40),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: onMenuTap,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 6),
+                      child: CommonImageWidget(
+                          imageSource: ImageConstants().menuIcon,
+                          isNetworkImage: false),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              CommonTextWidget(applicationTitle ?? ""),
+              const SizedBox(
+                height: 6,
+              ),
+              buildCustomTextWidget(context,
+                  text:
+                      "${StringConstants().lastMarked.i18n()}: $lastMarked"),
+              const SizedBox(
+                height: 6,
+              ),
+              buildCustomTextWidget(context,
+                  text: "${StringConstants().markedTo.i18n()}: $markedTo"),
+              Divider(
+                thickness: 1,
+                color: AppColor().black10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  buildRowWidget(context,
+                      image: ImageConstants().verified, text: total),
+                  buildRowWidget(context,
+                      image: ImageConstants().calendarIcon,
+                      text: "${StringConstants().dateLabel.i18n()} $date"),
+                  buildRowWidget(context,
+                      image: ImageConstants().calendarIcon, text: year),
+                ],
+              ),
+            ],
           ),
         ),
       ],
