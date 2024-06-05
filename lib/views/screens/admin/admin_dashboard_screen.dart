@@ -1,5 +1,3 @@
-
-
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/screen_or_widegt_arguments/tab_bar_model.dart';

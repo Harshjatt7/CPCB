@@ -17,3 +17,12 @@ enum RecyclerProcurementDataDropdown {
   typeOfRawMaterial,
   tyreSource
 }
+
+enum AdminUserTypes {
+  producer('producer'),
+  recycler('recycler'),
+  retreader('retreader');
+
+  const AdminUserTypes(this.text);
+  final String text;
+}

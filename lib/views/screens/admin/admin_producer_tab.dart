@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
@@ -56,7 +57,8 @@ class AdminProducerTab extends StatelessWidget {
             totalApplication: "${producerData?.applications ?? ''}",
             onTap: () {
               Navigator.pushNamed(
-                  context, AppRoutes.adminApplicationReceivedRoute);
+                  context, AppRoutes.adminApplicationReceivedRoute,
+                  arguments: AdminUserTypes.producer.text);
             },
           ),
           CommonEPRApplication(
