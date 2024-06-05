@@ -15,7 +15,8 @@ import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
-  const ProfileScreen({super.key, this.isAdmin = false});
+   ProfileScreen({super.key, this.isAdmin = false});
+  final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                         border: Border(
                             bottom: BorderSide(color: AppColor().black10))),
                     child: CommonTextWidget(
-                      StringConstants().profileTitle,
+                      stringConstants.profileTitle,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
@@ -58,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                     detailContainer(context,
                         backgroundColor: AppColor().darkBlue10,
                         borderColor: AppColor().black20,
-                        title: StringConstants().authorizedPersonDetails,
+                        title: stringConstants.authorizedPersonDetails,
                         email: viewModel.data?.authorizedPersonEmailId ?? '',
                         phoneNo: viewModel.data?.authorizedcontactNumber ?? ''),
                   // Padding(
@@ -67,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                   //   child: ProducerListTile(
                   //     isBackgroundIcon: true,
                   //       image: ImageConstants().person,
-                  //       title: StringConstants().userType,
+                  //       title: stringConstants.userType,
                   //       subtitle: viewModel.data?.userType ?? ""),
                   // ),
                   // Padding(
@@ -76,14 +77,14 @@ class ProfileScreen extends StatelessWidget {
                   //   child: ProducerListTile(
                   //     isBackgroundIcon: true,
                   //       image: ImageConstants().passKey,
-                  //       title: StringConstants().currentStatus,
+                  //       title: stringConstants.currentStatus,
                   //       subtitle: viewModel.data?.state ?? ""),
                   // ),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: CommonButtonWidget(
-                      label: StringConstants().logOut,
+                      label: stringConstants.logOut,
                       color: AppColor().darkGreen,
                       onPressed: () {
                         viewModel.clearAppData(context);
@@ -133,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 8,
                   ),
                   CommonTextWidget(
-                    StringConstants().emailId,
+                    stringConstants.emailId,
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall!
@@ -161,7 +162,7 @@ class ProfileScreen extends StatelessWidget {
                   width: 8,
                 ),
                 CommonTextWidget(
-                  StringConstants().mobileNumber,
+                  stringConstants.mobileNumber,
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!

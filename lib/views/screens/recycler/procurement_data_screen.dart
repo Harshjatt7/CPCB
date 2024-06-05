@@ -16,7 +16,9 @@ import 'package:flutter/material.dart';
 import '../../widgets/app_components/recycler_procurement_container.dart';
 
 class RecyclerProcurementDataScreen extends StatelessWidget {
-  const RecyclerProcurementDataScreen({super.key});
+   RecyclerProcurementDataScreen({super.key});
+    final StringConstants stringConstants=StringConstants();
+
   @override
   Widget build(BuildContext context) {
     return BaseView<ProcurementViewDataViewModel>(
@@ -38,8 +40,8 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                     isIconBar: true,
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
-                    name: StringConstants().name,
-                    designation: StringConstants().userType,
+                    name: stringConstants.name,
+                    designation: stringConstants.userType,
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -52,7 +54,7 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,
-                      hintText: StringConstants().searchHere,
+                      hintText: stringConstants.searchHere,
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
                         viewModel.searchProcurement(value);
@@ -60,7 +62,7 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                           viewModel.getUpdatedList();
                         }
                       },
-                      title: StringConstants().procurementData,
+                      title: stringConstants.procurementData,
                       onSuffixTap: () {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
@@ -131,7 +133,7 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                   Navigator.pushNamed(
                       context, AppRoutes.recyclerProcurementAddDataScreenRoute);
                 },
-                label: StringConstants().addProcurementButton,
+                label: stringConstants.addProcurementButton,
                 color: AppColor().darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme

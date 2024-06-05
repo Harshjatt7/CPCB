@@ -3,7 +3,6 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
 
@@ -66,11 +65,15 @@ class _AdminTabBarState extends State<AdminTabBar>
     );
   }
 
-  Widget tabContainer(int index, String label) {
+  Widget tabContainer(int index, String label,{VoidCallback? onTap}) {
     return InkWell(
       onTap: () {
         tabController.index = index;
         setState(() {});
+        if(onTap!=null){
+          onTap();
+        }
+
       },
       child: Container(
         height: 30,

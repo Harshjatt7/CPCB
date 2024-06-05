@@ -15,7 +15,9 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class SalesScreen extends StatelessWidget {
-  const SalesScreen({super.key});
+   SalesScreen({super.key});
+    final StringConstants stringConstants=StringConstants();
+
   @override
   Widget build(BuildContext context) {
     return BaseView<SalesViewModel>(
@@ -36,11 +38,11 @@ class SalesScreen extends StatelessWidget {
                     isIconBar: true,
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
-                    name: StringConstants().name,
-                    designation: StringConstants().userType,
+                    name: stringConstants.name,
+                    designation: stringConstants.userType,
                   ),
                   CommonTitleBar(
-                      title: StringConstants().salesDataProducerListingTitle)
+                      title: stringConstants.salesDataProducerListingTitle)
                 ],
               ),
             ),
@@ -108,7 +110,7 @@ class SalesScreen extends StatelessWidget {
                   Navigator.pushNamed(
                       context, AppRoutes.addSalesDataScreenRoute);
                 },
-                label: StringConstants().addSalesDataBtnLabel,
+                label: stringConstants.addSalesDataBtnLabel,
                 color: AppColor().darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme

@@ -28,47 +28,47 @@ class CommonTotalApplicationCard extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Container(
+            height: 250,
+            width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 16),
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(ImageConstants().dashboardBackGround),
                     fit: BoxFit.contain)),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 95, vertical: 40),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: AppColor().darkGreen, width: 7)),
-                          padding: const EdgeInsets.all(30),
-                          child: Column(
-                            children: [
-                              CommonImageWidget(
-                                  imageSource: ImageConstants().statsIcon,
-                                  isNetworkImage: false),
-                              CommonTextWidget(
-                                totalApplication,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge!
-                                    .copyWith(
-                                        fontSize: 32,
-                                        color: AppColor().darkGreen),
-                              ),
-                              CommonTextWidget(
-                                StringConstants().totalApplication,
-                                style: Theme.of(context).textTheme.bodySmall,
-                              )
-                            ],
+                    Container(
+                     
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: AppColor().darkGreen, width: 7)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 30),
+                      child: Column(
+                        children: [
+                          CommonImageWidget(
+                              imageSource: ImageConstants().statsIcon,
+                              isNetworkImage: false),
+                          CommonTextWidget(
+                            totalApplication,
+                            maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(
+                                    fontSize: 32, color: AppColor().darkGreen),
                           ),
-                        ),
+                          CommonTextWidget(
+                            StringConstants().totalApplication,
+                            maxLines: 1,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )
+                        ],
                       ),
                     )
                   ],

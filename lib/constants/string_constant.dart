@@ -127,7 +127,15 @@ class StringConstants {
   final String returnForDivision = "return-for-division";
   final String applicationPendingAtTheApplicants =
       "application-pending-at-the-applicants";
-      final String numberOfRegistrationGrantedToProducers="number-of-registration-granted-to-producers";
+  final String numberOfRegistrationGrantedToProducers =
+      "number-of-registration-granted-to-producers";
+  final String reclaimedRubber = "reclaimed-rubber";
+  final String recoverCarbon = "recover-carbon";
+  final String crumbRubber = "crumb-rubber";
+  final String tpoChar = "tpo-char";
+  final String crumbRubberModified = "crumb-rubber-modified";
+  final String retreadedTyre = "retreaded-tyre";
+  final String retrader = "re-trader";
   final String applicationReceived = "application-received";
   final String lastMarked = "last-marked";
   final String markedTo = "marked-to";
