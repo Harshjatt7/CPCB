@@ -1,8 +1,10 @@
+
+
 import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
-import 'package:cpcb_tyre/models/response/admin/common_epr_oblication_response_model.dart';
+import 'package:cpcb_tyre/models/response/admin/common_epr_response_model.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
-import 'package:cpcb_tyre/models/response/admin/epr_oblications.dart';
+import 'package:cpcb_tyre/models/response/admin/epr_oblications_response_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 
 class AdminRepository {

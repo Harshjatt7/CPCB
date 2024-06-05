@@ -1,18 +1,20 @@
+
+
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/screen_or_widegt_arguments/tab_bar_model.dart';
+import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/admin/admin_dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_producer_tab.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_recycler_tab.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_retreader_tab.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/admin_tabbar.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import '../../../constants/string_constant.dart';
-import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
-import '../../../theme/app_color.dart';
-import '../../../utils/helper/responsive_helper.dart';
-import '../../widgets/app_components/admin_tabbar.dart';
-import '../../widgets/components/common_appbar.dart';
-import '../../widgets/components/common_text_widget.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
