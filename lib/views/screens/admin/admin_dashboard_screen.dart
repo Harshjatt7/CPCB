@@ -1,8 +1,5 @@
-import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_producer_tab.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
-import 'package:cpcb_tyre/views/widgets/components/download_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/string_constant.dart';
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
