@@ -7,7 +7,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreader_view_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/retrader_common_components/common_retrader_data_card.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_retrader_data_card.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
