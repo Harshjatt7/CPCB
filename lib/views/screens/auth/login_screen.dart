@@ -18,7 +18,8 @@ import '../../widgets/components/common_text_form_field_widget.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+   LoginScreen({super.key});
+  final StringConstants stringConstants=StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                       height: 24,
                     ),
                     CommonTextWidget(
-                      StringConstants().loginToYourAcc,
+                      stringConstants.loginToYourAcc,
                       style: context.textThemeHelper.displayMedium
                           ?.copyWith(fontWeight: FontWeight.w600),
                     ),
@@ -87,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                       height: 4,
                     ),
                     CommonTextWidget(
-                      StringConstants().enterEmailPasswordToLogin,
+                      stringConstants.enterEmailPasswordToLogin,
                       style: context.textThemeHelper.displayMedium?.copyWith(
                           color: AppColor().black70,
                           fontWeight: FontWeight.w400),
@@ -96,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CommonDropdownTextFormField(
-                        labelText: StringConstants().selectUserHint,
+                        labelText: stringConstants.selectUserHint,
                         dropDownItem: viewmodel.userTypes,
                         value: viewmodel.selectedUserType,
                         error: viewmodel.userTypeDropdownError,
@@ -112,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CommonTextFormFieldWidget(
-                      hintText: StringConstants().emailIdHint,
+                      hintText: stringConstants.emailIdHint,
                       isMandatory: true,
                       controller: viewmodel.emailController,
                       isLastField: true,
@@ -124,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CommonTextFormFieldWidget(
-                      hintText: StringConstants().passwordHint,
+                      hintText: stringConstants.passwordHint,
                       isMandatory: true,
                       controller: viewmodel.passController,
                       isObscure: viewmodel.isObscure,
@@ -154,7 +155,7 @@ class LoginScreen extends StatelessWidget {
                           }
                         }
                       },
-                      label: StringConstants().loginBtnLabel,
+                      label: stringConstants.loginBtnLabel,
                       color: viewmodel.isBtnEnabled
                           ? AppColor().darkGreen
                           : AppColor().black10,
@@ -175,7 +176,7 @@ class LoginScreen extends StatelessWidget {
                             APIRoutes().forgotPasswordWebUrl));
                       },
                       child: CommonTextWidget(
-                        StringConstants().forgotPassLabel,
+                        stringConstants.forgotPassLabel,
                         style: context.textThemeHelper.displayMedium?.copyWith(
                             color: AppColor().green,
                             fontWeight: FontWeight.w600),

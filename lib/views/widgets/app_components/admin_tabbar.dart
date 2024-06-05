@@ -65,11 +65,15 @@ class _AdminTabBarState extends State<AdminTabBar>
     );
   }
 
-  Widget tabContainer(int index, String label) {
+  Widget tabContainer(int index, String label,{VoidCallback? onTap}) {
     return InkWell(
       onTap: () {
         tabController.index = index;
         setState(() {});
+        if(onTap!=null){
+          onTap();
+        }
+
       },
       child: Container(
         height: 30,

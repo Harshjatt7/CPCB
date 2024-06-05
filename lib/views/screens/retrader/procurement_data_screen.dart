@@ -16,7 +16,9 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class ProcurementDataScreen extends StatelessWidget {
-  const ProcurementDataScreen({super.key});
+   ProcurementDataScreen({super.key});
+    final StringConstants stringConstants=StringConstants();
+
   @override
   Widget build(BuildContext context) {
     return BaseView<ProcurementViewDataViewModel>(
@@ -38,8 +40,8 @@ class ProcurementDataScreen extends StatelessWidget {
                     isIconBar: true,
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
-                    name: StringConstants().name,
-                    designation: StringConstants().userType,
+                    name: stringConstants.name,
+                    designation: stringConstants.userType,
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -50,7 +52,7 @@ class ProcurementDataScreen extends StatelessWidget {
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,
-                      hintText: StringConstants().searchHere,
+                      hintText: stringConstants.searchHere,
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
                         viewModel.searchProcurement(value);
@@ -58,7 +60,7 @@ class ProcurementDataScreen extends StatelessWidget {
                           viewModel.getUpdatedList();
                         }
                       },
-                      title: StringConstants().procurementData,
+                      title: stringConstants.procurementData,
                       onSuffixTap: () {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
@@ -137,7 +139,7 @@ class ProcurementDataScreen extends StatelessWidget {
                   Navigator.pushNamed(
                       context, AppRoutes.procurementAddDataScreenRoute);
                 },
-                label: StringConstants().addProcurement,
+                label: stringConstants.addProcurement,
                 color: AppColor().darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme

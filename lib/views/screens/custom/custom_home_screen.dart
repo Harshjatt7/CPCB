@@ -1,21 +1,17 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/views/screens/common_screens/dashboard_screen.dart';
-import 'package:cpcb_tyre/views/screens/common_screens/profile_screen.dart';
-import 'package:cpcb_tyre/views/screens/producer/sales_screen.dart';
+import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_bottom_navigation_bar_screen_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../theme/app_color.dart';
-
-class ProducerHomeScreen extends StatefulWidget {
-  const ProducerHomeScreen({super.key});
+class CustomHomeScreen extends StatefulWidget {
+  const CustomHomeScreen({super.key});
 
   @override
-  State<ProducerHomeScreen> createState() => _ProducerHomePageState();
+  State<CustomHomeScreen> createState() => _CustomHomeScreenState();
 }
 
-class _ProducerHomePageState extends State<ProducerHomeScreen> {
+class _CustomHomeScreenState extends State<CustomHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
@@ -23,16 +19,9 @@ class _ProducerHomePageState extends State<ProducerHomeScreen> {
         imgSrc: ImageConstants().homeTabIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().addSlaesDataIcon,
-      ),
-      bottomNavigationBarWidget(
         imgSrc: ImageConstants().profileTabIcon,
       )
-    ], screens: [
-      DashBoardScreen(),
-       SalesScreen(),
-      ProfileScreen()
-    ]);
+    ], screens: []);
   }
 
   BottomNavigationBarItem bottomNavigationBarWidget({

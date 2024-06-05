@@ -16,7 +16,9 @@ import '../../widgets/app_components/recycler_detail_container.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class RecyclerDataScreen extends StatelessWidget {
-  const RecyclerDataScreen({super.key});
+   RecyclerDataScreen({super.key});
+    final StringConstants stringConstants=StringConstants();
+
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +113,7 @@ class RecyclerDataScreen extends StatelessWidget {
         onPressed: () {
           Navigator.pushNamed(context, AppRoutes.recyclerAddDataScreenRoute);
         },
-        label: StringConstants().addRecyclerData,
+        label: stringConstants.addRecyclerData,
         color: AppColor().darkGreen,
         labelStyle: Theme.of(context)
             .textTheme
@@ -136,8 +138,8 @@ class RecyclerDataScreen extends StatelessWidget {
               isIconBar: true,
               showNotificationIcon: false,
               image: ImageConstants().avatar,
-              name: StringConstants().name,
-              designation: StringConstants().userType,
+              name: stringConstants.name,
+              designation: stringConstants.userType,
             ),
             Container(
               decoration: BoxDecoration(
@@ -148,7 +150,7 @@ class RecyclerDataScreen extends StatelessWidget {
               child: CommonSearchBarWidget(
                 isSearchExpanded: viewModel.isSearchExpanded,
                 controller: viewModel.searchController,
-                hintText: StringConstants().searchHere,
+                hintText: stringConstants.searchHere,
                 onChanged: (value) async {
                   viewModel.isSearchExpanded = true;
                   viewModel.searchRetreader(value);
@@ -157,7 +159,7 @@ class RecyclerDataScreen extends StatelessWidget {
                     viewModel.getUpdatedList();
                   }
                 },
-                title: StringConstants().recyclerData,
+                title: stringConstants.recyclerData,
                 onSuffixTap: () {
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.isSearchExpanded = !viewModel.isSearchExpanded;

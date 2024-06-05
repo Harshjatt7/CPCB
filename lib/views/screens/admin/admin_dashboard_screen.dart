@@ -1,6 +1,10 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/viewmodels/admin/admin_dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_producer_tab.dart';
+import 'package:cpcb_tyre/views/screens/admin/admin_recycler_tab.dart';
+import 'package:cpcb_tyre/views/screens/admin/admin_retreader_tab.dart';
+import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
-import 'package:cpcb_tyre/views/widgets/components/download_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/string_constant.dart';
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
@@ -15,60 +19,59 @@ class AdminDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(115),
-          child: Column(
-            children: [
-              const CommonAppBar(
-                isIconBar: true,
-              ),
-              Container(
-                width: Responsive().screenWidth(context),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    border:
-                        Border(bottom: BorderSide(color: AppColor().black10))),
-                child: CommonTextWidget(
-                  StringConstants().dashboard,
-                  style: Theme.of(context).textTheme.labelLarge,
+    return BaseView<AdminDashBoardViewmodel>(
+        onModelReady: (viewModel) async {
+          await viewModel.getAdminDashBoardData(context);
+        },
+        viewModel: AdminDashBoardViewmodel(),
+        builder: (context, viewModel, child) {
+          return CustomScaffold(
+              isLoading: viewModel.state == ViewState.busy,
+              appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(115),
+                  child: Column(
+                    children: [
+                      const CommonAppBar(
+                        isIconBar: true,
+                      ),
+                      Container(
+                        width: Responsive().screenWidth(context),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 16),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5)),
+                            border: Border(
+                                bottom: BorderSide(color: AppColor().black10))),
+                        child: CommonTextWidget(
+                          StringConstants().dashboard,
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ),
+                    ],
+                  )),
+              body: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: AdminTabBar(
+                  tabs: [
+                    TabBarModel(
+                        tab: AdminProducerTab(
+                          producerData: viewModel.producerData,
+                        ),
+                        label: StringConstants.producer),
+                    TabBarModel(
+                        tab: AdminRecyclerTab(
+                          recyclerData: viewModel.recyclerData,
+                        ),
+                        label: StringConstants.recycler),
+                    TabBarModel(
+                        tab: AdminRetreaderTab(
+                          retreaderData: viewModel.retraderData,
+                        ),
+                        label: StringConstants().retrader)
+                  ],
                 ),
-              ),
-            ],
-          )),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: AdminTabBar(
-          tabs: [
-            TabBarModel(
-                tab: const AdminProducerTab(), label: StringConstants.producer),
-            TabBarModel(
-                tab: InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return const DownloadBottomSheet();
-                          });
-                    },
-                    child: demoWidgetToBeChanged(AppColor().red)),
-                label: StringConstants.recycler),
-            TabBarModel(
-                tab: demoWidgetToBeChanged(AppColor().black),
-                label: StringConstants.retreader)
-          ],
-        ),
-      ),
-    );
-  }
-
-  Container demoWidgetToBeChanged(Color color) {
-    return Container(
-      height: 100,
-      width: double.infinity,
-      color: color,
-    );
+              ));
+        });
   }
 }

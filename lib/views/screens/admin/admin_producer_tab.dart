@@ -1,13 +1,17 @@
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_oblication_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_total_application_card.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class AdminProducerTab extends StatelessWidget {
-  const AdminProducerTab({super.key});
+  AdminProducerTab({super.key, required this.producerData});
+  final StringConstants stringConstants = StringConstants();
+  final EPRApplicationData? producerData;
 
   @override
   Widget build(BuildContext context) {
@@ -15,54 +19,32 @@ class AdminProducerTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          dashBoardHeading(context, StringConstants().eprOblications,
+          dashBoardHeading(context, stringConstants.eprOblications,
               StringConstants.producer),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreManufacturers, count: '1321'),
+              title: stringConstants.newTyreManufacturers, count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreProducedDomestically,
+              title: stringConstants.newTyreProducedDomestically,
               count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreImported, count: '1321'),
+              title: stringConstants.newTyreImported, count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreImportedAndImportedVehicles,
+              title: stringConstants.newTyreImportedAndImportedVehicles,
               count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().newTyreImportedExclusively,
-              count: '1321'),
+              title: stringConstants.newTyreImportedExclusively, count: '1321'),
           CommonEPROblicationsTile(
-              title: StringConstants().wasteTyreImporter, count: '1321'),
+              title: stringConstants.wasteTyreImporter, count: '1321'),
           CommonTotalApplicationCard(
-              totalApplication: "4,564",
-              onTap: () {
-                Navigator.pushNamed(
-                    context, AppRoutes.adminApplicationReceivedRoute);
-              }),
-          dashBoardHeading(context, StringConstants().eprOblications,
-              StringConstants.producer),
-          CommonEPROblicationsTile(
-              title: StringConstants().applicationsUnderProcessAtCPCB,
-              count: '131'),
-          CommonEPROblicationsTile(
-              title: StringConstants().applicationsUnderEvaluationWithDivision,
-              count: '125'),
-          CommonEPROblicationsTile(
-              title: StringConstants().applicationsApprovedByAuthority,
-              count: '131'),
-          CommonEPROblicationsTile(
-              title: StringConstants().applicationsRejectedByAuthority,
-              count: '131'),
-          CommonEPROblicationsTile(
-              title: StringConstants().applicationsAwaitingApprovalAtAuthority,
-              count: '131'),
-          CommonEPROblicationsTile(
-              title: StringConstants().returnForDivision, count: '131'),
-          CommonEPROblicationsTile(
-              title: StringConstants().applicationPendingAtTheApplicants,
-              count: '131'),
-          CommonEPROblicationsTile(
-              title: StringConstants().numberOfRegistrationGrantedToProducers,
-              count: '131'),
+            totalApplication: "${producerData?.applications??''}",
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute);
+            },
+          ),
+          CommonEPRApplication(
+            data: producerData,
+            userType: StringConstants.producer,
+          ),
         ],
       ),
     );
