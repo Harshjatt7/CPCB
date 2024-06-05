@@ -35,7 +35,7 @@ class AdminProducerTab extends StatelessWidget {
           CommonEPROblicationsTile(
               title: stringConstants.wasteTyreImporter, count: '1321'),
           CommonTotalApplicationCard(
-            totalApplication: "${producerData?.applications}",
+            totalApplication: "${producerData?.applications??''}",
             onTap: null,
           ),
           CommonEPRApplication(

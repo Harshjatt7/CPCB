@@ -42,27 +42,27 @@ class CommonEPRApplication extends StatelessWidget {
         ),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsUnderProcessAtCPCB,
-            count: "${data?.applicationUnderProcess}"),
+            count: "${data?.applicationUnderProcess??''}"),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsUnderEvaluationWithDivision,
-            count: "${data?.applicationUnderDh}"),
+            count: "${data?.applicationUnderDh??''}"),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsApprovedByAuthority,
-            count:"${data?.applicationApprovedAuthority}" ),
+            count:"${data?.applicationApprovedAuthority??''}" ),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsRejectedByAuthority,
-            count:"${data?.applicationRejectedAuthority}" ),
+            count:"${data?.applicationRejectedAuthority??''}" ),
         CommonEPROblicationsTile(
             title: StringConstants().applicationsAwaitingApprovalAtAuthority,
-            count: "${data?.applicationAwaitingApproval}"),
+            count: "${data?.applicationAwaitingApproval??''}"),
         // CommonEPROblicationsTile(
         //     title: StringConstants().returnForDivision, count:"${data?.applicationUnderDh}"),
         CommonEPROblicationsTile(
             title: StringConstants().applicationPendingAtTheApplicants,
-            count: "${data?.applicationPendingApplicant}"),
+            count: "${data?.applicationPendingApplicant??''}"),
         CommonEPROblicationsTile(
             title: StringConstants().numberOfRegistrationGrantedToProducers,
-            count: "${data?.applicationGranted}"),
+            count: "${data?.applicationGranted??''}"),
       ],
     );
   }
