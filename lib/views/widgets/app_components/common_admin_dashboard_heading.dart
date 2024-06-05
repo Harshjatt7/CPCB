@@ -15,7 +15,7 @@ class CommonAdminDashboardHeading extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: CommonTextWidget(
                     'End Product',
                     style: Theme.of(context)
@@ -24,7 +24,7 @@ class CommonAdminDashboardHeading extends StatelessWidget {
                         .copyWith(color: AppColor().black80),
                   )),
               Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: CommonTextWidget(
                     'Generated',
                     style: Theme.of(context)
@@ -33,7 +33,7 @@ class CommonAdminDashboardHeading extends StatelessWidget {
                         .copyWith(color: AppColor().black80),
                   )),
               Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: CommonTextWidget(
                     'Transferred',
                     style: Theme.of(context)

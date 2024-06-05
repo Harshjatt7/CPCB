@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 class CommonEPROblicationsTile extends StatelessWidget {
   final String title;
   final String count;
-  const CommonEPROblicationsTile(
-      {super.key, required this.title, required this.count,});
+  const CommonEPROblicationsTile({
+    super.key,
+    required this.title,
+    required this.count,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class CommonEPROblicationsTile extends StatelessWidget {
           Flexible(
               flex: 1,
               child: CommonTextWidget(
+                useLocalization: false,
                 count,
                 style: Theme.of(context).textTheme.labelLarge,
               )),

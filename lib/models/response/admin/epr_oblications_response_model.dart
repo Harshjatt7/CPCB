@@ -19,7 +19,7 @@ class EprOblicationsResponseModel {
 class EprOblicationsData {
   num? newTyreManufacturers;
   num? newTyreProducedDomestically;
-  double? newTyreImported;
+  num? newTyreImported;
   num? newTyreImportedAndImportedVehicles;
   num? newTyreImportedExclusivelyForNewVehiclesManufacturedDomestically;
   num? wasteTyreImported;

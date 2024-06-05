@@ -514,4 +514,9 @@ class HelperFunctions {
         firstDate: firstDate,
         lastDate: DateTime.now());
   }
+
+  ///[precisionFormat] Common Date Picker
+  String precisionFormat(num? value) {
+    return value == null ? '' : value.toStringAsFixed(2);
+  }
 }

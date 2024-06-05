@@ -1,10 +1,9 @@
-
-
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_oblications_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_oblication_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_total_application_card.dart';
@@ -30,26 +29,29 @@ class AdminProducerTab extends StatelessWidget {
               StringConstants.producer),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreManufacturers,
-              count:
-                  "${producerEprOblicationsData?.newTyreManufacturers ?? ''}"),
+              count: HelperFunctions().precisionFormat(
+                  producerEprOblicationsData?.newTyreManufacturers)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreProducedDomestically,
-              count:
-                  "${producerEprOblicationsData?.newTyreProducedDomestically ?? ''}"),
+              count: HelperFunctions().precisionFormat(
+                  producerEprOblicationsData?.newTyreProducedDomestically)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreImported,
-              count: producerEprOblicationsData?.newTyreImported?.toStringAsFixed(1) ?? ''),
+              count: HelperFunctions().precisionFormat(
+                  producerEprOblicationsData?.newTyreImported)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreImportedAndImportedVehicles,
-              count:
-                  "${producerEprOblicationsData?.newTyreImportedAndImportedVehicles ?? ''}"),
+              count: HelperFunctions().precisionFormat(
+                  producerEprOblicationsData
+                      ?.newTyreImportedAndImportedVehicles)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreImportedExclusively,
-              count:
-                  "${producerEprOblicationsData?.newTyreImportedExclusivelyForNewVehiclesManufacturedDomestically ?? ''}"),
+              count: HelperFunctions().precisionFormat(producerEprOblicationsData
+                  ?.newTyreImportedExclusivelyForNewVehiclesManufacturedDomestically)),
           CommonEPROblicationsTile(
               title: stringConstants.wasteTyreImporter,
-              count: "${producerEprOblicationsData?.wasteTyreImported ?? ''}"),
+              count: HelperFunctions().precisionFormat(
+                  producerEprOblicationsData?.wasteTyreImported)),
           CommonTotalApplicationCard(
             totalApplication: "${producerData?.applications ?? ''}",
             onTap: () {
