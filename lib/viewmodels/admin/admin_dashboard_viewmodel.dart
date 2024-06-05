@@ -1,4 +1,4 @@
-import 'package:cpcb_tyre/constants/api_constant.dart';
+
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/controllers/admin/admin_repository.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
@@ -8,7 +8,7 @@ import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class AdminDashBoardViewmodel extends BaseViewModel {
-  final _apiRoutes = APIRoutes();
+  
   final _adminRepo = AdminRepository();
   APIResponse<EprApplicationResponseModel?>? _eprApplicationResponseModel;
   APIResponse<EprApplicationResponseModel?>? get eprApplicationResponseModel =>
@@ -28,11 +28,11 @@ class AdminDashBoardViewmodel extends BaseViewModel {
     try {
       APIResponse<EprApplicationResponseModel?>? producerRes =
           await _adminRepo.getAdminDashBoard(
-              "${_apiRoutes.adminEPRApplicationsAPIRoute}producer");
+              "producer");
       var recyclerRes = await _adminRepo.getAdminDashBoard(
-          "${_apiRoutes.adminEPRApplicationsAPIRoute}recycler");
+          "recycler");
       var retraderRes = await _adminRepo.getAdminDashBoard(
-          "${_apiRoutes.adminEPRApplicationsAPIRoute}retreader");
+          "retreader");
 
       if (producerRes?.isSuccess == true) {
         producerRes?.data =
