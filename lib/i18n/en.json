@@ -35,7 +35,7 @@
     "environment-compensation-title": "Environment Compensation",
     "environment-text": "Lorem Ipsum lorem ipsum lorem lorem ipsum lorem ipsum Lorem Ipsum...",
     "producer-dash-board-note": "You have to complete the registration process to access your dashboard, Click on the “Initiate Registration” to start the process.",
-    "log-out": "Log Out",
+    "log-out": "Logout",
     "authorized-person-detail": "Authorized Person Details",
     "procurement-data": "Procurement Data",
     "dashboard": "Dashboard",
@@ -151,7 +151,8 @@
     "tpo-char":"TPO & Char",
     "crumb-rubber-modified":"Crumb rubber modified bitumen",
     "retreaded-tyre":"Retreated tyre",
-    "re-trader":"Re-trader"
-
-
+    "re-trader":"Re-trader",
+    "options": "Options",
+    "download-transaction-label": "Download Transaction",
+    "close": "Close"
 }

@@ -6,7 +6,6 @@ import 'package:cpcb_tyre/views/screens/admin/admin_retreader_tab.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-
 import '../../../constants/string_constant.dart';
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
 import '../../../theme/app_color.dart';
