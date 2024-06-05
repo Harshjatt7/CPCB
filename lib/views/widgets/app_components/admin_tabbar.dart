@@ -3,7 +3,6 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
 
