@@ -6,7 +6,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
-import '../../../../constants/string_constant.dart';
+import '../../../constants/string_constant.dart';
 
 class CommonRetraderDataCard extends StatelessWidget {
   const CommonRetraderDataCard(
