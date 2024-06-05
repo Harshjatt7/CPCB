@@ -152,6 +152,9 @@
     "crumb-rubber-modified":"Crumb rubber modified bitumen",
     "retreaded-tyre":"Retreated tyre",
     "re-trader":"Re-trader",
+    "application-received": "List of Application Received",
+    "last-marked" : "Last Marked",
+    "marked-to": "Marked To",
     "options": "Options",
     "download-transaction-label": "Download Transaction",
     "close": "Close"

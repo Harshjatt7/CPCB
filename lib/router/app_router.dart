@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
 import 'package:cpcb_tyre/views/screens/recycler/procurement_add_data_screen.dart';
@@ -42,6 +43,8 @@ class PageRouter {
              RecyclerProcurementAddDataScreen(), settings);
       case AppRoutes.adminHomeScreenRoute:
         return _getPageRoute(const AdminHomeScreen(), settings);
+      case AppRoutes.adminApplicationReceivedRoute:
+        return _getPageRoute(const AdminApplicationReceivedScreen(), settings);
 
       // Will be displayed if no specified route is found.
       default:
