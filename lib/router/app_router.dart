@@ -20,7 +20,7 @@ class PageRouter {
       case AppRoutes.splashScreenRoute:
         return _getPageRoute(const SplashScreen(), settings);
       case AppRoutes.loginScreenRoute:
-        return _getPageRoute( LoginScreen(), settings);
+        return _getPageRoute(LoginScreen(), settings);
       case AppRoutes.producerHomeScreenRoute:
         return _getPageRoute(const ProducerHomeScreen(), settings);
       case AppRoutes.retraderHomeScreenRoute:
@@ -29,23 +29,27 @@ class PageRouter {
           settings,
         );
       case AppRoutes.addSalesDataScreenRoute:
-        return _getPageRoute( SalesDataScreen(), settings);
+        return _getPageRoute(const SalesDataScreen(), settings);
       case AppRoutes.procurementAddDataScreenRoute:
-        return _getPageRoute( ProcurementAddDataScreen(), settings);
+        return _getPageRoute(const ProcurementAddDataScreen(), settings);
       case AppRoutes.retreadedAddDataScreenRoute:
-        return _getPageRoute( RetreadedAddDataScreen(), settings);
+        return _getPageRoute(const RetreadedAddDataScreen(), settings);
       case AppRoutes.recyclerHomeScreenRoute:
         return _getPageRoute(const RecyclerHomeScreen(), settings);
       case AppRoutes.recyclerAddDataScreenRoute:
-        return _getPageRoute( RecyclerAddDataScreen(), settings);
+        return _getPageRoute(const RecyclerAddDataScreen(), settings);
       case AppRoutes.recyclerProcurementAddDataScreenRoute:
         return _getPageRoute(
-             RecyclerProcurementAddDataScreen(), settings);
+            const RecyclerProcurementAddDataScreen(), settings);
       case AppRoutes.adminHomeScreenRoute:
         return _getPageRoute(const AdminHomeScreen(), settings);
       case AppRoutes.adminApplicationReceivedRoute:
-      String userType = settings.arguments as String;
-        return _getPageRoute(AdminApplicationReceivedScreen(userType: userType,), settings);
+        String userType = settings.arguments as String;
+        return _getPageRoute(
+            AdminApplicationReceivedScreen(
+              userType: userType,
+            ),
+            settings);
 
       // Will be displayed if no specified route is found.
       default:

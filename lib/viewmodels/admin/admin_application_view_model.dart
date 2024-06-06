@@ -94,12 +94,14 @@ class AdminApplicationViewModel extends BaseViewModel {
         } else {
           data = _adminApplicationSearchModel?.data?.data ?? [];
         }
+        state = ViewState.idle;
       } else {
         HelperFunctions().logger(MessageConstant().errorMessage);
       }
     } catch (err) {
-      return null;
+      HelperFunctions().logger("$err");
     }
+    state = ViewState.idle;
     return null;
   }
 
@@ -127,10 +129,10 @@ class AdminApplicationViewModel extends BaseViewModel {
     return _adminApplicationSearchModel;
   }
 
-  void searchRetreader(String value, String? userType) {
-    debouncer.run(() {
+  Future<void> searchRetreader(String value, String? userType) async {
+    debouncer.run(() async {
       if (value.length >= 3) {
-        performAdminSearch(userType, value).then((_) {
+        await performAdminSearch(userType, value).then((_) {
           scrollController.jumpTo(0);
         });
       } else {
@@ -151,9 +153,10 @@ class AdminApplicationViewModel extends BaseViewModel {
       data = _adminApplicationSearchModel?.data?.data ?? [];
       searchController.text = "";
     }
+
+    state = ViewState.idle;
     updateUI();
     resetPage();
-    state = ViewState.idle;
   }
 
   void onScrollEnding(String? userType) {

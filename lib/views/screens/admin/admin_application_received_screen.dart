@@ -71,13 +71,17 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                               applicationStatus: applicationData?.status,
                               applicationTitle: applicationData?.companyName,
                               markedTo: applicationData?.markedTo,
-                              lastMarked: applicationData?.lastMarked,
+                              lastMarked: HelperFunctions().getFormattedDate(
+                                  dtstr: applicationData?.lastMarked),
                               date: HelperFunctions().getFormattedDate(
                                   date: applicationData?.lastReceived),
                             ),
                           );
                         }),
                       )),
+            const SizedBox(
+              height: 20,
+            )
           ],
         ),
       ),
