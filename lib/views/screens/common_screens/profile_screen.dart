@@ -1,6 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/common_viewmodel/profile_viewmodel.dart';
@@ -12,6 +11,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+
+import '../../../constants/string_constant.dart';
 
 class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
@@ -44,22 +45,23 @@ class ProfileScreen extends StatelessWidget {
                         border: Border(
                             bottom: BorderSide(color: AppColor().black10))),
                     child: CommonTextWidget(
-                      stringConstants.profileTitle,
+                      viewModel.stringConstants.profileTitle,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
                   const SizedBox(
                     height: 8,
                   ),
-                  detailContainer(context,
+                  detailContainer(context, viewModel,
                       title: viewModel.data?.name ?? '',
                       email: viewModel.data?.email ?? '',
                       phoneNo: viewModel.data?.mobileNumber ?? ''),
                   if (isAdmin == false)
-                    detailContainer(context,
+                    detailContainer(context, viewModel,
                         backgroundColor: AppColor().darkBlue10,
                         borderColor: AppColor().black20,
-                        title: stringConstants.authorizedPersonDetails,
+                        title:
+                            viewModel.stringConstants.authorizedPersonDetails,
                         email: viewModel.data?.authorizedPersonEmailId ?? '',
                         phoneNo: viewModel.data?.authorizedcontactNumber ?? ''),
                   // Padding(
@@ -84,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: CommonButtonWidget(
-                      label: stringConstants.logOut,
+                      label: viewModel.stringConstants.logOut,
                       color: AppColor().darkGreen,
                       onPressed: () {
                         viewModel.clearAppData(context);
@@ -98,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
         });
   }
 
-  Padding detailContainer(BuildContext context,
+  Padding detailContainer(BuildContext context, ProfileViewModel viewModel,
       {required String title,
       required String email,
       required String phoneNo,
@@ -134,7 +136,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 8,
                   ),
                   CommonTextWidget(
-                    stringConstants.emailId,
+                    viewModel.stringConstants.emailId,
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall!
@@ -162,7 +164,7 @@ class ProfileScreen extends StatelessWidget {
                   width: 8,
                 ),
                 CommonTextWidget(
-                  stringConstants.mobileNumber,
+                  viewModel.stringConstants.mobileNumber,
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!

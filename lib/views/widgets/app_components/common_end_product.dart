@@ -24,29 +24,25 @@ class CommonEndProduct extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-              flex: 2,
+              flex: 3,
               child: CommonTextWidget(
                 title,
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium,
+                style: Theme.of(context).textTheme.displayMedium,
               )),
           Flexible(
-              flex: 1,
-              child: CommonTextWidget(
-                generated,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium,
-              )),
+            flex: 2,
+            child: CommonTextWidget(
+              generated,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+          ),
           Flexible(
-              flex: 1,
-              child: CommonTextWidget(
-                transferred,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium,
-              )),
+            flex: 2,
+            child: CommonTextWidget(
+              transferred,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+          ),
         ],
       ),
     );

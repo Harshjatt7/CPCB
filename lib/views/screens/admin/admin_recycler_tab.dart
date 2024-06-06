@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/response/admin/common_epr_response_model.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_admin_dashboard_heading.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_end_product.dart';
@@ -9,10 +10,13 @@ import 'package:flutter/material.dart';
 import '../../../constants/routes_constant.dart';
 
 class AdminRecyclerTab extends StatelessWidget {
-  AdminRecyclerTab({super.key,required this.recyclerData});
+  AdminRecyclerTab(
+      {super.key,
+      required this.recyclerData,
+      required this.recyclerCommonData});
   final StringConstants stringConstants = StringConstants();
   final EPRApplicationData? recyclerData;
-
+  final CommonEprOblicationData? recyclerCommonData;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,32 +25,44 @@ class AdminRecyclerTab extends StatelessWidget {
         children: [
           const CommonAdminDashboardHeading(),
           CommonEndProduct(
-              title: stringConstants.reclaimedRubber,
-              generated: '898',
-              transferred: '989'),
+              title: recyclerCommonData?.reclaimedRubber?.name ?? '',
+              generated:
+                  '${recyclerCommonData?.reclaimedRubber?.earnedCredit ?? ''}',
+              transferred:
+                  '${recyclerCommonData?.reclaimedRubber?.creditTransfered ?? ''}'),
           CommonEndProduct(
-              title: stringConstants.recoverCarbon,
-              generated: '8986766',
-              transferred: '98966'),
+              title: recyclerCommonData?.recoverCarbon?.name ?? '',
+              generated:
+                  '${recyclerCommonData?.recoverCarbon?.earnedCredit ?? ''}',
+              transferred:
+                  '${recyclerCommonData?.recoverCarbon?.creditTransfered ?? ''}'),
           CommonEndProduct(
-              title: stringConstants.crumbRubber,
-              generated: '898',
-              transferred: '989'),
+              title: recyclerCommonData?.crumbRubber?.name ?? '',
+              generated:
+                  '${recyclerCommonData?.crumbRubber?.earnedCredit ?? ''}',
+              transferred:
+                  '${recyclerCommonData?.crumbRubber?.creditTransfered ?? ''}'),
           CommonEndProduct(
-              title: stringConstants.tpoChar,
-              generated: '898',
-              transferred: '989'),
+              title: recyclerCommonData?.tpoChar?.name ?? '',
+              generated: '${recyclerCommonData?.tpoChar?.earnedCredit ?? ''}',
+              transferred:
+                  '${recyclerCommonData?.tpoChar?.creditTransfered ?? ''}'),
           CommonEndProduct(
-              title: stringConstants.crumbRubberModified,
-              generated: '898',
-              transferred: '989'),
-           CommonTotalApplicationCard(
+              title: recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.name ??
+                  '',
+              generated:
+                  '${recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.earnedCredit ?? ''}',
+              transferred:
+                  '${recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.creditTransfered ?? ''}'),
+          CommonTotalApplicationCard(
             totalApplication: "${recyclerData?.applications}",
-            onTap: (){
-              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute, arguments: AdminUserTypes.recycler.text);
+            onTap: () {
+              Navigator.pushNamed(
+                  context, AppRoutes.adminApplicationReceivedRoute,
+                  arguments: AdminUserTypes.recycler.text);
             },
           ),
-           CommonEPRApplication(
+          CommonEPRApplication(
             data: recyclerData,
             userType: StringConstants.recycler,
           ),

@@ -1,6 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreaded_add_data_viewmodel.dart';
@@ -18,9 +17,7 @@ import 'package:flutter/services.dart';
 
 class RetreadedAddDataScreen extends StatelessWidget {
   final int? page;
-   RetreadedAddDataScreen({super.key, this.page});
-    final StringConstants stringConstants=StringConstants();
-
+  const RetreadedAddDataScreen({super.key, this.page});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +31,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
-                title: stringConstants.addRetreadedData,
+                title:viewModel.stringConstants.addRetreadedData,
               ),
               body: formSection(viewModel, context),
               persistentFooterButtons: [
@@ -66,7 +63,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                       }
                     },
                     height: 50,
-                    label: stringConstants.submitBtnLabel,
+                    label: viewModel.stringConstants.submitBtnLabel,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
@@ -95,7 +92,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
                   inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                  hintText: stringConstants.contactDetails,
+                  hintText: viewModel.stringConstants.contactDetails,
                   isMandatory: false,
                   controller: viewModel.contactDetailsController,
                   validator: (value) {
@@ -128,7 +125,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.retreadedDate,
+          hintText: viewModel.stringConstants.retreadedDate,
           isMandatory: true,
           isReadOnly: true,
           validator: (value) {
@@ -153,7 +150,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           textInputType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: stringConstants.quantityOfWasteGenerated,
+          hintText: viewModel.stringConstants.quantityOfWasteGenerated,
           isMandatory: true,
           validator: (value) {
             return viewModel.quantityOfWasteGeneratedValidation();
@@ -168,7 +165,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           textInputType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: stringConstants.quantityProduced,
+          hintText: viewModel.stringConstants.quantityProduced,
           validator: (value) {
             return viewModel.quantityProducedValidation();
           },
@@ -183,7 +180,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           textInputType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: stringConstants.quantityProcessed,
+          hintText: viewModel.stringConstants.quantityProcessed,
           isMandatory: true,
           validator: (value) {
             return viewModel.quantityProcessedValidation();
@@ -197,7 +194,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(15)],
-          hintText: stringConstants.gstNumberOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.gstNumberOfWasteTyreSupplier,
           validator: (value) {
             return viewModel.gstNumberValidation();
           },
@@ -210,7 +207,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-        hintText: stringConstants.typeOfRawMaterial,
+        hintText: viewModel.stringConstants.typeOfRawMaterial,
         isMandatory: true,
         controller: viewModel.typeOfRawMaterialController,
         isReadOnly: true,
@@ -223,7 +220,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.addressOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.addressOfWasteTyreSupplier,
           isMandatory: false,
           controller: viewModel.addressController),
     );
@@ -233,7 +230,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.nameOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.nameOfWasteTyreSupplier,
           isMandatory: false,
           controller: viewModel.nameOfWasteTyreSupplierController),
     );
@@ -243,7 +240,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
-        labelText: stringConstants.financialYearLabel,
+        labelText: viewModel.stringConstants.financialYearLabel,
         dropDownItem: viewModel.financialYearList,
         error: viewModel.yearDropdownError,
         value: viewModel.yearDropdownValue,

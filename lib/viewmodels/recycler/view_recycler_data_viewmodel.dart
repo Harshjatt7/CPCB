@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,8 @@ import '../../utils/helper/debouncing_helper.dart';
 import '../../utils/helper/helper_functions.dart';
 
 class RecyclerDataViewModel extends BaseViewModel {
+   StringConstants stringConstants = StringConstants();
+
   final _recyclerRepo = RecyclerRepository();
   List<RecyclerDataListData>? recyclerData;
   List<RecyclerDataListData> tempData = [];

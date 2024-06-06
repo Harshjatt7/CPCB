@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -16,9 +15,7 @@ import '../../widgets/app_components/recycler_detail_container.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class RecyclerDataScreen extends StatelessWidget {
-   RecyclerDataScreen({super.key});
-    final StringConstants stringConstants=StringConstants();
-
+  const RecyclerDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +49,7 @@ class RecyclerDataScreen extends StatelessWidget {
           ],
         ),
       ),
-      persistentFooterButtons: [buttonSection(context)],
+      persistentFooterButtons: [buttonSection(context, viewModel)],
     );
   }
 
@@ -106,14 +103,14 @@ class RecyclerDataScreen extends StatelessWidget {
     );
   }
 
-  buttonSection(BuildContext context) {
+  buttonSection(BuildContext context, RecyclerDataViewModel viewModel) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 12),
       child: CommonButtonWidget(
         onPressed: () {
           Navigator.pushNamed(context, AppRoutes.recyclerAddDataScreenRoute);
         },
-        label: stringConstants.addRecyclerData,
+        label: viewModel.stringConstants.addRecyclerData,
         color: AppColor().darkGreen,
         labelStyle: Theme.of(context)
             .textTheme
@@ -138,8 +135,8 @@ class RecyclerDataScreen extends StatelessWidget {
               isIconBar: true,
               showNotificationIcon: false,
               image: ImageConstants().avatar,
-              name: stringConstants.name,
-              designation: stringConstants.userType,
+              name: viewModel.stringConstants.name,
+              designation: viewModel.stringConstants.userType,
             ),
             Container(
               decoration: BoxDecoration(
@@ -150,7 +147,7 @@ class RecyclerDataScreen extends StatelessWidget {
               child: CommonSearchBarWidget(
                 isSearchExpanded: viewModel.isSearchExpanded,
                 controller: viewModel.searchController,
-                hintText: stringConstants.searchHere,
+                hintText: viewModel.stringConstants.searchHere,
                 onChanged: (value) async {
                   viewModel.isSearchExpanded = true;
                   viewModel.searchRetreader(value);
@@ -159,7 +156,7 @@ class RecyclerDataScreen extends StatelessWidget {
                     viewModel.getUpdatedList();
                   }
                 },
-                title: stringConstants.recyclerData,
+                title: viewModel.stringConstants.recyclerData,
                 onSuffixTap: () {
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.isSearchExpanded = !viewModel.isSearchExpanded;

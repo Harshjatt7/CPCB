@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/models/response/admin/admin_application_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/admin/admin_application_view_model.dart';
@@ -7,6 +8,7 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_admin_application_
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
+import 'package:cpcb_tyre/views/widgets/components/download_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/enums/state_enums.dart';
 import '../../../constants/message_constant.dart';
@@ -39,7 +41,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
             notification.metrics.extentAfter == 0) {
-          viewModel.onScrollEnding();
+          viewModel.onScrollEnding(userType);
         }
         return false;
       },
@@ -62,11 +64,16 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: CommonAdminApplicationCard(
+                              onMenuTap: () {
+                                showDownloadBottomSheet(
+                                    context, applicationData, viewModel);
+                              },
                               applicationStatus: applicationData?.status,
                               applicationTitle: applicationData?.companyName,
                               markedTo: applicationData?.markedTo,
                               lastMarked: applicationData?.lastMarked,
-                              date: HelperFunctions().getFormattedDate(date: applicationData?.lastReceived),
+                              date: HelperFunctions().getFormattedDate(
+                                  date: applicationData?.lastReceived),
                             ),
                           );
                         }),
@@ -77,7 +84,30 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
     );
   }
 
-  PreferredSize buildAppBar(AdminApplicationViewModel viewModel, BuildContext context) {
+  showDownloadBottomSheet(
+      BuildContext context,
+      ApplicationResponsedData? applicationData,
+      AdminApplicationViewModel viewModel) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return DownloadBottomSheet(
+          onDownloadTransactionTapped: () async {
+            await viewModel.getDownloadPaymentReceipt(
+                context, applicationData?.userId ?? '');
+          },
+          onDownloadApplicationTapped: () async {
+            await viewModel.getDownloadApplication(
+                context, applicationData?.id ?? '');
+            HelperFunctions().logger(applicationData?.id ?? '');
+          },
+        );
+      },
+    );
+  }
+
+  PreferredSize buildAppBar(
+      AdminApplicationViewModel viewModel, BuildContext context) {
     return PreferredSize(
       preferredSize: Size.fromHeight(
           (viewModel.searchController.text.isNotEmpty ||
@@ -111,22 +141,19 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                 hintText: StringConstants().searchHere,
                 onChanged: (value) async {
                   viewModel.isSearchExpanded = true;
-                  // viewModel.searchRetreader(value);
-
+                  viewModel.searchRetreader(value, userType ?? "");
                   if (viewModel.searchController.text.isEmpty) {
-                    // viewModel.getUpdatedList();
+                    viewModel.getUpdatedList();
                   }
                 },
                 title: StringConstants().applicationReceived,
                 onSuffixTap: () {
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.isSearchExpanded = !viewModel.isSearchExpanded;
-                    viewModel.updateUI();
-                    // viewModel.getUpdatedList();
+                    viewModel.getUpdatedList();
                   } else {
                     viewModel.isSearchExpanded = false;
-                    viewModel.updateUI();
-                    // viewModel.getUpdatedList();
+                    viewModel.getUpdatedList();
                   }
                 },
               ),

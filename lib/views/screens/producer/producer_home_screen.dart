@@ -30,7 +30,7 @@ class _ProducerHomePageState extends State<ProducerHomeScreen> {
       )
     ], screens: [
       DashBoardScreen(),
-       SalesScreen(),
+      SalesScreen(),
       ProfileScreen()
     ]);
   }
