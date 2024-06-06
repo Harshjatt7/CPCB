@@ -56,8 +56,10 @@ class AdminRecyclerTab extends StatelessWidget {
                   '${recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.creditTransfered ?? ''}'),
           CommonTotalApplicationCard(
             totalApplication: "${recyclerData?.applications}",
-            onTap: (){
-              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute, arguments: AdminUserTypes.recycler.text);
+            onTap: () {
+              Navigator.pushNamed(
+                  context, AppRoutes.adminApplicationReceivedRoute,
+                  arguments: AdminUserTypes.recycler.text);
             },
           ),
           CommonEPRApplication(

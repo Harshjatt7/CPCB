@@ -57,7 +57,9 @@ class AdminProducerTab extends StatelessWidget {
           CommonTotalApplicationCard(
             totalApplication: "${producerData?.applications ?? ''}",
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute, arguments: AdminUserTypes.producer.text);
+              Navigator.pushNamed(
+                  context, AppRoutes.adminApplicationReceivedRoute,
+                  arguments: AdminUserTypes.producer.text);
             },
           ),
           CommonEPRApplication(
