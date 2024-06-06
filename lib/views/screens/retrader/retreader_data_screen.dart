@@ -2,7 +2,6 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreader_view_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -16,9 +15,7 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class RetreaderDataScreen extends StatelessWidget {
-   RetreaderDataScreen({super.key});
-    final StringConstants stringConstants=StringConstants();
-
+  const RetreaderDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +42,8 @@ class RetreaderDataScreen extends StatelessWidget {
                     isIconBar: true,
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
-                    name: stringConstants.name,
-                    designation: stringConstants.userType,
+                    name: viewModel.stringConstants.name,
+                    designation: viewModel.stringConstants.userType,
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -57,7 +54,7 @@ class RetreaderDataScreen extends StatelessWidget {
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,
-                      hintText: stringConstants.searchHere,
+                      hintText: viewModel.stringConstants.searchHere,
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
                         viewModel.searchRetreader(value);
@@ -66,7 +63,7 @@ class RetreaderDataScreen extends StatelessWidget {
                           viewModel.getUpdatedList();
                         }
                       },
-                      title: stringConstants.retreadedData,
+                      title: viewModel.stringConstants.retreadedData,
                       onSuffixTap: () {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
@@ -143,7 +140,7 @@ class RetreaderDataScreen extends StatelessWidget {
                   Navigator.pushNamed(
                       context, AppRoutes.retreadedAddDataScreenRoute);
                 },
-                label: stringConstants.addRetreadedDataButton,
+                label: viewModel.stringConstants.addRetreadedDataButton,
                 color: AppColor().darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme

@@ -1,6 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
@@ -18,9 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ProcurementAddDataScreen extends StatelessWidget {
-   ProcurementAddDataScreen({super.key});
-    final StringConstants stringConstants=StringConstants();
-
+  const ProcurementAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +31,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
-                title: stringConstants.addProcurement,
+                title:viewModel.stringConstants.addProcurement,
               ),
               body: CommonSingleChildScrollView(
                 child: Form(
@@ -123,7 +120,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
                       }
                     },
                     height: 50,
-                    label: stringConstants.submitBtnLabel,
+                    label: viewModel.stringConstants.submitBtnLabel,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
@@ -142,7 +139,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           isReadOnly: true,
           disabledBgColor: AppColor().transparent,
-          hintText: stringConstants.dateOfPurchaseOfRawMaterial,
+          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial,
           isMandatory: true,
           onTap: () async {
             viewModel.date = await HelperFunctions()
@@ -164,7 +161,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(15)],
-          hintText: stringConstants.gstNumberOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.gstNumberOfWasteTyreSupplier,
           validator: (value) {
             return viewModel.gstNumberValidation();
           },
@@ -180,7 +177,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           textInputType: TextInputType.number,
-          hintText: stringConstants.invoiceNumber,
+          hintText: viewModel.stringConstants.invoiceNumber,
           isMandatory: true,
           validator: (value) {
             return viewModel.valueValidation(viewModel.invoiceNumberController);
@@ -197,7 +194,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
           isDocument: viewModel.filePath == null ? false : true,
           disabledBgColor: AppColor().transparent,
           isReadOnly: true,
-          hintText: stringConstants.uploadInvoice,
+          hintText: viewModel.stringConstants.uploadInvoice,
           icon: viewModel.uploadInvoiceController.text.isEmpty
               ? ImageConstants().fileUpload
               : ImageConstants().removeIcon,
@@ -224,7 +221,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
                 Validations().numbericWithDotRegex)
           ],
           textInputType: TextInputType.number,
-          hintText: stringConstants.quantityReceived,
+          hintText: viewModel.stringConstants.quantityReceived,
           isMandatory: true,
           validator: (value) {
             return viewModel.quantityReceivedValidation();
@@ -237,7 +234,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.typeOfRawMaterial,
+          hintText: viewModel.stringConstants.typeOfRawMaterial,
           isMandatory: true,
           validator: (value) {
             return viewModel
@@ -251,7 +248,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.addressOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.addressOfWasteTyreSupplier,
           isMandatory: true,
           validator: (value) {
             return viewModel.valueValidation(viewModel.addressController);
@@ -266,7 +263,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(10)],
           textInputType: TextInputType.number,
-          hintText: stringConstants.supplierContactDetails,
+          hintText: viewModel.stringConstants.supplierContactDetails,
           isMandatory: true,
           validator: (value) {
             return viewModel.supplierContactDetailsValidation();
@@ -280,7 +277,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          hintText: stringConstants.contactDetails,
+          hintText: viewModel.stringConstants.contactDetails,
           textInputType: TextInputType.number,
           isMandatory: true,
           validator: (value) {
@@ -294,7 +291,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.nameOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.nameOfWasteTyreSupplier,
           isMandatory: true,
           validator: (value) {
             return viewModel.nameValidation();
@@ -312,7 +309,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
           viewModel.changeDropdownValue(viewModel.yearDropdownValue);
         },
         value: viewModel.yearDropdownValue,
-        labelText: stringConstants.financialYearLabel,
+        labelText: viewModel.stringConstants.financialYearLabel,
         dropDownItem: viewModel.financialYearList,
         onChanged: (value) {
           viewModel.changeDropdownValue(value);

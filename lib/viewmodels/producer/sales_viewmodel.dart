@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/producer/producer_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/producer/sales_data_response_model.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 
 class SalesViewModel extends BaseViewModel {
   final _producerRepo = ProducerRepository();
+  StringConstants stringConstants = StringConstants();
+
   UserTypes? currentUser;
   APIResponse<SalesDataResponseModel?>? _salesDateResponseModel;
   APIResponse<SalesDataResponseModel?>? get salesDataResponseModel =>

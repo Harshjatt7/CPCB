@@ -1,15 +1,12 @@
-import 'dart:io';
-
 import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/common/common_repository.dart';
 import 'package:cpcb_tyre/models/response/common/dashboard_response_model.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import '../../constants/enums/state_enums.dart';
 import '../../models/response/base_response_model.dart';
 import '../../utils/helper/helper_functions.dart';
@@ -17,6 +14,7 @@ import '../../utils/helper/helper_functions.dart';
 class DashboardViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
   final _commonRepo = CommonRepository();
+   StringConstants stringConstants = StringConstants();
 
   UserTypes? currentUser;
   APIResponse<DashboardResponseModel?>? _dashboardResponseModel;
@@ -62,19 +60,8 @@ class DashboardViewModel extends BaseViewModel {
       APIResponse value = await _commonRepo
           .getDownloadPaymentReceipt(getPaymentReceiptAPIUrl() ?? '');
       if (value.isSuccess == true) {
-        final Directory? appDir = Platform.isAndroid
-            ? await getExternalStorageDirectory()
-            : await getApplicationDocumentsDirectory();
-        String tempPath = appDir!.path;
-
-        String fileName = 'Payment Receipt (${DateTime.timestamp()}).pdf';
-        File file = File('$tempPath/$fileName');
-        if (!await file.exists()) {
-          await file.create(recursive: true);
-        }
-        await file.writeAsBytes(value.completeResponse);
-        HelperFunctions().logger(file.path);
-        await openFile(file.path);
+        HelperFunctions()
+            .downloadAndStoreFile(name: "Transaction", response: value);
         state = ViewState.idle;
         return value;
       } else {
@@ -99,20 +86,8 @@ class DashboardViewModel extends BaseViewModel {
       APIResponse value = await _commonRepo
           .getDownloadApplication(getDownloadApplicationAPIUrl() ?? '');
       if (value.isSuccess == true) {
-        final Directory? appDir = Platform.isAndroid
-            ? await getExternalStorageDirectory()
-            : await getApplicationDocumentsDirectory();
-        String tempPath = appDir!.path;
-
-        String fileName =
-            'Application${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.pdf';
-        File file = File('$tempPath/$fileName');
-        if (!await file.exists()) {
-          await file.create(recursive: true);
-        }
-        await file.writeAsBytes(value.completeResponse);
-        HelperFunctions().logger(file.path);
-        await openFile(file.path);
+        HelperFunctions()
+            .downloadAndStoreFile(name: "Application", response: value);
         state = ViewState.idle;
         return value;
       } else {
@@ -128,10 +103,6 @@ class DashboardViewModel extends BaseViewModel {
     }
     state = ViewState.idle;
     return null;
-  }
-
-  Future openFile(String url) async {
-    return await OpenFile.open(url);
   }
 
   String? getPaymentReceiptAPIUrl() {

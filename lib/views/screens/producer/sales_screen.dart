@@ -2,7 +2,6 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/producer/sales_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -15,8 +14,7 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class SalesScreen extends StatelessWidget {
-   SalesScreen({super.key});
-    final StringConstants stringConstants=StringConstants();
+  const SalesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +36,11 @@ class SalesScreen extends StatelessWidget {
                     isIconBar: true,
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
-                    name: stringConstants.name,
-                    designation: stringConstants.userType,
+                    name:viewModel.stringConstants.name,
+                    designation: viewModel.stringConstants.userType,
                   ),
                   CommonTitleBar(
-                      title: stringConstants.salesDataProducerListingTitle)
+                      title: viewModel.stringConstants.salesDataProducerListingTitle)
                 ],
               ),
             ),
@@ -110,7 +108,7 @@ class SalesScreen extends StatelessWidget {
                   Navigator.pushNamed(
                       context, AppRoutes.addSalesDataScreenRoute);
                 },
-                label: stringConstants.addSalesDataBtnLabel,
+                label: viewModel.stringConstants.addSalesDataBtnLabel,
                 color: AppColor().darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme

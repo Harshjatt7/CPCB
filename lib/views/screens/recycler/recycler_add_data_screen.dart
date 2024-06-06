@@ -1,6 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/recycler/recycler_add_data_viewmodel.dart';
@@ -17,8 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecyclerAddDataScreen extends StatelessWidget {
-   RecyclerAddDataScreen({super.key});
-    final StringConstants stringConstants=StringConstants();
+  const RecyclerAddDataScreen({super.key});
 
 
   @override
@@ -33,7 +31,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
-                title: stringConstants.addRecyclerData,
+                title:viewModel.stringConstants.addRecyclerData,
               ),
               body: formSection(viewModel, context),
               persistentFooterButtons: [
@@ -74,7 +72,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
           }
         },
         height: 50,
-        label: stringConstants.submitBtnLabel,
+        label: viewModel.stringConstants.submitBtnLabel,
         color: AppColor().darkGreen,
         labelStyle: Theme.of(context)
             .textTheme
@@ -137,7 +135,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.date,
+          hintText: viewModel.stringConstants.date,
           isMandatory: true,
           isReadOnly: true,
           disabledBgColor: AppColor().transparent,
@@ -161,7 +159,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: stringConstants.quantityOfWasteGenerated,
+          hintText: viewModel.stringConstants.quantityOfWasteGenerated,
           textInputType: TextInputType.number,
           isMandatory: true,
           validator: (value) {
@@ -176,7 +174,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: stringConstants.quantityProduced,
+          hintText: viewModel.stringConstants.quantityProduced,
           textInputType: TextInputType.number,
           validator: (value) {
             return viewModel.quantityProducedValidation();
@@ -191,7 +189,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          hintText: stringConstants.quantityProcessed,
+          hintText: viewModel.stringConstants.quantityProcessed,
           textInputType: TextInputType.number,
           isMandatory: true,
           validator: (value) {
@@ -206,7 +204,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(15)],
-          hintText: stringConstants.gstNumberOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.gstNumberOfWasteTyreSupplier,
           validator: (value) {
             return viewModel.gstNumberValidation();
           },
@@ -219,7 +217,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
-        labelText: stringConstants.typeOfRawMaterial,
+        labelText: viewModel.stringConstants.typeOfRawMaterial,
         dropDownItem: viewModel.tyreOfRecyclerMaterialList,
         error: viewModel.tyreOfRecyclerMaterialDropdownError,
         value: viewModel.tyreOfRecyclerMaterialDropdownValue,
@@ -240,7 +238,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.addressOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.addressOfWasteTyreSupplier,
           isMandatory: true,
           validator: (value) {
             return viewModel.addressValidation();
@@ -254,7 +252,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
         inputFormatters: [LengthLimitingTextInputFormatter(10)],
-        hintText: stringConstants.contactDetails,
+        hintText: viewModel.stringConstants.contactDetails,
         isMandatory: true,
         controller: viewModel.contactDetailsController,
         validator: (value) {
@@ -268,7 +266,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.nameOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.nameOfWasteTyreSupplier,
           validator: (value) {
             return viewModel.nameValidation();
           },
@@ -281,7 +279,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
-        labelText: stringConstants.financialYearLabel,
+        labelText: viewModel.stringConstants.financialYearLabel,
         dropDownItem: viewModel.financialYearList,
         error: viewModel.yearDropdownError,
         value: viewModel.financialYearDropdownValue,
