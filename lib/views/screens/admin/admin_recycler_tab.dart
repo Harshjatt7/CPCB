@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/admin/common_epr_response_model.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
@@ -6,6 +7,7 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_end_product.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_total_application_card.dart';
 import 'package:flutter/material.dart';
+import '../../../constants/routes_constant.dart';
 
 class AdminRecyclerTab extends StatelessWidget {
   AdminRecyclerTab(
@@ -54,7 +56,9 @@ class AdminRecyclerTab extends StatelessWidget {
                   '${recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.creditTransfered ?? ''}'),
           CommonTotalApplicationCard(
             totalApplication: "${recyclerData?.applications}",
-            onTap: null,
+            onTap: (){
+              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute, arguments: AdminUserTypes.recycler.text);
+            },
           ),
           CommonEPRApplication(
             data: recyclerData,
