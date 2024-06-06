@@ -45,4 +45,18 @@ class AdminRepository {
             isAuthorizationRequired: true);
     return response;
   }
+
+  Future getAdminPaymentReceipt(String userId) async {
+    final response = await _apiBase.getRequest(
+        "${_apiRoutes.adminDownloadInvoiceAPIRoute}$userId",
+        isMediaAuthorizationRequired: true);
+    return response;
+  }
+
+  Future getAdminDownloadApplication(String id) async {
+    final response = await _apiBase.getRequest(
+        "${_apiRoutes.adminDownloadApplicationAPIRoute}$id",
+        isMediaAuthorizationRequired: true);
+    return response;
+  }
 }

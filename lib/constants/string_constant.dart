@@ -139,6 +139,7 @@ class StringConstants {
   final String applicationReceived = "application-received";
   final String lastMarked = "last-marked";
   final String markedTo = "marked-to";
+  final String somethingWentWrong="something-went-wrong";
 
   //User Types
   static const String admin = "Admin";

@@ -23,7 +23,7 @@ class CommonAdminDashboardHeading extends StatelessWidget {
                         .labelMedium!
                         .copyWith(color: AppColor().black80),
                   )),
-              Expanded(
+              Flexible(
                   flex: 2,
                   child: CommonTextWidget(
                     'Generated',
@@ -32,7 +32,7 @@ class CommonAdminDashboardHeading extends StatelessWidget {
                         .labelMedium!
                         .copyWith(color: AppColor().black80),
                   )),
-              Expanded(
+              Flexible(
                   flex: 2,
                   child: CommonTextWidget(
                     'Transferred',

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/retreader/retreader_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/retreader/retreader_view_response_model.dart';
@@ -14,6 +15,8 @@ import 'package:flutter/widgets.dart';
 import '../../utils/helper/debouncing_helper.dart';
 
 class RetreaderViewDataViewmodel extends BaseViewModel {
+   StringConstants stringConstants = StringConstants();
+
   final _retreaderRepo = RetreaderRepository();
   UserTypes? currentUser;
   APIResponse<RetreaderResponseModel?>? _retreaderResponseModel;

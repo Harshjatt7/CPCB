@@ -157,5 +157,6 @@
     "marked-to": "Marked To",
     "options": "Options",
     "download-transaction-label": "Download Transaction",
-    "close": "Close"
+    "close": "Close",
+    "something-went-wrong":"Something went wrong"
 }

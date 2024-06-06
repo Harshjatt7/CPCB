@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/recycler/recycler_repository.dart';
 import 'package:cpcb_tyre/models/request/recycler/recycler_procurement_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
@@ -21,6 +22,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
+  StringConstants stringConstants = StringConstants();
 
   String? financialYearDropdownValue;
   String? rawMaterialDropdownValue;

@@ -19,6 +19,7 @@ class AdminProducerTab extends StatelessWidget {
   final StringConstants stringConstants = StringConstants();
   final EPRApplicationData? producerData;
   final EprOblicationsData? producerEprOblicationsData;
+  
 
   @override
   Widget build(BuildContext context) {
