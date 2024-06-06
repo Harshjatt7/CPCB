@@ -4,13 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../constants/enums/state_enums.dart';
+import '../../constants/message_constant.dart';
 import '../../models/response/admin/admin_application_response_model.dart';
 import '../../models/response/base_response_model.dart';
+import '../../utils/helper/debouncing_helper.dart';
 import '../../utils/helper/helper_functions.dart';
 
 class AdminApplicationViewModel extends BaseViewModel {
   TextEditingController searchController = TextEditingController();
-  bool isSearchExpanded = false;
   final _adminRepo = AdminRepository();
   ScrollController scrollController = ScrollController();
   APIResponse<AdminApplicationResponseModel?>? _adminApplicationResponseModel;
@@ -19,18 +20,17 @@ class AdminApplicationViewModel extends BaseViewModel {
   List<ApplicationResponsedData>? data;
   List<ApplicationResponsedData> tempData = [];
   int page = 1;
-  String userType = "";
-  void onScrollEnding() {
-    if ((_adminApplicationResponseModel?.data?.meta?.lastPage ?? 0) > page) {
-      page++;
-      loadMoreData();
-    }
-  }
+  int searchPage = 1;
+  final debouncer = Debouncer(milliseconds: 500);
+  bool isSearchExpanded = false;
+  APIResponse<AdminApplicationResponseModel?>? _adminApplicationSearchModel;
+  APIResponse<AdminApplicationResponseModel?>?
+      get recyclerSearchResponseModel => _adminApplicationSearchModel;
 
-  void loadMoreData() async {
+  void loadMoreData(String? userType) async {
     state = ViewState.busy;
 
-    await getApplicationData(isPaginating: true, userType);
+    await getApplicationData(isPaginating: true, userType ?? "");
     tempData.clear();
     data?.forEach((e) {
       tempData.add(ApplicationResponsedData(
@@ -50,7 +50,8 @@ class AdminApplicationViewModel extends BaseViewModel {
     updateUI();
   }
 
-  Future<APIResponse<AdminApplicationResponseModel?>?> getApplicationData(String userType,
+  Future<APIResponse<AdminApplicationResponseModel?>?> getApplicationData(
+      String userType,
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
     try {
@@ -66,12 +67,93 @@ class AdminApplicationViewModel extends BaseViewModel {
           data = _adminApplicationResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger("No response");
+        HelperFunctions().logger(MessageConstant().errorMessage);
       }
     } catch (err) {
       HelperFunctions().logger("$err");
     }
     state = ViewState.idle;
     return _adminApplicationResponseModel;
+  }
+
+  Future<APIResponse<AdminApplicationResponseModel?>?> performAdminSearch(
+      String? userType, String value,
+      {bool? isPaginating = false}) async {
+    state = ViewState.busy;
+
+    try {
+      _adminApplicationSearchModel = await _adminRepo.getApplicationData(
+          userType: userType, search: value, page: "$searchPage");
+      if (_adminApplicationSearchModel?.isSuccess == true) {
+        _adminApplicationSearchModel?.data =
+            AdminApplicationResponseModel.fromJson(
+                _adminApplicationSearchModel?.completeResponse);
+        if (isPaginating == true) {
+          data?.addAll(_adminApplicationSearchModel?.data?.data ?? []);
+        } else {
+          data = _adminApplicationSearchModel?.data?.data ?? [];
+        }
+      } else {
+        HelperFunctions().logger(MessageConstant().errorMessage);
+      }
+    } catch (err) {
+      HelperFunctions().logger("$err");
+    }
+    state = ViewState.idle;
+    return _adminApplicationSearchModel;
+  }
+
+  void searchRetreader(String value, String? userType) {
+    debouncer.run(() {
+      if (value.length >= 3) {
+        performAdminSearch(userType, value).then((_) {
+          scrollController.jumpTo(0);
+        });
+      } else {
+        data = _adminApplicationResponseModel?.data?.data ?? [];
+        updateUI();
+      }
+    });
+  }
+
+  void getUpdatedList() async {
+    state = ViewState.busy;
+    if (searchController.text.isEmpty || isSearchExpanded == false) {
+      data = tempData.isEmpty
+          ? _adminApplicationResponseModel?.data?.data ?? []
+          : tempData;
+      searchController.text = "";
+    } else {
+      data = _adminApplicationSearchModel?.data?.data ?? [];
+      searchController.text = "";
+    }
+    updateUI();
+    resetPage();
+    state = ViewState.idle;
+  }
+
+  void onScrollEnding(String? userType) {
+    if (isSearchExpanded == true && searchController.text.isNotEmpty) {
+      if ((_adminApplicationSearchModel?.data?.meta?.lastPage ?? 0) >
+          searchPage) {
+        searchPage++;
+        loadMoreData(userType);
+      } else {
+        HelperFunctions().logger(searchPage.toString());
+      }
+    } else {
+      if ((_adminApplicationResponseModel?.data?.meta?.lastPage ?? 0) > page) {
+        page++;
+        loadMoreData(userType);
+      }
+    }
+  }
+
+  void resetPage() {
+    if (searchController.text.isEmpty) {
+      searchPage = 1;
+    } else {
+      page = 1;
+    }
   }
 }

@@ -10,7 +10,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class AdminProducerTab extends StatelessWidget {
-  AdminProducerTab({super.key, required this.producerData,this.userType});
+  AdminProducerTab({super.key, required this.producerData, this.userType});
   final StringConstants stringConstants = StringConstants();
   final EPRApplicationData? producerData;
   final String? userType;
@@ -38,9 +38,11 @@ class AdminProducerTab extends StatelessWidget {
           CommonEPROblicationsTile(
               title: stringConstants.wasteTyreImporter, count: '1321'),
           CommonTotalApplicationCard(
-            totalApplication: "${producerData?.applications??''}",
+            totalApplication: "${producerData?.applications ?? ''}",
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.adminApplicationReceivedRoute, arguments: AdminUserTypes.producer.text);
+              Navigator.pushNamed(
+                  context, AppRoutes.adminApplicationReceivedRoute,
+                  arguments: AdminUserTypes.producer.text);
             },
           ),
           CommonEPRApplication(

@@ -12,14 +12,20 @@ class AdminRepository {
   Future<APIResponse<EprApplicationResponseModel?>?> getAdminDashBoard(
       String selectedUserTab) async {
     APIResponse<EprApplicationResponseModel?>? response =
-        await _apiBase.getRequest("${_apiRoutes.adminEPRApplicationsAPIRoute}$selectedUserTab", isAuthorizationRequired: true);
+        await _apiBase.getRequest(
+            "${_apiRoutes.adminEPRApplicationsAPIRoute}$selectedUserTab",
+            isAuthorizationRequired: true);
     return response;
   }
 
-
-  Future getApplicationData({String? userType, String? page = "1"}) async {
-    APIResponse<AdminApplicationResponseModel?>? response = await _apiBase
-        .getRequest("${_apiRoutes.adminApplicationReceived}/$userType?page=$page",
+  Future getApplicationData(
+      {String? userType, String? page = "1", String? search}) async {
+    APIResponse<AdminApplicationResponseModel?>? response =
+        await _apiBase.getRequest(
+            search == null
+                ? "${_apiRoutes.adminApplicationReceived}/$userType?page=$page"
+                : "${_apiRoutes.adminApplicationReceived}/$userType?page=$page&search=$search",
+    
             isAuthorizationRequired: true);
     return response;
   }
