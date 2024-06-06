@@ -64,6 +64,7 @@ class CommonAdminApplicationCard extends StatelessWidget {
                     ],
                   ),
                   InkWell(
+                    borderRadius: BorderRadius.circular(5),
                     onTap: onMenuTap,
                     child: Container(
                       padding: const EdgeInsets.all(10),
