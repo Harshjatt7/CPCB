@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/recycler/recycler_repository.dart';
 import 'package:cpcb_tyre/models/request/recycler/add_recycler_data_request_model.dart';
 import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
@@ -15,6 +16,7 @@ import '../material_app_viewmodel.dart';
 class RecyclerAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final _recyclerRepo = RecyclerRepository();
+   StringConstants stringConstants = StringConstants();
 
   String? yearDropdownError;
   String? changeDropdown;

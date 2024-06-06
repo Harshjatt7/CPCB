@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/admin/admin_repository.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
@@ -97,6 +98,29 @@ class AdminApplicationViewModel extends BaseViewModel {
         HelperFunctions().logger(MessageConstant().errorMessage);
       }
     } catch (err) {
+      return null;
+    }
+    return null;
+  }
+
+  Future getDownloadPaymentReceipt(BuildContext context, String userId) async {
+    state = ViewState.busy;
+    try {
+      APIResponse value = await _adminRepo.getAdminPaymentReceipt(userId);
+      if (value.isSuccess == true) {
+        HelperFunctions()
+            .downloadAndStoreFile(name: "Transaction", response: value);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+
+        if (context.mounted) {
+          HelperFunctions()
+              .commonErrorSnackBar(context, value.error?.message ?? '');
+        }
+      }
+    } catch (err) {
       HelperFunctions().logger("$err");
     }
     state = ViewState.idle;
@@ -155,5 +179,37 @@ class AdminApplicationViewModel extends BaseViewModel {
     } else {
       page = 1;
     }
+
+    return null;
+  }
+
+  Future getDownloadApplication(BuildContext context, String id) async {
+    state = ViewState.busy;
+    try {
+      APIResponse value = await _adminRepo.getAdminDownloadApplication(id);
+      if (value.isSuccess == true) {
+        HelperFunctions()
+            .downloadAndStoreFile(name: "Application", response: value);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+
+        if (context.mounted) {
+          HelperFunctions()
+              .commonErrorSnackBar(context, value.error?.message ?? '');
+        }
+      }
+    } catch (err) {
+      if (context.mounted) {
+        HelperFunctions()
+            .commonErrorSnackBar(context, StringConstants().somethingWentWrong);
+        Navigator.pop(context);
+      }
+      HelperFunctions().logger("$err");
+    }
+    state = ViewState.idle;
+
+    return null;
   }
 }

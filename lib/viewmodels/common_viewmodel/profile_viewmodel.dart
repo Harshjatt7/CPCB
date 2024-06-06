@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/store_key_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/common/common_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/profile_response_model.dart';
@@ -13,6 +14,8 @@ import '../../constants/routes_constant.dart';
 import '../material_app_viewmodel.dart';
 
 class ProfileViewModel extends BaseViewModel {
+  StringConstants stringConstants = StringConstants();
+
   final _commonRepo = CommonRepository();
   APIResponse<ProfileResponseModel?>? _profileResponseModel;
   APIResponse<ProfileResponseModel?>? get profileResponseModel =>

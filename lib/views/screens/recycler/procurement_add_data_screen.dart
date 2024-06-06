@@ -1,6 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
@@ -18,9 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecyclerProcurementAddDataScreen extends StatelessWidget {
-   RecyclerProcurementAddDataScreen({super.key});
-    final StringConstants stringConstants=StringConstants();
-
+  const RecyclerProcurementAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +31,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
               isLoading: viewModel.state == ViewState.busy,
               resizeToBottomInset: true,
               appBar: CommonAppBar(
-                title: stringConstants.addProcurement,
+                title: viewModel.stringConstants.addProcurement,
               ),
               body: CommonSingleChildScrollView(
                 child: Form(
@@ -123,7 +120,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                       }
                     },
                     height: 50,
-                    label: stringConstants.submitBtnLabel,
+                    label: viewModel.stringConstants.submitBtnLabel,
                     color: AppColor().darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
@@ -152,7 +149,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           validator: (value) {
             return viewModel.dateValidation();
           },
-          hintText: stringConstants.dateOfPurchaseOfRawMaterial,
+          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial,
           isMandatory: true,
           icon: ImageConstants().calendar,
           controller: viewModel.dateController),
@@ -164,7 +161,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(15)],
-          hintText: stringConstants.gstNumberOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.gstNumberOfWasteTyreSupplier,
           validator: (value) {
             return viewModel.gstNumberValidation();
           },
@@ -179,7 +176,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           textInputType: TextInputType.number,
-          hintText: stringConstants.invoiceNumber,
+          hintText: viewModel.stringConstants.invoiceNumber,
           isMandatory: true,
           validator: (value) {
             return viewModel.valueValidation(viewModel.invoiceNumberController);
@@ -199,7 +196,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           );
         },
         value: viewModel.financialYearDropdownValue,
-        labelText: stringConstants.financialYearLabel,
+        labelText: viewModel.stringConstants.financialYearLabel,
         dropDownItem: viewModel.financialYearList,
         onChanged: (value) {
           viewModel.changeFinancialDropdownValue(
@@ -219,7 +216,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           isDocument: viewModel.filePath == null ? false : true,
           disabledBgColor: AppColor().transparent,
           isReadOnly: true,
-          hintText: stringConstants.uploadInvoice,
+          hintText: viewModel.stringConstants.uploadInvoice,
           icon: viewModel.uploadInvoiceController.text.isEmpty
               ? ImageConstants().fileUpload
               : ImageConstants().removeIcon,
@@ -246,7 +243,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                 Validations().numbericWithDotRegex)
           ],
           textInputType: TextInputType.number,
-          hintText: stringConstants.quantityReceived,
+          hintText: viewModel.stringConstants.quantityReceived,
           isMandatory: true,
           validator: (value) {
             return viewModel.quantityReceivedValidation();
@@ -266,7 +263,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           );
         },
         value: viewModel.tyreSourceDropdownValue,
-        labelText: stringConstants.tyreSourceLabel,
+        labelText: viewModel.stringConstants.tyreSourceLabel,
         dropDownItem: viewModel.tyreSource,
         onChanged: (value) {
           viewModel.changetyreSourceDropdownValue(
@@ -289,7 +286,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           );
         },
         value: viewModel.rawMaterialDropdownValue,
-        labelText: stringConstants.typeOfRawMaterial,
+        labelText: viewModel.stringConstants.typeOfRawMaterial,
         dropDownItem: viewModel.typeOfRawMaterial,
         onChanged: (value) {
           viewModel.changeRawMaterialDropdownValue(
@@ -306,7 +303,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: stringConstants.addressOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.addressOfWasteTyreSupplier,
           isMandatory: true,
           validator: (value) {
             return viewModel.valueValidation(viewModel.addressController);
@@ -320,7 +317,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          hintText: stringConstants.contactDetails,
+          hintText: viewModel.stringConstants.contactDetails,
           textInputType: TextInputType.number,
           isMandatory: true,
           validator: (value) {
@@ -335,7 +332,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          hintText: stringConstants.nameOfWasteTyreSupplier,
+          hintText: viewModel.stringConstants.nameOfWasteTyreSupplier,
           textInputType: TextInputType.text,
           isMandatory: true,
           validator: (value) {

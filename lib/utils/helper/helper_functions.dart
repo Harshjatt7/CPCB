@@ -1,15 +1,19 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../store/secure_storage.dart';
 import '../../theme/app_color.dart';
@@ -513,5 +517,29 @@ class HelperFunctions {
         context: context,
         firstDate: firstDate,
         lastDate: DateTime.now());
+  }
+
+  ///[precisionFormat] Number precision
+  String precisionFormat(num? value) {
+    return value == null ? '' : value.toStringAsFixed(2);
+  }
+
+  ///[downloadAndStoreFile] To Download and Store File in Device
+  Future<void> downloadAndStoreFile(
+      {String? name, APIResponse? response}) async {
+    final Directory? appDir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
+    String tempPath = appDir!.path;
+
+    String fileName =
+        '$name${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.pdf';
+    File file = File('$tempPath/$fileName');
+    if (!await file.exists()) {
+      await file.create(recursive: true);
+    }
+    await file.writeAsBytes(response?.completeResponse);
+    HelperFunctions().logger(file.path);
+    await OpenFile.open(file.path);
   }
 }

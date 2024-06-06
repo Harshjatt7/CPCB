@@ -2,7 +2,6 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/procurement_view_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -16,8 +15,7 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class ProcurementDataScreen extends StatelessWidget {
-   ProcurementDataScreen({super.key});
-    final StringConstants stringConstants=StringConstants();
+   const ProcurementDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +38,8 @@ class ProcurementDataScreen extends StatelessWidget {
                     isIconBar: true,
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
-                    name: stringConstants.name,
-                    designation: stringConstants.userType,
+                    name:viewModel.stringConstants.name,
+                    designation: viewModel.stringConstants.userType,
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -52,7 +50,7 @@ class ProcurementDataScreen extends StatelessWidget {
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,
-                      hintText: stringConstants.searchHere,
+                      hintText: viewModel.stringConstants.searchHere,
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
                         viewModel.searchProcurement(value);
@@ -60,7 +58,7 @@ class ProcurementDataScreen extends StatelessWidget {
                           viewModel.getUpdatedList();
                         }
                       },
-                      title: stringConstants.procurementData,
+                      title: viewModel.stringConstants.procurementData,
                       onSuffixTap: () {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
@@ -139,7 +137,7 @@ class ProcurementDataScreen extends StatelessWidget {
                   Navigator.pushNamed(
                       context, AppRoutes.procurementAddDataScreenRoute);
                 },
-                label: stringConstants.addProcurement,
+                label: viewModel.stringConstants.addProcurement,
                 color: AppColor().darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme
