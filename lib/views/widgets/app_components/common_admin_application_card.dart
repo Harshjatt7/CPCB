@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_type_badge.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:localization/localization.dart';
 
 class CommonAdminApplicationCard extends StatelessWidget {
@@ -62,10 +63,10 @@ class CommonAdminApplicationCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: onMenuTap,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 6),
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
                       child: CommonImageWidget(
                           imageSource: ImageConstants().menuIcon,
                           isNetworkImage: false),
@@ -81,8 +82,7 @@ class CommonAdminApplicationCard extends StatelessWidget {
                 height: 6,
               ),
               buildCustomTextWidget(context,
-                  text:
-                      "${StringConstants().lastMarked.i18n()}: $lastMarked"),
+                  text: "${StringConstants().lastMarked.i18n()}: $lastMarked"),
               const SizedBox(
                 height: 6,
               ),

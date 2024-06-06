@@ -18,7 +18,6 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   EPRApplicationData? retraderData;
   String? userType;
 
-
   Future<APIResponse<EprApplicationResponseModel?>?> getAdminDashBoardData(
       BuildContext context) async {
     state = ViewState.busy;

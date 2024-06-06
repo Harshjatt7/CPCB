@@ -39,7 +39,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
             notification.metrics.extentAfter == 0) {
-          viewModel.onScrollEnding();
+          viewModel.onScrollEnding(userType);
         }
         return false;
       },
@@ -62,11 +62,15 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: CommonAdminApplicationCard(
+                              onMenuTap: () {
+                                HelperFunctions().logger("Tapped");
+                              },
                               applicationStatus: applicationData?.status,
                               applicationTitle: applicationData?.companyName,
                               markedTo: applicationData?.markedTo,
                               lastMarked: applicationData?.lastMarked,
-                              date: HelperFunctions().getFormattedDate(date: applicationData?.lastReceived),
+                              date: HelperFunctions().getFormattedDate(
+                                  date: applicationData?.lastReceived),
                             ),
                           );
                         }),
@@ -77,7 +81,8 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
     );
   }
 
-  PreferredSize buildAppBar(AdminApplicationViewModel viewModel, BuildContext context) {
+  PreferredSize buildAppBar(
+      AdminApplicationViewModel viewModel, BuildContext context) {
     return PreferredSize(
       preferredSize: Size.fromHeight(
           (viewModel.searchController.text.isNotEmpty ||
@@ -111,22 +116,19 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                 hintText: StringConstants().searchHere,
                 onChanged: (value) async {
                   viewModel.isSearchExpanded = true;
-                  // viewModel.searchRetreader(value);
-
+                  viewModel.searchRetreader(value,userType??"");
                   if (viewModel.searchController.text.isEmpty) {
-                    // viewModel.getUpdatedList();
+                    viewModel.getUpdatedList();
                   }
                 },
                 title: StringConstants().applicationReceived,
                 onSuffixTap: () {
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.isSearchExpanded = !viewModel.isSearchExpanded;
-                    viewModel.updateUI();
-                    // viewModel.getUpdatedList();
+                    viewModel.getUpdatedList();
                   } else {
                     viewModel.isSearchExpanded = false;
-                    viewModel.updateUI();
-                    // viewModel.getUpdatedList();
+                    viewModel.getUpdatedList();
                   }
                 },
               ),
