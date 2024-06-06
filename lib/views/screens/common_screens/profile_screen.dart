@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
-   ProfileScreen({super.key, this.isAdmin = false});
+  ProfileScreen({super.key, this.isAdmin = false});
   final StringConstants stringConstants = StringConstants();
 
   @override

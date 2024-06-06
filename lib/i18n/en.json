@@ -157,5 +157,10 @@
     "marked-to": "Marked To",
     "options": "Options",
     "download-transaction-label": "Download Transaction",
-    "close": "Close"
+    "close": "Close",
+    "contact-number": "Contact Number",
+    "email": "Email",
+    "state": "State",
+    "producer-listing": "Producer Listing",
+    "download-certificate": "Download Certificate"
 }

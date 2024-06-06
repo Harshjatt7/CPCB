@@ -139,6 +139,11 @@ class StringConstants {
   final String applicationReceived = "application-received";
   final String lastMarked = "last-marked";
   final String markedTo = "marked-to";
+  final String contactNumber = "contact-number";
+  final String email = "email";
+  final String state = "state";
+  final String producerListing = "producer-listing";
+  final String downloadCertificate = "download-certificate";
 
   //User Types
   static const String admin = "Admin";
