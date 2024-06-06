@@ -162,8 +162,8 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                     : CommonImageWidget(
                         imageSource: ImageConstants().searchIcon,
                         isNetworkImage: false,
-                        width: 24,
-                        height: 24,
+                        width: 20,
+                        height: 20,
                       )),
           ),
           if (widget.showFilter == true)

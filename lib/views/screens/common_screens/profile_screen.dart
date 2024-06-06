@@ -12,9 +12,12 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/string_constant.dart';
+
 class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
-  const ProfileScreen({super.key, this.isAdmin = false});
+  ProfileScreen({super.key, this.isAdmin = false});
+  final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
