@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
@@ -72,13 +71,6 @@ class CustomDashboardScreen extends StatelessWidget {
       },
     );
   }
-
-  Widget buildAppBar() {
-    return CommonAppBar(
-      leadingIcon: ImageConstants().splashScreenLogo,
-    );
-  }
-
   Widget buildBody(BuildContext context, CustomDashboardViewModel viewModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

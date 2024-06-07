@@ -37,7 +37,7 @@ class SplashViewModel extends BaseViewModel {
         case UserTypes.spcb:
           if (context.mounted) {
             Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
+                context, AppRoutes.spcbHomeScreenRoute);
           }
           break;
         case UserTypes.inspection:
@@ -67,7 +67,7 @@ class SplashViewModel extends BaseViewModel {
         case UserTypes.custom:
           if (context.mounted) {
             Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
+                context, AppRoutes.customHomeScreenRoute);
           }
           break;
         default:

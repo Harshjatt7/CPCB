@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
+import 'package:cpcb_tyre/views/screens/custom/custom_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
 import 'package:cpcb_tyre/views/screens/recycler/procurement_add_data_screen.dart';
 import 'package:cpcb_tyre/views/screens/recycler/recycler_add_data_screen.dart';
@@ -7,6 +8,7 @@ import 'package:cpcb_tyre/views/screens/recycler/recycler_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/retrader/procurement_add_data_screen.dart';
 import 'package:cpcb_tyre/views/screens/retrader/retreaded_add_data_screen.dart';
 import 'package:cpcb_tyre/views/screens/retrader/retreader_home_screen.dart';
+import 'package:cpcb_tyre/views/screens/spcb/spcb_home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
 import '../views/screens/admin/admin_homescreen.dart';
@@ -50,7 +52,10 @@ class PageRouter {
               userType: userType,
             ),
             settings);
-
+      case AppRoutes.spcbHomeScreenRoute:
+        return _getPageRoute(const SpcbHomeScreen(), settings);
+      case AppRoutes.customHomeScreenRoute:
+        return _getPageRoute(const CustomHomeScreen(), settings) ;
       // Will be displayed if no specified route is found.
       default:
         return MaterialPageRoute(

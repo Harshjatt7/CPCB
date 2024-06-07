@@ -147,6 +147,7 @@ class StringConstants {
   final String somethingWentWrong = "something-went-wrong";
   final String transaction="transaction";
   final String application="application";
+  final String address = "address";
 
   //User Types
   static const String admin = "Admin";
