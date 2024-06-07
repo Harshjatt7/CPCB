@@ -81,7 +81,6 @@ class AdminApplicationViewModel extends BaseViewModel {
       String? userType, String value,
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
-
     try {
       _adminApplicationSearchModel = await _adminRepo.getApplicationData(
           userType: userType, search: value, page: "$searchPage");
@@ -100,6 +99,7 @@ class AdminApplicationViewModel extends BaseViewModel {
     } catch (err) {
       return null;
     }
+    state = ViewState.idle;
     return null;
   }
 
@@ -179,8 +179,6 @@ class AdminApplicationViewModel extends BaseViewModel {
     } else {
       page = 1;
     }
-
-    return null;
   }
 
   Future getDownloadApplication(BuildContext context, String id) async {
