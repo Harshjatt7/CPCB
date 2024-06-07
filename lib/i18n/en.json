@@ -165,5 +165,6 @@
     "download-certificate": "Download Certificate",
     "something-went-wrong": "Something went wrong",
     "transaction":"Transaction",
-    "application":"Application"
+    "application":"Application",
+    "address": "Address"
 }
