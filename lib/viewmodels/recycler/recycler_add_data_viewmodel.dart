@@ -16,7 +16,7 @@ import '../material_app_viewmodel.dart';
 class RecyclerAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final _recyclerRepo = RecyclerRepository();
-   StringConstants stringConstants = StringConstants();
+  StringConstants stringConstants = StringConstants();
 
   String? yearDropdownError;
   String? changeDropdown;
@@ -104,7 +104,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
   }
 
-  dateTimeConvert() {
+  void dateTimeConvert() {
     if (date != null) {
       dateController.text = HelperFunctions().getFormattedDate(date: date!);
     }

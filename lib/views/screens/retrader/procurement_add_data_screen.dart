@@ -31,7 +31,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
-                title:viewModel.stringConstants.addProcurement,
+                title: viewModel.stringConstants.addProcurement,
               ),
               body: CommonSingleChildScrollView(
                 child: Form(
@@ -319,7 +319,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
     );
   }
 
-  showErrorMessage(BuildContext context, String message) {
+  Widget showErrorMessage(BuildContext context, String message) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(

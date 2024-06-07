@@ -342,7 +342,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     );
   }
 
-  showErrorMessage(BuildContext context, String message) {
+  Widget showErrorMessage(BuildContext context, String message) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(

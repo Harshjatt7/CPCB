@@ -31,7 +31,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
-                title:viewModel.stringConstants.addRetreadedData,
+                title: viewModel.stringConstants.addRetreadedData,
               ),
               body: formSection(viewModel, context),
               persistentFooterButtons: [
@@ -256,7 +256,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
   }
 }
 
-showErrorMessage(BuildContext context, String message) {
+Widget showErrorMessage(BuildContext context, String message) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Padding(

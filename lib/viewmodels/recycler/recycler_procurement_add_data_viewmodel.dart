@@ -90,7 +90,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     return result;
   }
 
-  dateTimeConvert() {
+  void dateTimeConvert() {
     if (date != null) {
       dateController.text = HelperFunctions().getFormattedDate(date: date!);
     }
