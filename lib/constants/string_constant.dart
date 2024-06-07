@@ -145,6 +145,8 @@ class StringConstants {
   final String producerListing = "producer-listing";
   final String downloadCertificate = "download-certificate";
   final String somethingWentWrong = "something-went-wrong";
+  final String transaction="transaction";
+  final String application="application";
 
   //User Types
   static const String admin = "Admin";

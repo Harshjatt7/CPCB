@@ -163,5 +163,7 @@
     "state": "State",
     "producer-listing": "Producer Listing",
     "download-certificate": "Download Certificate",
-    "something-went-wrong": "Something went wrong"
+    "something-went-wrong": "Something went wrong",
+    "transaction":"Transaction",
+    "application":"Application"
 }

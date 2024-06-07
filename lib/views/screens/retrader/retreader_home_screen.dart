@@ -28,7 +28,7 @@ class RetraderHomeScreen extends StatelessWidget {
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().profileTabIcon,
       )
-    ], screens: [
+    ], screens: const[
       DashBoardScreen(),
       ProcurementDataScreen(),
       RetreaderDataScreen(),

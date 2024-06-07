@@ -23,10 +23,9 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
       bottomNavigationBarWidget(
         imgSrc: ImageConstants().profileTabIcon,
       )
-    ], screens: [
-      const CustomDashboardScreen(),
+    ], screens: const [
+      CustomDashboardScreen(),
       ProfileScreen(),
-
     ]);
   }
 
