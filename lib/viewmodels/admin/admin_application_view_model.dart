@@ -108,8 +108,8 @@ class AdminApplicationViewModel extends BaseViewModel {
     try {
       APIResponse value = await _adminRepo.getAdminPaymentReceipt(userId);
       if (value.isSuccess == true) {
-        HelperFunctions()
-            .downloadAndStoreFile(name: "Transaction", response: value);
+        HelperFunctions().downloadAndStoreFile(
+            name: StringConstants().transaction, response: value);
         state = ViewState.idle;
         return value;
       } else {
@@ -179,7 +179,6 @@ class AdminApplicationViewModel extends BaseViewModel {
     } else {
       page = 1;
     }
-
   }
 
   Future getDownloadApplication(BuildContext context, String id) async {
@@ -187,8 +186,8 @@ class AdminApplicationViewModel extends BaseViewModel {
     try {
       APIResponse value = await _adminRepo.getAdminDownloadApplication(id);
       if (value.isSuccess == true) {
-        HelperFunctions()
-            .downloadAndStoreFile(name: "Application", response: value);
+        HelperFunctions().downloadAndStoreFile(
+            name: StringConstants().application, response: value);
         state = ViewState.idle;
         return value;
       } else {

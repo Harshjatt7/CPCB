@@ -93,10 +93,16 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
       builder: (ctx) {
         return DownloadBottomSheet(
           onDownloadTransactionTapped: () async {
+            if (ctx.mounted) {
+              Navigator.pop(ctx);
+            }
             await viewModel.getDownloadPaymentReceipt(
                 context, applicationData?.userId ?? '');
           },
           onDownloadApplicationTapped: () async {
+            if (ctx.mounted) {
+              Navigator.pop(ctx);
+            }
             await viewModel.getDownloadApplication(
                 context, applicationData?.id ?? '');
             HelperFunctions().logger(applicationData?.id ?? '');
