@@ -8,7 +8,7 @@ import 'package:cpcb_tyre/views/screens/admin/admin_producer_tab.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_recycler_tab.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_retreader_tab.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/admin_tabbar.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_tabbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
@@ -58,7 +58,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   )),
               body: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: AdminTabBar(
+                child: CommonTabBar(
                   tabs: [
                     TabBarModel(
                         tab: AdminProducerTab(

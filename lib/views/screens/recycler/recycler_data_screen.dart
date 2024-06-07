@@ -104,7 +104,7 @@ class RecyclerDataScreen extends StatelessWidget {
     );
   }
 
-  buttonSection(BuildContext context, RecyclerDataViewModel viewModel) {
+  Widget buttonSection(BuildContext context, RecyclerDataViewModel viewModel) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 12),
       child: CommonButtonWidget(

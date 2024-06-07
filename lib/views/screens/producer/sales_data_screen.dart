@@ -32,7 +32,7 @@ class SalesDataScreen extends StatelessWidget {
               isLoading: viewModel.state == ViewState.busy,
               backgroundColor: appColor.offWhite,
               appBar: CommonAppBar(
-                title:viewModel.stringConstants.addSalesDataBtnLabel,
+                title: viewModel.stringConstants.addSalesDataBtnLabel,
               ),
               body: formSection(context, viewModel),
               persistentFooterButtons: [
@@ -262,7 +262,7 @@ class SalesDataScreen extends StatelessWidget {
     );
   }
 
-  showErrorMessage(BuildContext context, String message) {
+  Widget showErrorMessage(BuildContext context, String message) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(

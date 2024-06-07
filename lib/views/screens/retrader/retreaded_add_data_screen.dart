@@ -256,19 +256,18 @@ class RetreadedAddDataScreen extends StatelessWidget {
     );
   }
 
-  showErrorMessage(BuildContext context, String message) {
+  Widget showErrorMessage(BuildContext context, String message) {
     return Align(
-      alignment: Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
-        child: CommonTextWidget(
-          message,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: appColor.red),
-        ),
-      ),
-    );
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+          child: CommonTextWidget(
+            message,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: AppColor().red),
+          ),
+        ));
   }
 }

@@ -85,7 +85,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     return result;
   }
 
-  dateTimeConvert() {
+  void dateTimeConvert() {
     if (date != null) {
       dateController.text = helperFunctions.getFormattedDate(date: date!);
     }

@@ -87,10 +87,10 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
     );
   }
 
-  showDownloadBottomSheet(
+  Future<void> showDownloadBottomSheet(
       BuildContext context,
       ApplicationResponsedData? applicationData,
-      AdminApplicationViewModel viewModel) {
+      AdminApplicationViewModel viewModel) async {
     return showModalBottomSheet(
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       context: context,
@@ -100,6 +100,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
             if (ctx.mounted) {
               Navigator.pop(ctx);
             }
+
             await viewModel.getDownloadPaymentReceipt(
                 context, applicationData?.userId ?? '');
           },

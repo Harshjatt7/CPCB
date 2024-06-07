@@ -18,7 +18,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   final _recyclerRepo = RecyclerRepository();
   final StringConstants stringConstants = StringConstants();
   final MessageConstant messageConstant = MessageConstant();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   String? yearDropdownError;
   String? changeDropdown;
@@ -106,7 +106,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
   }
 
-  dateTimeConvert() {
+  void dateTimeConvert() {
     if (date != null) {
       dateController.text = helperFunctions.getFormattedDate(date: date!);
     }

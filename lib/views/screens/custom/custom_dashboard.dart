@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -69,12 +68,6 @@ class CustomDashboardScreen extends StatelessWidget {
           body: buildBody(context, viewModel),
         );
       },
-    );
-  }
-
-  Widget buildAppBar() {
-    return CommonAppBar(
-      leadingIcon: ImageConstants().splashScreenLogo,
     );
   }
 
