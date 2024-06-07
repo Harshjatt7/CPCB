@@ -15,7 +15,9 @@ import 'package:flutter/material.dart';
 
 class SalesDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
-  StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final MessageConstant messageConstant = MessageConstant();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   String? producerDropdownError;
   String? tyreDropdownError;
@@ -65,8 +67,8 @@ class SalesDataViewModel extends BaseViewModel {
       monthList.addAll(responseData?.months ?? []);
       producerTypeMap = responseData?.producerType ?? {};
     } else {
-      HelperFunctions()
-          .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
+      helperFunctions
+          .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
     }
     state = ViewState.idle;
     return response;
@@ -111,8 +113,8 @@ class SalesDataViewModel extends BaseViewModel {
         if (response?.isSuccess == true) {
           if (context.mounted) {
             state = ViewState.idle;
-            HelperFunctions().commonSuccessSnackBar(
-                context, MessageConstant().successfullySubmitted);
+            helperFunctions.commonSuccessSnackBar(
+                context, messageConstant.successfullySubmitted);
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -138,11 +140,11 @@ class SalesDataViewModel extends BaseViewModel {
               : apiError?.total?.first ?? "";
         }
       } else {
-        HelperFunctions()
-            .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
+        helperFunctions
+            .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
       }
     } catch (e) {
-      HelperFunctions().logger('$e');
+      helperFunctions.logger('$e');
     }
     state = ViewState.idle;
     return null;
@@ -186,7 +188,7 @@ class SalesDataViewModel extends BaseViewModel {
     if ((totalController.text.isEmpty
         // || totalController.text == "0"
         )) {
-      return MessageConstant().pleaseEnterDataInField;
+      return messageConstant.pleaseEnterDataInField;
     }
 
     return null;
@@ -295,22 +297,22 @@ class SalesDataViewModel extends BaseViewModel {
     switch (dropdownValue) {
       case SalesDataDropdown.producerType:
         producerDropdownValue = changeDropdown;
-        producerDropdownError = MessageConstant().pleaseSelectValue;
+        producerDropdownError = messageConstant.pleaseSelectValue;
         updateUI();
         break;
       case SalesDataDropdown.typeOfTyre:
         tyreDropdownValue = changeDropdown;
-        tyreDropdownError = MessageConstant().pleaseSelectValue;
+        tyreDropdownError = messageConstant.pleaseSelectValue;
         updateUI();
         break;
       case SalesDataDropdown.financialYear:
         yearDropdownValue = changeDropdown;
-        yearDropdownError = MessageConstant().pleaseSelectValue;
+        yearDropdownError = messageConstant.pleaseSelectValue;
         updateUI();
         break;
       case SalesDataDropdown.month:
         monthDropdownValue = changeDropdown;
-        monthDropdownError = MessageConstant().pleaseSelectValue;
+        monthDropdownError = messageConstant.pleaseSelectValue;
         updateUI();
         break;
       default:

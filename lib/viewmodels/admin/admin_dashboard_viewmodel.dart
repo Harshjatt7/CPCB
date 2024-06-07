@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/admin/admin_repository.dart';
 import 'package:cpcb_tyre/models/response/admin/common_epr_response_model.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
@@ -11,6 +12,8 @@ import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class AdminDashBoardViewmodel extends BaseViewModel {
+  final StringConstants stringConstants = StringConstants();
+  final HelperFunctions helperFunctions = HelperFunctions();
   final _adminRepo = AdminRepository();
   APIResponse<EprApplicationResponseModel?>? _eprApplicationResponseModel;
   APIResponse<EprApplicationResponseModel?>? get eprApplicationResponseModel =>
@@ -63,7 +66,7 @@ class AdminDashBoardViewmodel extends BaseViewModel {
         retraderData = retraderRes?.data?.eprApplicationData;
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
 
     state = ViewState.idle;
@@ -84,12 +87,12 @@ class AdminDashBoardViewmodel extends BaseViewModel {
         producerEprOblicationsData = _eprOblicationResponseModel?.data?.data;
       } else {
         if (context.mounted) {
-          HelperFunctions().commonErrorSnackBar(
+          helperFunctions.commonErrorSnackBar(
               context, MessageConstant().somethingWentWrong);
         }
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
 
     state = ViewState.idle;
@@ -119,7 +122,7 @@ class AdminDashBoardViewmodel extends BaseViewModel {
         retreaderEprOblicationData = retraderRes?.data?.data;
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
 
     state = ViewState.idle;

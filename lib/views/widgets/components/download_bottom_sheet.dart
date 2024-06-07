@@ -9,7 +9,10 @@ import 'common_text_widget.dart';
 class DownloadBottomSheet extends StatelessWidget {
   final VoidCallback? onDownloadTransactionTapped;
   final VoidCallback? onDownloadApplicationTapped;
-  const DownloadBottomSheet(
+  final ImageConstants imageConstants = ImageConstants();
+  final StringConstants stringConstants = StringConstants();
+  final AppColor appColor = AppColor();
+  DownloadBottomSheet(
       {super.key,
       this.onDownloadApplicationTapped,
       this.onDownloadTransactionTapped});
@@ -33,7 +36,7 @@ class DownloadBottomSheet extends StatelessWidget {
             width: 56,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: AppColor().black20),
+                color: appColor.black20),
           ),
           const SizedBox(
             height: 16,
@@ -46,7 +49,7 @@ class DownloadBottomSheet extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonTextWidget(
-                      StringConstants().options,
+                      stringConstants.options,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(
@@ -54,17 +57,17 @@ class DownloadBottomSheet extends StatelessWidget {
                     ),
                     CommonButtonWidget(
                         onPressed: onDownloadTransactionTapped,
-                        imageSrc: ImageConstants().downloadTransactionIcon,
-                        color: AppColor().darkGreen,
-                        label: StringConstants().downloadTransactionLabel),
+                        imageSrc: imageConstants.downloadTransactionIcon,
+                        color: appColor.darkGreen,
+                        label: stringConstants.downloadTransactionLabel),
                     const SizedBox(
                       height: 16,
                     ),
                     CommonButtonWidget(
                         onPressed: onDownloadApplicationTapped,
-                        imageSrc: ImageConstants().downloadApplicationIcon,
-                        color: AppColor().darkGreen,
-                        label: StringConstants().downloadApplicationBtnLabel),
+                        imageSrc: imageConstants.downloadApplicationIcon,
+                        color: appColor.darkGreen,
+                        label: stringConstants.downloadApplicationBtnLabel),
                     const SizedBox(
                       height: 16,
                     ),
@@ -74,11 +77,11 @@ class DownloadBottomSheet extends StatelessWidget {
                         },
                         labelStyle:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  color: AppColor().black,
+                                  color: appColor.black,
                                   fontWeight: FontWeight.w600,
                                 ),
-                        color: AppColor().transparent,
-                        label: StringConstants().close)
+                        color: appColor.transparent,
+                        label: stringConstants.close)
                   ],
                 ),
               ))

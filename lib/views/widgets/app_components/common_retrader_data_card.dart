@@ -9,7 +9,7 @@ import 'package:localization/localization.dart';
 import '../../../constants/string_constant.dart';
 
 class CommonRetraderDataCard extends StatelessWidget {
-  const CommonRetraderDataCard(
+  CommonRetraderDataCard(
       {super.key,
       required this.name,
       this.contactDetails,
@@ -31,13 +31,16 @@ class CommonRetraderDataCard extends StatelessWidget {
   final String? date;
   final String? year;
   final bool? isRetraderContainer;
+  final ImageConstants imageConstants = ImageConstants();
+  final StringConstants stringConstants = StringConstants();
+  final AppColor appColor = AppColor();
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColor().black10),
+        border: Border.all(color: appColor.black10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,30 +49,30 @@ class CommonRetraderDataCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .displayMedium
-                  ?.copyWith(color: AppColor().black)),
+                  ?.copyWith(color: appColor.black)),
           const SizedBox(
             height: 6,
           ),
           retraderDetailsCard(context,
-              "${StringConstants().contactDetailLabel.i18n()} ${contactDetails ?? ''}"),
+              "${stringConstants.contactDetailLabel.i18n()} ${contactDetails ?? ''}"),
           retraderDetailsCard(context,
-              "${StringConstants().addressOfBuyerLabel.i18n()} ${address ?? ''}"),
+              "${stringConstants.addressOfBuyerLabel.i18n()} ${address ?? ''}"),
           if (isRetraderContainer == false)
             retraderDetailsCard(context,
-                "${StringConstants().invoiceNumberLabel.i18n()} ${invoiceNumber ?? ''}"),
+                "${stringConstants.invoiceNumberLabel.i18n()} ${invoiceNumber ?? ''}"),
           retraderDetailsCard(context,
-              "${StringConstants().gstNumberLabel.i18n()} ${gstNumber ?? ''}"),
+              "${stringConstants.gstNumberLabel.i18n()} ${gstNumber ?? ''}"),
           retraderDetailsCard(context,
-              "${StringConstants().typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
+              "${stringConstants.typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
           Divider(
-            color: AppColor().black10,
+            color: appColor.black10,
           ),
           Row(
             children: [
               Row(
                 children: [
                   CommonImageWidget(
-                    imageSource: ImageConstants().verified,
+                    imageSource: imageConstants.verified,
                     isNetworkImage: false,
                   ),
                   const SizedBox(
@@ -82,21 +85,21 @@ class CommonRetraderDataCard extends StatelessWidget {
               Row(
                 children: [
                   CommonImageWidget(
-                    imageSource: ImageConstants().calendarIcon,
+                    imageSource: imageConstants.calendarIcon,
                     isNetworkImage: false,
                   ),
                   const SizedBox(
                     width: 4,
                   ),
                   retraderDetailsCard(context,
-                      '${StringConstants().date.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                      '${stringConstants.date.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                 ],
               ),
               const SizedBox(width: 32),
               Row(
                 children: [
                   CommonImageWidget(
-                    imageSource: ImageConstants().calendarIcon,
+                    imageSource: imageConstants.calendarIcon,
                     isNetworkImage: false,
                   ),
                   const SizedBox(
@@ -111,15 +114,15 @@ class CommonRetraderDataCard extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget retraderDetailsCard(BuildContext context, String text) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 2),
-    child: CommonTextWidget(text,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: AppColor().black40)),
-  );
+  Widget retraderDetailsCard(BuildContext context, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: CommonTextWidget(text,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: appColor.black40)),
+    );
+  }
 }

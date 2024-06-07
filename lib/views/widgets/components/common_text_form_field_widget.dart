@@ -82,6 +82,8 @@ class _CommonTextFormFieldWidgetNewState
   late FocusNode _focusNode;
   bool isClick = true;
   String? error;
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor = AppColor();
 
   @override
   void initState() {
@@ -118,10 +120,10 @@ class _CommonTextFormFieldWidgetNewState
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: widget.isReadOnly == true
-                  ? widget.disabledBgColor ?? AppColor().grey03
-                  : AppColor().transparent,
+                  ? widget.disabledBgColor ?? appColor.grey03
+                  : appColor.transparent,
               border: Border.all(
-                  color: error != null ? AppColor().red : AppColor().black20),
+                  color: error != null ? appColor.red : appColor.black20),
               borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
             onChanged: widget.onChanged,
@@ -136,9 +138,9 @@ class _CommonTextFormFieldWidgetNewState
                 ? AlwaysDisabledFocusNode()
                 : _focusNode,
             obscureText: widget.isObscure,
-            cursorColor: AppColor().grey01,
+            cursorColor: appColor.grey01,
             showCursor: true,
-            cursorErrorColor: AppColor().grey01,
+            cursorErrorColor: appColor.grey01,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (val) {
               if (widget.validator != null) {
@@ -160,7 +162,7 @@ class _CommonTextFormFieldWidgetNewState
             cursorHeight: 20,
             keyboardType: widget.textInputType ?? TextInputType.text,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: widget.textColor ?? AppColor().black90,
+                color: widget.textColor ?? appColor.black90,
                 decoration: widget.isDocument == true
                     ? TextDecoration.underline
                     : TextDecoration.none,
@@ -171,8 +173,8 @@ class _CommonTextFormFieldWidgetNewState
                 : TextInputAction.next,
             decoration: InputDecoration(
                 fillColor: widget.isReadOnly == true
-                    ? widget.disabledBgColor ?? AppColor().grey03
-                    : AppColor().transparent,
+                    ? widget.disabledBgColor ?? appColor.grey03
+                    : appColor.transparent,
                 filled: widget.isReadOnly ?? false,
                 label: RichText(
                   text: TextSpan(
@@ -180,14 +182,14 @@ class _CommonTextFormFieldWidgetNewState
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall
-                        ?.copyWith(color: AppColor().grey01),
+                        ?.copyWith(color: appColor.grey01),
                     children: [
                       TextSpan(
                         text: widget.isMandatory == true ? " *" : "",
                         style: Theme.of(context)
                             .textTheme
                             .labelSmall
-                            ?.copyWith(color: AppColor().red),
+                            ?.copyWith(color: appColor.red),
                       ),
                     ],
                   ),
@@ -197,7 +199,7 @@ class _CommonTextFormFieldWidgetNewState
                 errorStyle: Theme.of(context)
                     .textTheme
                     .bodyLarge
-                    ?.copyWith(color: AppColor().transparent, fontSize: 1),
+                    ?.copyWith(color: appColor.transparent, fontSize: 1),
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 border: InputBorder.none,
@@ -214,8 +216,8 @@ class _CommonTextFormFieldWidgetNewState
                                   width: 20,
                                   fit: BoxFit.contain,
                                   imageSource: widget.isObscure
-                                      ? ImageConstants().eyesClose
-                                      : ImageConstants().eyesOpen,
+                                      ? imageConstants.eyesClose
+                                      : imageConstants.eyesOpen,
                                   isNetworkImage: false),
                             ),
                           )
@@ -230,7 +232,7 @@ class _CommonTextFormFieldWidgetNewState
               style: Theme.of(context)
                   .textTheme
                   .bodySmall
-                  ?.copyWith(color: AppColor().red),
+                  ?.copyWith(color: appColor.red),
             ),
           ),
       ],

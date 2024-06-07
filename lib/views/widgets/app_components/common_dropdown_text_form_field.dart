@@ -12,7 +12,8 @@ class CommonDropdownTextFormField extends StatelessWidget {
   final void Function()? onTap;
   final String? value;
   final String? error;
-  const CommonDropdownTextFormField({
+  final AppColor appColor=AppColor();
+   CommonDropdownTextFormField({
     super.key,
     required this.labelText,
     required this.dropDownItem,
@@ -28,7 +29,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
-              color: error == null ? AppColor().grey03 : AppColor().red,
+              color: error == null ? appColor.grey03 : appColor.red,
             )),
         child: Padding(
           padding: const EdgeInsets.only(left: 16),
@@ -48,14 +49,14 @@ class CommonDropdownTextFormField extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall
-                          ?.copyWith(color: AppColor().grey01),
+                          ?.copyWith(color: appColor.grey01),
                       children: [
                         TextSpan(
                           text: " *",
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall
-                              ?.copyWith(color: AppColor().red),
+                              ?.copyWith(color: appColor.red),
                         ),
                       ],
                     ),
@@ -98,7 +99,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodySmall
-                ?.copyWith(color: AppColor().red),
+                ?.copyWith(color: appColor.red),
           ),
         ),
     ]);

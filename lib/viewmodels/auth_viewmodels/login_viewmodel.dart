@@ -20,6 +20,8 @@ class LoginViewModel extends BaseViewModel {
   final TextEditingController userTypeController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final MessageConstant messageConstant = MessageConstant();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   final formKey = GlobalKey<FormState>();
   String? selectedUserType;
@@ -84,9 +86,9 @@ class LoginViewModel extends BaseViewModel {
         }
 
         if (context.mounted && res?.isSuccess == true) {
-          HelperFunctions().logger(
+          helperFunctions.logger(
               "res?.data?.data?.refreshToken >> ${res?.data?.data?.refreshToken}");
-          HelperFunctions()
+          helperFunctions
               .logger("res?.data?.data?.token >> ${res?.data?.data?.token}");
           switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
             case UserTypes.admin:
@@ -120,12 +122,12 @@ class LoginViewModel extends BaseViewModel {
           }
         } else {
           if (context.mounted) {
-            HelperFunctions().logger(
+            helperFunctions.logger(
                 "res?.error?.errorResponse?.errorDescription >> ${res?.error?.errorResponse?.errorDescription}");
-            HelperFunctions().commonErrorSnackBar(
+            helperFunctions.commonErrorSnackBar(
                 context,
                 res?.error?.errorResponse?.errorDescription ??
-                    MessageConstant().errorMessage.i18n());
+                    messageConstant.errorMessage.i18n());
           }
         }
       }
@@ -143,18 +145,18 @@ class LoginViewModel extends BaseViewModel {
         // Any logic that needs to be implemented after successful login.
         response?.data = LoginResponseModel.fromJson(response.completeResponse);
 
-        await HelperFunctions().storeToken(response?.data?.data?.token ?? "");
-        await HelperFunctions()
+        await helperFunctions.storeToken(response?.data?.data?.token ?? "");
+        await helperFunctions
             .storeRefreshToken(response?.data?.data?.refreshToken ?? "");
 
         if (context.mounted) {
-          await HelperFunctions().setLoginStatus(context, true);
+          await helperFunctions.setLoginStatus(context, true);
         }
       } else {
         // Any logic that needs to be implemented after un-successful login.
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
 
     state = ViewState.idle;
@@ -165,7 +167,7 @@ class LoginViewModel extends BaseViewModel {
   void changeDropdownValue(newValue) {
     changeDropdown = newValue;
     if (changeDropdown == null) {
-      userTypeDropdownError = MessageConstant().pleaseSelectDropdownValue;
+      userTypeDropdownError = messageConstant.pleaseSelectDropdownValue;
     }
     updateUI();
   }

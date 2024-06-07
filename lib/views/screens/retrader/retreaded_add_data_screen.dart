@@ -17,7 +17,8 @@ import 'package:flutter/services.dart';
 
 class RetreadedAddDataScreen extends StatelessWidget {
   final int? page;
-  const RetreadedAddDataScreen({super.key, this.page});
+  final AppColor appColor = AppColor();
+  RetreadedAddDataScreen({super.key, this.page});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor().white,
+                    color: appColor.white,
                   ),
                   child: CommonButtonWidget(
                     onPressed: () async {
@@ -64,11 +65,11 @@ class RetreadedAddDataScreen extends StatelessWidget {
                     },
                     height: 50,
                     label: viewModel.stringConstants.submitBtnLabel,
-                    color: AppColor().darkGreen,
+                    color: appColor.darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .labelSmall!
-                        .copyWith(color: AppColor().white),
+                        .copyWith(color: appColor.white),
                   ),
                 ),
               ]);
@@ -131,7 +132,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
           validator: (value) {
             return viewModel.dateValidation();
           },
-          disabledBgColor: AppColor().transparent,
+          disabledBgColor: appColor.transparent,
           onTap: () async {
             viewModel.date = await HelperFunctions()
                 .datePicker(context, viewModel.startDate);
@@ -211,7 +212,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
         isMandatory: true,
         controller: viewModel.typeOfRawMaterialController,
         isReadOnly: true,
-        disabledBgColor: AppColor().transparent,
+        disabledBgColor: appColor.transparent,
       ),
     );
   }
@@ -254,20 +255,19 @@ class RetreadedAddDataScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget showErrorMessage(BuildContext context, String message) {
-  return Align(
-    alignment: Alignment.centerLeft,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
-      child: CommonTextWidget(
-        message,
-        style: Theme.of(context)
-            .textTheme
-            .bodySmall
-            ?.copyWith(color: AppColor().red),
-      ),
-    ),
-  );
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+          child: CommonTextWidget(
+            message,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: AppColor().red),
+          ),
+        ));
+  }
 }

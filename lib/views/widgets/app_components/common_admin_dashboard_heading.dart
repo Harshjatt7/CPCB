@@ -3,7 +3,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CommonAdminDashboardHeading extends StatelessWidget {
-  const CommonAdminDashboardHeading({super.key});
+  final AppColor appColor=AppColor();
+   CommonAdminDashboardHeading({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CommonAdminDashboardHeading extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(color: AppColor().black80),
+                        .copyWith(color: appColor.black80),
                   )),
               Flexible(
                   flex: 2,
@@ -30,7 +31,7 @@ class CommonAdminDashboardHeading extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(color: AppColor().black80),
+                        .copyWith(color: appColor.black80),
                   )),
               Flexible(
                   flex: 2,
@@ -39,7 +40,7 @@ class CommonAdminDashboardHeading extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(color: AppColor().black80),
+                        .copyWith(color: appColor.black80),
                   )),
             ],
           ),

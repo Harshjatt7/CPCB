@@ -18,8 +18,10 @@ import '../../widgets/components/common_text_form_field_widget.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
-  final StringConstants stringConstants=StringConstants();
+  LoginScreen({super.key});
+  final StringConstants stringConstants = StringConstants();
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class LoginScreen extends StatelessWidget {
           return CustomScaffold(
             isLoading: viewmodel.state == ViewState.busy,
             showAppBar: false,
-            backgroundColor: AppColor().white,
+            backgroundColor: appColor.white,
             // resizeToBottomInset: false,
             body: SingleChildScrollView(
               child: Stack(
@@ -44,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                   CommonImageWidget(
                       width: Responsive().screenWidth(context),
                       height: Responsive().screenHeight(context),
-                      imageSource: ImageConstants().backgroundWatermark,
+                      imageSource: imageConstants.backgroundWatermark,
                       isNetworkImage: false),
                   formSection(viewmodel, context)
                 ],
@@ -71,9 +73,9 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 width: Responsive().screenWidth(context),
                 decoration: BoxDecoration(
-                    color: AppColor().white,
+                    color: appColor.white,
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColor().black10, width: 1.5)),
+                    border: Border.all(color: appColor.black10, width: 1.5)),
                 child: Column(
                   children: [
                     const SizedBox(
@@ -90,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                     CommonTextWidget(
                       stringConstants.enterEmailPasswordToLogin,
                       style: context.textThemeHelper.displayMedium?.copyWith(
-                          color: AppColor().black70,
+                          color: appColor.black70,
                           fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
@@ -157,15 +159,15 @@ class LoginScreen extends StatelessWidget {
                       },
                       label: stringConstants.loginBtnLabel,
                       color: viewmodel.isBtnEnabled
-                          ? AppColor().darkGreen
-                          : AppColor().black10,
+                          ? appColor.darkGreen
+                          : appColor.black10,
                       labelStyle: Theme.of(context)
                           .textTheme
                           .labelMedium
                           ?.copyWith(
                               color: viewmodel.isBtnEnabled
-                                  ? AppColor().white
-                                  : AppColor().darkBlue60),
+                                  ? appColor.white
+                                  : appColor.darkBlue60),
                     ),
                     const SizedBox(
                       height: 12,
@@ -178,7 +180,7 @@ class LoginScreen extends StatelessWidget {
                       child: CommonTextWidget(
                         stringConstants.forgotPassLabel,
                         style: context.textThemeHelper.displayMedium?.copyWith(
-                            color: AppColor().green,
+                            color: appColor.green,
                             fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -199,15 +201,15 @@ class LoginScreen extends StatelessWidget {
       width: 106,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: AppColor().white,
+          color: appColor.white,
           shape: BoxShape.circle,
-          border: Border.all(color: AppColor().green60, width: 0.8)),
+          border: Border.all(color: appColor.green60, width: 0.8)),
       child: CommonImageWidget(
           borderRadius: BorderRadius.zero,
           height: 72,
           width: 56,
-          bgColor: AppColor().transparent,
-          imageSource: ImageConstants().blueLogo,
+          bgColor: appColor.transparent,
+          imageSource: imageConstants.blueLogo,
           isNetworkImage: false),
     );
   }

@@ -9,7 +9,8 @@ class CommonDocumentField extends StatelessWidget {
   final String? fileName;
   final String label;
   final String? error;
-  const CommonDocumentField(
+  final AppColor appColor=AppColor();
+   CommonDocumentField(
       {super.key,
       required this.onTap,
       this.fileName,
@@ -24,7 +25,7 @@ class CommonDocumentField extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: AppColor().grey03)),
+              border: Border.all(color: appColor.grey03)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -36,14 +37,14 @@ class CommonDocumentField extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall
-                              ?.copyWith(color: AppColor().grey01)),
+                              ?.copyWith(color: appColor.grey01)),
                     ),
                     WidgetSpan(
                       child: CommonTextWidget(fileName == null ? " *" : "",
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall
-                              ?.copyWith(color: AppColor().red)),
+                              ?.copyWith(color: appColor.red)),
                     ),
                   ],
                 ),
@@ -66,7 +67,7 @@ class CommonDocumentField extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodySmall
-                  ?.copyWith(color: AppColor().red),
+                  ?.copyWith(color: appColor.red),
             ),
           ),
       ],

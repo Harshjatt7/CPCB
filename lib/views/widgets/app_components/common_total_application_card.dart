@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 class CommonTotalApplicationCard extends StatelessWidget {
   final String totalApplication;
   final void Function()? onTap;
-  const CommonTotalApplicationCard(
+  final ImageConstants imageConstants=ImageConstants();
+  final StringConstants stringConstants=StringConstants();
+  final AppColor appColor=AppColor();
+   CommonTotalApplicationCard(
       {super.key, required this.totalApplication, required this.onTap});
 
   @override
@@ -20,7 +23,7 @@ class CommonTotalApplicationCard extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: CommonTextWidget(
-              StringConstants().totalApplicationReceived,
+              stringConstants.totalApplicationReceived,
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
@@ -33,7 +36,7 @@ class CommonTotalApplicationCard extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 16),
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(ImageConstants().dashboardBackGround),
+                    image: AssetImage(imageConstants.dashboardBackGround),
                     fit: BoxFit.contain)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,13 +49,13 @@ class CommonTotalApplicationCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                              color: AppColor().darkGreen, width: 7)),
+                              color: appColor.darkGreen, width: 7)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 30, vertical: 30),
                       child: Column(
                         children: [
                           CommonImageWidget(
-                              imageSource: ImageConstants().statsIcon,
+                              imageSource: imageConstants.statsIcon,
                               isNetworkImage: false),
                           CommonTextWidget(
                             totalApplication,
@@ -61,10 +64,10 @@ class CommonTotalApplicationCard extends StatelessWidget {
                                 .textTheme
                                 .labelLarge!
                                 .copyWith(
-                                    fontSize: 32, color: AppColor().darkGreen),
+                                    fontSize: 32, color: appColor.darkGreen),
                           ),
                           CommonTextWidget(
-                            StringConstants().totalApplication,
+                            stringConstants.totalApplication,
                             maxLines: 1,
                             style: Theme.of(context).textTheme.bodySmall,
                           )

@@ -12,10 +12,11 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
-
 class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
- const ProfileScreen({super.key, this.isAdmin = false});
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor=AppColor();
+   ProfileScreen({super.key, this.isAdmin = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
         builder: (context, viewModel, child) {
           return CustomScaffold(
             isLoading: viewModel.state == ViewState.busy,
-            appBar: const CommonAppBar(
+            appBar:  CommonAppBar(
               isIconBar: true,
             ),
             body: CommonSingleChildScrollView(
@@ -41,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5)),
                         border: Border(
-                            bottom: BorderSide(color: AppColor().black10))),
+                            bottom: BorderSide(color: appColor.black10))),
                     child: CommonTextWidget(
                       viewModel.stringConstants.profileTitle,
                       style: Theme.of(context).textTheme.labelLarge,
@@ -56,8 +57,8 @@ class ProfileScreen extends StatelessWidget {
                       phoneNo: viewModel.data?.mobileNumber ?? ''),
                   if (isAdmin == false)
                     detailContainer(context, viewModel,
-                        backgroundColor: AppColor().darkBlue10,
-                        borderColor: AppColor().black20,
+                        backgroundColor: appColor.darkBlue10,
+                        borderColor: appColor.black20,
                         title:
                             viewModel.stringConstants.authorizedPersonDetails,
                         email: viewModel.data?.authorizedPersonEmailId ?? '',
@@ -67,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                   //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   //   child: ProducerListTile(
                   //     isBackgroundIcon: true,
-                  //       image: ImageConstants().person,
+                  //       image: imageConstants.person,
                   //       title: stringConstants.userType,
                   //       subtitle: viewModel.data?.userType ?? ""),
                   // ),
@@ -76,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                   //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   //   child: ProducerListTile(
                   //     isBackgroundIcon: true,
-                  //       image: ImageConstants().passKey,
+                  //       image: imageConstants.passKey,
                   //       title: stringConstants.currentStatus,
                   //       subtitle: viewModel.data?.state ?? ""),
                   // ),
@@ -85,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: CommonButtonWidget(
                       label: viewModel.stringConstants.logOut,
-                      color: AppColor().darkGreen,
+                      color: appColor.darkGreen,
                       onPressed: () {
                         viewModel.clearAppData(context);
                       },
@@ -110,9 +111,9 @@ class ProfileScreen extends StatelessWidget {
         width: Responsive().screenHeight(context),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-            border: Border.all(color: borderColor ?? AppColor().transparent),
+            border: Border.all(color: borderColor ?? appColor.transparent),
             borderRadius: const BorderRadius.all(Radius.circular(5)),
-            color: backgroundColor ?? AppColor().green10),
+            color: backgroundColor ?? appColor.green10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -121,14 +122,14 @@ class ProfileScreen extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
-                  .copyWith(color: AppColor().black01),
+                  .copyWith(color: appColor.black01),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
                   CommonImageWidget(
-                      imageSource: ImageConstants().mail,
+                      imageSource: imageConstants.mail,
                       isNetworkImage: false),
                   const SizedBox(
                     width: 8,
@@ -138,7 +139,7 @@ class ProfileScreen extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall!
-                        .copyWith(color: AppColor().black01),
+                        .copyWith(color: appColor.black01),
                   ),
                   const SizedBox(
                     width: 4,
@@ -148,7 +149,7 @@ class ProfileScreen extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(color: AppColor().black01),
+                        .copyWith(color: appColor.black01),
                   ),
                 ],
               ),
@@ -156,7 +157,7 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 CommonImageWidget(
-                    imageSource: ImageConstants().phoneNo,
+                    imageSource: imageConstants.phoneNo,
                     isNetworkImage: false),
                 const SizedBox(
                   width: 8,
@@ -166,7 +167,7 @@ class ProfileScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!
-                      .copyWith(color: AppColor().black01),
+                      .copyWith(color: appColor.black01),
                 ),
                 const SizedBox(
                   width: 4,
@@ -176,7 +177,7 @@ class ProfileScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium!
-                      .copyWith(color: AppColor().black01),
+                      .copyWith(color: appColor.black01),
                 ),
               ],
             )

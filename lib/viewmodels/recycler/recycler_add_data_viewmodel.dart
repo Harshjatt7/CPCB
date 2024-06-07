@@ -16,7 +16,9 @@ import '../material_app_viewmodel.dart';
 class RecyclerAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final _recyclerRepo = RecyclerRepository();
-  StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final MessageConstant messageConstant = MessageConstant();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   String? yearDropdownError;
   String? changeDropdown;
@@ -85,7 +87,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     updateUI();
     if (changeDropdown == null) {
       tyreOfRecyclerMaterialDropdownError =
-          MessageConstant().mandatoryTypeRawMaterial;
+          messageConstant.mandatoryTypeRawMaterial;
     }
   }
 
@@ -100,20 +102,20 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
     updateUI();
     if (financialYearDropdownValue == null) {
-      yearDropdownError = MessageConstant().mandatoryFinancialYear;
+      yearDropdownError = messageConstant.mandatoryFinancialYear;
     }
   }
 
   void dateTimeConvert() {
     if (date != null) {
-      dateController.text = HelperFunctions().getFormattedDate(date: date!);
+      dateController.text = helperFunctions.getFormattedDate(date: date!);
     }
-    HelperFunctions().logger(dateController.text);
+    helperFunctions.logger(dateController.text);
   }
 
   String? quantityProcessedValidation() {
     if (quantityProcessedController.text.isEmpty) {
-      return MessageConstant().quantityProcessed;
+      return messageConstant.quantityProcessed;
     }
     return null;
   }
@@ -128,7 +130,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
 
   String? quantityOfWasteGeneratedValidation() {
     if (quantityOfWasteGeneratedController.text.isEmpty) {
-      return MessageConstant().mandatoryToAddWasteGenerated;
+      return messageConstant.mandatoryToAddWasteGenerated;
     }
     return null;
   }
@@ -143,7 +145,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
 
   String? quantityProducedValidation() {
     if (quantityProducedController.text.isEmpty) {
-      return MessageConstant().mandatoryToAddQuantityProduced;
+      return messageConstant.mandatoryToAddQuantityProduced;
     }
     return null;
   }
@@ -187,8 +189,8 @@ class RecyclerAddDataViewModel extends BaseViewModel {
         res?.data = AddDataResponseModel.fromJson(res.completeResponse);
         state = ViewState.idle;
         if (context.mounted) {
-          HelperFunctions().commonSuccessSnackBar(context,
-              res?.data?.message ?? MessageConstant().successfullySubmitted);
+          helperFunctions.commonSuccessSnackBar(context,
+              res?.data?.message ?? messageConstant.successfullySubmitted);
           MaterialAppViewModel.selectedPageIndex = 2;
           Navigator.pushNamedAndRemoveUntil(
               context,
@@ -240,7 +242,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
       }
     } catch (e) {
       if (context.mounted) {
-        HelperFunctions().commonErrorSnackBar(context, '');
+        helperFunctions.commonErrorSnackBar(context, '');
       }
     }
     return res;

@@ -15,7 +15,8 @@ import 'package:flutter/material.dart';
 import '../../widgets/app_components/recycler_procurement_container.dart';
 
 class RecyclerProcurementDataScreen extends StatelessWidget {
-  const RecyclerProcurementDataScreen({super.key});
+  final AppColor appColor=AppColor();
+   RecyclerProcurementDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: AppColor().black10,
+                          color: appColor.black10,
                         ),
                       ),
                     ),
@@ -132,11 +133,11 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                       context, AppRoutes.recyclerProcurementAddDataScreenRoute);
                 },
                 label: viewModel.stringConstants.addProcurementButton,
-                color: AppColor().darkGreen,
+                color: appColor.darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme
                     .labelSmall!
-                    .copyWith(color: AppColor().white),
+                    .copyWith(color: appColor.white),
               ),
             ),
           ],

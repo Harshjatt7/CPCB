@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
 
 class Validations {
+  final MessageConstant messageConstant=MessageConstant();
   final RegExp passRegex =
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
 
@@ -16,7 +17,7 @@ class Validations {
     RegExp regex = RegExp(r'^[A-Za-z ]+$');
 
     if (value.isEmpty) {
-      return MessageConstant().pleaseProvideValue;
+      return messageConstant.pleaseProvideValue;
     } else {
       if (!regex.hasMatch(value)) {
         return 'Enter valid name';
@@ -30,7 +31,7 @@ class Validations {
     RegExp regex = RegExp(r'^([a-zA-z0-9/\\' '(),-\\s]{2,255})\$');
 
     if (value.isEmpty) {
-      return MessageConstant().pleaseProvideValue;
+      return messageConstant.pleaseProvideValue;
     } else {
       if (!regex.hasMatch(value)) {
         return 'Enter valid address';

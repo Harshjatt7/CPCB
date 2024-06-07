@@ -20,6 +20,10 @@ import '../../theme/app_color.dart';
 import '../../viewmodels/material_app_viewmodel.dart';
 
 class HelperFunctions {
+  final ImageConstants imageConstants = ImageConstants();
+  final StoreKeyConstants storeKeyConstants = StoreKeyConstants();
+  final AppColor appColor = AppColor();
+
   /// [logger] method will be used to log anything in console in debug mode.
   void logger(String message) {
     if (kDebugMode) {
@@ -42,9 +46,9 @@ class HelperFunctions {
   ]) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: backgroundColor ?? AppColor().snackbarBlueBackground,
+      backgroundColor: backgroundColor ?? appColor.snackbarBlueBackground,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: borderColor ?? AppColor().snackbarBlueBorder),
+        side: BorderSide(color: borderColor ?? appColor.snackbarBlueBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -53,18 +57,18 @@ class HelperFunctions {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: outerBorderColor ?? AppColor().snackbarBlueOuterBorder,
+              color: outerBorderColor ?? appColor.snackbarBlueOuterBorder,
               shape: BoxShape.circle,
             ),
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: innerBorderColor ?? AppColor().snackbarBlueInnerBorder,
+                color: innerBorderColor ?? appColor.snackbarBlueInnerBorder,
                 shape: BoxShape.circle,
               ),
               child: CommonImageWidget(
-                imageColor: iconColor ?? AppColor().snackbarBlueIconColor,
-                imageSource: ImageConstants().informationalIcon,
+                imageColor: iconColor ?? appColor.snackbarBlueIconColor,
+                imageSource: imageConstants.informationalIcon,
                 isNetworkImage: false,
               ),
             ),
@@ -74,14 +78,14 @@ class HelperFunctions {
             flex: 8,
             child: CommonTextWidget(message,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    color: textColor ?? AppColor().snackbarBlueContentColor)),
+                    color: textColor ?? appColor.snackbarBlueContentColor)),
           ),
           const Spacer(),
           IconButton(
             icon: CommonImageWidget(
-              imageSource: ImageConstants().closeX,
+              imageSource: imageConstants.closeX,
               isNetworkImage: false,
-              imageColor: closeIconColor ?? AppColor().snackbarBlueContentColor,
+              imageColor: closeIconColor ?? appColor.snackbarBlueContentColor,
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -100,9 +104,9 @@ class HelperFunctions {
   ) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: AppColor().snackbarBlueBackground,
+      backgroundColor: appColor.snackbarBlueBackground,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: AppColor().snackbarBlueBorder),
+        side: BorderSide(color: appColor.snackbarBlueBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -111,18 +115,18 @@ class HelperFunctions {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: AppColor().snackbarBlueOuterBorder,
+              color: appColor.snackbarBlueOuterBorder,
               shape: BoxShape.circle,
             ),
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: AppColor().snackbarBlueInnerBorder,
+                color: appColor.snackbarBlueInnerBorder,
                 shape: BoxShape.circle,
               ),
               child: CommonImageWidget(
-                imageColor: AppColor().snackbarBlueIconColor,
-                imageSource: ImageConstants().informationalIcon,
+                imageColor: appColor.snackbarBlueIconColor,
+                imageSource: imageConstants.informationalIcon,
                 isNetworkImage: false,
               ),
             ),
@@ -134,14 +138,14 @@ class HelperFunctions {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(color: AppColor().snackbarBlueContentColor)),
+                    ?.copyWith(color: appColor.snackbarBlueContentColor)),
           ),
           const Spacer(),
           IconButton(
             icon: CommonImageWidget(
-              imageSource: ImageConstants().closeX,
+              imageSource: imageConstants.closeX,
               isNetworkImage: false,
-              imageColor: AppColor().snackbarBlueContentColor,
+              imageColor: appColor.snackbarBlueContentColor,
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -157,9 +161,9 @@ class HelperFunctions {
       BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: AppColor().snackbarRedBackground,
+      backgroundColor: appColor.snackbarRedBackground,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: AppColor().snackbarRedBorder),
+        side: BorderSide(color: appColor.snackbarRedBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -168,18 +172,18 @@ class HelperFunctions {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: AppColor().snackbarRedOuterBorder,
+              color: appColor.snackbarRedOuterBorder,
               shape: BoxShape.circle,
             ),
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: AppColor().snackbarRedInnerBorder,
+                color: appColor.snackbarRedInnerBorder,
                 shape: BoxShape.circle,
               ),
               child: CommonImageWidget(
-                imageColor: AppColor().snackbarRedContentColor,
-                imageSource: ImageConstants().informationalIcon,
+                imageColor: appColor.snackbarRedContentColor,
+                imageSource: imageConstants.informationalIcon,
                 isNetworkImage: false,
               ),
             ),
@@ -191,14 +195,14 @@ class HelperFunctions {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(color: AppColor().snackbarRedContentColor)),
+                    ?.copyWith(color: appColor.snackbarRedContentColor)),
           ),
           const Spacer(),
           IconButton(
             icon: CommonImageWidget(
-              imageSource: ImageConstants().closeX,
+              imageSource: imageConstants.closeX,
               isNetworkImage: false,
-              imageColor: AppColor().snackbarRedContentColor,
+              imageColor: appColor.snackbarRedContentColor,
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -214,9 +218,9 @@ class HelperFunctions {
       commonWarningSnackBar(BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: AppColor().snackbarYellowBackground,
+      backgroundColor: appColor.snackbarYellowBackground,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: AppColor().snackbarYellowBorder),
+        side: BorderSide(color: appColor.snackbarYellowBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -225,18 +229,18 @@ class HelperFunctions {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: AppColor().snackbarYellowOuterBorder,
+              color: appColor.snackbarYellowOuterBorder,
               shape: BoxShape.circle,
             ),
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: AppColor().snackbarYellowInnerBorder,
+                color: appColor.snackbarYellowInnerBorder,
                 shape: BoxShape.circle,
               ),
               child: CommonImageWidget(
-                imageColor: AppColor().snackbarYellowIconColor,
-                imageSource: ImageConstants().informationalIcon,
+                imageColor: appColor.snackbarYellowIconColor,
+                imageSource: imageConstants.informationalIcon,
                 isNetworkImage: false,
               ),
             ),
@@ -248,14 +252,14 @@ class HelperFunctions {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(color: AppColor().snackbarYellowContentColor)),
+                    ?.copyWith(color: appColor.snackbarYellowContentColor)),
           ),
           const Spacer(),
           IconButton(
             icon: CommonImageWidget(
-              imageSource: ImageConstants().closeX,
+              imageSource: imageConstants.closeX,
               isNetworkImage: false,
-              imageColor: AppColor().snackbarYellowRemoveIcon,
+              imageColor: appColor.snackbarYellowRemoveIcon,
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -271,9 +275,9 @@ class HelperFunctions {
       commonSuccessSnackBar(BuildContext context, String message) {
     return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: AppColor().snackbarGreenBackground,
+      backgroundColor: appColor.snackbarGreenBackground,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: AppColor().snackbarGreenBorder),
+        side: BorderSide(color: appColor.snackbarGreenBorder),
         borderRadius: BorderRadius.circular(5),
       ),
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
@@ -282,18 +286,18 @@ class HelperFunctions {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: AppColor().snackbarGreenOuterBorder,
+              color: appColor.snackbarGreenOuterBorder,
               shape: BoxShape.circle,
             ),
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: AppColor().snackbarGreenBackground,
+                color: appColor.snackbarGreenBackground,
                 shape: BoxShape.circle,
               ),
               child: CommonImageWidget(
-                imageColor: AppColor().snackbarGreenContentColor,
-                imageSource: ImageConstants().informationalIcon,
+                imageColor: appColor.snackbarGreenContentColor,
+                imageSource: imageConstants.informationalIcon,
                 isNetworkImage: false,
               ),
             ),
@@ -305,14 +309,14 @@ class HelperFunctions {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(color: AppColor().snackbarGreenContentColor)),
+                    ?.copyWith(color: appColor.snackbarGreenContentColor)),
           ),
           const Spacer(),
           IconButton(
             icon: CommonImageWidget(
-              imageSource: ImageConstants().closeX,
+              imageSource: imageConstants.closeX,
               isNetworkImage: false,
-              imageColor: AppColor().snackbarGreenContentColor,
+              imageColor: appColor.snackbarGreenContentColor,
             ),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -326,7 +330,7 @@ class HelperFunctions {
   /// [setUserType] is a method to store user type in keychain
   Future<void> setUserType(String userType, BuildContext context) async {
     await SecureStorage.instance
-        .storeSensitiveInfo(StoreKeyConstants().userType, userType);
+        .storeSensitiveInfo(storeKeyConstants.userType, userType);
     if (context.mounted) {
       context.globalProvider.userType = userType;
       switch (userType) {
@@ -361,7 +365,7 @@ class HelperFunctions {
   /// [setLoginStatus] is a method to set login status in keychain
   Future<void> setLoginStatus(BuildContext context, bool value) async {
     await SecureStorage.instance
-        .storeSensitiveInfo(StoreKeyConstants().isLogin, value);
+        .storeSensitiveInfo(storeKeyConstants.isLogin, value);
 
     if (context.mounted) {
       context.globalProvider.isLogin = value;
@@ -371,7 +375,7 @@ class HelperFunctions {
   /// [getLoginStatus] is a method to get login status from keychain
   Future<void> getLoginStatus(BuildContext context) async {
     bool isLogin = await SecureStorage.instance
-            .getSensitiveInfo(StoreKeyConstants().isLogin) ??
+            .getSensitiveInfo(storeKeyConstants.isLogin) ??
         false;
 
     if (context.mounted) {
@@ -382,7 +386,7 @@ class HelperFunctions {
   /// [getUserType] is a method to store user type in keychain
   Future<void> getUserType(BuildContext context) async {
     String userType = await SecureStorage.instance
-            .getSensitiveInfo(StoreKeyConstants().userType) ??
+            .getSensitiveInfo(storeKeyConstants.userType) ??
         "";
 
     if (context.mounted) {
@@ -423,7 +427,7 @@ class HelperFunctions {
   /// [storeToken] is a method to store login token.
   Future<void> storeToken(String value) async {
     await SecureStorage.instance
-        .storeSensitiveInfo(StoreKeyConstants().token, value);
+        .storeSensitiveInfo(storeKeyConstants.token, value);
 
     MaterialAppViewModel.token = value;
   }
@@ -431,15 +435,15 @@ class HelperFunctions {
   /// [storeRefreshToken] is a method to store login token.
   Future<void> storeRefreshToken(String value) async {
     await SecureStorage.instance
-        .storeSensitiveInfo(StoreKeyConstants().refreshToken, value);
+        .storeSensitiveInfo(storeKeyConstants.refreshToken, value);
 
     MaterialAppViewModel.refreshToken = value;
   }
 
   /// [getToken] is a method to store login token.
   Future<void> getToken() async {
-    String value = await SecureStorage.instance
-        .getSensitiveInfo(StoreKeyConstants().token);
+    String value =
+        await SecureStorage.instance.getSensitiveInfo(storeKeyConstants.token);
 
     MaterialAppViewModel.token = value;
   }
@@ -447,7 +451,7 @@ class HelperFunctions {
   /// [getRefreshToken] is a method to store login token.
   Future<void> getRefreshToken() async {
     String value = await SecureStorage.instance
-        .getSensitiveInfo(StoreKeyConstants().refreshToken);
+        .getSensitiveInfo(storeKeyConstants.refreshToken);
 
     MaterialAppViewModel.refreshToken = value;
   }
@@ -486,29 +490,29 @@ class HelperFunctions {
           return Theme(
               data: Theme.of(context).copyWith(
                 colorScheme: ColorScheme.light(
-                    onPrimary: AppColor().white, // selected text color
-                    onSurface: AppColor().darkGreen, // default text color
-                    primary: AppColor().darkGreen // circle color
+                    onPrimary: appColor.white, // selected text color
+                    onSurface: appColor.darkGreen, // default text color
+                    primary: appColor.darkGreen // circle color
                     ),
                 textButtonTheme: TextButtonThemeData(
                     style: TextButton.styleFrom(
-                        foregroundColor: AppColor().darkGreen,
+                        foregroundColor: appColor.darkGreen,
                         textStyle: Theme.of(context)
                             .textTheme
                             .displaySmall!
                             .copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: AppColor()
+                                color: appColor
                                     .white), // color of button's letters
 
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
-                                color: AppColor().transparent,
+                                color: appColor.transparent,
                                 width: 1,
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(12)))),
                 dialogTheme: DialogTheme(
-                    backgroundColor: AppColor().white,
+                    backgroundColor: appColor.white,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12)))),
               ),

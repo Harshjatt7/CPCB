@@ -22,7 +22,9 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
-  StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final MessageConstant messageConstant = MessageConstant();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   String? financialYearDropdownValue;
   String? rawMaterialDropdownValue;
@@ -84,7 +86,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
       fileName = file.path.split('/').last;
       updateUI();
     } else {
-      fileError = MessageConstant().pleaseSelectFile;
+      fileError = messageConstant.pleaseSelectFile;
       updateUI();
     }
     return result;
@@ -92,9 +94,9 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
 
   void dateTimeConvert() {
     if (date != null) {
-      dateController.text = HelperFunctions().getFormattedDate(date: date!);
+      dateController.text = helperFunctions.getFormattedDate(date: date!);
     }
-    HelperFunctions().logger(dateController.text);
+    helperFunctions.logger(dateController.text);
   }
 
   String? contactDetailsValidation() {
@@ -172,10 +174,10 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
         }
         tyreSource.addAll(_recyclerResponseModel?.data?.data?.tyreSource ?? []);
       } else {
-        HelperFunctions().logger(MessageConstant().somethingWentWrong);
+        helperFunctions.logger(messageConstant.somethingWentWrong);
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _recyclerResponseModel;
@@ -211,7 +213,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           if (context.mounted) {
             state = ViewState.idle;
 
-            HelperFunctions()
+            helperFunctions
                 .commonSuccessSnackBar(context, response?.data?.message ?? "");
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
@@ -256,11 +258,11 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
               : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        HelperFunctions()
-            .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
+        helperFunctions
+            .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
       }
     } catch (e) {
-      HelperFunctions().logger('$e');
+      helperFunctions.logger('$e');
     }
     state = ViewState.idle;
   }
@@ -309,7 +311,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     }
     updateUI();
     if (financialYearDropdownValue == null) {
-      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
+      yearDropdownError = messageConstant.pleaseSelectDropdownValue;
     }
   }
 
@@ -317,7 +319,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     rawMaterialDropdownValue = newValue;
     updateUI();
     if (changeDropdown == null) {
-      rawMaterialDropdownError = MessageConstant().mandatoryTypeRawMaterial;
+      rawMaterialDropdownError = messageConstant.mandatoryTypeRawMaterial;
     }
   }
 
@@ -326,7 +328,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     updateUI();
     if (changeDropdown == null) {
       tyreSourceDropdownError =
-          MessageConstant().mandatoryTypeRawMaterial; //to change
+          messageConstant.mandatoryTypeRawMaterial; //to change
     }
   }
 
@@ -340,7 +342,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     }
     updateUI();
     if (financialYearDropdownValue == null) {
-      yearDropdownError = MessageConstant().mandatoryFinancialYear;
+      yearDropdownError = messageConstant.mandatoryFinancialYear;
     }
   }
 
@@ -351,7 +353,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
 
   String? valueValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
-      return MessageConstant().pleaseProvideValue;
+      return messageConstant.pleaseProvideValue;
     } else {
       return null;
     }
@@ -367,11 +369,11 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
 
   String? uploadInvoiceValidation() {
     if (uploadInvoiceController.text.isEmpty) {
-      return MessageConstant().pleaseUploadInvoice;
+      return messageConstant.pleaseUploadInvoice;
     }
     if (fileSizeModel?.fileSize.contains("MB") ?? false) {
       if (fileSizeModel!.fileSizeNum > 2.0) {
-        return MessageConstant().maxFileSize;
+        return messageConstant.maxFileSize;
       }
     }
     return null;

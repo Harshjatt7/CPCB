@@ -8,17 +8,19 @@ import '../../widgets/components/common_image_widget.dart';
 import 'admin_dashboard_screen.dart';
 
 class AdminHomeScreen extends StatelessWidget {
-  const AdminHomeScreen({super.key});
+  AdminHomeScreen({super.key});
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
     return CommonScreenWithBottomNavigationBar(
       bottomNavBarItems: [
-        bottomNavigationBarWidget(imgSrc: ImageConstants().homeTabIcon),
-        bottomNavigationBarWidget(imgSrc: ImageConstants().profileTabIcon)
+        bottomNavigationBarWidget(imgSrc: imageConstants.homeTabIcon),
+        bottomNavigationBarWidget(imgSrc: imageConstants.profileTabIcon)
       ],
-      screens: const[
-         AdminDashboardScreen(),
+      screens:  [
+        const AdminDashboardScreen(),
         ProfileScreen(
           isAdmin: true,
         )
@@ -34,13 +36,13 @@ class AdminHomeScreen extends StatelessWidget {
           activeIcon: CommonImageWidget(
               height: 20,
               width: 20,
-              imageColor: AppColor().darkGreen,
+              imageColor: appColor.darkGreen,
               imageSource: imgSrc,
               isNetworkImage: false),
           icon: CommonImageWidget(
               height: 20,
               width: 20,
-              imageColor: AppColor().black20,
+              imageColor: appColor.black20,
               imageSource: imgSrc,
               isNetworkImage: false));
 }

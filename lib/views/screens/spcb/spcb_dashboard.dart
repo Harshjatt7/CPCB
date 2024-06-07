@@ -22,7 +22,6 @@ class SpcbDashboardScreen extends StatelessWidget {
           return CustomScaffold(
               appBar: spcbAppBar(context, viewModel),
               body: spcbBody(viewModel));
-              
         },
         onModelReady: (viewModel) {},
         viewModel: SpcbDashboardViewModel());
@@ -36,7 +35,7 @@ class SpcbDashboardScreen extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            const CommonAppBar(
+            CommonAppBar(
               isIconBar: true,
             ),
             Container(

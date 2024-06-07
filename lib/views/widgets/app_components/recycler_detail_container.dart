@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
 class RecyclerDetailsContainer extends StatelessWidget {
-  const RecyclerDetailsContainer(
+  RecyclerDetailsContainer(
       {super.key,
       required this.name,
       this.contactDetails,
@@ -33,13 +33,16 @@ class RecyclerDetailsContainer extends StatelessWidget {
   final String? date;
   final String? year;
   final bool? isRetraderContainer;
+  final ImageConstants imageConstants = ImageConstants();
+  final StringConstants stringConstants = StringConstants();
+  final AppColor appColor = AppColor();
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColor().black10),
+        border: Border.all(color: appColor.black10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,22 +51,22 @@ class RecyclerDetailsContainer extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .displayMedium
-                  ?.copyWith(color: AppColor().black)),
+                  ?.copyWith(color: appColor.black)),
           const SizedBox(
             height: 6,
           ),
           retraderDetailsCard(context,
-              "${StringConstants().contactDetailLabel.i18n()} ${contactDetails ?? ''}"),
+              "${stringConstants.contactDetailLabel.i18n()} ${contactDetails ?? ''}"),
           retraderDetailsCard(context,
-              "${StringConstants().qtyProcessedLabel.i18n()} ${qtyProcessed ?? ''}"),
+              "${stringConstants.qtyProcessedLabel.i18n()} ${qtyProcessed ?? ''}"),
           retraderDetailsCard(context,
-              "${StringConstants().qtyProducedLabel.i18n()} ${qtyProduced ?? ''}"),
+              "${stringConstants.qtyProducedLabel.i18n()} ${qtyProduced ?? ''}"),
           retraderDetailsCard(context,
-              "${StringConstants().qtyWasteLabel.i18n()} ${wasteQty ?? ''}"),
+              "${stringConstants.qtyWasteLabel.i18n()} ${wasteQty ?? ''}"),
           retraderDetailsCard(context,
-              "${StringConstants().typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
+              "${stringConstants.typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
           Divider(
-            color: AppColor().black10,
+            color: appColor.black10,
           ),
           Row(
             children: [
@@ -72,14 +75,14 @@ class RecyclerDetailsContainer extends StatelessWidget {
                 child: Row(
                   children: [
                     CommonImageWidget(
-                      imageSource: ImageConstants().calendarIcon,
+                      imageSource: imageConstants.calendarIcon,
                       isNetworkImage: false,
                     ),
                     const SizedBox(
                       width: 4,
                     ),
                     retraderDetailsCard(context,
-                        '${StringConstants().dateLabel.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                        '${stringConstants.dateLabel.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                   ],
                 ),
               ),
@@ -88,7 +91,7 @@ class RecyclerDetailsContainer extends StatelessWidget {
                 child: Row(
                   children: [
                     CommonImageWidget(
-                      imageSource: ImageConstants().calendarIcon,
+                      imageSource: imageConstants.calendarIcon,
                       isNetworkImage: false,
                     ),
                     const SizedBox(
@@ -104,15 +107,15 @@ class RecyclerDetailsContainer extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget retraderDetailsCard(BuildContext context, String text) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 2),
-    child: CommonTextWidget(text,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: AppColor().black40)),
-  );
+  Widget retraderDetailsCard(BuildContext context, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: CommonTextWidget(text,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: appColor.black40)),
+    );
+  }
 }

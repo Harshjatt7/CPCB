@@ -13,8 +13,9 @@ class CommonButtonWidget extends StatelessWidget {
   final TextStyle? labelStyle;
   final double? height;
   final String? imageSrc;
+  final AppColor appColor=AppColor();
 
-  const CommonButtonWidget(
+   CommonButtonWidget(
       {super.key,
       this.onPressed,
       required this.label,
@@ -32,10 +33,10 @@ class CommonButtonWidget extends StatelessWidget {
       child: TextButton(
           onPressed: onPressed,
           style: TextButton.styleFrom(
-              backgroundColor: color ?? AppColor().black,
+              backgroundColor: color ?? appColor.black,
               shape: RoundedRectangleBorder(
                   side: BorderSide(
-                      color: borderColor ?? AppColor().transparent, width: 1),
+                      color: borderColor ?? appColor.transparent, width: 1),
                   borderRadius:
                       BorderRadius.all(Radius.circular(radius ?? 5)))),
           child: Row(
@@ -50,7 +51,7 @@ class CommonButtonWidget extends StatelessWidget {
               if (imageSrc != null)
                 CommonImageWidget(
                     imageSource: imageSrc!,
-                    imageColor: AppColor().white,
+                    imageColor: appColor.white,
                     isNetworkImage: false),
               if (imageSrc != null)
                 const SizedBox(
@@ -60,7 +61,7 @@ class CommonButtonWidget extends StatelessWidget {
                 label,
                 style: labelStyle ??
                     Theme.of(context).textTheme.displayLarge!.copyWith(
-                        color: AppColor().white, fontWeight: FontWeight.w600),
+                        color: appColor.white, fontWeight: FontWeight.w600),
               ),
             ],
           )),

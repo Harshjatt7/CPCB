@@ -17,6 +17,8 @@ class AdminProducerTab extends StatelessWidget {
       required this.producerData,
       required this.producerEprOblicationsData});
   final StringConstants stringConstants = StringConstants();
+  final HelperFunctions helperFunctions=HelperFunctions();
+  final AppColor appColor=AppColor();
   final EPRApplicationData? producerData;
   final EprOblicationsData? producerEprOblicationsData;
   
@@ -31,28 +33,28 @@ class AdminProducerTab extends StatelessWidget {
               StringConstants.producer),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreManufacturers,
-              count: HelperFunctions().precisionFormat(
+              count: helperFunctions.precisionFormat(
                   producerEprOblicationsData?.newTyreManufacturers)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreProducedDomestically,
-              count: HelperFunctions().precisionFormat(
+              count: helperFunctions.precisionFormat(
                   producerEprOblicationsData?.newTyreProducedDomestically)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreImported,
-              count: HelperFunctions().precisionFormat(
+              count: helperFunctions.precisionFormat(
                   producerEprOblicationsData?.newTyreImported)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreImportedAndImportedVehicles,
-              count: HelperFunctions().precisionFormat(
+              count: helperFunctions.precisionFormat(
                   producerEprOblicationsData
                       ?.newTyreImportedAndImportedVehicles)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreImportedExclusively,
-              count: HelperFunctions().precisionFormat(producerEprOblicationsData
+              count: helperFunctions.precisionFormat(producerEprOblicationsData
                   ?.newTyreImportedExclusivelyForNewVehiclesManufacturedDomestically)),
           CommonEPROblicationsTile(
               title: stringConstants.wasteTyreImporter,
-              count: HelperFunctions().precisionFormat(
+              count: helperFunctions.precisionFormat(
                   producerEprOblicationsData?.wasteTyreImported)),
           CommonTotalApplicationCard(
             totalApplication: "${producerData?.applications ?? ''}",
@@ -85,7 +87,7 @@ class AdminProducerTab extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium!
-                    .copyWith(color: AppColor().black80),
+                    .copyWith(color: appColor.black80),
               )),
           Flexible(
               flex: 1,
@@ -94,7 +96,7 @@ class AdminProducerTab extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium!
-                    .copyWith(color: AppColor().black80),
+                    .copyWith(color: appColor.black80),
               )),
         ],
       ),

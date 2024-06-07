@@ -12,12 +12,12 @@ import 'package:cpcb_tyre/views/widgets/components/download_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/enums/state_enums.dart';
 import '../../../constants/message_constant.dart';
-import '../../../constants/string_constant.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class AdminApplicationReceivedScreen extends StatelessWidget {
   final String? userType;
-  const AdminApplicationReceivedScreen({super.key, this.userType});
+  final HelperFunctions helperFunctions = HelperFunctions();
+  AdminApplicationReceivedScreen({super.key, this.userType});
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +71,8 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                               applicationStatus: applicationData?.status,
                               applicationTitle: applicationData?.companyName,
                               markedTo: applicationData?.markedTo,
-                              lastMarked: HelperFunctions().getFormattedDate(
-                                  dtstr: applicationData?.lastMarked),
-                              date: HelperFunctions().getFormattedDate(
+                              lastMarked: applicationData?.lastMarked,
+                              date: helperFunctions.getFormattedDate(
                                   date: applicationData?.lastReceived),
                             ),
                           );
@@ -111,7 +110,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
             }
             await viewModel.getDownloadApplication(
                 context, applicationData?.id ?? '');
-            HelperFunctions().logger(applicationData?.id ?? '');
+            helperFunctions.logger(applicationData?.id ?? '');
           },
         );
       },
@@ -134,8 +133,8 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
               isIconBar: true,
               showNotificationIcon: false,
               image: ImageConstants().avatar,
-              name: StringConstants().name,
-              designation: StringConstants().userType,
+              name: viewModel.stringConstants.name,
+              designation: viewModel.stringConstants.userType,
             ),
             Container(
               decoration: BoxDecoration(
@@ -150,7 +149,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                 isBackButton: true,
                 isSearchExpanded: viewModel.isSearchExpanded,
                 controller: viewModel.searchController,
-                hintText: StringConstants().searchHere,
+                hintText: viewModel.stringConstants.searchHere,
                 onChanged: (value) async {
                   viewModel.isSearchExpanded = true;
                   viewModel.searchRetreader(value, userType ?? "");
@@ -158,7 +157,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                     viewModel.getUpdatedList();
                   }
                 },
-                title: StringConstants().applicationReceived,
+                title: viewModel.stringConstants.applicationReceived,
                 onSuffixTap: () {
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.isSearchExpanded = !viewModel.isSearchExpanded;

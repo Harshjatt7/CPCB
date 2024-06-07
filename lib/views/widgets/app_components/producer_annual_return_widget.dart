@@ -6,7 +6,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProducerAnnualReturnWidget extends StatelessWidget {
-  const ProducerAnnualReturnWidget(
+  ProducerAnnualReturnWidget(
       {super.key,
       required this.title,
       required this.date,
@@ -16,13 +16,15 @@ class ProducerAnnualReturnWidget extends StatelessWidget {
   final String date;
   final String status;
   final String fillingDate;
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColor().black10),
+        border: Border.all(color: appColor.black10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +37,7 @@ class ProducerAnnualReturnWidget extends StatelessWidget {
             ),
           ),
           Divider(
-            color: AppColor().black10,
+            color: appColor.black10,
           ),
           Padding(
             padding: const EdgeInsets.all(20),
@@ -48,7 +50,7 @@ class ProducerAnnualReturnWidget extends StatelessWidget {
                     Flexible(
                       flex: 2,
                       child: CommonImageWidget(
-                        imageSource: ImageConstants().document,
+                        imageSource: imageConstants.document,
                         isNetworkImage: false,
                       ),
                     ),
@@ -60,15 +62,15 @@ class ProducerAnnualReturnWidget extends StatelessWidget {
                           ProducerEnvironmentTile(
                               title: "DueDate",
                               subtitle: date,
-                              image: ImageConstants().calendar),
+                              image: imageConstants.calendar),
                           const SizedBox(
                             height: 12,
                           ),
                           ProducerEnvironmentTile(
                             title: "Current Status",
                             subtitle: status,
-                            image: ImageConstants().environmentInfo,
-                            subtitleColor: AppColor().orange,
+                            image: imageConstants.environmentInfo,
+                            subtitleColor: appColor.orange,
                           ),
                           const SizedBox(
                             height: 12,
@@ -76,7 +78,7 @@ class ProducerAnnualReturnWidget extends StatelessWidget {
                           ProducerEnvironmentTile(
                             title: "Date of Annual Return Filling",
                             subtitle: fillingDate,
-                            image: ImageConstants().calendar,
+                            image: imageConstants.calendar,
                           ),
                         ]),
                       ),

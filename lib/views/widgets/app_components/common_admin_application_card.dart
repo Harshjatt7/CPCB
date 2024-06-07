@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
 class CommonAdminApplicationCard extends StatelessWidget {
-  const CommonAdminApplicationCard({
+  CommonAdminApplicationCard({
     super.key,
     this.applicationStatus,
     this.applicationNumber,
@@ -29,6 +29,9 @@ class CommonAdminApplicationCard extends StatelessWidget {
   final String? date;
   final String? year;
   final Function()? onMenuTap;
+  final ImageConstants imageConstants = ImageConstants();
+  final StringConstants stringConstants=StringConstants();
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class CommonAdminApplicationCard extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              border: Border.all(color: AppColor().black10),
+              border: Border.all(color: appColor.black10),
               borderRadius: BorderRadius.circular(6)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +61,7 @@ class CommonAdminApplicationCard extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall
-                            ?.copyWith(color: AppColor().black40),
+                            ?.copyWith(color: appColor.black40),
                       ),
                     ],
                   ),
@@ -68,7 +71,7 @@ class CommonAdminApplicationCard extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       child: CommonImageWidget(
-                          imageSource: ImageConstants().menuIcon,
+                          imageSource: imageConstants.menuIcon,
                           isNetworkImage: false),
                     ),
                   )
@@ -82,26 +85,26 @@ class CommonAdminApplicationCard extends StatelessWidget {
                 height: 6,
               ),
               buildCustomTextWidget(context,
-                  text: "${StringConstants().lastMarked.i18n()}: $lastMarked"),
+                  text: "${stringConstants.lastMarked.i18n()}: $lastMarked"),
               const SizedBox(
                 height: 6,
               ),
               buildCustomTextWidget(context,
-                  text: "${StringConstants().markedTo.i18n()}: $markedTo"),
+                  text: "${stringConstants.markedTo.i18n()}: $markedTo"),
               Divider(
                 thickness: 1,
-                color: AppColor().black10,
+                color: appColor.black10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   buildRowWidget(context,
-                      image: ImageConstants().verified, text: total),
+                      image: imageConstants.verified, text: total),
                   buildRowWidget(context,
-                      image: ImageConstants().calendarIcon,
-                      text: "${StringConstants().dateLabel.i18n()} $date"),
+                      image: imageConstants.calendarIcon,
+                      text: "${stringConstants.dateLabel.i18n()} $date"),
                   buildRowWidget(context,
-                      image: ImageConstants().calendarIcon, text: year),
+                      image: imageConstants.calendarIcon, text: year),
                 ],
               ),
             ],
@@ -116,7 +119,7 @@ class CommonAdminApplicationCard extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .bodyMedium
-            ?.copyWith(color: AppColor().black40));
+            ?.copyWith(color: appColor.black40));
   }
 
   Row buildRowWidget(BuildContext context, {String? text, String? image}) {
@@ -131,7 +134,7 @@ class CommonAdminApplicationCard extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodyMedium
-              ?.copyWith(color: AppColor().black40),
+              ?.copyWith(color: appColor.black40),
         )
       ],
     );
