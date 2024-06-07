@@ -78,6 +78,9 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                           );
                         }),
                       )),
+            const SizedBox(
+              height: 20,
+            )
           ],
         ),
       ),
@@ -89,6 +92,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
       ApplicationResponsedData? applicationData,
       AdminApplicationViewModel viewModel) {
     return showModalBottomSheet(
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       context: context,
       builder: (ctx) {
         return DownloadBottomSheet(

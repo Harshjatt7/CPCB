@@ -20,7 +20,7 @@ class PageRouter {
       case AppRoutes.splashScreenRoute:
         return _getPageRoute( SplashScreen(), settings);
       case AppRoutes.loginScreenRoute:
-        return _getPageRoute( LoginScreen(), settings);
+        return _getPageRoute(LoginScreen(), settings);
       case AppRoutes.producerHomeScreenRoute:
         return _getPageRoute(const ProducerHomeScreen(), settings);
       case AppRoutes.retraderHomeScreenRoute:
@@ -44,8 +44,12 @@ class PageRouter {
       case AppRoutes.adminHomeScreenRoute:
         return _getPageRoute( AdminHomeScreen(), settings);
       case AppRoutes.adminApplicationReceivedRoute:
-      String userType = settings.arguments as String;
-        return _getPageRoute(AdminApplicationReceivedScreen(userType: userType,), settings);
+        String userType = settings.arguments as String;
+        return _getPageRoute(
+            AdminApplicationReceivedScreen(
+              userType: userType,
+            ),
+            settings);
 
       // Will be displayed if no specified route is found.
       default:
