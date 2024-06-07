@@ -6,19 +6,19 @@ import 'package:flutter/material.dart';
 
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
 
-class AdminTabBar extends StatefulWidget {
+class CommonTabBar extends StatefulWidget {
   final List<TabBarModel> tabs;
 
-  /// [AdminTabBar] is a widget that will be used for using tabs in the app.
+  /// [CommonTabBar] is a widget that will be used for using tabs in the app.
   /// [tabs] will be a list of [TabBarModel] which will be used to show the list of
   /// tabs.
-  const AdminTabBar({super.key, required this.tabs});
+  const CommonTabBar({super.key, required this.tabs});
 
   @override
-  State<AdminTabBar> createState() => _AdminTabBarState();
+  State<CommonTabBar> createState() => _CommonTabBarState();
 }
 
-class _AdminTabBarState extends State<AdminTabBar>
+class _CommonTabBarState extends State<CommonTabBar>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   @override

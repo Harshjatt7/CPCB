@@ -19,4 +19,6 @@ class AppRoutes {
       "/recyclerAddDataScreenRoute";
   static const String adminHomeScreenRoute = "/adminHomeScreenRoute";
   static const String adminApplicationReceivedRoute = "/adminApplicationReceivedRoute";
+  static const String spcbHomeScreenRoute = "/spcbHomeScreenRoute";
+  static const String customHomeScreenRoute = "/customHomeScreenRoute";
 }
