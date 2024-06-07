@@ -17,8 +17,8 @@ class AdminHomeScreen extends StatelessWidget {
         bottomNavigationBarWidget(imgSrc: ImageConstants().homeTabIcon),
         bottomNavigationBarWidget(imgSrc: ImageConstants().profileTabIcon)
       ],
-      screens: [
-        const AdminDashboardScreen(),
+      screens: const[
+         AdminDashboardScreen(),
         ProfileScreen(
           isAdmin: true,
         )
