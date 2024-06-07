@@ -180,7 +180,6 @@ class AdminApplicationViewModel extends BaseViewModel {
       page = 1;
     }
 
-    return null;
   }
 
   Future getDownloadApplication(BuildContext context, String id) async {

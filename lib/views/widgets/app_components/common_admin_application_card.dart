@@ -5,7 +5,6 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_type_badge.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:localization/localization.dart';
 
 class CommonAdminApplicationCard extends StatelessWidget {
