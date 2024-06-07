@@ -202,7 +202,6 @@ class AdminApplicationViewModel extends BaseViewModel {
       if (context.mounted) {
         HelperFunctions()
             .commonErrorSnackBar(context, StringConstants().somethingWentWrong);
-        Navigator.pop(context);
       }
       HelperFunctions().logger("$err");
     }
