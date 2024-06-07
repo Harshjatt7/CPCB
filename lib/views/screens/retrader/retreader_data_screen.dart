@@ -15,7 +15,8 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class RetreaderDataScreen extends StatelessWidget {
-  const RetreaderDataScreen({super.key});
+  final AppColor appColor=AppColor();
+   RetreaderDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class RetreaderDataScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                      color: AppColor().black10,
+                      color: appColor.black10,
                     ))),
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
@@ -141,11 +142,11 @@ class RetreaderDataScreen extends StatelessWidget {
                       context, AppRoutes.retreadedAddDataScreenRoute);
                 },
                 label: viewModel.stringConstants.addRetreadedDataButton,
-                color: AppColor().darkGreen,
+                color: appColor.darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme
                     .labelSmall!
-                    .copyWith(color: AppColor().white),
+                    .copyWith(color: appColor.white),
               ),
             ),
           ],

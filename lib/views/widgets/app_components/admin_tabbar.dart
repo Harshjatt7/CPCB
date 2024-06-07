@@ -21,6 +21,7 @@ class AdminTabBar extends StatefulWidget {
 class _AdminTabBarState extends State<AdminTabBar>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  final AppColor appColor=AppColor();
   @override
   void initState() {
     tabController = TabController(length: widget.tabs.length, vsync: this);
@@ -81,20 +82,20 @@ class _AdminTabBarState extends State<AdminTabBar>
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
         decoration: BoxDecoration(
             color: tabController.index == index
-                ? AppColor().primaryGreen.withOpacity(0.3)
-                : AppColor().white,
+                ? appColor.primaryGreen.withOpacity(0.3)
+                : appColor.white,
             border: Border.all(
                 width: 1,
                 color: tabController.index == index
-                    ? AppColor().darkGreen
-                    : AppColor().grey03),
+                    ? appColor.darkGreen
+                    : appColor.grey03),
             borderRadius: BorderRadius.circular(5)),
         child: CommonTextWidget(
           label,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: tabController.index == index
-                  ? AppColor().darkGreen
-                  : AppColor().black01),
+                  ? appColor.darkGreen
+                  : appColor.black01),
         ),
       ),
     );

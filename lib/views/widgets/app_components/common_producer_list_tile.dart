@@ -14,7 +14,7 @@ class ProducerListTile extends StatelessWidget {
   /// default info icon.
   /// [color] is optional, it will use a defualt white color.
   ///
-  const ProducerListTile(
+   ProducerListTile(
       {super.key,
       required this.title,
       required this.subtitle,
@@ -26,15 +26,17 @@ class ProducerListTile extends StatelessWidget {
   final String? image;
   final Color? color;
   final bool isBackgroundIcon;
+  final ImageConstants imageConstants=ImageConstants();
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: color ?? AppColor().white,
+          color: color ?? appColor.white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: AppColor().grey03,
+            color: appColor.grey03,
           )),
       child: ListTile(
         minVerticalPadding: 17,
@@ -42,18 +44,18 @@ class ProducerListTile extends StatelessWidget {
             ? Container(
                 padding: const EdgeInsets.all(7),
                 decoration: BoxDecoration(
-                  color: AppColor().green10,
+                  color: appColor.green10,
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppColor().black10),
+                  border: Border.all(color: appColor.black10),
                 ),
                 child: CommonImageWidget(
-                  imageSource: image ?? ImageConstants().info,
+                  imageSource: image ?? imageConstants.info,
                   isNetworkImage: false,
                   width: 25,
                 ),
               )
             : CommonImageWidget(
-                imageSource: image ?? ImageConstants().info,
+                imageSource: image ?? imageConstants.info,
                 isNetworkImage: false,
                 width: 47,
               ),
@@ -63,7 +65,7 @@ class ProducerListTile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall
-                    ?.copyWith(color: AppColor().black70))),
+                    ?.copyWith(color: appColor.black70))),
         subtitle: CommonTextWidget(
           subtitle,
           style: Theme.of(context).textTheme.labelMedium,

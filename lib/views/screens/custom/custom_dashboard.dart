@@ -1,5 +1,4 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -27,7 +26,7 @@ class CustomDashboardScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const CommonAppBar(
+                  CommonAppBar(
                     isIconBar: true,
                   ),
                   Container(
@@ -41,7 +40,7 @@ class CustomDashboardScreen extends StatelessWidget {
                     child: CommonSearchBarWidget(
                       isSearchExpanded: viewModel.isSearchExpanded,
                       controller: viewModel.searchController,
-                      hintText: StringConstants().searchHere,
+                      hintText: viewModel.stringConstants.searchHere,
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
                         // viewModel.searchProcurement(value);
@@ -49,7 +48,7 @@ class CustomDashboardScreen extends StatelessWidget {
                           // viewModel.getUpdatedList();
                         }
                       },
-                      title: StringConstants().dashboard,
+                      title: viewModel.stringConstants.dashboard,
                       onSuffixTap: () {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
@@ -86,7 +85,7 @@ class CustomDashboardScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CommonTextWidget(
-            StringConstants().producerListing,
+            viewModel.stringConstants.producerListing,
             style: Theme.of(context).textTheme.labelMedium,
           ),
         ),

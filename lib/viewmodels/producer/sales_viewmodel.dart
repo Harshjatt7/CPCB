@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 
 class SalesViewModel extends BaseViewModel {
   final _producerRepo = ProducerRepository();
-  StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   UserTypes? currentUser;
   APIResponse<SalesDataResponseModel?>? _salesDateResponseModel;
@@ -76,10 +77,10 @@ class SalesViewModel extends BaseViewModel {
           data = _salesDateResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger("No response");
+        helperFunctions.logger("No response");
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _salesDateResponseModel;

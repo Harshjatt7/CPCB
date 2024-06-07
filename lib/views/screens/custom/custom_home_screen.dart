@@ -14,17 +14,19 @@ class CustomHomeScreen extends StatefulWidget {
 }
 
 class _CustomHomeScreenState extends State<CustomHomeScreen> {
+  final ImageConstants imageConstants=ImageConstants();
+  final AppColor appColor=AppColor();
   @override
   Widget build(BuildContext context) {
     return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().homeTabIcon,
+        imgSrc: imageConstants.homeTabIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().profileTabIcon,
+        imgSrc: imageConstants.profileTabIcon,
       )
-    ], screens: const [
-      CustomDashboardScreen(),
+    ], screens:  [
+     const CustomDashboardScreen(),
       ProfileScreen(),
     ]);
   }
@@ -37,13 +39,13 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
           activeIcon: CommonImageWidget(
               height: 20,
               width: 20,
-              imageColor: AppColor().darkGreen,
+              imageColor: appColor.darkGreen,
               imageSource: imgSrc,
               isNetworkImage: false),
           icon: CommonImageWidget(
               height: 20,
               width: 20,
-              imageColor: AppColor().black20,
+              imageColor: appColor.black20,
               imageSource: imgSrc,
               isNetworkImage: false));
 }

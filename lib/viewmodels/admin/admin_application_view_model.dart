@@ -12,6 +12,9 @@ import '../../utils/helper/debouncing_helper.dart';
 import '../../utils/helper/helper_functions.dart';
 
 class AdminApplicationViewModel extends BaseViewModel {
+  final MessageConstant messageConstant = MessageConstant();
+  final StringConstants stringConstants = StringConstants();
+  final HelperFunctions helperFunctions=HelperFunctions();
   TextEditingController searchController = TextEditingController();
   final _adminRepo = AdminRepository();
   ScrollController scrollController = ScrollController();
@@ -68,10 +71,10 @@ class AdminApplicationViewModel extends BaseViewModel {
           data = _adminApplicationResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger(MessageConstant().errorMessage);
+        helperFunctions.logger(messageConstant.errorMessage);
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _adminApplicationResponseModel;
@@ -95,7 +98,7 @@ class AdminApplicationViewModel extends BaseViewModel {
           data = _adminApplicationSearchModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger(MessageConstant().errorMessage);
+        helperFunctions.logger(messageConstant.errorMessage);
       }
     } catch (err) {
       return null;
@@ -108,20 +111,20 @@ class AdminApplicationViewModel extends BaseViewModel {
     try {
       APIResponse value = await _adminRepo.getAdminPaymentReceipt(userId);
       if (value.isSuccess == true) {
-        HelperFunctions().downloadAndStoreFile(
-            name: StringConstants().transaction, response: value);
+        helperFunctions.downloadAndStoreFile(
+            name: stringConstants.transaction, response: value);
         state = ViewState.idle;
         return value;
       } else {
         state = ViewState.idle;
 
         if (context.mounted) {
-          HelperFunctions()
+          helperFunctions
               .commonErrorSnackBar(context, value.error?.message ?? '');
         }
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _adminApplicationSearchModel;
@@ -163,7 +166,7 @@ class AdminApplicationViewModel extends BaseViewModel {
         searchPage++;
         loadMoreData(userType);
       } else {
-        HelperFunctions().logger(searchPage.toString());
+        helperFunctions.logger(searchPage.toString());
       }
     } else {
       if ((_adminApplicationResponseModel?.data?.meta?.lastPage ?? 0) > page) {
@@ -186,25 +189,25 @@ class AdminApplicationViewModel extends BaseViewModel {
     try {
       APIResponse value = await _adminRepo.getAdminDownloadApplication(id);
       if (value.isSuccess == true) {
-        HelperFunctions().downloadAndStoreFile(
-            name: StringConstants().application, response: value);
+        helperFunctions.downloadAndStoreFile(
+            name: stringConstants.application, response: value);
         state = ViewState.idle;
         return value;
       } else {
         state = ViewState.idle;
 
         if (context.mounted) {
-          HelperFunctions()
+          helperFunctions
               .commonErrorSnackBar(context, value.error?.message ?? '');
         }
       }
     } catch (err) {
       if (context.mounted) {
-        HelperFunctions()
-            .commonErrorSnackBar(context, StringConstants().somethingWentWrong);
+        helperFunctions
+            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
         Navigator.pop(context);
       }
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
 

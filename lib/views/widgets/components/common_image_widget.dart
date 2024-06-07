@@ -17,8 +17,9 @@ class CommonImageWidget extends StatelessWidget {
   final BoxFit? fit;
   final BorderRadius? borderRadius;
   final Color? imageColor;
+  final AppColor appColor=AppColor();
 
-  const CommonImageWidget(
+   CommonImageWidget(
       {super.key,
       this.bgColor,
       required this.imageSource,
@@ -37,7 +38,7 @@ class CommonImageWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: borderRadius,
-        color: bgColor ?? AppColor().transparent,
+        color: bgColor ?? appColor.transparent,
       ),
       child: ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.circular(0),
@@ -94,10 +95,10 @@ class CommonImageWidget extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      color: AppColor().white,
+      color: appColor.white,
       child: Icon(
         icon,
-        color: AppColor().white,
+        color: appColor.white,
         size: 30,
       ),
     );

@@ -76,7 +76,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           ),
           if (widget.isLoading == true)
             widget.customLoader == null
-                ? const FullScreenLoader()
+                ?  FullScreenLoader()
                 : widget.customLoader ?? Container()
         ],
       ),

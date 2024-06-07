@@ -48,6 +48,8 @@ class CommonSearchBarWidget extends StatefulWidget {
 
 class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
   String? error;
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor=AppColor();
 
   @override
   void initState() {
@@ -76,7 +78,7 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
               child: Padding(
                 padding: const EdgeInsets.only(right: 8, top: 4),
                 child: CommonImageWidget(
-                    imageSource: ImageConstants().arrowBack,
+                    imageSource: imageConstants.arrowBack,
                     isNetworkImage: false),
               ),
             ),
@@ -99,11 +101,11 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                     child: TextFormField(
                       onChanged: widget.onChanged,
                       controller: widget.controller,
-                      cursorColor: AppColor().black,
+                      cursorColor: appColor.black,
                       style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: widget.textColor ?? AppColor().black90,
+                          color: widget.textColor ?? appColor.black90,
                           decoration: TextDecoration.none,
-                          decorationColor: AppColor().transparent,
+                          decorationColor: appColor.transparent,
                           letterSpacing: 0),
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(
@@ -112,18 +114,18 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                               .textTheme
                               .bodyLarge
                               ?.copyWith(
-                                  color: AppColor().transparent, fontSize: 1),
+                                  color: appColor.transparent, fontSize: 1),
                           hintText: widget.hintText.i18n(),
                           hintStyle: Theme.of(context)
                               .textTheme
                               .labelSmall
-                              ?.copyWith(color: AppColor().grey01),
+                              ?.copyWith(color: appColor.grey01),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColor().grey03)),
+                              borderSide: BorderSide(color: appColor.grey03)),
                           enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColor().grey03)),
+                              borderSide: BorderSide(color: appColor.grey03)),
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColor().grey03)),
+                              borderSide: BorderSide(color: appColor.grey03)),
                           suffixIcon: GestureDetector(
                             onTap: widget.onSuffixTap,
                             child: Container(
@@ -136,8 +138,8 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                                   height: 20,
                                   fit: BoxFit.contain,
                                   imageSource: widget.isSearchExpanded ?? false
-                                      ? ImageConstants().removeIcon
-                                      : ImageConstants().searchIcon,
+                                      ? imageConstants.removeIcon
+                                      : imageConstants.searchIcon,
                                   isNetworkImage: false),
                             ),
                           )),
@@ -153,14 +155,14 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                 },
                 child: widget.isSearchExpanded ?? false
                     ? CommonImageWidget(
-                        imageSource: ImageConstants().removeIcon,
+                        imageSource: imageConstants.removeIcon,
                         isNetworkImage: false,
                         width: 24,
                         height: 24,
-                        imageColor: AppColor().black,
+                        imageColor: appColor.black,
                       )
                     : CommonImageWidget(
-                        imageSource: ImageConstants().searchIcon,
+                        imageSource: imageConstants.searchIcon,
                         isNetworkImage: false,
                         width: 20,
                         height: 20,
@@ -174,7 +176,7 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
             GestureDetector(
               onTap: () {},
               child: CommonImageWidget(
-                imageSource: ImageConstants().filter,
+                imageSource: imageConstants.filter,
                 isNetworkImage: false,
                 width: 24,
                 height: 24,

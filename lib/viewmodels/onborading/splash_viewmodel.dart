@@ -11,16 +11,17 @@ import '../../constants/routes_constant.dart';
 import '../material_app_viewmodel.dart';
 
 class SplashViewModel extends BaseViewModel {
+  final HelperFunctions helperFunctions=HelperFunctions();
   Future wait(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 4));
     await SecureStorage.instance.storeSensitiveInfo("isFirstInstall", true);
 
-    await HelperFunctions().getLoginStatus(context);
+    await helperFunctions.getLoginStatus(context);
 
     if (context.globalProvider.isLogin == false) {
       Navigator.pushReplacementNamed(context, AppRoutes.loginScreenRoute);
     } else {
-      await HelperFunctions().getUserType(context);
+      await helperFunctions.getUserType(context);
       switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
         case UserTypes.admin:
           if (context.mounted) {

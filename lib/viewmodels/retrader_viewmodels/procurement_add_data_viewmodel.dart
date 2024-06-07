@@ -21,7 +21,9 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class ProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
-  StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final MessageConstant messageConstant=MessageConstant();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   String? yearDropdownValue;
   String? yearDropdownError;
@@ -77,7 +79,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
       fileName = file.path.split('/').last;
       updateUI();
     } else {
-      fileError = MessageConstant().pleaseSelectFile;
+      fileError = messageConstant.pleaseSelectFile;
       updateUI();
     }
     return result;
@@ -85,9 +87,9 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   dateTimeConvert() {
     if (date != null) {
-      dateController.text = HelperFunctions().getFormattedDate(date: date!);
+      dateController.text = helperFunctions.getFormattedDate(date: date!);
     }
-    HelperFunctions().logger(dateController.text);
+    helperFunctions.logger(dateController.text);
   }
 
   String? nameValidation() {
@@ -100,17 +102,17 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     APIResponse<AddDataResponseModel?>? response;
     try {
       if (formKey.currentState?.validate() ?? false) {
-        HelperFunctions().logger("message >>>> ${request.toJson()}");
+        helperFunctions.logger("message >>>> ${request.toJson()}");
         response = await _retreaderRepo.postProcurementData(request);
         if (response?.isSuccess == true) {
           response?.data =
               AddDataResponseModel.fromJson(response.completeResponse);
           if (context.mounted) {
             state = ViewState.idle;
-            HelperFunctions().commonSuccessSnackBar(
+            helperFunctions.commonSuccessSnackBar(
                 context,
                 response?.data?.message ??
-                    MessageConstant().successfullySubmitted);
+                    messageConstant.successfullySubmitted);
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -152,11 +154,11 @@ class ProcurementAddDataViewModel extends BaseViewModel {
               : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        HelperFunctions()
-            .commonErrorSnackBar(context, MessageConstant().somethingWentWrong);
+        helperFunctions
+            .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
       }
     } catch (e) {
-      HelperFunctions().logger('$e');
+      helperFunctions.logger('$e');
     }
     state = ViewState.idle;
   }
@@ -238,7 +240,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     }
     updateUI();
     if (changeDropdown == null) {
-      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
+      yearDropdownError = messageConstant.pleaseSelectDropdownValue;
     }
   }
 
@@ -249,7 +251,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   String? valueValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
-      return MessageConstant().pleaseProvideValue;
+      return messageConstant.pleaseProvideValue;
     } else {
       return null;
     }
@@ -265,11 +267,11 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   String? uploadInvoiceValidation() {
     if (uploadInvoiceController.text.isEmpty) {
-      return MessageConstant().pleaseUploadInvoice;
+      return messageConstant.pleaseUploadInvoice;
     }
     if (fileSizeModel?.fileSize.contains("MB") ?? false) {
       if (fileSizeModel!.fileSizeNum > 2.0) {
-        return MessageConstant().maxFileSize;
+        return messageConstant.maxFileSize;
       }
     }
     return null;

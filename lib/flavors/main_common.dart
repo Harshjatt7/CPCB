@@ -57,7 +57,7 @@ class MyAppState extends State<MyApp> {
             darkTheme: darkTheme(context),
             locale: currentLocale,
             navigatorKey: APIBase.navigatorKey,
-            home: const SplashScreen(),
+            home:  SplashScreen(),
           );
         });
   }

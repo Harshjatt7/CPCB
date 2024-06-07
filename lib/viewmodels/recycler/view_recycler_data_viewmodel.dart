@@ -11,7 +11,9 @@ import '../../utils/helper/debouncing_helper.dart';
 import '../../utils/helper/helper_functions.dart';
 
 class RecyclerDataViewModel extends BaseViewModel {
-   StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final MessageConstant messageConstant = MessageConstant();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   final _recyclerRepo = RecyclerRepository();
   List<RecyclerDataListData>? recyclerData;
@@ -46,10 +48,10 @@ class RecyclerDataViewModel extends BaseViewModel {
           recyclerData = _recyclerResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger(MessageConstant().errorMessage);
+        helperFunctions.logger(messageConstant.errorMessage);
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _recyclerResponseModel;
@@ -73,10 +75,10 @@ class RecyclerDataViewModel extends BaseViewModel {
           recyclerData = _recyclerSearchResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger(MessageConstant().errorMessage);
+        helperFunctions.logger(messageConstant.errorMessage);
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _recyclerSearchResponseModel;
@@ -118,7 +120,7 @@ class RecyclerDataViewModel extends BaseViewModel {
         searchPage++;
         loadMoreData();
       } else {
-        HelperFunctions().logger(searchPage.toString());
+        helperFunctions.logger(searchPage.toString());
       }
     } else {
       if ((_recyclerResponseModel?.data?.meta?.lastPage ?? 0) > page) {

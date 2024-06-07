@@ -23,7 +23,7 @@ class AdminRecyclerTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          const CommonAdminDashboardHeading(),
+           CommonAdminDashboardHeading(),
           CommonEndProduct(
               title: recyclerCommonData?.reclaimedRubber?.name ?? '',
               generated:

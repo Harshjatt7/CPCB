@@ -17,7 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ProcurementAddDataScreen extends StatelessWidget {
-  const ProcurementAddDataScreen({super.key});
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor = AppColor();
+  ProcurementAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
-                title:viewModel.stringConstants.addProcurement,
+                title: viewModel.stringConstants.addProcurement,
               ),
               body: CommonSingleChildScrollView(
                 child: Form(
@@ -91,7 +93,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor().white,
+                    color: appColor.white,
                   ),
                   child: CommonButtonWidget(
                     onPressed: () async {
@@ -121,11 +123,11 @@ class ProcurementAddDataScreen extends StatelessWidget {
                     },
                     height: 50,
                     label: viewModel.stringConstants.submitBtnLabel,
-                    color: AppColor().darkGreen,
+                    color: appColor.darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .labelSmall!
-                        .copyWith(color: AppColor().white),
+                        .copyWith(color: appColor.white),
                   ),
                 ),
               ]);
@@ -138,7 +140,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           isReadOnly: true,
-          disabledBgColor: AppColor().transparent,
+          disabledBgColor: appColor.transparent,
           hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial,
           isMandatory: true,
           onTap: () async {
@@ -151,7 +153,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
           validator: (value) {
             return viewModel.dateValidation();
           },
-          icon: ImageConstants().calendar,
+          icon: imageConstants.calendar,
           controller: viewModel.dateController),
     );
   }
@@ -192,12 +194,12 @@ class ProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           isDocument: viewModel.filePath == null ? false : true,
-          disabledBgColor: AppColor().transparent,
+          disabledBgColor: appColor.transparent,
           isReadOnly: true,
           hintText: viewModel.stringConstants.uploadInvoice,
           icon: viewModel.uploadInvoiceController.text.isEmpty
-              ? ImageConstants().fileUpload
-              : ImageConstants().removeIcon,
+              ? imageConstants.fileUpload
+              : imageConstants.removeIcon,
           onTap: () {
             viewModel.handleOnTap(context);
           },
@@ -329,7 +331,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: AppColor().red),
+              ?.copyWith(color: appColor.red),
         ),
       ),
     );

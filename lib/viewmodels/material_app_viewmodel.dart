@@ -10,6 +10,7 @@ import '../flavors/main_common.dart';
 import '../models/response/base_response_model.dart';
 
 class MaterialAppViewModel extends BaseViewModel {
+  final HelperFunctions helperFunctions=HelperFunctions();
   int count = 1;
 
   void changeLanguage(BuildContext context) async {
@@ -28,27 +29,27 @@ class MaterialAppViewModel extends BaseViewModel {
   bool isLogin = false;
 
   Future<void> updateUserType(String userType, BuildContext context) async {
-    await HelperFunctions().setUserType(userType, context);
+    await helperFunctions.setUserType(userType, context);
   }
 
   Future<void> getUserType(BuildContext context) async {
-    await HelperFunctions().getUserType(context);
+    await helperFunctions.getUserType(context);
   }
 
   Future<APIResponse<LoginResponseModel?>?> getRefreshToken() async {
     APIResponse<LoginResponseModel?>? res;
     try {
-      await HelperFunctions().getRefreshToken();
+      await helperFunctions.getRefreshToken();
 
       res = await AuthRepository().refreshToken();
 
       if (res?.isSuccess == true) {
         res?.data = LoginResponseModel.fromJson(res.completeResponse);
-        HelperFunctions().storeToken(
+        helperFunctions.storeToken(
             res?.data?.data?.token ?? MaterialAppViewModel.token ?? "");
       } else {}
     } catch (err) {
-      HelperFunctions().logger(err.toString());
+      helperFunctions.logger(err.toString());
     }
 
     return res;

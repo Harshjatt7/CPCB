@@ -8,7 +8,8 @@ class ProducerErpTile extends StatelessWidget {
   final String title;
   final String subTitle;
   final String image;
-  const ProducerErpTile(
+  final AppColor appColor=AppColor();
+   ProducerErpTile(
       {super.key,
       required this.title,
       required this.subTitle,
@@ -20,7 +21,7 @@ class ProducerErpTile extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10, top: 22, bottom: 22),
       width: Responsive().givenWidth,
       decoration: BoxDecoration(
-          border: Border.all(color: AppColor().black20, width: 1),
+          border: Border.all(color: appColor.black20, width: 1),
           borderRadius: const BorderRadius.all(Radius.circular(5))),
       child: Row(
         children: [
@@ -31,7 +32,7 @@ class ProducerErpTile extends StatelessWidget {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border:
-                      Border.all(color: AppColor().black20, width: 1)),
+                      Border.all(color: appColor.black20, width: 1)),
               child: CommonImageWidget(
                   fit: BoxFit.cover, imageSource: image, isNetworkImage: false),
             ),
@@ -45,14 +46,14 @@ class ProducerErpTile extends StatelessWidget {
                 child: CommonTextWidget(
                   title,
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: AppColor().black50,
+                      color: appColor.black50,
                      ),
                 ),
               ),
               CommonTextWidget(subTitle,
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: AppColor().black80,
+                      color: appColor.black80,
                       fontWeight: FontWeight.w700,
                       fontSize: 24)),
             ],
