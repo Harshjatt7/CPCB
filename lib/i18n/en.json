@@ -164,7 +164,8 @@
     "producer-listing": "Producer Listing",
     "download-certificate": "Download Certificate",
     "something-went-wrong": "Something went wrong",
-    "transaction":"Transaction",
-    "application":"Application",
-    "address": "Address"
+    "transaction": "Transaction",
+    "application": "Application",
+    "address": "Address",
+    "designation": "Designation"
 }
