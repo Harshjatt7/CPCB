@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
 class CommonSpcbCard extends StatelessWidget {
-  const CommonSpcbCard({
+   CommonSpcbCard({
     super.key,
     this.companyName,
     this.address,
@@ -22,6 +22,8 @@ class CommonSpcbCard extends StatelessWidget {
   final String? state;
   final Function()? onMenuTap;
   final String? applicationNumber;
+  final AppColor appColor=AppColor();
+  final StringConstants stringConstants=StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class CommonSpcbCard extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              border: Border.all(color: AppColor().black10),
+              border: Border.all(color: appColor.black10),
               borderRadius: BorderRadius.circular(6)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +45,7 @@ class CommonSpcbCard extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall
-                        ?.copyWith(color: AppColor().black40),
+                        ?.copyWith(color: appColor.black40),
                   ),
                   GestureDetector(
                     onTap: onMenuTap,
@@ -64,20 +66,20 @@ class CommonSpcbCard extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(color: AppColor().black),
+                    ?.copyWith(color: appColor.black),
               ),
               const SizedBox(
                 height: 10,
               ),
               buildCustomTextWidget(context,
-                  text: "${StringConstants().address.i18n()}: $address"),
+                  text: "${stringConstants.address.i18n()}: $address"),
               const SizedBox(
                 height: 6,
               ),
               buildCustomTextWidget(context,
-                  text: "${StringConstants().state.i18n()}: $state"),
+                  text: "${stringConstants.state.i18n()}: $state"),
               Divider(
-                color: AppColor().black10,
+                color: appColor.black10,
               ),
               Row(
                 children: [
@@ -88,11 +90,11 @@ class CommonSpcbCard extends StatelessWidget {
                     width: 4,
                   ),
                   CommonTextWidget(
-                    "${StringConstants().date.i18n()}: $date",
+                    "${stringConstants.date.i18n()}: $date",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium
-                        ?.copyWith(color: AppColor().black40),
+                        ?.copyWith(color: appColor.black40),
                   )
                 ],
               ),
@@ -108,6 +110,6 @@ class CommonSpcbCard extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .bodyMedium
-            ?.copyWith(color: AppColor().black40));
+            ?.copyWith(color: appColor.black40));
   }
 }

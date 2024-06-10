@@ -13,7 +13,8 @@ import '../../../viewmodels/spcb/spcb_dashboard_view_model.dart';
 import '../../widgets/app_components/common_tabbar.dart';
 
 class SpcbDashboardScreen extends StatelessWidget {
-  const SpcbDashboardScreen({super.key});
+  final StringConstants stringConstants = StringConstants();
+  SpcbDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                 },
                 isSearchExpanded: viewModel.isSearchExpanded,
                 controller: viewModel.searchController,
-                hintText: StringConstants().searchHere,
+                hintText: stringConstants.searchHere,
                 onChanged: (value) {
                   viewModel.isSearchExpanded = true;
                   // viewModel.searchProcurement(value);
@@ -61,7 +62,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                     // viewModel.getUpdatedList();
                   }
                 },
-                title: StringConstants().dashboard,
+                title: stringConstants.dashboard,
                 onSuffixTap: () {
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.isSearchExpanded = !viewModel.isSearchExpanded;
@@ -95,7 +96,7 @@ class SpcbDashboardScreen extends StatelessWidget {
           TabBarModel(
               tab: const SpcbRecyclerTab(), label: StringConstants.recycler),
           TabBarModel(
-              tab: const SpcbRetreaderTab(), label: StringConstants().retrader)
+              tab: const SpcbRetreaderTab(), label: stringConstants.retrader)
         ],
       ),
     );

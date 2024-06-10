@@ -1,5 +1,5 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/models/response/admin/common_epr_response_model.dart';
+import 'package:cpcb_tyre/models/response/admin/epr_oblications_response_model.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_admin_dashboard_heading.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_end_product.dart';
