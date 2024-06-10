@@ -15,8 +15,8 @@ import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
   final ImageConstants imageConstants = ImageConstants();
-  final AppColor appColor=AppColor();
-   ProfileScreen({super.key, this.isAdmin = false});
+  final AppColor appColor = AppColor();
+  ProfileScreen({super.key, this.isAdmin = false});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
         builder: (context, viewModel, child) {
           return CustomScaffold(
             isLoading: viewModel.state == ViewState.busy,
-            appBar:  CommonAppBar(
+            appBar: CommonAppBar(
               isIconBar: true,
             ),
             body: CommonSingleChildScrollView(
@@ -52,17 +52,25 @@ class ProfileScreen extends StatelessWidget {
                     height: 8,
                   ),
                   detailContainer(context, viewModel,
-                      title: viewModel.data?.name ?? '',
-                      email: viewModel.data?.email ?? '',
-                      phoneNo: viewModel.data?.mobileNumber ?? ''),
+                      title: isAdmin == true
+                          ? viewModel.data?.email ?? ""
+                          : viewModel.data?.name ?? "",
+                      designation:
+                          isAdmin == true ? viewModel.data?.name : null,
+                      email: isAdmin == true
+                          ? viewModel.data?.companyEmail ?? ""
+                          : viewModel.data?.email ?? "",
+                      phoneNo: viewModel.data?.mobileNumber ?? "",
+                      isAdmin: isAdmin,
+                      name: isAdmin == true ? viewModel.data?.email : null),
                   if (isAdmin == false)
                     detailContainer(context, viewModel,
                         backgroundColor: appColor.darkBlue10,
                         borderColor: appColor.black20,
                         title:
                             viewModel.stringConstants.authorizedPersonDetails,
-                        email: viewModel.data?.authorizedPersonEmailId ?? '',
-                        phoneNo: viewModel.data?.authorizedcontactNumber ?? ''),
+                        email: viewModel.data?.authorizedPersonEmailId ?? "",
+                        phoneNo: viewModel.data?.authorizedcontactNumber ?? ""),
                   // Padding(
                   //   padding:
                   //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -104,7 +112,10 @@ class ProfileScreen extends StatelessWidget {
       required String email,
       required String phoneNo,
       Color? backgroundColor,
-      Color? borderColor}) {
+      Color? borderColor,
+      bool? isAdmin = false,
+      String? name,
+      String? designation}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Container(
@@ -118,19 +129,45 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CommonTextWidget(
-              title,
+              isAdmin == true ? name ?? "" : title,
+              useLocalization: false,
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
                   .copyWith(color: appColor.black01),
             ),
+            if (isAdmin == true)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: [
+                    CommonTextWidget(
+                      viewModel.stringConstants.designation,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelSmall!
+                          .copyWith(color: appColor.black01),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    CommonTextWidget(
+                      designation ?? "",
+                      useLocalization: false,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(color: appColor.black01),
+                    ),
+                  ],
+                ),
+              ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 0),
               child: Row(
                 children: [
                   CommonImageWidget(
-                      imageSource: imageConstants.mail,
-                      isNetworkImage: false),
+                      imageSource: imageConstants.mail, isNetworkImage: false),
                   const SizedBox(
                     width: 8,
                   ),
@@ -146,6 +183,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   CommonTextWidget(
                     email,
+                    useLocalization: false,
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
@@ -154,33 +192,34 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Row(
-              children: [
-                CommonImageWidget(
-                    imageSource: imageConstants.phoneNo,
-                    isNetworkImage: false),
-                const SizedBox(
-                  width: 8,
-                ),
-                CommonTextWidget(
-                  viewModel.stringConstants.mobileNumber,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall!
-                      .copyWith(color: appColor.black01),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                CommonTextWidget(
-                  phoneNo,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(color: appColor.black01),
-                ),
-              ],
-            )
+            if (isAdmin == false)
+              Row(
+                children: [
+                  CommonImageWidget(
+                      imageSource: imageConstants.phoneNo,
+                      isNetworkImage: false),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  CommonTextWidget(
+                    viewModel.stringConstants.mobileNumber,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(color: appColor.black01),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  CommonTextWidget(
+                    phoneNo,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(color: appColor.black01),
+                  ),
+                ],
+              )
           ],
         ),
       ),
