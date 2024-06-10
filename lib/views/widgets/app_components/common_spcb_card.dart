@@ -1,10 +1,10 @@
-import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
+
+import '../../../constants/image_constants.dart';
+import '../../../constants/string_constant.dart';
 
 class CommonSpcbCard extends StatelessWidget {
   const CommonSpcbCard({
@@ -27,12 +27,15 @@ class CommonSpcbCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColor = AppColor();
+    final imageConstants = ImageConstants();
+    final stringConstants = StringConstants();
     return Column(
       children: [
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              border: Border.all(color: AppColor().black10),
+              border: Border.all(color: appColor.black10),
               borderRadius: BorderRadius.circular(6)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +48,7 @@ class CommonSpcbCard extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall
-                        ?.copyWith(color: AppColor().black40),
+                        ?.copyWith(color: appColor.black40),
                   ),
                   GestureDetector(
                     onTap: onMenuTap,
@@ -66,35 +69,35 @@ class CommonSpcbCard extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(color: AppColor().black),
+                    ?.copyWith(color: appColor.black),
               ),
               const SizedBox(
                 height: 10,
               ),
               buildCustomTextWidget(context,
-                  text: "${StringConstants().address.i18n()}: $address"),
+                  text: "${stringConstants.address.i18n()}: $address"),
               const SizedBox(
                 height: 6,
               ),
               buildCustomTextWidget(context,
-                  text: "${StringConstants().state.i18n()}: $state"),
+                  text: "${stringConstants.state.i18n()}: $state"),
               Divider(
-                color: AppColor().black10,
+                color: appColor.black10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CommonTextWidget(
-                    "${StringConstants().date.i18n()}: $date",
+                    "${stringConstants.date.i18n()}: $date",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium
-                        ?.copyWith(color: AppColor().black40),
+                        ?.copyWith(color: appColor.black40),
                   ),
                   GestureDetector(
                     onTap: onCommentTap,
                     child: CommonImageWidget(
-                      imageSource: ImageConstants().commentIcon,
+                      imageSource: imageConstants.commentIcon,
                       isNetworkImage: false,
                     ),
                   ),
@@ -112,6 +115,6 @@ class CommonSpcbCard extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .bodyMedium
-            ?.copyWith(color: AppColor().black40));
+            ?.copyWith(color: appColor.black40));
   }
 }

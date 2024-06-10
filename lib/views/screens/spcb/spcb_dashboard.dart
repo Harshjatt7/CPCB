@@ -13,7 +13,8 @@ import '../../../viewmodels/spcb/spcb_dashboard_view_model.dart';
 import '../../widgets/app_components/common_tabbar.dart';
 
 class SpcbDashboardScreen extends StatelessWidget {
-  const SpcbDashboardScreen({super.key});
+  final StringConstants stringConstants = StringConstants();
+  SpcbDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

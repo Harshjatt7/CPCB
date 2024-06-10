@@ -21,7 +21,7 @@ class SpcbHomeScreen extends StatelessWidget {
         imgSrc: imageConstants.profileTabIcon,
       ),
     ], screens: [
-      const SpcbDashboardScreen(),
+      SpcbDashboardScreen(),
       ProfileScreen(),
     ]);
   }

@@ -2,7 +2,7 @@ import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
-import 'package:cpcb_tyre/models/response/admin/epr_oblications_response_model.dart';
+import 'package:cpcb_tyre/models/response/admin/producer_epr_oblications_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';

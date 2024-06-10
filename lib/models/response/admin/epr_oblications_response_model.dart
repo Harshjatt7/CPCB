@@ -1,5 +1,5 @@
 class EprOblicationsResponseModel {
-  EprOblicationsData? data;
+  CommonEprOblicationData? data;
   int? status;
 
   EprOblicationsResponseModel({
@@ -7,43 +7,71 @@ class EprOblicationsResponseModel {
     this.status,
   });
 
-  factory EprOblicationsResponseModel.fromJson(Map<String, dynamic> json) =>
+  factory EprOblicationsResponseModel.fromJson(
+          Map<String, dynamic> json) =>
       EprOblicationsResponseModel(
         data: json["data"] == null
             ? null
-            : EprOblicationsData.fromJson(json["data"]),
+            : CommonEprOblicationData.fromJson(json["data"]),
         status: json["status"],
       );
 }
 
-class EprOblicationsData {
-  num? newTyreManufacturers;
-  num? newTyreProducedDomestically;
-  num? newTyreImported;
-  num? newTyreImportedAndImportedVehicles;
-  num? newTyreImportedExclusivelyForNewVehiclesManufacturedDomestically;
-  num? wasteTyreImported;
+class CommonEprOblicationData {
+  CrumbRubber? reclaimedRubber;
+  CrumbRubber? recoverCarbon;
+  CrumbRubber? crumbRubberModifiedBitumenCrmb;
+  CrumbRubber? crumbRubber;
+  CrumbRubber? tpoChar;
+  CrumbRubber? retreadedTyre;
 
-  EprOblicationsData({
-    this.newTyreManufacturers,
-    this.newTyreProducedDomestically,
-    this.newTyreImported,
-    this.newTyreImportedAndImportedVehicles,
-    this.newTyreImportedExclusivelyForNewVehiclesManufacturedDomestically,
-    this.wasteTyreImported,
+  CommonEprOblicationData(
+      {this.reclaimedRubber,
+      this.recoverCarbon,
+      this.crumbRubberModifiedBitumenCrmb,
+      this.crumbRubber,
+      this.tpoChar,
+      this.retreadedTyre});
+
+  factory CommonEprOblicationData.fromJson(Map<String, dynamic> json) =>
+      CommonEprOblicationData(
+        reclaimedRubber: json["Reclaimed rubber"] == null
+            ? null
+            : CrumbRubber.fromJson(json["Reclaimed rubber"]),
+        recoverCarbon: json["Recover carbon"] == null
+            ? null
+            : CrumbRubber.fromJson(json["Recover carbon"]),
+        crumbRubberModifiedBitumenCrmb:
+            json["Crumb rubber modified bitumen(CRMB)"] == null
+                ? null
+                : CrumbRubber.fromJson(
+                    json["Crumb rubber modified bitumen(CRMB)"]),
+        crumbRubber: json["Crumb rubber"] == null
+            ? null
+            : CrumbRubber.fromJson(json["Crumb rubber"]),
+        tpoChar: json["TPO & Char"] == null
+            ? null
+            : CrumbRubber.fromJson(json["TPO & Char"]),
+        retreadedTyre: json["Retreaded tyre"] == null
+            ? null
+            : CrumbRubber.fromJson(json["Retreaded tyre"]),
+      );
+}
+
+class CrumbRubber {
+  String? name;
+  int? earnedCredit;
+  int? creditTransfered;
+
+  CrumbRubber({
+    this.name,
+    this.earnedCredit,
+    this.creditTransfered,
   });
 
-  factory EprOblicationsData.fromJson(Map<String, dynamic> json) =>
-      EprOblicationsData(
-        newTyreManufacturers: json["new_tyre manufacturers"]?.toDouble(),
-        newTyreProducedDomestically:
-            json["new_tyre_produced domestically"]?.toDouble(),
-        newTyreImported: json["new_tyre_imported"]?.toDouble(),
-        newTyreImportedAndImportedVehicles:
-            json["new_tyre_imported_and_imported_vehicles"],
-        newTyreImportedExclusivelyForNewVehiclesManufacturedDomestically: json[
-                "new_tyre_imported_exclusively_for_new_vehicles_manufactured_domestically"]
-            ?.toDouble(),
-        wasteTyreImported: json["waste_tyre_imported"]?.toDouble(),
+  factory CrumbRubber.fromJson(Map<String, dynamic> json) => CrumbRubber(
+        name: json["name"],
+        earnedCredit: json["earnedCredit"],
+        creditTransfered: json["creditTransfered"],
       );
 }
