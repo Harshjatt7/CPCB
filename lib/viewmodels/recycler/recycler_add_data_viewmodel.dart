@@ -96,7 +96,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   void changeFinancialDropdownValue(newValue) {
     financialYearDropdownValue = newValue;
     if (financialYearDropdownValue != null) {
-      String startYear = financialYearDropdownValue!.split('-').first;
+      String startYear = changeDropdown!.split('-').first;
       String lastYear = changeDropdown!.split('-').last;
       int stYear = int.parse(startYear);
       int edYear = int.parse(lastYear);
@@ -104,6 +104,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
       endDate = startYear == DateTime.now().year.toString()
           ? DateTime.now()
           : DateTime(edYear, 3, 31);
+
       updateUI();
     }
     updateUI();

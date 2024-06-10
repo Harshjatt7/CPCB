@@ -132,6 +132,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
       endDate = startYear == DateTime.now().year.toString()
           ? DateTime.now()
           : DateTime(edYear, 3, 31);
+
       updateUI();
     }
     updateUI();
