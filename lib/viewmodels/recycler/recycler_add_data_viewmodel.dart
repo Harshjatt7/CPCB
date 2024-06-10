@@ -37,6 +37,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   TextEditingController quantityOfWasteGeneratedController =
       TextEditingController();
   DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
   DateTime? date;
   String financialYearError = "";
   String producedQtyError = "";
@@ -96,8 +97,13 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     financialYearDropdownValue = newValue;
     if (financialYearDropdownValue != null) {
       String startYear = financialYearDropdownValue!.split('-').first;
-      int year = int.parse(startYear);
-      startDate = DateTime(year, 4, 1);
+      String lastYear = changeDropdown!.split('-').last;
+      int stYear = int.parse(startYear);
+      int edYear = int.parse(lastYear);
+      startDate = DateTime(stYear, 4, 1);
+      endDate = startYear == DateTime.now().year.toString()
+          ? DateTime.now()
+          : DateTime(edYear, 3, 31);
       updateUI();
     }
     updateUI();
