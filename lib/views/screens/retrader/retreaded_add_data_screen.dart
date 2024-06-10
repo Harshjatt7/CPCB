@@ -246,7 +246,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
         error: viewModel.yearDropdownError,
         value: viewModel.yearDropdownValue,
         onTap: () {
-          viewModel.changeDropdownValue(viewModel.yearDropdownValue);
+          viewModel.changeDropdownValue(viewModel.changeDropdown);
         },
         onChanged: (value) {
           viewModel.changeDropdownValue(value);

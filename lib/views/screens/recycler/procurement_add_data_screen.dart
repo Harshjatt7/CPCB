@@ -284,7 +284,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
         error: viewModel.rawMaterialDropdownError,
         onTap: () {
           viewModel.changeRawMaterialDropdownValue(
-            viewModel.tyreSourceDropdownValue,
+            viewModel.rawMaterialDropdownValue,
           );
         },
         value: viewModel.rawMaterialDropdownValue,

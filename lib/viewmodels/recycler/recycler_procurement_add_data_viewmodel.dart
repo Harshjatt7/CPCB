@@ -24,7 +24,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final StringConstants stringConstants = StringConstants();
   final MessageConstant messageConstant = MessageConstant();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   String? financialYearDropdownValue;
   String? rawMaterialDropdownValue;
@@ -213,8 +213,8 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           if (context.mounted) {
             state = ViewState.idle;
 
-            helperFunctions
-                .commonSuccessSnackBar(context, response?.data?.message ?? "");
+            helperFunctions.commonSuccessSnackBar(
+                context, response?.data?.message ?? "");
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -258,8 +258,8 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
               : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        helperFunctions
-            .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
+        helperFunctions.commonErrorSnackBar(
+            context, messageConstant.somethingWentWrong);
       }
     } catch (e) {
       helperFunctions.logger('$e');
@@ -309,27 +309,26 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
       startDate = DateTime(year, 4, 1);
       updateUI();
     }
-    updateUI();
     if (financialYearDropdownValue == null) {
       yearDropdownError = messageConstant.pleaseSelectDropdownValue;
     }
+    updateUI();
   }
 
   void changeRawMaterialDropdownValue(newValue) {
     rawMaterialDropdownValue = newValue;
-    updateUI();
-    if (changeDropdown == null) {
+    if (rawMaterialDropdownValue == null) {
       rawMaterialDropdownError = messageConstant.mandatoryTypeRawMaterial;
     }
+    updateUI();
   }
 
   void changetyreSourceDropdownValue(newValue) {
     tyreSourceDropdownValue = newValue;
-    updateUI();
-    if (changeDropdown == null) {
-      tyreSourceDropdownError =
-          messageConstant.mandatoryTypeRawMaterial; //to change
+    if (tyreSourceDropdownValue == null) {
+      tyreSourceDropdownError = messageConstant.mandatoryTyreSource;
     }
+    updateUI();
   }
 
   void changeFinancialDropdownValue(newValue) {

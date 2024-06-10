@@ -1,8 +1,15 @@
+import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_spcb_card.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/string_constant.dart';
+import '../../widgets/app_components/commo_comment_pop_up.dart';
 class SpcbProducerTab extends StatelessWidget {
-  const SpcbProducerTab({super.key});
+  SpcbProducerTab({super.key});
+  final StringConstants stringConstants = StringConstants();
+  final HelperFunctions helperFunctions = HelperFunctions();
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +59,22 @@ class SpcbProducerTab extends StatelessWidget {
                 applicationNumber: "011123234344",
                 onMenuTap: () {
                   // viewModel.downloadCertificate(context);
+                },
+                onCommentTap: () {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext ctx) {
+                      return CommonCommentPopUp(
+                          ctx: ctx,
+                          labelText: "Something you want to comment?",
+                          hintText: "Write your comment ...",
+                          onSubmit: () {
+                            helperFunctions.logger("Submitted");
+                          });
+                    },
+                  );
+                  helperFunctions.logger("on Comment");
                 },
               ),
             ),

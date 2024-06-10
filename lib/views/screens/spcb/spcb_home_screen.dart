@@ -8,16 +8,17 @@ import '../../../theme/app_color.dart';
 import '../../widgets/components/common_image_widget.dart';
 
 class SpcbHomeScreen extends StatelessWidget {
-  const SpcbHomeScreen({super.key});
-
+  SpcbHomeScreen({super.key});
+  final imageConstants =ImageConstants();
+  final appColor = AppColor();
   @override
   Widget build(BuildContext context) {
     return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().homeTabIcon,
+        imgSrc: imageConstants.homeTabIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().profileTabIcon,
+        imgSrc: imageConstants.profileTabIcon,
       ),
     ], screens: [
       const SpcbDashboardScreen(),
@@ -31,14 +32,14 @@ class SpcbHomeScreen extends StatelessWidget {
       activeIcon: CommonImageWidget(
         height: 20,
         width: 20,
-        imageColor: AppColor().darkGreen,
+        imageColor: appColor.darkGreen,
         imageSource: imgSrc,
         isNetworkImage: false,
       ),
       icon: CommonImageWidget(
         height: 20,
         width: 20,
-        imageColor: AppColor().black20,
+        imageColor: appColor.black20,
         imageSource: imgSrc,
         isNetworkImage: false,
       ),

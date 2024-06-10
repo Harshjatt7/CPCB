@@ -17,7 +17,7 @@ class SalesDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final StringConstants stringConstants = StringConstants();
   final MessageConstant messageConstant = MessageConstant();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   String? producerDropdownError;
   String? tyreDropdownError;
@@ -67,8 +67,8 @@ class SalesDataViewModel extends BaseViewModel {
       monthList.addAll(responseData?.months ?? []);
       producerTypeMap = responseData?.producerType ?? {};
     } else {
-      helperFunctions
-          .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
+      helperFunctions.commonErrorSnackBar(
+          context, messageConstant.somethingWentWrong);
     }
     state = ViewState.idle;
     return response;
@@ -140,8 +140,8 @@ class SalesDataViewModel extends BaseViewModel {
               : apiError?.total?.first ?? "";
         }
       } else {
-        helperFunctions
-            .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
+        helperFunctions.commonErrorSnackBar(
+            context, messageConstant.somethingWentWrong);
       }
     } catch (e) {
       helperFunctions.logger('$e');
@@ -297,22 +297,30 @@ class SalesDataViewModel extends BaseViewModel {
     switch (dropdownValue) {
       case SalesDataDropdown.producerType:
         producerDropdownValue = changeDropdown;
-        producerDropdownError = messageConstant.pleaseSelectValue;
+        if (producerDropdownValue == null) {
+          producerDropdownError = messageConstant.pleaseSelectValue;
+        }
         updateUI();
         break;
       case SalesDataDropdown.typeOfTyre:
         tyreDropdownValue = changeDropdown;
-        tyreDropdownError = messageConstant.pleaseSelectValue;
+        if (tyreDropdownValue == null) {
+          tyreDropdownError = messageConstant.pleaseSelectValue;
+        }
         updateUI();
         break;
       case SalesDataDropdown.financialYear:
         yearDropdownValue = changeDropdown;
-        yearDropdownError = messageConstant.pleaseSelectValue;
+        if (yearDropdownValue == null) {
+          yearDropdownError = messageConstant.pleaseSelectValue;
+        }
         updateUI();
         break;
       case SalesDataDropdown.month:
         monthDropdownValue = changeDropdown;
-        monthDropdownError = messageConstant.pleaseSelectValue;
+        if (monthDropdownValue == null) {
+          monthDropdownError = messageConstant.pleaseSelectValue;
+        }
         updateUI();
         break;
       default:

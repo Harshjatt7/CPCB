@@ -17,87 +17,75 @@ class SpcbDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stringConstants = StringConstants();
+    final appColor = AppColor();
     return BaseView<SpcbDashboardViewModel>(
         builder: (context, viewModel, child) {
           return CustomScaffold(
-              appBar: spcbAppBar(context, viewModel),
-              body: spcbBody(viewModel));
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(
+                  viewModel.isSearchExpanded == true ? 146 : 125),
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    CommonAppBar(
+                      isIconBar: true,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: appColor.black10,
+                          ),
+                        ),
+                      ),
+                      child: CommonSearchBarWidget(
+                        isSearchExpanded: viewModel.isSearchExpanded,
+                        controller: viewModel.searchController,
+                        hintText: stringConstants.searchHere,
+                        onChanged: (value) {
+                          viewModel.isSearchExpanded = true;
+                          // viewModel.searchProcurement(value);
+                          if (viewModel.searchController.text.isEmpty) {
+                            // viewModel.getUpdatedList();
+                          }
+                        },
+                        title: stringConstants.dashboard,
+                        onSuffixTap: () {
+                          if (viewModel.searchController.text.isEmpty) {
+                            viewModel.isSearchExpanded =
+                                !viewModel.isSearchExpanded;
+                            // viewModel.getUpdatedList();
+                            viewModel.updateUI();
+                          } else {
+                            viewModel.isSearchExpanded = false;
+                            // viewModel.getUpdatedList();
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: CommonTabBar(
+                tabs: [
+                  TabBarModel(
+                      tab: SpcbProducerTab(), label: StringConstants.producer),
+                  TabBarModel(
+                      tab: const SpcbRecyclerTab(),
+                      label: StringConstants.recycler),
+                  TabBarModel(
+                      tab: const SpcbRetreaderTab(),
+                      label: stringConstants.retrader)
+                ],
+              ),
+            ),
+          );
         },
         onModelReady: (viewModel) {},
         viewModel: SpcbDashboardViewModel());
-  }
-
-  PreferredSize spcbAppBar(
-      BuildContext context, SpcbDashboardViewModel viewModel) {
-    return PreferredSize(
-      preferredSize:
-          Size.fromHeight(viewModel.isSearchExpanded == true ? 146 : 125),
-      child: SafeArea(
-        child: Column(
-          children: [
-            CommonAppBar(
-              isIconBar: true,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: AppColor().black10,
-                  ),
-                ),
-              ),
-              child: CommonSearchBarWidget(
-                isBackButton: true,
-                onBackButtonTap: () {
-                  Navigator.pop(context);
-                },
-                isSearchExpanded: viewModel.isSearchExpanded,
-                controller: viewModel.searchController,
-                hintText: StringConstants().searchHere,
-                onChanged: (value) {
-                  viewModel.isSearchExpanded = true;
-                  // viewModel.searchProcurement(value);
-                  if (viewModel.searchController.text.isEmpty) {
-                    // viewModel.getUpdatedList();
-                  }
-                },
-                title: StringConstants().dashboard,
-                onSuffixTap: () {
-                  if (viewModel.searchController.text.isEmpty) {
-                    viewModel.isSearchExpanded = !viewModel.isSearchExpanded;
-                    // viewModel.getUpdatedList();
-                    viewModel.updateUI();
-                  } else {
-                    viewModel.isSearchExpanded = false;
-                    // viewModel.getUpdatedList();
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget spcbBody(SpcbDashboardViewModel viewModel) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: CommonTabBar(
-        tabs: [
-          TabBarModel(
-              tab: const SpcbProducerTab(
-                  // producerData: viewModel.producerData,
-                  // producerEprOblicationsData:
-                  //     viewModel.producerEprOblicationsData,
-                  ),
-              label: StringConstants.producer),
-          TabBarModel(
-              tab: const SpcbRecyclerTab(), label: StringConstants.recycler),
-          TabBarModel(
-              tab: const SpcbRetreaderTab(), label: StringConstants().retrader)
-        ],
-      ),
-    );
   }
 }

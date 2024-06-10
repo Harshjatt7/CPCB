@@ -60,14 +60,6 @@ class CommonPopUp extends StatelessWidget {
                             .labelMedium!
                             .copyWith(color: appColor.white),
                         onPressed: onPressedYes,
-                        //  () async {
-                        //   Navigator.pop(ctx);
-                        //   if (context.mounted) {
-                        //     await viewModel.addRetreadedData(
-                        //       context,
-                        //     );
-                        //   }
-                        // },
                       ),
                     ),
                   ),

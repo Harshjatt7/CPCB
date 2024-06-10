@@ -15,6 +15,7 @@ class CommonSpcbCard extends StatelessWidget {
     this.state,
     this.onMenuTap,
     this.applicationNumber,
+    this.onCommentTap,
   });
   final String? companyName;
   final String? address;
@@ -22,6 +23,7 @@ class CommonSpcbCard extends StatelessWidget {
   final String? state;
   final Function()? onMenuTap;
   final String? applicationNumber;
+  final Function()? onCommentTap;
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +82,21 @@ class CommonSpcbCard extends StatelessWidget {
                 color: AppColor().black10,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  
                   CommonTextWidget(
                     "${StringConstants().date.i18n()}: $date",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium
                         ?.copyWith(color: AppColor().black40),
+                  ),
+                  GestureDetector(
+                    onTap: onCommentTap,
+                    child: CommonImageWidget(
+                      imageSource: ImageConstants().commentIcon,
+                      isNetworkImage: false,
+                    ),
                   ),
                 ],
               ),

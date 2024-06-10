@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/helper/helper_functions.dart';
+import '../../widgets/app_components/commo_comment_pop_up.dart';
 import '../../widgets/app_components/common_spcb_card.dart';
 
 class SpcbRecyclerTab extends StatelessWidget {
@@ -7,6 +9,7 @@ class SpcbRecyclerTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final helperFunctions = HelperFunctions();
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
@@ -53,6 +56,22 @@ class SpcbRecyclerTab extends StatelessWidget {
                 applicationNumber: "011123234344",
                 onMenuTap: () {
                   // viewModel.downloadCertificate(context);
+                },
+                 onCommentTap: () {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext ctx) {
+                      return CommonCommentPopUp(
+                          ctx: ctx,
+                          labelText: "Something you want to comment?",
+                          hintText: "Write your comment ...",
+                          onSubmit: () {
+                            helperFunctions.logger("Submitted");
+                          });
+                    },
+                  );
+                  helperFunctions.logger("on Comment");
                 },
               ),
             ),

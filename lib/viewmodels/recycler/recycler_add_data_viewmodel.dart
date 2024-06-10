@@ -85,7 +85,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   void changeRawMaterialDropdownValue(newValue) {
     tyreOfRecyclerMaterialDropdownValue = newValue;
     updateUI();
-    if (changeDropdown == null) {
+    if (tyreOfRecyclerMaterialDropdownValue == null) {
       tyreOfRecyclerMaterialDropdownError =
           messageConstant.mandatoryTypeRawMaterial;
     }

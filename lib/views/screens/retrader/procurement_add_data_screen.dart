@@ -308,7 +308,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       child: CommonDropdownTextFormField(
         error: viewModel.yearDropdownError,
         onTap: () {
-          viewModel.changeDropdownValue(viewModel.yearDropdownValue);
+          viewModel.changeDropdownValue(viewModel.changeDropdown);
         },
         value: viewModel.yearDropdownValue,
         labelText: viewModel.stringConstants.financialYearLabel,
