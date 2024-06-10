@@ -51,14 +51,6 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                         if (viewModel.supplierNameError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.supplierNameError ?? ''),
-                        contactDetailsField(viewModel),
-                        if (viewModel.supplierContactError?.isNotEmpty ?? false)
-                          showErrorMessage(
-                              context, viewModel.supplierContactError ?? ''),
-                        addressOfWasteSupplierField(viewModel),
-                        if (viewModel.addressError?.isNotEmpty ?? false)
-                          showErrorMessage(
-                              context, viewModel.addressError ?? ''),
                         rawMaterialDropdown(viewModel),
                         if (viewModel.rawMaterialError?.isNotEmpty ?? false)
                           showErrorMessage(
@@ -67,6 +59,14 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                         if (viewModel.sourceTyreError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.sourceTyreError ?? ''),
+                        contactDetailsField(viewModel),
+                        if (viewModel.supplierContactError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.supplierContactError ?? ''),
+                        addressOfWasteSupplierField(viewModel),
+                        if (viewModel.addressError?.isNotEmpty ?? false)
+                          showErrorMessage(
+                              context, viewModel.addressError ?? ''),
                         quantityReceivedField(viewModel),
                         if (viewModel.quantityReceivedError?.isNotEmpty ??
                             false)
@@ -319,7 +319,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          hintText: viewModel.stringConstants.contactDetails,
+          hintText: viewModel.stringConstants.supplierContactDetails,
           textInputType: TextInputType.number,
           isMandatory: true,
           validator: (value) {

@@ -130,7 +130,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
             CommonTextWidget(
               isAdmin == true ? name ?? "" : title,
-              useLocalization: false,
+              useLocalization: true,
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
