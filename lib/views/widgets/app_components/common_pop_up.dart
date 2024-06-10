@@ -6,20 +6,22 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CommonPopUp extends StatelessWidget {
-  const CommonPopUp({super.key, this.onPressedYes,this.onPressedNo});
+   CommonPopUp({super.key, this.onPressedYes,this.onPressedNo});
   final void Function()? onPressedYes;
   final void Function()? onPressedNo;
+  final StringConstants stringConstants=StringConstants();
+  final AppColor appColor=AppColor();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: const EdgeInsets.all(0),
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-      backgroundColor: AppColor().red,
+      backgroundColor: appColor.red,
       content: Container(
         height: 200,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: AppColor().white,
+            color: appColor.white,
             borderRadius: const BorderRadius.all(Radius.circular(8))),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -40,8 +42,8 @@ class CommonPopUp extends StatelessWidget {
                   Flexible(
                     flex: 2,
                     child: CommonButtonWidget(
-                      label: StringConstants().no,
-                      color: AppColor().white,
+                      label: stringConstants.no,
+                      color: appColor.white,
                       labelStyle: Theme.of(context).textTheme.labelMedium,
                       onPressed: onPressedNo,
                     ),
@@ -51,12 +53,12 @@ class CommonPopUp extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 24),
                       child: CommonButtonWidget(
-                        label: StringConstants().yes,
-                        color: AppColor().darkGreen,
+                        label: stringConstants.yes,
+                        color: appColor.darkGreen,
                         labelStyle: Theme.of(context)
                             .textTheme
                             .labelMedium!
-                            .copyWith(color: AppColor().white),
+                            .copyWith(color: appColor.white),
                         onPressed: onPressedYes,
                         //  () async {
                         //   Navigator.pop(ctx);

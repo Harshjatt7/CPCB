@@ -14,7 +14,9 @@ import '../../constants/routes_constant.dart';
 import '../material_app_viewmodel.dart';
 
 class ProfileViewModel extends BaseViewModel {
-  StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final StoreKeyConstants storeKeyConstants = StoreKeyConstants();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   final _commonRepo = CommonRepository();
   APIResponse<ProfileResponseModel?>? _profileResponseModel;
@@ -26,20 +28,20 @@ class ProfileViewModel extends BaseViewModel {
     var res = await logout();
     if (res?.isSuccess == true) {
       await SecureStorage.instance
-          .deleteSensitiveInfo(StoreKeyConstants().userType);
+          .deleteSensitiveInfo(storeKeyConstants.userType);
       await SecureStorage.instance
-          .deleteSensitiveInfo(StoreKeyConstants().token);
+          .deleteSensitiveInfo(storeKeyConstants.token);
       await SecureStorage.instance
-          .deleteSensitiveInfo(StoreKeyConstants().refreshToken);
+          .deleteSensitiveInfo(storeKeyConstants.refreshToken);
       await SecureStorage.instance
-          .storeSensitiveInfo(StoreKeyConstants().isLogin, false);
+          .storeSensitiveInfo(storeKeyConstants.isLogin, false);
 
       MaterialAppViewModel.selectedPageIndex = 0;
 
       Navigator.pushNamedAndRemoveUntil(
           context, AppRoutes.loginScreenRoute, (route) => false);
     } else {
-      HelperFunctions().commonErrorSnackBar(
+      helperFunctions.commonErrorSnackBar(
           context,
           res?.error?.errorResponse?.errorDescription ??
               MessageConstant().errorMessage);
@@ -55,12 +57,12 @@ class ProfileViewModel extends BaseViewModel {
         _profileResponseModel?.data = ProfileResponseModel.fromJson(
             _profileResponseModel?.completeResponse);
         data = _profileResponseModel?.data?.data;
-        HelperFunctions().logger('${data?.name}');
+        helperFunctions.logger('${data?.name}');
       } else {
-        HelperFunctions().logger("drfsxrfdesxfdsxf");
+        helperFunctions.logger("drfsxrfdesxfdsxf");
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
 
     state = ViewState.idle;

@@ -15,7 +15,8 @@ import '../../widgets/app_components/recycler_detail_container.dart';
 import '../../widgets/components/common_text_widget.dart';
 
 class RecyclerDataScreen extends StatelessWidget {
-  const RecyclerDataScreen({super.key});
+  final AppColor appColor = AppColor();
+  RecyclerDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class RecyclerDataScreen extends StatelessWidget {
     );
   }
 
-  buttonSection(BuildContext context, RecyclerDataViewModel viewModel) {
+  Widget buttonSection(BuildContext context, RecyclerDataViewModel viewModel) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 12),
       child: CommonButtonWidget(
@@ -111,11 +112,11 @@ class RecyclerDataScreen extends StatelessWidget {
           Navigator.pushNamed(context, AppRoutes.recyclerAddDataScreenRoute);
         },
         label: viewModel.stringConstants.addRecyclerData,
-        color: AppColor().darkGreen,
+        color: appColor.darkGreen,
         labelStyle: Theme.of(context)
             .textTheme
             .labelSmall!
-            .copyWith(color: AppColor().white),
+            .copyWith(color: appColor.white),
       ),
     );
   }
@@ -142,7 +143,7 @@ class RecyclerDataScreen extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border(
                       bottom: BorderSide(
-                color: AppColor().black10,
+                color: appColor.black10,
               ))),
               child: CommonSearchBarWidget(
                 isSearchExpanded: viewModel.isSearchExpanded,

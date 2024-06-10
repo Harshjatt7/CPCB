@@ -13,7 +13,8 @@ import 'package:flutter/material.dart';
 
 class ProcurementViewDataViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
-  StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   final _retreaderRepo = RetreaderRepository();
   APIResponse<ProcurementResponseModel?>? _procurementResponseModel;
@@ -42,7 +43,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
         searchPage++;
         loadMoreData();
       } else {
-        HelperFunctions().logger(searchPage.toString());
+        helperFunctions.logger(searchPage.toString());
       }
     } else {
       if ((_procurementResponseModel?.data?.meta?.lastPage ?? 0) > page) {
@@ -132,10 +133,10 @@ class ProcurementViewDataViewModel extends BaseViewModel {
           data = _procurementResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger("No response");
+        helperFunctions.logger("No response");
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _procurementResponseModel;
@@ -159,10 +160,10 @@ class ProcurementViewDataViewModel extends BaseViewModel {
           data = _procurementSearchResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger("No response");
+        helperFunctions.logger("No response");
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _procurementSearchResponseModel;

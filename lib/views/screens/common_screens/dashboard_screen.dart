@@ -18,7 +18,9 @@ import 'package:flutter/material.dart';
 import '../../../viewmodels/common_viewmodel/dashboard_viewmodel.dart';
 
 class DashBoardScreen extends StatelessWidget {
-  const DashBoardScreen({super.key});
+   DashBoardScreen({super.key});
+  final ImageConstants imageConstants=ImageConstants();
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class DashBoardScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const CommonAppBar(
+                     CommonAppBar(
                       isIconBar: true,
                       showNotificationIcon: false,
                     ),
@@ -57,11 +59,11 @@ class DashBoardScreen extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                            color: AppColor().black05,
+                            color: appColor.black05,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(5)),
                             border: Border.all(
-                              color: AppColor().black30,
+                              color: appColor.black30,
                               width: 1,
                             )),
                         child: Column(
@@ -144,11 +146,11 @@ class DashBoardScreen extends StatelessWidget {
                                         .getDownloadApplication(context);
                                   },
                                   label: viewModel.stringConstants.downloadApplication,
-                                  color: AppColor().darkGreen,
+                                  color: appColor.darkGreen,
                                   labelStyle: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
-                                      .copyWith(color: AppColor().white),
+                                      .copyWith(color: appColor.white),
                                 ),
                               ),
                             if (viewModel.data?.downloadInvoice == true)
@@ -159,12 +161,12 @@ class DashBoardScreen extends StatelessWidget {
                                 },
                                 label: viewModel.stringConstants
                                     .downloadPaymentReciptBtnLabel,
-                                color: AppColor().white,
-                                borderColor: AppColor().darkGreen,
+                                color: appColor.white,
+                                borderColor: appColor.darkGreen,
                                 labelStyle: Theme.of(context)
                                     .textTheme
                                     .labelMedium!
-                                    .copyWith(color: AppColor().darkGreen),
+                                    .copyWith(color: appColor.darkGreen),
                               )
                           ],
                         ),
@@ -179,7 +181,7 @@ class DashBoardScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
-                              .copyWith(color: AppColor().black90),
+                              .copyWith(color: appColor.black90),
                         ),
                       ),
                     Column(
@@ -188,7 +190,7 @@ class DashBoardScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
-                              image: ImageConstants().contactPage,
+                              image: imageConstants.contactPage,
                               title: viewModel.stringConstants.totalEprObligations,
                               subTitle:
                                   "${viewModel.data?.eprCompliance?.eprObligation.toString().formatToFinancial() ?? 0}",
@@ -198,7 +200,7 @@ class DashBoardScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
-                              image: ImageConstants().contactPage,
+                              image: imageConstants.contactPage,
                               title: viewModel.stringConstants.totalEprFullFilled,
                               subTitle:
                                   "${viewModel.data?.eprCompliance?.eprFulfilled.toString().formatToFinancial() ?? 0}",
@@ -208,7 +210,7 @@ class DashBoardScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: ProducerErpTile(
-                              image: ImageConstants().contactPage,
+                              image: imageConstants.contactPage,
                               title: viewModel.stringConstants.totalEprObligations,
                               subTitle:
                                   "${viewModel.data?.eprCompliance?.eprObligationRemaining.toString().formatToFinancial() ?? 0}",
@@ -225,7 +227,7 @@ class DashBoardScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
-                              .copyWith(color: AppColor().black90),
+                              .copyWith(color: appColor.black90),
                         ),
                       ),
                     if (viewModel.currentUser == UserTypes.retreader)
@@ -233,7 +235,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.creditsGenerated,
                             subTitle:
                                 "${viewModel.data?.eprCredits?.creditsGenerated.toString().formatToFinancial() ?? 0}",
@@ -242,7 +244,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.creditsTransferred,
                             subTitle:
                                 "${viewModel.data?.eprCredits?.creditsTransferred.toString().formatToFinancial() ?? 0}",
@@ -251,7 +253,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.creditsAvailable,
                             subTitle:
                                 "${viewModel.data?.eprCredits?.creditsAvailable.toString().formatToFinancial() ?? 0}",
@@ -270,7 +272,7 @@ class DashBoardScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
-                              .copyWith(color: AppColor().black90),
+                              .copyWith(color: appColor.black90),
                         ),
                       ),
                     if (viewModel.currentUser == UserTypes.retreader)
@@ -282,7 +284,7 @@ class DashBoardScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .displaySmall!
-                              .copyWith(color: AppColor().black),
+                              .copyWith(color: appColor.black),
                         ),
                       ),
                     if (viewModel.currentUser == UserTypes.retreader)
@@ -290,7 +292,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.totalProcurement,
                             subTitle:
                                 "${viewModel.data?.procurementData?.totalProcurement.toString().formatToFinancial() ?? 0}",
@@ -299,7 +301,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.totalProcessed,
                             subTitle:
                                 "${viewModel.data?.procurementData?.totalProcurementProcessed.toString().formatToFinancial() ?? 0}",
@@ -308,7 +310,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.availableStock,
                             subTitle:
                                 "${viewModel.data?.procurementData?.availableStock.toString().formatToFinancial() ?? 0}",
@@ -328,7 +330,7 @@ class DashBoardScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium!
-                              .copyWith(color: AppColor().black90),
+                              .copyWith(color: appColor.black90),
                         ),
                       ),
                     if (viewModel.currentUser == UserTypes.retreader)
@@ -336,7 +338,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.totalProcessed,
                             subTitle:
                                 "${viewModel.data?.processedStock?.totalProduced?.toString().formatToFinancial() ?? 0}",
@@ -345,7 +347,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.totalSold,
                             subTitle:
                                 "${viewModel.data?.processedStock?.totalSold.toString().formatToFinancial() ?? 0}",
@@ -354,7 +356,7 @@ class DashBoardScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: ProducerErpTile(
-                            image: ImageConstants().contactPage,
+                            image: imageConstants.contactPage,
                             title: viewModel.stringConstants.availableStock,
                             subTitle:
                                 "${viewModel.data?.processedStock?.availableProcessedStock.toString().formatToFinancial() ?? 0}",
@@ -376,7 +378,7 @@ class DashBoardScreen extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColor().black10),
+                        border: Border.all(color: appColor.black10),
                       ),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -393,7 +395,7 @@ class DashBoardScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 0),
                               child: Divider(
                                 height: 1,
-                                color: AppColor().black10,
+                                color: appColor.black10,
                               ),
                             ),
                             Padding(
@@ -417,7 +419,7 @@ class DashBoardScreen extends StatelessWidget {
                                                               ?.environmentCompensation
                                                               ?.dateOfEc ??
                                                           ""),
-                                              image: ImageConstants().calendar),
+                                              image: imageConstants.calendar),
                                         ),
                                       ),
                                       Flexible(
@@ -432,8 +434,8 @@ class DashBoardScreen extends StatelessWidget {
                                                       ?.environmentCompensation
                                                       ?.currentStatus ??
                                                   "",
-                                              subtitleColor: AppColor().green,
-                                              image: ImageConstants().infoEnv),
+                                              subtitleColor: appColor.green,
+                                              image: imageConstants.infoEnv),
                                         ),
                                       ),
                                     ],
@@ -452,7 +454,7 @@ class DashBoardScreen extends StatelessWidget {
                                                       ?.environmentCompensation
                                                       ?.type ??
                                                   "",
-                                              image: ImageConstants().infoEnv),
+                                              image: imageConstants.infoEnv),
                                         ),
                                       ),
                                       Flexible(
@@ -466,7 +468,7 @@ class DashBoardScreen extends StatelessWidget {
                                                       ?.environmentCompensation
                                                       ?.amount ??
                                                   "",
-                                              image: ImageConstants().dollar),
+                                              image: imageConstants.dollar),
                                         ),
                                       ),
                                     ],
@@ -482,7 +484,7 @@ class DashBoardScreen extends StatelessWidget {
                                             .textTheme
                                             .displaySmall!
                                             .copyWith(
-                                                color: AppColor().black40),
+                                                color: appColor.black40),
                                       ),
                                     ),
                                   ),

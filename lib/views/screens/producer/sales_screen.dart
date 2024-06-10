@@ -14,7 +14,8 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class SalesScreen extends StatelessWidget {
-  const SalesScreen({super.key});
+   SalesScreen({super.key});
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -109,11 +110,11 @@ class SalesScreen extends StatelessWidget {
                       context, AppRoutes.addSalesDataScreenRoute);
                 },
                 label: viewModel.stringConstants.addSalesDataBtnLabel,
-                color: AppColor().darkGreen,
+                color: appColor.darkGreen,
                 labelStyle: Theme.of(context)
                     .textTheme
                     .labelSmall!
-                    .copyWith(color: AppColor().white),
+                    .copyWith(color: appColor.white),
               ),
             ),
           ],

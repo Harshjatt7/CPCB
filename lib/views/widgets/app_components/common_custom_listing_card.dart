@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
 class CommonCustomListingCard extends StatelessWidget {
-  const CommonCustomListingCard({
+   CommonCustomListingCard({
     super.key,
     this.companyName,
     this.contactNumber,
@@ -20,6 +20,8 @@ class CommonCustomListingCard extends StatelessWidget {
   final String? email;
   final String? state;
   final Function()? onMenuTap;
+  final StringConstants stringConstants=StringConstants();
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class CommonCustomListingCard extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              border: Border.all(color: AppColor().black10),
+              border: Border.all(color: appColor.black10),
               borderRadius: BorderRadius.circular(6)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +45,7 @@ class CommonCustomListingCard extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
-                            ?.copyWith(color: AppColor().black),
+                            ?.copyWith(color: appColor.black),
                       ),
                     ],
                   ),
@@ -63,17 +65,17 @@ class CommonCustomListingCard extends StatelessWidget {
               ),
               buildCustomTextWidget(context,
                   text:
-                      "${StringConstants().contactNumber.i18n()}: $contactNumber"),
+                      "${stringConstants.contactNumber.i18n()}: $contactNumber"),
               const SizedBox(
                 height: 6,
               ),
               buildCustomTextWidget(context,
-                  text: "${StringConstants().email.i18n()}: $email"),
+                  text: "${stringConstants.email.i18n()}: $email"),
               const SizedBox(
                 height: 6,
               ),
               buildCustomTextWidget(context,
-                  text: "${StringConstants().state.i18n()}: $state"),
+                  text: "${stringConstants.state.i18n()}: $state"),
             ],
           ),
         ),
@@ -86,6 +88,6 @@ class CommonCustomListingCard extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .bodyMedium
-            ?.copyWith(color: AppColor().black40));
+            ?.copyWith(color: appColor.black40));
   }
 }

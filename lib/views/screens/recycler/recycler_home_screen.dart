@@ -9,28 +9,30 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class RecyclerHomeScreen extends StatelessWidget {
-  const RecyclerHomeScreen({super.key});
+  final ImageConstants imageConstants=ImageConstants();
+  final AppColor appColor=AppColor();
+   RecyclerHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().homeTabIcon,
+        imgSrc: imageConstants.homeTabIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().dbIcon,
+        imgSrc: imageConstants.dbIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().refreshIcon,
+        imgSrc: imageConstants.refreshIcon,
       ),
       bottomNavigationBarWidget(
-        imgSrc: ImageConstants().profileTabIcon,
+        imgSrc: imageConstants.profileTabIcon,
       )
-    ], screens: const [
+    ], screens:  [
       DashBoardScreen(),
-      RecyclerProcurementDataScreen(),
-      RecyclerDataScreen(),
-      ProfileScreen()
+       RecyclerProcurementDataScreen(),
+       RecyclerDataScreen(),
+       ProfileScreen()
     ]);
   }
 
@@ -42,13 +44,13 @@ class RecyclerHomeScreen extends StatelessWidget {
           activeIcon: CommonImageWidget(
               height: 20,
               width: 20,
-              imageColor: AppColor().darkGreen,
+              imageColor: appColor.darkGreen,
               imageSource: imgSrc,
               isNetworkImage: false),
           icon: CommonImageWidget(
               height: 20,
               width: 20,
-              imageColor: AppColor().black20,
+              imageColor: appColor.black20,
               imageSource: imgSrc,
               isNetworkImage: false));
 }

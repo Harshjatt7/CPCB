@@ -14,7 +14,9 @@ import 'package:flutter/material.dart';
 
 class RetreadedAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
-  StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final MessageConstant messageConstant = MessageConstant();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   String? yearDropdownValue;
   String? yearDropdownError;
@@ -65,10 +67,10 @@ class RetreadedAddDataViewModel extends BaseViewModel {
         apiResponse?.data =
             AddDataResponseModel.fromJson(apiResponse.completeResponse);
         if (context.mounted) {
-          HelperFunctions().commonSuccessSnackBar(
+          helperFunctions.commonSuccessSnackBar(
               context,
               apiResponse?.data?.message ??
-                  MessageConstant().successfullySubmitted);
+                  messageConstant.successfullySubmitted);
           state = ViewState.idle;
           MaterialAppViewModel.selectedPageIndex = 2;
           Navigator.pushNamedAndRemoveUntil(
@@ -92,7 +94,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
             : apiError?.retreadedDate?.first ?? "";
       }
     } else {
-      HelperFunctions().commonErrorSnackBar(context, "Something went wrong...");
+      helperFunctions.commonErrorSnackBar(context, "Something went wrong...");
       state = ViewState.idle;
     }
     state = ViewState.idle;
@@ -111,11 +113,11 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     return Validations().validateName(nameOfWasteTyreSupplierController.text);
   }
 
-  dateTimeConvert() {
+  void dateTimeConvert() {
     if (date != null) {
-      dateController.text = HelperFunctions().getFormattedDate(date: date!);
+      dateController.text = helperFunctions.getFormattedDate(date: date!);
     }
-    HelperFunctions().logger(dateController.text);
+    helperFunctions.logger(dateController.text);
   }
 
   void changeDropdownValue(newValue) {
@@ -128,13 +130,13 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     }
     updateUI();
     if (changeDropdown == null) {
-      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
+      yearDropdownError = messageConstant.pleaseSelectDropdownValue;
     }
   }
 
   String? quantityProcessedValidation() {
     if (quantityProcessedController.text.isEmpty) {
-      return MessageConstant().quantityProcessedValidation;
+      return messageConstant.quantityProcessedValidation;
     }
     return null;
   }
@@ -145,7 +147,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
 
   String? quantityOfWasteGeneratedValidation() {
     if (quantityOfWasteGeneratedController.text.isEmpty) {
-      return MessageConstant().wasteGeneratedValidation;
+      return messageConstant.wasteGeneratedValidation;
     }
     return null;
   }
@@ -160,7 +162,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
 
   String? quantityProducedValidation() {
     if (quantityProducedController.text.isEmpty) {
-      return MessageConstant().quantityProducedValidation;
+      return messageConstant.quantityProducedValidation;
     }
     return null;
   }

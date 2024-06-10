@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 
 class CommonEPRApplication extends StatelessWidget {
   final String userType;
-  const CommonEPRApplication(
-      {super.key, required this.userType, required this.data});
   final EPRApplicationData? data;
+  final StringConstants stringConstants = StringConstants();
+  final AppColor appColor=AppColor();
+   CommonEPRApplication(
+      {super.key, required this.userType, required this.data});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,11 +24,11 @@ class CommonEPRApplication extends StatelessWidget {
               Flexible(
                   flex: 2,
                   child: CommonTextWidget(
-                    StringConstants().eprApplications,
+                    stringConstants.eprApplications,
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(color: AppColor().black80),
+                        .copyWith(color: appColor.black80),
                   )),
               Flexible(
                   flex: 1,
@@ -35,34 +37,34 @@ class CommonEPRApplication extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(color: AppColor().black80),
+                        .copyWith(color: appColor.black80),
                   )),
             ],
           ),
         ),
         CommonEPROblicationsTile(
-            title: StringConstants().applicationsUnderProcessAtCPCB,
-            count: "${data?.applicationUnderProcess??''}"),
+            title: stringConstants.applicationsUnderProcessAtCPCB,
+            count: "${data?.applicationUnderProcess ?? ''}"),
         CommonEPROblicationsTile(
-            title: StringConstants().applicationsUnderEvaluationWithDivision,
-            count: "${data?.applicationUnderDh??''}"),
+            title: stringConstants.applicationsUnderEvaluationWithDivision,
+            count: "${data?.applicationUnderDh ?? ''}"),
         CommonEPROblicationsTile(
-            title: StringConstants().applicationsApprovedByAuthority,
-            count:"${data?.applicationApprovedAuthority??''}" ),
+            title: stringConstants.applicationsApprovedByAuthority,
+            count: "${data?.applicationApprovedAuthority ?? ''}"),
         CommonEPROblicationsTile(
-            title: StringConstants().applicationsRejectedByAuthority,
-            count:"${data?.applicationRejectedAuthority??''}" ),
+            title: stringConstants.applicationsRejectedByAuthority,
+            count: "${data?.applicationRejectedAuthority ?? ''}"),
         CommonEPROblicationsTile(
-            title: StringConstants().applicationsAwaitingApprovalAtAuthority,
-            count: "${data?.applicationAwaitingApproval??''}"),
+            title: stringConstants.applicationsAwaitingApprovalAtAuthority,
+            count: "${data?.applicationAwaitingApproval ?? ''}"),
         // CommonEPROblicationsTile(
-        //     title: StringConstants().returnForDivision, count:"${data?.applicationUnderDh}"),
+        //     title: stringConstants.returnForDivision, count:"${data?.applicationUnderDh}"),
         CommonEPROblicationsTile(
-            title: StringConstants().applicationPendingAtTheApplicants,
-            count: "${data?.applicationPendingApplicant??''}"),
+            title: stringConstants.applicationPendingAtTheApplicants,
+            count: "${data?.applicationPendingApplicant ?? ''}"),
         CommonEPROblicationsTile(
-            title: StringConstants().numberOfRegistrationGrantedToProducers,
-            count: "${data?.applicationGranted??''}"),
+            title: stringConstants.numberOfRegistrationGrantedToProducers,
+            count: "${data?.applicationGranted ?? ''}"),
       ],
     );
   }

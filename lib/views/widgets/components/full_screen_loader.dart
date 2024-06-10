@@ -10,7 +10,8 @@ class FullScreenLoader extends StatelessWidget {
   final Color? bgColor;
   final String? loaderText;
   final double? placeLoaderAfterHeight;
-  const FullScreenLoader(
+  final AppColor appColor=AppColor();
+   FullScreenLoader(
       {super.key,
       this.height,
       this.alignment,
@@ -22,7 +23,7 @@ class FullScreenLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: bgColor ?? AppColor().white.withOpacity(0.4),
+      color: bgColor ?? appColor.white.withOpacity(0.4),
       height: height ?? Responsive().screenHeight(context),
       alignment: alignment ?? Alignment.center,
       child: Column(
@@ -39,14 +40,14 @@ class FullScreenLoader extends StatelessWidget {
             CommonTextWidget(
               loaderText ?? "",
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontWeight: FontWeight.w600, color: AppColor().black),
+                  fontWeight: FontWeight.w600, color: appColor.black),
             ),
           if (loaderText != null)
             const SizedBox(
               height: 10,
             ),
           CircularProgressIndicator(
-            color: color ?? AppColor().black,
+            color: color ?? appColor.black,
           ),
         ],
       ),

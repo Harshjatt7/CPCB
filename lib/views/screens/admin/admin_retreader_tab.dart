@@ -24,7 +24,7 @@ class AdminRetreaderTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          const CommonAdminDashboardHeading(),
+           CommonAdminDashboardHeading(),
           CommonEndProduct(
               title: retreaderCommonData?.retreadedTyre?.name ?? '',
               generated:

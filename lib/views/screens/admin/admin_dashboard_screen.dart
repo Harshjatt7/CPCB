@@ -37,7 +37,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   preferredSize: const Size.fromHeight(115),
                   child: Column(
                     children: [
-                      const CommonAppBar(
+                       CommonAppBar(
                         isIconBar: true,
                       ),
                       Container(
@@ -50,7 +50,7 @@ class AdminDashboardScreen extends StatelessWidget {
                             border: Border(
                                 bottom: BorderSide(color: AppColor().black10))),
                         child: CommonTextWidget(
-                          StringConstants().dashboard,
+                          viewModel.stringConstants.dashboard,
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                       ),
@@ -80,7 +80,7 @@ class AdminDashboardScreen extends StatelessWidget {
                           retreaderCommonData:
                               viewModel.retreaderEprOblicationData,
                         ),
-                        label: StringConstants().retrader)
+                        label: viewModel.stringConstants.retrader)
                   ],
                 ),
               ));

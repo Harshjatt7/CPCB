@@ -9,7 +9,7 @@ import 'package:localization/localization.dart';
 import '../../../constants/string_constant.dart';
 
 class RecyclerProcurementDetailsContainer extends StatelessWidget {
-  const RecyclerProcurementDetailsContainer({
+  RecyclerProcurementDetailsContainer({
     super.key,
     required this.name,
     this.invoiceNumber,
@@ -24,6 +24,9 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
 
   final String? date;
   final String? year;
+  final ImageConstants imageConstants = ImageConstants();
+  final StringConstants stringConstants = StringConstants();
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColor().black10),
+        border: Border.all(color: appColor.black10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,16 +43,16 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .displayMedium
-                  ?.copyWith(color: AppColor().black)),
+                  ?.copyWith(color: appColor.black)),
           const SizedBox(
             height: 6,
           ),
           retraderDetailsCard(context,
-              "${StringConstants().invoiceNumberLabel.i18n()} ${invoiceNumber ?? ''}"),
+              "${stringConstants.invoiceNumberLabel.i18n()} ${invoiceNumber ?? ''}"),
           retraderDetailsCard(context,
-              "${StringConstants().typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
+              "${stringConstants.typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
           Divider(
-            color: AppColor().black10,
+            color: appColor.black10,
           ),
           Row(
             children: [
@@ -58,14 +61,14 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
                 child: Row(
                   children: [
                     CommonImageWidget(
-                      imageSource: ImageConstants().calendarIcon,
+                      imageSource: imageConstants.calendarIcon,
                       isNetworkImage: false,
                     ),
                     const SizedBox(
                       width: 4,
                     ),
                     retraderDetailsCard(context,
-                        '${StringConstants().date.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                        '${stringConstants.date.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                   ],
                 ),
               ),
@@ -74,7 +77,7 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
                 child: Row(
                   children: [
                     CommonImageWidget(
-                      imageSource: ImageConstants().calendarIcon,
+                      imageSource: imageConstants.calendarIcon,
                       isNetworkImage: false,
                     ),
                     const SizedBox(
@@ -90,15 +93,15 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget retraderDetailsCard(BuildContext context, String text) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 2),
-    child: CommonTextWidget(text,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: AppColor().black40)),
-  );
+  Widget retraderDetailsCard(BuildContext context, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: CommonTextWidget(text,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: appColor.black40)),
+    );
+  }
 }

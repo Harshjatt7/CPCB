@@ -16,6 +16,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? image;
   final String? name;
   final String? designation;
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor=AppColor();
 
   /// [CommonAppBar] will be used as the common appbar in this project.
   ///
@@ -32,7 +34,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// [isIconBar] will take boolen value for [iconAppBar] widget
   ///
   /// [showNotificationIcon] will take boolen value to show/hide notification icon from Icon App Bar.
-  const CommonAppBar(
+   CommonAppBar(
       {super.key,
       this.title,
       this.actions,
@@ -69,7 +71,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: CommonImageWidget(
               height: 44,
               width: 34,
-              imageSource: ImageConstants().blueLogo,
+              imageSource: imageConstants.blueLogo,
               isNetworkImage: false),
         ),
         const Spacer(),
@@ -79,7 +81,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColor().black20, width: 1)),
+                border: Border.all(color: appColor.black20, width: 1)),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(1000)),
               child: CommonImageWidget(
@@ -108,7 +110,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               CommonTextWidget(designation,
                   textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: AppColor().darkBlue60,
+                        color: appColor.darkBlue60,
                       )),
             ],
           ),
@@ -120,7 +122,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget iconAppBar() {
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColor().black10))),
+          border: Border(bottom: BorderSide(color: appColor.black10))),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Row(
@@ -128,7 +130,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             CommonImageWidget(
                 height: 44,
                 width: 34,
-                imageSource: ImageConstants().blueLogo,
+                imageSource: imageConstants.blueLogo,
                 isNetworkImage: false),
             if (showNotificationIcon == true) const Spacer(),
             if (showNotificationIcon == true)
@@ -136,7 +138,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   height: 24,
                   width: 24,
                   fit: BoxFit.cover,
-                  imageSource: ImageConstants().notification,
+                  imageSource: imageConstants.notification,
                   isNetworkImage: false)
           ],
         ),
@@ -147,7 +149,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Container normalAppBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColor().black10))),
+          border: Border(bottom: BorderSide(color: appColor.black10))),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: [
@@ -157,7 +159,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Navigator.pop(context);
                 },
             child: CommonImageWidget(
-              imageSource: leadingIcon ?? ImageConstants().arrowBack,
+              imageSource: leadingIcon ?? imageConstants.arrowBack,
               isNetworkImage: false,
               height: 24,
               width: 24,
@@ -171,7 +173,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelMedium
-                ?.copyWith(color: AppColor().codGrey),
+                ?.copyWith(color: appColor.codGrey),
           ),
         ],
       ),

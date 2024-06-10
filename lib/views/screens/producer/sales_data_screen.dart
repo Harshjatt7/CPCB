@@ -15,7 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SalesDataScreen extends StatelessWidget {
-  const SalesDataScreen({super.key});
+   SalesDataScreen({super.key});
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +30,24 @@ class SalesDataScreen extends StatelessWidget {
           return CustomScaffold(
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
-              backgroundColor: AppColor().offWhite,
+              backgroundColor: appColor.offWhite,
               appBar: CommonAppBar(
-                title:viewModel.stringConstants.addSalesDataBtnLabel,
+                title: viewModel.stringConstants.addSalesDataBtnLabel,
               ),
               body: formSection(context, viewModel),
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor().white,
+                    color: appColor.white,
                   ),
                   child: CommonButtonWidget(
                     height: 50,
                     label: viewModel.stringConstants.submitBtnLabel,
-                    color: AppColor().darkGreen,
+                    color: appColor.darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .labelSmall!
-                        .copyWith(color: AppColor().white),
+                        .copyWith(color: appColor.white),
                     onPressed: () {
                       viewModel.formValidation(
                         context,
@@ -245,7 +246,7 @@ class SalesDataScreen extends StatelessWidget {
                     validator: (value) {
                       return viewModel.totalValidation();
                     },
-                    disabledBgColor: AppColor().white,
+                    disabledBgColor: appColor.white,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     isReadOnly: true,
                     hintText: viewModel.stringConstants.totalLabel,
@@ -261,7 +262,7 @@ class SalesDataScreen extends StatelessWidget {
     );
   }
 
-  showErrorMessage(BuildContext context, String message) {
+  Widget showErrorMessage(BuildContext context, String message) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
@@ -271,7 +272,7 @@ class SalesDataScreen extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: AppColor().red),
+              ?.copyWith(color: appColor.red),
         ),
       ),
     );

@@ -22,6 +22,7 @@ class StringConstants {
   final String submitBtnLabel = "submit-btn-label";
   final String profileTitle = "profile-Title";
   final String emailId = "email-id";
+  final String designation = "designation";
   final String mobileNumber = "mobile-number";
   final String typeOfProducerLabel = "type-of-producer-label";
   final String typeOfTyreLabel = "type-of-tyre-label";
@@ -145,8 +146,8 @@ class StringConstants {
   final String producerListing = "producer-listing";
   final String downloadCertificate = "download-certificate";
   final String somethingWentWrong = "something-went-wrong";
-  final String transaction="transaction";
-  final String application="application";
+  final String transaction = "transaction";
+  final String application = "application";
   final String address = "address";
 
   //User Types

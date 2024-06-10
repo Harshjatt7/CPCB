@@ -4,20 +4,20 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/recycler/recycler_add_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/screens/retrader/retreaded_add_data_screen.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_pop_up.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecyclerAddDataScreen extends StatelessWidget {
-  const RecyclerAddDataScreen({super.key});
-
+  final AppColor appColor=AppColor();
+   RecyclerAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
               resizeToBottomInset: true,
               isLoading: viewModel.state == ViewState.busy,
               appBar: CommonAppBar(
-                title:viewModel.stringConstants.addRecyclerData,
+                title: viewModel.stringConstants.addRecyclerData,
               ),
               body: formSection(viewModel, context),
               persistentFooterButtons: [
@@ -44,7 +44,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
       RecyclerAddDataViewModel viewModel, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColor().white,
+        color: appColor.white,
       ),
       child: CommonButtonWidget(
         onPressed: () {
@@ -73,11 +73,11 @@ class RecyclerAddDataScreen extends StatelessWidget {
         },
         height: 50,
         label: viewModel.stringConstants.submitBtnLabel,
-        color: AppColor().darkGreen,
+        color: appColor.darkGreen,
         labelStyle: Theme.of(context)
             .textTheme
             .labelSmall!
-            .copyWith(color: AppColor().white),
+            .copyWith(color: appColor.white),
       ),
     );
   }
@@ -138,7 +138,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
           hintText: viewModel.stringConstants.date,
           isMandatory: true,
           isReadOnly: true,
-          disabledBgColor: AppColor().transparent,
+          disabledBgColor: appColor.transparent,
           validator: (value) {
             return viewModel.dateValidation();
           },
@@ -291,6 +291,22 @@ class RecyclerAddDataScreen extends StatelessWidget {
           viewModel.changeFinancialDropdownValue(value);
           viewModel.yearDropdownError = null;
         },
+      ),
+    );
+  }
+
+  showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: appColor.red),
+        ),
       ),
     );
   }

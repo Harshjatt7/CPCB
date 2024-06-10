@@ -6,7 +6,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProducerSalesList extends StatelessWidget {
-  const ProducerSalesList({
+  ProducerSalesList({
     super.key,
     required this.title,
     this.motorcycle,
@@ -35,13 +35,15 @@ class ProducerSalesList extends StatelessWidget {
   final String month;
   final String count;
   final String producerType;
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor = AppColor();
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: AppColor().black10),
+        border: Border.all(color: appColor.black10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +54,9 @@ class ProducerSalesList extends StatelessWidget {
                 title,
                 style: Theme.of(context).textTheme.displayMedium,
               ),
-              const SizedBox(width: 10,),
+              const SizedBox(
+                width: 10,
+              ),
               CommonTypeBadge(text: producerType),
             ],
           ),
@@ -66,98 +70,94 @@ class ProducerSalesList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   saleItemWidget(
-                      context, ImageConstants().motorcycle, motorcycle ?? ""),
+                      context, imageConstants.motorcycle, motorcycle ?? ""),
                   const SizedBox(
                     height: 8,
                   ),
-                  saleItemWidget(context, ImageConstants().bus, bus ?? ""),
+                  saleItemWidget(context, imageConstants.bus, bus ?? ""),
                 ],
               ),
-              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   saleItemWidget(
-                      context, ImageConstants().passengerCar, passengerCar ?? ""),
+                      context, imageConstants.passengerCar, passengerCar ?? ""),
                   const SizedBox(
                     height: 8,
                   ),
-                  saleItemWidget(context, ImageConstants().tcv, tcv ?? ""),
+                  saleItemWidget(context, imageConstants.tcv, tcv ?? ""),
                 ],
               ),
-              
-               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  saleItemWidget(
-                      context, ImageConstants().scooterIcon, scooter ?? "0"),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  saleItemWidget(context, ImageConstants().tRear, tRear ?? "0"),
-                ],
-              ),
-             
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  saleItemWidget(context, ImageConstants().truckIcon,
-                      truck ?? "0"),
+                  saleItemWidget(
+                      context, imageConstants.scooterIcon, scooter ?? "0"),
                   const SizedBox(
                     height: 8,
                   ),
-                  saleItemWidget(context, ImageConstants().other, other ?? "0"),
+                  saleItemWidget(context, imageConstants.tRear, tRear ?? "0"),
                 ],
               ),
-             
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  saleItemWidget(
+                      context, imageConstants.truckIcon, truck ?? "0"),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  saleItemWidget(context, imageConstants.other, other ?? "0"),
+                ],
+              ),
             ],
           ),
           const SizedBox(
             height: 8,
           ),
           Divider(
-            color: AppColor().black10,
+            color: appColor.black10,
           ),
           const SizedBox(
             height: 8,
           ),
           Row(
             children: [
-              saleItemWidget(context, ImageConstants().calendarIcon, year),
+              saleItemWidget(context, imageConstants.calendarIcon, year),
               const SizedBox(
                 width: 32,
               ),
-              saleItemWidget(context, ImageConstants().calendarIcon, month),
+              saleItemWidget(context, imageConstants.calendarIcon, month),
               const SizedBox(
                 width: 32,
               ),
-              saleItemWidget(context, ImageConstants().mdiTireIcon, count),
+              saleItemWidget(context, imageConstants.mdiTireIcon, count),
             ],
           ),
         ],
       ),
     );
   }
-}
 
-Widget saleItemWidget(BuildContext context, String image, String count) {
-  return Row(
-    children: [
-      CommonImageWidget(
-        imageSource: image,
-        isNetworkImage: false,
-      ),
-      const SizedBox(
-        width: 8,
-      ),
-      CommonTextWidget(
-        count,
-        maxLines: 1,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: AppColor().black40),
-      ),
-    ],
-  );
+  Widget saleItemWidget(BuildContext context, String image, String count) {
+    return Row(
+      children: [
+        CommonImageWidget(
+          imageSource: image,
+          isNetworkImage: false,
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        CommonTextWidget(
+          count,
+          maxLines: 1,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: appColor.black40),
+        ),
+      ],
+    );
+  }
 }

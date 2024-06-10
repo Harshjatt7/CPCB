@@ -15,7 +15,8 @@ import 'package:flutter/widgets.dart';
 import '../../utils/helper/debouncing_helper.dart';
 
 class RetreaderViewDataViewmodel extends BaseViewModel {
-   StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   final _retreaderRepo = RetreaderRepository();
   UserTypes? currentUser;
@@ -74,7 +75,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
         searchPage++;
         loadMoreData();
       } else {
-        HelperFunctions().logger(searchPage.toString());
+        helperFunctions.logger(searchPage.toString());
       }
     } else {
       if ((_retreaderResponseModel?.data?.meta?.lastPage ?? 0) > page) {
@@ -100,10 +101,10 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
           data = _retreaderSearchResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger("No response");
+        helperFunctions.logger("No response");
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _retreaderSearchResponseModel;
@@ -158,10 +159,10 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
           data = _retreaderResponseModel?.data?.data ?? [];
         }
       } else {
-        HelperFunctions().logger("No response");
+        helperFunctions.logger("No response");
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return _retreaderResponseModel;

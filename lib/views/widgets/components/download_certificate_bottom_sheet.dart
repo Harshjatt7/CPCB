@@ -8,8 +8,9 @@ import 'common_text_widget.dart';
 
 class DownloadCertificateBottomSheet extends StatelessWidget {
   final VoidCallback? onDownloadCertificateTapped;
-  const DownloadCertificateBottomSheet(
-      {super.key, this.onDownloadCertificateTapped});
+  final StringConstants stringConstants = StringConstants();
+  final AppColor appColor=AppColor();
+  DownloadCertificateBottomSheet({super.key, this.onDownloadCertificateTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class DownloadCertificateBottomSheet extends StatelessWidget {
             width: 56,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: AppColor().black20),
+                color: appColor.black20),
           ),
           const SizedBox(
             height: 16,
@@ -43,7 +44,7 @@ class DownloadCertificateBottomSheet extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonTextWidget(
-                      StringConstants().options,
+                      stringConstants.options,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     const SizedBox(
@@ -52,8 +53,8 @@ class DownloadCertificateBottomSheet extends StatelessWidget {
                     CommonButtonWidget(
                         onPressed: onDownloadCertificateTapped,
                         imageSrc: ImageConstants().downloadTransactionIcon,
-                        color: AppColor().darkGreen,
-                        label: StringConstants().downloadCertificate),
+                        color: appColor.darkGreen,
+                        label: stringConstants.downloadCertificate),
                     const SizedBox(
                       height: 16,
                     ),
@@ -63,11 +64,11 @@ class DownloadCertificateBottomSheet extends StatelessWidget {
                         },
                         labelStyle:
                             Theme.of(context).textTheme.displayLarge!.copyWith(
-                                  color: AppColor().black80,
+                                  color: appColor.black80,
                                   fontWeight: FontWeight.w600,
                                 ),
-                        color: AppColor().transparent,
-                        label: StringConstants().close)
+                        color: appColor.transparent,
+                        label: stringConstants.close)
                   ],
                 ),
               ))

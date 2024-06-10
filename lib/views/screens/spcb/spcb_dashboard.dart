@@ -35,7 +35,7 @@ class SpcbDashboardScreen extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            const CommonAppBar(
+            CommonAppBar(
               isIconBar: true,
             ),
             Container(

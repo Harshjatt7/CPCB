@@ -14,7 +14,8 @@ import '../../utils/helper/helper_functions.dart';
 class DashboardViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
   final _commonRepo = CommonRepository();
-   StringConstants stringConstants = StringConstants();
+  final StringConstants stringConstants = StringConstants();
+  final HelperFunctions helperFunctions=HelperFunctions();
 
   UserTypes? currentUser;
   APIResponse<DashboardResponseModel?>? _dashboardResponseModel;
@@ -24,7 +25,7 @@ class DashboardViewModel extends BaseViewModel {
   String? url;
 
   void getCurrentUserType(BuildContext context) async {
-    await HelperFunctions().getUserType(context);
+    await helperFunctions.getUserType(context);
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
 
@@ -41,12 +42,12 @@ class DashboardViewModel extends BaseViewModel {
         data = _dashboardResponseModel?.data?.data;
       } else {
         if (context.mounted) {
-          HelperFunctions().commonErrorSnackBar(
+          helperFunctions.commonErrorSnackBar(
               context, MessageConstant().somethingWentWrong);
         }
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
 
     state = ViewState.idle;
@@ -60,7 +61,7 @@ class DashboardViewModel extends BaseViewModel {
       APIResponse value = await _commonRepo
           .getDownloadPaymentReceipt(getPaymentReceiptAPIUrl() ?? '');
       if (value.isSuccess == true) {
-        HelperFunctions()
+        helperFunctions
             .downloadAndStoreFile(name: "Transaction", response: value);
         state = ViewState.idle;
         return value;
@@ -68,12 +69,12 @@ class DashboardViewModel extends BaseViewModel {
         state = ViewState.idle;
 
         if (context.mounted) {
-          HelperFunctions()
+          helperFunctions
               .commonErrorSnackBar(context, value.error?.message ?? '');
         }
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
 
@@ -86,7 +87,7 @@ class DashboardViewModel extends BaseViewModel {
       APIResponse value = await _commonRepo
           .getDownloadApplication(getDownloadApplicationAPIUrl() ?? '');
       if (value.isSuccess == true) {
-        HelperFunctions()
+        helperFunctions
             .downloadAndStoreFile(name: "Application", response: value);
         state = ViewState.idle;
         return value;
@@ -94,12 +95,12 @@ class DashboardViewModel extends BaseViewModel {
         state = ViewState.idle;
 
         if (context.mounted) {
-          HelperFunctions()
+          helperFunctions
               .commonErrorSnackBar(context, value.error?.message ?? '');
         }
       }
     } catch (err) {
-      HelperFunctions().logger("$err");
+      helperFunctions.logger("$err");
     }
     state = ViewState.idle;
     return null;

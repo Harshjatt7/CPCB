@@ -17,7 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecyclerProcurementAddDataScreen extends StatelessWidget {
-  const RecyclerProcurementAddDataScreen({super.key});
+  final ImageConstants imageConstants=ImageConstants();
+  final AppColor appColor=AppColor();
+   RecyclerProcurementAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
               persistentFooterButtons: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor().white,
+                    color: appColor.white,
                   ),
                   child: CommonButtonWidget(
                     onPressed: () {
@@ -121,11 +123,11 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                     },
                     height: 50,
                     label: viewModel.stringConstants.submitBtnLabel,
-                    color: AppColor().darkGreen,
+                    color: appColor.darkGreen,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .labelSmall!
-                        .copyWith(color: AppColor().white),
+                        .copyWith(color: appColor.white),
                   ),
                 ),
               ]);
@@ -137,7 +139,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          disabledBgColor: AppColor().transparent,
+          disabledBgColor: appColor.transparent,
           isReadOnly: true,
           onTap: () async {
             viewModel.date = await HelperFunctions()
@@ -151,7 +153,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           },
           hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial,
           isMandatory: true,
-          icon: ImageConstants().calendar,
+          icon: imageConstants.calendar,
           controller: viewModel.dateController),
     );
   }
@@ -214,12 +216,12 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
           isDocument: viewModel.filePath == null ? false : true,
-          disabledBgColor: AppColor().transparent,
+          disabledBgColor: appColor.transparent,
           isReadOnly: true,
           hintText: viewModel.stringConstants.uploadInvoice,
           icon: viewModel.uploadInvoiceController.text.isEmpty
-              ? ImageConstants().fileUpload
-              : ImageConstants().removeIcon,
+              ? imageConstants.fileUpload
+              : imageConstants.removeIcon,
           onTap: () {
             viewModel.handleOnTap(context);
           },
@@ -342,7 +344,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     );
   }
 
-  showErrorMessage(BuildContext context, String message) {
+  Widget showErrorMessage(BuildContext context, String message) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
@@ -352,7 +354,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodySmall
-              ?.copyWith(color: AppColor().red),
+              ?.copyWith(color: appColor.red),
         ),
       ),
     );

@@ -13,7 +13,7 @@ class ProducerEnvironmentTile extends StatelessWidget {
   /// [image] is optional, it will use a default info icon.
   ///
   /// [subtitleColor]is optional, it will will use a default subtitle color.
-  const ProducerEnvironmentTile({
+   ProducerEnvironmentTile({
     super.key,
     required this.title,
     required this.subtitle,
@@ -25,6 +25,7 @@ class ProducerEnvironmentTile extends StatelessWidget {
   final String image;
   final String subtitle;
   final Color? subtitleColor;
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +37,14 @@ class ProducerEnvironmentTile extends StatelessWidget {
               alignment: Alignment.center,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColor().green10,
+                color: appColor.green10,
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColor().black10),
+                border: Border.all(color: appColor.black10),
               ),
               child: CommonImageWidget(
                 imageSource: image,
                 isNetworkImage: false,
-                imageColor: AppColor().black,
+                imageColor: appColor.black,
               )),
         ),
         const SizedBox(
@@ -59,7 +60,7 @@ class ProducerEnvironmentTile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall
-                    ?.copyWith(color: AppColor().black40),
+                    ?.copyWith(color: appColor.black40),
               ),
               const SizedBox(height: 8.0),
               CommonTextWidget(
@@ -67,7 +68,7 @@ class ProducerEnvironmentTile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium
-                    ?.copyWith(color: subtitleColor ?? AppColor().black),
+                    ?.copyWith(color: subtitleColor ?? appColor.black),
               ),
             ],
           ),

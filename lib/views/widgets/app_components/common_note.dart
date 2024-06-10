@@ -12,27 +12,28 @@ class CommonNote extends StatelessWidget {
   ///
   /// [color] is optional, it will use a defualt white color.
   ///
-  const CommonNote({super.key, required this.note, this.textColor, this.color});
+   CommonNote({super.key, required this.note, this.textColor, this.color});
   final String note;
   final Color? textColor;
   final Color? color;
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          color: color ?? AppColor().white,
+          color: color ?? appColor.white,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: AppColor().grey03,
+            color: appColor.grey03,
           )),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonTextWidget(StringConstants().note,
               style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    color: textColor ?? AppColor().darkGreen,
+                    color: textColor ?? appColor.darkGreen,
                   )),
           const SizedBox(width: 10.0),
           Flexible(

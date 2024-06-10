@@ -8,7 +8,8 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+   SplashScreen({super.key});
+  final AppColor appColor=AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +29,13 @@ class SplashScreen extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                      AppColor().primaryGreen,
-                      AppColor().darkGreen
+                      appColor.primaryGreen,
+                      appColor.darkGreen
                     ])),
                 child: CommonImageWidget(
                     height: 150,
                     width: 115,
-                    bgColor: AppColor().transparent,
+                    bgColor: appColor.transparent,
                     imageSource: ImageConstants().splashScreenLogo,
                     isNetworkImage: false),
               ));
