@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../constants/image_constants.dart';
 import '../../../constants/string_constant.dart';
@@ -74,12 +75,12 @@ class CommonSpcbCard extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              buildCustomTextWidget(context,
+              buildCustomTextWidget(context,appColor,
                   text: "${stringConstants.address.i18n()}: $address"),
               const SizedBox(
                 height: 6,
               ),
-              buildCustomTextWidget(context,
+              buildCustomTextWidget(context,appColor,
                   text: "${stringConstants.state.i18n()}: $state"),
               Divider(
                 color: appColor.black10,
@@ -110,7 +111,7 @@ class CommonSpcbCard extends StatelessWidget {
     );
   }
 
-  CommonTextWidget buildCustomTextWidget(BuildContext context, {String? text}) {
+  CommonTextWidget buildCustomTextWidget(BuildContext context,AppColor appColor, {String? text}) {
     return CommonTextWidget(text ?? "",
         style: Theme.of(context)
             .textTheme
