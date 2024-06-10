@@ -81,19 +81,14 @@ class CommonSpcbCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  CommonImageWidget(
-                      imageSource: ImageConstants().calendarIcon,
-                      isNetworkImage: false),
-                  const SizedBox(
-                    width: 4,
-                  ),
+                  
                   CommonTextWidget(
                     "${StringConstants().date.i18n()}: $date",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium
                         ?.copyWith(color: AppColor().black40),
-                  )
+                  ),
                 ],
               ),
             ],
