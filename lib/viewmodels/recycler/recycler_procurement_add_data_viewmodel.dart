@@ -24,7 +24,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final StringConstants stringConstants = StringConstants();
   final MessageConstant messageConstant = MessageConstant();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   String? financialYearDropdownValue;
   String? rawMaterialDropdownValue;
@@ -50,6 +50,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   List<String> tyreSource = <String>[];
   MultipartFile? uploadInvoiceDoc;
   DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
   DateTime? date;
 
   String? filePath;
@@ -213,8 +214,8 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           if (context.mounted) {
             state = ViewState.idle;
 
-            helperFunctions
-                .commonSuccessSnackBar(context, response?.data?.message ?? "");
+            helperFunctions.commonSuccessSnackBar(
+                context, response?.data?.message ?? "");
             MaterialAppViewModel.selectedPageIndex = 1;
             Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -258,8 +259,8 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
               : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        helperFunctions
-            .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
+        helperFunctions.commonErrorSnackBar(
+            context, messageConstant.somethingWentWrong);
       }
     } catch (e) {
       helperFunctions.logger('$e');
@@ -305,8 +306,13 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     financialYearDropdownValue = newValue;
     if (financialYearDropdownValue != null) {
       String startYear = financialYearDropdownValue!.split('-').first;
-      int year = int.parse(startYear);
-      startDate = DateTime(year, 4, 1);
+      String lastYear = changeDropdown!.split('-').last;
+      int stYear = int.parse(startYear);
+      int edYear = int.parse(lastYear);
+      startDate = DateTime(stYear, 4, 1);
+      endDate = startYear == DateTime.now().year.toString()
+          ? DateTime.now()
+          : DateTime(edYear, 3, 31);
       updateUI();
     }
     updateUI();

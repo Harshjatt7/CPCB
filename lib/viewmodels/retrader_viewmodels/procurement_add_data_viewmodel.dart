@@ -22,8 +22,8 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 class ProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   final StringConstants stringConstants = StringConstants();
-  final MessageConstant messageConstant=MessageConstant();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final MessageConstant messageConstant = MessageConstant();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   String? yearDropdownValue;
   String? yearDropdownError;
@@ -44,6 +44,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   List financialYearList = <String>[];
   MultipartFile? uploadInvoiceDoc;
   DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
   DateTime? date;
 
   String? filePath;
@@ -154,8 +155,8 @@ class ProcurementAddDataViewModel extends BaseViewModel {
               : apiError?.purchaseDate?.first ?? "";
         }
       } else {
-        helperFunctions
-            .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
+        helperFunctions.commonErrorSnackBar(
+            context, messageConstant.somethingWentWrong);
       }
     } catch (e) {
       helperFunctions.logger('$e');
@@ -234,8 +235,14 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     changeDropdown = newValue;
     if (changeDropdown != null) {
       String startYear = changeDropdown!.split('-').first;
-      int year = int.parse(startYear);
-      startDate = DateTime(year, 4, 1);
+      String lastYear = changeDropdown!.split('-').last;
+      int stYear = int.parse(startYear);
+      int edYear = int.parse(lastYear);
+      startDate = DateTime(stYear, 4, 1);
+      endDate = startYear == DateTime.now().year.toString()
+          ? DateTime.now()
+          : DateTime(edYear, 3, 31);
+
       updateUI();
     }
     updateUI();
