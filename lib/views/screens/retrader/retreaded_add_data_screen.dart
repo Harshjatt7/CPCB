@@ -97,7 +97,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
                   isMandatory: false,
                   controller: viewModel.contactDetailsController,
                   validator: (value) {
-                    return viewModel.nameValidation();
+                    return viewModel.contactDetailsValidation();
                   },
                 ),
               ),
@@ -135,7 +135,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
           disabledBgColor: appColor.transparent,
           onTap: () async {
             viewModel.date = await HelperFunctions()
-                .datePicker(context, viewModel.startDate);
+                .datePicker(context, viewModel.startDate, viewModel.endDate);
             if (viewModel.date != null) {
               viewModel.dateTimeConvert();
             }
@@ -231,9 +231,13 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: viewModel.stringConstants.nameOfWasteTyreSupplier,
-          isMandatory: false,
-          controller: viewModel.nameOfWasteTyreSupplierController),
+        hintText: viewModel.stringConstants.nameOfWasteTyreSupplier,
+        isMandatory: false,
+        controller: viewModel.nameOfWasteTyreSupplierController,
+        validator: (value) {
+          return viewModel.nameValidation();
+        },
+      ),
     );
   }
 

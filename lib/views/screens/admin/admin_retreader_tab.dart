@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_oblications_response_model.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_admin_dashboard_heading.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_end_product.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';
@@ -11,12 +12,13 @@ import '../../../constants/enums/enums.dart';
 import '../../../constants/routes_constant.dart';
 
 class AdminRetreaderTab extends StatelessWidget {
-  const AdminRetreaderTab(
+  AdminRetreaderTab(
       {super.key,
       required this.retreaderData,
       required this.retreaderCommonData});
   final EPRApplicationData? retreaderData;
   final CommonEprOblicationData? retreaderCommonData;
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,14 @@ class AdminRetreaderTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-           CommonAdminDashboardHeading(),
+          CommonAdminDashboardHeading(),
           CommonEndProduct(
-              title: retreaderCommonData?.retreadedTyre?.name ?? '',
-              generated:
-                  '${retreaderCommonData?.retreadedTyre?.earnedCredit ?? ''}',
-              transferred:
-                  '${retreaderCommonData?.retreadedTyre?.creditTransfered ?? ''}'),
+            title: retreaderCommonData?.retreadedTyre?.name ?? '',
+            generated: helperFunctions.precisionFormat(
+                retreaderCommonData?.retreadedTyre?.earnedCredit),
+            transferred: helperFunctions.precisionFormat(
+                retreaderCommonData?.retreadedTyre?.creditTransfered),
+          ),
           CommonTotalApplicationCard(
             totalApplication: "${retreaderData?.applications}",
             onTap: () {

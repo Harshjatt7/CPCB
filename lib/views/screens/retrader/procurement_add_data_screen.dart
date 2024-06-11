@@ -145,7 +145,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
           isMandatory: true,
           onTap: () async {
             viewModel.date = await HelperFunctions()
-                .datePicker(context, viewModel.startDate);
+                .datePicker(context, viewModel.startDate, viewModel.endDate);
             if (viewModel.date != null) {
               viewModel.dateTimeConvert();
             }
