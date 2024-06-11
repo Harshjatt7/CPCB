@@ -16,8 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecyclerAddDataScreen extends StatelessWidget {
-  final AppColor appColor=AppColor();
-   RecyclerAddDataScreen({super.key});
+  final AppColor appColor = AppColor();
+  RecyclerAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
           // viewModel.formValidation(context);
           if ((viewModel.formKey.currentState?.validate() ?? false) &&
               viewModel.financialYearDropdownValue != null &&
-              viewModel.tyreOfRecyclerMaterialDropdownValue != null) {
+              viewModel.recycledTyreDropdownValue != null) {
             showDialog(
                 context: context,
                 builder: (BuildContext ctx) {
@@ -97,18 +97,13 @@ class RecyclerAddDataScreen extends StatelessWidget {
               nameField(viewModel),
               if (viewModel.wasteTyreSupplierNameError.isNotEmpty)
                 showErrorMessage(context, viewModel.wasteTyreSupplierNameError),
-              contactDetailsField(viewModel),
-              if (viewModel.wasteTyreSupplierContactError.isNotEmpty)
-                showErrorMessage(
-                    context, viewModel.wasteTyreSupplierContactError),
               addressField(viewModel),
               if (viewModel.wasteTyreSupplierAddressError.isNotEmpty)
                 showErrorMessage(
                     context, viewModel.wasteTyreSupplierAddressError),
-              typeOfRawMaterialField(viewModel),
-              if (viewModel.typeOfRecycledMaterialError.isNotEmpty)
-                showErrorMessage(
-                    context, viewModel.typeOfRecycledMaterialError),
+              recycledTyreField(viewModel),
+              if (viewModel.recycledTyreError.isNotEmpty)
+                showErrorMessage(context, viewModel.recycledTyreError),
               gstNoField(viewModel),
               if (viewModel.wasteTyreSupplierGstError.isNotEmpty)
                 showErrorMessage(context, viewModel.wasteTyreSupplierGstError),
@@ -213,22 +208,22 @@ class RecyclerAddDataScreen extends StatelessWidget {
     );
   }
 
-  Padding typeOfRawMaterialField(RecyclerAddDataViewModel viewModel) {
+  Padding recycledTyreField(RecyclerAddDataViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
-        labelText: viewModel.stringConstants.typeOfRawMaterial,
+        labelText: viewModel.stringConstants.recycledTyre,
         dropDownItem: viewModel.tyreOfRecyclerMaterialList,
-        error: viewModel.tyreOfRecyclerMaterialDropdownError,
-        value: viewModel.tyreOfRecyclerMaterialDropdownValue,
+        error: viewModel.recycledTyreDropdownError,
+        value: viewModel.recycledTyreDropdownValue,
         onTap: () {
           viewModel.changeRawMaterialDropdownValue(
-              viewModel.tyreOfRecyclerMaterialDropdownValue);
+              viewModel.recycledTyreDropdownValue);
         },
         onChanged: (value) {
           viewModel.changeRawMaterialDropdownValue(value);
 
-          viewModel.tyreOfRecyclerMaterialDropdownError = null;
+          viewModel.recycledTyreDropdownError = null;
         },
       ),
     );
@@ -244,21 +239,6 @@ class RecyclerAddDataScreen extends StatelessWidget {
             return viewModel.addressValidation();
           },
           controller: viewModel.addressController),
-    );
-  }
-
-  Padding contactDetailsField(RecyclerAddDataViewModel viewModel) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: CommonTextFormFieldWidget(
-        inputFormatters: [LengthLimitingTextInputFormatter(10)],
-        hintText: viewModel.stringConstants.contactDetails,
-        isMandatory: true,
-        controller: viewModel.contactDetailsController,
-        validator: (value) {
-          return viewModel.contactDetailsValidation();
-        },
-      ),
     );
   }
 
