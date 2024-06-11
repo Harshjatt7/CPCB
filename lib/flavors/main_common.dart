@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   Locale? currentLocale = const Locale('en');
   String localeName = "en";
+  final _appTheme = AppTheme();
 
   void setLocale(Locale value) {
     setState(() {
@@ -49,15 +50,15 @@ class MyAppState extends State<MyApp> {
               LocalJsonLocalization.delegate,
             ],
             onGenerateRoute: PageRouter.generateRoute,
-            theme: lightTheme(context),
+            theme: _appTheme.lightTheme(context),
             supportedLocales: const [
               Locale('en'),
               Locale('es'),
             ],
-            darkTheme: darkTheme(context),
+            darkTheme: _appTheme.darkTheme(context),
             locale: currentLocale,
             navigatorKey: APIBase.navigatorKey,
-            home:  SplashScreen(),
+            home: SplashScreen(),
           );
         });
   }

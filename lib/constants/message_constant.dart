@@ -28,4 +28,5 @@ class MessageConstant {
   final String quantityProducedValidation = "quantity-produced-validation";
   final String quantityProducedMoreValidation =
       "quantity-produced-more-validation";
+  final String mandatoryTyreSource = "mandatory-tyre-source";
 }

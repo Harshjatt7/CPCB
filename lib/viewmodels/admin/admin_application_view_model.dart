@@ -14,7 +14,7 @@ import '../../utils/helper/helper_functions.dart';
 class AdminApplicationViewModel extends BaseViewModel {
   final MessageConstant messageConstant = MessageConstant();
   final StringConstants stringConstants = StringConstants();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
   TextEditingController searchController = TextEditingController();
   final _adminRepo = AdminRepository();
   ScrollController scrollController = ScrollController();
@@ -120,8 +120,8 @@ class AdminApplicationViewModel extends BaseViewModel {
         state = ViewState.idle;
 
         if (context.mounted) {
-          helperFunctions
-              .commonErrorSnackBar(context, value.error?.message ?? '');
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
         }
       }
     } catch (err) {
@@ -197,16 +197,15 @@ class AdminApplicationViewModel extends BaseViewModel {
         return value;
       } else {
         state = ViewState.idle;
-
         if (context.mounted) {
-          helperFunctions
-              .commonErrorSnackBar(context, value.error?.message ?? '');
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
         }
       }
     } catch (err) {
       if (context.mounted) {
-        helperFunctions
-            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+        helperFunctions.commonErrorSnackBar(
+            context, stringConstants.somethingWentWrong);
       }
       helperFunctions.logger("$err");
     }

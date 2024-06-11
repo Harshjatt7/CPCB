@@ -24,6 +24,7 @@ class APIBase {
 
   Duration timeoutDuration = const Duration(seconds: 60);
   static final debouncer = Debouncer(milliseconds: 0);
+  final MessageConstant _messageConstants = MessageConstant();
 
   Dio? getDio(
       {bool? isAuthorizationRequired = false,
@@ -379,7 +380,7 @@ class APIBase {
         ErrorResponseModel errorResponseModel = ex.response?.data.isEmpty
             ? ErrorResponseModel(
                 errorResponse: Error(
-                    errorDescription: MessageConstant().errorMessage.i18n()),
+                    errorDescription: _messageConstants.errorMessage.i18n()),
               )
             : ErrorResponseModel.fromJson(ex.response?.data);
 
@@ -397,7 +398,7 @@ class APIBase {
         ErrorResponseModel errorResponseModel = ex.response?.data.isEmpty
             ? ErrorResponseModel(
                 errorResponse: Error(
-                    errorDescription: MessageConstant().errorMessage.i18n()),
+                    errorDescription: _messageConstants.errorMessage.i18n()),
               )
             : ErrorResponseModel.fromJson(jsonDecode(result));
 

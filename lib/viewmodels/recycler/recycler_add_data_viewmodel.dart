@@ -27,9 +27,8 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   String newText = '';
   TextEditingController nameOfWasteTyreSupplierController =
       TextEditingController();
-  TextEditingController contactDetailsController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  TextEditingController typeOfRawMaterialController = TextEditingController();
+  TextEditingController recycledTyreController = TextEditingController();
   TextEditingController gstController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController quantityProcessedController = TextEditingController();
@@ -46,15 +45,15 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   String wasteTyreSupplierNameError = '';
   String wasteTyreSupplierContactError = '';
   String wasteTyreSupplierAddressError = '';
-  String typeOfRecycledMaterialError = '';
+  String recycledTyreError = '';
   String wasteTyreSupplierGstError = '';
   String wasteGeneratedQtyError = '';
   String recycledDateError = '';
 
   List financialYearList = <String>[];
   List tyreOfRecyclerMaterialList = <String>[];
-  String? tyreOfRecyclerMaterialDropdownValue;
-  String? tyreOfRecyclerMaterialDropdownError;
+  String? recycledTyreDropdownValue;
+  String? recycledTyreDropdownError;
 
   Future<APIResponse<AddRecyclerDataConstantsResponseModel?>?>
       getRecyclerDataConstants() async {
@@ -84,11 +83,10 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   }
 
   void changeRawMaterialDropdownValue(newValue) {
-    tyreOfRecyclerMaterialDropdownValue = newValue;
+    recycledTyreDropdownValue = newValue;
     updateUI();
-    if (changeDropdown == null) {
-      tyreOfRecyclerMaterialDropdownError =
-          messageConstant.mandatoryTypeRawMaterial;
+    if (recycledTyreDropdownValue == null) {
+      recycledTyreDropdownError = messageConstant.mandatoryTypeRawMaterial;
     }
   }
 
@@ -96,8 +94,8 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   void changeFinancialDropdownValue(newValue) {
     financialYearDropdownValue = newValue;
     if (financialYearDropdownValue != null) {
-      String startYear = changeDropdown!.split('-').first;
-      String lastYear = changeDropdown!.split('-').last;
+      String startYear = financialYearDropdownValue!.split('-').first;
+      String lastYear = financialYearDropdownValue!.split('-').last;
       int stYear = int.parse(startYear);
       int edYear = int.parse(lastYear);
       startDate = DateTime(stYear, 4, 1);
@@ -107,10 +105,10 @@ class RecyclerAddDataViewModel extends BaseViewModel {
 
       updateUI();
     }
-    updateUI();
     if (financialYearDropdownValue == null) {
       yearDropdownError = messageConstant.mandatoryFinancialYear;
     }
+    updateUI();
   }
 
   void dateTimeConvert() {
@@ -125,10 +123,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
       return messageConstant.quantityProcessed;
     }
     return null;
-  }
-
-  String? contactDetailsValidation() {
-    return Validations().validatePhone(contactDetailsController.text);
   }
 
   String? addressValidation() {
@@ -162,9 +156,8 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     AddRecyclerDataRequestModel? request = AddRecyclerDataRequestModel(
         financialYear: financialYearDropdownValue,
         wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
-        wasteTyreSupplierContact: contactDetailsController.text,
         wasteTyreSupplierAddress: addressController.text,
-        typeOfRecycledMaterial: tyreOfRecyclerMaterialDropdownValue,
+        recycledTyre: recycledTyreDropdownValue,
         wasteTyreSupplierGst: gstController.text,
         processedQty: double.parse(quantityProcessedController.text),
         producedQty: double.parse(quantityProducedController.text),
@@ -228,10 +221,9 @@ class RecyclerAddDataViewModel extends BaseViewModel {
             (apiError?.wasteTyreSupplierAddress ?? []).isEmpty
                 ? ""
                 : apiError?.wasteTyreSupplierAddress?.first ?? "";
-        typeOfRecycledMaterialError =
-            (apiError?.typeOfRecycledMaterial ?? []).isEmpty
-                ? ""
-                : apiError?.typeOfRecycledMaterial?.first ?? "";
+        recycledTyreError = (apiError?.typeOfRecycledMaterial ?? []).isEmpty
+            ? ""
+            : apiError?.typeOfRecycledMaterial?.first ?? "";
         wasteGeneratedQtyError = (apiError?.wasteGeneratedQty ?? []).isEmpty
             ? ""
             : apiError?.wasteGeneratedQty?.first ?? "";

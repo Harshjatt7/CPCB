@@ -16,7 +16,6 @@ class CommonPopUp extends StatelessWidget {
     return AlertDialog(
       contentPadding: const EdgeInsets.all(0),
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-      backgroundColor: appColor.red,
       content: Container(
         height: 200,
         width: double.infinity,
@@ -60,14 +59,6 @@ class CommonPopUp extends StatelessWidget {
                             .labelMedium!
                             .copyWith(color: appColor.white),
                         onPressed: onPressedYes,
-                        //  () async {
-                        //   Navigator.pop(ctx);
-                        //   if (context.mounted) {
-                        //     await viewModel.addRetreadedData(
-                        //       context,
-                        //     );
-                        //   }
-                        // },
                       ),
                     ),
                   ),

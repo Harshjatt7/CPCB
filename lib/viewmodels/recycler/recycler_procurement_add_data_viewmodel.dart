@@ -315,27 +315,26 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           : DateTime(edYear, 3, 31);
       updateUI();
     }
-    updateUI();
     if (financialYearDropdownValue == null) {
       yearDropdownError = messageConstant.pleaseSelectDropdownValue;
     }
+    updateUI();
   }
 
   void changeRawMaterialDropdownValue(newValue) {
     rawMaterialDropdownValue = newValue;
-    updateUI();
-    if (changeDropdown == null) {
+    if (rawMaterialDropdownValue == null) {
       rawMaterialDropdownError = messageConstant.mandatoryTypeRawMaterial;
     }
+    updateUI();
   }
 
   void changetyreSourceDropdownValue(newValue) {
     tyreSourceDropdownValue = newValue;
-    updateUI();
-    if (changeDropdown == null) {
-      tyreSourceDropdownError =
-          messageConstant.mandatoryTypeRawMaterial; //to change
+    if (tyreSourceDropdownValue == null) {
+      tyreSourceDropdownError = messageConstant.mandatoryTyreSource;
     }
+    updateUI();
   }
 
   void changeFinancialDropdownValue(newValue) {

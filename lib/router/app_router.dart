@@ -20,31 +20,30 @@ class PageRouter {
     switch (settings.name) {
       // Splash Screen
       case AppRoutes.splashScreenRoute:
-        return _getPageRoute( SplashScreen(), settings);
+        return _getPageRoute(SplashScreen(), settings);
       case AppRoutes.loginScreenRoute:
         return _getPageRoute(LoginScreen(), settings);
       case AppRoutes.producerHomeScreenRoute:
         return _getPageRoute(const ProducerHomeScreen(), settings);
       case AppRoutes.retraderHomeScreenRoute:
         return _getPageRoute(
-           RetraderHomeScreen(),
+          RetraderHomeScreen(),
           settings,
         );
       case AppRoutes.addSalesDataScreenRoute:
-        return _getPageRoute( SalesDataScreen(), settings);
+        return _getPageRoute(SalesDataScreen(), settings);
       case AppRoutes.procurementAddDataScreenRoute:
-        return _getPageRoute( ProcurementAddDataScreen(), settings);
+        return _getPageRoute(ProcurementAddDataScreen(), settings);
       case AppRoutes.retreadedAddDataScreenRoute:
-        return _getPageRoute( RetreadedAddDataScreen(), settings);
+        return _getPageRoute(RetreadedAddDataScreen(), settings);
       case AppRoutes.recyclerHomeScreenRoute:
-        return _getPageRoute( RecyclerHomeScreen(), settings);
+        return _getPageRoute(RecyclerHomeScreen(), settings);
       case AppRoutes.recyclerAddDataScreenRoute:
-        return _getPageRoute( RecyclerAddDataScreen(), settings);
+        return _getPageRoute(RecyclerAddDataScreen(), settings);
       case AppRoutes.recyclerProcurementAddDataScreenRoute:
-        return _getPageRoute(
-             RecyclerProcurementAddDataScreen(), settings);
+        return _getPageRoute(RecyclerProcurementAddDataScreen(), settings);
       case AppRoutes.adminHomeScreenRoute:
-        return _getPageRoute( AdminHomeScreen(), settings);
+        return _getPageRoute(AdminHomeScreen(), settings);
       case AppRoutes.adminApplicationReceivedRoute:
         String userType = settings.arguments as String;
         return _getPageRoute(
@@ -53,9 +52,9 @@ class PageRouter {
             ),
             settings);
       case AppRoutes.spcbHomeScreenRoute:
-        return _getPageRoute(const SpcbHomeScreen(), settings);
+        return _getPageRoute(SpcbHomeScreen(), settings);
       case AppRoutes.customHomeScreenRoute:
-        return _getPageRoute(const CustomHomeScreen(), settings) ;
+        return _getPageRoute(const CustomHomeScreen(), settings);
       // Will be displayed if no specified route is found.
       default:
         return MaterialPageRoute(

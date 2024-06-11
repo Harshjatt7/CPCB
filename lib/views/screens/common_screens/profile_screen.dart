@@ -130,7 +130,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
             CommonTextWidget(
               isAdmin == true ? name ?? "" : title,
-              useLocalization: false,
+              useLocalization: true,
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
@@ -141,23 +141,29 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
                   children: [
-                    CommonTextWidget(
-                      viewModel.stringConstants.designation,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelSmall!
-                          .copyWith(color: appColor.black01),
+                    Flexible(
+                      flex: 1,
+                      child: CommonTextWidget(
+                        viewModel.stringConstants.designation,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelSmall!
+                            .copyWith(color: appColor.black01),
+                      ),
                     ),
                     const SizedBox(
                       width: 4,
                     ),
-                    CommonTextWidget(
-                      designation ?? "",
-                      useLocalization: false,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(color: appColor.black01),
+                    Flexible(
+                      flex: 2,
+                      child: CommonTextWidget(
+                        designation ?? "",
+                        useLocalization: false,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(color: appColor.black01),
+                      ),
                     ),
                   ],
                 ),
@@ -165,9 +171,18 @@ class ProfileScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CommonImageWidget(
-                      imageSource: imageConstants.mail, isNetworkImage: false),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      CommonImageWidget(
+                          imageSource: imageConstants.mail,
+                          isNetworkImage: false),
+                    ],
+                  ),
                   const SizedBox(
                     width: 8,
                   ),
@@ -181,13 +196,17 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 4,
                   ),
-                  CommonTextWidget(
-                    email,
-                    useLocalization: false,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelMedium!
-                        .copyWith(color: appColor.black01),
+                  Flexible(
+                    flex: 6,
+                    child: CommonTextWidget(
+                      email,
+                      maxLines: 2,
+                      useLocalization: false,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(color: appColor.black01),
+                    ),
                   ),
                 ],
               ),
@@ -201,22 +220,28 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  CommonTextWidget(
-                    viewModel.stringConstants.mobileNumber,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall!
-                        .copyWith(color: appColor.black01),
+                  Flexible(
+                    flex: 3,
+                    child: CommonTextWidget(
+                      viewModel.stringConstants.mobileNumber,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelSmall!
+                          .copyWith(color: appColor.black01),
+                    ),
                   ),
                   const SizedBox(
                     width: 4,
                   ),
-                  CommonTextWidget(
-                    phoneNo,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelMedium!
-                        .copyWith(color: appColor.black01),
+                  Flexible(
+                    flex: 2,
+                    child: CommonTextWidget(
+                      phoneNo,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(color: appColor.black01),
+                    ),
                   ),
                 ],
               )
