@@ -484,7 +484,8 @@ class HelperFunctions {
   }
 
   ///[datePicker] Common Date Picker
-  Future<DateTime?> datePicker(BuildContext context, DateTime firstDate,DateTime lastDate) {
+  Future<DateTime?> datePicker(
+      BuildContext context, DateTime firstDate, DateTime lastDate) {
     return showDatePicker(
         builder: (context, child) {
           return Theme(
@@ -548,6 +549,10 @@ class HelperFunctions {
     }
     await file.writeAsBytes(response?.completeResponse);
     HelperFunctions().logger(file.path);
-    await OpenFile.open(file.path);
+    await openFile(file.path);
+  }
+
+  Future<void> openFile(String filePath) async {
+    await OpenFile.open(filePath);
   }
 }

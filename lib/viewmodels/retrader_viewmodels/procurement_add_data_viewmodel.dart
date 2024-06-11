@@ -17,7 +17,6 @@ import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class ProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
@@ -187,13 +186,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
         fileSizeNum: fileSizeNum ?? 0);
   }
 
-  void viewPDF(BuildContext context, String path) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PDFView(filePath: path)),
-    );
-  }
-
   void addYear() {
     int year = 2022;
     int currentYear = DateTime.now().year;
@@ -212,7 +204,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
             pickedFile!.files.isEmpty ? "" : pickedFile!.files.first.name;
       }
     } else {
-      viewPDF(context, filePath ?? "");
+      helperFunctions.openFile(filePath ?? "");
     }
   }
 
