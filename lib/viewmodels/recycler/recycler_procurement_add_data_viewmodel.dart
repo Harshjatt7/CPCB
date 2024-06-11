@@ -18,7 +18,6 @@ import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
@@ -125,13 +124,6 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
         fileSize:
             '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}',
         fileSizeNum: fileSizeNum ?? 0);
-  }
-
-  void viewPDF(BuildContext context, String path) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PDFView(filePath: path)),
-    );
   }
 
   void addYear() {
@@ -280,7 +272,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
             filename: "uploadInvoice.pdf");
       }
     } else {
-      viewPDF(context, filePath ?? "");
+      helperFunctions.openFile(filePath ?? '');
     }
   }
 
