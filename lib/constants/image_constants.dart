@@ -68,4 +68,5 @@ class ImageConstants {
       "assets/images/icons/download_transaction_button_icon.svg";
   final String downloadApplicationIcon =
       "assets/images/icons/download_application_icon.svg";
+  final String commentIcon = "assets/images/icons/comment_icon.svg";
 }

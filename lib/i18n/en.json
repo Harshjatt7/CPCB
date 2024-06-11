@@ -167,5 +167,8 @@
     "transaction": "Transaction",
     "application": "Application",
     "address": "Address",
-    "designation": "Designation"
+    "designation": "Designation",
+    "cancel": "Cancel",
+    "mandatory-tyre-source": "It is mandatory to select tyre Source",
+    "recycled-tyre": "Recycled Tyre"
 }

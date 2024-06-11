@@ -85,6 +85,15 @@ class _CommonTextFormFieldWidgetNewState
   final ImageConstants imageConstants = ImageConstants();
   final AppColor appColor = AppColor();
 
+  void removeEmptySpace() {
+    setState(() {
+      if (widget.controller.text.isNotEmpty) {
+        widget.controller.text = widget.controller.text.trim();
+      }
+    });
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -108,7 +117,9 @@ class _CommonTextFormFieldWidgetNewState
   }
 
   void _handleFocusChange() {
-    if (!_focusNode.hasFocus) {}
+    if (!_focusNode.hasFocus) {
+      removeEmptySpace();
+    }
   }
 
   @override

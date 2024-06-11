@@ -56,8 +56,6 @@ class RecyclerDetailsContainer extends StatelessWidget {
             height: 6,
           ),
           retraderDetailsCard(context,
-              "${stringConstants.contactDetailLabel.i18n()} ${contactDetails ?? ''}"),
-          retraderDetailsCard(context,
               "${stringConstants.qtyProcessedLabel.i18n()} ${qtyProcessed ?? ''}"),
           retraderDetailsCard(context,
               "${stringConstants.qtyProducedLabel.i18n()} ${qtyProduced ?? ''}"),

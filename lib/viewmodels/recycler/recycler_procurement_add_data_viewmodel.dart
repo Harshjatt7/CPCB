@@ -294,21 +294,39 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     }
   }
 
+  void financialYearDropDownConverter(newValue) {
+    financialYearDropdownValue = newValue;
+    if (financialYearDropdownValue != null) {
+      String startYear = financialYearDropdownValue!.split('-').first;
+      String lastYear = changeDropdown!.split('-').last;
+      int stYear = int.parse(startYear);
+      int edYear = int.parse(lastYear);
+      startDate = DateTime(stYear, 4, 1);
+      endDate = startYear == DateTime.now().year.toString()
+          ? DateTime.now()
+          : DateTime(edYear, 3, 31);
+      updateUI();
+    }
+    if (financialYearDropdownValue == null) {
+      yearDropdownError = messageConstant.pleaseSelectDropdownValue;
+    }
+    updateUI();
+  }
+
   void changeRawMaterialDropdownValue(newValue) {
     rawMaterialDropdownValue = newValue;
-    updateUI();
-    if (changeDropdown == null) {
+    if (rawMaterialDropdownValue == null) {
       rawMaterialDropdownError = messageConstant.mandatoryTypeRawMaterial;
     }
+    updateUI();
   }
 
   void changetyreSourceDropdownValue(newValue) {
     tyreSourceDropdownValue = newValue;
-    updateUI();
-    if (changeDropdown == null) {
-      tyreSourceDropdownError =
-          messageConstant.mandatoryTypeRawMaterial; //to change
+    if (tyreSourceDropdownValue == null) {
+      tyreSourceDropdownError = messageConstant.mandatoryTyreSource;
     }
+    updateUI();
   }
 
   void changeFinancialDropdownValue(newValue) {

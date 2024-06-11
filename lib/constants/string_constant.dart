@@ -149,6 +149,8 @@ class StringConstants {
   final String transaction = "transaction";
   final String application = "application";
   final String address = "address";
+  final String cancel = "cancel";
+  final String recycledTyre = "recycled-tyre";
 
   //User Types
   static const String admin = "Admin";
