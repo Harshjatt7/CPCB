@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_oblications_response_model.dart';
 import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_admin_dashboard_heading.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_end_product.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';
@@ -17,43 +18,49 @@ class AdminRecyclerTab extends StatelessWidget {
   final StringConstants stringConstants = StringConstants();
   final EPRApplicationData? recyclerData;
   final CommonEprOblicationData? recyclerCommonData;
+  final HelperFunctions helperFunctions = HelperFunctions();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-           CommonAdminDashboardHeading(),
+          CommonAdminDashboardHeading(),
           CommonEndProduct(
-              title: recyclerCommonData?.reclaimedRubber?.name ?? '',
-              generated:
-                  '${recyclerCommonData?.reclaimedRubber?.earnedCredit ?? ''}',
-              transferred:
-                  '${recyclerCommonData?.reclaimedRubber?.creditTransfered ?? ''}'),
+            title: recyclerCommonData?.reclaimedRubber?.name ?? '',
+            generated: helperFunctions.precisionFormat(
+                recyclerCommonData?.reclaimedRubber?.earnedCredit),
+            transferred: helperFunctions.precisionFormat(
+                recyclerCommonData?.reclaimedRubber?.creditTransfered),
+          ),
           CommonEndProduct(
-              title: recyclerCommonData?.recoverCarbon?.name ?? '',
-              generated:
-                  '${recyclerCommonData?.recoverCarbon?.earnedCredit ?? ''}',
-              transferred:
-                  '${recyclerCommonData?.recoverCarbon?.creditTransfered ?? ''}'),
+            title: recyclerCommonData?.recoverCarbon?.name ?? '',
+            generated: helperFunctions.precisionFormat(
+                recyclerCommonData?.recoverCarbon?.earnedCredit),
+            transferred: helperFunctions.precisionFormat(
+                recyclerCommonData?.recoverCarbon?.creditTransfered),
+          ),
           CommonEndProduct(
               title: recyclerCommonData?.crumbRubber?.name ?? '',
-              generated:
-                  '${recyclerCommonData?.crumbRubber?.earnedCredit ?? ''}',
-              transferred:
-                  '${recyclerCommonData?.crumbRubber?.creditTransfered ?? ''}'),
+              generated: helperFunctions.precisionFormat(
+                  recyclerCommonData?.crumbRubber?.earnedCredit),
+              transferred: helperFunctions.precisionFormat(
+                  recyclerCommonData?.crumbRubber?.creditTransfered)),
           CommonEndProduct(
               title: recyclerCommonData?.tpoChar?.name ?? '',
-              generated: '${recyclerCommonData?.tpoChar?.earnedCredit ?? ''}',
-              transferred:
-                  '${recyclerCommonData?.tpoChar?.creditTransfered ?? ''}'),
+              generated: helperFunctions
+                  .precisionFormat(recyclerCommonData?.tpoChar?.earnedCredit),
+              transferred: helperFunctions.precisionFormat(
+                  recyclerCommonData?.tpoChar?.creditTransfered)),
           CommonEndProduct(
-              title: recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.name ??
-                  '',
-              generated:
-                  '${recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.earnedCredit ?? ''}',
-              transferred:
-                  '${recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.creditTransfered ?? ''}'),
+            title:
+                recyclerCommonData?.crumbRubberModifiedBitumenCrmb?.name ?? '',
+            generated: helperFunctions.precisionFormat(recyclerCommonData
+                ?.crumbRubberModifiedBitumenCrmb?.earnedCredit),
+            transferred: helperFunctions.precisionFormat(recyclerCommonData
+                ?.crumbRubberModifiedBitumenCrmb?.creditTransfered),
+          ),
           CommonTotalApplicationCard(
             totalApplication: "${recyclerData?.applications}",
             onTap: () {

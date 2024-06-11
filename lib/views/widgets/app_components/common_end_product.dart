@@ -33,6 +33,7 @@ class CommonEndProduct extends StatelessWidget {
             flex: 2,
             child: CommonTextWidget(
               generated,
+              useLocalization: false,
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
@@ -40,6 +41,7 @@ class CommonEndProduct extends StatelessWidget {
             flex: 2,
             child: CommonTextWidget(
               transferred,
+              useLocalization: false,
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),

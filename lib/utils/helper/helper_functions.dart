@@ -484,7 +484,7 @@ class HelperFunctions {
   }
 
   ///[datePicker] Common Date Picker
-  Future<DateTime?> datePicker(BuildContext context, DateTime firstDate) {
+  Future<DateTime?> datePicker(BuildContext context, DateTime firstDate,DateTime lastDate) {
     return showDatePicker(
         builder: (context, child) {
           return Theme(
@@ -520,12 +520,16 @@ class HelperFunctions {
         },
         context: context,
         firstDate: firstDate,
-        lastDate: DateTime.now());
+        lastDate: lastDate);
   }
 
   ///[precisionFormat] Number precision
   String precisionFormat(num? value) {
-    return value == null ? '' : value.toStringAsFixed(2);
+    return value == null
+        ? ''
+        : value == 0
+            ? '0'
+            : value.toStringAsFixed(2);
   }
 
   ///[downloadAndStoreFile] To Download and Store File in Device

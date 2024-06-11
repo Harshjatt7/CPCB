@@ -60,8 +60,8 @@ class CommonEprOblicationData {
 
 class CrumbRubber {
   String? name;
-  int? earnedCredit;
-  int? creditTransfered;
+  num? earnedCredit;
+  num? creditTransfered;
 
   CrumbRubber({
     this.name,
