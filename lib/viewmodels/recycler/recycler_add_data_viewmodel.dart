@@ -86,8 +86,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     recycledTyreDropdownValue = newValue;
     updateUI();
     if (recycledTyreDropdownValue == null) {
-      recycledTyreDropdownError =
-          messageConstant.mandatoryTypeRawMaterial;
+      recycledTyreDropdownError = messageConstant.mandatoryTypeRawMaterial;
     }
   }
 
@@ -95,8 +94,8 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   void changeFinancialDropdownValue(newValue) {
     financialYearDropdownValue = newValue;
     if (financialYearDropdownValue != null) {
-      String startYear = changeDropdown!.split('-').first;
-      String lastYear = changeDropdown!.split('-').last;
+      String startYear = financialYearDropdownValue!.split('-').first;
+      String lastYear = financialYearDropdownValue!.split('-').last;
       int stYear = int.parse(startYear);
       int edYear = int.parse(lastYear);
       startDate = DateTime(stYear, 4, 1);
@@ -106,10 +105,10 @@ class RecyclerAddDataViewModel extends BaseViewModel {
 
       updateUI();
     }
-    updateUI();
     if (financialYearDropdownValue == null) {
       yearDropdownError = messageConstant.mandatoryFinancialYear;
     }
+    updateUI();
   }
 
   void dateTimeConvert() {
@@ -125,7 +124,6 @@ class RecyclerAddDataViewModel extends BaseViewModel {
     }
     return null;
   }
-
 
   String? addressValidation() {
     return Validations().validateAddress(addressController.text);
@@ -223,10 +221,9 @@ class RecyclerAddDataViewModel extends BaseViewModel {
             (apiError?.wasteTyreSupplierAddress ?? []).isEmpty
                 ? ""
                 : apiError?.wasteTyreSupplierAddress?.first ?? "";
-        recycledTyreError =
-            (apiError?.typeOfRecycledMaterial ?? []).isEmpty
-                ? ""
-                : apiError?.typeOfRecycledMaterial?.first ?? "";
+        recycledTyreError = (apiError?.typeOfRecycledMaterial ?? []).isEmpty
+            ? ""
+            : apiError?.typeOfRecycledMaterial?.first ?? "";
         wasteGeneratedQtyError = (apiError?.wasteGeneratedQty ?? []).isEmpty
             ? ""
             : apiError?.wasteGeneratedQty?.first ?? "";
