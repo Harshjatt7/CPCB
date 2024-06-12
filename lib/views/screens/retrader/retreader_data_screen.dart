@@ -3,7 +3,7 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/retrader_viewmodels/retreader_view_data_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/retreader/retreader_view_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_retrader_data_card.dart';
@@ -15,8 +15,8 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class RetreaderDataScreen extends StatelessWidget {
-  final AppColor appColor=AppColor();
-   RetreaderDataScreen({super.key});
+  final AppColor appColor = AppColor();
+  RetreaderDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,42 +93,55 @@ class RetreaderDataScreen extends StatelessWidget {
               controller: viewModel.scrollController,
               child: Column(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: (viewModel.data?.length ?? 0) == 0
-                        ? Center(
-                            child: CommonTextWidget(
-                                MessageConstant().noMatchingResultsFound))
-                        : Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: List<Widget>.generate(
-                              viewModel.data?.length ?? 0,
-                              (index) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: CommonRetraderDataCard(
-                                  isRetraderContainer: true,
-                                  name: viewModel
-                                          .data?[index].wasteTyreSupplierName ??
-                                      "",
-                                  contactDetails:
-                                      viewModel.data?[index].contactDetails,
-                                  address: viewModel
-                                      .data?[index].addressOfWasteTyreSupplier,
-                                  gstNumber: viewModel.data?[index].gstNumber,
-                                  typeOfRaw:
-                                      viewModel.data?[index].typeOfRawMaterial,
-                                  total: viewModel
-                                      .data?[index].quantityProcessed
-                                      .toString(),
-                                  date: viewModel.data?[index].retreadedDate,
-                                  year: viewModel.data?[index].financialYear,
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        child: (viewModel.data?.length ?? 0) == 0
+                            ? Center(
+                                child: CommonTextWidget(
+                                    MessageConstant().noMatchingResultsFound))
+                            : Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: List<Widget>.generate(
+                                  viewModel.data?.length ?? 0,
+                                  (index) => Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: CommonRetraderDataCard(
+                                      isRetraderContainer: true,
+                                      name: viewModel.data?[index]
+                                              .wasteTyreSupplierName ??
+                                          "",
+                                      contactDetails:
+                                          viewModel.data?[index].contactDetails,
+                                      address: viewModel.data?[index]
+                                          .addressOfWasteTyreSupplier,
+                                      gstNumber:
+                                          viewModel.data?[index].gstNumber,
+                                      typeOfRaw: viewModel
+                                          .data?[index].typeOfRawMaterial,
+                                      total: viewModel
+                                          .data?[index].quantityProcessed
+                                          .toString(),
+                                      date:
+                                          viewModel.data?[index].retreadedDate,
+                                      year:
+                                          viewModel.data?[index].financialYear,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                  )
+                      ),
+                      if (viewModel.state == ViewState.parallelBusy)
+                        const Positioned(
+                            bottom: 15,
+                            left: 16,
+                            right: 16,
+                            child: Center(child: CircularProgressIndicator())),
+                    ],
+                  ),
                 ],
               ),
             ),

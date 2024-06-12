@@ -42,9 +42,9 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   void searchRetreader(String value) {
     debouncer.run(() {
       if (value.length >= 3) {
-        // performSearch(value).then((_) {
-        //   scrollController.jumpTo(0);
-        // });
+        performSearch(value).then((_) {
+          scrollController.jumpTo(0);
+        });
       } else {
         data = _retreaderResponseModel?.data?.data ?? [];
         updateUI();
@@ -88,7 +88,6 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   Future<APIResponse<RetreaderResponseModel?>?> performSearch(String value,
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
-
     try {
       _retreaderSearchResponseModel = await _retreaderRepo.getRetreaderData(
           searchValue: value, page: searchPage.toString());
@@ -111,7 +110,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
   }
 
   void loadMoreData() async {
-    state = ViewState.busy;
+    state = ViewState.parallelBusy;
     if (isSearchExpanded == true && searchController.text.isNotEmpty) {
       await performSearch(searchController.text, isPaginating: true);
     } else {
@@ -146,7 +145,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
 
   Future<APIResponse<RetreaderResponseModel?>?> getRetreaderData(
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _retreaderResponseModel =
           await _retreaderRepo.getRetreaderData(page: "$page");

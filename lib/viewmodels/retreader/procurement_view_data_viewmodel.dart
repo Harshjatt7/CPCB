@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 class ProcurementViewDataViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
   final StringConstants stringConstants = StringConstants();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   final _retreaderRepo = RetreaderRepository();
   APIResponse<ProcurementResponseModel?>? _procurementResponseModel;
@@ -84,7 +84,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
   }
 
   void loadMoreData() async {
-    state = ViewState.busy;
+    state = ViewState.parallelBusy;
     if (isSearchExpanded == true && searchController.text.isNotEmpty) {
       await performSearch(searchController.text, isPaginating: true);
     } else {
@@ -120,7 +120,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
 
   Future<APIResponse<ProcurementResponseModel?>?> getProcurementData(
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _procurementResponseModel = await _retreaderRepo
           .getProcurementData(getUrl() ?? '', page: "$page");

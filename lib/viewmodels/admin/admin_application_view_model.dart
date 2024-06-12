@@ -32,7 +32,7 @@ class AdminApplicationViewModel extends BaseViewModel {
       get recyclerSearchResponseModel => _adminApplicationSearchModel;
 
   void loadMoreData(String? userType) async {
-    state = ViewState.busy;
+    state = ViewState.parallelBusy;
 
     await getApplicationData(isPaginating: true, userType ?? "");
     tempData.clear();
@@ -57,7 +57,7 @@ class AdminApplicationViewModel extends BaseViewModel {
   Future<APIResponse<AdminApplicationResponseModel?>?> getApplicationData(
       String userType,
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _adminApplicationResponseModel = await _adminRepo.getApplicationData(
           userType: userType, page: "$page");
