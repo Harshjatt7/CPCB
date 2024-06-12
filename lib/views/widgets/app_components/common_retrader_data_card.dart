@@ -68,6 +68,7 @@ class CommonRetraderDataCard extends StatelessWidget {
             color: appColor.black10,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
@@ -81,7 +82,7 @@ class CommonRetraderDataCard extends StatelessWidget {
                   retraderDetailsCard(context, total ?? "")
                 ],
               ),
-              const SizedBox(width: 32),
+          
               Row(
                 children: [
                   CommonImageWidget(
@@ -92,10 +93,9 @@ class CommonRetraderDataCard extends StatelessWidget {
                     width: 4,
                   ),
                   retraderDetailsCard(context,
-                      '${stringConstants.date.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                      '${stringConstants.date.i18n()}: ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                 ],
               ),
-              const SizedBox(width: 32),
               Row(
                 children: [
                   CommonImageWidget(
