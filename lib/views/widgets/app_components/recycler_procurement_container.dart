@@ -68,7 +68,7 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
                       width: 4,
                     ),
                     retraderDetailsCard(context,
-                        '${stringConstants.date.i18n()} ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
+                        '${stringConstants.date.i18n()}: ${HelperFunctions().getFormattedDate(dtstr: date ?? "")}'),
                   ],
                 ),
               ),

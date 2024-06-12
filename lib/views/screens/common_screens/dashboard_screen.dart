@@ -349,7 +349,7 @@ class DashBoardScreen extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-
+                    if (viewModel.currentUser == UserTypes.retreader)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: ProducerAnnualReturnWidget(
