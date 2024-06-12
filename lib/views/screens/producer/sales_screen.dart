@@ -12,6 +12,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class SalesScreen extends StatelessWidget {
    SalesScreen({super.key});
@@ -58,52 +59,68 @@ class SalesScreen extends StatelessWidget {
               controller: viewModel.scrollController,
               child: Column(
                 children: [
-                  Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      child: (viewModel.data?.length ?? 0) == 0
-                          ? Center(
-                              child: CommonTextWidget(
-                                  MessageConstant().noMatchingResultsFound))
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: List<Widget>.generate(
-                                viewModel.data?.length ?? 0,
-                                (index) => Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 8),
-                                    child: ProducerSalesList(
-                                      title: viewModel.data?[index]
-                                              .typeOfTyreManufacture ??
-                                          '',
-                                      year: viewModel
-                                              .data?[index].financialYear ??
-                                          '',
-                                      month: viewModel.data?[index].month ?? '',
-                                      count: viewModel.data?[index].total ?? "",
-                                      producerType:
-                                          viewModel.data?[index].producerType ??
+                  Stack(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          child: (viewModel.data?.length ?? 0) == 0
+                              ? Center(
+                                  child: CommonTextWidget(
+                                      MessageConstant().noMatchingResultsFound))
+                              : Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: List<Widget>.generate(
+                                    viewModel.data?.length ?? 0,
+                                    (index) => Padding(
+                                        padding:
+                                            const EdgeInsets.symmetric(vertical: 8),
+                                        child: ProducerSalesList(
+                                          title: viewModel.data?[index]
+                                                  .typeOfTyreManufacture ??
                                               '',
-                                      bus: viewModel.data?[index].bus,
-                                      motorcycle:
-                                          viewModel.data?[index].motorCycle,
-                                      other: viewModel.data?[index].other,
-                                      passengerCar:
-                                          viewModel.data?[index].passengerCar,
-                                      scooter: viewModel.data?[index].scooter,
-                                      tRear: viewModel.data?[index].tRear,
-                                      truck: viewModel.data?[index].truck,
-                                      tcv: viewModel.data?[index].lcv,
-                                    )),
-                              ),
-                            )),
+                                          year: viewModel
+                                                  .data?[index].financialYear ??
+                                              '',
+                                          month: viewModel.data?[index].month ?? '',
+                                          count: viewModel.data?[index].total ?? "",
+                                          producerType:
+                                              viewModel.data?[index].producerType ??
+                                                  '',
+                                          bus: viewModel.data?[index].bus,
+                                          motorcycle:
+                                              viewModel.data?[index].motorCycle,
+                                          other: viewModel.data?[index].other,
+                                          passengerCar:
+                                              viewModel.data?[index].passengerCar,
+                                          scooter: viewModel.data?[index].scooter,
+                                          tRear: viewModel.data?[index].tRear,
+                                          truck: viewModel.data?[index].truck,
+                                          tcv: viewModel.data?[index].lcv,
+                                        )),
+                                  ),
+                                )),
+                    
+                    if(viewModel.state == ViewState.parallelBusy)
+                Positioned(
+                  bottom: 15,
+                  left: 16,
+                  right: 16,
+                  child: Center(child: CircularProgressIndicator())),
+                    
+                    ],
+                  ),
+                
+               
                 ],
+
+
               ),
             ),
           ),
           persistentFooterButtons: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(0.0),
               child: CommonButtonWidget(
                 onPressed: () {
                   Navigator.pushNamed(
