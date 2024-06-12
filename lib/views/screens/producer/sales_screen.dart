@@ -12,11 +12,10 @@ import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SalesScreen extends StatelessWidget {
-   SalesScreen({super.key});
-  final AppColor appColor=AppColor();
+  SalesScreen({super.key});
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +37,12 @@ class SalesScreen extends StatelessWidget {
                     isIconBar: true,
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
-                    name:viewModel.stringConstants.name,
+                    name: viewModel.stringConstants.name,
                     designation: viewModel.stringConstants.userType,
                   ),
                   CommonTitleBar(
-                      title: viewModel.stringConstants.salesDataProducerListingTitle)
+                      title: viewModel
+                          .stringConstants.salesDataProducerListingTitle)
                 ],
               ),
             ),
@@ -73,8 +73,8 @@ class SalesScreen extends StatelessWidget {
                                   children: List<Widget>.generate(
                                     viewModel.data?.length ?? 0,
                                     (index) => Padding(
-                                        padding:
-                                            const EdgeInsets.symmetric(vertical: 8),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8),
                                         child: ProducerSalesList(
                                           title: viewModel.data?[index]
                                                   .typeOfTyreManufacture ??
@@ -82,45 +82,42 @@ class SalesScreen extends StatelessWidget {
                                           year: viewModel
                                                   .data?[index].financialYear ??
                                               '',
-                                          month: viewModel.data?[index].month ?? '',
-                                          count: viewModel.data?[index].total ?? "",
-                                          producerType:
-                                              viewModel.data?[index].producerType ??
-                                                  '',
+                                          month: viewModel.data?[index].month ??
+                                              '',
+                                          count: viewModel.data?[index].total ??
+                                              "",
+                                          producerType: viewModel
+                                                  .data?[index].producerType ??
+                                              '',
                                           bus: viewModel.data?[index].bus,
                                           motorcycle:
                                               viewModel.data?[index].motorCycle,
                                           other: viewModel.data?[index].other,
-                                          passengerCar:
-                                              viewModel.data?[index].passengerCar,
-                                          scooter: viewModel.data?[index].scooter,
+                                          passengerCar: viewModel
+                                              .data?[index].passengerCar,
+                                          scooter:
+                                              viewModel.data?[index].scooter,
                                           tRear: viewModel.data?[index].tRear,
                                           truck: viewModel.data?[index].truck,
                                           tcv: viewModel.data?[index].lcv,
                                         )),
                                   ),
                                 )),
-                    
-                    if(viewModel.state == ViewState.parallelBusy)
-                Positioned(
-                  bottom: 15,
-                  left: 16,
-                  right: 16,
-                  child: Center(child: CircularProgressIndicator())),
-                    
+                      if (viewModel.state == ViewState.parallelBusy)
+                        const Positioned(
+                            bottom: 15,
+                            left: 16,
+                            right: 16,
+                            child: Center(child: CircularProgressIndicator())),
                     ],
                   ),
-                
-               
                 ],
-
-
               ),
             ),
           ),
           persistentFooterButtons: [
             Padding(
-          padding: const EdgeInsets.all(0.0),
+              padding: const EdgeInsets.all(0.0),
               child: CommonButtonWidget(
                 onPressed: () {
                   Navigator.pushNamed(
