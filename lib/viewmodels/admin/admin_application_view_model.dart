@@ -86,7 +86,6 @@ class AdminApplicationViewModel extends BaseViewModel {
       String? userType, String value,
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
-    // _adminApplicationSearchModel = null;
     try {
       _adminApplicationSearchModel = await _adminRepo.getApplicationData(
           userType: userType, search: value, page: "$searchPage");
@@ -135,7 +134,6 @@ class AdminApplicationViewModel extends BaseViewModel {
   }
 
   Future<void> searchRetreader(String value, String? userType) async {
-
       debouncer.run(() async {
         if (value.length >= 3) {
           await performAdminSearch(userType, value).then((_) {
@@ -145,10 +143,9 @@ class AdminApplicationViewModel extends BaseViewModel {
         else{
           data = tempData.isEmpty 
           ? _adminApplicationResponseModel?.data?.data ?? [] : tempData;
-          notifyListeners();
+          updateUI();
         }
       });
-   
   }
 
   void getUpdatedList() async {

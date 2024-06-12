@@ -84,16 +84,19 @@ class RecyclerDataViewModel extends BaseViewModel {
     return _recyclerSearchResponseModel;
   }
 
-  void searchRetreader(String value) {
-    if (value.length >= 3) {
-      debouncer.run(() {
-        performRecyclerSearch(value).then((_) {
+  Future<void> searchRecycler(String value) async {
+    debouncer.run(() async {
+      if (value.length >= 3) {
+        await performRecyclerSearch(value).then((_) {
           scrollController.jumpTo(0);
         });
-      });
-    } else {
-      recyclerData = _recyclerResponseModel?.data?.data ?? [];
-    }
+      } else {
+        recyclerData = tempData.isEmpty
+            ? _recyclerResponseModel?.data?.data ?? []
+            : tempData;
+        updateUI();
+      }
+    });
   }
 
   void getUpdatedList() async {
@@ -135,21 +138,23 @@ class RecyclerDataViewModel extends BaseViewModel {
       await performRecyclerSearch(searchController.text, isPaginating: true);
     } else {
       await getRecyclerData(isPaginating: true);
-      tempData.clear();
-      recyclerData?.forEach((e) {
-        tempData.add(RecyclerDataListData(
-            wasteTyreSupplierName: e.wasteTyreSupplierName,
-            recycledDate: e.recycledDate,
-            wasteTyreSupplierContact: e.wasteTyreSupplierContact,
-            wasteTyreSupplierGst: e.wasteTyreSupplierGst,
-            financialYear: e.financialYear,
-            typeOfRecycledMaterial: e.typeOfRecycledMaterial,
-            //: e.id,
-            wasteGeneratedQty: e.wasteGeneratedQty,
-            processedQty: e.processedQty,
-            producedQty: e.producedQty,
-            wasteTyreSupplierAddress: e.wasteTyreSupplierAddress));
-      });
+      if ((recyclerData?.length ?? 0) >= 1) {
+        tempData.clear();
+        recyclerData?.forEach((e) {
+          tempData.add(RecyclerDataListData(
+              wasteTyreSupplierName: e.wasteTyreSupplierName,
+              recycledDate: e.recycledDate,
+              wasteTyreSupplierContact: e.wasteTyreSupplierContact,
+              wasteTyreSupplierGst: e.wasteTyreSupplierGst,
+              financialYear: e.financialYear,
+              typeOfRecycledMaterial: e.typeOfRecycledMaterial,
+              //: e.id,
+              wasteGeneratedQty: e.wasteGeneratedQty,
+              processedQty: e.processedQty,
+              producedQty: e.producedQty,
+              wasteTyreSupplierAddress: e.wasteTyreSupplierAddress));
+        });
+      }
     }
     state = ViewState.idle;
     updateUI();
