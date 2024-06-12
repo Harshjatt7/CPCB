@@ -10,9 +10,13 @@ class AppTheme {
   final _fontConstants = FontConstants();
   ThemeData lightTheme(BuildContext context) {
     return ThemeData(
+      primaryColor: _appColor.darkGreen,
         dividerColor: _appColor.white,
         dividerTheme: DividerThemeData(color: _appColor.transparent),
         fontFamily: _fontConstants.baseFont,
+         colorScheme: ColorScheme.light(
+        primary: _appColor.primaryGreen
+      ), 
         textTheme: TextTheme(
           bodySmall: _textStyleConstants.extraSmallTextStyle400(),
           bodyMedium: _textStyleConstants.extraSmallTextStyle600(),
@@ -30,7 +34,10 @@ class AppTheme {
 
   ThemeData darkTheme(BuildContext context) {
     return ThemeData(
-        fontFamily: _fontConstants.baseFont,
+      primaryColor: _appColor.primaryGreen,
+      colorScheme: ColorScheme.light(
+        primary: _appColor.darkGreen
+      ),  fontFamily: _fontConstants.baseFont,
         dividerColor: _appColor.white,
         dividerTheme: DividerThemeData(color: _appColor.transparent),
         textTheme: TextTheme(

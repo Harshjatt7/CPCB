@@ -37,7 +37,7 @@ class SalesViewModel extends BaseViewModel {
   }
 
   void loadMoreData() async {
-    state = ViewState.busy;
+    state = ViewState.parallelBusy;
 
     await getSalesData(isPaginating: true);
     tempData.clear();
@@ -65,7 +65,7 @@ class SalesViewModel extends BaseViewModel {
 
   Future<APIResponse<SalesDataResponseModel?>?> getSalesData(
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _salesDateResponseModel = await _producerRepo.getSalesData(page: "$page");
       if (_salesDateResponseModel?.isSuccess == true) {
