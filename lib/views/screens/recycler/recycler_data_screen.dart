@@ -75,47 +75,37 @@ class RecyclerDataScreen extends StatelessWidget {
 
   recyclerDataList(RecyclerDataViewModel viewModel, BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: (viewModel.recyclerData?.length ?? 0) == 0
-            ? Center(
-                child:
-                    CommonTextWidget(MessageConstant().noMatchingResultsFound))
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                children: List<Widget>.generate(
-                    viewModel.recyclerData?.length ?? 0,
-                    (index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: RecyclerDetailsContainer(
-                            name: viewModel.recyclerData?[index]
-                                    .wasteTyreSupplierName ??
-                                "",
-                            qtyProcessed:
-                                "${viewModel.recyclerData?[index].processedQty ?? ""}",
-                            qtyProduced:
-                                "${viewModel.recyclerData?[index].producedQty ?? ""}",
-                            wasteQty:
-                                "${viewModel.recyclerData?[index].wasteGeneratedQty ?? ""}",
-                            contactDetails: viewModel.recyclerData?[index]
-                                    .wasteTyreSupplierContact ??
-                                "",
-                            address: viewModel.recyclerData?[index]
-                                    .wasteTyreSupplierAddress ??
-                                "",
-                            gstNumber: viewModel.recyclerData?[index]
-                                    .wasteTyreSupplierGst ??
-                                "",
-                            typeOfRaw: viewModel.recyclerData?[index]
-                                    .typeOfRecycledMaterial ??
-                                "",
-                            date: viewModel.recyclerData?[index].recycledDate ??
-                                "",
-                            year:
-                                viewModel.recyclerData?[index].financialYear ??
-                                    "",
-                          ),
-                        )),
-              ));
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        (viewModel.recyclerData ?? []).isEmpty
+            ? noResultsFoundView()
+            : ListView.builder(
+                controller: viewModel.scrollController,
+                shrinkWrap: true,
+                physics: const PageScrollPhysics(),
+                itemCount: viewModel.recyclerData?.length,
+                itemBuilder: (context, index) {
+                  final recyclerDetails = viewModel.recyclerData?[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: RecyclerDetailsContainer(
+                      name: recyclerDetails?.wasteTyreSupplierName ?? "",
+                      qtyProcessed: "${recyclerDetails?.processedQty ?? ""}",
+                      qtyProduced: "${recyclerDetails?.producedQty ?? ""}",
+                      wasteQty: "${recyclerDetails?.wasteGeneratedQty ?? ""}",
+                      contactDetails:
+                          recyclerDetails?.wasteTyreSupplierContact ?? "",
+                      address: recyclerDetails?.wasteTyreSupplierAddress ?? "",
+                      gstNumber: recyclerDetails?.wasteTyreSupplierGst ?? "",
+                      typeOfRaw: recyclerDetails?.typeOfRecycledMaterial ?? "",
+                      date: recyclerDetails?.recycledDate ?? "",
+                      year: recyclerDetails?.financialYear ?? "",
+                    ),
+                  );
+                },
+              ),
+      ]),
+    );
   }
 
   Widget buttonSection(BuildContext context, RecyclerDataViewModel viewModel) {
