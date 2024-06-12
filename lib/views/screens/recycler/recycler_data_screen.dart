@@ -155,7 +155,7 @@ class RecyclerDataScreen extends StatelessWidget {
                 hintText: viewModel.stringConstants.searchHere,
                 onChanged: (value) async {
                   viewModel.isSearchExpanded = true;
-                  viewModel.searchRetreader(value);
+                  viewModel.searchRecycler(value);
 
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.getUpdatedList();

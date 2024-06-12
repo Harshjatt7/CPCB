@@ -35,7 +35,8 @@ class AdminApplicationViewModel extends BaseViewModel {
     state = ViewState.parallelBusy;
 
     await getApplicationData(isPaginating: true, userType ?? "");
-    tempData.clear();
+   if((data?.length ?? 0) >= 1){
+     tempData.clear();
     data?.forEach((e) {
       tempData.add(ApplicationResponsedData(
         companyName: e.companyName,
@@ -49,6 +50,7 @@ class AdminApplicationViewModel extends BaseViewModel {
         userId: e.userId,
       ));
     });
+   }
 
     state = ViewState.idle;
     updateUI();
@@ -132,16 +134,18 @@ class AdminApplicationViewModel extends BaseViewModel {
   }
 
   Future<void> searchRetreader(String value, String? userType) async {
-    debouncer.run(() async {
-      if (value.length >= 3) {
-        await performAdminSearch(userType, value).then((_) {
-          scrollController.jumpTo(0);
-        });
-      } else {
-        data = _adminApplicationResponseModel?.data?.data ?? [];
-        updateUI();
-      }
-    });
+      debouncer.run(() async {
+        if (value.length >= 3) {
+          await performAdminSearch(userType, value).then((_) {
+            scrollController.jumpTo(0);
+          });
+        }
+        else{
+          data = tempData.isEmpty 
+          ? _adminApplicationResponseModel?.data?.data ?? [] : tempData;
+          updateUI();
+        }
+      });
   }
 
   void getUpdatedList() async {
@@ -155,10 +159,10 @@ class AdminApplicationViewModel extends BaseViewModel {
       data = _adminApplicationSearchModel?.data?.data ?? [];
       searchController.text = "";
     }
-
     state = ViewState.idle;
-    updateUI();
+
     resetPage();
+    updateUI();
   }
 
   void onScrollEnding(String? userType) {

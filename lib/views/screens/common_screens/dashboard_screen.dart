@@ -16,6 +16,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import '../../../viewmodels/common_viewmodel/dashboard_viewmodel.dart';
+import '../../widgets/app_components/producer_annual_return_widget.dart';
 
 class DashBoardScreen extends StatelessWidget {
   DashBoardScreen({super.key});
@@ -124,22 +125,7 @@ class DashBoardScreen extends StatelessWidget {
                                             .data?.registrationExpiryDate ??
                                         ""),
                               ),
-                            // ListView.builder(
-                            //   shrinkWrap: true,
-                            //   itemCount: viewModel.dashboardResponseModel?.,
-                            //   physics: const NeverScrollableScrollPhysics(),
-                            //   itemBuilder: (context, index) {
-                            //     return Padding(
-                            //       padding: const EdgeInsets.only(bottom: 12),
-                            //       child: ProducerListTile(
-                            //           title: stringConstants.userType,
-                            //           subtitle: StringConstants.producer),
-                            //     );
-                            //   },
-                            // ),
-                            // CommonNote(
-                            //     note:
-                            //         MessageConstant().producerDashBoardNote),
+                            
                             if (viewModel.data?.downloadApplication == true)
                               Padding(
                                 padding:
@@ -283,18 +269,7 @@ class DashBoardScreen extends StatelessWidget {
                               .copyWith(color: appColor.black90),
                         ),
                       ),
-                    if (viewModel.currentUser == UserTypes.retreader)
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: CommonTextWidget(
-                          viewModel.stringConstants.procurementStockDesc,
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .copyWith(color: appColor.black),
-                        ),
-                      ),
+                    
                     if (viewModel.currentUser == UserTypes.retreader)
                       Column(children: [
                         Padding(
@@ -374,15 +349,15 @@ class DashBoardScreen extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(vertical: 8),
-                    //   child: ProducerAnnualReturnWidget(
-                    //       title: stringConstants.annualReturns,
-                    //       date: stringConstants.demoDate,
-                    //       status: stringConstants.delayed,
-                    //       fillingDate: stringConstants.demoDate),
-                    // ),
+                    if (viewModel.currentUser == UserTypes.retreader)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: ProducerAnnualReturnWidget(
+                          title: "Annual Returns",
+                          date: viewModel.data?.annualReturn?.dueDate??"",
+                          status:viewModel.data?.annualReturn?.currentStatus??"",
+                          fillingDate: viewModel.data?.annualReturn?.dateOfAnnualReturnFiling??""),
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
