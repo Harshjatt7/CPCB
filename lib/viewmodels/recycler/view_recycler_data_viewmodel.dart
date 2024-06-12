@@ -85,16 +85,15 @@ class RecyclerDataViewModel extends BaseViewModel {
   }
 
   void searchRetreader(String value) {
-    debouncer.run(() {
-      if (value.length >= 3) {
+    if (value.length >= 3) {
+      debouncer.run(() {
         performRecyclerSearch(value).then((_) {
           scrollController.jumpTo(0);
         });
-      } else {
-        recyclerData = _recyclerResponseModel?.data?.data ?? [];
-        updateUI();
-      }
-    });
+      });
+    } else {
+      recyclerData = _recyclerResponseModel?.data?.data ?? [];
+    }
   }
 
   void getUpdatedList() async {

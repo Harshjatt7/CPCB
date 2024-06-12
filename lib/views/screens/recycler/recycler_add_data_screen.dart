@@ -98,6 +98,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
               if (viewModel.wasteTyreSupplierNameError.isNotEmpty)
                 showErrorMessage(context, viewModel.wasteTyreSupplierNameError),
               addressField(viewModel),
+              if (viewModel.wasteTyreSupplierContactError.isNotEmpty)
+                showErrorMessage(context, viewModel.wasteTyreSupplierContactError),
+              contactDetailsField(viewModel),
               if (viewModel.wasteTyreSupplierAddressError.isNotEmpty)
                 showErrorMessage(
                     context, viewModel.wasteTyreSupplierAddressError),
@@ -146,6 +149,20 @@ class RecyclerAddDataScreen extends StatelessWidget {
           },
           icon: ImageConstants().calendar,
           controller: viewModel.dateController),
+    );
+  }
+    Padding contactDetailsField(RecyclerAddDataViewModel viewModel) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: CommonTextFormFieldWidget(
+          inputFormatters: [LengthLimitingTextInputFormatter(10)],
+          hintText: viewModel.stringConstants.supplierContactDetails,
+          textInputType: TextInputType.number,
+          isMandatory: true,
+          validator: (value) {
+            return viewModel.contactDetailsValidation();
+          },
+          controller: viewModel.sellerMobileController),
     );
   }
 
