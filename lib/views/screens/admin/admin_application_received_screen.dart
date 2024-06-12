@@ -9,6 +9,7 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:cpcb_tyre/views/widgets/components/download_bottom_sheet.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/enums/state_enums.dart';
 import '../../../constants/message_constant.dart';
@@ -49,35 +50,48 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
         controller: viewModel.scrollController,
         child: Column(
           children: [
-            Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: (viewModel.data?.length ?? 0) == 0
-                    ? Center(
-                        child: CommonTextWidget(
-                            MessageConstant().noMatchingResultsFound))
-                    : Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: List<Widget>.generate(
-                            viewModel.data?.length ?? 0, (index) {
-                          final applicationData = viewModel.data?[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: CommonAdminApplicationCard(
-                              onMenuTap: () {
-                                showDownloadBottomSheet(
-                                    context, applicationData, viewModel);
-                              },
-                              applicationStatus: applicationData?.status,
-                              applicationTitle: applicationData?.companyName,
-                              markedTo: applicationData?.markedTo,
-                              lastMarked: applicationData?.lastMarked,
-                              date: helperFunctions.getFormattedDate(
-                                  date: applicationData?.lastReceived),
-                            ),
-                          );
-                        }),
-                      )),
+            Stack(
+              children: [
+                Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: (viewModel.data?.length ?? 0) == 0
+                        ? Center(
+                            child: CommonTextWidget(
+                                MessageConstant().noMatchingResultsFound))
+                        : Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: List<Widget>.generate(
+                                viewModel.data?.length ?? 0, (index) {
+                              final applicationData = viewModel.data?[index];
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: CommonAdminApplicationCard(
+                                  onMenuTap: () {
+                                    showDownloadBottomSheet(
+                                        context, applicationData, viewModel);
+                                  },
+                                  applicationStatus: applicationData?.status,
+                                  applicationTitle:
+                                      applicationData?.companyName,
+                                  markedTo: applicationData?.markedTo,
+                                  lastMarked: applicationData?.lastMarked,
+                                  date: helperFunctions.getFormattedDate(
+                                      date: applicationData?.lastReceived),
+                                ),
+                              );
+                            }),
+                          )),
+                if (viewModel.state == ViewState.parallelBusy)
+                  const Positioned(
+                    bottom: 15,
+                    left: 16,
+                    right: 16,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+              ],
+            ),
             const SizedBox(
               height: 20,
             )
