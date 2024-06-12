@@ -15,8 +15,8 @@ import 'package:flutter/material.dart';
 import '../../widgets/app_components/recycler_procurement_container.dart';
 
 class RecyclerProcurementDataScreen extends StatelessWidget {
-  final AppColor appColor=AppColor();
-   RecyclerProcurementDataScreen({super.key});
+  final AppColor appColor = AppColor();
+  RecyclerProcurementDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -91,35 +91,47 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
               controller: viewModel.scrollController,
               child: Column(
                 children: [
-                  Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      child: (viewModel.data?.length ?? 0) == 0
-                          ? Center(
-                              child: CommonTextWidget(
-                                  MessageConstant().noMatchingResultsFound))
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: List<Widget>.generate(
-                                viewModel.data?.length ?? 0,
-                                (index) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8),
-                                  child: RecyclerProcurementDetailsContainer(
-                                    name:
-                                        viewModel.data?[index].sellerName ?? "",
-                                    invoiceNumber:
-                                        viewModel.data?[index].invoiceNumber,
-                                    typeOfRaw:
-                                        viewModel.data?[index].rawMaterial,
-                                    date:
-                                        '${viewModel.data?[index].purchasedDate}',
-                                    year:
-                                        '${viewModel.data?[index].financeYear}',
+                  Stack(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          child: (viewModel.data?.length ?? 0) == 0
+                              ? Center(
+                                  child: CommonTextWidget(
+                                      MessageConstant().noMatchingResultsFound))
+                              : Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: List<Widget>.generate(
+                                    viewModel.data?.length ?? 0,
+                                    (index) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                      child:
+                                          RecyclerProcurementDetailsContainer(
+                                        name:
+                                            viewModel.data?[index].sellerName ??
+                                                "",
+                                        invoiceNumber: viewModel
+                                            .data?[index].invoiceNumber,
+                                        typeOfRaw:
+                                            viewModel.data?[index].rawMaterial,
+                                        date:
+                                            '${viewModel.data?[index].purchasedDate}',
+                                        year:
+                                            '${viewModel.data?[index].financeYear}',
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            )),
+                                )),
+                      if (viewModel.state == ViewState.parallelBusy)
+                        const Positioned(
+                            bottom: 15,
+                            left: 16,
+                            right: 16,
+                            child: Center(child: CircularProgressIndicator())),
+                    ],
+                  )
                 ],
               ),
             ),

@@ -13,7 +13,7 @@ import '../../utils/helper/helper_functions.dart';
 class RecyclerDataViewModel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
   final MessageConstant messageConstant = MessageConstant();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   final _recyclerRepo = RecyclerRepository();
   List<RecyclerDataListData>? recyclerData;
@@ -35,7 +35,7 @@ class RecyclerDataViewModel extends BaseViewModel {
       get recyclerSearchResponseModel => _recyclerSearchResponseModel;
   Future<APIResponse<RecyclerDataListResponseModel?>?> getRecyclerData(
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _recyclerResponseModel =
           await _recyclerRepo.getRecyclerData(page: "$page");
@@ -131,7 +131,7 @@ class RecyclerDataViewModel extends BaseViewModel {
   }
 
   void loadMoreData() async {
-    state = ViewState.busy;
+    state = ViewState.parallelBusy;
     if (isSearchExpanded == true && searchController.text.isNotEmpty) {
       await performRecyclerSearch(searchController.text, isPaginating: true);
     } else {

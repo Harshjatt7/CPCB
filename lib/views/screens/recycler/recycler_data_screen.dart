@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -44,10 +45,23 @@ class RecyclerDataScreen extends StatelessWidget {
           }
           return false;
         },
-        child: Column(
-          children: [
-            recyclerDataList(viewModel, context),
-          ],
+        child: CommonSingleChildScrollView(
+          controller: viewModel.scrollController,
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  recyclerDataList(viewModel, context),
+                  if (viewModel.state == ViewState.parallelBusy)
+                    const Positioned(
+                        bottom: 15,
+                        left: 16,
+                        right: 16,
+                        child: Center(child: CircularProgressIndicator())),
+                ],
+              )
+            ],
+          ),
         ),
       ),
       persistentFooterButtons: [buttonSection(context, viewModel)],
@@ -59,48 +73,38 @@ class RecyclerDataScreen extends StatelessWidget {
         child: CommonTextWidget(MessageConstant().noMatchingResultsFound));
   }
 
-  Expanded recyclerDataList(
-      RecyclerDataViewModel viewModel, BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          (viewModel.recyclerData ?? []).isEmpty
-              ? noResultsFoundView()
-              : Expanded(
-                  child: ListView.builder(
-                    controller: viewModel.scrollController,
-                    shrinkWrap: true,
-                    physics: const PageScrollPhysics(),
-                    itemCount: viewModel.recyclerData?.length,
-                    itemBuilder: (context, index) {
-                      final recyclerDetails = viewModel.recyclerData?[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: RecyclerDetailsContainer(
-                          name: recyclerDetails?.wasteTyreSupplierName ?? "",
-                          qtyProcessed:
-                              "${recyclerDetails?.processedQty ?? ""}",
-                          qtyProduced: "${recyclerDetails?.producedQty ?? ""}",
-                          wasteQty:
-                              "${recyclerDetails?.wasteGeneratedQty ?? ""}",
-                          contactDetails:
-                              recyclerDetails?.wasteTyreSupplierContact ?? "",
-                          address:
-                              recyclerDetails?.wasteTyreSupplierAddress ?? "",
-                          gstNumber:
-                              recyclerDetails?.wasteTyreSupplierGst ?? "",
-                          typeOfRaw:
-                              recyclerDetails?.typeOfRecycledMaterial ?? "",
-                          date: recyclerDetails?.recycledDate ?? "",
-                          year: recyclerDetails?.financialYear ?? "",
-                        ),
-                      );
-                    },
-                  ),
-                ),
-        ]),
-      ),
+  recyclerDataList(RecyclerDataViewModel viewModel, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        (viewModel.recyclerData ?? []).isEmpty
+            ? noResultsFoundView()
+            : ListView.builder(
+                controller: viewModel.scrollController,
+                shrinkWrap: true,
+                physics: const PageScrollPhysics(),
+                itemCount: viewModel.recyclerData?.length,
+                itemBuilder: (context, index) {
+                  final recyclerDetails = viewModel.recyclerData?[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: RecyclerDetailsContainer(
+                      name: recyclerDetails?.wasteTyreSupplierName ?? "",
+                      qtyProcessed: "${recyclerDetails?.processedQty ?? ""}",
+                      qtyProduced: "${recyclerDetails?.producedQty ?? ""}",
+                      wasteQty: "${recyclerDetails?.wasteGeneratedQty ?? ""}",
+                      contactDetails:
+                          recyclerDetails?.wasteTyreSupplierContact ?? "",
+                      address: recyclerDetails?.wasteTyreSupplierAddress ?? "",
+                      gstNumber: recyclerDetails?.wasteTyreSupplierGst ?? "",
+                      typeOfRaw: recyclerDetails?.typeOfRecycledMaterial ?? "",
+                      date: recyclerDetails?.recycledDate ?? "",
+                      year: recyclerDetails?.financialYear ?? "",
+                    ),
+                  );
+                },
+              ),
+      ]),
     );
   }
 
