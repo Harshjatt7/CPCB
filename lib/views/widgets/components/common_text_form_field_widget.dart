@@ -172,7 +172,15 @@ class _CommonTextFormFieldWidgetNewState
             readOnly: widget.isReadOnly ?? false,
             cursorHeight: 20,
             keyboardType: widget.textInputType ?? TextInputType.text,
-            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+            style:  widget.isDocument == true?
+             Theme.of(context).textTheme.displaySmall!.copyWith(
+              height: 1.5,
+                color: widget.textColor ?? appColor.black90,
+                decoration: widget.isDocument == true
+                    ? TextDecoration.underline
+                    : TextDecoration.none,
+                letterSpacing: widget.isObscure ? 5 : null):
+            Theme.of(context).textTheme.labelSmall!.copyWith(
                 color: widget.textColor ?? appColor.black90,
                 decoration: widget.isDocument == true
                     ? TextDecoration.underline
@@ -205,8 +213,9 @@ class _CommonTextFormFieldWidgetNewState
                     ],
                   ),
                 ),
-                contentPadding:
-                    const EdgeInsets.only(top: 8, bottom: 8, left: 20),
+              
+                contentPadding: 
+                    const EdgeInsets.only(top: 8, bottom: 6, left: 20),
                 errorStyle: Theme.of(context)
                     .textTheme
                     .bodyLarge
