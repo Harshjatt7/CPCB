@@ -16,7 +16,7 @@ import '../../utils/helper/debouncing_helper.dart';
 
 class RetreaderViewDataViewmodel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   final _retreaderRepo = RetreaderRepository();
   UserTypes? currentUser;
@@ -39,14 +39,16 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
     currentUser = MaterialAppViewModel.userTypeEnum;
   }
 
-  void searchRetreader(String value) {
-    debouncer.run(() {
+  Future<void> searchRetreader(String value) async {
+    debouncer.run(() async {
       if (value.length >= 3) {
-        performSearch(value).then((_) {
+        await performSearch(value).then((_) {
           scrollController.jumpTo(0);
         });
       } else {
-        data = _retreaderResponseModel?.data?.data ?? [];
+        data = tempData.isEmpty
+            ? _retreaderResponseModel?.data?.data ?? []
+            : tempData;
         updateUI();
       }
     });
@@ -115,21 +117,23 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
       await performSearch(searchController.text, isPaginating: true);
     } else {
       await getRetreaderData(isPaginating: true);
-      tempData.clear();
-      data?.forEach((e) {
-        tempData.add(RetreadedData(
-            wasteTyreSupplierName: e.wasteTyreSupplierName,
-            retreadedDate: e.retreadedDate,
-            contactDetails: e.contactDetails,
-            gstNumber: e.gstNumber,
-            financialYear: e.financialYear,
-            typeOfRawMaterial: e.typeOfRawMaterial,
-            id: e.id,
-            quantityOfWasteGenerated: e.quantityOfWasteGenerated,
-            quantityProcessed: e.quantityProcessed,
-            quantityProduced: e.quantityProduced,
-            addressOfWasteTyreSupplier: e.addressOfWasteTyreSupplier));
-      });
+      if ((data?.length ?? 0) >= 1) {
+        tempData.clear();
+        data?.forEach((e) {
+          tempData.add(RetreadedData(
+              wasteTyreSupplierName: e.wasteTyreSupplierName,
+              retreadedDate: e.retreadedDate,
+              contactDetails: e.contactDetails,
+              gstNumber: e.gstNumber,
+              financialYear: e.financialYear,
+              typeOfRawMaterial: e.typeOfRawMaterial,
+              id: e.id,
+              quantityOfWasteGenerated: e.quantityOfWasteGenerated,
+              quantityProcessed: e.quantityProcessed,
+              quantityProduced: e.quantityProduced,
+              addressOfWasteTyreSupplier: e.addressOfWasteTyreSupplier));
+        });
+      }
     }
     state = ViewState.idle;
     updateUI();

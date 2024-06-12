@@ -53,12 +53,16 @@ class ProcurementViewDataViewModel extends BaseViewModel {
     }
   }
 
-  void searchProcurement(String value) {
-    debouncer.run(() {
+  Future<void> searchProcurement(String value) async {
+    debouncer.run(() async {
       if (value.length >= 3) {
-        performSearch(value);
+        await performSearch(value).then((_) {
+          scrollController.jumpTo(0);
+        });
       } else {
-        data = _procurementResponseModel?.data?.data ?? [];
+        data = tempData.isEmpty
+            ? _procurementResponseModel?.data?.data ?? []
+            : tempData;
         updateUI();
       }
     });
@@ -89,22 +93,24 @@ class ProcurementViewDataViewModel extends BaseViewModel {
       await performSearch(searchController.text, isPaginating: true);
     } else {
       await getProcurementData(isPaginating: true);
-      tempData.clear();
-      data?.forEach((e) {
-        tempData.add(ProcurementAddData(
-            financeYear: e.financeYear,
-            invoiceNumber: e.invoiceNumber,
-            isOpeningBalance: e.isOpeningBalance,
-            isPublished: e.isPublished,
-            openingBalance: e.openingBalance,
-            purchasedDate: e.purchasedDate,
-            purchasedQuantity: e.purchasedQuantity,
-            rawMaterial: e.rawMaterial,
-            sellerAddress: e.sellerAddress,
-            sellerGstNo: e.sellerGstNo,
-            sellerMobile: e.sellerMobile,
-            sellerName: e.sellerName));
-      });
+      if ((data?.length ?? 0) >= 1) {
+        tempData.clear();
+        data?.forEach((e) {
+          tempData.add(ProcurementAddData(
+              financeYear: e.financeYear,
+              invoiceNumber: e.invoiceNumber,
+              isOpeningBalance: e.isOpeningBalance,
+              isPublished: e.isPublished,
+              openingBalance: e.openingBalance,
+              purchasedDate: e.purchasedDate,
+              purchasedQuantity: e.purchasedQuantity,
+              rawMaterial: e.rawMaterial,
+              sellerAddress: e.sellerAddress,
+              sellerGstNo: e.sellerGstNo,
+              sellerMobile: e.sellerMobile,
+              sellerName: e.sellerName));
+        });
+      }
     }
     state = ViewState.idle;
     updateUI();
