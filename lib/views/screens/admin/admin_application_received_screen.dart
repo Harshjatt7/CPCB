@@ -78,7 +78,8 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                                   markedTo: applicationData?.markedTo,
                                   lastMarked: applicationData?.lastMarked,
                                   date: helperFunctions.getFormattedDate(
-                                      date: applicationData?.lastReceived),
+                                      date: applicationData?.lastReceived,),
+                                      
                                 ),
                               );
                             }),
@@ -114,7 +115,6 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
             if (ctx.mounted) {
               Navigator.pop(ctx);
             }
-
             await viewModel.getDownloadPaymentReceipt(
                 context, applicationData?.userId ?? '');
           },
@@ -166,7 +166,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                 hintText: viewModel.stringConstants.searchHere,
                 onChanged: (value) async {
                   viewModel.isSearchExpanded = true;
-                  viewModel.searchRetreader(value, userType ?? "");
+                  viewModel.searchRetreader(value,  userType ?? "");
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.getUpdatedList();
                   }

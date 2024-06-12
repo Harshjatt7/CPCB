@@ -35,6 +35,8 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   TextEditingController quantityProducedController = TextEditingController();
   TextEditingController quantityOfWasteGeneratedController =
       TextEditingController();
+TextEditingController sellerMobileController =
+      TextEditingController();
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
   DateTime? date;
@@ -73,6 +75,10 @@ class RecyclerAddDataViewModel extends BaseViewModel {
 
   String? nameValidation() {
     return Validations().validateName(nameOfWasteTyreSupplierController.text);
+  }
+
+  String? contactDetailsValidation() {
+    return Validations().validatePhone(sellerMobileController.text);
   }
 
   void addYear() {
@@ -157,6 +163,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
         financialYear: financialYearDropdownValue,
         wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
         wasteTyreSupplierAddress: addressController.text,
+        wasteTyreSupplierContact: sellerMobileController.text,
         recycledTyre: recycledTyreDropdownValue,
         wasteTyreSupplierGst: gstController.text,
         processedQty: double.parse(quantityProcessedController.text),

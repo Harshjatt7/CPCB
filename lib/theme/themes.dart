@@ -34,7 +34,7 @@ class AppTheme {
 
   ThemeData darkTheme(BuildContext context) {
     return ThemeData(
-      primaryColor: _appColor.primaryGreen,
+      primaryColor: _appColor.darkGreen,
       colorScheme: ColorScheme.light(
         primary: _appColor.darkGreen
       ),  fontFamily: _fontConstants.baseFont,

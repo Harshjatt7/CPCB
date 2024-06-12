@@ -124,22 +124,7 @@ class DashBoardScreen extends StatelessWidget {
                                             .data?.registrationExpiryDate ??
                                         ""),
                               ),
-                            // ListView.builder(
-                            //   shrinkWrap: true,
-                            //   itemCount: viewModel.dashboardResponseModel?.,
-                            //   physics: const NeverScrollableScrollPhysics(),
-                            //   itemBuilder: (context, index) {
-                            //     return Padding(
-                            //       padding: const EdgeInsets.only(bottom: 12),
-                            //       child: ProducerListTile(
-                            //           title: stringConstants.userType,
-                            //           subtitle: StringConstants.producer),
-                            //     );
-                            //   },
-                            // ),
-                            // CommonNote(
-                            //     note:
-                            //         MessageConstant().producerDashBoardNote),
+                            
                             if (viewModel.data?.downloadApplication == true)
                               Padding(
                                 padding:
@@ -283,18 +268,7 @@ class DashBoardScreen extends StatelessWidget {
                               .copyWith(color: appColor.black90),
                         ),
                       ),
-                    if (viewModel.currentUser == UserTypes.retreader)
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: CommonTextWidget(
-                          viewModel.stringConstants.procurementStockDesc,
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .copyWith(color: appColor.black),
-                        ),
-                      ),
+                    
                     if (viewModel.currentUser == UserTypes.retreader)
                       Column(children: [
                         Padding(

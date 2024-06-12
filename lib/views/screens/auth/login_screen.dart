@@ -11,8 +11,10 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/components/common_text_form_field_widget.dart';
 import '../../widgets/components/common_text_widget.dart';
@@ -38,29 +40,25 @@ class LoginScreen extends StatelessWidget {
             isLoading: viewmodel.state == ViewState.busy,
             showAppBar: false,
             backgroundColor: appColor.white,
-            // resizeToBottomInset: false,
-            body: SingleChildScrollView(
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  CommonImageWidget(
-                      width: Responsive().screenWidth(context),
-                      height: Responsive().screenHeight(context),
-                      imageSource: imageConstants.backgroundWatermark,
-                      isNetworkImage: false),
-                  formSection(viewmodel, context)
-                ],
-              ),
+            resizeToBottomInset: true,
+            body: Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                CommonImageWidget(
+                    width: Responsive().screenWidth(context),
+                    height: Responsive().screenHeight(context),
+                    imageSource: imageConstants.backgroundWatermark,
+                    isNetworkImage: false),
+                CommonSingleChildScrollView(child: formSection(viewmodel, context))
+              ],
             ),
           );
         });
   }
 
-  Positioned formSection(LoginViewModel viewmodel, BuildContext context) {
-    return Positioned(
-      top: 86,
-      left: 16,
-      right: 16,
+  Widget formSection(LoginViewModel viewmodel, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Form(
           key: viewmodel.formKey,
           child: Column(
