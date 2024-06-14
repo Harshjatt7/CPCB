@@ -9,7 +9,6 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:cpcb_tyre/views/widgets/components/download_bottom_sheet.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/enums/state_enums.dart';
 import '../../../constants/message_constant.dart';
@@ -75,11 +74,13 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                                   applicationStatus: applicationData?.status,
                                   applicationTitle:
                                       applicationData?.companyName,
+                                  applicationNumber:
+                                      "${applicationData?.applicationNumber}",
                                   markedTo: applicationData?.markedTo,
                                   lastMarked: applicationData?.lastMarked,
                                   date: helperFunctions.getFormattedDate(
-                                      date: applicationData?.lastReceived,),
-                                      
+                                    date: applicationData?.lastReceived,
+                                  ),
                                 ),
                               );
                             }),
@@ -166,7 +167,7 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                 hintText: viewModel.stringConstants.searchHere,
                 onChanged: (value) async {
                   viewModel.isSearchExpanded = true;
-                  viewModel.searchRetreader(value,  userType ?? "");
+                  viewModel.searchRetreader(value, userType ?? "");
                   if (viewModel.searchController.text.isEmpty) {
                     viewModel.getUpdatedList();
                   }
