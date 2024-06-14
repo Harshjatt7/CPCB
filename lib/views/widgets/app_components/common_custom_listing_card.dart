@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
 class CommonCustomListingCard extends StatelessWidget {
-   CommonCustomListingCard({
+  CommonCustomListingCard({
     super.key,
     this.companyName,
     this.contactNumber,
@@ -20,8 +20,8 @@ class CommonCustomListingCard extends StatelessWidget {
   final String? email;
   final String? state;
   final Function()? onMenuTap;
-  final StringConstants stringConstants=StringConstants();
-  final AppColor appColor=AppColor();
+  final StringConstants stringConstants = StringConstants();
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +38,16 @@ class CommonCustomListingCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      CommonTextWidget(
-                        companyName ?? "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(color: appColor.black),
-                      ),
-                    ],
+                  Flexible(
+                    flex: 1,
+                    child: CommonTextWidget(
+                      maxLines: 1,
+                      companyName ?? "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(color: appColor.black),
+                    ),
                   ),
                   GestureDetector(
                     onTap: onMenuTap,
