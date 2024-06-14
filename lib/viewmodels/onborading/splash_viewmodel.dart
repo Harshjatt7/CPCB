@@ -10,7 +10,7 @@ import '../../constants/routes_constant.dart';
 import '../material_app_viewmodel.dart';
 
 class SplashViewModel extends BaseViewModel {
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
   Future wait(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 4));
     await SecureStorage.instance.storeSensitiveInfo("isFirstInstall", true);
@@ -30,8 +30,7 @@ class SplashViewModel extends BaseViewModel {
           break;
         case UserTypes.auditor:
           if (context.mounted) {
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
+            Navigator.pushReplacementNamed(context, '');
           }
           break;
         case UserTypes.spcb:
@@ -42,8 +41,7 @@ class SplashViewModel extends BaseViewModel {
           break;
         case UserTypes.inspection:
           if (context.mounted) {
-            Navigator.pushReplacementNamed(
-                context, AppRoutes.producerHomeScreenRoute);
+            Navigator.pushReplacementNamed(context, '');
           }
           break;
         case UserTypes.producer:
