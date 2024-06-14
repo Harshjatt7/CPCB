@@ -21,7 +21,7 @@ class LoginViewModel extends BaseViewModel {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   final MessageConstant messageConstant = MessageConstant();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   final formKey = GlobalKey<FormState>();
   String? selectedUserType;
@@ -99,7 +99,8 @@ class LoginViewModel extends BaseViewModel {
               Navigator.pushReplacementNamed(context, '');
               break;
             case UserTypes.spcb:
-              Navigator.pushReplacementNamed(context, '');
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.spcbHomeScreenRoute);
               break;
             case UserTypes.inspection:
               Navigator.pushReplacementNamed(context, '');
@@ -117,7 +118,8 @@ class LoginViewModel extends BaseViewModel {
                   context, AppRoutes.retraderHomeScreenRoute);
               break;
             case UserTypes.custom:
-              Navigator.pushReplacementNamed(context, '');
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.customHomeScreenRoute);
               break;
           }
         } else {

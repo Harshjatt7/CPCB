@@ -14,7 +14,6 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/components/common_text_form_field_widget.dart';
 import '../../widgets/components/common_text_widget.dart';
@@ -23,7 +22,7 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final StringConstants stringConstants = StringConstants();
   final ImageConstants imageConstants = ImageConstants();
-  final AppColor appColor=AppColor();
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +48,8 @@ class LoginScreen extends StatelessWidget {
                     height: Responsive().screenHeight(context),
                     imageSource: imageConstants.backgroundWatermark,
                     isNetworkImage: false),
-                CommonSingleChildScrollView(child: formSection(viewmodel, context))
+                CommonSingleChildScrollView(
+                    child: formSection(viewmodel, context))
               ],
             ),
           );
@@ -90,8 +90,7 @@ class LoginScreen extends StatelessWidget {
                     CommonTextWidget(
                       stringConstants.enterEmailPasswordToLogin,
                       style: context.textThemeHelper.displayMedium?.copyWith(
-                          color: appColor.black70,
-                          fontWeight: FontWeight.w400),
+                          color: appColor.black70, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
                       height: 16,
@@ -134,9 +133,9 @@ class LoginScreen extends StatelessWidget {
                         viewmodel.isObscure = !viewmodel.isObscure;
                       },
                       isPasswordField: true,
-                      validator: (val) {
-                        return viewmodel.passValidation();
-                      },
+                      // validator: (val) {
+                      //   return viewmodel.passValidation();
+                      // },
                     ),
                     const SizedBox(
                       height: 16,
@@ -178,8 +177,7 @@ class LoginScreen extends StatelessWidget {
                       child: CommonTextWidget(
                         stringConstants.forgotPassLabel,
                         style: context.textThemeHelper.displayMedium?.copyWith(
-                            color: appColor.green,
-                            fontWeight: FontWeight.w600),
+                            color: appColor.green, fontWeight: FontWeight.w600),
                       ),
                     ),
                     const SizedBox(
