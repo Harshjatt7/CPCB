@@ -9,6 +9,7 @@ import '../../../constants/message_constant.dart';
 import '../../../theme/app_color.dart';
 import '../../../viewmodels/custom/custom_dashboard_view_model.dart';
 import '../../widgets/app_components/common_custom_listing_card.dart';
+import '../../widgets/components/common_single_child_scrollview.dart';
 
 class CustomDashboardScreen extends StatelessWidget {
   const CustomDashboardScreen({super.key});
@@ -25,9 +26,10 @@ class CustomDashboardScreen extends StatelessWidget {
           isLoading: viewModel.state == ViewState.busy,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(
-                (viewModel.isSearchExpanded == true) ? 146 : 125),
+                (viewModel.isSearchExpanded == true) ? 151 : 155),
             child: SafeArea(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CommonAppBar(
@@ -66,6 +68,14 @@ class CustomDashboardScreen extends StatelessWidget {
                       },
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    child: CommonTextWidget(
+                      viewModel.stringConstants.producerListing,
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -77,26 +87,19 @@ class CustomDashboardScreen extends StatelessWidget {
   }
 
   Widget buildBody(BuildContext context, CustomDashboardViewModel viewModel) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CommonTextWidget(
-              viewModel.stringConstants.producerListing,
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-          ),
-          NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              if (notification is ScrollEndNotification &&
-                  notification.metrics.extentAfter == 0) {
-                // viewModel.onScrollEnding();
-              }
-              return false;
-            },
-            child: Column(
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (notification is ScrollEndNotification &&
+            notification.metrics.extentAfter == 0) {
+          viewModel.onScrollEnding();
+        }
+        return false;
+      },
+      child: CommonSingleChildScrollView(
+        controller: viewModel.scrollController,
+        child: Column(
+          children: [
+            Stack(
               children: [
                 Padding(
                     padding:
@@ -120,7 +123,7 @@ class CustomDashboardScreen extends StatelessWidget {
                                   state: applicationData?.stateName,
                                   onMenuTap: () {
                                     viewModel.downloadCertificate(
-                                        context, applicationData?.id);
+                                        context, applicationData?.id ?? "");
                                   },
                                 ),
                               );
@@ -128,8 +131,8 @@ class CustomDashboardScreen extends StatelessWidget {
                           )),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

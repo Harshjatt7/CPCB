@@ -19,35 +19,36 @@ class CustomDashboardViewModel extends BaseViewModel {
   APIResponse<CustomResponseModel?>? _customResponseModel;
   APIResponse<CustomResponseModel?>? get customResponseModel =>
       _customResponseModel;
+  final helperFunctions = HelperFunctions();
+  final _customRepo = CustomRepository();
   int page = 1;
+
   List<CustomData>? data;
-
-  Future getCustomDownloadCertificate(BuildContext context, String id) async {
-    state = ViewState.busy;
-    try {
-      APIResponse value = await _customRepository.getDownloadCertificate(id);
-      if (value.isSuccess == true) {
-        _helperFunctions.downloadAndStoreFile(
-            name: "Certificate", response: value);
-        state = ViewState.idle;
-        return value;
-      } else {
-        state = ViewState.idle;
-
-        if (context.mounted) {
-          _helperFunctions.commonErrorSnackBar(
-              context, value.error?.message ?? '');
-        }
-      }
-    } catch (err) {
-      _helperFunctions.logger("$err");
+  List<CustomData> tempData = [];
+  void onScrollEnding() {
+    if ((_customResponseModel?.data?.meta?.lastPage ?? 0) > page) {
+      page++;
+      loadMoreData();
     }
-    state = ViewState.idle;
-
-    return null;
   }
 
-  void downloadCertificate(BuildContext context, String? id) {
+  void loadMoreData() async {
+    state = ViewState.parallelBusy;
+    await getCustomData(isPaginating: true);
+    tempData.clear();
+    data?.forEach((e) {
+      tempData.add(CustomData(
+        email: e.email,
+        mobileNumber: e.mobileNumber,
+        stateName: e.stateName,
+      ));
+    });
+
+    state = ViewState.idle;
+    updateUI();
+  }
+
+  void downloadCertificate(BuildContext context, String id) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
@@ -57,7 +58,7 @@ class CustomDashboardViewModel extends BaseViewModel {
             if (ctx.mounted) {
               Navigator.pop(ctx);
             }
-            await getCustomDownloadCertificate(context, id ?? '');
+            await getCustomDownloadCertificate(context, id);
           },
         );
       },
@@ -86,5 +87,30 @@ class CustomDashboardViewModel extends BaseViewModel {
     }
     state = ViewState.idle;
     return _customResponseModel;
+  }
+
+  Future getCustomDownloadCertificate(BuildContext context, String id) async {
+    state = ViewState.busy;
+    try {
+      APIResponse value = await _customRepository.getDownloadCertificate(id);
+      if (value.isSuccess == true) {
+        _helperFunctions.downloadAndStoreFile(
+            name: "Certificate", response: value);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+
+        if (context.mounted) {
+          _helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
+        }
+      }
+    } catch (err) {
+      _helperFunctions.logger("$err");
+    }
+    state = ViewState.idle;
+
+    return null;
   }
 }

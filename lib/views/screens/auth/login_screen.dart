@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final StringConstants stringConstants = StringConstants();
   final ImageConstants imageConstants = ImageConstants();
-  final AppColor appColor=AppColor();
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,8 @@ class LoginScreen extends StatelessWidget {
                     height: Responsive().screenHeight(context),
                     imageSource: imageConstants.backgroundWatermark,
                     isNetworkImage: false),
-                CommonSingleChildScrollView(child: formSection(viewmodel, context))
+                CommonSingleChildScrollView(
+                    child: formSection(viewmodel, context))
               ],
             ),
           );
@@ -89,8 +90,7 @@ class LoginScreen extends StatelessWidget {
                     CommonTextWidget(
                       stringConstants.enterEmailPasswordToLogin,
                       style: context.textThemeHelper.displayMedium?.copyWith(
-                          color: appColor.black70,
-                          fontWeight: FontWeight.w400),
+                          color: appColor.black70, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
                       height: 16,
@@ -134,7 +134,7 @@ class LoginScreen extends StatelessWidget {
                       },
                       isPasswordField: true,
                       // validator: (val) {
-                        // return viewmodel.passValidation();
+                      // return viewmodel.passValidation();
                       // },
                     ),
                     const SizedBox(
@@ -177,8 +177,7 @@ class LoginScreen extends StatelessWidget {
                       child: CommonTextWidget(
                         stringConstants.forgotPassLabel,
                         style: context.textThemeHelper.displayMedium?.copyWith(
-                            color: appColor.green,
-                            fontWeight: FontWeight.w600),
+                            color: appColor.green, fontWeight: FontWeight.w600),
                       ),
                     ),
                     const SizedBox(
