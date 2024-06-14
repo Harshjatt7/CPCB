@@ -134,9 +134,9 @@ class LoginScreen extends StatelessWidget {
                         viewmodel.isObscure = !viewmodel.isObscure;
                       },
                       isPasswordField: true,
-                      validator: (val) {
-                        return viewmodel.passValidation();
-                      },
+                      // validator: (val) {
+                        // return viewmodel.passValidation();
+                      // },
                     ),
                     const SizedBox(
                       height: 16,
