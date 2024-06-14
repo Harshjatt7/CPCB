@@ -5,7 +5,6 @@ import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/enums/enums.dart';
 import '../../constants/routes_constant.dart';
 import '../material_app_viewmodel.dart';

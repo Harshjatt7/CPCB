@@ -134,7 +134,7 @@ class LoginScreen extends StatelessWidget {
                       },
                       isPasswordField: true,
                       // validator: (val) {
-                      //   return viewmodel.passValidation();
+                      // return viewmodel.passValidation();
                       // },
                     ),
                     const SizedBox(
