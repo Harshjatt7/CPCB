@@ -118,6 +118,10 @@ class CustomDashboardScreen extends StatelessWidget {
                                   email: applicationData?.email,
                                   contactNumber: applicationData?.mobileNumber,
                                   state: applicationData?.stateName,
+                                  onMenuTap: () {
+                                    viewModel.downloadCertificate(
+                                        context, applicationData?.id);
+                                  },
                                 ),
                               );
                             }),

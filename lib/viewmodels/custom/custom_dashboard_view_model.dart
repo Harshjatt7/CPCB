@@ -22,11 +22,10 @@ class CustomDashboardViewModel extends BaseViewModel {
   int page = 1;
   List<CustomData>? data;
 
-  Future getCustomDownloadCertificate(BuildContext context) async {
+  Future getCustomDownloadCertificate(BuildContext context, String id) async {
     state = ViewState.busy;
     try {
-      APIResponse value = await _customRepository.getDownloadCertificate(
-          "eyJpdiI6InFucjVDNnQ5TUZFNWhKeFAvYURKemc9PSIsInZhbHVlIjoiL0lLdXRERy8xSVVaYmpuR09oNkVYQT09IiwibWFjIjoiNDRiMzg3NDVlMWEzZjMwMjQxZjY4MzJmOTk5NDk3MzZlMWJjYmZmZGFhOTQ2ZTQyNmJmMDQ1ZTE4YjA5OTNjOSIsInRhZyI6IiJ9");
+      APIResponse value = await _customRepository.getDownloadCertificate(id);
       if (value.isSuccess == true) {
         _helperFunctions.downloadAndStoreFile(
             name: "Certificate", response: value);
@@ -48,7 +47,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     return null;
   }
 
-  void downloadCertificate(BuildContext context) {
+  void downloadCertificate(BuildContext context, String? id) {
     showModalBottomSheet(
       context: context,
       builder: (ctx) {
@@ -57,7 +56,7 @@ class CustomDashboardViewModel extends BaseViewModel {
             if (ctx.mounted) {
               Navigator.pop(ctx);
             }
-            await getCustomDownloadCertificate(context);
+            await getCustomDownloadCertificate(context, id ?? '');
           },
         );
       },
@@ -68,7 +67,8 @@ class CustomDashboardViewModel extends BaseViewModel {
       {bool? isPaginating = false}) async {
     state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
-      _customResponseModel = await _customRepository.getCustomData(page: "$page");
+      _customResponseModel =
+          await _customRepository.getCustomData(page: "$page");
       if (_customResponseModel?.isSuccess == true) {
         _customResponseModel?.data = CustomResponseModel.fromJson(
             _customResponseModel?.completeResponse);
