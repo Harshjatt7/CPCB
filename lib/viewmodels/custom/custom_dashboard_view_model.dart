@@ -19,12 +19,11 @@ class CustomDashboardViewModel extends BaseViewModel {
       _customResponseModel;
   final helperFunctions = HelperFunctions();
   final _customRepo = CustomRepository();
-  int page = 1;
+  int page =1;
   List<CustomData>? data;
   void downloadCertificate(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       builder: (ctx) {
         return DownloadCertificateBottomSheet();
       },

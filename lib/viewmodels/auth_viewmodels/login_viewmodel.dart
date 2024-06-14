@@ -117,7 +117,7 @@ class LoginViewModel extends BaseViewModel {
                   context, AppRoutes.retraderHomeScreenRoute);
               break;
             case UserTypes.custom:
-              Navigator.pushReplacementNamed(context, AppRoutes.customHomeScreenRoute);
+              Navigator.pushReplacementNamed(context, '');
               break;
           }
         } else {
