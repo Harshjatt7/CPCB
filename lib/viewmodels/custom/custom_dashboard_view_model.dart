@@ -50,6 +50,7 @@ class CustomDashboardViewModel extends BaseViewModel {
   void downloadCertificate(BuildContext context, String? id) {
     showModalBottomSheet(
       context: context,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       builder: (ctx) {
         return DownloadCertificateBottomSheet(
           onDownloadCertificateTapped: () async {
