@@ -1,5 +1,5 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/controllers/custom/cutom_repository.dart';
+import 'package:cpcb_tyre/controllers/custom/custom_repository.dart';
 import 'package:cpcb_tyre/models/response/custom/custom_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -20,7 +20,31 @@ class CustomDashboardViewModel extends BaseViewModel {
   final helperFunctions = HelperFunctions();
   final _customRepo = CustomRepository();
   int page =1;
+
   List<CustomData>? data;
+  List<CustomData> tempData = [];
+  void onScrollEnding() {
+    if ((_customResponseModel?.data?.meta?.lastPage ?? 0) > page) {
+      page++;
+      loadMoreData();
+    }
+  }
+
+void loadMoreData() async {
+    state = ViewState.parallelBusy;
+    await getCustomData(isPaginating: true);
+    tempData.clear();
+    data?.forEach((e) {
+      tempData.add(CustomData(
+        email: e.email,
+        mobileNumber: e.mobileNumber,
+        stateName: e.stateName,
+      ));
+    });
+
+    state = ViewState.idle;
+    updateUI();
+  }
   void downloadCertificate(BuildContext context) {
     showModalBottomSheet(
       context: context,
