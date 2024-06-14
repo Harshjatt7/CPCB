@@ -13,29 +13,34 @@ class CommonEPROblicationsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: AppColor().black10),
-          borderRadius: const BorderRadius.all(Radius.circular(5))),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      margin: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-              flex: 2,
-              child: CommonTextWidget(
-                title,
-                style: Theme.of(context).textTheme.displayMedium,
-              )),
-          Flexible(
-              flex: 1,
-              child: CommonTextWidget(
-                useLocalization: false,
-                count,
-                style: Theme.of(context).textTheme.labelLarge,
-              )),
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: AppColor().black10),
+            borderRadius: const BorderRadius.all(Radius.circular(5))),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+                flex: 2,
+                child: CommonTextWidget(
+                  title,
+                  style: Theme.of(context).textTheme.displayMedium,
+                )),
+            Flexible(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: CommonTextWidget(
+                    useLocalization: false,
+                    count,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                )),
+          ],
+        ),
       ),
     );
   }

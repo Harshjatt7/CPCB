@@ -14,9 +14,10 @@ import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
+  final bool? isCustom;
   final ImageConstants imageConstants = ImageConstants();
   final AppColor appColor = AppColor();
-  ProfileScreen({super.key, this.isAdmin = false});
+  ProfileScreen({super.key, this.isAdmin=false, this.isCustom=false});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                       phoneNo: viewModel.data?.mobileNumber ?? "",
                       isAdmin: isAdmin,
                       name: isAdmin == true ? viewModel.data?.email : null),
-                  if (isAdmin == false)
+                  if (isAdmin == false && isCustom == false)
                     detailContainer(context, viewModel,
                         backgroundColor: appColor.darkBlue10,
                         borderColor: appColor.black20,

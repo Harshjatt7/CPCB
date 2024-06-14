@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -18,6 +19,7 @@ class CustomDashboardScreen extends StatelessWidget {
       viewModel: CustomDashboardViewModel(),
       builder: (context, viewModel, child) {
         return CustomScaffold(
+          isLoading: viewModel.state == ViewState.busy,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(
                 (viewModel.isSearchExpanded == true) ? 146 : 125),

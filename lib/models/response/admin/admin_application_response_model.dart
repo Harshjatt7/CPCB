@@ -37,6 +37,7 @@ class ApplicationResponsedData {
     String? markedTo;
     DateTime? firstReceived;
     DateTime? lastReceived;
+    num? applicationNumber;
 
     ApplicationResponsedData({
         this.id,
@@ -48,6 +49,7 @@ class ApplicationResponsedData {
         this.markedTo,
         this.firstReceived,
         this.lastReceived,
+        this.applicationNumber
     });
 
     factory ApplicationResponsedData.fromJson(Map<String, dynamic> json) => ApplicationResponsedData(
@@ -60,6 +62,7 @@ class ApplicationResponsedData {
         markedTo: json["marked_to"],
         firstReceived: json["first_received"] == null ? null : DateTime.parse(json["first_received"]),
         lastReceived: json["last_received"] == null ? null : DateTime.parse(json["last_received"]),
+        applicationNumber: json["application_no"],
     );
 
 }

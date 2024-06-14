@@ -46,6 +46,7 @@ class APIRoutes {
   final String adminEPROblicationsAPIRoute = "api/admin/activity-overview/";
   final String adminDownloadInvoiceAPIRoute = "api/admin/download-transaction/";
   final String adminDownloadApplicationAPIRoute="api/admin/download-application/";
+  final String customDownloadCertificateAPIRoute="api/download-certificate";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
