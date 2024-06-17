@@ -7,7 +7,13 @@ class CustomRepository {
   final _apiBase = APIBase();
   final _apiRoutes = APIRoutes();
 
-  Future getCustomData({String? page = "1", searchValue}) async {
+  Future getDownloadCertificate(String userId) async {
+    final response = await _apiBase.getRequest(
+        "${_apiRoutes.customDownloadCertificateAPIRoute}?user_id=$userId",
+        isMediaAuthorizationRequired: true);
+    return response;
+  }
+   Future getCustomData({String? page = "1", searchValue}) async {
     APIResponse<CustomResponseModel?>? response =
         await _apiBase.getRequest(
             searchValue == null

@@ -27,7 +27,9 @@ class _CustomHomeScreenState extends State<CustomHomeScreen> {
       )
     ], screens:  [
      const CustomDashboardScreen(),
-      ProfileScreen(),
+      ProfileScreen(
+        isCustom: true,
+      ),
     ]);
   }
 

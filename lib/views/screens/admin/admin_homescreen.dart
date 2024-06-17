@@ -10,7 +10,7 @@ import 'admin_dashboard_screen.dart';
 class AdminHomeScreen extends StatelessWidget {
   AdminHomeScreen({super.key});
   final ImageConstants imageConstants = ImageConstants();
-  final AppColor appColor=AppColor();
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class AdminHomeScreen extends StatelessWidget {
         bottomNavigationBarWidget(imgSrc: imageConstants.homeTabIcon),
         bottomNavigationBarWidget(imgSrc: imageConstants.profileTabIcon)
       ],
-      screens:  [
+      screens: [
         const AdminDashboardScreen(),
         ProfileScreen(
           isAdmin: true,

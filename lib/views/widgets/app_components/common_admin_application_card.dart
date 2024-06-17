@@ -30,8 +30,8 @@ class CommonAdminApplicationCard extends StatelessWidget {
   final String? year;
   final Function()? onMenuTap;
   final ImageConstants imageConstants = ImageConstants();
-  final StringConstants stringConstants=StringConstants();
-  final AppColor appColor=AppColor();
+  final StringConstants stringConstants = StringConstants();
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -48,22 +48,27 @@ class CommonAdminApplicationCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      CommonTypeBadge(
-                        text: applicationStatus ?? "",
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      CommonTextWidget(
-                        applicationNumber ?? "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(color: appColor.black40),
-                      ),
-                    ],
+                  Flexible(
+                    child: Row(
+                      children: [
+                        CommonTypeBadge(
+                          text: applicationStatus ?? "",
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Flexible(
+                          child: CommonTextWidget(
+                            applicationNumber ?? "",
+                            maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: appColor.black40),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   InkWell(
                     borderRadius: BorderRadius.circular(5),
