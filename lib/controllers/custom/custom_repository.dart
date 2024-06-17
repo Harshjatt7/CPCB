@@ -18,7 +18,7 @@ class CustomRepository {
         await _apiBase.getRequest(
             searchValue == null
                 ? "${_apiRoutes.customProducerAPIRoute}?page=$page"
-                : "${_apiRoutes.customProducerAPIRoute}?page=$page&supplierName=$searchValue",
+                : "${_apiRoutes.customProducerAPIRoute}?page=$page&search=$searchValue",
             isAuthorizationRequired: true);
     return response;
   }

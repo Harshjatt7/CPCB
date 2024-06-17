@@ -5,7 +5,6 @@ import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import '../../../constants/message_constant.dart';
 import '../../../theme/app_color.dart';
 import '../../../viewmodels/custom/custom_dashboard_view_model.dart';
 import '../../widgets/app_components/common_custom_listing_card.dart';
@@ -26,7 +25,7 @@ class CustomDashboardScreen extends StatelessWidget {
           isLoading: viewModel.state == ViewState.busy,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(
-                (viewModel.isSearchExpanded == true) ? 151 : 155),
+                (viewModel.isSearchExpanded == true) ? 175 : 155),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,9 +48,9 @@ class CustomDashboardScreen extends StatelessWidget {
                       hintText: viewModel.stringConstants.searchHere,
                       onChanged: (value) {
                         viewModel.isSearchExpanded = true;
-                        // viewModel.searchProcurement(value);
+                        viewModel.searchCustom(value);
                         if (viewModel.searchController.text.isEmpty) {
-                          // viewModel.getUpdatedList();
+                          viewModel.getUpdatedList();
                         }
                       },
                       title: viewModel.stringConstants.dashboard,
@@ -59,11 +58,11 @@ class CustomDashboardScreen extends StatelessWidget {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
                               !viewModel.isSearchExpanded;
-                          // viewModel.getUpdatedList();
+                          viewModel.getUpdatedList();
                           viewModel.updateUI();
                         } else {
                           viewModel.isSearchExpanded = false;
-                          // viewModel.getUpdatedList();
+                          viewModel.getUpdatedList();
                         }
                       },
                     ),
@@ -105,9 +104,9 @@ class CustomDashboardScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: List<Widget>.generate(viewModel.data?.length ?? 0,
+                    children: List<Widget>.generate(viewModel.customData?.length ?? 0,
                         (index) {
-                      final applicationData = viewModel.data?[index];
+                      final applicationData = viewModel.customData?[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonCustomListingCard(
@@ -115,6 +114,9 @@ class CustomDashboardScreen extends StatelessWidget {
                           email: applicationData?.email,
                           contactNumber: applicationData?.mobileNumber,
                           state: applicationData?.stateName,
+                          onMenuTap: () {
+                            viewModel.downloadCertificate(context, viewModel.customData?[index].id??'');
+                          },
                         ),
                       );
                     }),
