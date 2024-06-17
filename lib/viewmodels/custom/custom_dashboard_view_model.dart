@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/custom/custom_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
@@ -7,6 +8,7 @@ import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/helper/debouncing_helper.dart';
 import '../../views/widgets/components/download_certificate_bottom_sheet.dart';
 
 class CustomDashboardViewModel extends BaseViewModel {
@@ -19,11 +21,17 @@ class CustomDashboardViewModel extends BaseViewModel {
   APIResponse<CustomResponseModel?>? _customResponseModel;
   APIResponse<CustomResponseModel?>? get customResponseModel =>
       _customResponseModel;
+  APIResponse<CustomResponseModel?>? _customSearchResponseModel;
+  APIResponse<CustomResponseModel?>? get customSearchResponseModel =>
+      _customSearchResponseModel;
   final helperFunctions = HelperFunctions();
   final _customRepo = CustomRepository();
   int page =1;
-  List<CustomData>? data;
+  List<CustomData>? customData;
   List<CustomData> tempData = [];
+  int searchPage = 1;
+  final messageConstant = MessageConstant();
+  final debouncer = Debouncer(milliseconds: 500);
   
   void onScrollEnding() {
     if ((_customResponseModel?.data?.meta?.lastPage ?? 0) > page) {
@@ -36,7 +44,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     state = ViewState.parallelBusy;
     await getCustomData(isPaginating: true);
     tempData.clear();
-    data?.forEach((e) {
+    customData?.forEach((e) {
       tempData.add(CustomData(
         email: e.email,
         mobileNumber: e.mobileNumber,
@@ -75,9 +83,9 @@ class CustomDashboardViewModel extends BaseViewModel {
         _customResponseModel?.data = CustomResponseModel.fromJson(
             _customResponseModel?.completeResponse);
         if (isPaginating == true) {
-          data?.addAll(_customResponseModel?.data?.data ?? []);
+          customData?.addAll(_customResponseModel?.data?.data ?? []);
         } else {
-          data = _customResponseModel?.data?.data ?? [];
+          customData = _customResponseModel?.data?.data ?? [];
         }
       } else {
         _helperFunctions.logger("No response");
@@ -112,5 +120,70 @@ class CustomDashboardViewModel extends BaseViewModel {
     state = ViewState.idle;
 
     return null;
+  }
+
+  Future<APIResponse<CustomResponseModel?>?> performCustomSearch(
+      String value,
+      {bool? isPaginating = false}) async {
+    state = ViewState.busy;
+
+    try {
+      _customSearchResponseModel = await _customRepo.getCustomData(
+          searchValue: value, page: searchPage.toString());
+      if (_customSearchResponseModel?.isSuccess == true) {
+        _customSearchResponseModel?.data =
+            CustomResponseModel.fromJson(
+                _customSearchResponseModel?.completeResponse);
+        if (isPaginating == true) {
+          customData?.addAll(_customSearchResponseModel?.data?.data ?? []);
+        } else {
+          customData = _customSearchResponseModel?.data?.data ?? [];
+        }
+      } else {
+        helperFunctions.logger(messageConstant.errorMessage);
+      }
+    } catch (err) {
+      helperFunctions.logger("$err");
+    }
+    state = ViewState.idle;
+    return _customSearchResponseModel;
+  }
+
+  Future<void> searchCustom(String value) async {
+    debouncer.run(() async {
+      if (value.length >= 3) {
+        await performCustomSearch(value).then((_) {
+          scrollController.jumpTo(0);
+        });
+      } else {
+        customData = tempData.isEmpty
+            ? _customResponseModel?.data?.data ?? []
+            : tempData;
+        updateUI();
+      }
+    });
+  }
+
+  void getUpdatedList() async {
+    state = ViewState.busy;
+    if (searchController.text.isEmpty || isSearchExpanded == false) {
+      customData = tempData.isEmpty
+          ? _customResponseModel?.data?.data ?? []
+          : tempData;
+      searchController.text = "";
+    } else {
+      customData = _customSearchResponseModel?.data?.data ?? [];
+      searchController.text = "";
+    }
+    updateUI();
+    resetPage();
+    state = ViewState.idle;
+  }
+  void resetPage() {
+    if (searchController.text.isEmpty) {
+      searchPage = 1;
+    } else {
+      page = 1;
+    }
   }
 }
