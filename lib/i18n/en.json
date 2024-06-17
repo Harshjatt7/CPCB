@@ -170,5 +170,11 @@
     "designation": "Designation",
     "cancel": "Cancel",
     "mandatory-tyre-source": "It is mandatory to select tyre Source",
-    "recycled-tyre": "Recycled Tyre"
+    "recycled-tyre": "Recycled Tyre",
+    "acknowledge": "Acknowledge",
+    "reschedule": "Reschedule",
+    "previously-selected-start-date": "Previously Selected Start Date",
+    "previously-selected-end-date": "Previously Selected End Date",
+    "start-date": "Start Date",
+    "end-date": "End Date"
 }
