@@ -151,6 +151,13 @@ class StringConstants {
   final String address = "address";
   final String cancel = "cancel";
   final String recycledTyre = "recycled-tyre";
+  final String acknowledge = "acknowledge";
+  final String reschedule = "reschedule";
+  final String previouslySelectedStartDate = "previously-selected-start-date";
+  final String previouslySelectedEndDate = "previously-selected-end-date";
+  final String startDate = "start-date";
+  final String endDate = "end-date";
+
 
   //User Types
   static const String admin = "Admin";
