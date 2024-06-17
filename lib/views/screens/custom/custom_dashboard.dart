@@ -102,33 +102,31 @@ class CustomDashboardScreen extends StatelessWidget {
             Stack(
               children: [
                 Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: (viewModel.data?.length ?? 0) == 0
-                        ? Center(
-                            child: CommonTextWidget(
-                                MessageConstant().noMatchingResultsFound))
-                        : Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: List<Widget>.generate(
-                                viewModel.data?.length ?? 0, (index) {
-                              final applicationData = viewModel.data?[index];
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: CommonCustomListingCard(
-                                  companyName: applicationData?.email,
-                                  email: applicationData?.email,
-                                  contactNumber: applicationData?.mobileNumber,
-                                  state: applicationData?.stateName,
-                                  onMenuTap: () {
-                                    viewModel.downloadCertificate(
-                                        context, applicationData?.id ?? "");
-                                  },
-                                ),
-                              );
-                            }),
-                          )),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List<Widget>.generate(viewModel.data?.length ?? 0,
+                        (index) {
+                      final applicationData = viewModel.data?[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: CommonCustomListingCard(
+                          companyName: applicationData?.name,
+                          email: applicationData?.email,
+                          contactNumber: applicationData?.mobileNumber,
+                          state: applicationData?.stateName,
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+                if (viewModel.state == ViewState.parallelBusy)
+                  const Positioned(
+                    bottom: 15,
+                    left: 16,
+                    right: 16,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
               ],
             ),
           ],

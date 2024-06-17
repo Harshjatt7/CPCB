@@ -29,6 +29,7 @@ class CustomData {
     String? email;
     String? state;
     String? stateName;
+    String? name;
 
     CustomData({
         this.id,
@@ -36,6 +37,7 @@ class CustomData {
         this.email,
         this.state,
         this.stateName,
+        this.name,
     });
 
     factory CustomData.fromJson(Map<String, dynamic> json) => CustomData(
@@ -44,6 +46,7 @@ class CustomData {
         email: json["email"],
         state: json["state"],
         stateName: json["state_name"],
+        name: json["name"],
     );
 }
 
