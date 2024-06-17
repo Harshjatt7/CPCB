@@ -110,7 +110,7 @@ class CustomDashboardScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CommonCustomListingCard(
-                          companyName: applicationData?.email,
+                          companyName: applicationData?.name,
                           email: applicationData?.email,
                           contactNumber: applicationData?.mobileNumber,
                           state: applicationData?.stateName,

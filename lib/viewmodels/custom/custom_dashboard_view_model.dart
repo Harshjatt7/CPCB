@@ -20,9 +20,9 @@ class CustomDashboardViewModel extends BaseViewModel {
   final helperFunctions = HelperFunctions();
   final _customRepo = CustomRepository();
   int page =1;
-
   List<CustomData>? data;
   List<CustomData> tempData = [];
+  
   void onScrollEnding() {
     if ((_customResponseModel?.data?.meta?.lastPage ?? 0) > page) {
       page++;
