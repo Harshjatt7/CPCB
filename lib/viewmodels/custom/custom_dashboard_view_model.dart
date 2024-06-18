@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/filter_enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
@@ -11,6 +12,7 @@ import 'package:cpcb_tyre/views/widgets/components/filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/helper/debouncing_helper.dart';
+import '../../views/widgets/components/common_expansion_tile.dart';
 import '../../views/widgets/components/download_certificate_bottom_sheet.dart';
 
 class CustomDashboardViewModel extends BaseViewModel {
@@ -205,12 +207,101 @@ class CustomDashboardViewModel extends BaseViewModel {
     CheckboxFilterModel(title: "2"),
     CheckboxFilterModel(title: "3")
   ];
+  bool? isStateChecked = false;
+  bool? isUnitChecked = false;
+  bool? isCurrentStatus = false;
+  bool? isStateShowHide = false;
+  bool? isUnitShowHide = false;
+  bool? isCurrentShowHide = false;
+
+  void updateState(FilterTypes types, {bool? value, bool? isShowHide}) {
+    switch (types) {
+      case FilterTypes.state:
+        isStateChecked = value;
+        isStateShowHide = isShowHide;
+        // isUnitShowHide = false;
+        // isCurrentShowHide = false;
+        //  stateExpansionTileController.expand();
+
+        // if (currentExpansionTileController.isExpanded == true) {
+        //   currentExpansionTileController.collapse();
+        // }
+
+        // if (unitExpansionTileController.isExpanded == true) {
+        //   unitExpansionTileController.collapse();
+        // }
+        //stateExpansionTileController.expand();
+        break;
+      case FilterTypes.unitType:
+        isUnitChecked = value;
+        isUnitShowHide = isShowHide;
+        // isStateShowHide = false;
+        // isCurrentShowHide = false;
+
+        // if(unitExpansionTileController.isExpanded == false)
+        // unitExpansionTileController.expand();
+
+        // if (currentExpansionTileController.isExpanded == true) {
+        //   currentExpansionTileController.collapse();
+        // }
+
+        // if (stateExpansionTileController.isExpanded == true) {
+        //   stateExpansionTileController.collapse();
+        // }
+        //unitExpansionTileController.expand();
+        break;
+      case FilterTypes.currentStatus:
+        isCurrentStatus = value;
+        isCurrentShowHide = isShowHide;
+        // isUnitShowHide = false;
+        // isCurrentShowHide = false;
+        // currentExpansionTileController.expand();
+        // if (stateExpansionTileController.isExpanded == true) {
+        //   stateExpansionTileController.collapse();
+        // }
+
+        // if (unitExpansionTileController.isExpanded == true) {
+        //   unitExpansionTileController.collapse();
+        // }
+        // currentExpansionTileController.expand();
+
+        break;
+    }
+  }
+
+  List<String> selectedStateList = [];
+  List<String> selectedUnitList = [];
+  List<String> selectedCurrentList = [];
+
   void filterBottomSheet(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (ctx) {
           return StatefulBuilder(builder: (context, setState) {
             return FilterBottomSheet(
+              tiles: [
+                CommonExpansionTile(
+                    title: StringConstants().state,
+                    isChecked: isStateChecked,
+                    isShowHide: isStateShowHide,
+                    checkBoxList: stateList,
+                    selectedList: selectedStateList,
+                    type: FilterTypes.state),
+                CommonExpansionTile(
+                    title: StringConstants().unitType,
+                    isChecked: isUnitChecked,
+                    isShowHide: isUnitShowHide,
+                    checkBoxList: unitList,
+                    selectedList: selectedUnitList,
+                    type: FilterTypes.unitType),
+                CommonExpansionTile(
+                    title: StringConstants().currentStatus,
+                    isChecked: isCurrentStatus,
+                    isShowHide: isCurrentShowHide,
+                    checkBoxList: currentList,
+                    selectedList: selectedCurrentList,
+                    type: FilterTypes.currentStatus),
+              ],
               stateList: stateList,
               currentList: currentList,
               unitList: unitList,
@@ -219,6 +310,20 @@ class CustomDashboardViewModel extends BaseViewModel {
               },
             );
           });
-        });
+        }).whenComplete(() {
+      isStateChecked = false;
+      isUnitChecked = false;
+      isCurrentStatus = false;
+      for (var value in stateList) {
+        value.isChecked = false;
+      }
+      for (var value in currentList) {
+        value.isChecked = false;
+      }
+      for (var value in unitList) {
+        value.isChecked = false;
+      }
+      updateUI();
+    });
   }
 }
