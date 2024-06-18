@@ -72,34 +72,34 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ),
             ),
             expandedDropDown(
-                _stringConstants.state,
-                isStateChecked,
-                isStateShowHide,
-                widget.stateList,
-                selectedStateList,
-                FilterTypes.state),
+                title: _stringConstants.state,
+                isChecked: isStateChecked,
+                isShowHide: isStateShowHide,
+                checkBoxList: widget.stateList,
+                selectedList: selectedStateList,
+                type: FilterTypes.state),
             if (isStateShowHide == false)
               Divider(
                 color: _appColor.black20,
               ),
             expandedDropDown(
-                _stringConstants.unitType,
-                isUnitChecked,
-                isUnitShowHide,
-                widget.unitList,
-                selectedUnitList,
-                FilterTypes.unitType),
+                title: _stringConstants.unitType,
+                isChecked: isUnitChecked,
+                isShowHide: isUnitShowHide,
+                checkBoxList: widget.unitList,
+                selectedList: selectedUnitList,
+                type: FilterTypes.unitType),
             if (isUnitShowHide == false)
               Divider(
                 color: _appColor.black20,
               ),
             expandedDropDown(
-                _stringConstants.currentStatus,
-                isCurrentStatus,
-                isCurrentShowHide,
-                widget.currentList,
-                selectedCurrentList,
-                FilterTypes.currentStatus),
+                title: _stringConstants.currentStatus,
+                isChecked: isCurrentStatus,
+                isShowHide: isCurrentShowHide,
+                checkBoxList: widget.currentList,
+                selectedList: selectedCurrentList,
+                type: FilterTypes.currentStatus),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
@@ -153,12 +153,12 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   }
 
   Widget expandedDropDown(
-      String title,
+      {required String title,
       bool? isChecked,
       bool? isShowHide,
-      List<CheckboxFilterModel> checkBoxList,
-      List<String> selectedList,
-      FilterTypes type) {
+      required List<CheckboxFilterModel> checkBoxList,
+      required List<String> selectedList,
+      required FilterTypes type}) {
     return ExpansionTile(
       trailing: Icon(
         isShowHide != null && isShowHide == true

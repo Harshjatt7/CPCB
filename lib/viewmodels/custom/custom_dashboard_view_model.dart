@@ -189,6 +189,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     }
   }
 
+//TODO Remove Later and move to auditor viewModel
   List<CheckboxFilterModel> stateList = [
     CheckboxFilterModel(title: "Delhi"),
     CheckboxFilterModel(title: "Punjab"),
@@ -204,7 +205,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     CheckboxFilterModel(title: "2"),
     CheckboxFilterModel(title: "3")
   ];
-  void test(BuildContext context) {
+  void filterBottomSheet(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (ctx) {
