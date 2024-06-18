@@ -159,6 +159,10 @@ class StringConstants {
   final String endDate = "end-date";
 
 
+  final String filter = "filter";
+  final String unitType = "unit-type";
+  final String apply = "apply";
+
   //User Types
   static const String admin = "Admin";
   static const String auditor = "Auditor";
