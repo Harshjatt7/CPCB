@@ -10,7 +10,7 @@ class FilterBottomSheet extends StatefulWidget {
   final List<CheckboxFilterModel> stateList;
   final List<CheckboxFilterModel> unitList;
   final List<CheckboxFilterModel> currentList;
-  final List<Widget> tiles;
+  final List<Widget> filterTiles;
   final void Function()? onTitleUpdated;
   final void Function()? onClose;
   final void Function()? onApply;
@@ -21,7 +21,7 @@ class FilterBottomSheet extends StatefulWidget {
       this.onTitleUpdated,
       required this.currentList,
       required this.unitList,
-      required this.tiles,
+      required this.filterTiles,
       this.onApply,
       this.onClose});
 
@@ -63,10 +63,10 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ),
             ),
             Column(
-              children: List<Widget>.generate(widget.tiles.length, (index) {
+              children: List<Widget>.generate(widget.filterTiles.length, (index) {
                 return Column(
                   children: [
-                    widget.tiles[index],
+                    widget.filterTiles[index],
                   ],
                 );
               }),

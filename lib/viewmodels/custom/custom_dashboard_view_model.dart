@@ -279,7 +279,7 @@ class CustomDashboardViewModel extends BaseViewModel {
         builder: (ctx) {
           return StatefulBuilder(builder: (context, setState) {
             return FilterBottomSheet(
-              tiles: [
+              filterTiles: [
                 CommonExpansionTile(
                     title: StringConstants().state,
                     isChecked: isStateChecked,
