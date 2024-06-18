@@ -44,18 +44,23 @@ class CustomDashboardViewModel extends BaseViewModel {
     }
   }
 
-  void loadMoreData() async {
+    void loadMoreData() async {
     state = ViewState.parallelBusy;
-    await getCustomData(isPaginating: true);
-    tempData.clear();
-    customData?.forEach((e) {
+    if (isSearchExpanded == true && searchController.text.isNotEmpty) {
+      await performCustomSearch(searchController.text, isPaginating: true);
+    } else {
+      await getCustomData(isPaginating: true);
+      if ((customData?.length ?? 0) >= 1) {
+        tempData.clear();
+         customData?.forEach((e) {
       tempData.add(CustomData(
         email: e.email,
         mobileNumber: e.mobileNumber,
         stateName: e.stateName,
       ));
     });
-
+      }
+    }
     state = ViewState.idle;
     updateUI();
   }
