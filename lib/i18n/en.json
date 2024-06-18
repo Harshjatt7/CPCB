@@ -173,5 +173,11 @@
     "recycled-tyre": "Recycled Tyre",
     "filter":"Filter",
     "unit-type":"Unit Type",
-    "apply":"Apply"
+    "apply":"Apply",
+    "acknowledge": "Acknowledge",
+    "reschedule": "Reschedule",
+    "previously-selected-start-date": "Previously Selected Start Date",
+    "previously-selected-end-date": "Previously Selected End Date",
+    "start-date": "Start Date",
+    "end-date": "End Date"
 }

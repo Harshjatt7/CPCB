@@ -27,8 +27,8 @@ class CustomDashboardViewModel extends BaseViewModel {
   APIResponse<CustomResponseModel?>? get customSearchResponseModel =>
       _customSearchResponseModel;
   final helperFunctions = HelperFunctions();
-  final _customRepo = CustomRepository();
   int page = 1;
+
   List<CustomData>? customData;
   List<CustomData> tempData = [];
   int searchPage = 1;
@@ -131,7 +131,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     state = ViewState.busy;
 
     try {
-      _customSearchResponseModel = await _customRepo.getCustomData(
+      _customSearchResponseModel = await _customRepository.getCustomData(
           searchValue: value, page: searchPage.toString());
       if (_customSearchResponseModel?.isSuccess == true) {
         _customSearchResponseModel?.data = CustomResponseModel.fromJson(
