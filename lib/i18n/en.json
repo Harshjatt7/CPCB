@@ -170,5 +170,8 @@
     "designation": "Designation",
     "cancel": "Cancel",
     "mandatory-tyre-source": "It is mandatory to select tyre Source",
-    "recycled-tyre": "Recycled Tyre"
+    "recycled-tyre": "Recycled Tyre",
+    "filter":"Filter",
+    "unit-type":"Unit Type",
+    "apply":"Apply"
 }

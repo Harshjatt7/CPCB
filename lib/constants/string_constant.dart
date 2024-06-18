@@ -152,6 +152,10 @@ class StringConstants {
   final String cancel = "cancel";
   final String recycledTyre = "recycled-tyre";
 
+  final String filter = "filter";
+  final String unitType = "unit-type";
+  final String apply = "apply";
+
   //User Types
   static const String admin = "Admin";
   static const String auditor = "Auditor";

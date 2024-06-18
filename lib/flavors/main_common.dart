@@ -1,5 +1,5 @@
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
-import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
+import 'package:cpcb_tyre/views/screens/custom/custom_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/theme/themes.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
@@ -58,7 +58,7 @@ class MyAppState extends State<MyApp> {
             darkTheme: _appTheme.darkTheme(context),
             locale: currentLocale,
             navigatorKey: APIBase.navigatorKey,
-            home: SplashScreen(),
+            home: const CustomDashboardScreen(),
           );
         });
   }

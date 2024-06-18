@@ -4,8 +4,10 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/custom/custom_repository.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/custom/custom_response_model.dart';
+import 'package:cpcb_tyre/models/response/filter/checkbox_filter_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
+import 'package:cpcb_tyre/views/widgets/components/filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/helper/debouncing_helper.dart';
@@ -26,13 +28,15 @@ class CustomDashboardViewModel extends BaseViewModel {
       _customSearchResponseModel;
   final helperFunctions = HelperFunctions();
   final _customRepo = CustomRepository();
-  int page =1;
+  int page = 1;
   List<CustomData>? customData;
   List<CustomData> tempData = [];
   int searchPage = 1;
   final messageConstant = MessageConstant();
   final debouncer = Debouncer(milliseconds: 500);
-  
+
+  List<CustomData>? data;
+
   void onScrollEnding() {
     if ((_customResponseModel?.data?.meta?.lastPage ?? 0) > page) {
       page++;
@@ -122,8 +126,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     return null;
   }
 
-  Future<APIResponse<CustomResponseModel?>?> performCustomSearch(
-      String value,
+  Future<APIResponse<CustomResponseModel?>?> performCustomSearch(String value,
       {bool? isPaginating = false}) async {
     state = ViewState.busy;
 
@@ -131,9 +134,8 @@ class CustomDashboardViewModel extends BaseViewModel {
       _customSearchResponseModel = await _customRepo.getCustomData(
           searchValue: value, page: searchPage.toString());
       if (_customSearchResponseModel?.isSuccess == true) {
-        _customSearchResponseModel?.data =
-            CustomResponseModel.fromJson(
-                _customSearchResponseModel?.completeResponse);
+        _customSearchResponseModel?.data = CustomResponseModel.fromJson(
+            _customSearchResponseModel?.completeResponse);
         if (isPaginating == true) {
           customData?.addAll(_customSearchResponseModel?.data?.data ?? []);
         } else {
@@ -167,9 +169,8 @@ class CustomDashboardViewModel extends BaseViewModel {
   void getUpdatedList() async {
     state = ViewState.busy;
     if (searchController.text.isEmpty || isSearchExpanded == false) {
-      customData = tempData.isEmpty
-          ? _customResponseModel?.data?.data ?? []
-          : tempData;
+      customData =
+          tempData.isEmpty ? _customResponseModel?.data?.data ?? [] : tempData;
       searchController.text = "";
     } else {
       customData = _customSearchResponseModel?.data?.data ?? [];
@@ -179,11 +180,44 @@ class CustomDashboardViewModel extends BaseViewModel {
     resetPage();
     state = ViewState.idle;
   }
+
   void resetPage() {
     if (searchController.text.isEmpty) {
       searchPage = 1;
     } else {
       page = 1;
     }
+  }
+
+  List<CheckboxFilterModel> stateList = [
+    CheckboxFilterModel(title: "Delhi"),
+    CheckboxFilterModel(title: "Punjab"),
+    CheckboxFilterModel(title: "Banglore")
+  ];
+  List<CheckboxFilterModel> currentList = [
+    CheckboxFilterModel(title: "a"),
+    CheckboxFilterModel(title: "b"),
+    CheckboxFilterModel(title: "c")
+  ];
+  List<CheckboxFilterModel> unitList = [
+    CheckboxFilterModel(title: "1"),
+    CheckboxFilterModel(title: "2"),
+    CheckboxFilterModel(title: "3")
+  ];
+  void test(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (ctx) {
+          return StatefulBuilder(builder: (context, setState) {
+            return FilterBottomSheet(
+              stateList: stateList,
+              currentList: currentList,
+              unitList: unitList,
+              onTitleUpdated: () {
+                setState(() {});
+              },
+            );
+          });
+        });
   }
 }

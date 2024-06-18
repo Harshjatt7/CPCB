@@ -104,8 +104,8 @@ class CustomDashboardScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: List<Widget>.generate(viewModel.customData?.length ?? 0,
-                        (index) {
+                    children: List<Widget>.generate(
+                        viewModel.customData?.length ?? 0, (index) {
                       final applicationData = viewModel.customData?[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -115,7 +115,9 @@ class CustomDashboardScreen extends StatelessWidget {
                           contactNumber: applicationData?.mobileNumber,
                           state: applicationData?.stateName,
                           onMenuTap: () {
-                            viewModel.downloadCertificate(context, viewModel.customData?[index].id??'');
+                            viewModel.test(context);
+                            // viewModel.downloadCertificate(
+                            //     context, applicationData?.id ?? '');
                           },
                         ),
                       );
