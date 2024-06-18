@@ -49,15 +49,16 @@ class CommonCustomListingCard extends StatelessWidget {
                           ?.copyWith(color: appColor.black),
                     ),
                   ),
-                  GestureDetector(
+                  InkWell(
+                    borderRadius: BorderRadius.circular(5),
                     onTap: onMenuTap,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 6),
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
                       child: CommonImageWidget(
                           imageSource: ImageConstants().menuIcon,
                           isNetworkImage: false),
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(
