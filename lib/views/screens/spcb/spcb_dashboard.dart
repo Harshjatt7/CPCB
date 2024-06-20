@@ -80,7 +80,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                       label: StringConstants.recycler),
                   TabBarModel(
                       tab: const SpcbRetreaderTab(),
-                      label: stringConstants.retrader)
+                      label: StringConstants.retreader)
                 ],
               ),
             ),

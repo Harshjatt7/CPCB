@@ -12,6 +12,7 @@ class CommonExpansionTile extends StatefulWidget {
   final List<CheckboxFilterModel> checkBoxList;
   final List<String> selectedList;
   final FilterTypes type;
+  final Function? listCallBack;
   CommonExpansionTile(
       {super.key,
       required this.title,
@@ -19,7 +20,8 @@ class CommonExpansionTile extends StatefulWidget {
       this.isShowHide,
       required this.checkBoxList,
       required this.selectedList,
-      required this.type});
+      required this.type,
+      this.listCallBack});
 
   @override
   State<CommonExpansionTile> createState() => _CommonExpansionTileState();
@@ -27,6 +29,7 @@ class CommonExpansionTile extends StatefulWidget {
 
 class _CommonExpansionTileState extends State<CommonExpansionTile> {
   final _appColor = AppColor();
+  List<String> localList = [];
 
   void updateState(FilterTypes types, {bool? value, bool? isShowHide}) {
     switch (types) {
@@ -129,24 +132,24 @@ class _CommonExpansionTileState extends State<CommonExpansionTile> {
                 updateState: (value) {
                   widget.checkBoxList[index].isChecked = value;
                   if (value == true) {
-                    widget.selectedList.add(widget.checkBoxList[index].title);
+                    localList.add(widget.checkBoxList[index].title);
                   } else {
-                    if (widget.selectedList
-                        .contains(widget.checkBoxList[index].title)) {
-                      widget.selectedList
-                          .remove(widget.checkBoxList[index].title);
+                    if (localList.contains(widget.checkBoxList[index].title)) {
+                      localList.remove(widget.checkBoxList[index].title);
                     }
                   }
-                  if (widget.selectedList.isNotEmpty &&
-                      widget.selectedList.length < widget.checkBoxList.length) {
+                  if (localList.isNotEmpty &&
+                      localList.length < widget.checkBoxList.length) {
                     updateState(widget.type, value: null, isShowHide: true);
-                  } else if (widget.selectedList.length ==
-                      widget.checkBoxList.length) {
+                  } else if (localList.length == widget.checkBoxList.length) {
                     updateState(widget.type, value: true, isShowHide: true);
-                  } else if (widget.selectedList.isEmpty) {
+                  } else if (localList.isEmpty) {
                     updateState(widget.type, value: false, isShowHide: true);
                   }
                   setState(() {});
+                  if (widget.listCallBack != null) {
+                    widget.listCallBack!(localList);
+                  }
                 },
               )),
     );

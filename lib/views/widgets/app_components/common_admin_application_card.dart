@@ -15,7 +15,6 @@ class CommonAdminApplicationCard extends StatelessWidget {
     this.applicationTitle,
     this.lastMarked,
     this.markedTo,
-    this.total,
     this.date,
     this.year,
     this.onMenuTap,
@@ -25,7 +24,6 @@ class CommonAdminApplicationCard extends StatelessWidget {
   final String? applicationTitle;
   final String? lastMarked;
   final String? markedTo;
-  final String? total;
   final String? date;
   final String? year;
   final Function()? onMenuTap;
@@ -103,8 +101,6 @@ class CommonAdminApplicationCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buildRowWidget(context,
-                      image: imageConstants.verified, text: total),
                   buildRowWidget(context,
                       image: imageConstants.calendarIcon,
                       text: "${stringConstants.dateLabel.i18n()} $date"),

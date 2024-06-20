@@ -125,7 +125,6 @@ class DashBoardScreen extends StatelessWidget {
                                             .data?.registrationExpiryDate ??
                                         ""),
                               ),
-                            
                             if (viewModel.data?.downloadApplication == true)
                               Padding(
                                 padding:
@@ -158,7 +157,24 @@ class DashBoardScreen extends StatelessWidget {
                                     .textTheme
                                     .labelMedium!
                                     .copyWith(color: appColor.darkGreen),
-                              )
+                              ),
+                            if (viewModel.currentUser == UserTypes.recycler)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: CommonButtonWidget(
+                                  onPressed: () async {
+                                    //TODO Implement Recycler Download Certificate API when available
+                                  },
+                                  label: viewModel
+                                      .stringConstants.downloadCertificate,
+                                  color: appColor.darkGreen,
+                                  labelStyle: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(color: appColor.white),
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -269,7 +285,6 @@ class DashBoardScreen extends StatelessWidget {
                               .copyWith(color: appColor.black90),
                         ),
                       ),
-                    
                     if (viewModel.currentUser == UserTypes.retreader)
                       Column(children: [
                         Padding(
@@ -303,7 +318,6 @@ class DashBoardScreen extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-
                     if (viewModel.currentUser == UserTypes.retreader)
                       Align(
                         alignment: Alignment.topLeft,
@@ -350,14 +364,18 @@ class DashBoardScreen extends StatelessWidget {
                       height: 8,
                     ),
                     if (viewModel.currentUser == UserTypes.retreader)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: ProducerAnnualReturnWidget(
-                          title: "Annual Returns",
-                          date: viewModel.data?.annualReturn?.dueDate??"",
-                          status:viewModel.data?.annualReturn?.currentStatus??"",
-                          fillingDate: viewModel.data?.annualReturn?.dateOfAnnualReturnFiling??""),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: ProducerAnnualReturnWidget(
+                            title: "Annual Returns",
+                            date: viewModel.data?.annualReturn?.dueDate ?? "",
+                            status:
+                                viewModel.data?.annualReturn?.currentStatus ??
+                                    "",
+                            fillingDate: viewModel.data?.annualReturn
+                                    ?.dateOfAnnualReturnFiling ??
+                                ""),
+                      ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),

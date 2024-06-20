@@ -115,10 +115,8 @@ class CustomDashboardScreen extends StatelessWidget {
                           contactNumber: applicationData?.mobileNumber,
                           state: applicationData?.stateName,
                           onMenuTap: () {
-                            //TODO Remove Later
-                            viewModel.filterBottomSheet(context);
-                            // viewModel.downloadCertificate(
-                            //     context, applicationData?.id ?? '');
+                            viewModel.downloadCertificate(
+                                context, applicationData?.id ?? '');
                           },
                         ),
                       );

@@ -4,6 +4,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/common_viewmodel/profile_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_producer_list_tile.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
@@ -17,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
   final bool? isCustom;
   final ImageConstants imageConstants = ImageConstants();
   final AppColor appColor = AppColor();
-  ProfileScreen({super.key, this.isAdmin=false, this.isCustom=false});
+  ProfileScreen({super.key, this.isAdmin = false, this.isCustom = false});
 
   @override
   Widget build(BuildContext context) {
@@ -76,20 +77,21 @@ class ProfileScreen extends StatelessWidget {
                   //   padding:
                   //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   //   child: ProducerListTile(
-                  //     isBackgroundIcon: true,
+                  //       isBackgroundIcon: true,
                   //       image: imageConstants.person,
-                  //       title: stringConstants.userType,
+                  //       title: viewModel.stringConstants.userType,
                   //       subtitle: viewModel.data?.userType ?? ""),
                   // ),
-                  // Padding(
-                  //   padding:
-                  //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  //   child: ProducerListTile(
-                  //     isBackgroundIcon: true,
-                  //       image: imageConstants.passKey,
-                  //       title: stringConstants.currentStatus,
-                  //       subtitle: viewModel.data?.state ?? ""),
-                  // ),
+                  if (isCustom == true)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: ProducerListTile(
+                          isBackgroundIcon: true,
+                          image: imageConstants.passKey,
+                          title: viewModel.stringConstants.stateAuthorized,
+                          subtitle: viewModel.data?.state ?? ""),
+                    ),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

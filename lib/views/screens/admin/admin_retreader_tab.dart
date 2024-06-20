@@ -34,6 +34,7 @@ class AdminRetreaderTab extends StatelessWidget {
             transferred: helperFunctions.precisionFormat(
                 retreaderCommonData?.retreadedTyre?.creditTransfered),
           ),
+          
           CommonTotalApplicationCard(
             totalApplication: "${retreaderData?.applications}",
             onTap: () {
@@ -44,7 +45,7 @@ class AdminRetreaderTab extends StatelessWidget {
           ),
           CommonEPRApplication(
             data: retreaderData,
-            userType: StringConstants().retrader,
+            userType: StringConstants.retreader,
           ),
         ],
       ),

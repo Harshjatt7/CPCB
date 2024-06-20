@@ -96,7 +96,7 @@ class ProfileData {
       addressLine1: json["addressLine1"],
       addressLine2: json["addressLine2"],
       country: json["country"],
-      state: json["state"],
+      state: json["stateName"],
       city: json["city"],
       pincode: json["pincode"],
       authorizedPersonName: json["authorizedPersonName"],
