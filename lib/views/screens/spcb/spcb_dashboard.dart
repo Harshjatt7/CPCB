@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/screens/spcb/spcb_producer_tab.dart';
 import 'package:cpcb_tyre/views/screens/spcb/spcb_recycler_tab.dart';
@@ -21,8 +22,10 @@ class SpcbDashboardScreen extends StatelessWidget {
     final stringConstants = StringConstants();
     final appColor = AppColor();
     return BaseView<SpcbDashboardViewModel>(
+      
         builder: (context, viewModel, child) {
           return CustomScaffold(
+            isLoading: viewModel.state == ViewState.busy,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(
                   viewModel.isSearchExpanded == true ? 146 : 125),
@@ -74,19 +77,28 @@ class SpcbDashboardScreen extends StatelessWidget {
               child: CommonTabBar(
                 tabs: [
                   TabBarModel(
-                      tab: SpcbProducerTab(), label: StringConstants.producer),
+                      tab: SpcbProducerTab(
+                        spcbViewModel: viewModel,
+                      ), label: StringConstants.producer
+                      ),
                   TabBarModel(
-                      tab: const SpcbRecyclerTab(),
+                      tab: SpcbRecyclerTab(
+                         spcbViewModel: viewModel,
+                      ),
                       label: StringConstants.recycler),
                   TabBarModel(
-                      tab: const SpcbRetreaderTab(),
+                      tab: SpcbRetreaderTab(
+                         spcbViewModel: viewModel,
+                      ),
                       label: StringConstants.retreader)
                 ],
               ),
             ),
           );
         },
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) {
+          
+        },
         viewModel: SpcbDashboardViewModel());
   }
 }

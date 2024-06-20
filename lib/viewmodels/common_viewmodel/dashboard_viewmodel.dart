@@ -77,7 +77,6 @@ class DashboardViewModel extends BaseViewModel {
       helperFunctions.logger("$err");
     }
     state = ViewState.idle;
-
     return null;
   }
 

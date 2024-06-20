@@ -67,6 +67,7 @@ class ErrorsList {
   List<String>? typeOfTyreManufacture;
   List<String>? month;
   List<String>? total;
+  List<String>? complaint;
 
   ErrorsList(
       {this.financialYear,
@@ -94,7 +95,9 @@ class ErrorsList {
       this.producerType,
       this.typeOfTyreManufacture,
       this.month,
-      this.total});
+      this.total,
+      this.complaint,
+      });
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
         financialYear: json["financial_year"] == null
@@ -181,6 +184,9 @@ class ErrorsList {
         total: json["total"] == null 
             ? [] 
             : List<String>.from(json["total"]!.map((x) => x)),
+        complaint: json["complaint"] == null 
+            ? [] 
+            : List<String>.from(json["complaint"]!.map((x) => x)),
 
       );
 

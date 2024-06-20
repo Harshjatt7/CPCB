@@ -41,27 +41,12 @@ class CommonSpcbCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonTextWidget(
-                    applicationNumber ?? "",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: appColor.black40),
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(5),
-                    onTap: onMenuTap,
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      child: CommonImageWidget(
-                          imageSource: ImageConstants().menuIcon,
-                          isNetworkImage: false),
-                    ),
-                  )
-                ],
+              CommonTextWidget(
+                applicationNumber ?? "",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: appColor.black40),
               ),
               const SizedBox(
                 height: 8,
@@ -89,12 +74,21 @@ class CommonSpcbCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CommonTextWidget(
-                    "${stringConstants.date.i18n()}: $date",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: appColor.black40),
+                  Row(
+                    children: [
+                      CommonImageWidget(
+                        imageSource: imageConstants.calendarIcon,
+                        isNetworkImage: false,
+                      ),
+                      const SizedBox(width: 4,),
+                      CommonTextWidget(
+                        "${stringConstants.date.i18n()}: $date",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: appColor.black40),
+                      ),
+                    ],
                   ),
                   GestureDetector(
                     onTap: onCommentTap,
