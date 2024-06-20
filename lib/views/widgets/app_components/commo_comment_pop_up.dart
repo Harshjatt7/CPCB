@@ -11,11 +11,13 @@ class CommonCommentPopUp extends StatelessWidget {
       this.labelText,
       this.hintText,
       this.onSubmit,
+      this.controller,
       required this.ctx});
   final String? labelText;
   final String? hintText;
   final VoidCallback? onSubmit;
   final BuildContext ctx;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     final stringConstants = StringConstants();
@@ -31,6 +33,7 @@ class CommonCommentPopUp extends StatelessWidget {
         height: 300,
         padding: const EdgeInsets.all(12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -42,6 +45,7 @@ class CommonCommentPopUp extends StatelessWidget {
               height: 20,
             ),
             TextFormField(
+              controller: controller,
               maxLength: 300,
               keyboardType: TextInputType.multiline,
               maxLines: 2,
@@ -67,6 +71,7 @@ class CommonCommentPopUp extends StatelessWidget {
                       color: appColor.white,
                       labelStyle: Theme.of(context).textTheme.labelMedium,
                       onPressed: () {
+                        controller?.clear();
                         Navigator.pop(context);
                       },
                     ),
