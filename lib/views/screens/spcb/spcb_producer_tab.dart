@@ -1,15 +1,19 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/viewmodels/spcb/spcb_dashboard_view_model.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_spcb_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/string_constant.dart';
 import '../../widgets/app_components/commo_comment_pop_up.dart';
+import '../../widgets/components/common_single_child_scrollview.dart';
+
 class SpcbProducerTab extends StatelessWidget {
-  SpcbProducerTab({super.key});
+  SpcbProducerTab({super.key, this.spcbViewModel});
   final StringConstants stringConstants = StringConstants();
   final HelperFunctions helperFunctions = HelperFunctions();
   final AppColor appColor = AppColor();
+  final SpcbDashboardViewModel? spcbViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class SpcbProducerTab extends StatelessWidget {
         }
         return false;
       },
-      child: SingleChildScrollView(
+      child: CommonSingleChildScrollView(
         // controller: viewModel.scrollController,
         child: Column(
           children: [
@@ -67,14 +71,16 @@ class SpcbProducerTab extends StatelessWidget {
                     builder: (BuildContext ctx) {
                       return CommonCommentPopUp(
                           ctx: ctx,
-                          labelText: "Something you want to comment?",
+                          controller: spcbViewModel?.queryController,
+                          labelText: "Raise your complaint here",
                           hintText: "Write your comment ...",
-                          onSubmit: () {
-                            helperFunctions.logger("Submitted");
+                          onSubmit: () async {
+                            await spcbViewModel?.raiseComplaint(
+                                context, spcbViewModel?.queryController.text);
+                          
                           });
                     },
                   );
-                  helperFunctions.logger("on Comment");
                 },
               ),
             ),

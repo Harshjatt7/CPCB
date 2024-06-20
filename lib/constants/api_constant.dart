@@ -48,6 +48,7 @@ class APIRoutes {
   final String adminDownloadApplicationAPIRoute="api/admin/download-application/";
   final String customDownloadCertificateAPIRoute="api/download-certificate";
   final String customProducerAPIRoute = "api/producers";
+  final String spcbRaiseUserComplaint = "api/spcb/raise-user-complaint";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";

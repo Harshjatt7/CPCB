@@ -1,20 +1,25 @@
-import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/image_constants.dart';
+import '../../../constants/string_constant.dart';
+import '../../../theme/app_color.dart';
 import '../components/common_button_widget.dart';
+import '../components/common_text_form_field_widget.dart';
+import '../components/common_text_widget.dart';
 
-class AcknowledgePopUp extends StatelessWidget {
-  const AcknowledgePopUp(
-      {super.key,
-      required this.startDate,
-      required this.endDate,
-      this.onSubmit});
+class ReschedulePopUp extends StatelessWidget {
+  const ReschedulePopUp({
+    super.key,
+    required this.startDate,
+    required this.endDate,
+    this.onSubmit,
+    required this.previousEndDate,
+    required this.previousStartDate,
+  });
   final TextEditingController startDate;
   final TextEditingController endDate;
+  final TextEditingController previousStartDate;
+  final TextEditingController previousEndDate;
   final VoidCallback? onSubmit;
   @override
   Widget build(BuildContext context) {
@@ -33,19 +38,40 @@ class AcknowledgePopUp extends StatelessWidget {
             border: Border.all(width: 1.5, color: appColor.black10)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CommonTextWidget(
-              stringConstants.acknowledge,
+              stringConstants.reschedule,
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(
               height: 24,
             ),
             CommonTextFormFieldWidget(
+              hintText: stringConstants.previouslySelectedStartDate,
+              isMandatory: true,
+              controller: previousStartDate,
+              icon: ImageConstants().calendarToday,
+              iconColor: appColor.black70,
+              isReadOnly: true,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            CommonTextFormFieldWidget(
+              hintText: stringConstants.previouslySelectedEndDate,
+              isMandatory: true,
+              controller: previousEndDate,
+              icon: ImageConstants().calendarToday,
+              iconColor: appColor.black70,
+              isReadOnly: true,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            CommonTextFormFieldWidget(
               hintText: stringConstants.startDate,
               isMandatory: true,
-              controller: startDate,
+              controller: endDate,
               icon: ImageConstants().calendarToday,
               onSuffixTap: () {
                 showDatePicker(
@@ -62,6 +88,7 @@ class AcknowledgePopUp extends StatelessWidget {
               isMandatory: true,
               controller: endDate,
               icon: ImageConstants().calendarToday,
+              disabledBgColor: appColor.black50,
               onSuffixTap: () {
                 showDatePicker(
                     context: context,

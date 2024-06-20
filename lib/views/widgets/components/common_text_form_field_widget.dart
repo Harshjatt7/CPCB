@@ -26,6 +26,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final bool? isDocument;
   final void Function(String)? onChanged;
   final bool? isLastField;
+  final Color? iconColor;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -70,7 +71,9 @@ class CommonTextFormFieldWidget extends StatefulWidget {
       this.onTap,
       this.inputFormatters,
       this.isDocument,
-      this.isLastField = false});
+      this.isLastField = false,
+      this.iconColor,
+      });
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
@@ -153,6 +156,7 @@ class _CommonTextFormFieldWidgetNewState
             showCursor: true,
             cursorErrorColor: appColor.grey01,
             autovalidateMode: AutovalidateMode.onUserInteraction,
+            
             validator: (val) {
               if (widget.validator != null) {
                 error = widget.validator!(widget.controller.text);
@@ -225,6 +229,7 @@ class _CommonTextFormFieldWidgetNewState
                 border: InputBorder.none,
                 focusedErrorBorder: InputBorder.none,
                 errorBorder: InputBorder.none,
+                suffixIconColor: widget.iconColor??appColor.black70,
                 suffixIcon: widget.icon != null
                     ? suffixWidget()
                     : widget.isPasswordField == true
@@ -268,7 +273,9 @@ class _CommonTextFormFieldWidgetNewState
             width: 20,
             fit: BoxFit.fitWidth,
             imageSource: widget.icon ?? "",
-            isNetworkImage: false),
+            isNetworkImage: false,
+            imageColor: widget.iconColor??appColor.black,
+            ),
       ),
     );
   }

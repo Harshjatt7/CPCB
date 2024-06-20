@@ -41,26 +41,12 @@ class CommonSpcbCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonTextWidget(
-                    applicationNumber ?? "",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: appColor.black40),
-                  ),
-                  GestureDetector(
-                    onTap: onMenuTap,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 6),
-                      child: CommonImageWidget(
-                          imageSource: ImageConstants().menuIcon,
-                          isNetworkImage: false),
-                    ),
-                  )
-                ],
+              CommonTextWidget(
+                applicationNumber ?? "",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: appColor.black40),
               ),
               const SizedBox(
                 height: 8,
@@ -75,12 +61,12 @@ class CommonSpcbCard extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              buildCustomTextWidget(context,appColor,
+              buildCustomTextWidget(context, appColor,
                   text: "${stringConstants.address.i18n()}: $address"),
               const SizedBox(
                 height: 6,
               ),
-              buildCustomTextWidget(context,appColor,
+              buildCustomTextWidget(context, appColor,
                   text: "${stringConstants.state.i18n()}: $state"),
               Divider(
                 color: appColor.black10,
@@ -88,12 +74,21 @@ class CommonSpcbCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CommonTextWidget(
-                    "${stringConstants.date.i18n()}: $date",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: appColor.black40),
+                  Row(
+                    children: [
+                      CommonImageWidget(
+                        imageSource: imageConstants.calendarIcon,
+                        isNetworkImage: false,
+                      ),
+                      const SizedBox(width: 4,),
+                      CommonTextWidget(
+                        "${stringConstants.date.i18n()}: $date",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: appColor.black40),
+                      ),
+                    ],
                   ),
                   GestureDetector(
                     onTap: onCommentTap,
@@ -111,7 +106,9 @@ class CommonSpcbCard extends StatelessWidget {
     );
   }
 
-  CommonTextWidget buildCustomTextWidget(BuildContext context,AppColor appColor, {String? text}) {
+  CommonTextWidget buildCustomTextWidget(
+      BuildContext context, AppColor appColor,
+      {String? text}) {
     return CommonTextWidget(text ?? "",
         style: Theme.of(context)
             .textTheme

@@ -13,13 +13,13 @@ class CustomRepository {
         isMediaAuthorizationRequired: true);
     return response;
   }
-   Future getCustomData({String? page = "1", searchValue}) async {
-    APIResponse<CustomResponseModel?>? response =
-        await _apiBase.getRequest(
-            searchValue == null
-                ? "${_apiRoutes.customProducerAPIRoute}?page=$page"
-                : "${_apiRoutes.customProducerAPIRoute}?page=$page&search=$searchValue",
-            isAuthorizationRequired: true);
+
+  Future getCustomData({String? page = "1", searchValue}) async {
+    APIResponse<CustomResponseModel?>? response = await _apiBase.getRequest(
+        searchValue == null
+            ? "${_apiRoutes.customProducerAPIRoute}?page=$page"
+            : "${_apiRoutes.customProducerAPIRoute}?page=$page&name=$searchValue",
+        isAuthorizationRequired: true);
     return response;
   }
 }
