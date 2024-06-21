@@ -22,7 +22,7 @@ class AdminSummaryScreen extends StatelessWidget {
                     CommonAppBar(
                       isIconBar: true,
                     ),
-                       DashboardYearFilter(viewModel: viewModel),
+                       DashboardYearFilter(viewModel: viewModel,value: viewModel.financialYearList.first,),
                   ],
                 ),
               ),
