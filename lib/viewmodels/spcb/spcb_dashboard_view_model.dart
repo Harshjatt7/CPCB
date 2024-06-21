@@ -15,7 +15,12 @@ class SpcbDashboardViewModel extends BaseViewModel {
   final _spcbRepo = SpcbRepository();
   int page = 1;
   String? complaintError;
-  Future raiseComplaint(BuildContext context, String? query) async {
+  bool isSubmitEnabled = false;
+
+  Future raiseComplaint(
+    BuildContext context,
+    String? query,
+  ) async {
     state = ViewState.busy;
     SpcbComplaintRequestModel request =
         SpcbComplaintRequestModel(complaint: query, userId: 3);
@@ -27,9 +32,6 @@ class SpcbDashboardViewModel extends BaseViewModel {
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
               context, res?.completeResponse['message'] ?? "");
-          if (context.mounted) {
-            Navigator.pop(context);
-          }
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -45,11 +47,11 @@ class SpcbDashboardViewModel extends BaseViewModel {
       if (context.mounted) {
         HelperFunctions()
             .commonErrorSnackBar(context, StringConstants().somethingWentWrong);
-        Navigator.pop(context);
       }
     }
     state = ViewState.idle;
     queryController.clear();
     updateUI();
   }
+
 }

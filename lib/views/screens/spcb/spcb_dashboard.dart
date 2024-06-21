@@ -22,7 +22,6 @@ class SpcbDashboardScreen extends StatelessWidget {
     final stringConstants = StringConstants();
     final appColor = AppColor();
     return BaseView<SpcbDashboardViewModel>(
-      
         builder: (context, viewModel, child) {
           return CustomScaffold(
             isLoading: viewModel.state == ViewState.busy,
@@ -54,7 +53,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                             // viewModel.getUpdatedList();
                           }
                         },
-                        title: stringConstants.dashboard,
+                        title: stringConstants.spcbDashboard,
                         onSuffixTap: () {
                           if (viewModel.searchController.text.isEmpty) {
                             viewModel.isSearchExpanded =

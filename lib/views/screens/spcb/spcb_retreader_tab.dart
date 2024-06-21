@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
+import '../../../constants/string_constant.dart';
 import '../../../viewmodels/spcb/spcb_dashboard_view_model.dart';
 import '../../widgets/app_components/commo_comment_pop_up.dart';
 import '../../widgets/app_components/common_spcb_card.dart';
@@ -8,6 +10,7 @@ class SpcbRetreaderTab extends StatelessWidget {
   final SpcbDashboardViewModel? spcbViewModel;
   @override
   Widget build(BuildContext context) {
+    final stringConstants = StringConstants();
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
@@ -62,9 +65,13 @@ class SpcbRetreaderTab extends StatelessWidget {
                     builder: (BuildContext ctx) {
                       return CommonCommentPopUp(
                           ctx: ctx,
-                          labelText: "Raise your complaint here",
-                          hintText: "Write your comment ...",
+                          labelText: stringConstants.addComment,
+                          hintText: stringConstants.writeComment.i18n(),
+                          controller: spcbViewModel?.queryController,
                           onSubmit: () async {
+                            if (ctx.mounted) {
+                              Navigator.pop(ctx);
+                            }
                             await spcbViewModel?.raiseComplaint(
                                 context, spcbViewModel?.queryController.text);
                           });

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
+import '../../../constants/string_constant.dart';
 import '../../../viewmodels/spcb/spcb_dashboard_view_model.dart';
 import '../../widgets/app_components/commo_comment_pop_up.dart';
 import '../../widgets/app_components/common_spcb_card.dart';
 
 class SpcbRecyclerTab extends StatelessWidget {
-  const SpcbRecyclerTab({super.key,this.spcbViewModel});
+  const SpcbRecyclerTab({super.key, this.spcbViewModel});
   final SpcbDashboardViewModel? spcbViewModel;
 
   @override
   Widget build(BuildContext context) {
+    final stringConstants = StringConstants();
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
@@ -54,22 +57,22 @@ class SpcbRecyclerTab extends StatelessWidget {
                 address: "Lorem ipsum, ipsum, 102231",
                 state: "Delhi",
                 applicationNumber: "011123234344",
-                onMenuTap: () {
-                  // viewModel.downloadCertificate(context);
-                },
-                 onCommentTap: () {
+                onCommentTap: () {
                   showDialog(
                     barrierDismissible: false,
                     context: context,
                     builder: (BuildContext ctx) {
                       return CommonCommentPopUp(
                           ctx: ctx,
-                          labelText: "Raise your complaint here",
-                          hintText: "Write your comment ...",
-                             onSubmit: () async {
+                          labelText: stringConstants.addComment,
+                          hintText: stringConstants.writeComment.i18n(),
+                          controller: spcbViewModel?.queryController,
+                          onSubmit: () async {
+                            if (ctx.mounted) {
+                              Navigator.pop(ctx);
+                            }
                             await spcbViewModel?.raiseComplaint(
                                 context, spcbViewModel?.queryController.text);
-                          
                           });
                     },
                   );

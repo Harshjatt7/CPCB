@@ -68,6 +68,10 @@ class StringConstants {
   final String processedData = "processed-data";
   final String processedStock = "processed-stock";
   final String eprCredits = "epr-credits";
+  final String addComment = "add-comment";
+  final String writeComment = "write-comment";
+  final String spcbDashboard = "spcb-dashboard";
+
 
   // Dashboard
   final String applicationNumber = "application-number";
