@@ -5,7 +5,7 @@ import '../components/common_button_widget.dart';
 import '../components/common_text_widget.dart';
 
 class CommonCommentPopUp extends StatelessWidget {
-  const CommonCommentPopUp({
+  CommonCommentPopUp({
     super.key,
     this.labelText,
     this.hintText,
@@ -18,9 +18,9 @@ class CommonCommentPopUp extends StatelessWidget {
   final VoidCallback? onSubmit;
   final BuildContext ctx;
   final TextEditingController? controller;
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final stringConstants = StringConstants();
     final appColor = AppColor();
     return AlertDialog(
@@ -47,6 +47,7 @@ class CommonCommentPopUp extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                focusNode: FocusNode(canRequestFocus: true),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter comment";
