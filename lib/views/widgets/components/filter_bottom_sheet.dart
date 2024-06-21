@@ -6,6 +6,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FilterBottomSheet extends StatefulWidget {
   final List<CheckboxFilterModel> stateList;
   final List<CheckboxFilterModel> unitList;
@@ -63,7 +64,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ),
             ),
             Column(
-              children: List<Widget>.generate(widget.filterTiles.length, (index) {
+              children:
+                  List<Widget>.generate(widget.filterTiles.length, (index) {
                 return Column(
                   children: [
                     widget.filterTiles[index],

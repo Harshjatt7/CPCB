@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/helper/helper_functions.dart';
 import '../../../viewmodels/spcb/spcb_dashboard_view_model.dart';
 import '../../widgets/app_components/commo_comment_pop_up.dart';
 import '../../widgets/app_components/common_spcb_card.dart';
@@ -11,7 +10,6 @@ class SpcbRecyclerTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final helperFunctions = HelperFunctions();
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
