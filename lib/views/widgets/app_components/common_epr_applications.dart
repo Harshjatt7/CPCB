@@ -43,7 +43,7 @@ class CommonEPRApplication extends StatelessWidget {
           ),
         ),
         CommonEPROblicationsTile(
-            title: stringConstants.applicationsUnderProcessAtCPCB,
+            title: stringConstants.applicationsUnderProcess,
             count: "${data?.applicationUnderProcess ?? ''}"),
         CommonEPROblicationsTile(
             title: stringConstants.applicationsUnderEvaluationWithDivision,
@@ -60,10 +60,10 @@ class CommonEPRApplication extends StatelessWidget {
         // CommonEPROblicationsTile(
         //     title: stringConstants.returnForDivision, count:"${data?.applicationUnderDh}"),
         CommonEPROblicationsTile(
-            title: stringConstants.applicationPendingAtTheApplicants,
+            title: stringConstants.applicationPendingAtApplicants,
             count: "${data?.applicationPendingApplicant ?? ''}"),
         CommonEPROblicationsTile(
-            title: stringConstants.numberOfRegistrationGrantedToProducers,
+            title: stringConstants.eprRegistrationGranted,
             count: "${data?.applicationGranted ?? ''}"),
       ],
     );

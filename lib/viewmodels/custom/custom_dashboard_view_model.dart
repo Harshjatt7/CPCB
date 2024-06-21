@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cpcb_tyre/constants/enums/filter_enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
@@ -46,7 +48,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     }
   }
 
-    void loadMoreData() async {
+  void loadMoreData() async {
     state = ViewState.parallelBusy;
     if (isSearchExpanded == true && searchController.text.isNotEmpty) {
       await performCustomSearch(searchController.text, isPaginating: true);
@@ -54,13 +56,13 @@ class CustomDashboardViewModel extends BaseViewModel {
       await getCustomData(isPaginating: true);
       if ((customData?.length ?? 0) >= 1) {
         tempData.clear();
-         customData?.forEach((e) {
-      tempData.add(CustomData(
-        email: e.email,
-        mobileNumber: e.mobileNumber,
-        stateName: e.stateName,
-      ));
-    });
+        customData?.forEach((e) {
+          tempData.add(CustomData(
+            email: e.email,
+            mobileNumber: e.mobileNumber,
+            stateName: e.stateName,
+          ));
+        });
       }
     }
     state = ViewState.idle;
@@ -218,75 +220,58 @@ class CustomDashboardViewModel extends BaseViewModel {
   bool? isStateShowHide = false;
   bool? isUnitShowHide = false;
   bool? isCurrentShowHide = false;
-
-  void updateState(FilterTypes types, {bool? value, bool? isShowHide}) {
-    switch (types) {
-      case FilterTypes.state:
-        isStateChecked = value;
-        isStateShowHide = isShowHide;
-        // isUnitShowHide = false;
-        // isCurrentShowHide = false;
-        //  stateExpansionTileController.expand();
-
-        // if (currentExpansionTileController.isExpanded == true) {
-        //   currentExpansionTileController.collapse();
-        // }
-
-        // if (unitExpansionTileController.isExpanded == true) {
-        //   unitExpansionTileController.collapse();
-        // }
-        //stateExpansionTileController.expand();
-        break;
-      case FilterTypes.unitType:
-        isUnitChecked = value;
-        isUnitShowHide = isShowHide;
-        // isStateShowHide = false;
-        // isCurrentShowHide = false;
-
-        // if(unitExpansionTileController.isExpanded == false)
-        // unitExpansionTileController.expand();
-
-        // if (currentExpansionTileController.isExpanded == true) {
-        //   currentExpansionTileController.collapse();
-        // }
-
-        // if (stateExpansionTileController.isExpanded == true) {
-        //   stateExpansionTileController.collapse();
-        // }
-        //unitExpansionTileController.expand();
-        break;
-      case FilterTypes.currentStatus:
-        isCurrentStatus = value;
-        isCurrentShowHide = isShowHide;
-        // isUnitShowHide = false;
-        // isCurrentShowHide = false;
-        // currentExpansionTileController.expand();
-        // if (stateExpansionTileController.isExpanded == true) {
-        //   stateExpansionTileController.collapse();
-        // }
-
-        // if (unitExpansionTileController.isExpanded == true) {
-        //   unitExpansionTileController.collapse();
-        // }
-        // currentExpansionTileController.expand();
-
-        break;
-    }
-  }
-
   List<String> selectedStateList = [];
   List<String> selectedUnitList = [];
   List<String> selectedCurrentList = [];
+  bool isSaved = false;
 
+  void onApply(context, setState) {
+    Navigator.pop(context);
+    isSaved = true;
+    if (selectedStateList.isEmpty) {
+      isStateChecked = false;
+    } else if (selectedStateList.length < 3) {
+      isStateChecked = null;
+    } else {
+      isStateChecked = true;
+    }
+    if (selectedCurrentList.isEmpty) {
+      isCurrentStatus = false;
+    } else if (selectedStateList.length < 3) {
+      isCurrentStatus = null;
+    } else {
+      isCurrentStatus = true;
+    }
+    if (selectedUnitList.isEmpty) {
+      isUnitChecked = false;
+    } else if (selectedStateList.length < 3) {
+      isUnitChecked = null;
+    } else {
+      isUnitChecked = true;
+    }
+    setState(() {});
+  }
+
+  List<String> newStateList = [];
   void filterBottomSheet(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (ctx) {
+          // log("in starting of list >>>>>>>>>>>>>>>>>>>>");
+          // for(int i = 0 ; i < stateList.length ; i++)
+          //       {
+          //              log("stateList is ${stateList[i].title}");
+          //              log("stateList is ${stateList[i].isChecked}");
+          //       }
           return StatefulBuilder(builder: (context, setState) {
             return FilterBottomSheet(
               filterTiles: [
                 CommonExpansionTile(
                     title: StringConstants().state,
+                    listCallBack: (value) {
+                      newStateList = value;
+                      log("SelectedStateList is $newStateList");
+                    },
                     isChecked: isStateChecked,
                     isShowHide: isStateShowHide,
                     checkBoxList: stateList,
@@ -300,6 +285,10 @@ class CustomDashboardViewModel extends BaseViewModel {
                     selectedList: selectedUnitList,
                     type: FilterTypes.unitType),
                 CommonExpansionTile(
+                    listCallBack: (value) {
+                      selectedCurrentList = value;
+                      log("selectedCurrentList is $selectedCurrentList");
+                    },
                     title: StringConstants().currentStatus,
                     isChecked: isCurrentStatus,
                     isShowHide: isCurrentShowHide,
@@ -313,22 +302,110 @@ class CustomDashboardViewModel extends BaseViewModel {
               onTitleUpdated: () {
                 setState(() {});
               },
+              onClose: () {
+                Navigator.pop(context);
+                log("in close of list >>>>>>>>>>>>>>>>>>>>");
+                for (int i = 0; i < stateList.length; i++) {
+                  log("stateList is ${stateList[i].title}");
+                  log("stateList is ${stateList[i].isChecked}");
+                }
+
+                // if (value == true) {
+                //   selectedList.add(widget.checkBoxList[index].title);
+                // } else {
+                //   if (widget.selectedList
+                //       .contains(widget.checkBoxList[index].title)) {
+                //     widget.selectedList
+                //         .remove(widget.checkBoxList[index].title);
+                //   }
+                // }
+
+                // for (var element in selectedStateList) {
+                //   if (!newStateList.contains(element)) {
+                //     selectedStateList.remove(newStateList.first);
+                //     for (var value in stateList) {
+                //       if (!newStateList.contains(value.title)) {
+                //         value.isChecked = false;
+                //       }
+                //     }
+                //   }
+                // }
+
+                // for (int i = 0; i < selectedStateList.length; i++) {
+                //   log("selectedStateList is ${selectedStateList[i]}");
+                // }
+                // for (int i = 0; i < newStateList.length; i++) {
+                //   log("newStateList is ${newStateList[i]}");
+                // }
+
+                // if (selectedStateList.length > stateLength) {
+                //   int loop = selectedStateList.length - stateLength;
+                //   for (loop; loop == stateLength; loop++) {
+                //     selectedStateList.removeLast();
+                //     for (var element in stateList) {
+                //       if (!selectedStateList.contains(element.title)) {
+                //         element.isChecked = false;
+                //       }
+                //     }
+                //   }
+                // } else if (selectedStateList.length < stateLength) {
+                //   int loop = selectedStateList.length - stateLength;
+                //   for (loop; loop == stateLength; loop--) {
+                //     selectedStateList.removeLast();
+                //     for (var element in stateList) {
+                //       if (!selectedStateList.contains(element.title)) {
+                //         element.isChecked = false;
+                //       }
+                //     }
+                //   }
+                // }
+                setState(() {});
+              },
+              onApply: () {
+                log("in apply of list >>>>>>>>>>>>>>>>>>>>");
+                for (int i = 0; i < stateList.length; i++) {
+                  log("stateList is ${stateList[i].title}");
+                  log("stateList is ${stateList[i].isChecked}");
+                }
+                selectedStateList = newStateList;
+
+                // newStateList = selectedStateList;
+
+                // for (var element in selectedStateList) {
+                //   if (!newStateList.contains(element)) {
+                //     newStateList.add(element);
+                //   }
+                // }
+                // for (int i = 0; i < selectedStateList.length; i++) {
+                //   log("selectedStateList is ${selectedStateList[i]}");
+                // }
+                // for (int i = 0; i < newStateList.length; i++) {
+                //   log("newStateList is ${newStateList[i]}");
+                // }
+
+                onApply(context, setState);
+              },
             );
           });
         }).whenComplete(() {
-      isStateChecked = false;
-      isUnitChecked = false;
-      isCurrentStatus = false;
-      for (var value in stateList) {
-        value.isChecked = false;
+      if (isSaved == false) {
+        selectedStateList = [];
+        selectedUnitList = [];
+        selectedCurrentList = [];
+        isStateChecked = false;
+        isUnitChecked = false;
+        isCurrentStatus = false;
+        for (var value in stateList) {
+          value.isChecked = false;
+        }
+        for (var value in currentList) {
+          value.isChecked = false;
+        }
+        for (var value in unitList) {
+          value.isChecked = false;
+        }
+        updateUI();
       }
-      for (var value in currentList) {
-        value.isChecked = false;
-      }
-      for (var value in unitList) {
-        value.isChecked = false;
-      }
-      updateUI();
     });
   }
 }

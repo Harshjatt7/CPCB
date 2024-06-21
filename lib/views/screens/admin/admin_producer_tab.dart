@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/models/response/admin/epr_application_response_model.d
 import 'package:cpcb_tyre/models/response/admin/producer_epr_oblications_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/viewmodels/admin/admin_dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_applications.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_epr_oblication_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_total_application_card.dart';
@@ -15,13 +16,14 @@ class AdminProducerTab extends StatelessWidget {
   AdminProducerTab(
       {super.key,
       required this.producerData,
-      required this.producerEprOblicationsData});
+      required this.producerEprOblicationsData,
+      required this.adminDashBoardViewmodel});
   final StringConstants stringConstants = StringConstants();
-  final HelperFunctions helperFunctions=HelperFunctions();
-  final AppColor appColor=AppColor();
+  final HelperFunctions helperFunctions = HelperFunctions();
+  final AppColor appColor = AppColor();
   final EPRApplicationData? producerData;
   final EprOblicationsData? producerEprOblicationsData;
-  
+  final AdminDashBoardViewmodel adminDashBoardViewmodel;
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +31,17 @@ class AdminProducerTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          dashBoardHeading(context, stringConstants.eprOblications,
-              StringConstants.producer),
+          dashBoardHeading(
+            context,
+            StringConstants.producer,
+            stringConstants.eprObligations,
+          ),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreManufacturers,
               count: helperFunctions.precisionFormat(
                   producerEprOblicationsData?.newTyreManufacturers)),
           CommonEPROblicationsTile(
-              title: stringConstants.newTyreProducedDomestically,
+              title: stringConstants.newTyreProcuredDomestically,
               count: helperFunctions.precisionFormat(
                   producerEprOblicationsData?.newTyreProducedDomestically)),
           CommonEPROblicationsTile(
@@ -44,10 +49,9 @@ class AdminProducerTab extends StatelessWidget {
               count: helperFunctions.precisionFormat(
                   producerEprOblicationsData?.newTyreImported)),
           CommonEPROblicationsTile(
-              title: stringConstants.newTyreImportedAndImportedVehicles,
-              count: helperFunctions.precisionFormat(
-                  producerEprOblicationsData
-                      ?.newTyreImportedAndImportedVehicles)),
+              title: stringConstants.newTyreImportedWithImportedVehicles,
+              count: helperFunctions.precisionFormat(producerEprOblicationsData
+                  ?.newTyreImportedAndImportedVehicles)),
           CommonEPROblicationsTile(
               title: stringConstants.newTyreImportedExclusively,
               count: helperFunctions.precisionFormat(producerEprOblicationsData
@@ -56,6 +60,13 @@ class AdminProducerTab extends StatelessWidget {
               title: stringConstants.wasteTyreImporter,
               count: helperFunctions.precisionFormat(
                   producerEprOblicationsData?.wasteTyreImported)),
+          Divider(
+            color: AppColor().black10,
+          ),
+          CommonEPROblicationsTile(
+              title: stringConstants.totalLabel,
+              count: helperFunctions.precisionFormat(
+                  adminDashBoardViewmodel.totalEprObligations())),
           CommonTotalApplicationCard(
             totalApplication: "${producerData?.applications ?? ''}",
             onTap: () {

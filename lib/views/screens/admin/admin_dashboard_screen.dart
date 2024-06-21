@@ -37,7 +37,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   preferredSize: const Size.fromHeight(115),
                   child: Column(
                     children: [
-                       CommonAppBar(
+                      CommonAppBar(
                         isIconBar: true,
                       ),
                       Container(
@@ -63,6 +63,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   tabs: [
                     TabBarModel(
                         tab: AdminProducerTab(
+                          adminDashBoardViewmodel: viewModel,
                           producerData: viewModel.producerData,
                           producerEprOblicationsData:
                               viewModel.producerEprOblicationsData,
@@ -70,6 +71,7 @@ class AdminDashboardScreen extends StatelessWidget {
                         label: StringConstants.producer),
                     TabBarModel(
                         tab: AdminRecyclerTab(
+                          adminDashBoardViewmodel: viewModel,
                           recyclerData: viewModel.recyclerData,
                           recyclerCommonData:
                               viewModel.recyclerEprOblicationData,
@@ -81,7 +83,7 @@ class AdminDashboardScreen extends StatelessWidget {
                           retreaderCommonData:
                               viewModel.retreaderEprOblicationData,
                         ),
-                        label: viewModel.stringConstants.retrader)
+                        label: StringConstants.retreader)
                   ],
                 ),
               ));

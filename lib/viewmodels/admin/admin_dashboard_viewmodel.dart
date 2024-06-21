@@ -18,12 +18,12 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   APIResponse<EprApplicationResponseModel?>? _eprApplicationResponseModel;
   APIResponse<EprApplicationResponseModel?>? get eprApplicationResponseModel =>
       _eprApplicationResponseModel;
-  APIResponse<ProducerEprOblicationsResponseModel?>? _eprOblicationResponseModel;
-  APIResponse<ProducerEprOblicationsResponseModel?>? get eproblicationResponseModel =>
+  APIResponse<ProducerEprOblicationsResponseModel?>?
       _eprOblicationResponseModel;
+  APIResponse<ProducerEprOblicationsResponseModel?>?
+      get eproblicationResponseModel => _eprOblicationResponseModel;
 
-  APIResponse<EprOblicationsResponseModel?>?
-      _commonEprOblicationsResponseModel;
+  APIResponse<EprOblicationsResponseModel?>? _commonEprOblicationsResponseModel;
   APIResponse<EprOblicationsResponseModel?>?
       get commonEprOblicationsResponseModel =>
           _commonEprOblicationsResponseModel;
@@ -100,8 +100,8 @@ class AdminDashBoardViewmodel extends BaseViewModel {
     return _eprOblicationResponseModel;
   }
 
-  Future<APIResponse<EprOblicationsResponseModel?>?>
-      getCommonEprOblications(BuildContext context) async {
+  Future<APIResponse<EprOblicationsResponseModel?>?> getCommonEprOblications(
+      BuildContext context) async {
     state = ViewState.busy;
 
     try {
@@ -110,14 +110,14 @@ class AdminDashBoardViewmodel extends BaseViewModel {
       var retraderRes = await _adminRepo.getCommonEprOblications("retreader");
 
       if (recyclerRes?.isSuccess == true) {
-        recyclerRes?.data = EprOblicationsResponseModel.fromJson(
-            recyclerRes.completeResponse);
+        recyclerRes?.data =
+            EprOblicationsResponseModel.fromJson(recyclerRes.completeResponse);
 
         recyclerEprOblicationData = recyclerRes?.data?.data;
       }
       if (retraderRes?.isSuccess == true) {
-        retraderRes?.data = EprOblicationsResponseModel.fromJson(
-            retraderRes.completeResponse);
+        retraderRes?.data =
+            EprOblicationsResponseModel.fromJson(retraderRes.completeResponse);
 
         retreaderEprOblicationData = retraderRes?.data?.data;
       }
@@ -128,5 +128,43 @@ class AdminDashBoardViewmodel extends BaseViewModel {
     state = ViewState.idle;
 
     return _commonEprOblicationsResponseModel;
+  }
+
+  num? totalEprObligations() {
+    final data = producerEprOblicationsData;
+    num? total = (data?.newTyreImported ?? 0) +
+        (data?.wasteTyreImported ?? 0) +
+        (data?.newTyreImportedAndImportedVehicles ?? 0) +
+        (data?.newTyreImportedExclusivelyForNewVehiclesManufacturedDomestically ??
+            0) +
+        (data?.newTyreManufacturers ?? 0) +
+        (data?.newTyreProducedDomestically ?? 0);
+    if (total == 0) {
+      return null;
+    }
+
+    return total;
+  }
+
+  num? totalRecyclerGenerated() {
+    final data = recyclerEprOblicationData;
+    num? total = (data?.crumbRubber?.earnedCredit ?? 0) +
+        (data?.crumbRubberModifiedBitumenCrmb?.earnedCredit ?? 0) +
+        (data?.reclaimedRubber?.earnedCredit ?? 0) +
+        (data?.recoverCarbon?.earnedCredit ?? 0) +
+        (data?.retreadedTyre?.earnedCredit ?? 0) +
+        (data?.tpoChar?.earnedCredit ?? 0);
+    return total;
+  }
+
+  num? totalRecyclerTransferred() {
+    final data = recyclerEprOblicationData;
+    num? total = (data?.crumbRubber?.creditTransfered ?? 0) +
+        (data?.crumbRubberModifiedBitumenCrmb?.creditTransfered ?? 0) +
+        (data?.reclaimedRubber?.creditTransfered ?? 0) +
+        (data?.recoverCarbon?.creditTransfered ?? 0) +
+        (data?.retreadedTyre?.creditTransfered ?? 0) +
+        (data?.tpoChar?.creditTransfered ?? 0);
+    return total;
   }
 }

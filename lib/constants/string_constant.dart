@@ -108,19 +108,18 @@ class StringConstants {
   final String typeOfRawMaterialLabel = "type-of-raw-materail-label";
   final String invoiceNumberLabel = "invoice-number-label";
 
-  final String eprOblications = "epr-oblications";
+  final String eprObligations = "epr-obligations";
   final String newTyreManufacturers = "new-tyre-manufacturers";
-  final String newTyreProducedDomestically = "new-tyre-produced-domestically";
+  final String newTyreProcuredDomestically = "new-tyre-procured-domestically";
   final String newTyreImported = "new-tyre-imported";
-  final String newTyreImportedAndImportedVehicles =
-      "new-tyre-imported-and-imported-vehicles";
+  final String newTyreImportedWithImportedVehicles =
+      "new-tyre-imported-with-imported-vehicles";
   final String newTyreImportedExclusively = "new-tyre-imported-exclusively";
   final String wasteTyreImporter = "waste-tyre-importer";
   final String totalApplicationReceived = "total-application-received";
   final String totalApplication = "total-application";
   final String eprApplications = "epr-applications";
-  final String applicationsUnderProcessAtCPCB =
-      "applications-under-process-at-cpcb";
+  final String applicationsUnderProcess = "applications-under-process";
   final String applicationsUnderEvaluationWithDivision =
       "applications-under-evaluation-with-division";
   final String applicationsApprovedByAuthority =
@@ -130,17 +129,15 @@ class StringConstants {
   final String applicationsAwaitingApprovalAtAuthority =
       "applications-awaiting-approval-at-authority";
   final String returnForDivision = "return-for-division";
-  final String applicationPendingAtTheApplicants =
-      "application-pending-at-the-applicants";
-  final String numberOfRegistrationGrantedToProducers =
-      "number-of-registration-granted-to-producers";
+  final String applicationPendingAtApplicants =
+      "application-pending-at-applicants";
+  final String eprRegistrationGranted = "epr-registration-granted";
   final String reclaimedRubber = "reclaimed-rubber";
   final String recoverCarbon = "recover-carbon";
   final String crumbRubber = "crumb-rubber";
   final String tpoChar = "tpo-char";
   final String crumbRubberModified = "crumb-rubber-modified";
   final String retreadedTyre = "retreaded-tyre";
-  final String retrader = "re-trader";
   final String applicationReceived = "application-received";
   final String lastMarked = "last-marked";
   final String markedTo = "marked-to";
@@ -162,10 +159,11 @@ class StringConstants {
   final String startDate = "start-date";
   final String endDate = "end-date";
 
-
   final String filter = "filter";
   final String unitType = "unit-type";
   final String apply = "apply";
+
+  final String stateAuthorized = "state-authorized";
 
   //User Types
   static const String admin = "Admin";
