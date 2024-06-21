@@ -45,10 +45,12 @@ class APIRoutes {
   final String adminEPRApplicationsAPIRoute = "api/admin/application-counts/";
   final String adminEPROblicationsAPIRoute = "api/admin/activity-overview/";
   final String adminDownloadInvoiceAPIRoute = "api/admin/download-transaction/";
-  final String adminDownloadApplicationAPIRoute="api/admin/download-application/";
-  final String customDownloadCertificateAPIRoute="api/download-certificate";
+  final String adminDownloadApplicationAPIRoute =
+      "api/admin/download-application/";
+  final String customDownloadCertificateAPIRoute = "api/download-certificate";
   final String customProducerAPIRoute = "api/producers";
-  final String spcbRaiseUserComplaint = "api/spcb/raise-user-complaint";
+  final String spcbRaiseUserComplaintAPIRoute = "api/spcb/raise-user-complaint";
+  final String spcbGetAllUsersAPIRoute = "api/spcb/get-all-users/";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
