@@ -3,6 +3,8 @@ import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/spcb/spcb_dashboard_view_model.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_spcb_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:localization/localization.dart';
 
 import '../../../constants/string_constant.dart';
 import '../../widgets/app_components/commo_comment_pop_up.dart';
@@ -61,9 +63,6 @@ class SpcbProducerTab extends StatelessWidget {
                 address: "Lorem ipsum, ipsum, 102231",
                 state: "Delhi",
                 applicationNumber: "011123234344",
-                onMenuTap: () {
-                  // viewModel.downloadCertificate(context);
-                },
                 onCommentTap: () {
                   showDialog(
                     barrierDismissible: false,
@@ -71,13 +70,15 @@ class SpcbProducerTab extends StatelessWidget {
                     builder: (BuildContext ctx) {
                       return CommonCommentPopUp(
                           ctx: ctx,
+                          labelText: stringConstants.addComment,
+                          hintText: stringConstants.writeComment.i18n(),
                           controller: spcbViewModel?.queryController,
-                          labelText: "Raise your complaint here",
-                          hintText: "Write your comment ...",
                           onSubmit: () async {
+                            if (ctx.mounted) {
+                              Navigator.pop(ctx);
+                            }
                             await spcbViewModel?.raiseComplaint(
                                 context, spcbViewModel?.queryController.text);
-                          
                           });
                     },
                   );

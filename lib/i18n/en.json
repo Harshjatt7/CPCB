@@ -179,5 +179,8 @@
     "previously-selected-start-date": "Previously Selected Start Date",
     "previously-selected-end-date": "Previously Selected End Date",
     "start-date": "Start Date",
-    "end-date": "End Date"
+    "end-date": "End Date",
+    "add-comment": "Add Comment",
+    "write-comment": "Write your comment ...",
+    "spcb-dashboard": "SPCB Dashboard"
 }
