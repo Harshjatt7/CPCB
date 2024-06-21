@@ -13,6 +13,10 @@ class AdminSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<AdminDashBoardViewmodel>(
+      onModelReady: (viewModel) {
+            viewModel.addYear();
+        },
+        viewModel: AdminDashBoardViewmodel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
               appBar: PreferredSize(
@@ -22,7 +26,7 @@ class AdminSummaryScreen extends StatelessWidget {
                     CommonAppBar(
                       isIconBar: true,
                     ),
-                       DashboardYearFilter(viewModel: viewModel,value: viewModel.financialYearList.first,),
+                       DashboardYearFilter(viewModel: viewModel,value: viewModel.financialYearList[0],),
                   ],
                 ),
               ),
@@ -54,8 +58,7 @@ class AdminSummaryScreen extends StatelessWidget {
                 ),
               ));
         },
-        onModelReady: (viewModel) {},
-        viewModel: AdminDashBoardViewmodel());
+        );
   }
 }
 
