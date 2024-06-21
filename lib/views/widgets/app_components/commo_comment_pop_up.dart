@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:flutter/material.dart';
-
 import '../components/common_button_widget.dart';
 import '../components/common_text_widget.dart';
 
@@ -13,16 +12,12 @@ class CommonCommentPopUp extends StatelessWidget {
     this.onSubmit,
     this.controller,
     required this.ctx,
-    this.validator,
-    this.buttonColor,
   });
   final String? labelText;
   final String? hintText;
   final VoidCallback? onSubmit;
   final BuildContext ctx;
   final TextEditingController? controller;
-  final String Function(String?)? validator;
-  final Color? buttonColor;
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();

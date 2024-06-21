@@ -15,7 +15,6 @@ class SpcbDashboardViewModel extends BaseViewModel {
   final _spcbRepo = SpcbRepository();
   int page = 1;
   String? complaintError;
-  bool isSubmitEnabled = false;
 
   Future raiseComplaint(
     BuildContext context,
@@ -53,5 +52,4 @@ class SpcbDashboardViewModel extends BaseViewModel {
     queryController.clear();
     updateUI();
   }
-
 }
