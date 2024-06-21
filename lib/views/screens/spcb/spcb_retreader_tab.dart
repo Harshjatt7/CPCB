@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../viewmodels/spcb/spcb_dashboard_view_model.dart';
@@ -8,8 +9,10 @@ import '../../widgets/app_components/common_spcb_card.dart';
 class SpcbRetreaderTab extends StatelessWidget {
   const SpcbRetreaderTab({super.key, required this.spcbViewModel});
   final SpcbDashboardViewModel spcbViewModel;
+
   @override
   Widget build(BuildContext context) {
+    final stringConstants = StringConstants();
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
@@ -50,13 +53,17 @@ class SpcbRetreaderTab extends StatelessWidget {
                                         ctx: ctx,
                                         controller:
                                             spcbViewModel.queryController,
-                                        labelText: "Raise your complaint here",
-                                        hintText: "Write your comment ...",
+                                        labelText: stringConstants.addComment,
+                                        hintText: stringConstants.writeComment,
                                         onSubmit: () async {
+                                          if (ctx.mounted) {
+                                            Navigator.pop(ctx);
+                                          }
                                           await spcbViewModel.raiseComplaint(
                                               context,
                                               spcbViewModel
-                                                  .queryController.text);
+                                                  .queryController.text,
+                                              applicationData?.userId);
                                         });
                                   },
                                 );

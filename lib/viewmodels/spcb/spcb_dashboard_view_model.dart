@@ -40,10 +40,11 @@ class SpcbDashboardViewModel extends BaseViewModel {
   Future raiseComplaint(
     BuildContext context,
     String? query,
+    int? userId,
   ) async {
     state = ViewState.busy;
     SpcbComplaintRequestModel request =
-        SpcbComplaintRequestModel(complaint: query, userId: 3);
+        SpcbComplaintRequestModel(complaint: query, userId: userId);
     try {
       APIResponse<AddDataResponseModel>? res = await _spcbRepo.postComplaint(
         request,

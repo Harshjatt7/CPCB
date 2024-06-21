@@ -12,13 +12,13 @@ import '../../widgets/components/common_single_child_scrollview.dart';
 
 class SpcbProducerTab extends StatelessWidget {
   SpcbProducerTab({super.key, required this.spcbViewModel});
-  final StringConstants stringConstants = StringConstants();
   final HelperFunctions helperFunctions = HelperFunctions();
   final AppColor appColor = AppColor();
   final SpcbDashboardViewModel spcbViewModel;
 
   @override
   Widget build(BuildContext context) {
+    final stringConstants = StringConstants();
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
@@ -59,13 +59,17 @@ class SpcbProducerTab extends StatelessWidget {
                                         ctx: ctx,
                                         controller:
                                             spcbViewModel.queryController,
-                                        labelText: "Raise your complaint here",
-                                        hintText: "Write your comment ...",
+                                        labelText: stringConstants.addComment,
+                                        hintText: stringConstants.writeComment,
                                         onSubmit: () async {
+                                          if (ctx.mounted) {
+                                            Navigator.pop(ctx);
+                                          }
                                           await spcbViewModel.raiseComplaint(
                                               context,
                                               spcbViewModel
-                                                  .queryController.text);
+                                                  .queryController.text,
+                                              applicationData?.userId);
                                         });
                                   },
                                 );
