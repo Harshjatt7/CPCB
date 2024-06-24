@@ -1,8 +1,7 @@
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/screens/spcb/spcb_producer_tab.dart';
-import 'package:cpcb_tyre/views/screens/spcb/spcb_recycler_tab.dart';
-import 'package:cpcb_tyre/views/screens/spcb/spcb_retreader_tab.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
@@ -74,31 +73,52 @@ class SpcbDashboardScreen extends StatelessWidget {
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: CommonTabBar(
+                onScrollEnding: () {
+                          viewModel.onScrollEnding();
+                        },
                 tabs: [
                   TabBarModel(
                       tab: SpcbProducerTab(
-                        spcbViewModel: viewModel,
+                        viewModel: viewModel,
+                        onScrollEnding: () {
+                          viewModel.onScrollEnding();
+                        },
+                        scrollController: viewModel.scrollController,
+                        data: (viewModel.searchController.text.isNotEmpty) ? viewModel.data ?? [] : viewModel.producerData ?? [],
                       ),
                       onTap: () async {
-                        viewModel.currentUser = StringConstants.producer;
-                        viewModel.searchSPCB(viewModel.searchController.text);
+                        viewModel.currentUserType = AdminUserTypes.producer;
                         if (viewModel.searchController.text.isEmpty) {
                           if (viewModel.producerData?.isEmpty == true ||
                               viewModel.producerData == null) {
                             await viewModel.getSPCBData();
+                          } else {
+                            viewModel.data = viewModel.producerData;
+                            
+
                           }
+                        } else {
+                          await viewModel
+                              .searchSPCB(viewModel.searchController.text);
+
+
                           viewModel.getUpdatedList();
                         }
                         viewModel.updateUI();
                       },
                       label: StringConstants.producer),
                   TabBarModel(
-                      tab: SpcbRecyclerTab(
-                        spcbViewModel: viewModel,
+                      tab: SpcbProducerTab(
+                        viewModel: viewModel,
+                        onScrollEnding: () {
+                          viewModel.onScrollEnding();
+                        },
+                        scrollController: viewModel.scrollController,
+                        data:(viewModel.searchController.text.isNotEmpty) ? viewModel.data ?? [] : viewModel.recyclerData ?? [],
                       ),
                       onTap: () async {
-                        viewModel.currentUser = StringConstants.recycler;
-                        viewModel.searchSPCB(viewModel.searchController.text);
+                        viewModel.currentUserType = AdminUserTypes.recycler;
+
                         if (viewModel.searchController.text.isEmpty) {
                           if (viewModel.recyclerData?.isEmpty == true ||
                               viewModel.recyclerData == null) {
@@ -106,6 +126,9 @@ class SpcbDashboardScreen extends StatelessWidget {
                           } else {
                             viewModel.data = viewModel.recyclerData;
                           }
+                        } else {
+                          await viewModel
+                              .searchSPCB(viewModel.searchController.text);
 
                           viewModel.getUpdatedList();
                         }
@@ -114,12 +137,17 @@ class SpcbDashboardScreen extends StatelessWidget {
                       },
                       label: StringConstants.recycler),
                   TabBarModel(
-                      tab: SpcbRetreaderTab(
-                        spcbViewModel: viewModel,
+                      tab: SpcbProducerTab(
+                        viewModel: viewModel,
+                        onScrollEnding: () {
+                          viewModel.onScrollEnding();
+                        },
+                        scrollController: viewModel.scrollController,
+                        data:(viewModel.searchController.text.isNotEmpty) ? viewModel.data ?? [] : viewModel.retreaderData ?? [],
                       ),
                       onTap: () async {
-                        viewModel.currentUser = StringConstants.retreader;
-                        viewModel.searchSPCB(viewModel.searchController.text);
+                        viewModel.currentUserType = AdminUserTypes.retreader;
+
                         if (viewModel.searchController.text.isEmpty) {
                           if (viewModel.retreaderData?.isEmpty == true ||
                               viewModel.retreaderData == null) {
@@ -127,6 +155,9 @@ class SpcbDashboardScreen extends StatelessWidget {
                           } else {
                             viewModel.data = viewModel.retreaderData;
                           }
+                        } else {
+                          await viewModel
+                              .searchSPCB(viewModel.searchController.text);
                           viewModel.getUpdatedList();
                         }
                         viewModel.updateUI();

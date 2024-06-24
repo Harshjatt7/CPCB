@@ -1,4 +1,3 @@
-
 import 'package:cpcb_tyre/views/widgets/app_components/common_type_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -12,9 +11,15 @@ class AdminSummaryCard extends StatelessWidget {
     super.key,
     this.userType,
     this.label,
+    this.eprObligations,
+    this.creditsGenerated,
+    this.creditsTransferred,
   });
   final String? userType;
   final String? label;
+  final String? eprObligations;
+  final String? creditsGenerated;
+  final String? creditsTransferred;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,7 @@ class AdminSummaryCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(
-                  "23123",
+                  eprObligations ?? "",
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ],
@@ -54,7 +59,7 @@ class AdminSummaryCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(
-                  "23123",
+                  creditsGenerated ?? "",
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ],
@@ -72,7 +77,7 @@ class AdminSummaryCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(
-                  "23123",
+                  creditsTransferred ?? "",
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ],

@@ -5,14 +5,17 @@ import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
+import '../../../utils/helper/helper_functions.dart';
 
 class CommonTabBar extends StatefulWidget {
   final List<TabBarModel> tabs;
+  final bool isScrollAllowed;
+  final VoidCallback? onScrollEnding;
 
   /// [CommonTabBar] is a widget that will be used for using tabs in the app.
   /// [tabs] will be a list of [TabBarModel] which will be used to show the list of
   /// tabs.
-  const CommonTabBar({super.key, required this.tabs});
+  const CommonTabBar({super.key, required this.tabs, this.isScrollAllowed = true, this.onScrollEnding});
 
   @override
   State<CommonTabBar> createState() => _CommonTabBarState();
@@ -56,11 +59,25 @@ class _CommonTabBarState extends State<CommonTabBar>
           ],
         ),
       ),
-      body: CommonSingleChildScrollView(
-        child: Column(
-          children: [
-            widget.tabs[tabController.index].tab,
-          ],
+      body: NotificationListener<ScrollNotification>(
+       onNotification: (notification) {
+        HelperFunctions().logger("hgvhgv hn hhhh");
+        if (notification is ScrollEndNotification &&
+            notification.metrics.extentAfter == 0) {
+              HelperFunctions().logger("hgvhgv hn")
+;         if(widget.onScrollEnding != null){
+  widget.onScrollEnding!();
+}
+        }
+        return false;
+      },
+        child: CommonSingleChildScrollView(
+          physics: widget.isScrollAllowed == false ? NeverScrollableScrollPhysics(): ScrollPhysics(),
+          child: Column(
+            children: [
+              widget.tabs[tabController.index].tab,
+            ],
+          ),
         ),
       ),
     );
