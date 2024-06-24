@@ -11,6 +11,8 @@ import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/response/admin/admin_application_response_model.dart';
+
 class AdminDashBoardViewmodel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
   final HelperFunctions helperFunctions = HelperFunctions();
@@ -34,6 +36,47 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   EprOblicationsData? producerEprOblicationsData;
   CommonEprOblicationData? retreaderEprOblicationData;
   CommonEprOblicationData? recyclerEprOblicationData;
+
+  int page = 1;
+  List financialYearList = <String>[];
+  List<ApplicationResponsedData>? data;
+  String? yearDropdownValue;
+  String? yearDropdownError;
+  String? changeDropdown;
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
+  APIResponse<AdminApplicationResponseModel?>? _adminApplicationResponseModel;
+  APIResponse<AdminApplicationResponseModel?>?
+      get adminApplicationResponseModel => _adminApplicationResponseModel;
+
+  void addYear() {
+    int year = 2022;
+    int currentYear = DateTime.now().year;
+    while (year <= currentYear) {
+      financialYearList.add('$year-${year + 1}');
+      year++;
+    }
+  }
+
+  void changeDropdownValue(newValue) {
+    changeDropdown = newValue;
+    if (changeDropdown != null) {
+      String startYear = changeDropdown!.split('-').first;
+      String lastYear = changeDropdown!.split('-').last;
+      int stYear = int.parse(startYear);
+      int edYear = int.parse(lastYear);
+      startDate = DateTime(stYear, 4, 1);
+      endDate = startYear == DateTime.now().year.toString()
+          ? DateTime.now()
+          : DateTime(edYear, 3, 31);
+
+      updateUI();
+    }
+    updateUI();
+    if (changeDropdown == null) {
+      yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
+    }
+  }
 
   Future<APIResponse<EprApplicationResponseModel?>?> getAdminDashBoardData(
       BuildContext context) async {

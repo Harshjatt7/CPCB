@@ -35,7 +35,6 @@ class SpcbDashboardViewModel extends BaseViewModel {
   TextEditingController queryController = TextEditingController();
   final _spcbRepo = SpcbRepository();
   String? complaintError;
-  bool isSubmitEnabled = false;
 
   Future raiseComplaint(
     BuildContext context,

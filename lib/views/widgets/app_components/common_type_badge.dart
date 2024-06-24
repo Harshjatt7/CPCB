@@ -3,14 +3,16 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CommonTypeBadge extends StatelessWidget {
-   CommonTypeBadge(
-      {super.key, required this.text, this.backgroundColor, this.textColor});
+  const CommonTypeBadge(
+      {super.key, required this.text, this.backgroundColor, this.textColor,this.isAdmin});
   final String text;
   final Color? backgroundColor;
   final Color? textColor;
-  final AppColor appColor=AppColor();
+  final bool? isAdmin;
+
   @override
   Widget build(BuildContext context) {
+    final AppColor appColor = AppColor();
     return Container(
       decoration: BoxDecoration(
           color: backgroundColor ?? appColor.green10,
@@ -19,7 +21,10 @@ class CommonTypeBadge extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
         child: CommonTextWidget(
           text,
-          style: Theme.of(context)
+          style: isAdmin==true?Theme.of(context)
+              .textTheme
+              .labelMedium
+              ?.copyWith(color: textColor ?? appColor.green): Theme.of(context)
               .textTheme
               .bodySmall
               ?.copyWith(color: textColor ?? appColor.green),

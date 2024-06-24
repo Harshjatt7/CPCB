@@ -1,31 +1,26 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:flutter/material.dart';
-
 import '../components/common_button_widget.dart';
 import '../components/common_text_widget.dart';
 
 class CommonCommentPopUp extends StatelessWidget {
-  const CommonCommentPopUp({
+  CommonCommentPopUp({
     super.key,
     this.labelText,
     this.hintText,
     this.onSubmit,
     this.controller,
     required this.ctx,
-    this.validator,
-    this.buttonColor,
   });
   final String? labelText;
   final String? hintText;
   final VoidCallback? onSubmit;
   final BuildContext ctx;
   final TextEditingController? controller;
-  final String Function(String?)? validator;
-  final Color? buttonColor;
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final stringConstants = StringConstants();
     final appColor = AppColor();
     return AlertDialog(
@@ -52,6 +47,7 @@ class CommonCommentPopUp extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                focusNode: FocusNode(canRequestFocus: true),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter comment";
