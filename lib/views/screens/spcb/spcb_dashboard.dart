@@ -48,9 +48,9 @@ class SpcbDashboardScreen extends StatelessWidget {
                         hintText: stringConstants.searchHere,
                         onChanged: (value) {
                           viewModel.isSearchExpanded = true;
-                          // viewModel.searchProcurement(value);
+                          viewModel.searchSPCB(value);
                           if (viewModel.searchController.text.isEmpty) {
-                            // viewModel.getUpdatedList();
+                            viewModel.getUpdatedList();
                           }
                         },
                         title: stringConstants.spcbDashboard,
@@ -58,11 +58,11 @@ class SpcbDashboardScreen extends StatelessWidget {
                           if (viewModel.searchController.text.isEmpty) {
                             viewModel.isSearchExpanded =
                                 !viewModel.isSearchExpanded;
-                            // viewModel.getUpdatedList();
+                            viewModel.getUpdatedList();
                             viewModel.updateUI();
                           } else {
                             viewModel.isSearchExpanded = false;
-                            // viewModel.getUpdatedList();
+                            viewModel.getUpdatedList();
                           }
                         },
                       ),
@@ -78,25 +78,67 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbProducerTab(
                         spcbViewModel: viewModel,
-                      ), label: StringConstants.producer
                       ),
+                      onTap: () async {
+                        viewModel.currentUser = StringConstants.producer;
+                        viewModel.searchSPCB(viewModel.searchController.text);
+                        if (viewModel.searchController.text.isEmpty) {
+                          if (viewModel.producerData?.isEmpty == true ||
+                              viewModel.producerData == null) {
+                            await viewModel.getSPCBData();
+                          }
+                          viewModel.getUpdatedList();
+                        }
+                        viewModel.updateUI();
+                      },
+                      label: StringConstants.producer),
                   TabBarModel(
                       tab: SpcbRecyclerTab(
-                         spcbViewModel: viewModel,
+                        spcbViewModel: viewModel,
                       ),
+                      onTap: () async {
+                        viewModel.currentUser = StringConstants.recycler;
+                        viewModel.searchSPCB(viewModel.searchController.text);
+                        if (viewModel.searchController.text.isEmpty) {
+                          if (viewModel.recyclerData?.isEmpty == true ||
+                              viewModel.recyclerData == null) {
+                            await viewModel.getSPCBData();
+                          } else {
+                            viewModel.data = viewModel.recyclerData;
+                          }
+
+                          viewModel.getUpdatedList();
+                        }
+
+                        viewModel.updateUI();
+                      },
                       label: StringConstants.recycler),
                   TabBarModel(
                       tab: SpcbRetreaderTab(
-                         spcbViewModel: viewModel,
+                        spcbViewModel: viewModel,
                       ),
+                      onTap: () async {
+                        viewModel.currentUser = StringConstants.retreader;
+                        viewModel.searchSPCB(viewModel.searchController.text);
+                        if (viewModel.searchController.text.isEmpty) {
+                          if (viewModel.retreaderData?.isEmpty == true ||
+                              viewModel.retreaderData == null) {
+                            await viewModel.getSPCBData();
+                          } else {
+                            viewModel.data = viewModel.retreaderData;
+                          }
+                          viewModel.getUpdatedList();
+                        }
+                        viewModel.updateUI();
+                      },
                       label: StringConstants.retreader)
                 ],
               ),
             ),
           );
         },
-        onModelReady: (viewModel) {
-          
+        onModelReady: (viewModel) async {
+          await viewModel.getSPCBData();
         },
         viewModel: SpcbDashboardViewModel());
   }
