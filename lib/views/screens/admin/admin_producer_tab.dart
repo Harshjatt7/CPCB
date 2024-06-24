@@ -92,7 +92,7 @@ class AdminProducerTab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
-              flex: 2,
+              flex: 1,
               child: CommonTextWidget(
                 title,
                 style: Theme.of(context)
@@ -101,7 +101,7 @@ class AdminProducerTab extends StatelessWidget {
                     .copyWith(color: appColor.black80),
               )),
           Flexible(
-              flex: 1,
+              flex: 2,
               child: CommonTextWidget(
                 userType,
                 style: Theme.of(context)
