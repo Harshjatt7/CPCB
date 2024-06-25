@@ -51,22 +51,19 @@ class AdminSummaryScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     AdminSummaryCard(
-                      label: "Producer",
-                      userType: StringConstants.producer,
+                      label: StringConstants.producer,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     AdminSummaryCard(
-                      label: "Recycler",
-                      userType: StringConstants.recycler,
+                      label: StringConstants.recycler,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     AdminSummaryCard(
-                      label: "Retreader",
-                      userType: StringConstants.retreader,
+                      label: StringConstants.retreader,
                     ),
                   ],
                 ),

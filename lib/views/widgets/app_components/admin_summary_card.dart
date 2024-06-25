@@ -9,12 +9,10 @@ import '../components/common_text_widget.dart';
 class AdminSummaryCard extends StatelessWidget {
   AdminSummaryCard(
       {super.key,
-      this.userType,
       this.label,
       this.creditsTransferred,
       this.creditsGenerated,
       this.eprObligations});
-  final String? userType;
   final String? label;
   final String? creditsTransferred;
   final String? creditsGenerated;
@@ -34,7 +32,7 @@ class AdminSummaryCard extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          if (userType == StringConstants.producer)
+          if (label == StringConstants.producer)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -48,8 +46,8 @@ class AdminSummaryCard extends StatelessWidget {
                 ),
               ],
             ),
-          if (userType == StringConstants.retreader ||
-              userType == StringConstants.recycler)
+          if (label == StringConstants.retreader ||
+              label == StringConstants.recycler)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -66,8 +64,8 @@ class AdminSummaryCard extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          if (userType == StringConstants.retreader ||
-              userType == StringConstants.recycler)
+          if (label == StringConstants.retreader ||
+              label == StringConstants.recycler)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
