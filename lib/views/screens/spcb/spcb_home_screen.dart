@@ -9,7 +9,7 @@ import '../../widgets/components/common_image_widget.dart';
 
 class SpcbHomeScreen extends StatelessWidget {
   SpcbHomeScreen({super.key});
-  final imageConstants =ImageConstants();
+  final imageConstants = ImageConstants();
   final appColor = AppColor();
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,9 @@ class SpcbHomeScreen extends StatelessWidget {
       ),
     ], screens: [
       SpcbDashboardScreen(),
-      ProfileScreen(),
+      ProfileScreen(
+        isAdmin: true,
+      ),
     ]);
   }
 
