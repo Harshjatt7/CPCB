@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -41,13 +42,13 @@ class CommonSpcbCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CommonTextWidget(
-                applicationNumber ?? "",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: appColor.black40),
-              ),
+              // CommonTextWidget(
+              //   applicationNumber ?? "",
+              //   style: Theme.of(context)
+              //       .textTheme
+              //       .bodySmall
+              //       ?.copyWith(color: appColor.black40),
+              // ),
               const SizedBox(
                 height: 8,
               ),
@@ -82,7 +83,7 @@ class CommonSpcbCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4,),
                       CommonTextWidget(
-                        "${stringConstants.date.i18n()}: $date",
+                        "${stringConstants.date.i18n()}: ${HelperFunctions().getFormattedDate(dtstr: date)}",
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium

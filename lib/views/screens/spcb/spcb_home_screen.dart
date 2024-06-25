@@ -24,6 +24,7 @@ class SpcbHomeScreen extends StatelessWidget {
       SpcbDashboardScreen(),
       ProfileScreen(
         isAdmin: true,
+        isSPCB: true,
       ),
     ]);
   }
