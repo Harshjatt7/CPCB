@@ -60,7 +60,7 @@ class RecyclerDataViewModel extends BaseViewModel {
   Future<APIResponse<RecyclerDataListResponseModel?>?> performRecyclerSearch(
       String value,
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
 
     try {
       _recyclerSearchResponseModel = await _recyclerRepo.getRecyclerData(

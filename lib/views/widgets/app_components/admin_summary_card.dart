@@ -7,7 +7,7 @@ import '../../../theme/app_color.dart';
 import '../components/common_text_widget.dart';
 
 class AdminSummaryCard extends StatelessWidget {
-  const AdminSummaryCard(
+  AdminSummaryCard(
       {super.key,
       this.userType,
       this.label,
@@ -19,7 +19,7 @@ class AdminSummaryCard extends StatelessWidget {
   final String? creditsTransferred;
   final String? creditsGenerated;
   final String? eprObligations;
-
+  final stringConstants = StringConstants();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +39,7 @@ class AdminSummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CommonTextWidget(
-                  StringConstants().eprObligations,
+                  stringConstants.eprObligations,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(
@@ -54,7 +54,7 @@ class AdminSummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CommonTextWidget(
-                  StringConstants().creditsGenerated,
+                  stringConstants.creditsGenerated,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(
@@ -72,7 +72,7 @@ class AdminSummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CommonTextWidget(
-                  StringConstants().creditsTransferred,
+                  stringConstants.creditsTransferred,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(

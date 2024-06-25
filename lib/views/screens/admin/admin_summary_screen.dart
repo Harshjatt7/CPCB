@@ -45,23 +45,23 @@ class AdminSummaryScreen extends StatelessWidget {
                 ],
               ),
             ),
-            body: const CommonSingleChildScrollView(
+            body: CommonSingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
                     AdminSummaryCard(
                       label: "Producer",
                       userType: StringConstants.producer,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     AdminSummaryCard(
                       label: "Recycler",
                       userType: StringConstants.recycler,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     AdminSummaryCard(

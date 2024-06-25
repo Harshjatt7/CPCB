@@ -16,9 +16,14 @@ import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
   final bool? isCustom;
+  final bool? isSPCB;
   final ImageConstants imageConstants = ImageConstants();
   final AppColor appColor = AppColor();
-  ProfileScreen({super.key, this.isAdmin = false, this.isCustom = false});
+  ProfileScreen(
+      {super.key,
+      this.isAdmin = false,
+      this.isCustom = false,
+      this.isSPCB = false});
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +62,9 @@ class ProfileScreen extends StatelessWidget {
                       title: isAdmin == true
                           ? viewModel.data?.email ?? ""
                           : viewModel.data?.name ?? "",
-                      designation:
-                          isAdmin == true ? viewModel.data?.name : null,
+                      designation: (isAdmin == true && isSPCB == false)
+                          ? viewModel.data?.name
+                          : null,
                       email: isAdmin == true
                           ? viewModel.data?.companyEmail ?? ""
                           : viewModel.data?.email ?? "",
@@ -139,7 +145,7 @@ class ProfileScreen extends StatelessWidget {
                   .labelMedium!
                   .copyWith(color: appColor.black01),
             ),
-            if (isAdmin == true)
+            if (isAdmin == true && isSPCB == false)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Row(
@@ -172,7 +178,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0),
+              padding: EdgeInsets.symmetric(vertical: isSPCB == true ? 6 : 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

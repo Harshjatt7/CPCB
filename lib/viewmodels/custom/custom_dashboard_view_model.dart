@@ -137,8 +137,7 @@ class CustomDashboardViewModel extends BaseViewModel {
 
   Future<APIResponse<CustomResponseModel?>?> performCustomSearch(String value,
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
-
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _customSearchResponseModel = await _customRepository.getCustomData(
           searchValue: value, page: searchPage.toString());

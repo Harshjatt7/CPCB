@@ -8,11 +8,17 @@ import '../../../models/screen_or_widegt_arguments/tab_bar_model.dart';
 
 class CommonTabBar extends StatefulWidget {
   final List<TabBarModel> tabs;
+  final bool isScrollAllowed;
+  final VoidCallback? onScrollEnding;
 
   /// [CommonTabBar] is a widget that will be used for using tabs in the app.
   /// [tabs] will be a list of [TabBarModel] which will be used to show the list of
   /// tabs.
-  const CommonTabBar({super.key, required this.tabs});
+  const CommonTabBar(
+      {super.key,
+      required this.tabs,
+      this.isScrollAllowed = true,
+      this.onScrollEnding});
 
   @override
   State<CommonTabBar> createState() => _CommonTabBarState();
@@ -21,7 +27,7 @@ class CommonTabBar extends StatefulWidget {
 class _CommonTabBarState extends State<CommonTabBar>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  final AppColor appColor=AppColor();
+  final AppColor appColor = AppColor();
   @override
   void initState() {
     tabController = TabController(length: widget.tabs.length, vsync: this);
@@ -47,7 +53,8 @@ class _CommonTabBarState extends State<CommonTabBar>
                         padding: index == (widget.tabs.length - 1)
                             ? EdgeInsets.zero
                             : const EdgeInsets.only(right: 8),
-                        child: tabContainer(index, widget.tabs[index].label, onTapped: widget.tabs[index].onTap),
+                        child: tabContainer(index, widget.tabs[index].label,
+                            onTapped: widget.tabs[index].onTap),
                       ));
                 })),
             const SizedBox(
@@ -56,11 +63,25 @@ class _CommonTabBarState extends State<CommonTabBar>
           ],
         ),
       ),
-      body: CommonSingleChildScrollView(
-        child: Column(
-          children: [
-            widget.tabs[tabController.index].tab,
-          ],
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification is ScrollEndNotification &&
+              notification.metrics.extentAfter == 0) {
+            if (widget.onScrollEnding != null) {
+              widget.onScrollEnding!();
+            }
+          }
+          return false;
+        },
+        child: CommonSingleChildScrollView(
+          physics: widget.isScrollAllowed == false
+              ? const NeverScrollableScrollPhysics()
+              : const ScrollPhysics(),
+          child: Column(
+            children: [
+              widget.tabs[tabController.index].tab,
+            ],
+          ),
         ),
       ),
     );
@@ -70,11 +91,10 @@ class _CommonTabBarState extends State<CommonTabBar>
     return InkWell(
       onTap: () {
         tabController.index = index;
-         if (onTapped != null) {
+        if (onTapped != null) {
           onTapped();
         }
         setState(() {});
-       
       },
       child: Container(
         height: 30,
