@@ -31,7 +31,13 @@ class SpcbDashboardViewModel extends BaseViewModel {
 
   List<Data> tempData = [];
   int page = 1;
+  int producerPage = 1;
+  int recyclerPage = 1;
+  int retreaderPage = 1;
   int searchPage = 1;
+  int producerSearchPage = 1;
+  int retreaderSearchPage = 1;
+  int recyclerSearchPage = 1;
   ScrollController scrollController = ScrollController();
   static final debouncer = Debouncer(milliseconds: 500);
   TextEditingController queryController = TextEditingController();
@@ -89,6 +95,54 @@ class SpcbDashboardViewModel extends BaseViewModel {
     });
   }
 
+  Future<void> onProducerTab() async {
+    currentUserType = AdminUserTypes.producer;
+    if (searchController.text.isEmpty) {
+      if (producerData?.isEmpty == true || producerData == null) {
+        await getSPCBData();
+      } else {
+        data = producerData;
+      }
+    } else {
+      resetCurrentUserPage(isSearch: true);
+      await searchSPCB(searchController.text);
+      getUpdatedList();
+    }
+    updateUI();
+  }
+
+  Future<void> onRecyclerTab() async {
+    currentUserType = AdminUserTypes.recycler;
+    if (searchController.text.isEmpty) {
+      if (recyclerData?.isEmpty == true || recyclerData == null) {
+        await getSPCBData();
+      } else {
+        data = recyclerData;
+      }
+    } else {
+      resetCurrentUserPage(isSearch: true);
+      await searchSPCB(searchController.text);
+      getUpdatedList();
+    }
+    updateUI();
+  }
+
+  Future<void> onRetreaderTab() async {
+    currentUserType = AdminUserTypes.retreader;
+    if (searchController.text.isEmpty) {
+      if (retreaderData?.isEmpty == true || retreaderData == null) {
+        await getSPCBData();
+      } else {
+        data = retreaderData;
+      }
+    } else {
+      resetCurrentUserPage(isSearch: true);
+      await searchSPCB(searchController.text);
+      getUpdatedList();
+    }
+    updateUI();
+  }
+
   void getUpdatedList() async {
     state = ViewState.busy;
     if (searchController.text.isEmpty || isSearchExpanded == false) {
@@ -105,43 +159,111 @@ class SpcbDashboardViewModel extends BaseViewModel {
 
   void onScrollEnding() {
     if (isSearchExpanded == true && searchController.text.isNotEmpty) {
-      if ((getSearchLastPage() ?? 0) > searchPage) {
-        searchPage++;
-        loadMoreData();
-      } else {
-        helperFunctions.logger(searchPage.toString());
-      }
+      searchPageIncreament();
+      // if ((getSearchLastPage() ?? 0) > searchPage) {
+      //   searchPage++;
+      //   loadMoreData();
+      // } else {
+      //   helperFunctions.logger(searchPage.toString());
+      // }
     } else {
-      if ((getLastPage() ?? 0) > page) {
-        page++;
-        loadMoreData();
-      }
+      currentUserPageIncreament();
     }
   }
 
-  int? getLastPage(){
-    switch(currentUserType){
+  int searchPageIncreament() {
+    switch (currentUserType) {
+      case AdminUserTypes.producer:
+        if ((getSearchLastPage() ?? 0) > producerSearchPage) {
+          producerSearchPage++;
+          loadMoreData();
+        } else {
+          helperFunctions.logger(producerSearchPage.toString());
+        }
+        return producerSearchPage;
+      case AdminUserTypes.recycler:
+        if ((getSearchLastPage() ?? 0) > recyclerSearchPage) {
+          recyclerSearchPage++;
+          loadMoreData();
+        } else {
+          helperFunctions.logger(recyclerSearchPage.toString());
+        }
+        return recyclerSearchPage;
+      case AdminUserTypes.retreader:
+        if ((getSearchLastPage() ?? 0) > retreaderSearchPage) {
+          retreaderSearchPage++;
+          loadMoreData();
+        } else {
+          helperFunctions.logger(retreaderSearchPage.toString());
+        }
+        return retreaderSearchPage;
+    }
+  }
+
+  int currentUserPageIncreament() {
+    switch (currentUserType) {
+      case AdminUserTypes.producer:
+        if ((getLastPage() ?? 0) > producerPage) {
+          producerPage++;
+          loadMoreData();
+        }
+        return producerPage;
+      case AdminUserTypes.recycler:
+        if ((getLastPage() ?? 0) > recyclerPage) {
+          recyclerPage++;
+          loadMoreData();
+        }
+        return recyclerPage;
+      case AdminUserTypes.retreader:
+        if ((getLastPage() ?? 0) > retreaderPage) {
+          retreaderPage++;
+          loadMoreData();
+        }
+        return retreaderPage;
+    }
+  }
+
+  void resetCurrentUserPage({bool isSearch = false}) {
+    switch (currentUserType) {
+      case AdminUserTypes.producer:
+        producerPage = isSearch ? producerPage : 1;
+        producerSearchPage = isSearch ? 1 : producerSearchPage;
+        break;
+      case AdminUserTypes.recycler:
+        recyclerPage = isSearch ? recyclerPage : 1;
+        recyclerSearchPage = isSearch ? 1 : recyclerSearchPage;
+        break;
+      case AdminUserTypes.retreader:
+        retreaderPage = isSearch ? retreaderPage : 1;
+        retreaderSearchPage = isSearch ? 1 : retreaderSearchPage;
+        break;
+    }
+  }
+
+  int? getLastPage() {
+    switch (currentUserType) {
       case AdminUserTypes.producer:
         return _spcbResponseModel?.data?.spcbData?.producerData?.lastPage;
       case AdminUserTypes.recycler:
         return _spcbResponseModel?.data?.spcbData?.recyclerData?.lastPage;
       case AdminUserTypes.retreader:
-        return _spcbResponseModel?.data?.spcbData?.retreaderData?.lastPage ;
+        return _spcbResponseModel?.data?.spcbData?.retreaderData?.lastPage;
       default:
-      return null;
+        return null;
     }
   }
 
-  int? getSearchLastPage(){
-    switch(currentUserType){
+  int? getSearchLastPage() {
+    switch (currentUserType) {
       case AdminUserTypes.producer:
         return _spcbSearchResponseModel?.data?.spcbData?.producerData?.lastPage;
       case AdminUserTypes.recycler:
         return _spcbSearchResponseModel?.data?.spcbData?.recyclerData?.lastPage;
       case AdminUserTypes.retreader:
-        return _spcbSearchResponseModel?.data?.spcbData?.retreaderData?.lastPage ;
+        return _spcbSearchResponseModel
+            ?.data?.spcbData?.retreaderData?.lastPage;
       default:
-      return null;
+        return null;
     }
   }
 
@@ -188,12 +310,12 @@ class SpcbDashboardViewModel extends BaseViewModel {
 
   Future<APIResponse<SpcbUsersResponseModel?>?> performSearch(String value,
       {bool? isPaginating = false, String? userType}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _spcbSearchResponseModel = await _spcbRepo.getSpcbUserData(
           userType: userType ?? '',
           searchValue: value,
-          page: searchPage.toString());
+          page: "${searchPageIncreament()}");
       if (_spcbSearchResponseModel?.isSuccess == true) {
         _spcbSearchResponseModel?.data = SpcbUsersResponseModel.fromJson(
             _spcbSearchResponseModel?.completeResponse);
@@ -238,9 +360,11 @@ class SpcbDashboardViewModel extends BaseViewModel {
 
   void resetPage() {
     if (searchController.text.isEmpty) {
-      searchPage = 1;
+      // searchPage = 1;
+      resetCurrentUserPage(isSearch: true);
     } else {
-      page = 1;
+      // page = 1;
+      resetCurrentUserPage();
     }
   }
 
@@ -249,7 +373,8 @@ class SpcbDashboardViewModel extends BaseViewModel {
     state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _spcbResponseModel = await _spcbRepo.getSpcbUserData(
-          page: "$page", userType: currentUserType.text.toString());
+          page: "${currentUserPageIncreament()}",
+          userType: currentUserType.text.toString());
       if (_spcbResponseModel?.isSuccess == true) {
         _spcbResponseModel?.data = SpcbUsersResponseModel.fromJson(
             _spcbResponseModel?.completeResponse);
@@ -269,19 +394,18 @@ class SpcbDashboardViewModel extends BaseViewModel {
     return _spcbResponseModel;
   }
 
-   void alreadyObtainData(){
-    switch(currentUserType){
+  void alreadyObtainData() {
+    switch (currentUserType) {
       case AdminUserTypes.producer:
-      producerData=data;
-      notifyListeners();
-      break;
+        producerData = data;
+        notifyListeners();
+        break;
       case AdminUserTypes.recycler:
-      recyclerData=data;
-      break;
+        recyclerData = data;
+        break;
       case AdminUserTypes.retreader:
-      retreaderData=data;
-      break;
-
+        retreaderData = data;
+        break;
     }
-   }
+  }
 }

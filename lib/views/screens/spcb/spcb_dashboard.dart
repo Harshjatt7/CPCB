@@ -1,7 +1,6 @@
-import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/screens/spcb/spcb_producer_tab.dart';
+import 'package:cpcb_tyre/views/screens/spcb/spcb_tab.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
@@ -54,10 +53,12 @@ class SpcbDashboardScreen extends StatelessWidget {
                         },
                         title: stringConstants.spcbDashboard,
                         onSuffixTap: () {
+                          viewModel.resetCurrentUserPage(isSearch: true);
                           if (viewModel.searchController.text.isEmpty) {
                             viewModel.isSearchExpanded =
                                 !viewModel.isSearchExpanded;
                             viewModel.getUpdatedList();
+
                             viewModel.updateUI();
                           } else {
                             viewModel.isSearchExpanded = false;
@@ -74,93 +75,52 @@ class SpcbDashboardScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: CommonTabBar(
                 onScrollEnding: () {
-                          viewModel.onScrollEnding();
-                        },
+                  viewModel.onScrollEnding();
+                },
                 tabs: [
                   TabBarModel(
-                      tab: SpcbProducerTab(
+                      tab: SpcbCommonTab(
                         viewModel: viewModel,
                         onScrollEnding: () {
                           viewModel.onScrollEnding();
                         },
                         scrollController: viewModel.scrollController,
-                        data: (viewModel.searchController.text.isNotEmpty) ? viewModel.data ?? [] : viewModel.producerData ?? [],
+                        data: (viewModel.searchController.text.isNotEmpty)
+                            ? viewModel.data ?? []
+                            : viewModel.producerData ?? [],
                       ),
                       onTap: () async {
-                        viewModel.currentUserType = AdminUserTypes.producer;
-                        if (viewModel.searchController.text.isEmpty) {
-                          if (viewModel.producerData?.isEmpty == true ||
-                              viewModel.producerData == null) {
-                            await viewModel.getSPCBData();
-                          } else {
-                            viewModel.data = viewModel.producerData;
-                            
-
-                          }
-                        } else {
-                          await viewModel
-                              .searchSPCB(viewModel.searchController.text);
-
-
-                          viewModel.getUpdatedList();
-                        }
-                        viewModel.updateUI();
+                        await viewModel.onProducerTab();
                       },
                       label: StringConstants.producer),
                   TabBarModel(
-                      tab: SpcbProducerTab(
+                      tab: SpcbCommonTab(
                         viewModel: viewModel,
                         onScrollEnding: () {
-                          viewModel.onScrollEnding();
+                          // viewModel.onScrollEnding();
                         },
                         scrollController: viewModel.scrollController,
-                        data:(viewModel.searchController.text.isNotEmpty) ? viewModel.data ?? [] : viewModel.recyclerData ?? [],
+                        data: (viewModel.searchController.text.isNotEmpty)
+                            ? viewModel.data ?? []
+                            : viewModel.recyclerData ?? [],
                       ),
                       onTap: () async {
-                        viewModel.currentUserType = AdminUserTypes.recycler;
-
-                        if (viewModel.searchController.text.isEmpty) {
-                          if (viewModel.recyclerData?.isEmpty == true ||
-                              viewModel.recyclerData == null) {
-                            await viewModel.getSPCBData();
-                          } else {
-                            viewModel.data = viewModel.recyclerData;
-                          }
-                        } else {
-                          await viewModel
-                              .searchSPCB(viewModel.searchController.text);
-
-                          viewModel.getUpdatedList();
-                        }
-
-                        viewModel.updateUI();
+                        await viewModel.onRecyclerTab();
                       },
                       label: StringConstants.recycler),
                   TabBarModel(
-                      tab: SpcbProducerTab(
+                      tab: SpcbCommonTab(
                         viewModel: viewModel,
                         onScrollEnding: () {
-                          viewModel.onScrollEnding();
+                          // viewModel.onScrollEnding();
                         },
                         scrollController: viewModel.scrollController,
-                        data:(viewModel.searchController.text.isNotEmpty) ? viewModel.data ?? [] : viewModel.retreaderData ?? [],
+                        data: (viewModel.searchController.text.isNotEmpty)
+                            ? viewModel.data ?? []
+                            : viewModel.retreaderData ?? [],
                       ),
                       onTap: () async {
-                        viewModel.currentUserType = AdminUserTypes.retreader;
-
-                        if (viewModel.searchController.text.isEmpty) {
-                          if (viewModel.retreaderData?.isEmpty == true ||
-                              viewModel.retreaderData == null) {
-                            await viewModel.getSPCBData();
-                          } else {
-                            viewModel.data = viewModel.retreaderData;
-                          }
-                        } else {
-                          await viewModel
-                              .searchSPCB(viewModel.searchController.text);
-                          viewModel.getUpdatedList();
-                        }
-                        viewModel.updateUI();
+                        await viewModel.onRetreaderTab();
                       },
                       label: StringConstants.retreader)
                 ],

@@ -150,7 +150,7 @@ class ProcurementViewDataViewModel extends BaseViewModel {
 
   Future<APIResponse<ProcurementResponseModel?>?> performSearch(String value,
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _procurementSearchResponseModel = await _retreaderRepo.getProcurementData(
           getUrl() ?? '',

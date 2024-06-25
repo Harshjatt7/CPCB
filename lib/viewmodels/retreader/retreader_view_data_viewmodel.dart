@@ -89,7 +89,7 @@ class RetreaderViewDataViewmodel extends BaseViewModel {
 
   Future<APIResponse<RetreaderResponseModel?>?> performSearch(String value,
       {bool? isPaginating = false}) async {
-    state = ViewState.busy;
+    state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _retreaderSearchResponseModel = await _retreaderRepo.getRetreaderData(
           searchValue: value, page: searchPage.toString());

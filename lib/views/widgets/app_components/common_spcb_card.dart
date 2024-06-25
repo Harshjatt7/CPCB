@@ -42,13 +42,13 @@ class CommonSpcbCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CommonTextWidget(
-                applicationNumber ?? "",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: appColor.black40),
-              ),
+              // CommonTextWidget(
+              //   applicationNumber ?? "",
+              //   style: Theme.of(context)
+              //       .textTheme
+              //       .bodySmall
+              //       ?.copyWith(color: appColor.black40),
+              // ),
               const SizedBox(
                 height: 8,
               ),
