@@ -40,7 +40,21 @@ class AdminDashboardScreen extends StatelessWidget {
                     CommonAppBar(
                       isIconBar: true,
                     ),
-                    DashboardYearFilter(viewModel: viewModel,value: viewModel.financialYearList.first),
+                    DashboardYearFilter(
+                      value: viewModel.financialYearList.last,
+                      items: viewModel.financialYearList,
+                      newValue: viewModel.changeDropdown,
+                      title: viewModel.stringConstants.dashboard,
+                      onChanged: (value) async {
+                        viewModel.changeDropdownValue(value);
+                        if (value != viewModel.yearDropdownValue) {
+                          await viewModel.getEprOblications(context);
+                          if (context.mounted) {
+                            await viewModel.getCommonEprOblications(context);
+                          }
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),

@@ -20,17 +20,17 @@ class AdminRepository {
     return response;
   }
 
-  Future<APIResponse<ProducerEprOblicationsResponseModel?>?> getEprOblications() async {
+  Future<APIResponse<ProducerEprOblicationsResponseModel?>?> getEprOblications(String financialYear) async {
     APIResponse<ProducerEprOblicationsResponseModel?>? response = await _apiBase
-        .getRequest("${_apiRoutes.adminEPROblicationsAPIRoute}producer",
+        .getRequest("${_apiRoutes.adminEPROblicationsAPIRoute}producer?financialYear=$financialYear",
             isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<EprOblicationsResponseModel?>?>
-      getCommonEprOblications(String selectedUserTab) async {
+      getCommonEprOblications(String selectedUserTab,String financialYear) async {
     APIResponse<EprOblicationsResponseModel?>? response = await _apiBase
-        .getRequest("${_apiRoutes.adminEPROblicationsAPIRoute}$selectedUserTab",
+        .getRequest("${_apiRoutes.adminEPROblicationsAPIRoute}$selectedUserTab?financialYear=$financialYear",
             isAuthorizationRequired: true);
     return response;
   }

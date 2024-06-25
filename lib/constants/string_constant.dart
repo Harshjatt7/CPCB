@@ -158,6 +158,7 @@ class StringConstants {
   final String previouslySelectedEndDate = "previously-selected-end-date";
   final String startDate = "start-date";
   final String endDate = "end-date";
+  final String enterComment = "enter-comment";
 
   final String filter = "filter";
   final String unitType = "unit-type";

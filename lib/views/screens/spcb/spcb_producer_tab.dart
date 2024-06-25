@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/viewmodels/spcb/spcb_dashboard_view_model.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_spcb_card.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../constants/string_constant.dart';
 import '../../widgets/app_components/commo_comment_pop_up.dart';
@@ -49,7 +50,8 @@ class SpcbProducerTab extends StatelessWidget {
                               date: applicationData?.registrationDate,
                               address: applicationData?.addressLine1,
                               state: applicationData?.stateName,
-                              applicationNumber: applicationData?.stateName,
+                              applicationNumber:
+                                  applicationData?.userId.toString(),
                               onCommentTap: () {
                                 showDialog(
                                   barrierDismissible: false,
@@ -60,7 +62,8 @@ class SpcbProducerTab extends StatelessWidget {
                                         controller:
                                             spcbViewModel.queryController,
                                         labelText: stringConstants.addComment,
-                                        hintText: stringConstants.writeComment,
+                                        hintText:
+                                            stringConstants.writeComment.i18n(),
                                         onSubmit: () async {
                                           if (ctx.mounted) {
                                             Navigator.pop(ctx);
