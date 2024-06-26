@@ -7,20 +7,17 @@ import '../../../theme/app_color.dart';
 import '../components/common_text_widget.dart';
 
 class AdminSummaryCard extends StatelessWidget {
-  const AdminSummaryCard({
-    super.key,
-    this.userType,
-    this.label,
-    this.eprObligations,
-    this.creditsGenerated,
-    this.creditsTransferred,
-  });
-  final String? userType;
+  AdminSummaryCard(
+      {super.key,
+      this.label,
+      this.creditsTransferred,
+      this.creditsGenerated,
+      this.eprObligations});
   final String? label;
-  final String? eprObligations;
-  final String? creditsGenerated;
   final String? creditsTransferred;
-
+  final String? creditsGenerated;
+  final String? eprObligations;
+  final stringConstants = StringConstants();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,12 +32,12 @@ class AdminSummaryCard extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          if (userType == StringConstants.producer)
+          if (label == StringConstants.producer)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CommonTextWidget(
-                  StringConstants().eprObligations,
+                  stringConstants.eprObligations,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(
@@ -49,13 +46,13 @@ class AdminSummaryCard extends StatelessWidget {
                 ),
               ],
             ),
-          if (userType == StringConstants.retreader ||
-              userType == StringConstants.recycler)
+          if (label == StringConstants.retreader ||
+              label == StringConstants.recycler)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CommonTextWidget(
-                  StringConstants().creditsGenerated,
+                  stringConstants.creditsGenerated,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(
@@ -67,13 +64,13 @@ class AdminSummaryCard extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          if (userType == StringConstants.retreader ||
-              userType == StringConstants.recycler)
+          if (label == StringConstants.retreader ||
+              label == StringConstants.recycler)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CommonTextWidget(
-                  StringConstants().creditsTransferred,
+                  stringConstants.creditsTransferred,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 CommonTextWidget(
@@ -81,7 +78,7 @@ class AdminSummaryCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
               ],
-            )
+            ),
         ],
       ),
     );

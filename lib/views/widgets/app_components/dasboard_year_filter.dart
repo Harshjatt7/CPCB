@@ -3,18 +3,23 @@ import 'package:flutter/material.dart';
 import '../../../constants/image_constants.dart';
 import '../../../theme/app_color.dart';
 import '../../../utils/helper/responsive_helper.dart';
-import '../../../viewmodels/admin/admin_dashboard_viewmodel.dart';
 import '../components/common_image_widget.dart';
 import '../components/common_text_widget.dart';
 
 class DashboardYearFilter extends StatelessWidget {
   const DashboardYearFilter({
     super.key,
-    this.viewModel,
     this.value,
+    this.title,
+    this.onChanged,
+    this.items,
+    this.newValue,
   });
-  final AdminDashBoardViewmodel? viewModel;
   final String? value;
+  final String? title;
+  final String? newValue;
+  final void Function(Object?)? onChanged;
+  final List? items;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +32,7 @@ class DashboardYearFilter extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CommonTextWidget(
-            viewModel?.stringConstants.dashboard ?? "",
+            title??"",
             style: Theme.of(context).textTheme.labelLarge,
           ),
           Container(
@@ -56,16 +61,14 @@ class DashboardYearFilter extends StatelessWidget {
               isDense: true,
               padding: const EdgeInsets.all(0),
               iconSize: 0,
-              value: viewModel?.changeDropdown,
+              value: newValue,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
                   ?.copyWith(color: AppColor().black70),
-              onChanged: (value) {
-                viewModel?.changeDropdownValue(value);
-              },
-              items: viewModel?.financialYearList
-                  .map((label) => DropdownMenuItem(
+              onChanged: onChanged,
+              
+              items: items?.map((label) => DropdownMenuItem(
                         value: label,
                         child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
