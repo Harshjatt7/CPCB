@@ -19,7 +19,8 @@ class SpcbCommonTab extends StatelessWidget {
       required this.onScrollEnding,
       required this.scrollController,
       this.onPopUpSubmit,
-      required this.viewModel});
+      required this.viewModel,
+      this.showNoMatchingText = false});
   final HelperFunctions helperFunctions = HelperFunctions();
   final AppColor appColor = AppColor();
 
@@ -28,6 +29,7 @@ class SpcbCommonTab extends StatelessWidget {
   final VoidCallback onScrollEnding;
   final VoidCallback? onPopUpSubmit;
   final SpcbDashboardViewModel viewModel;
+  final bool? showNoMatchingText;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +52,12 @@ class SpcbCommonTab extends StatelessWidget {
             Stack(children: [
               Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: data.isEmpty
+                  child: (data.isEmpty && showNoMatchingText == false)
                       ? Center(
                           child: CommonTextWidget(
-                              MessageConstant().noMatchingResultsFound))
+                              viewModel.state == ViewState.busy
+                                  ? ""
+                                  : MessageConstant().noMatchingResultsFound))
                       : Column(
                           mainAxisSize: MainAxisSize.min,
                           children: List<Widget>.generate(data.length, (index) {

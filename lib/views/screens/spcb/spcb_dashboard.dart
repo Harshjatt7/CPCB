@@ -74,6 +74,7 @@ class SpcbDashboardScreen extends StatelessWidget {
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: CommonTabBar(
+                scrollController: viewModel.scrollController,
                 onScrollEnding: () {
                   viewModel.onScrollEnding();
                 },
@@ -81,6 +82,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
+                        showNoMatchingText: viewModel.producerData == null,
                         onScrollEnding: () {
                           viewModel.onScrollEnding();
                         },
@@ -96,6 +98,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
+                        showNoMatchingText: viewModel.recyclerData == null,
                         onScrollEnding: () {
                           // viewModel.onScrollEnding();
                         },
@@ -111,6 +114,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
+                        showNoMatchingText: viewModel.retreaderData == null,
                         onScrollEnding: () {
                           // viewModel.onScrollEnding();
                         },

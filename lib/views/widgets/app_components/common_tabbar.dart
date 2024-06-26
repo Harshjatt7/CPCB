@@ -10,6 +10,7 @@ class CommonTabBar extends StatefulWidget {
   final List<TabBarModel> tabs;
   final bool isScrollAllowed;
   final VoidCallback? onScrollEnding;
+  final ScrollController? scrollController;
 
   /// [CommonTabBar] is a widget that will be used for using tabs in the app.
   /// [tabs] will be a list of [TabBarModel] which will be used to show the list of
@@ -18,6 +19,7 @@ class CommonTabBar extends StatefulWidget {
       {super.key,
       required this.tabs,
       this.isScrollAllowed = true,
+      this.scrollController,
       this.onScrollEnding});
 
   @override
@@ -74,6 +76,7 @@ class _CommonTabBarState extends State<CommonTabBar>
           return false;
         },
         child: CommonSingleChildScrollView(
+          controller: widget.scrollController,
           physics: widget.isScrollAllowed == false
               ? const NeverScrollableScrollPhysics()
               : const ScrollPhysics(),
