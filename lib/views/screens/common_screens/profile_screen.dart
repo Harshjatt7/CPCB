@@ -70,7 +70,11 @@ class ProfileScreen extends StatelessWidget {
                           : viewModel.data?.email ?? "",
                       phoneNo: viewModel.data?.mobileNumber ?? "",
                       isAdmin: isAdmin,
-                      name: isAdmin == true ? viewModel.data?.email : null),
+                      name: isAdmin == true
+                          ? isSPCB == true
+                              ? viewModel.data?.name ?? "NA"
+                              : viewModel.data?.email
+                          : null),
                   if (isAdmin == false && isCustom == false)
                     detailContainer(context, viewModel,
                         backgroundColor: appColor.darkBlue10,
