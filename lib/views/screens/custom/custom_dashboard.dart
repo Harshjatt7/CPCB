@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import '../../../constants/message_constant.dart';
 import '../../../theme/app_color.dart';
 import '../../../viewmodels/custom/custom_dashboard_view_model.dart';
 import '../../widgets/app_components/common_custom_listing_card.dart';
@@ -54,11 +55,11 @@ class CustomDashboardScreen extends StatelessWidget {
                         }
                       },
                       title: viewModel.stringConstants.dashboard,
-                      onSuffixTap: () {
+                      onSuffixTap: () async{
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
                               !viewModel.isSearchExpanded;
-                          viewModel.getUpdatedList();
+                        viewModel.getUpdatedList();
                           viewModel.updateUI();
                         } else {
                           viewModel.isSearchExpanded = false;
@@ -102,7 +103,11 @@ class CustomDashboardScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
+                  child: (viewModel.customData?.length ?? 0) == 0
+                            ? Center(
+                                child: CommonTextWidget(
+                                    MessageConstant().noMatchingResultsFound))
+                            : Column(
                     mainAxisSize: MainAxisSize.min,
                     children: List<Widget>.generate(
                         viewModel.customData?.length ?? 0, (index) {

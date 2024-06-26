@@ -59,7 +59,7 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   }
 
   void changeDropdownValue(newValue) {
-    changeDropdown = newValue??financialYearList.last;
+    changeDropdown = newValue ?? financialYearList.last;
     if (changeDropdown != null) {
       String startYear = changeDropdown!.split('-').first;
       String lastYear = changeDropdown!.split('-').last;
@@ -111,17 +111,14 @@ class AdminDashBoardViewmodel extends BaseViewModel {
     } catch (err) {
       helperFunctions.logger("$err");
     }
-
     state = ViewState.idle;
-
     return _eprApplicationResponseModel;
   }
 
   Future<APIResponse<ProducerEprOblicationsResponseModel?>?> getEprOblications(
       BuildContext context) async {
     state = ViewState.busy;
-    yearDropdownValue = changeDropdown??financialYearList.last;
-    HelperFunctions().logger('>>>>>>$changeDropdown ?? ""');
+    yearDropdownValue = changeDropdown ?? financialYearList.last;
     try {
       _eprOblicationResponseModel =
           await _adminRepo.getEprOblications(yearDropdownValue.toString());
