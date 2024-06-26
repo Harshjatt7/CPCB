@@ -4,22 +4,36 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/app_components/admin_summary_card.dart';
 import '../../widgets/app_components/dasboard_year_filter.dart';
 
 class AdminSummaryScreen extends StatelessWidget {
-  const AdminSummaryScreen({super.key});
+  
+ AdminSummaryScreen({super.key});
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return BaseView<AdminDashBoardViewmodel>(
-      onModelReady: (viewModel) {
+      onModelReady: (viewModel)async {
+        
         viewModel.addYear();
+await Future.delayed(Duration(seconds: 2));
+isLoading = true;
+viewModel.updateUI();
+await Future.delayed(Duration(seconds: 2));
+isLoading = false;
+viewModel.updateUI();
+
+
       },
       viewModel: AdminDashBoardViewmodel(),
       builder: (context, viewModel, child) {
         return CustomScaffold(
+          isLoading: isLoading,
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(120),
               child: Column(
