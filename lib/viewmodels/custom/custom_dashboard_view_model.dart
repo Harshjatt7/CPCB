@@ -61,6 +61,7 @@ class CustomDashboardViewModel extends BaseViewModel {
             email: e.email,
             mobileNumber: e.mobileNumber,
             stateName: e.stateName,
+            name: e.name
           ));
         });
       }
@@ -174,7 +175,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     });
   }
 
-  void getUpdatedList() async {
+  void getUpdatedList() {
     state = ViewState.busy;
     if (searchController.text.isEmpty || isSearchExpanded == false) {
       customData =

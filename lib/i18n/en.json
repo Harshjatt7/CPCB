@@ -182,5 +182,6 @@
     "add-comment": "Add Comment",
     "write-comment": "Write your comment ...",
     "spcb-dashboard": "SPCB Dashboard",
-    "state-authorized":"State Authorized"
+    "state-authorized":"State Authorized",
+    "enter-comment": "Please enter comment"
 }

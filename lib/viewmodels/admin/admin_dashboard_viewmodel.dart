@@ -59,7 +59,7 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   }
 
   void changeDropdownValue(newValue) {
-    changeDropdown = newValue;
+    changeDropdown = newValue ?? financialYearList.last;
     if (changeDropdown != null) {
       String startYear = changeDropdown!.split('-').first;
       String lastYear = changeDropdown!.split('-').last;
@@ -111,18 +111,17 @@ class AdminDashBoardViewmodel extends BaseViewModel {
     } catch (err) {
       helperFunctions.logger("$err");
     }
-
     state = ViewState.idle;
-
     return _eprApplicationResponseModel;
   }
 
   Future<APIResponse<ProducerEprOblicationsResponseModel?>?> getEprOblications(
       BuildContext context) async {
     state = ViewState.busy;
-
+    yearDropdownValue = changeDropdown ?? financialYearList.last;
     try {
-      _eprOblicationResponseModel = await _adminRepo.getEprOblications();
+      _eprOblicationResponseModel =
+          await _adminRepo.getEprOblications(yearDropdownValue.toString());
       if (_eprOblicationResponseModel?.isSuccess == true) {
         _eprOblicationResponseModel?.data =
             ProducerEprOblicationsResponseModel.fromJson(
@@ -146,11 +145,11 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   Future<APIResponse<EprOblicationsResponseModel?>?> getCommonEprOblications(
       BuildContext context) async {
     state = ViewState.busy;
-
     try {
-      APIResponse<EprOblicationsResponseModel?>? recyclerRes =
-          await _adminRepo.getCommonEprOblications("recycler");
-      var retraderRes = await _adminRepo.getCommonEprOblications("retreader");
+      APIResponse<EprOblicationsResponseModel?>? recyclerRes = await _adminRepo
+          .getCommonEprOblications("recycler", yearDropdownValue.toString());
+      var retraderRes = await _adminRepo.getCommonEprOblications(
+          "retreader", yearDropdownValue.toString());
 
       if (recyclerRes?.isSuccess == true) {
         recyclerRes?.data =

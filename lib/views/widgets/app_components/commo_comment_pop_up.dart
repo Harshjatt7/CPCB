@@ -50,7 +50,7 @@ class CommonCommentPopUp extends StatelessWidget {
                 focusNode: FocusNode(canRequestFocus: true),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter comment";
+                    return stringConstants.enterComment;
                   } else {
                     return null;
                   }
