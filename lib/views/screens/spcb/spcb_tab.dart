@@ -16,8 +16,6 @@ class SpcbCommonTab extends StatelessWidget {
   SpcbCommonTab(
       {super.key,
       required this.data,
-      required this.onScrollEnding,
-      required this.scrollController,
       this.onPopUpSubmit,
       required this.viewModel,
       this.showNoMatchingText = false});
@@ -25,8 +23,6 @@ class SpcbCommonTab extends StatelessWidget {
   final AppColor appColor = AppColor();
 
   final List<Data> data;
-  final ScrollController scrollController;
-  final VoidCallback onScrollEnding;
   final VoidCallback? onPopUpSubmit;
   final SpcbDashboardViewModel viewModel;
   final bool? showNoMatchingText;
@@ -41,12 +37,10 @@ class SpcbCommonTab extends StatelessWidget {
         if (notification is ScrollEndNotification &&
             notification.metrics.extentAfter == 0) {
           HelperFunctions().logger("mamamanana");
-          onScrollEnding();
         }
         return false;
       },
       child: CommonSingleChildScrollView(
-        controller: scrollController,
         child: Column(
           children: [
             Stack(children: [

@@ -83,10 +83,6 @@ class SpcbDashboardScreen extends StatelessWidget {
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
                         showNoMatchingText: viewModel.producerData == null,
-                        onScrollEnding: () {
-                          viewModel.onScrollEnding();
-                        },
-                        scrollController: viewModel.scrollController,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.data ?? []
                             : viewModel.producerData ?? [],
@@ -99,10 +95,6 @@ class SpcbDashboardScreen extends StatelessWidget {
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
                         showNoMatchingText: viewModel.recyclerData == null,
-                        onScrollEnding: () {
-                          // viewModel.onScrollEnding();
-                        },
-                        scrollController: viewModel.scrollController,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.data ?? []
                             : viewModel.recyclerData ?? [],
@@ -115,10 +107,6 @@ class SpcbDashboardScreen extends StatelessWidget {
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
                         showNoMatchingText: viewModel.retreaderData == null,
-                        onScrollEnding: () {
-                          // viewModel.onScrollEnding();
-                        },
-                        scrollController: viewModel.scrollController,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.data ?? []
                             : viewModel.retreaderData ?? [],
