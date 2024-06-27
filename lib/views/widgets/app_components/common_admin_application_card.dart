@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_type_badge.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
@@ -88,7 +89,8 @@ class CommonAdminApplicationCard extends StatelessWidget {
                 height: 6,
               ),
               buildCustomTextWidget(context,
-                  text: "${stringConstants.lastMarked.i18n()}: $lastMarked"),
+                  text:
+                      "${stringConstants.lastMarked.i18n()}: ${HelperFunctions().getFormattedDate(dtstr: lastMarked)}"),
               const SizedBox(
                 height: 6,
               ),

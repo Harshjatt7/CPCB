@@ -475,7 +475,6 @@ class HelperFunctions {
       if (dateTime != null) {
         formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
       }
-      // "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
 
       return formattedDate;
     } catch (err) {
