@@ -15,7 +15,7 @@ class DashboardViewModel extends BaseViewModel {
   final _apiRoutes = APIRoutes();
   final _commonRepo = CommonRepository();
   final StringConstants stringConstants = StringConstants();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   UserTypes? currentUser;
   APIResponse<DashboardResponseModel?>? _dashboardResponseModel;
@@ -61,16 +61,16 @@ class DashboardViewModel extends BaseViewModel {
       APIResponse value = await _commonRepo
           .getDownloadPaymentReceipt(getPaymentReceiptAPIUrl() ?? '');
       if (value.isSuccess == true) {
-        helperFunctions
-            .downloadAndStoreFile(name: "Transaction", response: value);
+        helperFunctions.downloadAndStoreFile(
+            name: "Transaction", response: value);
         state = ViewState.idle;
         return value;
       } else {
         state = ViewState.idle;
 
         if (context.mounted) {
-          helperFunctions
-              .commonErrorSnackBar(context, value.error?.message ?? '');
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
         }
       }
     } catch (err) {
@@ -86,20 +86,42 @@ class DashboardViewModel extends BaseViewModel {
       APIResponse value = await _commonRepo
           .getDownloadApplication(getDownloadApplicationAPIUrl() ?? '');
       if (value.isSuccess == true) {
-        helperFunctions
-            .downloadAndStoreFile(name: "Application", response: value);
+        helperFunctions.downloadAndStoreFile(
+            name: "Application", response: value);
         state = ViewState.idle;
         return value;
       } else {
         state = ViewState.idle;
-
         if (context.mounted) {
-          helperFunctions
-              .commonErrorSnackBar(context, value.error?.message ?? '');
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
         }
       }
     } catch (err) {
       helperFunctions.logger("$err");
+    }
+    state = ViewState.idle;
+    return null;
+  }
+
+  Future getDownloadCertificate(BuildContext context) async {
+    state = ViewState.busy;
+    try {
+      APIResponse value = await _commonRepo.getDownloadCertificate();
+      if (value.isSuccess == true) {
+        helperFunctions.downloadAndStoreFile(
+            name: "Certificate", response: value);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+        if (context.mounted) {
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
+        }
+      }
+    } catch (error) {
+      helperFunctions.logger("$error");
     }
     state = ViewState.idle;
     return null;

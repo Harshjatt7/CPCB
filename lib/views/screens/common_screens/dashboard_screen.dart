@@ -164,7 +164,8 @@ class DashBoardScreen extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 16),
                                 child: CommonButtonWidget(
                                   onPressed: () async {
-                                    //TODO Implement Recycler Download Certificate API when available
+                                    await viewModel
+                                        .getDownloadCertificate(context);
                                   },
                                   label: viewModel
                                       .stringConstants.downloadCertificate,

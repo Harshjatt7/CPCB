@@ -6,10 +6,20 @@ import 'package:cpcb_tyre/models/response/admin/producer_epr_oblications_respons
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 
 import '../../models/response/admin/admin_application_response_model.dart';
+import '../../models/response/admin/summary_response_model.dart';
 
 class AdminRepository {
   final _apiBase = APIBase();
   final _apiRoutes = APIRoutes();
+
+  Future<APIResponse<AdminSummaryResponseData?>?> getSummaryData(
+      String financialYear) async {
+    APIResponse<AdminSummaryResponseData?>? response =
+        await _apiBase.getRequest(
+            "${_apiRoutes.adminSummaryAPIRoute}?financialYear=$financialYear",
+            isAuthorizationRequired: true);
+    return response;
+  }
 
   Future<APIResponse<EprApplicationResponseModel?>?> getAdminDashBoard(
       String selectedUserTab) async {

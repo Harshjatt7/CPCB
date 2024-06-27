@@ -1,4 +1,6 @@
+import 'package:cpcb_tyre/viewmodels/admin/admin_dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
+import 'package:cpcb_tyre/views/screens/admin/admin_summary_screen.dart';
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
 import 'package:cpcb_tyre/views/screens/custom/custom_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
@@ -43,6 +45,7 @@ class PageRouter {
       case AppRoutes.recyclerProcurementAddDataScreenRoute:
         return _getPageRoute(RecyclerProcurementAddDataScreen(), settings);
       case AppRoutes.adminHomeScreenRoute:
+      // SummaryData? data = settings.arguments as SummaryData;
         return _getPageRoute(AdminHomeScreen(), settings);
       case AppRoutes.adminApplicationReceivedRoute:
         String userType = settings.arguments as String;
@@ -51,6 +54,8 @@ class PageRouter {
               userType: userType,
             ),
             settings);
+      case AppRoutes.adminSummaryScreenRoute:
+        return _getPageRoute(AdminSummaryScreen(), settings);
       case AppRoutes.spcbHomeScreenRoute:
         return _getPageRoute(SpcbHomeScreen(), settings);
       case AppRoutes.customHomeScreenRoute:
