@@ -54,7 +54,7 @@ class CommonRetraderDataCard extends StatelessWidget {
             height: 6,
           ),
           retraderDetailsCard(context,
-              "${stringConstants.contactDetailLabel.i18n()} ${contactDetails ?? ''}"),
+              "${stringConstants.contactDetailLabel.i18n()} ${contactDetails ?? "NA"}"),
           retraderDetailsCard(context,
               "${stringConstants.addressOfBuyerLabel.i18n()} ${address ?? ''}"),
           if (isRetraderContainer == false)

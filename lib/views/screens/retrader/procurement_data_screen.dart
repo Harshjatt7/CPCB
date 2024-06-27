@@ -107,7 +107,7 @@ class ProcurementDataScreen extends StatelessWidget {
                                         const EdgeInsets.symmetric(vertical: 8),
                                     child: CommonRetraderDataCard(
                                       name: viewModel.data?[index].sellerName ??
-                                          "",
+                                          "NA",
                                       contactDetails:
                                           viewModel.data?[index].sellerMobile,
                                       address:

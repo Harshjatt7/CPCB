@@ -9,13 +9,13 @@ import '../components/common_text_widget.dart';
 class DashboardYearFilter extends StatelessWidget {
   const DashboardYearFilter({
     super.key,
-    this.value,
+    this.hint,
     this.title,
     this.onChanged,
     this.items,
     this.newValue,
   });
-  final String? value;
+  final String? hint;
   final String? title;
   final String? newValue;
   final void Function(Object?)? onChanged;
@@ -50,7 +50,7 @@ class DashboardYearFilter extends StatelessWidget {
               hint: Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: CommonTextWidget(
-                  value ?? "",
+                  hint ?? "",
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context)
                       .textTheme
