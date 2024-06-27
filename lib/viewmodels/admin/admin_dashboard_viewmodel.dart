@@ -12,6 +12,7 @@ import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/response/admin/admin_application_response_model.dart';
+import '../../models/response/admin/summary_response_model.dart';
 
 class AdminDashBoardViewmodel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
@@ -36,7 +37,6 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   EprOblicationsData? producerEprOblicationsData;
   CommonEprOblicationData? retreaderEprOblicationData;
   CommonEprOblicationData? recyclerEprOblicationData;
-
   int page = 1;
   List financialYearList = <String>[];
   List<ApplicationResponsedData>? data;
@@ -48,6 +48,38 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   APIResponse<AdminApplicationResponseModel?>? _adminApplicationResponseModel;
   APIResponse<AdminApplicationResponseModel?>?
       get adminApplicationResponseModel => _adminApplicationResponseModel;
+
+  APIResponse<AdminSummaryResponseData?>? _adminSummaryResponseModel;
+  APIResponse<AdminSummaryResponseData?>? get adminSummaryResponseModel =>
+      _adminSummaryResponseModel;
+  SummaryDataResponse? summaryData;
+  bool isDashboard = true;
+
+  Future<APIResponse<AdminSummaryResponseData?>?> getSummary(
+      BuildContext context) async {
+    state = ViewState.busy;
+    yearDropdownValue = changeDropdown ?? financialYearList.last;
+    try {
+      _adminSummaryResponseModel = await _adminRepo.getSummaryData(
+           changeDropdown ?? financialYearList.last);
+      if (_adminSummaryResponseModel?.isSuccess == true) {
+        _adminSummaryResponseModel?.data = AdminSummaryResponseData.fromJson(
+            _adminSummaryResponseModel?.completeResponse);
+        summaryData = _adminSummaryResponseModel?.data?.data;
+      } else {
+        if (context.mounted) {
+          helperFunctions.commonErrorSnackBar(
+              context, MessageConstant().somethingWentWrong);
+        }
+      }
+    } catch (err) {
+      helperFunctions.logger("$err");
+    }
+
+    state = ViewState.idle;
+
+    return _adminSummaryResponseModel;
+  }
 
   void addYear() {
     int year = 2022;
@@ -69,7 +101,6 @@ class AdminDashBoardViewmodel extends BaseViewModel {
       endDate = startYear == DateTime.now().year.toString()
           ? DateTime.now()
           : DateTime(edYear, 3, 31);
-
       updateUI();
     }
     updateUI();
@@ -111,6 +142,7 @@ class AdminDashBoardViewmodel extends BaseViewModel {
     } catch (err) {
       helperFunctions.logger("$err");
     }
+
     state = ViewState.idle;
     return _eprApplicationResponseModel;
   }
@@ -209,4 +241,10 @@ class AdminDashBoardViewmodel extends BaseViewModel {
         (data?.tpoChar?.creditTransfered ?? 0);
     return total;
   }
+}
+
+class SummaryData {
+  final String? financialYear;
+  final bool? isLoading;
+  const SummaryData({this.financialYear = "2024-2025", this.isLoading = false});
 }

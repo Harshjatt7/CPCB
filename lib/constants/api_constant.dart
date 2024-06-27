@@ -45,6 +45,7 @@ class APIRoutes {
   final String adminEPRApplicationsAPIRoute = "api/admin/application-counts/";
   final String adminEPROblicationsAPIRoute = "api/admin/activity-overview/";
   final String adminDownloadInvoiceAPIRoute = "api/admin/download-transaction/";
+  final String adminSummaryAPIRoute = "api/admin/summary-all-users";
   final String adminDownloadApplicationAPIRoute =
       "api/admin/download-application/";
   final String customDownloadCertificateAPIRoute = "api/download-certificate";
