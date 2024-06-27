@@ -23,6 +23,27 @@ class SpcbDashboardViewModel extends BaseViewModel {
   APIResponse<SpcbUsersResponseModel?>? _spcbSearchResponseModel;
   APIResponse<SpcbUsersResponseModel?>? get spcbSearchResponseModel =>
       _spcbSearchResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? _spcbProducerResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? get spcbProducerResponseModel =>
+      _spcbProducerResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? _spcbSearchProducerResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? get spcbSearchProducerResponseModel =>
+      _spcbSearchProducerResponseModel;
+
+  APIResponse<SpcbUsersResponseModel?>? _spcbRetResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? get spcbRetResponseModel =>
+      _spcbRetResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? _spcbSearchRetResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? get spcbSearchRetResponseModel =>
+      _spcbSearchRetResponseModel;
+
+  APIResponse<SpcbUsersResponseModel?>? _spcbRecResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? get spcbRecResponseModel =>
+      _spcbRecResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? _spcbSearchRecResponseModel;
+  APIResponse<SpcbUsersResponseModel?>? get spcbSearchRecResponseModel =>
+      _spcbSearchRecResponseModel;
+
   String? url;
   List<Data>? data;
   List<Data>? producerData;
@@ -172,12 +193,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
   void onScrollEnding() {
     if (isSearchExpanded == true && searchController.text.isNotEmpty) {
       searchPageIncreament();
-      // if ((getSearchLastPage() ?? 0) > searchPage) {
-      //   searchPage++;
-      //   loadMoreData();
-      // } else {
-      //   helperFunctions.logger(searchPage.toString());
-      // }
+      
     } else {
       currentUserPageIncreament();
     }
@@ -266,11 +282,12 @@ class SpcbDashboardViewModel extends BaseViewModel {
   int? getLastPage() {
     switch (currentUserType) {
       case AdminUserTypes.producer:
-        return _spcbResponseModel?.data?.spcbData?.producerData?.lastPage;
+        return _spcbProducerResponseModel
+            ?.data?.spcbData?.producerData?.lastPage;
       case AdminUserTypes.recycler:
-        return _spcbResponseModel?.data?.spcbData?.recyclerData?.lastPage;
+        return _spcbRecResponseModel?.data?.spcbData?.recyclerData?.lastPage;
       case AdminUserTypes.retreader:
-        return _spcbResponseModel?.data?.spcbData?.retreaderData?.lastPage;
+        return _spcbRetResponseModel?.data?.spcbData?.retreaderData?.lastPage;
       default:
         return null;
     }
@@ -279,11 +296,13 @@ class SpcbDashboardViewModel extends BaseViewModel {
   int? getSearchLastPage() {
     switch (currentUserType) {
       case AdminUserTypes.producer:
-        return _spcbSearchResponseModel?.data?.spcbData?.producerData?.lastPage;
+        return _spcbSearchProducerResponseModel
+            ?.data?.spcbData?.producerData?.lastPage;
       case AdminUserTypes.recycler:
-        return _spcbSearchResponseModel?.data?.spcbData?.recyclerData?.lastPage;
+        return _spcbSearchRecResponseModel
+            ?.data?.spcbData?.recyclerData?.lastPage;
       case AdminUserTypes.retreader:
-        return _spcbSearchResponseModel
+        return _spcbSearchRetResponseModel
             ?.data?.spcbData?.retreaderData?.lastPage;
       default:
         return null;
@@ -293,16 +312,20 @@ class SpcbDashboardViewModel extends BaseViewModel {
   List<Data>? currentTabSearchData() {
     switch (currentUserType) {
       case AdminUserTypes.producer:
-        return _spcbSearchResponseModel?.data?.spcbData?.producerData?.data ??
+        return _spcbSearchProducerResponseModel
+                ?.data?.spcbData?.producerData?.data ??
             [];
       case AdminUserTypes.recycler:
-        return _spcbSearchResponseModel?.data?.spcbData?.recyclerData?.data ??
+        return _spcbSearchRecResponseModel
+                ?.data?.spcbData?.recyclerData?.data ??
             [];
       case AdminUserTypes.retreader:
-        return _spcbSearchResponseModel?.data?.spcbData?.retreaderData?.data ??
+        return _spcbSearchRetResponseModel
+                ?.data?.spcbData?.retreaderData?.data ??
             [];
       default:
-        return _spcbSearchResponseModel?.data?.spcbData?.producerData?.data ??
+        return _spcbSearchProducerResponseModel
+                ?.data?.spcbData?.producerData?.data ??
             [];
     }
   }
@@ -321,13 +344,15 @@ class SpcbDashboardViewModel extends BaseViewModel {
   List<Data>? currentTabData() {
     switch (currentUserType) {
       case AdminUserTypes.producer:
-        return _spcbResponseModel?.data?.spcbData?.producerData?.data ?? [];
+        return _spcbProducerResponseModel?.data?.spcbData?.producerData?.data ??
+            [];
       case AdminUserTypes.recycler:
-        return _spcbResponseModel?.data?.spcbData?.recyclerData?.data ?? [];
+        return _spcbRecResponseModel?.data?.spcbData?.recyclerData?.data ?? [];
       case AdminUserTypes.retreader:
-        return _spcbResponseModel?.data?.spcbData?.retreaderData?.data ?? [];
+        return _spcbRetResponseModel?.data?.spcbData?.retreaderData?.data ?? [];
       default:
-        return _spcbResponseModel?.data?.spcbData?.producerData?.data ?? [];
+        return _spcbProducerResponseModel?.data?.spcbData?.producerData?.data ??
+            [];
     }
   }
 
@@ -344,6 +369,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
       if (_spcbSearchResponseModel?.isSuccess == true) {
         _spcbSearchResponseModel?.data = SpcbUsersResponseModel.fromJson(
             _spcbSearchResponseModel?.completeResponse);
+        getCurrentSearchResponseModel();
         if (isPaginating == true) {
           data?.addAll(currentTabSearchData() ?? []);
         } else {
@@ -356,7 +382,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
       helperFunctions.logger("$err");
     }
     state = ViewState.idle;
-    return _spcbSearchResponseModel;
+    return spcbSearchResponseModel;
   }
 
   void loadMoreData() async {
@@ -395,6 +421,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
 
   Future<APIResponse<SpcbUsersResponseModel?>?> getSPCBData(
       {bool? isPaginating = false, bool? isLoad = false}) async {
+    ();
     state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _spcbResponseModel = await _spcbRepo.getSpcbUserData(
@@ -404,6 +431,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
       if (_spcbResponseModel?.isSuccess == true) {
         _spcbResponseModel?.data = SpcbUsersResponseModel.fromJson(
             _spcbResponseModel?.completeResponse);
+        getCurrentResponseModel();
         if (isPaginating == true) {
           data?.addAll(currentTabData() ?? []);
         } else {
@@ -417,7 +445,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
       helperFunctions.logger("$err");
     }
     state = isLoad == true ? ViewState.busy : ViewState.idle;
-    return _spcbResponseModel;
+    return spcbResponseModel;
   }
 
   void alreadyObtainData() {
@@ -430,6 +458,34 @@ class SpcbDashboardViewModel extends BaseViewModel {
         break;
       case AdminUserTypes.retreader:
         retreaderData = data;
+        break;
+    }
+  }
+
+  void getCurrentResponseModel() {
+    switch (currentUserType) {
+      case AdminUserTypes.producer:
+        _spcbProducerResponseModel = _spcbResponseModel;
+        break;
+      case AdminUserTypes.recycler:
+        _spcbRecResponseModel = _spcbResponseModel;
+        break;
+      case AdminUserTypes.retreader:
+        _spcbRetResponseModel = _spcbResponseModel;
+        break;
+    }
+  }
+
+  void getCurrentSearchResponseModel() {
+    switch (currentUserType) {
+      case AdminUserTypes.producer:
+        _spcbSearchProducerResponseModel = _spcbSearchResponseModel;
+        break;
+      case AdminUserTypes.recycler:
+        _spcbSearchRecResponseModel = _spcbSearchResponseModel;
+        break;
+      case AdminUserTypes.retreader:
+        _spcbSearchRetResponseModel = _spcbSearchResponseModel;
         break;
     }
   }

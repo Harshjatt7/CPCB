@@ -10,7 +10,7 @@ import '../../widgets/app_components/dasboard_year_filter.dart';
 
 class AdminSummaryScreen extends StatelessWidget {
   const AdminSummaryScreen({super.key, this.viewModel});
-  //SummaryData? summaryData;
+
   final AdminDashBoardViewmodel? viewModel;
   @override
   Widget build(BuildContext context) {
