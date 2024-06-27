@@ -193,12 +193,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
   void onScrollEnding() {
     if (isSearchExpanded == true && searchController.text.isNotEmpty) {
       searchPageIncreament();
-      // if ((getSearchLastPage() ?? 0) > searchPage) {
-      //   searchPage++;
-      //   loadMoreData();
-      // } else {
-      //   helperFunctions.logger(searchPage.toString());
-      // }
+      
     } else {
       currentUserPageIncreament();
     }
