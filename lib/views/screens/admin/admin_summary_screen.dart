@@ -18,10 +18,10 @@ class AdminSummaryScreen extends StatelessWidget {
     return BaseView<AdminDashBoardViewmodel>(
       onModelReady: (viewModel) async {
         viewModel.addYear();
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 2));
         isLoading = true;
         viewModel.updateUI();
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 2));
         isLoading = false;
         viewModel.updateUI();
       },
