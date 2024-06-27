@@ -74,6 +74,7 @@ class SpcbDashboardScreen extends StatelessWidget {
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: CommonTabBar(
+                scrollController: viewModel.scrollController,
                 onScrollEnding: () {
                   viewModel.onScrollEnding();
                 },
@@ -81,10 +82,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        onScrollEnding: () {
-                          viewModel.onScrollEnding();
-                        },
-                        scrollController: viewModel.scrollController,
+                        showNoMatchingText: viewModel.producerData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.data ?? []
                             : viewModel.producerData ?? [],
@@ -96,10 +94,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        onScrollEnding: () {
-                          // viewModel.onScrollEnding();
-                        },
-                        scrollController: viewModel.scrollController,
+                        showNoMatchingText: viewModel.recyclerData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.data ?? []
                             : viewModel.recyclerData ?? [],
@@ -111,10 +106,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        onScrollEnding: () {
-                          // viewModel.onScrollEnding();
-                        },
-                        scrollController: viewModel.scrollController,
+                        showNoMatchingText: viewModel.retreaderData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.data ?? []
                             : viewModel.retreaderData ?? [],

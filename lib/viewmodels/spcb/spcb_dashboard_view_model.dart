@@ -97,6 +97,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
 
   Future<void> onProducerTab() async {
     currentUserType = AdminUserTypes.producer;
+    scrollController.jumpTo(0);
     if (searchController.text.isEmpty) {
       if (producerData?.isEmpty == true || producerData == null) {
         await getSPCBData();
@@ -105,14 +106,18 @@ class SpcbDashboardViewModel extends BaseViewModel {
       }
     } else {
       resetCurrentUserPage(isSearch: true);
+      if (producerData == null) {
+        await getSPCBData(isLoad: true);
+      }
       await searchSPCB(searchController.text);
-      getUpdatedList();
+      getUpdatedList(isLoad: true);
     }
     updateUI();
   }
 
   Future<void> onRecyclerTab() async {
     currentUserType = AdminUserTypes.recycler;
+    scrollController.jumpTo(0);
     if (searchController.text.isEmpty) {
       if (recyclerData?.isEmpty == true || recyclerData == null) {
         await getSPCBData();
@@ -121,14 +126,18 @@ class SpcbDashboardViewModel extends BaseViewModel {
       }
     } else {
       resetCurrentUserPage(isSearch: true);
+      if (recyclerData == null) {
+        await getSPCBData(isLoad: true);
+      }
       await searchSPCB(searchController.text);
-      getUpdatedList();
+      getUpdatedList(isLoad: true);
     }
     updateUI();
   }
 
   Future<void> onRetreaderTab() async {
     currentUserType = AdminUserTypes.retreader;
+    scrollController.jumpTo(0);
     if (searchController.text.isEmpty) {
       if (retreaderData?.isEmpty == true || retreaderData == null) {
         await getSPCBData();
@@ -138,12 +147,15 @@ class SpcbDashboardViewModel extends BaseViewModel {
     } else {
       resetCurrentUserPage(isSearch: true);
       await searchSPCB(searchController.text);
-      getUpdatedList();
+      if (retreaderData == null) {
+        await getSPCBData(isLoad: true);
+      }
+      getUpdatedList(isLoad: true);
     }
     updateUI();
   }
 
-  void getUpdatedList() async {
+  void getUpdatedList({bool isLoad = false}) async {
     state = ViewState.busy;
     if (searchController.text.isEmpty || isSearchExpanded == false) {
       data = tempData.isEmpty ? finalCurrentTabData() : tempData;
@@ -154,7 +166,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
     }
     updateUI();
     resetPage();
-    state = ViewState.idle;
+    state = isLoad == true ? ViewState.busy : ViewState.idle;
   }
 
   void onScrollEnding() {
@@ -171,7 +183,18 @@ class SpcbDashboardViewModel extends BaseViewModel {
     }
   }
 
-  int searchPageIncreament() {
+  int getSearchPage() {
+    switch (currentUserType) {
+      case AdminUserTypes.producer:
+        return producerSearchPage;
+      case AdminUserTypes.recycler:
+        return recyclerSearchPage;
+      case AdminUserTypes.retreader:
+        return retreaderSearchPage;
+    }
+  }
+
+  void searchPageIncreament() {
     switch (currentUserType) {
       case AdminUserTypes.producer:
         if ((getSearchLastPage() ?? 0) > producerSearchPage) {
@@ -180,7 +203,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
         } else {
           helperFunctions.logger(producerSearchPage.toString());
         }
-        return producerSearchPage;
+        break;
       case AdminUserTypes.recycler:
         if ((getSearchLastPage() ?? 0) > recyclerSearchPage) {
           recyclerSearchPage++;
@@ -188,7 +211,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
         } else {
           helperFunctions.logger(recyclerSearchPage.toString());
         }
-        return recyclerSearchPage;
+        break;
       case AdminUserTypes.retreader:
         if ((getSearchLastPage() ?? 0) > retreaderSearchPage) {
           retreaderSearchPage++;
@@ -196,7 +219,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
         } else {
           helperFunctions.logger(retreaderSearchPage.toString());
         }
-        return retreaderSearchPage;
+        break;
     }
   }
 
@@ -309,13 +332,15 @@ class SpcbDashboardViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<SpcbUsersResponseModel?>?> performSearch(String value,
-      {bool? isPaginating = false, String? userType}) async {
+      {bool? isPaginating = false,
+      String? userType,
+      bool? isLoad = false}) async {
     state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _spcbSearchResponseModel = await _spcbRepo.getSpcbUserData(
           userType: userType ?? '',
           searchValue: value,
-          page: "${searchPageIncreament()}");
+          page: "${getSearchPage()}");
       if (_spcbSearchResponseModel?.isSuccess == true) {
         _spcbSearchResponseModel?.data = SpcbUsersResponseModel.fromJson(
             _spcbSearchResponseModel?.completeResponse);
@@ -369,12 +394,13 @@ class SpcbDashboardViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<SpcbUsersResponseModel?>?> getSPCBData(
-      {bool? isPaginating = false}) async {
+      {bool? isPaginating = false, bool? isLoad = false}) async {
     state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
     try {
       _spcbResponseModel = await _spcbRepo.getSpcbUserData(
           page: "${currentUserPageIncreament()}",
-          userType: currentUserType.text.toString());
+          userType: currentUserType.text);
+
       if (_spcbResponseModel?.isSuccess == true) {
         _spcbResponseModel?.data = SpcbUsersResponseModel.fromJson(
             _spcbResponseModel?.completeResponse);
@@ -390,7 +416,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
     } catch (err) {
       helperFunctions.logger("$err");
     }
-    state = ViewState.idle;
+    state = isLoad == true ? ViewState.busy : ViewState.idle;
     return _spcbResponseModel;
   }
 
@@ -398,7 +424,6 @@ class SpcbDashboardViewModel extends BaseViewModel {
     switch (currentUserType) {
       case AdminUserTypes.producer:
         producerData = data;
-        notifyListeners();
         break;
       case AdminUserTypes.recycler:
         recyclerData = data;
