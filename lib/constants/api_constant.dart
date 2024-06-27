@@ -52,7 +52,8 @@ class APIRoutes {
   final String customProducerAPIRoute = "api/producers";
   final String spcbRaiseUserComplaintAPIRoute = "api/spcb/raise-user-complaint";
   final String spcbGetAllUsersAPIRoute = "api/spcb/get-all-users/";
-
+  final String recyclerDownloadCertificateAPIRoute =
+      "api/recycler/download-certificate";
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
 }

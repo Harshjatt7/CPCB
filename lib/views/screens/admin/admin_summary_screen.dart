@@ -9,9 +9,9 @@ import '../../widgets/app_components/admin_summary_card.dart';
 import '../../widgets/app_components/dasboard_year_filter.dart';
 
 class AdminSummaryScreen extends StatelessWidget {
-  AdminSummaryScreen({super.key, this.viewModel});
-  SummaryData? summaryData;
-  AdminDashBoardViewmodel? viewModel;
+  const AdminSummaryScreen({super.key, this.viewModel});
+  //SummaryData? summaryData;
+  final AdminDashBoardViewmodel? viewModel;
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
