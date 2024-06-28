@@ -28,11 +28,11 @@ class AdminDashboardScreen extends StatelessWidget {
               DashboardYearFilter(
                 hint: viewModel?.financialYearList.last,
                 items: viewModel?.financialYearList,
-                newValue: viewModel?.changeDropdown,
+                newValue: viewModel?.dashboardDropdownValue,
                 title: viewModel?.stringConstants.dashboard,
                 onChanged: (value) async {
-                  viewModel?.changeDropdownValue(value);
                   viewModel?.isDashboard = true;
+                  viewModel?.changeDropdownValue(value);
                   if (viewModel?.isDashboard == true) {
                     if (value != viewModel?.yearDropdownValue) {
                       await viewModel?.getEprOblications(context);
@@ -42,9 +42,9 @@ class AdminDashboardScreen extends StatelessWidget {
                       if (context.mounted) {
                         await viewModel?.getCommonEprOblications(context);
                       }
-                    } else {
-                      await viewModel?.getSummary(context);
                     }
+                  } else {
+                    await viewModel?.getSummary(context);
                   }
                 },
               ),

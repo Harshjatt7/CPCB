@@ -27,10 +27,10 @@ class AdminSummaryScreen extends StatelessWidget {
               title: viewModel?.stringConstants.dashboard,
               hint: viewModel?.yearDropdownValue,
               items: viewModel?.financialYearList,
-              newValue: viewModel?.changeDropdown,
+              newValue: viewModel?.summaryDropdownValue,
               onChanged: (value) async {
-                viewModel?.changeDropdownValue(value);
                 viewModel?.isDashboard = false;
+                viewModel?.changeDropdownValue(value);
                 if (value != viewModel?.yearDropdownValue) {
                   await viewModel?.getSummary(context);
                 }
