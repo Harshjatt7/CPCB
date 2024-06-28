@@ -84,7 +84,9 @@ class SpcbDashboardScreen extends StatelessWidget {
                         viewModel: viewModel,
                         showNoMatchingText: viewModel.producerData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
-                            ? viewModel.data ?? []
+                            ? viewModel.state == ViewState.busy
+                                ? []
+                                : viewModel.data ?? []
                             : viewModel.producerData ?? [],
                       ),
                       onTap: () async {
@@ -96,7 +98,9 @@ class SpcbDashboardScreen extends StatelessWidget {
                         viewModel: viewModel,
                         showNoMatchingText: viewModel.recyclerData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
-                            ? viewModel.data ?? []
+                            ? viewModel.state == ViewState.busy
+                                ? []
+                                : viewModel.data ?? []
                             : viewModel.recyclerData ?? [],
                       ),
                       onTap: () async {
@@ -108,7 +112,9 @@ class SpcbDashboardScreen extends StatelessWidget {
                         viewModel: viewModel,
                         showNoMatchingText: viewModel.retreaderData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
-                            ? viewModel.data ?? []
+                            ? viewModel.state == ViewState.busy
+                                ? []
+                                : viewModel.data ?? []
                             : viewModel.retreaderData ?? [],
                       ),
                       onTap: () async {
