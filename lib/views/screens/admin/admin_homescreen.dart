@@ -11,10 +11,9 @@ import '../../widgets/components/common_image_widget.dart';
 import 'admin_dashboard_screen.dart';
 
 class AdminHomeScreen extends StatelessWidget {
-  AdminHomeScreen({super.key, this.summaryData});
+  AdminHomeScreen({super.key});
   final ImageConstants imageConstants = ImageConstants();
   final AppColor appColor = AppColor();
-  final SummaryData? summaryData;
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,6 @@ import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/response/admin/admin_application_response_model.dart';
 import '../../models/response/admin/summary_response_model.dart';
 
@@ -42,26 +41,26 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   List<ApplicationResponsedData>? data;
   String? yearDropdownValue;
   String? yearDropdownError;
-  String? changeDropdown;
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
   APIResponse<AdminApplicationResponseModel?>? _adminApplicationResponseModel;
   APIResponse<AdminApplicationResponseModel?>?
       get adminApplicationResponseModel => _adminApplicationResponseModel;
-
   APIResponse<AdminSummaryResponseData?>? _adminSummaryResponseModel;
   APIResponse<AdminSummaryResponseData?>? get adminSummaryResponseModel =>
       _adminSummaryResponseModel;
   SummaryDataResponse? summaryData;
   bool isDashboard = true;
+  String? dashboardDropdownValue;
+  String? summaryDropdownValue;
 
   Future<APIResponse<AdminSummaryResponseData?>?> getSummary(
       BuildContext context) async {
     state = ViewState.busy;
-    yearDropdownValue = changeDropdown ?? financialYearList.last;
+    yearDropdownValue = summaryDropdownValue ?? financialYearList.last;
     try {
-      _adminSummaryResponseModel = await _adminRepo.getSummaryData(
-           changeDropdown ?? financialYearList.last);
+      _adminSummaryResponseModel = await _adminRepo
+          .getSummaryData(summaryDropdownValue ?? financialYearList.last);
       if (_adminSummaryResponseModel?.isSuccess == true) {
         _adminSummaryResponseModel?.data = AdminSummaryResponseData.fromJson(
             _adminSummaryResponseModel?.completeResponse);
@@ -91,10 +90,15 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   }
 
   void changeDropdownValue(newValue) {
-    changeDropdown = newValue ?? financialYearList.last;
-    if (changeDropdown != null) {
-      String startYear = changeDropdown!.split('-').first;
-      String lastYear = changeDropdown!.split('-').last;
+    if (isDashboard == true) {
+      dashboardDropdownValue = newValue ?? financialYearList.last;
+      summaryDropdownValue = newValue ?? financialYearList.last;
+    } else {
+      summaryDropdownValue = newValue ?? financialYearList.last;
+    }
+    if (summaryDropdownValue != null || dashboardDropdownValue != null) {
+      String startYear = summaryDropdownValue!.split('-').first;
+      String lastYear = summaryDropdownValue!.split('-').last;
       int stYear = int.parse(startYear);
       int edYear = int.parse(lastYear);
       startDate = DateTime(stYear, 4, 1);
@@ -104,7 +108,7 @@ class AdminDashBoardViewmodel extends BaseViewModel {
       updateUI();
     }
     updateUI();
-    if (changeDropdown == null) {
+    if (summaryDropdownValue == null || dashboardDropdownValue == null) {
       yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
     }
   }
@@ -150,7 +154,7 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   Future<APIResponse<ProducerEprOblicationsResponseModel?>?> getEprOblications(
       BuildContext context) async {
     state = ViewState.busy;
-    yearDropdownValue = changeDropdown ?? financialYearList.last;
+    yearDropdownValue = dashboardDropdownValue ?? financialYearList.last;
     try {
       _eprOblicationResponseModel =
           await _adminRepo.getEprOblications(yearDropdownValue.toString());
@@ -241,10 +245,4 @@ class AdminDashBoardViewmodel extends BaseViewModel {
         (data?.tpoChar?.creditTransfered ?? 0);
     return total;
   }
-}
-
-class SummaryData {
-  final String? financialYear;
-  final bool? isLoading;
-  const SummaryData({this.financialYear = "2024-2025", this.isLoading = false});
 }
