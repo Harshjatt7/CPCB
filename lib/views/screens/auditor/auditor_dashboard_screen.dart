@@ -1,17 +1,12 @@
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_list_view_model.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_type_badge.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../../../constants/image_constants.dart';
 import '../../widgets/app_components/auditor_bottom_sheet.dart';
 import '../../widgets/app_components/common_search_bar.dart';
 import '../../widgets/components/common_appbar.dart';
-import '../../widgets/components/common_button_widget.dart';
 
 class AuditorDashboardScreen extends StatelessWidget {
   const AuditorDashboardScreen({super.key});

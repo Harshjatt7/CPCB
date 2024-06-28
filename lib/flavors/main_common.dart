@@ -1,5 +1,4 @@
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
-import 'package:cpcb_tyre/views/screens/auditor/auditor_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/theme/themes.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';

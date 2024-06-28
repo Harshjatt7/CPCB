@@ -39,41 +39,7 @@ class AuditorBottomSheet extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          SizedBox(
-            height: 15,
-            child: Row(
-              children: [
-                CommonTextWidget(
-                  '${(0.4 * 100).toInt()}%',
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Flexible(
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 7,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: appColor.black10),
-                      ),
-                      FractionallySizedBox(
-                        widthFactor: 0.4, //progress number
-                        child: Container(
-                          height: 7,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: appColor.green,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          commonProgressBar(),
           const SizedBox(
             height: 30,
           ),
@@ -94,6 +60,44 @@ class AuditorBottomSheet extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  SizedBox commonProgressBar() {
+    return SizedBox(
+          height: 15,
+          child: Row(
+            children: [
+              CommonTextWidget(
+                '${(0.4 * 100).toInt()}%',
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Flexible(
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 7,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: appColor.black10),
+                    ),
+                    FractionallySizedBox(
+                      widthFactor: 0.4, //progress number
+                      child: Container(
+                        height: 7,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: appColor.green,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
   }
 
   Padding buildDivider() {
