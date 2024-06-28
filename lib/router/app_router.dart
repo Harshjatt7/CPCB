@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/viewmodels/admin/admin_dashboard_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_summary_screen.dart';
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';

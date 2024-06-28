@@ -64,6 +64,8 @@ class SpcbDashboardScreen extends StatelessWidget {
 
                             viewModel.updateUI();
                           } else {
+                            viewModel.emptyTempQuery();
+                            viewModel.updateUI();
                             viewModel.isSearchExpanded = false;
                             viewModel.getUpdatedList();
                           }
@@ -89,7 +91,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
-                                : viewModel.data ?? []
+                                : viewModel.producerSearchData ?? []
                             : viewModel.producerData ?? [],
                       ),
                       onTap: () async {
@@ -103,7 +105,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
-                                : viewModel.data ?? []
+                                : viewModel.recyclerSearchData ?? []
                             : viewModel.recyclerData ?? [],
                       ),
                       onTap: () async {
@@ -117,7 +119,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
-                                : viewModel.data ?? []
+                                : viewModel.retreaderSearchData ?? []
                             : viewModel.retreaderData ?? [],
                       ),
                       onTap: () async {

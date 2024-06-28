@@ -50,6 +50,10 @@ class SpcbDashboardViewModel extends BaseViewModel {
   List<Data>? recyclerData;
   List<Data>? retreaderData;
 
+  List<Data>? producerSearchData;
+  List<Data>? recyclerSearchData;
+  List<Data>? retreaderSearchData;
+
   List<Data> tempData = [];
   int page = 1;
   int producerPage = 1;
@@ -140,6 +144,8 @@ class SpcbDashboardViewModel extends BaseViewModel {
         data = producerData;
       }
     } else {
+      data = producerSearchData;
+
       if (searchController.text != getTempQuery()) {
         resetCurrentUserPage(isSearch: true);
         await searchSPCB(searchController.text);
@@ -159,9 +165,10 @@ class SpcbDashboardViewModel extends BaseViewModel {
         data = recyclerData;
       }
     } else {
+      data = recyclerSearchData;
+
       if (searchController.text != getTempQuery()) {
         resetCurrentUserPage(isSearch: true);
-
         await searchSPCB(searchController.text);
         getUpdatedList(isLoad: false);
       }
@@ -179,6 +186,8 @@ class SpcbDashboardViewModel extends BaseViewModel {
         data = retreaderData;
       }
     } else {
+      data = retreaderSearchData;
+
       if (searchController.text != getTempQuery()) {
         resetCurrentUserPage(isSearch: true);
         await searchSPCB(searchController.text);
@@ -386,8 +395,10 @@ class SpcbDashboardViewModel extends BaseViewModel {
         getCurrentSearchResponseModel();
         if (isPaginating == true) {
           data?.addAll(currentTabSearchData() ?? []);
+          alreadyObtainSearchData();
         } else {
           data = currentTabSearchData();
+          alreadyObtainSearchData();
         }
 
         assignTempQuery();
@@ -480,6 +491,20 @@ class SpcbDashboardViewModel extends BaseViewModel {
     }
   }
 
+  void alreadyObtainSearchData({AdminUserTypes? userType}) {
+    switch (userType ?? currentUserType) {
+      case AdminUserTypes.producer:
+        producerSearchData = data;
+        break;
+      case AdminUserTypes.recycler:
+        recyclerSearchData = data;
+        break;
+      case AdminUserTypes.retreader:
+        retreaderSearchData = data;
+        break;
+    }
+  }
+
   void getCurrentResponseModel({AdminUserTypes? userType}) {
     switch (userType ?? currentUserType) {
       case AdminUserTypes.producer:
@@ -531,5 +556,14 @@ class SpcbDashboardViewModel extends BaseViewModel {
       case AdminUserTypes.retreader:
         return retreaderQueryText;
     }
+  }
+
+  void emptyTempQuery() {
+    producerQueryText = "";
+    recyclerQueryText = "";
+    retreaderQueryText = "";
+    producerSearchData = [];
+    recyclerSearchData = [];
+    retreaderSearchData = [];
   }
 }

@@ -6,6 +6,7 @@ import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_spcb_card.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../constants/string_constant.dart';
 import '../../../viewmodels/spcb/spcb_dashboard_view_model.dart';
@@ -75,7 +76,7 @@ class SpcbCommonTab extends StatelessWidget {
                                           controller: queryController,
                                           labelText: stringConstants.addComment,
                                           hintText:
-                                              stringConstants.writeComment,
+                                              stringConstants.writeComment.i18n(),
                                           onSubmit: () async {
                                             if (ctx.mounted) {
                                               Navigator.pop(ctx);
