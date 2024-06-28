@@ -1,13 +1,17 @@
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_list_view_model.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_type_badge.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../../../constants/image_constants.dart';
+import '../../widgets/app_components/auditor_bottom_sheet.dart';
 import '../../widgets/app_components/common_search_bar.dart';
 import '../../widgets/components/common_appbar.dart';
+import '../../widgets/components/common_button_widget.dart';
 
 class AuditorDashboardScreen extends StatelessWidget {
   const AuditorDashboardScreen({super.key});
@@ -64,31 +68,11 @@ class AuditorDashboardScreen extends StatelessWidget {
                             viewModel.isSearchExpanded = false;
                             // viewModel.getUpdatedList();
                           }
-
-                          // bottom sheet
+                          //TODO: Remove this auditor bottom sheetlater
                           showBottomSheet(
                             context: context,
                             builder: (ctx) {
-                              return Container(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const CommonTextWidget("View Detail"),
-                                    // const LinearProgressIndicator(),
-                                    detailCard(context, viewModel),
-                                    Divider(
-                                      height: 1,
-                                      color: viewModel.appColor.black70,
-                                    ),
-                                    detailCard(context, viewModel),
-                                    Divider(
-                                      height: 1,
-                                      color: viewModel.appColor.black70,
-                                    ),
-                                    detailCard(context, viewModel),
-                                  ],
-                                ),
-                              );
+                              return AuditorBottomSheet();
                             },
                           );
                         },
@@ -101,62 +85,5 @@ class AuditorDashboardScreen extends StatelessWidget {
             body: const CommonSingleChildScrollView(),
           );
         });
-  }
-
-  Container detailCard(BuildContext context, AuditorListViewModel viewModel) {
-    return Container(
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              addUnitData(context, viewModel, "Unit Name", "ABC-XYZ Unit"),
-              const SizedBox(
-                height: 16,
-              ),
-              addUnitData(
-                  context, viewModel, "Unit Registration No.", "FHR5478D"),
-            ],
-          ),
-          const SizedBox(
-            width: 25,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              addUnitData(
-                  context, viewModel, "Unit Registration No.", "FHR5478D"),
-              const SizedBox(
-                height: 16,
-              ),
-              addUnitData(context, viewModel, "Unit Type", "Producer"),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Column addUnitData(BuildContext context, AuditorListViewModel viewModel,
-      String label, String data) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CommonTextWidget(
-          label,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: viewModel.appColor.black50),
-        ),
-        const SizedBox(
-          height: 4,
-        ),
-        CommonTextWidget(
-          data,
-          style: Theme.of(context).textTheme.displayMedium,
-        ),
-      ],
-    );
   }
 }

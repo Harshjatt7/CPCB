@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
 
 import '../router/app_router.dart';
+import '../views/screens/onboarding/splash_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -58,8 +59,7 @@ class MyAppState extends State<MyApp> {
             darkTheme: _appTheme.darkTheme(context),
             locale: currentLocale,
             navigatorKey: APIBase.navigatorKey,
-            // home: SplashScreen(),
-            home: AuditorHomeScreen(),
+            home: SplashScreen(),
           );
         });
   }
