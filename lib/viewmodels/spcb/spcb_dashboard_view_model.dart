@@ -562,8 +562,8 @@ class SpcbDashboardViewModel extends BaseViewModel {
     producerQueryText = "";
     recyclerQueryText = "";
     retreaderQueryText = "";
-    producerSearchData = [];
-    recyclerSearchData = [];
-    retreaderSearchData = [];
+    producerSearchData = null;
+    recyclerSearchData = null;
+    retreaderSearchData = null;
   }
 }

@@ -75,8 +75,8 @@ class SpcbCommonTab extends StatelessWidget {
                                           ctx: ctx,
                                           controller: queryController,
                                           labelText: stringConstants.addComment,
-                                          hintText:
-                                              stringConstants.writeComment.i18n(),
+                                          hintText: stringConstants.writeComment
+                                              .i18n(),
                                           onSubmit: () async {
                                             if (ctx.mounted) {
                                               Navigator.pop(ctx);

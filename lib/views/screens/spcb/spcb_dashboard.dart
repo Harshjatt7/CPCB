@@ -87,7 +87,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        showNoMatchingText: viewModel.producerData == null,
+                        showNoMatchingText: viewModel.producerSearchData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
@@ -101,7 +101,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        showNoMatchingText: viewModel.recyclerData == null,
+                        showNoMatchingText: viewModel.recyclerSearchData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
@@ -115,7 +115,7 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        showNoMatchingText: viewModel.retreaderData == null,
+                        showNoMatchingText: viewModel.retreaderSearchData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
