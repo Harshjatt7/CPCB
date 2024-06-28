@@ -20,6 +20,9 @@ class SpcbDashboardScreen extends StatelessWidget {
     final stringConstants = StringConstants();
     final appColor = AppColor();
     return BaseView<SpcbDashboardViewModel>(
+        onModelReady: (viewModel) async {
+          await viewModel.getAllTabsData();
+        },
         builder: (context, viewModel, child) {
           return CustomScaffold(
             isLoading: viewModel.state == ViewState.busy,
@@ -125,9 +128,6 @@ class SpcbDashboardScreen extends StatelessWidget {
               ),
             ),
           );
-        },
-        onModelReady: (viewModel) async {
-          await viewModel.getSPCBData();
         },
         viewModel: SpcbDashboardViewModel());
   }
