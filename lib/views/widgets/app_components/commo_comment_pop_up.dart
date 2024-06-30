@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import '../components/common_button_widget.dart';
 import '../components/common_text_widget.dart';
 
@@ -50,7 +51,7 @@ class CommonCommentPopUp extends StatelessWidget {
                 focusNode: FocusNode(canRequestFocus: true),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return stringConstants.enterComment;
+                    return stringConstants.enterComment.i18n();
                   } else {
                     return null;
                   }

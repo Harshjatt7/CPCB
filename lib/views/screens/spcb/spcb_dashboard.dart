@@ -20,6 +20,9 @@ class SpcbDashboardScreen extends StatelessWidget {
     final stringConstants = StringConstants();
     final appColor = AppColor();
     return BaseView<SpcbDashboardViewModel>(
+        onModelReady: (viewModel) async {
+          await viewModel.getAllTabsData();
+        },
         builder: (context, viewModel, child) {
           return CustomScaffold(
             isLoading: viewModel.state == ViewState.busy,
@@ -61,6 +64,8 @@ class SpcbDashboardScreen extends StatelessWidget {
 
                             viewModel.updateUI();
                           } else {
+                            viewModel.emptyTempQuery();
+                            viewModel.updateUI();
                             viewModel.isSearchExpanded = false;
                             viewModel.getUpdatedList();
                           }
@@ -82,11 +87,11 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        showNoMatchingText: viewModel.producerData == null,
+                        showNoMatchingText: viewModel.producerSearchData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
-                                : viewModel.data ?? []
+                                : viewModel.producerSearchData ?? []
                             : viewModel.producerData ?? [],
                       ),
                       onTap: () async {
@@ -96,11 +101,11 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        showNoMatchingText: viewModel.recyclerData == null,
+                        showNoMatchingText: viewModel.recyclerSearchData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
-                                : viewModel.data ?? []
+                                : viewModel.recyclerSearchData ?? []
                             : viewModel.recyclerData ?? [],
                       ),
                       onTap: () async {
@@ -110,11 +115,11 @@ class SpcbDashboardScreen extends StatelessWidget {
                   TabBarModel(
                       tab: SpcbCommonTab(
                         viewModel: viewModel,
-                        showNoMatchingText: viewModel.retreaderData == null,
+                        showNoMatchingText: viewModel.retreaderSearchData == null,
                         data: (viewModel.searchController.text.isNotEmpty)
                             ? viewModel.state == ViewState.busy
                                 ? []
-                                : viewModel.data ?? []
+                                : viewModel.retreaderSearchData ?? []
                             : viewModel.retreaderData ?? [],
                       ),
                       onTap: () async {
@@ -125,9 +130,6 @@ class SpcbDashboardScreen extends StatelessWidget {
               ),
             ),
           );
-        },
-        onModelReady: (viewModel) async {
-          await viewModel.getSPCBData();
         },
         viewModel: SpcbDashboardViewModel());
   }
