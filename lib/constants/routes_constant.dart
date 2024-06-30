@@ -22,4 +22,5 @@ class AppRoutes {
   static const String adminSummaryScreenRoute = "/adminSummaryScreenRoute";
   static const String spcbHomeScreenRoute = "/spcbHomeScreenRoute";
   static const String customHomeScreenRoute = "/customHomeScreenRoute";
+  static const String auditorHomeScreen = "/auditorHomeScreenRoute";
 }

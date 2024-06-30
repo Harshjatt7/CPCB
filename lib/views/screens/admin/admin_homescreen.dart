@@ -5,7 +5,6 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/screens/common_screens/profile_screen.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_bottom_navigation_bar_screen_widget.dart';
 import 'package:flutter/material.dart';
-
 import '../../../theme/app_color.dart';
 import '../../widgets/components/common_image_widget.dart';
 import 'admin_dashboard_screen.dart';
