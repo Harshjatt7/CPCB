@@ -70,4 +70,5 @@ class ImageConstants {
       "assets/images/icons/download_application_icon.svg";
   final String commentIcon = "assets/images/icons/comment_icon.svg";
   final String summaryIcon = "assets/images/icons/summary_icon.svg";
+  final String viewEyes = "assets/images/icons/view_eyes.svg";
 }

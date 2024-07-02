@@ -10,6 +10,7 @@ class CommonSearchBarWidget extends StatefulWidget {
   final String? title;
   final String? suffixIcon;
   final VoidCallback? onSuffixTap;
+  final VoidCallback? onFilterTap;
   final TextEditingController controller;
   final TextInputType? textInputType;
   final Color? textColor;
@@ -39,6 +40,7 @@ class CommonSearchBarWidget extends StatefulWidget {
     this.showFilter = false,
     this.isBackButton = false,
     this.onBackButtonTap,
+    this.onFilterTap,
   });
 
   @override
@@ -170,16 +172,16 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
           ),
           if (widget.showFilter == true)
             const SizedBox(
-              width: 15,
+              width: 20,
             ),
           if (widget.showFilter == true)
             GestureDetector(
-              onTap: () {},
+              onTap: widget.onFilterTap,
               child: CommonImageWidget(
                 imageSource: imageConstants.filter,
                 isNetworkImage: false,
-                width: 24,
-                height: 24,
+                width: 20,
+                height: 20,
               ),
             )
         ],

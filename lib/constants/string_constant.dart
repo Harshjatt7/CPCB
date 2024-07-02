@@ -198,4 +198,18 @@ class StringConstants {
   final String close = "close";
   final String options = "Options";
   final String downloadTransactionLabel = "download-transaction-label";
+
+  final String viewDetail =  "view-detail";
+  final String unitName = "unit-name";
+  final String unitGstin = "unit-gstin";
+  final String unitRegisteration = "unit-registeration";
+  final String auditorUnitType = "auditor-unit-type";
+  final String unitAddress = "unit-address";
+  final String district = "district";
+  final String createdOn = "created-on";
+  final String auditorStartDate = "auditor-start-date";
+  final String auditorEndDate = "auditor-end-date";
+  final String quarterFinalYear = "quarter-final-year";
+  final String auditList = "audit-list";
+
 }

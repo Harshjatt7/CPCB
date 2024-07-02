@@ -183,5 +183,17 @@
     "write-comment": "Write your comment ...",
     "spcb-dashboard": "SPCB Dashboard",
     "state-authorized":"State Authorized",
-    "enter-comment": "Please enter comment"
+    "enter-comment": "Please enter comment",
+    "view-detail" : "View Detail",
+    "unit-name" : "Unit Name",
+    "unit-gstin" : "Unit GSTIN",
+    "unit-registeration" : "Unit Registration No.",
+    "auditor-unit-type" : "Unit Type",
+    "unit-address" : "Unit Address",
+    "district" : "District",
+    "created-on" : "Created On",
+    "auditor-end-date" : "Audit End Date",
+    "auditor-start-date" : "Audit Start Date",
+    "quarter-final-year": "Quarter & Finical Year",
+    "audit-list": "Audit List"
 }
