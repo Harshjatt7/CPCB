@@ -1,5 +1,7 @@
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_list_view_model.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_data_table.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +79,29 @@ class AuditorDashboardScreen extends StatelessWidget {
                 ),
               ),
             ),
-            body: const CommonSingleChildScrollView(),
+            body: CommonSingleChildScrollView(
+              child: Column(
+                children: [
+                  CommonDataTable(),
+                  CommonRadioButton(
+                    groupValue: viewModel.groupValue ?? '',
+                    label1: "Yes",
+                    label2: "No",
+                    value1: "yes",
+                    value2: "no",
+                    onChanged1: (value) {
+                      viewModel.groupValue = value ?? '';
+                      viewModel.updateUI();
+                    },
+                    onChanged2: (value) {
+                      viewModel.groupValue = value ?? '';
+                      viewModel.updateUI();
+                    },
+                    title: "Misreporting in Sales data of the Tyre",
+                  )
+                ],
+              ),
+            ),
           );
         });
   }
