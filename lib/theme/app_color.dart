@@ -17,12 +17,16 @@ class AppColor {
   final Color black10 = const Color(0xFFE5E5E5);
   final Color black05 = const Color(0xFFF2F2F2);
   final Color black01 = const Color(0xFF222222);
+  final Color black02 = const Color(0xFF383838);
 
   final Color darkBlue60 = const Color(0xFF94A1B1);
   final Color darkBlue10 = const Color(0xFFEDEFF2);
   final Color codGrey = const Color(0xFF171717);
   final Color grey03 = const Color(0xFFD3D3D3);
   final Color grey01 = const Color(0xFF919191);
+  final Color grey40 = const Color(0xDCDCDCDC);
+  final Color grey20 = const Color(0xFFF6F6F6);
+  final Color grey15 = const Color(0xFFFAFAFA);
 
   final Color darkGreen = const Color(0xFF18632E);
   final Color primaryGreen = const Color(0xFF1BB934);
@@ -58,4 +62,6 @@ class AppColor {
   final Color snackbarGreenBackground = const Color(0xFFEDF5EE);
   final Color snackbarGreenContentColor = const Color(0xFF469A55);
   final Color snackbarGreenOuterBorder = const Color(0xFFC8E1CC);
+
+  final Color blue100 = const Color(0xFF038BE4);
 }
