@@ -1,8 +1,8 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
-// ignore: must_be_immutable
 class CommonRadioButton extends StatelessWidget {
   final String groupValue;
   final String value1;
@@ -12,6 +12,7 @@ class CommonRadioButton extends StatelessWidget {
   final String? title;
   final void Function(String?)? onChanged1;
   final void Function(String?)? onChanged2;
+  final bool? isMandatory;
 
   const CommonRadioButton(
       {super.key,
@@ -22,16 +23,31 @@ class CommonRadioButton extends StatelessWidget {
       required this.label2,
       this.title,
       required this.onChanged1,
-      required this.onChanged2});
+      required this.onChanged2,
+      this.isMandatory = false});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonTextWidget(
-          title ?? '',
-          style: Theme.of(context).textTheme.labelSmall,
+        RichText(
+          text: TextSpan(
+            text: title?.i18n(),
+            style: Theme.of(context)
+                .textTheme
+                .labelSmall
+                ?.copyWith(color: AppColor().grey01),
+            children: [
+              TextSpan(
+                text: isMandatory == true ? " *" : "",
+                style: Theme.of(context)
+                    .textTheme
+                    .labelSmall
+                    ?.copyWith(color: AppColor().red),
+              ),
+            ],
+          ),
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
