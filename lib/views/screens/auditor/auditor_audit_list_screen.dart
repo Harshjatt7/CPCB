@@ -49,21 +49,23 @@ class AuditorListScreen extends StatelessWidget {
                         isSearchExpanded: viewModel.isSearchExpanded,
                         controller: viewModel.searchController,
                         hintText: viewModel.stringConstants.searchHere,
-                        onChanged: (value) {
+                        onChanged: (value) async {
                           viewModel.isSearchExpanded = true;
-                          // viewModel.searchRetreader(value);
+                          // viewModel.searchRetreader(value, userType ?? "");
                           if (viewModel.searchController.text.isEmpty) {
-                            // viewModel.getUpdatedList();
+                            //viewModel.getUpdatedList();
                           }
                         },
                         onSuffixTap: () {
                           if (viewModel.searchController.text.isEmpty) {
                             viewModel.isSearchExpanded =
                                 !viewModel.isSearchExpanded;
-                            // viewModel.getUpdatedList();
+                            viewModel.updateUI();
+                            //viewModel.getUpdatedList();
                           } else {
                             viewModel.isSearchExpanded = false;
-                            // viewModel.getUpdatedList();
+                            viewModel.updateUI();
+                            //viewModel.getUpdatedList();
                           }
                         },
                         onFilterTap: () {},
