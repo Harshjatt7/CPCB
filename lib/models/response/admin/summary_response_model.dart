@@ -44,20 +44,20 @@ class SummaryDataResponse {
 }
 
 class Producer {
-  double? totalEprObligation;
+  num? totalEprObligation;
 
   Producer({
     this.totalEprObligation,
   });
 
   factory Producer.fromJson(Map<String, dynamic> json) => Producer(
-        totalEprObligation: json["totalEprObligation"]?.toDouble(),
+        totalEprObligation: json["totalEprObligation"],
       );
 }
 
 class Recycler {
-  int? earnedCredit;
-  int? creditTransfered;
+  num? earnedCredit;
+  num? creditTransfered;
 
   Recycler({
     this.earnedCredit,
@@ -71,8 +71,8 @@ class Recycler {
 }
 
 class Retreader {
-  int? totalCredit;
-  int? creditTransfered;
+  num? totalCredit;
+  num? creditTransfered;
 
   Retreader({
     this.totalCredit,
