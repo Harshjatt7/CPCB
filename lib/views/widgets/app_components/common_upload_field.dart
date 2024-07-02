@@ -9,8 +9,8 @@ class CommonDocumentField extends StatelessWidget {
   final String? fileName;
   final String label;
   final String? error;
-  final AppColor appColor=AppColor();
-   CommonDocumentField(
+  final AppColor appColor = AppColor();
+  CommonDocumentField(
       {super.key,
       required this.onTap,
       this.fileName,
@@ -37,7 +37,10 @@ class CommonDocumentField extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall
-                              ?.copyWith(color: appColor.grey01)),
+                              ?.copyWith(
+                                  color: fileName != null
+                                      ? appColor.blue100
+                                      : appColor.grey01)),
                     ),
                     WidgetSpan(
                       child: CommonTextWidget(fileName == null ? " *" : "",
