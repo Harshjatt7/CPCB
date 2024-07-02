@@ -72,7 +72,6 @@ class StringConstants {
   final String writeComment = "write-comment";
   final String spcbDashboard = "spcb-dashboard";
 
-
   // Dashboard
   final String applicationNumber = "application-number";
 
@@ -165,6 +164,8 @@ class StringConstants {
   final String apply = "apply";
 
   final String stateAuthorized = "state-authorized";
+
+  final String totalAudits = "total-audits";
 
   //User Types
   static const String admin = "Admin";

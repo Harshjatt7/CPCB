@@ -170,9 +170,9 @@
     "cancel": "Cancel",
     "mandatory-tyre-source": "It is mandatory to select tyre Source",
     "recycled-tyre": "Recycled Tyre",
-    "filter":"Filter",
-    "unit-type":"Unit Type",
-    "apply":"Apply",
+    "filter": "Filter",
+    "unit-type": "Unit Type",
+    "apply": "Apply",
     "acknowledge": "Acknowledge",
     "reschedule": "Reschedule",
     "previously-selected-start-date": "Previously Selected Start Date",
@@ -182,6 +182,7 @@
     "add-comment": "Add Comment",
     "write-comment": "Write your comment ...",
     "spcb-dashboard": "SPCB Dashboard",
-    "state-authorized":"State Authorized",
-    "enter-comment": "Please enter comment"
+    "state-authorized": "State Authorized",
+    "enter-comment": "Please enter comment",
+    "total-audits": "Total Audits"
 }

@@ -1,3 +1,5 @@
+import 'package:cpcb_tyre/views/screens/auditor/auditor_dashboard_screen.dart';
+
 /// [ImageConstants] will be used to store the path of various image asset files
 class ImageConstants {
   final String contactPage = "assets/images/logo/contact_page.svg";
@@ -70,4 +72,10 @@ class ImageConstants {
       "assets/images/icons/download_application_icon.svg";
   final String commentIcon = "assets/images/icons/comment_icon.svg";
   final String summaryIcon = "assets/images/icons/summary_icon.svg";
+
+  // Auditor Dashboard
+  final String auditorDashboardBackground =
+      "assets/images/background/auditor_background1.png";
+  final String auditorDashboardTotalIcon =
+      "assets/images/icons/audit_dashboard_total_icon.svg";
 }
