@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class AuditorListViewModel extends BaseViewModel {
   TextEditingController searchController = TextEditingController();
   bool isSearchExpanded = false;
-  String? groupValue = 'no';
+  String groupValue = 'no';
   final appColor = AppColor();
   final stringConstants = StringConstants();
 }

@@ -27,6 +27,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final void Function(String)? onChanged;
   final bool? isLastField;
   final Color? iconColor;
+  final Color? bgColor;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -52,28 +53,29 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   /// [isLastField] will be true if the textfield is last in any given form to show he "done" or check button in keyboard.
   /// By default it's value will be false.
 
-  const CommonTextFormFieldWidget(
-      {super.key,
-      required this.hintText,
-      required this.isMandatory,
-      required this.controller,
-      this.isObscure = false,
-      this.icon,
-      this.textColor,
-      this.isPasswordField = false,
-      this.textInputType = TextInputType.text,
-      this.validator,
-      this.isReadOnly = false,
-      this.isPassword = false,
-      this.onSuffixTap,
-      this.onChanged,
-      this.disabledBgColor,
-      this.onTap,
-      this.inputFormatters,
-      this.isDocument,
-      this.isLastField = false,
-      this.iconColor,
-      });
+  const CommonTextFormFieldWidget({
+    super.key,
+    required this.hintText,
+    required this.isMandatory,
+    required this.controller,
+    this.isObscure = false,
+    this.icon,
+    this.textColor,
+    this.isPasswordField = false,
+    this.textInputType = TextInputType.text,
+    this.validator,
+    this.isReadOnly = false,
+    this.isPassword = false,
+    this.onSuffixTap,
+    this.onChanged,
+    this.disabledBgColor,
+    this.onTap,
+    this.inputFormatters,
+    this.bgColor,
+    this.isDocument,
+    this.isLastField = false,
+    this.iconColor,
+  });
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
@@ -95,7 +97,6 @@ class _CommonTextFormFieldWidgetNewState
       }
     });
   }
-
 
   @override
   void initState() {
@@ -135,7 +136,7 @@ class _CommonTextFormFieldWidgetNewState
           decoration: BoxDecoration(
               color: widget.isReadOnly == true
                   ? widget.disabledBgColor ?? appColor.grey03
-                  : appColor.transparent,
+                  : widget.bgColor ?? appColor.transparent,
               border: Border.all(
                   color: error != null ? appColor.red : appColor.black20),
               borderRadius: BorderRadius.circular(5)),
@@ -156,7 +157,6 @@ class _CommonTextFormFieldWidgetNewState
             showCursor: true,
             cursorErrorColor: appColor.grey01,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            
             validator: (val) {
               if (widget.validator != null) {
                 error = widget.validator!(widget.controller.text);
@@ -176,20 +176,20 @@ class _CommonTextFormFieldWidgetNewState
             readOnly: widget.isReadOnly ?? false,
             cursorHeight: 20,
             keyboardType: widget.textInputType ?? TextInputType.text,
-            style:  widget.isDocument == true?
-             Theme.of(context).textTheme.displaySmall!.copyWith(
-              height: 1.5,
-                color: widget.textColor ?? appColor.black90,
-                decoration: widget.isDocument == true
-                    ? TextDecoration.underline
-                    : TextDecoration.none,
-                letterSpacing: widget.isObscure ? 5 : null):
-            Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: widget.textColor ?? appColor.black90,
-                decoration: widget.isDocument == true
-                    ? TextDecoration.underline
-                    : TextDecoration.none,
-                letterSpacing: widget.isObscure ? 5 : null),
+            style: widget.isDocument == true
+                ? Theme.of(context).textTheme.displaySmall!.copyWith(
+                    height: 1.5,
+                    color: widget.textColor ?? appColor.black90,
+                    decoration: widget.isDocument == true
+                        ? TextDecoration.underline
+                        : TextDecoration.none,
+                    letterSpacing: widget.isObscure ? 5 : null)
+                : Theme.of(context).textTheme.labelSmall!.copyWith(
+                    color: widget.textColor ?? appColor.black90,
+                    decoration: widget.isDocument == true
+                        ? TextDecoration.underline
+                        : TextDecoration.none,
+                    letterSpacing: widget.isObscure ? 5 : null),
             textInputAction: widget.isLastField == true ||
                     widget.textInputType == TextInputType.number
                 ? TextInputAction.done
@@ -217,8 +217,7 @@ class _CommonTextFormFieldWidgetNewState
                     ],
                   ),
                 ),
-              
-                contentPadding: 
+                contentPadding:
                     const EdgeInsets.only(top: 8, bottom: 6, left: 20),
                 errorStyle: Theme.of(context)
                     .textTheme
@@ -229,7 +228,7 @@ class _CommonTextFormFieldWidgetNewState
                 border: InputBorder.none,
                 focusedErrorBorder: InputBorder.none,
                 errorBorder: InputBorder.none,
-                suffixIconColor: widget.iconColor??appColor.black70,
+                suffixIconColor: widget.iconColor ?? appColor.black70,
                 suffixIcon: widget.icon != null
                     ? suffixWidget()
                     : widget.isPasswordField == true
@@ -270,12 +269,12 @@ class _CommonTextFormFieldWidgetNewState
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         child: CommonImageWidget(
-            width: 20,
-            fit: BoxFit.fitWidth,
-            imageSource: widget.icon ?? "",
-            isNetworkImage: false,
-            imageColor: widget.iconColor??appColor.black,
-            ),
+          width: 20,
+          fit: BoxFit.fitWidth,
+          imageSource: widget.icon ?? "",
+          isNetworkImage: false,
+          imageColor: widget.iconColor ?? appColor.black,
+        ),
       ),
     );
   }

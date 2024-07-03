@@ -72,7 +72,10 @@ class StringConstants {
   final String writeComment = "write-comment";
   final String spcbDashboard = "spcb-dashboard";
 
-
+  final String auditFormRecycler = "audit-form-recycler";
+  final String savedAsDraft="save-as-draft";
+  final String next="next";
+  
   // Dashboard
   final String applicationNumber = "application-number";
 
