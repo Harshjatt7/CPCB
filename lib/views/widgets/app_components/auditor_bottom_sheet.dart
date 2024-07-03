@@ -1,9 +1,7 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_progress_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../../../constants/string_constant.dart';
 import '../components/common_button_widget.dart';
 import '../components/common_text_widget.dart';
@@ -23,7 +21,9 @@ class AuditorBottomSheet extends StatelessWidget {
       this.currentStatus,
       this.createdOn,
       this.endDate,
-      this.startDate});
+      this.startDate,
+      this.widthFactor,
+      this.progress});
   final appColor = AppColor();
   final String? status;
   final String? unitName;
@@ -37,13 +37,16 @@ class AuditorBottomSheet extends StatelessWidget {
   final String? createdOn;
   final String? startDate;
   final String? endDate;
+  final double? widthFactor;
+  final int? progress;
   final stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.9),
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.9,
+      ),
       child: CommonSingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(24),
@@ -74,7 +77,8 @@ class AuditorBottomSheet extends StatelessWidget {
                 height: 16,
               ),
               CommonProgressBar(
-                widthFactor: 0.4,
+                widthFactor: widthFactor,
+                progress: progress,
               ),
               const SizedBox(
                 height: 30,
@@ -202,7 +206,6 @@ class AuditorBottomSheet extends StatelessWidget {
               SizedBox(
                 height: isTypeBadge == true ? 28 : 16,
               ),
-              
               addUnitData(context, label: fourthLabel, data: fourthValue),
             ],
           ),
@@ -227,7 +230,12 @@ class AuditorBottomSheet extends StatelessWidget {
           height: 4,
         ),
         isTypeBadge == true
-            ? CommonTypeBadge(text: data ?? "")
+            ? CommonTypeBadge(
+                text: data ?? "",
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(color: appColor.black70))
             : CommonTextWidget(
                 data ?? "-",
                 useLocalization: false,

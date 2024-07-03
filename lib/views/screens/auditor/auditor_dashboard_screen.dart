@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_list_view_model.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
@@ -6,6 +5,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/image_constants.dart';
+import '../../../viewmodels/auditor/auditor_dashboard_view_model.dart';
 import '../../widgets/app_components/common_search_bar.dart';
 import '../../widgets/components/common_appbar.dart';
 
@@ -14,9 +14,9 @@ class AuditorDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<AuditorListViewModel>(
+    return BaseView<AuditorDashboardViewModel>(
         onModelReady: (viewModel) {},
-        viewModel: AuditorListViewModel(),
+        viewModel: AuditorDashboardViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
             appBar: PreferredSize(
@@ -43,7 +43,7 @@ class AuditorDashboardScreen extends StatelessWidget {
                         color: viewModel.appColor.black10,
                       ))),
                       child: CommonSearchBarWidget(
-                        title: viewModel.stringConstants.auditList,
+                        title: viewModel.stringConstants.dashboard,
                         isSearchExpanded: viewModel.isSearchExpanded,
                         controller: viewModel.searchController,
                         hintText: viewModel.stringConstants.searchHere,

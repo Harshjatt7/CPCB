@@ -16,6 +16,7 @@ class AuditListCard extends StatelessWidget {
     this.unitName,
     this.district,
     this.date,
+    this.widthFactor,
     this.progress,
     this.year,
     this.onTap,
@@ -25,7 +26,8 @@ class AuditListCard extends StatelessWidget {
   final String? unitName;
   final String? district;
   final String? year;
-  final double? progress;
+  final double? widthFactor;
+  final int? progress;
   final String? date;
   final VoidCallback? onTap;
   final stringConstants = StringConstants();
@@ -83,7 +85,8 @@ class AuditListCard extends StatelessWidget {
             height: 10,
           ),
           CommonProgressBar(
-            widthFactor: progress,
+            widthFactor: widthFactor,
+            progress: progress,
           ),
           const SizedBox(
             height: 4,

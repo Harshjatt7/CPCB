@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import '../components/common_text_widget.dart';
 
 class CommonProgressBar extends StatelessWidget {
-  CommonProgressBar({super.key,this.widthFactor});
+  CommonProgressBar({super.key, this.widthFactor,this.progress});
   final double? widthFactor;
+  final int? progress;
   final appColor = AppColor();
 
   @override
@@ -15,7 +16,7 @@ class CommonProgressBar extends StatelessWidget {
       child: Row(
         children: [
           CommonTextWidget(
-            '${(0.4 * 100).toInt()}%',
+            '$progress%',
           ),
           const SizedBox(
             width: 4,

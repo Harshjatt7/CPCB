@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../constants/enums/enums.dart';
 import '../../../constants/image_constants.dart';
 import '../../../viewmodels/auditor/auditor_list_view_model.dart';
 import '../../widgets/app_components/audit_list_card.dart';
@@ -16,7 +15,9 @@ class AuditorListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<AuditorListViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) {
+          viewModel.progressStatus(0.9);
+        },
         viewModel: AuditorListViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
@@ -76,45 +77,52 @@ class AuditorListScreen extends StatelessWidget {
               ),
             ),
             body: CommonSingleChildScrollView(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: AuditListCard(
-                  userType: "Producer",
-                  unitName: "ABC-XYZ Unit",
-                  status: "Open",
-                  district: "South Delhi",
-                  year: "Apr-Jul, 2023-24",
-                  date: "30/08/2023",
-                  progress: 0.4,
-                  onTap: () {
-                    showModalBottomSheet(
-                      isScrollControlled: true,
-                      context: context,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero),
-                      builder: (ctx) {
-                        return AuditorBottomSheet(
-                          status: AuditorStatus.acknowledge.text,
-                          unitName: "ABC-XYZ Unit",
-                          unitRegisteration: "24753942FH",
-                          unitGstin: "FHR5478D",
-                          unitType: "Producer",
-                          unitAddress:
-                              "12/D Ayurveda Nagar, Opp. Ansal Plaza, South Delhi, New Delhi-110049",
-                          district: "South District",
-                          state: "New Delhi",
-                          currentStatus: "In progress",
-                          createdOn: "12-Mar-2024",
-                          startDate: "15-Mar-2024",
-                          endDate: "-",
-                        );
-                      },
-                    );
-                  },
-                ),
+                child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: Column(
+                children: List<Widget>.generate(10, (index) {
+                  return AuditListCard(
+                    userType: "Producer",
+                    unitName: "ABC-XYZ Unit",
+                    status: "Open",
+                    district: "South Delhi",
+                    year: "Apr-Jul, 2023-24",
+                    date: "30/08/2023",
+                    progress: viewModel.progress,
+                    widthFactor: 0.9,
+                    onTap: () {
+                      viewModel.getStatus("In Progress");
+                      showModalBottomSheet(
+                        
+                        isScrollControlled: true,
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero),
+                        builder: (context) {
+                          return AuditorBottomSheet(
+                            widthFactor: 0.9,
+                            progress: viewModel.progress,
+                            status: viewModel.applicationStatus,
+                            unitName: "ABC-XYZ Unit",
+                            unitRegisteration: "24753942FH",
+                            unitGstin: "FHR5478D",
+                            unitType: "Producer",
+                            unitAddress:
+                                "12/D Ayurveda Nagar, Opp. Ansal Plaza, South Delhi, New Delhi-110049",
+                            district: "South District",
+                            state: "New Delhi",
+                            currentStatus: "In progress",
+                            createdOn: "12-Mar-2024",
+                            startDate: "15-Mar-2024",
+                            endDate: "-",
+                          );
+                        },
+                      );
+                    },
+                  );
+                }),
               ),
-            ),
+            )),
           );
         });
   }
