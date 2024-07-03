@@ -31,27 +31,28 @@ class CommonRadioButton extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 17),
-          child: RichText(
-            text: TextSpan(
-              text: title,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge
-                  ?.copyWith(color: appColor.black30),
-              children: [
-                TextSpan(
-                  text: isMandatory == true ? " *" : "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall
-                      ?.copyWith(color: appColor.red),
-                ),
-              ],
+        if (title != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 17),
+            child: RichText(
+              text: TextSpan(
+                text: title,
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(color: appColor.black30),
+                children: [
+                  TextSpan(
+                    text: isMandatory == true ? " *" : "",
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(color: appColor.red),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 7),
           child: Row(

@@ -2,6 +2,8 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_upload_field.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/plant_machinery_widget.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/recycler_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         const CommonTitleWidget(label: "(A). Company details"),
         Padding(
@@ -175,20 +178,127 @@ class AuditorRecyclerForm1 extends StatelessWidget {
               title: "Authorized person PAN No.",
               isUpload: true),
         ),
-        const Column(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            CommonTitleWidget(label: "(C). Plant Machinery"),
+            const CommonTitleWidget(label: "(C). Plant Machinery"),
+            RecyclerDataTable(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: PlantMachineryWidget(),
+            )
           ],
-        )
+        ),
+        const CommonTitleWidget(label: "(D). Power Consumption"),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: commonFormTiles2(context,
+              isMandatory: true,
+              groupValue: groupValueA,
+              title: "Electricity bills of last financial year",
+              isUpload: false),
+        ),
+        const CommonTitleWidget(label: "(E). Air Pollution control devices"),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: commonFormTiles2(context,
+              isMandatory: false,
+              groupValue: groupValueA,
+              title: "Details of Pollution Control System",
+              isUpload: true),
+        ),
+        const CommonTitleWidget(label: "(F). Video of Plant"),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: commonFormTiles2(context,
+              isMandatory: false,
+              groupValue: groupValueA,
+              title: "Any other plant machinery",
+              isUpload: true),
+        ),
       ],
     );
   }
 
-  Column commonFormTiles(BuildContext context,
-      {bool isMandatory = false,
-      String? groupValue,
-      String? title,
-      bool isUpload = false}) {
+  Column commonFormTiles2(
+    BuildContext context, {
+    bool isMandatory = false,
+    String? groupValue,
+    String? title,
+    bool isUpload = false,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonRadioButton(
+            isMandatory: isMandatory,
+            groupValue: groupValue ?? "",
+            value1: "not confirmed",
+            value2: "confirmed",
+            label1: "Not Confirmed",
+            label2: "Confirmed",
+            onChanged: (value) {
+              groupValue = value ?? '';
+            }),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 8),
+          child: RichText(
+            text: TextSpan(
+              text: title,
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge
+                  ?.copyWith(color: appColor.black30),
+              children: [
+                TextSpan(
+                  text: isMandatory == true ? " *" : "",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall
+                      ?.copyWith(color: appColor.red),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: CommonTextFormFieldWidget(
+              disabledBgColor: appColor.black10,
+              isReadOnly: true,
+              hintText: title ?? '',
+              isMandatory: false,
+              controller: TextEditingController()),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: CommonTextFormFieldWidget(
+              bgColor: appColor.white,
+              hintText: "Remarks",
+              isMandatory: false,
+              controller: TextEditingController()),
+        ),
+        if (isUpload == true)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: CommonDocumentField(
+              onTap: () {},
+              label: "Upload",
+              bgColor: appColor.white,
+            ),
+          )
+      ],
+    );
+  }
+
+  Column commonFormTiles(
+    BuildContext context, {
+    bool isMandatory = false,
+    String? groupValue,
+    String? title,
+    bool isUpload = false,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
