@@ -58,7 +58,7 @@ class RecyclerStepperScreen extends StatelessWidget {
             body: CommonSingleChildScrollView(
               child: Column(
                 children: [
-                  if (viewModel.index == 1)  AuditorRecyclerForm1(),
+                  if (viewModel.index == 1) AuditorRecyclerForm1(),
                   if (viewModel.index == 2) const AuditorRecyclerForm2(),
                   if (viewModel.index == 3) const AuditorRecyclerForm3(),
                   if (viewModel.index == 4) const AuditorRecyclerForm4(),

@@ -73,4 +73,6 @@ class ImageConstants {
 
   final String deleteIcon = "assets/images/icons/delete.svg";
   final String plusIcon = "assets/images/icons/plus.svg";
+  final String viewEyes = "assets/images/icons/view_eyes.svg";
+  final String searchIconLarge = "assets/images/icons/search_icon_large.svg";
 }

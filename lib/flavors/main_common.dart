@@ -1,14 +1,12 @@
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
+import 'package:cpcb_tyre/views/screens/auditor/auditor_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cpcb_tyre/theme/themes.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
-
 import '../router/app_router.dart';
-import '../views/screens/onboarding/splash_screen.dart';
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -58,7 +56,8 @@ class MyAppState extends State<MyApp> {
             darkTheme: _appTheme.darkTheme(context),
             locale: currentLocale,
             navigatorKey: APIBase.navigatorKey,
-            home: SplashScreen(),
+            home: AuditorHomeScreen(),
+            // home: SplashScreen(),
           );
         });
   }
