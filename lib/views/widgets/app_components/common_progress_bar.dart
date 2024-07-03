@@ -1,13 +1,11 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../components/common_text_widget.dart';
-
 class CommonProgressBar extends StatelessWidget {
-  CommonProgressBar({super.key, this.widthFactor,this.progress});
-  final double? widthFactor;
-  final int? progress;
-  final appColor = AppColor();
+  CommonProgressBar({super.key, required this.percentage});
+  final AppColor appColor = AppColor();
+  final double percentage;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class CommonProgressBar extends StatelessWidget {
       child: Row(
         children: [
           CommonTextWidget(
-            '$progress%',
+            '${percentage.toInt()}%',
           ),
           const SizedBox(
             width: 4,
@@ -31,7 +29,7 @@ class CommonProgressBar extends StatelessWidget {
                       color: appColor.black10),
                 ),
                 FractionallySizedBox(
-                  widthFactor: widthFactor, //progress number
+                  widthFactor: percentage / 100, //progress number
                   child: Container(
                     height: 7,
                     decoration: BoxDecoration(

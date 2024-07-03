@@ -7,15 +7,16 @@ import 'package:flutter/material.dart';
 class AuditorListViewModel extends BaseViewModel {
   TextEditingController searchController = TextEditingController();
   bool isSearchExpanded = false;
+  String groupValue = 'no';
   final appColor = AppColor();
   final stringConstants = StringConstants();
   String? applicationStatus = "";
-  int? progress;
+  double? progress;
   
-  void progressStatus(double widthFactor) {
-    progress = ((widthFactor * 100).toInt());
-    updateUI();
-  }
+  // void progressStatus(double widthFactor) {
+  //   progress = ((widthFactor * 100).toInt());
+  //   updateUI();
+  // }
 
   getStatus(String status) {
     switch (status) {

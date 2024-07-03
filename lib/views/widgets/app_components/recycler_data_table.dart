@@ -3,8 +3,8 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_producer_data_row.
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class CommonDataTable extends StatelessWidget {
-  CommonDataTable({super.key, required this.headingList});
+class RecyclerDataTable extends StatelessWidget {
+  RecyclerDataTable({super.key, required this.headingList});
   final ScrollController scrollController = ScrollController();
   final List<String> headingList;
   @override
@@ -41,14 +41,14 @@ class CommonDataTable extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: List.generate(
-                          producerHeadingList.length,
+                          recyclerHeadingList.length,
                           (index) => SizedBox(
                                 width: 150,
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
                                   child: CommonTextWidget(
-                                    producerHeadingList[index],
+                                    recyclerHeadingList[index],
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
@@ -85,16 +85,10 @@ class CommonDataTable extends StatelessWidget {
   }
 }
 
-List<String> producerHeadingList = [
-  "Type of Tyre",
-  "Financial Year",
-  "Motorcycle",
-  "Passenger Car",
-  "Scooter",
-  "Truck",
-  "Bus",
-  "LCV",
-  "T Rear",
-  "Other",
-  "Total"
+List<String> recyclerHeadingList = [
+  "Name of Plant Machinery",
+  "Capacity of Plant Machinery",
+  "Power of Plant Machinery",
+  "Action",
+  "Remarks",
 ];

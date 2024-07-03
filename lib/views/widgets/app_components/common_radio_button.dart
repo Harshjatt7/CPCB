@@ -10,10 +10,12 @@ class CommonRadioButton extends StatelessWidget {
   final String label1;
   final String label2;
   final String? title;
-  final void Function(String?)? onChanged1;
-  final void Function(String?)? onChanged2;
+  final bool isMandatory;
+  final void Function(String?)? onChanged;
 
-  const CommonRadioButton(
+  final AppColor appColor = AppColor();
+
+  CommonRadioButton(
       {super.key,
       required this.groupValue,
       required this.value1,
@@ -21,28 +23,41 @@ class CommonRadioButton extends StatelessWidget {
       required this.label1,
       required this.label2,
       this.title,
-      required this.onChanged1,
-      required this.onChanged2});
+      this.isMandatory = false,
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonTextWidget(
-          title ?? '',
-          style: Theme.of(context).textTheme.labelSmall,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 17),
+          child: RichText(
+            text: TextSpan(
+              text: title,
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge
+                  ?.copyWith(color: appColor.black30),
+              children: [
+                TextSpan(
+                  text: isMandatory == true ? " *" : "",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall
+                      ?.copyWith(color: appColor.red),
+                ),
+              ],
+            ),
+          ),
         ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: RadioListTile(
-                  title: CommonTextWidget(
-                    label1,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 7),
+          child: Row(
+            children: [
+              Radio(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   value: value1,
                   fillColor: MaterialStateProperty.resolveWith(
                     (states) {
@@ -53,14 +68,16 @@ class CommonRadioButton extends StatelessWidget {
                     },
                   ),
                   groupValue: groupValue,
-                  onChanged: onChanged1),
-            ),
-            Flexible(
-              child: RadioListTile(
-                title: CommonTextWidget(
-                  label2,
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+                  onChanged: onChanged),
+              CommonTextWidget(
+                label1,
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              const SizedBox(
+                width: 40,
+              ),
+              Radio(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 value: value2,
                 groupValue: groupValue,
                 fillColor: MaterialStateProperty.resolveWith(
@@ -71,10 +88,14 @@ class CommonRadioButton extends StatelessWidget {
                     return AppColor().black40;
                   },
                 ),
-                onChanged: onChanged2,
+                onChanged: onChanged,
               ),
-            )
-          ],
+              CommonTextWidget(
+                label2,
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ],
+          ),
         )
       ],
     );

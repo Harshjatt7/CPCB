@@ -16,7 +16,7 @@ class AuditorListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<AuditorListViewModel>(
         onModelReady: (viewModel) {
-          viewModel.progressStatus(0.9);
+          // viewModel.progressStatus(0.9);
         },
         viewModel: AuditorListViewModel(),
         builder: (context, viewModel, child) {
@@ -88,8 +88,7 @@ class AuditorListScreen extends StatelessWidget {
                     district: "South Delhi",
                     year: "Apr-Jul, 2023-24",
                     date: "30/08/2023",
-                    progress: viewModel.progress,
-                    widthFactor: 0.9,
+                    progress: 90,
                     onTap: () {
                       viewModel.getStatus("In Progress");
                       showModalBottomSheet(
@@ -100,8 +99,7 @@ class AuditorListScreen extends StatelessWidget {
                             borderRadius: BorderRadius.zero),
                         builder: (context) {
                           return AuditorBottomSheet(
-                            widthFactor: 0.9,
-                            progress: viewModel.progress,
+                            progress: 60,
                             status: viewModel.applicationStatus,
                             unitName: "ABC-XYZ Unit",
                             unitRegisteration: "24753942FH",

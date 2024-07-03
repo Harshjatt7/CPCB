@@ -1,5 +1,4 @@
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
@@ -74,18 +73,14 @@ class AuditorDashboardScreen extends StatelessWidget {
             body: CommonSingleChildScrollView(
               child: Column(
                 children: [
-                  CommonDataTable(),
+                  // CommonDataTable(),
                   CommonRadioButton(
                     groupValue: viewModel.groupValue ?? '',
                     label1: "Yes",
                     label2: "No",
                     value1: "yes",
                     value2: "no",
-                    onChanged1: (value) {
-                      viewModel.groupValue = value ?? '';
-                      viewModel.updateUI();
-                    },
-                    onChanged2: (value) {
+                    onChanged: (value) {
                       viewModel.groupValue = value ?? '';
                       viewModel.updateUI();
                     },

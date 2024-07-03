@@ -1,10 +1,10 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_progress_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/string_constant.dart';
 import '../components/common_button_widget.dart';
 import '../components/common_text_widget.dart';
+import 'common_progress_bar.dart';
 import 'common_type_badge.dart';
 
 class AuditorBottomSheet extends StatelessWidget {
@@ -22,7 +22,6 @@ class AuditorBottomSheet extends StatelessWidget {
       this.createdOn,
       this.endDate,
       this.startDate,
-      this.widthFactor,
       this.progress});
   final appColor = AppColor();
   final String? status;
@@ -37,8 +36,7 @@ class AuditorBottomSheet extends StatelessWidget {
   final String? createdOn;
   final String? startDate;
   final String? endDate;
-  final double? widthFactor;
-  final int? progress;
+  final double? progress;
   final stringConstants = StringConstants();
 
   @override
@@ -77,8 +75,7 @@ class AuditorBottomSheet extends StatelessWidget {
                 height: 16,
               ),
               CommonProgressBar(
-                widthFactor: widthFactor,
-                progress: progress,
+                percentage: progress ?? 0,
               ),
               const SizedBox(
                 height: 30,
