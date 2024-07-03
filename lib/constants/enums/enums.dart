@@ -26,3 +26,13 @@ enum AdminUserTypes {
   const AdminUserTypes(this.text);
   final String text;
 }
+
+enum AuditorStatus{
+  acknowledge('Acknowledge'),
+  start('Start'),
+  viewReport('View Report'),
+  resume("Continue");
+
+  const AuditorStatus(this.text);
+  final String text;
+}

@@ -10,6 +10,7 @@ class CommonSearchBarWidget extends StatefulWidget {
   final String? title;
   final String? suffixIcon;
   final VoidCallback? onSuffixTap;
+  final VoidCallback? onFilterTap;
   final TextEditingController controller;
   final TextInputType? textInputType;
   final Color? textColor;
@@ -39,6 +40,7 @@ class CommonSearchBarWidget extends StatefulWidget {
     this.showFilter = false,
     this.isBackButton = false,
     this.onBackButtonTap,
+    this.onFilterTap,
   });
 
   @override
@@ -49,7 +51,7 @@ class CommonSearchBarWidget extends StatefulWidget {
 class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
   String? error;
   final ImageConstants imageConstants = ImageConstants();
-  final AppColor appColor=AppColor();
+  final AppColor appColor = AppColor();
 
   @override
   void initState() {
@@ -162,24 +164,26 @@ class _CommonSearchBarWidgetNewState extends State<CommonSearchBarWidget> {
                         imageColor: appColor.black,
                       )
                     : CommonImageWidget(
-                        imageSource: imageConstants.searchIcon,
+                        imageSource: widget.showFilter == true
+                            ? imageConstants.searchIconLarge
+                            : imageConstants.searchIcon,
                         isNetworkImage: false,
-                        width: 20,
-                        height: 20,
+                        width: widget.showFilter == true ? 17 : 20,
+                        height: widget.showFilter == true ? 17 : 20,
                       )),
           ),
-          if (widget.showFilter == true)
+          if (widget.showFilter == true && widget.isSearchExpanded == false)
             const SizedBox(
-              width: 15,
+              width: 20,
             ),
-          if (widget.showFilter == true)
+          if (widget.showFilter == true && widget.isSearchExpanded == false)
             GestureDetector(
-              onTap: () {},
+              onTap: widget.onFilterTap,
               child: CommonImageWidget(
                 imageSource: imageConstants.filter,
                 isNetworkImage: false,
-                width: 24,
-                height: 24,
+                width: 16,
+                height: 16,
               ),
             )
         ],
