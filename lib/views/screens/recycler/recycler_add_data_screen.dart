@@ -99,7 +99,8 @@ class RecyclerAddDataScreen extends StatelessWidget {
                 showErrorMessage(context, viewModel.wasteTyreSupplierNameError),
               addressField(viewModel),
               if (viewModel.wasteTyreSupplierContactError.isNotEmpty)
-                showErrorMessage(context, viewModel.wasteTyreSupplierContactError),
+                showErrorMessage(
+                    context, viewModel.wasteTyreSupplierContactError),
               contactDetailsField(viewModel),
               if (viewModel.wasteTyreSupplierAddressError.isNotEmpty)
                 showErrorMessage(
@@ -142,7 +143,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
           },
           onTap: () async {
             viewModel.date = await HelperFunctions()
-                .datePicker(context, viewModel.startDate,viewModel.endDate);
+                .datePicker(context, viewModel.startDate, viewModel.endDate);
             if (viewModel.date != null) {
               viewModel.dateTimeConvert();
             }
@@ -151,7 +152,8 @@ class RecyclerAddDataScreen extends StatelessWidget {
           controller: viewModel.dateController),
     );
   }
-    Padding contactDetailsField(RecyclerAddDataViewModel viewModel) {
+
+  Padding contactDetailsField(RecyclerAddDataViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
@@ -229,6 +231,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
+        isMandatory: true,
         labelText: viewModel.stringConstants.recycledTyre,
         dropDownItem: viewModel.tyreOfRecyclerMaterialList,
         error: viewModel.recycledTyreDropdownError,
@@ -276,6 +279,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
+        isMandatory: true,
         labelText: viewModel.stringConstants.financialYearLabel,
         dropDownItem: viewModel.financialYearList,
         error: viewModel.yearDropdownError,

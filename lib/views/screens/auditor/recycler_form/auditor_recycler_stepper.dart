@@ -59,7 +59,7 @@ class RecyclerStepperScreen extends StatelessWidget {
               child: Column(
                 children: [
                   if (viewModel.index == 1) AuditorRecyclerForm1(),
-                  if (viewModel.index == 2) const AuditorRecyclerForm2(),
+                  if (viewModel.index == 2)  AuditorRecyclerForm2(),
                   if (viewModel.index == 3) const AuditorRecyclerForm3(),
                   if (viewModel.index == 4) const AuditorRecyclerForm4(),
                   if (viewModel.index == 5) const AuditorRecyclerForm5()
