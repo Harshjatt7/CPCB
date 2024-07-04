@@ -20,7 +20,7 @@ class CommonProducerDataRow extends StatelessWidget {
           SizedBox(
             width: 150,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 30),
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
               child: CommonTextWidget(
                 demoModel.typeOfTyre ?? '',
                 style: Theme.of(context)
@@ -40,8 +40,8 @@ class CommonProducerDataRow extends StatelessWidget {
                   demoModel.financialYear ?? '',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                      color: AppColor().black02,
-                      decoration: TextDecoration.underline),
+                        color: AppColor().black02,
+                      ),
                 ),
               ),
             ),
@@ -161,7 +161,7 @@ class CommonProducerDataRow extends StatelessWidget {
           SizedBox(
             width: 150,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14),
+              padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 20),
               child: CommonTextWidget(
                 demoModel.total ?? '',
                 textAlign: TextAlign.center,

@@ -3,8 +3,8 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_producer_data_row.
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class CommonDataTable extends StatelessWidget {
-  CommonDataTable({super.key, required this.headingList});
+class ProducerDataTable extends StatelessWidget {
+  ProducerDataTable({super.key, required this.headingList});
   final ScrollController scrollController = ScrollController();
   final List<String> headingList;
   @override

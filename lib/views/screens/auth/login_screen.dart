@@ -96,6 +96,7 @@ class LoginScreen extends StatelessWidget {
                       height: 16,
                     ),
                     CommonDropdownTextFormField(
+                      isMandatory: true,
                         labelText: stringConstants.selectUserHint,
                         dropDownItem: viewmodel.userTypes,
                         value: viewmodel.selectedUserType,
