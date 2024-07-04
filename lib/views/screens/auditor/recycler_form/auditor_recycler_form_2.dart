@@ -30,7 +30,7 @@ class AuditorRecyclerForm2 extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: CommonDropdownTextFormField(
-                  labelText: "Select", dropDownItem: [], onChanged: null),
+                  labelText: "Select", dropDownItem: const[], onChanged: null),
             ),
             commonRecyclerForm2Tile(
                 title:

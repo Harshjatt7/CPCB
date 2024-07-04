@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/views/widgets/app_components/auditor_form_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:localization/localization.dart';
 import '../../../../viewmodels/auditor/producer_form/producer_form_1_view_model.dart';
 import '../../base_view.dart';
 
@@ -26,9 +27,9 @@ class _ProducerForm1State extends State<ProducerForm1> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonTitleWidget(
-                  label: viewModel.stringConstants.companyDetails),
+                  label: viewModel.stringConstants.companyDetails.i18n()),
               AuditorFormTile(
-                title: viewModel.stringConstants.companyNameAddress,
+                title: viewModel.stringConstants.companyNameAddress.i18n(),
                 isMandatory: true,
                 groupValue: viewModel.groupValue,
                 onChanged: (value) {
@@ -37,23 +38,23 @@ class _ProducerForm1State extends State<ProducerForm1> {
                 },
               ),
               AuditorFormTile(
-                  title: viewModel.stringConstants.categoryOfProducer,
+                  title: viewModel.stringConstants.categoryOfProducer.i18n(),
                   isMandatory: true,
                   groupValue: viewModel.groupValue),
               AuditorFormTile(
-                  title: viewModel.stringConstants.gst,
+                  title: viewModel.stringConstants.gst.i18n(),
                   isUpload: true,
                   groupValue: viewModel.groupValue),
               AuditorFormTile(
-                  title: viewModel.stringConstants.panOfCompany,
+                  title: viewModel.stringConstants.panOfCompany.i18n(),
                   isUpload: true,
                   groupValue: viewModel.groupValue),
               AuditorFormTile(
-                  title: viewModel.stringConstants.cin,
+                  title: viewModel.stringConstants.cin.i18n(),
                   isUpload: true,
                   groupValue: viewModel.groupValue),
               AuditorFormTile(
-                  title: viewModel.stringConstants.iec,
+                  title: viewModel.stringConstants.iec.i18n(),
                   isUpload: true,
                   groupValue: viewModel.groupValue),
             ],

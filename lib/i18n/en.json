@@ -206,7 +206,7 @@
     "panofcompany": "PAN of Company",
     "cin": "CIN",
     "iec": "IEC",
-    "verification": "(A). Verification of Sales data for producers P1",
+    "verification-a": "(A). Verification of Sales data for producers P1",
     "verification-b": "(B). Verification of Sales data for producers P3",
     "misreporting": "Misreporting in Sales data of the Tyre",
     "deviation": "Enter Deviation in Quantity",

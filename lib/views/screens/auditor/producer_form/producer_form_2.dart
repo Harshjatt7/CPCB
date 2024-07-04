@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/viewmodels/auditor/producer_form/producer_form_2_view_
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_data_table.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../widgets/app_components/auditor_form_tile.dart';
 import '../../../widgets/app_components/common_title_widget.dart';
@@ -21,9 +22,9 @@ class ProducerForm2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonTitleWidget(
-                  label: viewModel.stringConstants.verificationA),
+                  label: viewModel.stringConstants.verificationA.i18n()),
               AuditorFormTile(
-                title: viewModel.stringConstants.misreporting,
+                title: viewModel.stringConstants.misreporting.i18n(),
                 groupValue: viewModel.groupValue,
                 titleStyle: Theme.of(context).textTheme.labelSmall,
                 isRadioField: true,
@@ -37,9 +38,9 @@ class ProducerForm2 extends StatelessWidget {
                 height: 24,
               ),
               CommonTitleWidget(
-                  label: viewModel.stringConstants.verificationB),
+                  label: viewModel.stringConstants.verificationB.i18n()),
               AuditorFormTile(
-                title: viewModel.stringConstants.misreporting,
+                title: viewModel.stringConstants.misreporting.i18n(),
                 groupValue: viewModel.groupValue,
                 titleStyle: Theme.of(context).textTheme.labelSmall,
                 isRadioField: true,

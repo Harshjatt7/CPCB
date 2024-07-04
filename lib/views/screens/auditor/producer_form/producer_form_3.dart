@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../widgets/app_components/common_multiline_text_form_field.dart';
 
@@ -31,27 +32,19 @@ class ProducerForm3 extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              CommonRadioButton(
-                  title: viewModel.stringConstants.information,
-                  titleStyle: Theme.of(context).textTheme.labelSmall,
-                  groupValue: viewModel.groupValue,
-                  value1: "yes",
-                  value2: "no",
-                  label1: "Yes",
-                  label2: "No",
-                  onChanged: (value) {
-                    viewModel.groupValue = value ?? "";
-                    viewModel.updateUI();
-                  },
-                  padding: const EdgeInsets.symmetric(vertical: 16)),
+               buildRadioButton(
+                context,
+                viewModel: viewModel,
+              ),
+              
               CommonMultilineTextFormField(
-                label: viewModel.stringConstants.remarks,
+                label: viewModel.stringConstants.remarks.i18n(),
               ),
               const SizedBox(
                 height: 16,
               ),
               CommonMultilineTextFormField(
-                label: viewModel.stringConstants.summary,
+                label: viewModel.stringConstants.summary.i18n(),
               ),
             ],
           ),
@@ -65,7 +58,7 @@ class ProducerForm3 extends StatelessWidget {
     ProducerForm3ViewModel? viewModel,
   }) {
     return CommonRadioButton(
-      title: viewModel?.stringConstants.misreporting,
+      title: viewModel?.stringConstants.misreporting.i18n(),
       titleStyle: Theme.of(context).textTheme.labelSmall,
       groupValue: viewModel?.groupValue ?? "",
       value1: "yes",
