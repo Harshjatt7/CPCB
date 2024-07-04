@@ -69,6 +69,7 @@ class AuditorRecyclerForm4 extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: CommonTextFormFieldWidget(
+              useLocalization: false,
               bgColor: appColor.white,
               hintText: title ?? '',
               isMandatory: false,

@@ -24,6 +24,7 @@ class RecyclerStepperScreen extends StatelessWidget {
         viewModel: RecyclerStepperViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+             resizeToBottomInset: true,
             onWillPop: () async {
               viewModel.onBackButton(context);
               return false;

@@ -7,8 +7,11 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class PlantMachineryWidget extends StatelessWidget {
-  PlantMachineryWidget({super.key});
+  PlantMachineryWidget({super.key, this.onAdd, this.onDelete, this.count = 1});
   final AppColor appColor = AppColor();
+  final void Function()? onAdd;
+  final void Function()? onDelete;
+  final int count;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class PlantMachineryWidget extends StatelessWidget {
               Flexible(
                 flex: 1,
                 child: GestureDetector(
+                  onTap: onAdd,
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -63,6 +67,7 @@ class PlantMachineryWidget extends StatelessWidget {
               Flexible(
                 flex: 1,
                 child: GestureDetector(
+                  onTap: onDelete,
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -82,7 +87,7 @@ class PlantMachineryWidget extends StatelessWidget {
             ],
           ),
           ListView.builder(
-            itemCount: 1,
+            itemCount: count,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {

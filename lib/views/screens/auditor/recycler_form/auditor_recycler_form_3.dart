@@ -86,6 +86,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
           padding:
               const EdgeInsets.only(top: 16, bottom: 12, left: 16, right: 16),
           child: CommonTextFormFieldWidget(
+              useLocalization: false,
               bgColor: appColor.white,
               hintText: title ?? "",
               isMandatory: false,
@@ -104,6 +105,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: CommonTextFormFieldWidget(
+              useLocalization: false,
                 disabledBgColor: appColor.black10,
                 bgColor: appColor.white,
                 isReadOnly: isDisable,
