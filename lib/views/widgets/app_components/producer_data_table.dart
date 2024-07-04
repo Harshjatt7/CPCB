@@ -1,14 +1,13 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_recycler_data_row.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_producer_data_row.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class RecyclerDataTable extends StatelessWidget {
-  RecyclerDataTable({
-    super.key,
-  });
+class ProducerDataTable extends StatelessWidget {
+  ProducerDataTable({super.key, required this.headingList});
   final ScrollController scrollController = ScrollController();
+  final List<String> headingList;
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
@@ -18,13 +17,11 @@ class RecyclerDataTable extends StatelessWidget {
       thumbVisibility: true,
       interactive: true,
       child: CommonSingleChildScrollView(
-        controller: scrollController,
         scrollDirection: Axis.horizontal,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -39,15 +36,13 @@ class RecyclerDataTable extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: List.generate(
-                      recyclerHeadingList.length,
+                      producerHeadingList.length,
                       (index) => SizedBox(
-                            width: 286,
+                            width: 150,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20,
-                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 20),
                               child: CommonTextWidget(
-                                recyclerHeadingList[index],
+                                producerHeadingList[index],
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
@@ -65,11 +60,10 @@ class RecyclerDataTable extends StatelessWidget {
                         bottomRight: Radius.circular(5)),
                     border: Border.all(color: AppColor().grey40)),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(list2.length, (index) {
-                    return CommonRecyclerDataRow(
-                      demoModel: list2[index],
+                  children: List.generate(list.length, (index) {
+                    return CommonProducerDataRow(
+                      demoModel: list[index],
                       isOdd: index % 2 == 0,
                     );
                   }),
@@ -83,10 +77,16 @@ class RecyclerDataTable extends StatelessWidget {
   }
 }
 
-List<String> recyclerHeadingList = [
-  "Name of Plant Machinery",
-  "Capacity of Plant Machinery",
-  "Power of Plant Machinery",
-  "Action",
-  "Remarks",
+List<String> producerHeadingList = [
+  "Type of Tyre",
+  "Financial Year",
+  "Motorcycle",
+  "Passenger Car",
+  "Scooter",
+  "Truck",
+  "Bus",
+  "LCV",
+  "T Rear",
+  "Other",
+  "Total"
 ];

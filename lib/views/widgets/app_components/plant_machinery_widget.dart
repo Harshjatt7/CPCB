@@ -100,7 +100,7 @@ class PlantMachineryWidget extends StatelessWidget {
                           controller: TextEditingController()),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 9),
+                      padding: const EdgeInsets.only(top: 9, bottom: 18),
                       child: CommonDocumentField(
                         onTap: null,
                         label: "Upload",

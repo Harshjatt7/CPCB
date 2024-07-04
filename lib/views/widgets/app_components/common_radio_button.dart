@@ -54,20 +54,54 @@ class CommonRadioButton extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-          padding: padding ?? const EdgeInsets.only(bottom: 7),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Flexible(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Radio(
-                        visualDensity: const VisualDensity(horizontal: -4,vertical: -4,),
+        if (title != null)
+          Padding(
+            padding: padding ?? const EdgeInsets.only(bottom: 7),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Radio(
+                          visualDensity: const VisualDensity(
+                            horizontal: -4,
+                            vertical: -4,
+                          ),
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          value: value1,
+                          fillColor: MaterialStateProperty.resolveWith(
+                            (states) {
+                              if (states.contains(MaterialState.selected)) {
+                                return AppColor().darkGreen;
+                              }
+                              return AppColor().black40;
+                            },
+                          ),
+                          groupValue: groupValue,
+                          onChanged: onChanged),
+                      const SizedBox(width: 4),
+                      CommonTextWidget(
+                        label1,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Radio(
+                        visualDensity:
+                            const VisualDensity(horizontal: -4, vertical: -4),
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        value: value1,
+                        value: value2,
+                        groupValue: groupValue,
                         fillColor: MaterialStateProperty.resolveWith(
                           (states) {
                             if (states.contains(MaterialState.selected)) {
@@ -76,49 +110,21 @@ class CommonRadioButton extends StatelessWidget {
                             return AppColor().black40;
                           },
                         ),
-                        groupValue: groupValue,
-                        onChanged: onChanged),
-                    const SizedBox(width: 4),
-                    CommonTextWidget(
-                      label1,
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Radio(
-                      visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      value: value2,
-                      groupValue: groupValue,
-                      fillColor: MaterialStateProperty.resolveWith(
-                        (states) {
-                          if (states.contains(MaterialState.selected)) {
-                            return AppColor().darkGreen;
-                          }
-                          return AppColor().black40;
-                        },
+                        onChanged: onChanged,
                       ),
-                      onChanged: onChanged,
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    CommonTextWidget(
-                      label2,
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      CommonTextWidget(
+                        label2,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        )
+              ],
+            ),
+          )
       ],
     );
   }
