@@ -5,7 +5,6 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:localization/localization.dart';
 
 class CommonTextFormFieldWidget extends StatefulWidget {
   final String hintText;
@@ -201,7 +200,7 @@ class _CommonTextFormFieldWidgetNewState
                 filled: widget.isReadOnly ?? false,
                 label: RichText(
                   text: TextSpan(
-                    text: widget.hintText.i18n(),
+                    text: widget.hintText,
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall

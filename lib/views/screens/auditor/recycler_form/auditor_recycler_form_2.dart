@@ -23,14 +23,20 @@ class AuditorRecyclerForm2 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const CommonTitleWidget(label: "(A). Plant Capacity Assessment"),
-            CommonMandatoryTitle(
-              title: "Type of end product",
-              isMandatory: true,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: CommonMandatoryTitle(
+                title: "Type of end product",
+                isMandatory: true,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: CommonDropdownTextFormField(
-                  labelText: "Select", dropDownItem: [], onChanged: null),
+                  bgColor: appColor.white,
+                  labelText: "Select",
+                  dropDownItem: const [],
+                  onChanged: null),
             ),
             commonRecyclerForm2Tile(
                 title:
@@ -63,10 +69,10 @@ class AuditorRecyclerForm2 extends StatelessWidget {
             ),
             CommonRadioButton(
               groupValue: "confirmed",
-              value1: "not confirmed",
-              value2: "confirmed",
-              label1: "Not Confirmed",
-              label2: "Confirmed",
+              value1: "no",
+              value2: "yes",
+              label1: "no",
+              label2: "yes",
               onChanged: (value) {},
             ),
             commonRecyclerForm2Tile(
@@ -115,7 +121,16 @@ class AuditorRecyclerForm2 extends StatelessWidget {
                 "Are values C and D comparable (Yes/No)",
                 style: Theme.of(context).textTheme.labelSmall,
               ),
+            ),
+            CommonRadioButton(
+              groupValue: "",
+              value1: "",
+              value2: "",
+              label1: "Not Confirmed",
+              label2: "Confirmed",
+              onChanged: (value) {},
             )
+            //TODO add remarks fields
           ],
         );
       },
@@ -130,9 +145,12 @@ class AuditorRecyclerForm2 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonMandatoryTitle(
-          title: title ?? '',
-          isMandatory: true,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: CommonMandatoryTitle(
+            title: title ?? '',
+            isMandatory: true,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

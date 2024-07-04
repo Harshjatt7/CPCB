@@ -28,7 +28,6 @@ class RecyclerStepperScreen extends StatelessWidget {
               viewModel.onBackButton(context);
               return false;
             },
-            backgroundColor: AppColor().offWhite,
             appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(120),
                 child: Column(
@@ -60,8 +59,8 @@ class RecyclerStepperScreen extends StatelessWidget {
                 children: [
                   if (viewModel.index == 1) AuditorRecyclerForm1(),
                   if (viewModel.index == 2)  AuditorRecyclerForm2(),
-                  if (viewModel.index == 3) const AuditorRecyclerForm3(),
-                  if (viewModel.index == 4) const AuditorRecyclerForm4(),
+                  if (viewModel.index == 3)  AuditorRecyclerForm3(),
+                  if (viewModel.index == 4)  AuditorRecyclerForm4(),
                   if (viewModel.index == 5) const AuditorRecyclerForm5()
                   // PlantMachineryWidget()
                 ],
