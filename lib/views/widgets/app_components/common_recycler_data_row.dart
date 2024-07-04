@@ -23,7 +23,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
           SizedBox(
             width: 250,
             child: Padding(
-              padding: const EdgeInsets.only(left: 70,top: 14,bottom: 14),
+              padding: const EdgeInsets.only(left: 70, top: 14, bottom: 14),
               child: CommonTextWidget(
                 demoModel.name ?? '',
                 style: Theme.of(context)
@@ -116,10 +116,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
           SizedBox(
             width: 300,
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 14,
-                horizontal: 30
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
               child: CommonTextFormFieldWidget(
                   hintText: "Remarks",
                   isMandatory: false,
@@ -157,6 +154,12 @@ List<DemoModel2> list2 = [
       remarks: "anything"),
   DemoModel2(
       name: "two",
+      capacity: "21",
+      power: "42",
+      action: "confirm",
+      remarks: "anything"),
+  DemoModel2(
+      name: "three",
       capacity: "21",
       power: "42",
       action: "confirm",
