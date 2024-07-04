@@ -214,5 +214,46 @@ class StringConstants {
   final String auditorEndDate = "auditor-end-date";
   final String quarterFinalYear = "quarter-final-year";
   final String auditList = "audit-list";
-
+  //auditor forms
+final String companyDetails = "company-details";
+final String companyNameAddress = "name-address";
+final String categoryOfProducer = "categoryofproducer"; 
+final String gst = "gst";
+final String panOfCompany = "panofcompany"; 
+final String cin = "cin"; 
+final String iec = "iec"; 
+final String verificationA = "verification-a";
+final String verificationB = "verification-b";
+final String misreporting = "misreporting"; 
+final String deviation = "deviation"; 
+final String information = "information"; 
+final String remarks = "remarks";
+final String summary = "summary"; 
 }
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+//   final String = "";
+// final String = "";}
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";
+// final String = "";

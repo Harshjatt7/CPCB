@@ -10,8 +10,10 @@ class CommonRadioButton extends StatelessWidget {
   final String label1;
   final String label2;
   final String? title;
+  final TextStyle? titleStyle;
   final bool isMandatory;
   final void Function(String?)? onChanged;
+  final EdgeInsets? padding;
 
   final AppColor appColor = AppColor();
 
@@ -24,75 +26,95 @@ class CommonRadioButton extends StatelessWidget {
       required this.label2,
       this.title,
       this.isMandatory = false,
-      required this.onChanged});
+      required this.onChanged,
+      this.titleStyle,
+      this.padding});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 17),
-          child: RichText(
-            text: TextSpan(
-              text: title,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge
-                  ?.copyWith(color: appColor.black30),
-              children: [
-                TextSpan(
-                  text: isMandatory == true ? " *" : "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall
-                      ?.copyWith(color: appColor.red),
-                ),
-              ],
-            ),
+        RichText(
+          text: TextSpan(
+            text: title,
+            style: titleStyle ??
+                Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(color: appColor.black30),
+            children: [
+              TextSpan(
+                text: isMandatory == true ? " *" : "",
+                style: Theme.of(context)
+                    .textTheme
+                    .labelSmall
+                    ?.copyWith(color: appColor.red),
+              ),
+            ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 7),
+          padding: padding ?? const EdgeInsets.only(bottom: 7),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Radio(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  value: value1,
-                  fillColor: MaterialStateProperty.resolveWith(
-                    (states) {
-                      if (states.contains(MaterialState.selected)) {
-                        return AppColor().darkGreen;
-                      }
-                      return AppColor().black40;
-                    },
-                  ),
-                  groupValue: groupValue,
-                  onChanged: onChanged),
-              CommonTextWidget(
-                label1,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              const SizedBox(
-                width: 40,
-              ),
-              Radio(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                value: value2,
-                groupValue: groupValue,
-                fillColor: MaterialStateProperty.resolveWith(
-                  (states) {
-                    if (states.contains(MaterialState.selected)) {
-                      return AppColor().darkGreen;
-                    }
-                    return AppColor().black40;
-                  },
+              Flexible(
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Radio(
+                        visualDensity: const VisualDensity(horizontal: -4,vertical: -4,),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        value: value1,
+                        fillColor: MaterialStateProperty.resolveWith(
+                          (states) {
+                            if (states.contains(MaterialState.selected)) {
+                              return AppColor().darkGreen;
+                            }
+                            return AppColor().black40;
+                          },
+                        ),
+                        groupValue: groupValue,
+                        onChanged: onChanged),
+                    const SizedBox(width: 4),
+                    CommonTextWidget(
+                      label1,
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  ],
                 ),
-                onChanged: onChanged,
               ),
-              CommonTextWidget(
-                label2,
-                style: Theme.of(context).textTheme.labelSmall,
+              Flexible(
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Radio(
+                      visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      value: value2,
+                      groupValue: groupValue,
+                      fillColor: MaterialStateProperty.resolveWith(
+                        (states) {
+                          if (states.contains(MaterialState.selected)) {
+                            return AppColor().darkGreen;
+                          }
+                          return AppColor().black40;
+                        },
+                      ),
+                      onChanged: onChanged,
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    CommonTextWidget(
+                      label2,
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

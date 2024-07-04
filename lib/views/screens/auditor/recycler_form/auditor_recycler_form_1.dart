@@ -1,7 +1,7 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/auditor_form_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_upload_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +20,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         const CommonTitleWidget(label: "(A). Company details"),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: commonFormTiles(
-            context,
+          child: AuditorFormTile(
             isMandatory: true,
             groupValue: groupValueA,
             title: "GST",
@@ -29,8 +28,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: commonFormTiles(
-            context,
+          child: AuditorFormTile(
             isMandatory: true,
             groupValue: groupValueA,
             title: "Company’s PAN No.",
@@ -38,8 +36,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: commonFormTiles(
-            context,
+          child: AuditorFormTile(
             isMandatory: false,
             groupValue: groupValueA,
             title: "Company’s IEC",
@@ -47,8 +44,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: commonFormTiles(
-            context,
+          child: AuditorFormTile(
             isMandatory: true,
             groupValue: groupValueA,
             title: "Recycler’s CTO/CCA",
@@ -56,8 +52,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: commonFormTiles(
-            context,
+          child: AuditorFormTile(
             isMandatory: true,
             groupValue: groupValueA,
             title: "Authorization under Hazardous & other waste rules 2016",
@@ -65,8 +60,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: commonFormTiles(
-            context,
+          child: AuditorFormTile(
             isMandatory: true,
             groupValue: groupValueA,
             title: "Recycling facility details",
@@ -161,74 +155,24 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         const CommonTitleWidget(label: "(B). Authorized person"),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: commonFormTiles(context,
+          child: AuditorFormTile(
               isMandatory: false,
               groupValue: groupValueA,
               title: "Authorized person Aadhar Card",
               isUpload: true),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: commonFormTiles(context,
-              isMandatory: false,
-              groupValue: groupValueA,
-              title: "Authorized person PAN No.",
-              isUpload: true),
-        ),
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: AuditorFormTile(
+                groupValue: groupValueA,
+                title: "Authorized person PAN No.",
+                isMandatory: false,
+                isUpload: true)),
         const Column(
           children: [
             CommonTitleWidget(label: "(C). Plant Machinery"),
           ],
         )
-      ],
-    );
-  }
-
-  Column commonFormTiles(BuildContext context,
-      {bool isMandatory = false,
-      String? groupValue,
-      String? title,
-      bool isUpload = false}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CommonRadioButton(
-            isMandatory: isMandatory,
-            title: title,
-            groupValue: groupValue ?? "",
-            value1: "not confirmed",
-            value2: "confirmed",
-            label1: "Not Confirmed",
-            label2: "Confirmed",
-            onChanged: (value) {
-              groupValue = value ?? '';
-            }),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: CommonTextFormFieldWidget(
-              disabledBgColor: appColor.black10,
-              isReadOnly: true,
-              hintText: title ?? '',
-              isMandatory: false,
-              controller: TextEditingController()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: CommonTextFormFieldWidget(
-              bgColor: appColor.white,
-              hintText: "Remarks",
-              isMandatory: false,
-              controller: TextEditingController()),
-        ),
-        if (isUpload == true)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: CommonDocumentField(
-              onTap: () {},
-              label: "Upload",
-              bgColor: appColor.white,
-            ),
-          )
       ],
     );
   }

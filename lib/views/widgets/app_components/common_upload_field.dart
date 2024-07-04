@@ -10,6 +10,7 @@ class CommonDocumentField extends StatelessWidget {
   final String label;
   final String? error;
   final Color? bgColor;
+  final bool? isMandatory;
   final AppColor appColor = AppColor();
   CommonDocumentField(
       {super.key,
@@ -17,7 +18,9 @@ class CommonDocumentField extends StatelessWidget {
       this.fileName,
       required this.label,
       this.bgColor,
-      this.error});
+      this.error,
+      this.isMandatory,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +48,7 @@ class CommonDocumentField extends StatelessWidget {
                                       ? appColor.blue100
                                       : appColor.grey01)),
                     ),
+                    if(isMandatory==true)
                     WidgetSpan(
                       child: CommonTextWidget(fileName == null ? " *" : "",
                           style: Theme.of(context)

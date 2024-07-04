@@ -198,5 +198,19 @@
     "auditor-end-date" : "Audit End Date",
     "auditor-start-date" : "Audit Start Date",
     "quarter-final-year": "Quarter & Financial Year",
-    "audit-list": "Audit List"
+    "audit-list": "Audit List",
+    "company-details": "(A). Company details",
+    "name-address": "Company name and Address",
+    "categoryofproducer": "Category of producer",
+    "gst": "GST",
+    "panofcompany": "PAN of Company",
+    "cin": "CIN",
+    "iec": "IEC",
+    "verification": "(A). Verification of Sales data for producers P1",
+    "verification-b": "(B). Verification of Sales data for producers P3",
+    "misreporting": "Misreporting in Sales data of the Tyre",
+    "deviation": "Enter Deviation in Quantity",
+    "information": "False Information",
+    "remarks":"Remarks",
+    "summary": "Overall Summary"
 }

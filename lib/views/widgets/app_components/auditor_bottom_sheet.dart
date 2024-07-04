@@ -22,7 +22,8 @@ class AuditorBottomSheet extends StatelessWidget {
       this.createdOn,
       this.endDate,
       this.startDate,
-      this.progress});
+      this.progress,
+      this.onPressed});
   final appColor = AppColor();
   final String? status;
   final String? unitName;
@@ -37,6 +38,7 @@ class AuditorBottomSheet extends StatelessWidget {
   final String? startDate;
   final String? endDate;
   final double? progress;
+  final VoidCallback? onPressed;
   final stringConstants = StringConstants();
 
   @override
@@ -112,6 +114,7 @@ class AuditorBottomSheet extends StatelessWidget {
               CommonButtonWidget(
                 label: status ?? "",
                 color: appColor.darkGreen,
+                onPressed: onPressed,
               ),
             ],
           ),
