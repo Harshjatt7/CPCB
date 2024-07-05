@@ -17,7 +17,7 @@ class AuditorHomeScreen extends StatelessWidget {
     return CommonScreenWithBottomNavigationBar(
       bottomNavBarItems: [
         bottomNavigationBarWidget(imgSrc: imageConstants.homeTabIcon),
-        bottomNavigationBarWidget(imgSrc: imageConstants.summaryIcon),
+        bottomNavigationBarWidget(imgSrc: imageConstants.calendarTabIcon),
         bottomNavigationBarWidget(imgSrc: imageConstants.profileTabIcon)
       ],
       screens: [

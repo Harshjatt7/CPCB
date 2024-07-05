@@ -169,6 +169,8 @@ class StringConstants {
 
   final String stateAuthorized = "state-authorized";
 
+  final String totalAudits = "total-audits";
+
   //User Types
   static const String admin = "Admin";
   static const String auditor = "Auditor";
