@@ -1,6 +1,5 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_upload_field.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
@@ -105,13 +104,14 @@ class PlantMachineryWidget extends StatelessWidget {
                           controller: TextEditingController()),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 9, bottom: 18),
-                      child: CommonDocumentField(
-                        onTap: null,
-                        label: "Upload",
-                        bgColor: appColor.white,
-                      ),
-                    )
+                        padding: const EdgeInsets.only(top: 9, bottom: 18),
+                        child: CommonTextFormFieldWidget(
+                            hintText: "Upload",
+                            isMandatory: false,
+                            controller: TextEditingController(),
+                            isDocument: true,
+                            ),
+                        )
                   ],
                 ),
               );

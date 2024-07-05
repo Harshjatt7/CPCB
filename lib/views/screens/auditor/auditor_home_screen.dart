@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/views/screens/auditor/auditor_audit_list_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/auditor_dashboard_screen.dart';
-import 'package:cpcb_tyre/views/screens/auditor/producer/producer_form.dart';
 import 'package:cpcb_tyre/views/screens/common_screens/profile_screen.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_bottom_navigation_bar_screen_widget.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +22,7 @@ class AuditorHomeScreen extends StatelessWidget {
       ],
       screens: [
         const AuditorDashboardScreen(),
-        ProducerForm(),
-        //const AuditorListScreen(),
+        const AuditorListScreen(),
         ProfileScreen(
           isAdmin: true,
         )

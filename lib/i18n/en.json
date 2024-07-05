@@ -204,9 +204,9 @@
     "audit-list": "Audit List",
     "company-details": "(A). Company details",
     "name-address": "Company name and Address",
-    "categoryofproducer": "Category of producer",
+    "category-of-producer": "Category of producer",
     "gst": "GST",
-    "panofcompany": "PAN of Company",
+    "pan-of-company": "PAN of Company",
     "cin": "CIN",
     "iec": "IEC",
     "verification-a": "(A). Verification of Sales data for producers P1",
@@ -214,6 +214,7 @@
     "misreporting": "Misreporting in Sales data of the Tyre",
     "deviation": "Enter Deviation in Quantity",
     "information": "False Information",
-    "remarks": "Remarks",
-    "summary": "Overall Summary"
+    "remarks":"Remarks",
+    "summary": "Overall Summary",
+    "confirmed": "Confirmed"
 }

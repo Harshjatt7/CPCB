@@ -3,7 +3,6 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart'
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_upload_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/plant_machinery_widget.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/recycler_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
@@ -34,6 +33,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   isMandatory: true,
                   groupValue: groupValueA,
                   title: "GST",
+                  viewModel: viewModel,
                 ),
               ),
               Padding(
@@ -43,6 +43,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   isMandatory: true,
                   groupValue: groupValueA,
                   title: "Company’s PAN No.",
+                  viewModel: viewModel,
                 ),
               ),
               Padding(
@@ -52,6 +53,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   isMandatory: false,
                   groupValue: groupValueA,
                   title: "Company’s IEC",
+                  viewModel: viewModel,
                 ),
               ),
               Padding(
@@ -61,6 +63,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   isMandatory: true,
                   groupValue: groupValueA,
                   title: "Recycler’s CTO/CCA",
+                  viewModel: viewModel,
                 ),
               ),
               Padding(
@@ -71,6 +74,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   groupValue: groupValueA,
                   title:
                       "Authorization under Hazardous & other waste rules 2016",
+                  viewModel: viewModel,
                 ),
               ),
               Padding(
@@ -80,6 +84,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   isMandatory: true,
                   groupValue: groupValueA,
                   title: "Recycling facility details",
+                  viewModel: viewModel,
                 ),
               ),
               Padding(
@@ -176,19 +181,25 @@ class AuditorRecyclerForm1 extends StatelessWidget {
               const CommonTitleWidget(label: "(B). Authorized person"),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: commonFormTiles(context,
-                    isMandatory: false,
-                    groupValue: groupValueA,
-                    title: "Authorized person Aadhar Card",
-                    isUpload: true),
+                child: commonFormTiles(
+                  context,
+                  isMandatory: false,
+                  groupValue: groupValueA,
+                  title: "Authorized person Aadhar Card",
+                  isUpload: true,
+                  viewModel: viewModel,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: commonFormTiles(context,
-                    isMandatory: false,
-                    groupValue: groupValueA,
-                    title: "Authorized person PAN No.",
-                    isUpload: true),
+                child: commonFormTiles(
+                  context,
+                  isMandatory: false,
+                  groupValue: groupValueA,
+                  title: "Authorized person PAN No.",
+                  isUpload: true,
+                  viewModel: viewModel,
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,11 +227,14 @@ class AuditorRecyclerForm1 extends StatelessWidget {
               const CommonTitleWidget(label: "(D). Power Consumption"),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: commonFormTiles2(context,
-                    isMandatory: true,
-                    groupValue: groupValueA,
-                    title: "Electricity bills of last financial year",
-                    isUpload: false),
+                child: commonFormTiles2(
+                  context,
+                  isMandatory: true,
+                  groupValue: groupValueA,
+                  title: "Electricity bills of last financial year",
+                  isUpload: false,
+                  viewModel: viewModel,
+                ),
               ),
               const CommonTitleWidget(
                   label: "(E). Air Pollution control devices"),
@@ -230,16 +244,20 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     isMandatory: false,
                     groupValue: groupValueA,
                     title: "Details of Pollution Control System",
-                    isUpload: true),
+                    isUpload: true,
+                    viewModel: viewModel),
               ),
               const CommonTitleWidget(label: "(F). Video of Plant"),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: commonFormTiles2(context,
-                    isMandatory: false,
-                    groupValue: groupValueA,
-                    title: "Any other plant machinery",
-                    isUpload: true),
+                child: commonFormTiles2(
+                  context,
+                  isMandatory: false,
+                  groupValue: groupValueA,
+                  title: "Any other plant machinery",
+                  isUpload: true,
+                  viewModel: viewModel,
+                ),
               ),
             ],
           );
@@ -252,6 +270,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
     String? groupValue,
     String? title,
     bool isUpload = false,
+    RecyclerForm1ViewModel? viewModel,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,10 +326,27 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         if (isUpload == true)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: CommonDocumentField(
-              onTap: () {},
-              label: "Upload",
-              bgColor: appColor.white,
+            child: CommonTextFormFieldWidget(
+              // isDocument: viewModel.filePath == null ? false : true,
+              disabledBgColor: appColor.transparent,
+              isReadOnly: true,
+              hintText: "Upload",
+              icon: viewModel?.uploadInvoiceController.text.isEmpty ?? false
+                  ? viewModel?.imageConstants.fileUpload
+                  : viewModel?.imageConstants.removeIcon,
+              onTap: () {
+                // viewModel?.handleOnTap(context);
+              },
+              onSuffixTap: () {
+                // viewModel?.handleOnSuffixTap(context);
+              },
+              validator: (value) {
+                return null;
+                // return viewModel.uploadInvoiceValidation();
+              },
+              isMandatory: true,
+              controller:
+                  viewModel?.uploadInvoiceController ?? TextEditingController(),
             ),
           )
       ],
@@ -323,6 +359,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
     String? groupValue,
     String? title,
     bool isUpload = false,
+    RecyclerForm1ViewModel? viewModel,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -358,10 +395,27 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         if (isUpload == true)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: CommonDocumentField(
-              onTap: () {},
-              label: "Upload",
-              bgColor: appColor.white,
+            child: CommonTextFormFieldWidget(
+              // isDocument: viewModel.filePath == null ? false : true,
+              disabledBgColor: appColor.transparent,
+              isReadOnly: true,
+              hintText: "Upload",
+              icon: viewModel?.uploadInvoiceController.text.isEmpty ?? false
+                  ? viewModel?.imageConstants.fileUpload
+                  : viewModel?.imageConstants.removeIcon,
+              onTap: () {
+                // viewModel?.handleOnTap(context);
+              },
+              onSuffixTap: () {
+                // viewModel?.handleOnSuffixTap(context);
+              },
+              validator: (value) {
+                return null;
+                // return viewModel.uploadInvoiceValidation();
+              },
+              isMandatory: true,
+              controller:
+                  viewModel?.uploadInvoiceController ?? TextEditingController(),
             ),
           )
       ],
