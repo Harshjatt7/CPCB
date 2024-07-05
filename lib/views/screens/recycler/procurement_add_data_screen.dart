@@ -17,9 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class RecyclerProcurementAddDataScreen extends StatelessWidget {
-  final ImageConstants imageConstants=ImageConstants();
-  final AppColor appColor=AppColor();
-   RecyclerProcurementAddDataScreen({super.key});
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor = AppColor();
+  RecyclerProcurementAddDataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +143,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           isReadOnly: true,
           onTap: () async {
             viewModel.date = await HelperFunctions()
-                .datePicker(context, viewModel.startDate,viewModel.endDate);
+                .datePicker(context, viewModel.startDate, viewModel.endDate);
             if (viewModel.date != null) {
               viewModel.dateTimeConvert();
             }
@@ -191,6 +191,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
+        isMandatory: true,
         error: viewModel.yearDropdownError,
         onTap: () {
           viewModel.changeFinancialDropdownValue(
@@ -258,6 +259,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
+        isMandatory: true,
         error: viewModel.tyreSourceDropdownError,
         onTap: () {
           viewModel.changetyreSourceDropdownValue(
@@ -281,6 +283,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
+        isMandatory: true,
         error: viewModel.rawMaterialDropdownError,
         onTap: () {
           viewModel.changeRawMaterialDropdownValue(

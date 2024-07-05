@@ -9,13 +9,18 @@ class CommonDocumentField extends StatelessWidget {
   final String? fileName;
   final String label;
   final String? error;
+  final Color? bgColor;
+  final bool? isMandatory;
   final AppColor appColor = AppColor();
   CommonDocumentField(
       {super.key,
       required this.onTap,
       this.fileName,
       required this.label,
-      this.error});
+      this.bgColor,
+      this.error,
+      this.isMandatory,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +29,7 @@ class CommonDocumentField extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           decoration: BoxDecoration(
+              color: bgColor ?? appColor.transparent,
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: appColor.grey03)),
           child: Row(
@@ -42,6 +48,7 @@ class CommonDocumentField extends StatelessWidget {
                                       ? appColor.blue100
                                       : appColor.grey01)),
                     ),
+                    if(isMandatory==true)
                     WidgetSpan(
                       child: CommonTextWidget(fileName == null ? " *" : "",
                           style: Theme.of(context)

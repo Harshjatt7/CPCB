@@ -10,11 +10,14 @@ class CommonRadioButton extends StatelessWidget {
   final String label1;
   final String label2;
   final String? title;
-  final void Function(String?)? onChanged1;
-  final void Function(String?)? onChanged2;
-  final bool? isMandatory;
+  final TextStyle? titleStyle;
+  final bool isMandatory;
+  final void Function(String?)? onChanged;
+  final EdgeInsets? padding;
 
-  const CommonRadioButton(
+  final AppColor appColor = AppColor();
+
+  CommonRadioButton(
       {super.key,
       required this.groupValue,
       required this.value1,
@@ -22,9 +25,10 @@ class CommonRadioButton extends StatelessWidget {
       required this.label1,
       required this.label2,
       this.title,
-      required this.onChanged1,
-      required this.onChanged2,
-      this.isMandatory = false});
+      this.isMandatory = false,
+      required this.onChanged,
+      this.titleStyle,
+      this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -33,65 +37,94 @@ class CommonRadioButton extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            text: title?.i18n(),
-            style: Theme.of(context)
-                .textTheme
-                .labelSmall
-                ?.copyWith(color: AppColor().grey01),
+            text: title,
+            style: titleStyle ??
+                Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(color: appColor.black30),
             children: [
               TextSpan(
                 text: isMandatory == true ? " *" : "",
                 style: Theme.of(context)
                     .textTheme
                     .labelSmall
-                    ?.copyWith(color: AppColor().red),
+                    ?.copyWith(color: appColor.red),
               ),
             ],
           ),
         ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: RadioListTile(
-                  title: CommonTextWidget(
-                    label1,
-                    style: Theme.of(context).textTheme.labelSmall,
+        if (title != null)
+          Padding(
+            padding: padding ?? const EdgeInsets.only(bottom: 7),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Radio(
+                          visualDensity: const VisualDensity(
+                            horizontal: -4,
+                            vertical: -4,
+                          ),
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          value: value1,
+                          fillColor: MaterialStateProperty.resolveWith(
+                            (states) {
+                              if (states.contains(MaterialState.selected)) {
+                                return AppColor().darkGreen;
+                              }
+                              return AppColor().black40;
+                            },
+                          ),
+                          groupValue: groupValue,
+                          onChanged: onChanged),
+                      const SizedBox(width: 4),
+                      CommonTextWidget(
+                        label1,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ],
                   ),
-                  value: value1,
-                  fillColor: MaterialStateProperty.resolveWith(
-                    (states) {
-                      if (states.contains(MaterialState.selected)) {
-                        return AppColor().darkGreen;
-                      }
-                      return AppColor().black40;
-                    },
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Radio(
+                        visualDensity:
+                            const VisualDensity(horizontal: -4, vertical: -4),
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        value: value2,
+                        groupValue: groupValue,
+                        fillColor: MaterialStateProperty.resolveWith(
+                          (states) {
+                            if (states.contains(MaterialState.selected)) {
+                              return AppColor().darkGreen;
+                            }
+                            return AppColor().black40;
+                          },
+                        ),
+                        onChanged: onChanged,
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      CommonTextWidget(
+                        label2,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ],
                   ),
-                  groupValue: groupValue,
-                  onChanged: onChanged1),
+                ),
+              ],
             ),
-            Flexible(
-              child: RadioListTile(
-                title: CommonTextWidget(
-                  label2,
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-                value: value2,
-                groupValue: groupValue,
-                fillColor: MaterialStateProperty.resolveWith(
-                  (states) {
-                    if (states.contains(MaterialState.selected)) {
-                      return AppColor().darkGreen;
-                    }
-                    return AppColor().black40;
-                  },
-                ),
-                onChanged: onChanged2,
-              ),
-            )
-          ],
-        )
+          )
       ],
     );
   }

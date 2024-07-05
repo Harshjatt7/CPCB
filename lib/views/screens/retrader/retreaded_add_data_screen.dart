@@ -245,6 +245,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
+        isMandatory: true,
         labelText: viewModel.stringConstants.financialYearLabel,
         dropDownItem: viewModel.financialYearList,
         error: viewModel.yearDropdownError,

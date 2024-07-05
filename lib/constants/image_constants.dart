@@ -78,4 +78,8 @@ class ImageConstants {
       "assets/images/background/auditor_background1.png";
   final String auditorDashboardTotalIcon =
       "assets/images/icons/audit_dashboard_total_icon.svg";
+  final String deleteIcon = "assets/images/icons/delete.svg";
+  final String plusIcon = "assets/images/icons/plus.svg";
+  final String viewEyes = "assets/images/icons/view_eyes.svg";
+  final String searchIconLarge = "assets/images/icons/search_icon_large.svg";
 }

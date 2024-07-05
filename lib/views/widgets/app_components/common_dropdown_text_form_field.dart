@@ -12,21 +12,25 @@ class CommonDropdownTextFormField extends StatelessWidget {
   final void Function()? onTap;
   final String? value;
   final String? error;
-  final AppColor appColor=AppColor();
-   CommonDropdownTextFormField({
-    super.key,
-    required this.labelText,
-    required this.dropDownItem,
-    required this.onChanged,
-    this.onTap,
-    this.value,
-    this.error,
-  });
+  final bool? isMandatory;
+  final Color? bgColor;
+  final AppColor appColor = AppColor();
+  CommonDropdownTextFormField(
+      {super.key,
+      required this.labelText,
+      required this.dropDownItem,
+      required this.onChanged,
+      this.onTap,
+      this.value,
+      this.bgColor,
+      this.error,
+      this.isMandatory = false});
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
         decoration: BoxDecoration(
+            color: bgColor ?? appColor.transparent,
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
               color: error == null ? appColor.grey03 : appColor.red,
@@ -52,7 +56,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
                           ?.copyWith(color: appColor.grey01),
                       children: [
                         TextSpan(
-                          text: " *",
+                          text: isMandatory == true ? " *" : "",
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall

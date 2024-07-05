@@ -15,8 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SalesDataScreen extends StatelessWidget {
-   SalesDataScreen({super.key});
-  final AppColor appColor=AppColor();
+  SalesDataScreen({super.key});
+  final AppColor appColor = AppColor();
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +89,7 @@ class SalesDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonDropdownTextFormField(
+                  isMandatory: true,
                   error: viewModel.producerDropdownError,
                   onTap: () {
                     viewModel.changeDropdownValue(
@@ -110,6 +111,7 @@ class SalesDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonDropdownTextFormField(
+                  isMandatory: true,
                   error: viewModel.tyreDropdownError,
                   onTap: () {
                     viewModel.changeDropdownValue(SalesDataDropdown.typeOfTyre,
@@ -130,6 +132,7 @@ class SalesDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonDropdownTextFormField(
+                  isMandatory: true,
                   error: viewModel.yearDropdownError,
                   onTap: () {
                     viewModel.changeDropdownValue(
@@ -151,6 +154,7 @@ class SalesDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonDropdownTextFormField(
+                  isMandatory: true,
                   error: viewModel.monthDropdownError,
                   onTap: () {
                     viewModel.changeDropdownValue(
