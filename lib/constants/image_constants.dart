@@ -1,3 +1,4 @@
+
 /// [ImageConstants] will be used to store the path of various image asset files
 class ImageConstants {
   final String contactPage = "assets/images/logo/contact_page.svg";
@@ -71,6 +72,11 @@ class ImageConstants {
   final String commentIcon = "assets/images/icons/comment_icon.svg";
   final String summaryIcon = "assets/images/icons/summary_icon.svg";
 
+  // Auditor Dashboard
+  final String auditorDashboardBackground =
+      "assets/images/background/auditor_background1.png";
+  final String auditorDashboardTotalIcon =
+      "assets/images/icons/audit_dashboard_total_icon.svg";
   final String deleteIcon = "assets/images/icons/delete.svg";
   final String plusIcon = "assets/images/icons/plus.svg";
   final String viewEyes = "assets/images/icons/view_eyes.svg";

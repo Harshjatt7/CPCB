@@ -27,12 +27,22 @@ enum AdminUserTypes {
   final String text;
 }
 
-enum AuditorStatus{
+enum AuditorStatus {
   acknowledge('Acknowledge'),
   start('Start'),
   viewReport('View Report'),
   resume("Continue");
 
   const AuditorStatus(this.text);
+  final String text;
+}
+
+enum AuditorProducerForm1 {
+  gst('gst'),
+  panOfCompany("panOfCompany"),
+  cin("cin"),
+  iec("iec");
+
+  const AuditorProducerForm1(this.text);
   final String text;
 }

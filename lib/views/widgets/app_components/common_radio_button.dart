@@ -2,7 +2,6 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class CommonRadioButton extends StatelessWidget {
   final String groupValue;
   final String value1;

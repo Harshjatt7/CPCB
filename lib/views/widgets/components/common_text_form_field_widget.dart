@@ -180,10 +180,11 @@ class _CommonTextFormFieldWidgetNewState
             style: widget.isDocument == true
                 ? Theme.of(context).textTheme.displaySmall!.copyWith(
                     height: 1.5,
-                    color: widget.textColor ?? appColor.black90,
+                    color: widget.textColor ?? appColor.blue100,
                     decoration: widget.isDocument == true
                         ? TextDecoration.underline
                         : TextDecoration.none,
+                        decorationColor: appColor.blue100,
                     letterSpacing: widget.isObscure ? 5 : null)
                 : Theme.of(context).textTheme.labelSmall!.copyWith(
                     color: widget.textColor ?? appColor.black90,

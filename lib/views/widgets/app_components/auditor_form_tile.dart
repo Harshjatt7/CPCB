@@ -1,4 +1,4 @@
-import 'package:cpcb_tyre/views/widgets/app_components/common_upload_field.dart';
+import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/app_color.dart';
@@ -16,6 +16,14 @@ class AuditorFormTile extends StatelessWidget {
   final bool? isRadioField;
   final appColor = AppColor();
   final EdgeInsets? radioPadding;
+  final TextEditingController? remarkController;
+  final String? uploadedFileName;
+  final TextEditingController? uploadController;
+  final VoidCallback? onTap;
+  final String? Function(String?)? onValidation;
+  final VoidCallback? onSuffixTap;
+  final imageConstants = ImageConstants();
+  final String? filePath;
   AuditorFormTile({
     super.key,
     this.groupValue,
@@ -26,6 +34,13 @@ class AuditorFormTile extends StatelessWidget {
     this.titleStyle,
     this.isRadioField = false,
     this.radioPadding,
+    this.remarkController,
+    this.uploadedFileName,
+    this.onTap,
+    this.uploadController,
+    this.onSuffixTap,
+    this.onValidation,
+    this.filePath,
   });
 
   @override
@@ -35,7 +50,7 @@ class AuditorFormTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (isRadioField == true||isRadioField==false)
+          if (isRadioField == true || isRadioField == false)
             CommonRadioButton(
               titleStyle: titleStyle,
               isMandatory: isMandatory,
@@ -48,33 +63,43 @@ class AuditorFormTile extends StatelessWidget {
               onChanged: onChanged,
               padding: radioPadding,
             ),
-           if (isRadioField == false)  
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: CommonTextFormFieldWidget(
-                disabledBgColor: appColor.black10,
-                isReadOnly: true,
-                hintText: title ?? '',
-                isMandatory: false,
-                controller: TextEditingController()),
-          ),
-          if (isRadioField == false)  
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: CommonTextFormFieldWidget(
-                bgColor: appColor.white,
-                hintText: "Remarks",
-                isMandatory: false,
-                controller: TextEditingController()),
-          ),
+          if (isRadioField == false)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: CommonTextFormFieldWidget(
+                  disabledBgColor: appColor.black10,
+                  isReadOnly: true,
+                  hintText: title ?? '',
+                  isMandatory: false,
+                  controller: TextEditingController()),
+            ),
+          if (isRadioField == false)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: CommonTextFormFieldWidget(
+                  bgColor: appColor.white,
+                  hintText: "Remarks",
+                  isMandatory: false,
+                  controller: remarkController ?? TextEditingController()),
+            ),
           if (isUpload == true)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonDocumentField(
-                onTap: () {},
-                label: "Upload",
-                isMandatory: isMandatory,
-                bgColor: appColor.white,
+              child: CommonTextFormFieldWidget(
+                
+                isDocument: filePath == null ? false : true,
+                disabledBgColor: appColor.transparent,
+                isReadOnly: true,
+                hintText: "Upload",
+                icon: uploadController?.text.isEmpty ?? false
+                    ? imageConstants.fileUpload
+                    : imageConstants.removeIcon,
+                onTap: onTap,
+                onSuffixTap: onSuffixTap,
+                validator: onValidation,
+                isMandatory: false,
+                controller: uploadController ?? TextEditingController(),
+                
               ),
             )
         ],
