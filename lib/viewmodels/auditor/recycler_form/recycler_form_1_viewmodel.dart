@@ -1,3 +1,5 @@
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 
-class RecyclerForm1ViewModel extends BaseViewModel {}
+class RecyclerForm1ViewModel extends BaseViewModel {
+  int count = 1;
+}

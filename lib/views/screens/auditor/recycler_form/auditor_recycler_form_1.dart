@@ -199,7 +199,17 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
-                    child: PlantMachineryWidget(),
+                    child: PlantMachineryWidget(
+                      count: viewModel.count,
+                      onAdd: () {
+                        viewModel.count++;
+                        viewModel.updateUI();
+                      },
+                      onDelete: () {
+                        viewModel.count--;
+                        viewModel.updateUI();
+                      },
+                    ),
                   )
                 ],
               ),
@@ -331,7 +341,6 @@ class AuditorRecyclerForm1 extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: CommonTextFormFieldWidget(
-            
               disabledBgColor: appColor.black10,
               isReadOnly: true,
               hintText: title ?? '',

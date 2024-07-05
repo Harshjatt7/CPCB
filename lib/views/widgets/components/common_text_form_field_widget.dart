@@ -28,6 +28,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final bool? isLastField;
   final Color? iconColor;
   final Color? bgColor;
+  final bool? useLocalization;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -53,29 +54,29 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   /// [isLastField] will be true if the textfield is last in any given form to show he "done" or check button in keyboard.
   /// By default it's value will be false.
 
-  const CommonTextFormFieldWidget({
-    super.key,
-    required this.hintText,
-    required this.isMandatory,
-    required this.controller,
-    this.isObscure = false,
-    this.icon,
-    this.textColor,
-    this.isPasswordField = false,
-    this.textInputType = TextInputType.text,
-    this.validator,
-    this.isReadOnly = false,
-    this.isPassword = false,
-    this.onSuffixTap,
-    this.onChanged,
-    this.disabledBgColor,
-    this.onTap,
-    this.inputFormatters,
-    this.bgColor,
-    this.isDocument,
-    this.isLastField = false,
-    this.iconColor,
-  });
+  const CommonTextFormFieldWidget(
+      {super.key,
+      required this.hintText,
+      required this.isMandatory,
+      required this.controller,
+      this.isObscure = false,
+      this.icon,
+      this.textColor,
+      this.isPasswordField = false,
+      this.textInputType = TextInputType.text,
+      this.validator,
+      this.isReadOnly = false,
+      this.isPassword = false,
+      this.onSuffixTap,
+      this.onChanged,
+      this.disabledBgColor,
+      this.onTap,
+      this.inputFormatters,
+      this.bgColor,
+      this.isDocument,
+      this.isLastField = false,
+      this.iconColor,
+      this.useLocalization = true});
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
@@ -200,12 +201,14 @@ class _CommonTextFormFieldWidgetNewState
                     : appColor.transparent,
                 filled: widget.isReadOnly ?? false,
                 label: RichText(
+                  maxLines: 1,
                   text: TextSpan(
-                    text: widget.hintText.i18n(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(color: appColor.grey01),
+                    text: widget.useLocalization == true
+                        ? widget.hintText.i18n()
+                        : widget.hintText,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: appColor.grey01,
+                        ),
                     children: [
                       TextSpan(
                         text: widget.isMandatory == true ? " *" : "",

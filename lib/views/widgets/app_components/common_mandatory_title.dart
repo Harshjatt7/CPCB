@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 
 class CommonMandatoryTitle extends StatelessWidget {
   CommonMandatoryTitle(
-      {super.key, this.isMandatory = false, required this.title});
+      {super.key, this.isMandatory = false, required this.title, this.style});
   final AppColor appColor = AppColor();
   final bool isMandatory;
   final String title;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 17),
       child: RichText(
         text: TextSpan(
           text: title,
-          style: Theme.of(context).textTheme.displaySmall,
+          style: style ?? Theme.of(context).textTheme.displaySmall,
           children: [
             TextSpan(
               text: isMandatory == true ? " *" : "",

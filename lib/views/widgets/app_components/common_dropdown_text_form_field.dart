@@ -13,6 +13,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
   final String? value;
   final String? error;
   final bool? isMandatory;
+  final Color? bgColor;
   final AppColor appColor = AppColor();
   CommonDropdownTextFormField(
       {super.key,
@@ -21,6 +22,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
       required this.onChanged,
       this.onTap,
       this.value,
+      this.bgColor,
       this.error,
       this.isMandatory = false});
   @override
@@ -28,6 +30,7 @@ class CommonDropdownTextFormField extends StatelessWidget {
     return Column(children: [
       Container(
         decoration: BoxDecoration(
+            color: bgColor ?? appColor.transparent,
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
               color: error == null ? appColor.grey03 : appColor.red,
