@@ -201,7 +201,6 @@ class StringConstants {
   final String close = "close";
   final String options = "Options";
   final String downloadTransactionLabel = "download-transaction-label";
-
   final String viewDetail = "view-detail";
   final String unitName = "unit-name";
   final String unitGstin = "unit-gstin";
@@ -217,9 +216,9 @@ class StringConstants {
   //auditor forms
   final String companyDetails = "company-details";
   final String companyNameAddress = "name-address";
-  final String categoryOfProducer = "categoryofproducer";
+  final String categoryOfProducer = "category-of-producer";
   final String gst = "gst";
-  final String panOfCompany = "panofcompany";
+  final String panOfCompany = "pan-of-company";
   final String cin = "cin";
   final String iec = "iec";
   final String verificationA = "verification-a";
@@ -229,4 +228,5 @@ class StringConstants {
   final String information = "information";
   final String remarks = "remarks";
   final String summary = "summary";
+  final String confirmed = "confirmed";
 }

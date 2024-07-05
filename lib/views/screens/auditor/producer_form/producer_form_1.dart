@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/auditor_form_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,9 @@ class _ProducerForm1State extends State<ProducerForm1> {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProducerForm1ViewModel>(
-      onModelReady: (viewModel) {},
+      onModelReady: (viewModel) {
+        viewModel.initalizeGroupValues();
+      },
       viewModel: ProducerForm1ViewModel(),
       builder: (context, viewModel, child) {
         return Padding(
@@ -31,32 +34,118 @@ class _ProducerForm1State extends State<ProducerForm1> {
               AuditorFormTile(
                 title: viewModel.stringConstants.companyNameAddress.i18n(),
                 isMandatory: true,
-                groupValue: viewModel.groupValue,
+                groupValue: viewModel.radioCompanyDetail,
+                remarkController: viewModel.companyNameRemark,
                 onChanged: (value) {
-                  viewModel.groupValue = value ?? '';
+                  viewModel.radioCompanyDetail = value ?? '';
                   viewModel.updateUI();
                 },
               ),
               AuditorFormTile(
-                  title: viewModel.stringConstants.categoryOfProducer.i18n(),
-                  isMandatory: true,
-                  groupValue: viewModel.groupValue),
+                title: viewModel.stringConstants.categoryOfProducer.i18n(),
+                isMandatory: true,
+                groupValue: viewModel.radioCategoryOfProducer,
+                remarkController: viewModel.categoryOfProducerRemark,
+                onChanged: (value) {
+                  viewModel.radioCategoryOfProducer = value ?? '';
+                  viewModel.updateUI();
+                },
+              ),
               AuditorFormTile(
-                  title: viewModel.stringConstants.gst.i18n(),
-                  isUpload: true,
-                  groupValue: viewModel.groupValue),
+                title: viewModel.stringConstants.gst.i18n(),
+                isUpload: true,
+                groupValue: viewModel.radioGst,
+                remarkController: viewModel.gstRemark,
+                uploadController: viewModel.gstController,
+                filePath: viewModel.gstFilePath,
+                onChanged: (value) {
+                  viewModel.radioGst = value ?? '';
+                  viewModel.updateUI();
+                },
+                onTap: () {
+                  viewModel.handleOnTap(context, AuditorProducerForm1.gst,
+                      viewModel.gstController, viewModel.gstFile);
+                },
+                onSuffixTap: () {
+                  viewModel.handleOnSuffixTap(context, AuditorProducerForm1.gst,
+                      viewModel.gstController, viewModel.gstFile);
+                },
+                onValidation: (value) {
+                  return null;
+                  // return viewModel.uploadInvoiceValidation();
+                },
+              ),
               AuditorFormTile(
-                  title: viewModel.stringConstants.panOfCompany.i18n(),
-                  isUpload: true,
-                  groupValue: viewModel.groupValue),
+                title: viewModel.stringConstants.panOfCompany.i18n(),
+                isUpload: true,
+                groupValue: viewModel.radioPanOfCompany,
+                remarkController: viewModel.panOfCompanyRemark,
+                uploadController: viewModel.panController,
+                filePath: viewModel.panFilePath,
+                onChanged: (value) {
+                  viewModel.radioPanOfCompany = value ?? '';
+                  viewModel.updateUI();
+                },
+                onTap: () {
+                  viewModel.handleOnTap(
+                      context,
+                      AuditorProducerForm1.panOfCompany,
+                      viewModel.panController,
+                      viewModel.panFile);
+                },
+                onSuffixTap: () {
+                  viewModel.handleOnSuffixTap(
+                      context,
+                      AuditorProducerForm1.panOfCompany,
+                      viewModel.panController,
+                      viewModel.panFile);
+                },
+              ),
               AuditorFormTile(
-                  title: viewModel.stringConstants.cin.i18n(),
-                  isUpload: true,
-                  groupValue: viewModel.groupValue),
+                title: viewModel.stringConstants.cin.i18n(),
+                isUpload: true,
+                groupValue: viewModel.radioCin,
+                remarkController: viewModel.cinRemark,
+                uploadController: viewModel.cinController,
+                filePath: viewModel.cinFilePath,
+                onChanged: (value) {
+                  viewModel.radioCin = value ?? '';
+                  viewModel.updateUI();
+                },
+                onTap: () {
+                  viewModel.handleOnTap(context, AuditorProducerForm1.cin,
+                      viewModel.cinController, viewModel.cinFile);
+                },
+                onSuffixTap: () {
+                  viewModel.handleOnSuffixTap(context, AuditorProducerForm1.cin,
+                      viewModel.cinController, viewModel.cinFile);
+                },
+              ),
               AuditorFormTile(
-                  title: viewModel.stringConstants.iec.i18n(),
-                  isUpload: true,
-                  groupValue: viewModel.groupValue),
+                title: viewModel.stringConstants.iec.i18n(),
+                isUpload: true,
+                groupValue: viewModel.radioIec,
+                remarkController: viewModel.iecRemark,
+                uploadController: viewModel.iecController,
+                filePath: viewModel.iecFilePath,
+                onChanged: (value) {
+                  viewModel.radioIec = value ?? '';
+                  viewModel.updateUI();
+                },
+                onTap: () {
+                  viewModel.handleOnTap(context, AuditorProducerForm1.iec,
+                      viewModel.iecController, viewModel.iecFile);
+                  viewModel.updateUI();
+                },
+                onSuffixTap: () {
+                  viewModel.handleOnSuffixTap(context, AuditorProducerForm1.iec,
+                      viewModel.iecController, viewModel.iecFile);
+                },
+                onValidation: (value) {
+                  return null;
+                  // return viewModel.uploadInvoiceValidation();
+                },
+              ),
             ],
           ),
         );

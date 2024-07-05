@@ -82,47 +82,50 @@ class AuditorListScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: Column(
                 children: List<Widget>.generate(10, (index) {
-                  return AuditListCard(
-                    userType: "Producer",
-                    unitName: "ABC-XYZ Unit",
-                    status: "Open",
-                    district: "South Delhi",
-                    year: "Apr-Jul, 2023-24",
-                    date: "30/08/2023",
-                    progress: 90,
-                    onTap: () {
-                      viewModel.getStatus("Open");
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: AuditListCard(
+                      userType: "Producer",
+                      unitName: "ABC-XYZ Unit",
+                      status: "Open",
+                      district: "South Delhi",
+                      year: "Apr-Jul, 2023-24",
+                      date: "30/08/2023",
+                      progress: 90,
+                      onTap: () {
+                        viewModel.getStatus("Open");
 
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero),
-                        builder: (context) {
-                          return AuditorBottomSheet(
-                            progress: 60,
-                            status: viewModel.applicationStatus,
-                            unitName: "ABC-XYZ Unit",
-                            unitRegisteration: "24753942FH",
-                            unitGstin: "FHR5478D",
-                            unitType: "Producer",
-                            unitAddress:
-                                "12/D Ayurveda Nagar, Opp. Ansal Plaza, South Delhi, New Delhi-110049",
-                            district: "South District",
-                            state: "New Delhi",
-                            currentStatus: "In progress",
-                            createdOn: "12-Mar-2024",
-                            startDate: "15-Mar-2024",
-                            endDate: "-",
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, AppRoutes.auditorStepperScreen,
-                                  arguments: "Producer");
-                            },
-                          );
-                        },
-                      );
-                    },
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero),
+                          builder: (context) {
+                            return AuditorBottomSheet(
+                              progress: 60,
+                              status: viewModel.applicationStatus,
+                              unitName: "ABC-XYZ Unit",
+                              unitRegisteration: "24753942FH",
+                              unitGstin: "FHR5478D",
+                              unitType: "Producer",
+                              unitAddress:
+                                  "12/D Ayurveda Nagar, Opp. Ansal Plaza, South Delhi, New Delhi-110049",
+                              district: "South District",
+                              state: "New Delhi",
+                              currentStatus: "In progress",
+                              createdOn: "12-Mar-2024",
+                              startDate: "15-Mar-2024",
+                              endDate: "-",
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, AppRoutes.auditorStepperScreen,
+                                    arguments: "Producer");
+                              },
+                            );
+                          },
+                        );
+                      },
+                    ),
                   );
                 }),
               ),
