@@ -1,11 +1,13 @@
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_bottom_navigation_bar_screen_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import '../../../constants/image_constants.dart';
 import '../../../viewmodels/auditor/auditor_dashboard_view_model.dart';
-import '../../widgets/app_components/common_search_bar.dart';
+import '../../widgets/app_components/common_end_product.dart';
+import '../../widgets/app_components/common_title_bar.dart';
+import '../../widgets/app_components/common_total_application_card.dart';
 import '../../widgets/components/common_appbar.dart';
 
 class AuditorDashboardScreen extends StatelessWidget {
@@ -19,53 +21,16 @@ class AuditorDashboardScreen extends StatelessWidget {
         builder: (context, viewModel, child) {
           return CustomScaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(
-                  (viewModel.searchController.text.isNotEmpty ||
-                          viewModel.isSearchExpanded == true)
-                      ? 146
-                      : 125),
+              preferredSize: const Size.fromHeight(125),
               child: SafeArea(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CommonAppBar(
                       isIconBar: true,
                       showNotificationIcon: false,
-                      image: ImageConstants().avatar,
-                      name: viewModel.stringConstants.name,
-                      designation: viewModel.stringConstants.userType,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: viewModel.appColor.black10,
-                      ))),
-                      child: CommonSearchBarWidget(
-                        title: viewModel.stringConstants.dashboard,
-                        isSearchExpanded: viewModel.isSearchExpanded,
-                        controller: viewModel.searchController,
-                        hintText: viewModel.stringConstants.searchHere,
-                        onChanged: (value) {
-                          viewModel.isSearchExpanded = true;
-                          // viewModel.searchRetreader(value);
-
-                          if (viewModel.searchController.text.isEmpty) {
-                            // viewModel.getUpdatedList();
-                          }
-                        },
-                        onSuffixTap: () {
-                          if (viewModel.searchController.text.isEmpty) {
-                            viewModel.isSearchExpanded =
-                                !viewModel.isSearchExpanded;
-                            // viewModel.getUpdatedList();
-                          } else {
-                            viewModel.isSearchExpanded = false;
-                            // viewModel.getUpdatedList();
-                          }
-                        },
-                      ),
-                    ),
+                    CommonTitleBar(title: viewModel.stringConstants.dashboard)
                   ],
                 ),
               ),
@@ -73,18 +38,45 @@ class AuditorDashboardScreen extends StatelessWidget {
             body: CommonSingleChildScrollView(
               child: Column(
                 children: [
-                  // CommonDataTable(),
-                  CommonRadioButton(
-                    groupValue: viewModel.groupValue ?? '',
-                    label1: "Yes",
-                    label2: "No",
-                    value1: "yes",
-                    value2: "no",
-                    onChanged: (value) {
-                      viewModel.groupValue = value ?? '';
-                      viewModel.updateUI();
+                  CommonTotalApplicationCard(
+                    totalApplication: "1,000",
+                    isAuditor: true,
+                    onTap: () {
+                      CommonScreenWithBottomNavigationBar.of(context)
+                          ?.onItemTapped(1);
                     },
-                    title: "Misreporting in Sales data of the Tyre",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const CommonTextWidget("Application"),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        CommonEndProduct(
+                          title: viewModel.stringConstants.totalAudits,
+                          generated: "",
+                          transferred: "1,000",
+                        ),
+                        const CommonEndProduct(
+                          title: "Audits Start",
+                          generated: "",
+                          transferred: "1,000",
+                        ),
+                        const CommonEndProduct(
+                          title: "Pending Audits",
+                          generated: "",
+                          transferred: "1,000",
+                        ),
+                        const CommonEndProduct(
+                          title: "Completed Audits",
+                          generated: "",
+                          transferred: "1,000",
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),
