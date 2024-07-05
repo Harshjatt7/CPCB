@@ -73,9 +73,9 @@ class StringConstants {
   final String spcbDashboard = "spcb-dashboard";
 
   final String auditFormRecycler = "audit-form-recycler";
-  final String savedAsDraft="save-as-draft";
-  final String next="next";
-  
+  final String savedAsDraft = "save-as-draft";
+  final String next = "next";
+
   // Dashboard
   final String applicationNumber = "application-number";
 
@@ -202,7 +202,7 @@ class StringConstants {
   final String options = "Options";
   final String downloadTransactionLabel = "download-transaction-label";
 
-  final String viewDetail =  "view-detail";
+  final String viewDetail = "view-detail";
   final String unitName = "unit-name";
   final String unitGstin = "unit-gstin";
   final String unitRegisteration = "unit-registeration";
@@ -214,5 +214,19 @@ class StringConstants {
   final String auditorEndDate = "auditor-end-date";
   final String quarterFinalYear = "quarter-final-year";
   final String auditList = "audit-list";
-
+  //auditor forms
+  final String companyDetails = "company-details";
+  final String companyNameAddress = "name-address";
+  final String categoryOfProducer = "categoryofproducer";
+  final String gst = "gst";
+  final String panOfCompany = "panofcompany";
+  final String cin = "cin";
+  final String iec = "iec";
+  final String verificationA = "verification-a";
+  final String verificationB = "verification-b";
+  final String misreporting = "misreporting";
+  final String deviation = "deviation";
+  final String information = "information";
+  final String remarks = "remarks";
+  final String summary = "summary";
 }

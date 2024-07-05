@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/image_constants.dart';
 import '../../../viewmodels/auditor/auditor_list_view_model.dart';
@@ -90,9 +91,9 @@ class AuditorListScreen extends StatelessWidget {
                     date: "30/08/2023",
                     progress: 90,
                     onTap: () {
-                      viewModel.getStatus("In Progress");
+                      viewModel.getStatus("Open");
+
                       showModalBottomSheet(
-                        
                         isScrollControlled: true,
                         context: context,
                         shape: const RoundedRectangleBorder(
@@ -113,6 +114,11 @@ class AuditorListScreen extends StatelessWidget {
                             createdOn: "12-Mar-2024",
                             startDate: "15-Mar-2024",
                             endDate: "-",
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, AppRoutes.auditorStepperScreen,
+                                  arguments: "Producer");
+                            },
                           );
                         },
                       );

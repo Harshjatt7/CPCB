@@ -7,13 +7,10 @@ class CommonTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CommonTextWidget(
-        useLocalization: false,
-        label,
-        style: Theme.of(context).textTheme.labelMedium,
-      ),
+    return CommonTextWidget(
+      useLocalization: false,
+      label,
+      style: Theme.of(context).textTheme.labelMedium,
     );
   }
 }
