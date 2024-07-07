@@ -13,7 +13,7 @@ class CommonMultilineTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 4),
       decoration: BoxDecoration(
           border: Border.all(
             color: appColor.grey03,
@@ -28,6 +28,7 @@ class CommonMultilineTextFormField extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         maxLength: maxLength ?? 100,
         maxLines: maxLines ?? 3,
+        cursorColor: appColor.black50,
         keyboardType: TextInputType.multiline,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: appColor.black90,

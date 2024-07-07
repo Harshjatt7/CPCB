@@ -27,11 +27,6 @@ class ProducerForm1ViewModel extends BaseViewModel {
   TextEditingController panController = TextEditingController();
   TextEditingController gstController = TextEditingController();
 
-  MultipartFile? iecFile;
-  MultipartFile? cinFile;
-  MultipartFile? panFile;
-  MultipartFile? gstFile;
-
   String radioCompanyDetail = "";
   String radioCategoryOfProducer = "";
   String radioGst = "";
@@ -39,6 +34,12 @@ class ProducerForm1ViewModel extends BaseViewModel {
   String radioCin = "";
   String radioIec = "";
 
+
+  MultipartFile? iecFile;
+  MultipartFile? cinFile;
+  MultipartFile? panFile;
+  MultipartFile? gstFile;
+  
   String? gstFilePath;
   String? panFilePath;
   String? cinFilePath;

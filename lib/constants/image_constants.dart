@@ -1,5 +1,3 @@
-import 'package:cpcb_tyre/views/screens/auditor/auditor_dashboard_screen.dart';
-
 /// [ImageConstants] will be used to store the path of various image asset files
 class ImageConstants {
   final String contactPage = "assets/images/logo/contact_page.svg";

@@ -98,7 +98,7 @@ class RetreaderDataScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
-                        child: (viewModel.data?.length ?? 0) == 0
+                        child: (viewModel.data?.isEmpty ?? true && viewModel.state == ViewState.idle)
                             ? Center(
                                 child: CommonTextWidget(
                                     MessageConstant().noMatchingResultsFound))
