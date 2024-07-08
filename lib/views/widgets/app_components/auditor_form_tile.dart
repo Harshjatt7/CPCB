@@ -1,4 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_multiline_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/app_color.dart';
@@ -19,10 +21,12 @@ class AuditorFormTile extends StatelessWidget {
   final TextEditingController? remarkController;
   final String? uploadedFileName;
   final TextEditingController? uploadController;
+  final TextEditingController? disableController;
   final VoidCallback? onTap;
   final String? Function(String?)? onValidation;
   final VoidCallback? onSuffixTap;
   final imageConstants = ImageConstants();
+  final StringConstants stringConstants = StringConstants();
   final String? filePath;
   AuditorFormTile({
     super.key,
@@ -36,6 +40,7 @@ class AuditorFormTile extends StatelessWidget {
     this.radioPadding,
     this.remarkController,
     this.uploadedFileName,
+    this.disableController,
     this.onTap,
     this.uploadController,
     this.onSuffixTap,
@@ -45,65 +50,61 @@ class AuditorFormTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (isRadioField == true || isRadioField == false)
-            CommonRadioButton(
-              titleStyle: titleStyle,
-              isMandatory: isMandatory,
-              title: title,
-              groupValue: groupValue ?? "",
-              value1: "not confirmed",
-              value2: "confirmed",
-              label1: "Not Confirmed",
-              label2: "Confirmed",
-              onChanged: onChanged,
-              padding: radioPadding,
-            ),
-          if (isRadioField == false)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonTextFormFieldWidget(
-                  disabledBgColor: appColor.black10,
-                  isReadOnly: true,
-                  hintText: title ?? '',
-                  isMandatory: false,
-                  controller: TextEditingController()),
-            ),
-          if (isRadioField == false)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonTextFormFieldWidget(
-                  bgColor: appColor.white,
-                  hintText: "Remarks",
-                  isMandatory: false,
-                  controller: remarkController ?? TextEditingController()),
-            ),
-          if (isUpload == true)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: CommonTextFormFieldWidget(
-                
-                isDocument: filePath == null ? false : true,
-                disabledBgColor: appColor.transparent,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (isRadioField == true || isRadioField == false)
+          CommonRadioButton(
+            titleStyle: titleStyle,
+            isMandatory: isMandatory,
+            title: title,
+            groupValue: groupValue ?? "",
+            value1: stringConstants.notConfirmed,
+            value2: stringConstants.confirmed,
+            label1: stringConstants.notConfirmed,
+            label2: stringConstants.confirmed,
+            onChanged: onChanged,
+            padding: radioPadding,
+          ),
+        if (isRadioField == false)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: CommonTextFormFieldWidget(
+                disabledBgColor: appColor.black10,
                 isReadOnly: true,
-                hintText: "Upload",
-                icon: uploadController?.text.isEmpty ?? false
-                    ? imageConstants.fileUpload
-                    : imageConstants.removeIcon,
-                onTap: onTap,
-                onSuffixTap: onSuffixTap,
-                validator: onValidation,
+                hintText: title ?? '',
                 isMandatory: false,
-                controller: uploadController ?? TextEditingController(),
-                
-              ),
-            )
-        ],
-      ),
+                controller: disableController ?? TextEditingController()),
+          ),
+        if (isRadioField == false)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: CommonMultilineTextFormField(
+                bgColor: appColor.white,
+                label: stringConstants.remark,
+                isMandatory: false,
+                maxLength: 500,
+                controller: remarkController ?? TextEditingController()),
+          ),
+        if (isUpload == true)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: CommonTextFormFieldWidget(
+              isDocument: filePath == null ? false : true,
+              disabledBgColor: appColor.transparent,
+              isReadOnly: true,
+              hintText: stringConstants.upload,
+              icon: uploadController?.text.isEmpty ?? false
+                  ? imageConstants.fileUpload
+                  : imageConstants.removeIcon,
+              onTap: onTap,
+              onSuffixTap: onSuffixTap,
+              validator: onValidation,
+              isMandatory: false,
+              controller: uploadController ?? TextEditingController(),
+            ),
+          )
+      ],
     );
   }
 }

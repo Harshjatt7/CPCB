@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
@@ -10,13 +11,23 @@ class PlantMachineryWidget extends StatelessWidget {
       {super.key,
       this.onAdd,
       this.onDelete,
+      this.uploadControllerList,
       this.count = 1,
+      this.isDocument = false,
+      this.onTap,
+      this.onSuffixTap,
       this.controllerList});
   final AppColor appColor = AppColor();
   final void Function()? onAdd;
   final void Function()? onDelete;
   final int count;
   final List<TextEditingController>? controllerList;
+  final List<TextEditingController>? uploadControllerList;
+  final bool isDocument;
+  final void Function()? onTap;
+  final void Function()? onSuffixTap;
+  final StringConstants stringConstants = StringConstants();
+  final ImageConstants imageConstants = ImageConstants();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +45,7 @@ class PlantMachineryWidget extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
                   child: CommonTextWidget(
-                    "Any other plant machinery",
+                    stringConstants.anyOtherPlant,
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall!
@@ -104,20 +115,27 @@ class PlantMachineryWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 9),
                       child: CommonTextFormFieldWidget(
                           bgColor: appColor.white,
-                          hintText: "Any other plant machinery",
+                          hintText: stringConstants.anyOtherPlant,
                           isMandatory: false,
                           controller: controllerList?[index] ??
                               TextEditingController()),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(top: 9, bottom: 18),
-                        child: CommonTextFormFieldWidget(
-                            hintText: "Upload",
-                            isMandatory: false,
-                            controller: TextEditingController(),
-                            isDocument: true,
-                            ),
-                        )
+                      padding: const EdgeInsets.only(top: 9, bottom: 18),
+                      child: CommonTextFormFieldWidget(
+                        hintText: stringConstants.upload,
+                        isMandatory: false,
+                        bgColor: appColor.white,
+                        controller: uploadControllerList?[index] ??
+                            TextEditingController(),
+                        isDocument: isDocument,
+                        icon: uploadControllerList?[index].text.isEmpty ?? false
+                            ? imageConstants.fileUpload
+                            : imageConstants.removeIcon,
+                        onTap: onTap,
+                        onSuffixTap: onSuffixTap,
+                      ),
+                    )
                   ],
                 ),
               );

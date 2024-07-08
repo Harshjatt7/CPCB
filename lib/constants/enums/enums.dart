@@ -46,3 +46,16 @@ enum AuditorProducerForm1 {
   const AuditorProducerForm1(this.text);
   final String text;
 }
+
+enum RecyclerForm1 {
+  aadhar('aadhar'),
+  panNo("panNo"),
+  plant("plantUpload"),
+  power("power"),
+  pollution("pollution"),
+  video("video"),
+  machine("machine");
+
+  const RecyclerForm1(this.text);
+  final String text;
+}

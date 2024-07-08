@@ -11,22 +11,19 @@ class CommonMandatoryTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 17),
-      child: RichText(
-        text: TextSpan(
-          text: title,
-          style: style ?? Theme.of(context).textTheme.displaySmall,
-          children: [
-            TextSpan(
-              text: isMandatory == true ? " *" : "",
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall
-                  ?.copyWith(color: appColor.red),
-            ),
-          ],
-        ),
+    return RichText(
+      text: TextSpan(
+        text: title,
+        style: style ?? Theme.of(context).textTheme.displaySmall,
+        children: [
+          TextSpan(
+            text: isMandatory == true ? " *" : "",
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(color: appColor.red),
+          ),
+        ],
       ),
     );
   }

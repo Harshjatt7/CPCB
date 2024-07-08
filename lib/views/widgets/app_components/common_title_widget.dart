@@ -8,7 +8,7 @@ class CommonTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonTextWidget(
-      useLocalization: false,
+      useLocalization: true,
       label,
       style: Theme.of(context).textTheme.labelMedium,
     );
