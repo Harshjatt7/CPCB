@@ -18,7 +18,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<RecyclerForm1ViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) async {
+          viewModel.addController();
+          viewModel.getCurrentLocation();
+        },
         viewModel: RecyclerForm1ViewModel(),
         builder: (context, viewModel, child) {
           return Column(
@@ -211,14 +214,13 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
                     child: PlantMachineryWidget(
+                      controllerList: viewModel.controllerList,
                       count: viewModel.count,
                       onAdd: () {
-                        viewModel.count++;
-                        viewModel.updateUI();
+                        viewModel.onAdd();
                       },
                       onDelete: () {
-                        viewModel.count--;
-                        viewModel.updateUI();
+                        viewModel.onDelete();
                       },
                     ),
                   )
