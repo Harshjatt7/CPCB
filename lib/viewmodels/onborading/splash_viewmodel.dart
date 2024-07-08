@@ -25,10 +25,7 @@ class SplashViewModel extends BaseViewModel {
         case UserTypes.admin:
           if (context.mounted) {
             Navigator.pushReplacementNamed(
-                context, AppRoutes.auditorHomeScreen);
-            // TODO: UNCOMMENT
-            // Navigator.pushReplacementNamed(
-            //     context, AppRoutes.adminHomeScreenRoute);
+                context, AppRoutes.adminHomeScreenRoute);
           }
           break;
         case UserTypes.auditor:
@@ -73,8 +70,7 @@ class SplashViewModel extends BaseViewModel {
           }
           break;
         default:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.producerHomeScreenRoute);
+          Navigator.pushReplacementNamed(context, AppRoutes.loginScreenRoute);
           break;
       }
     }

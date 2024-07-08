@@ -180,10 +180,8 @@
     "start-date": "Start Date",
     "end-date": "End Date",
     "add-comment": "Add Comment",
-    "write-comment": "Write your comment ...",
+    "write-corecmment": "Write your comment ...",
     "spcb-dashboard": "SPCB Dashboard",
-    "state-authorized": "State Authorized",
-    "enter-comment": "Please enter comment",
     "total-audits": "Total Audits",
     "state-authorized": "State Authorized",
     "enter-comment": "Please enter comment",
@@ -214,8 +212,8 @@
     "misreporting": "Misreporting in Sales data of the Tyre",
     "deviation": "Enter Deviation in Quantity",
     "information": "False Information",
-    "remarks":"Remarks",
+    "remarks": "Remarks",
     "summary": "Overall Summary",
     "confirmed": "Confirmed",
-    "false-information":"False Information"
+    "false-information": "False Information"
 }
