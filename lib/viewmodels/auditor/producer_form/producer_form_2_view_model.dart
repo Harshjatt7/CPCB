@@ -3,8 +3,10 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import '../../base_viewmodel.dart';
 
 class ProducerForm2ViewModel extends BaseViewModel {
-  String groupValue = "confirmed";
   final stringConstants = StringConstants();
+  String radioMisreportingP1 = "";
+  String radioMisreportingP3 = "";
+  
   List<String> producerHeadingList = [
     "Type of Tyre",
     "Financial Year",

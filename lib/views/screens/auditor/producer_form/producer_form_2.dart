@@ -25,10 +25,14 @@ class ProducerForm2 extends StatelessWidget {
                   label: viewModel.stringConstants.verificationA.i18n()),
               AuditorFormTile(
                 title: viewModel.stringConstants.misreporting.i18n(),
-                groupValue: viewModel.groupValue,
+                groupValue: viewModel.radioMisreportingP1,
                 titleStyle: Theme.of(context).textTheme.labelSmall,
                 isRadioField: true,
                 radioPadding: const EdgeInsets.symmetric(vertical: 7),
+                onChanged: (value) {
+                  viewModel.radioMisreportingP1 = value ?? "";
+                  viewModel.updateUI();
+                },
               ),
               const SizedBox(
                 height: 7,
@@ -41,10 +45,14 @@ class ProducerForm2 extends StatelessWidget {
                   label: viewModel.stringConstants.verificationB.i18n()),
               AuditorFormTile(
                 title: viewModel.stringConstants.misreporting.i18n(),
-                groupValue: viewModel.groupValue,
+                groupValue: viewModel.radioMisreportingP3,
                 titleStyle: Theme.of(context).textTheme.labelSmall,
                 isRadioField: true,
                 radioPadding: const EdgeInsets.symmetric(vertical: 7),
+                onChanged: (value) {
+                  viewModel.radioMisreportingP3 = value ?? "";
+                  viewModel.updateUI();
+                },
               ),
               const SizedBox(
                 height: 7,

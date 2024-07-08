@@ -24,27 +24,41 @@ class ProducerForm3 extends StatelessWidget {
               buildRadioButton(
                 context,
                 viewModel: viewModel,
+                title: viewModel.stringConstants.misreporting,
+                groupValue: viewModel.radioMisreporting,
+                onChanged: (value) {
+                  viewModel.radioMisreporting = value ?? "";
+                  viewModel.updateUI();
+                },
               ),
               CommonTextFormFieldWidget(
-                  hintText: viewModel.stringConstants.deviation,
-                  isMandatory: false,
-                  controller: viewModel.deviationController),
+                hintText: viewModel.stringConstants.deviation,
+                isMandatory: false,
+                controller: viewModel.deviationController,
+              ),
               const SizedBox(
                 height: 24,
               ),
-               buildRadioButton(
+              buildRadioButton(
                 context,
                 viewModel: viewModel,
+                title: "False Information",
+                groupValue: viewModel.radioInformation,
+                onChanged: (value) {
+                  viewModel.radioInformation = value ?? "";
+                  viewModel.updateUI();
+                },
               ),
-              
               CommonMultilineTextFormField(
                 label: viewModel.stringConstants.remarks.i18n(),
+                controller: viewModel.remarkController,
               ),
               const SizedBox(
                 height: 16,
               ),
               CommonMultilineTextFormField(
                 label: viewModel.stringConstants.summary.i18n(),
+                controller: viewModel.summaryController,
               ),
             ],
           ),
@@ -53,22 +67,20 @@ class ProducerForm3 extends StatelessWidget {
     );
   }
 
-  CommonRadioButton buildRadioButton(
-    BuildContext context, {
-    ProducerForm3ViewModel? viewModel,
-  }) {
+  CommonRadioButton buildRadioButton(BuildContext context,
+      {ProducerForm3ViewModel? viewModel,
+      String? title,
+      String? groupValue,
+      Function(String?)? onChanged}) {
     return CommonRadioButton(
-      title: viewModel?.stringConstants.misreporting.i18n(),
+      title: title?.i18n(),
       titleStyle: Theme.of(context).textTheme.labelSmall,
-      groupValue: viewModel?.groupValue ?? "",
+      groupValue: groupValue ?? "",
       value1: "yes",
       value2: "no",
       label1: viewModel?.stringConstants.yes ?? "",
       label2: viewModel?.stringConstants.no ?? "",
-      onChanged: (value) {
-        viewModel?.groupValue = value ?? "";
-        viewModel?.updateUI();
-      },
+      onChanged: onChanged,
       padding: const EdgeInsets.symmetric(vertical: 16),
     );
   }

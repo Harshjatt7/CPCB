@@ -231,4 +231,5 @@ class StringConstants {
   final String remarks = "remarks";
   final String summary = "summary";
   final String confirmed = "confirmed";
+  final String falseInformation = "false-information";
 }
