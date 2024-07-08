@@ -6,12 +6,17 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class PlantMachineryWidget extends StatelessWidget {
-  PlantMachineryWidget({super.key, this.onAdd, this.onDelete, this.count = 1});
+  PlantMachineryWidget(
+      {super.key,
+      this.onAdd,
+      this.onDelete,
+      this.count = 1,
+      this.controllerList});
   final AppColor appColor = AppColor();
   final void Function()? onAdd;
   final void Function()? onDelete;
   final int count;
-
+  final List<TextEditingController>? controllerList;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,7 +106,8 @@ class PlantMachineryWidget extends StatelessWidget {
                           bgColor: appColor.white,
                           hintText: "Any other plant machinery",
                           isMandatory: false,
-                          controller: TextEditingController()),
+                          controller: controllerList?[index] ??
+                              TextEditingController()),
                     ),
                     Padding(
                         padding: const EdgeInsets.only(top: 9, bottom: 18),
