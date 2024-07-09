@@ -62,37 +62,40 @@ class CommonStepperScreen extends StatelessWidget {
                     )
                   ],
                 )),
-            body: CommonSingleChildScrollView(
-              child: userType == "Recycler"
-                  ? Column(
-                      children: [
-                        if (viewModel.index == 1) AuditorRecyclerForm1(),
-                        if (viewModel.index == 2) AuditorRecyclerForm2(),
-                        if (viewModel.index == 3) AuditorRecyclerForm3(),
-                        if (viewModel.index == 4) AuditorRecyclerForm4(),
-                        if (viewModel.index == 5) AuditorRecyclerForm5()
-                        // PlantMachineryWidget()
-                      ],
-                    )
-                  : userType == "Producer"
-                      ? Column(
-                          children: [
-                            if (viewModel.index == 1) const ProducerForm1(),
-                            if (viewModel.index == 2) const ProducerForm2(),
-                            if (viewModel.index == 3) const ProducerForm3(),
-                            // PlantMachineryWidget()
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            if (viewModel.index == 1) AuditorRecyclerForm1(),
-                            if (viewModel.index == 2) AuditorRecyclerForm2(),
-                            if (viewModel.index == 3) AuditorRecyclerForm3(),
-                            if (viewModel.index == 4) AuditorRecyclerForm4(),
-                            if (viewModel.index == 5) AuditorRecyclerForm5()
-                            // PlantMachineryWidget()
-                          ],
-                        ),
+            body: Form(
+              key: viewModel.formKey,
+              child: CommonSingleChildScrollView(
+                child: userType == "Recycler"
+                    ? Column(
+                        children: [
+                          if (viewModel.index == 1) AuditorRecyclerForm1(),
+                          if (viewModel.index == 2) AuditorRecyclerForm2(),
+                          if (viewModel.index == 3) AuditorRecyclerForm3(),
+                          if (viewModel.index == 4) AuditorRecyclerForm4(),
+                          if (viewModel.index == 5) AuditorRecyclerForm5()
+                          // PlantMachineryWidget()
+                        ],
+                      )
+                    : userType == "Producer"
+                        ? Column(
+                            children: [
+                              if (viewModel.index == 1) const ProducerForm1(),
+                              if (viewModel.index == 2) const ProducerForm2(),
+                              if (viewModel.index == 3) const ProducerForm3(),
+                              // PlantMachineryWidget()
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              if (viewModel.index == 1) AuditorRecyclerForm1(),
+                              if (viewModel.index == 2) AuditorRecyclerForm2(),
+                              if (viewModel.index == 3) AuditorRecyclerForm3(),
+                              if (viewModel.index == 4) AuditorRecyclerForm4(),
+                              if (viewModel.index == 5) AuditorRecyclerForm5()
+                              // PlantMachineryWidget()
+                            ],
+                          ),
+              ),
             ),
             persistentFooterButtons: [
               Container(
@@ -106,6 +109,9 @@ class CommonStepperScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             top: 18, bottom: 18, left: 16, right: 8),
                         child: CommonButtonWidget(
+                          onPressed: () {
+                            viewModel.formValidation(context,userType);
+                          },
                           label: StringConstants().savedAsDraft,
                           borderColor: AppColor().darkGreen,
                           color: AppColor().white,
@@ -132,7 +138,8 @@ class CommonStepperScreen extends StatelessWidget {
                               .labelMedium!
                               .copyWith(color: AppColor().white),
                           onPressed: () {
-                            viewModel.onNextButton(context, userType);
+                            viewModel.formValidation(context,userType);
+                            
                           },
                         ),
                       ),

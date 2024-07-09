@@ -34,8 +34,13 @@ class AuditorRecyclerForm5 extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: CommonDropdownTextFormField(
                       labelText: stringConstants.select,
-                      dropDownItem: const [],
-                      onChanged: null),
+                      dropDownItem: const ["Yes","No"],
+                      value:viewModel.installDropdownValue,
+                    onChanged: (value) {
+                    viewModel.changeDropdownValue(
+                         value);
+                   
+                  },),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -100,8 +105,6 @@ class AuditorRecyclerForm5 extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: CommonMultilineTextFormField(
                     label: stringConstants.textHere.i18n(),
-                    maxLength: 500,
-                    maxLines: 4,
                     controller: viewModel.summmaryRemakrController,
                   ),
                 )

@@ -273,5 +273,6 @@
     "etp-capacity":"ETP Capacity (KLD)",
     "summary-of-audit-title":"Summary of Audit (Max 500 words)",
     "summary-of-audit":"Summary of Audit",
-    "text-here":"Text here"
+    "text-here":"Text here",
+    "only-numeric-allow":"Only numeric value allowed"
 }
