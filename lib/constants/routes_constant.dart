@@ -24,4 +24,6 @@ class AppRoutes {
   static const String customHomeScreenRoute = "/customHomeScreenRoute";
   static const String auditorHomeScreen = "/auditorHomeScreenRoute";
   static const String auditorStepperScreen = "auditor/stepperScreenRoute";
+  static const String auditorRecyclerProcurementScreen = "auditor/recycler/procurementRoute";
+  static const String auditorRecyclerDetailScreen = "auditor/recycler/RecyclerDetailRoute";
 }

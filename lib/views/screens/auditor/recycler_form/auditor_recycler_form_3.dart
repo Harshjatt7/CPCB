@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_3_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -29,11 +30,20 @@ class AuditorRecyclerForm3 extends StatelessWidget {
                       label: "(A). Verification of Procurement"),
                   Padding(
                     padding: const EdgeInsets.only(left: 32),
-                    child: CommonTextWidget(
-                      "View entries",
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          color: appColor.blue100,
-                          decoration: TextDecoration.underline),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context,
+                            AppRoutes.auditorRecyclerProcurementScreen);
+                      },
+                      child: CommonTextWidget(
+                        "View entries",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                color: appColor.blue100,
+                                decoration: TextDecoration.underline),
+                      ),
                     ),
                   )
                 ],
@@ -87,8 +97,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
             label2: "Confirmed",
             onChanged: (value) {}),
         Padding(
-          padding:
-              const EdgeInsets.only(top: 16, bottom: 12),
+          padding: const EdgeInsets.only(top: 16, bottom: 12),
           child: CommonTextFormFieldWidget(
               useLocalization: false,
               bgColor: appColor.white,
@@ -107,7 +116,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
         //TODO add remarks
         if (isDisable == true)
           Padding(
-            padding: const EdgeInsets.symmetric( vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             child: CommonTextFormFieldWidget(
                 useLocalization: false,
                 disabledBgColor: appColor.black10,

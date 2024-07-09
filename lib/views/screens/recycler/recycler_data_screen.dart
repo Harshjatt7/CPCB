@@ -84,7 +84,7 @@ class RecyclerDataScreen extends StatelessWidget {
                 controller: viewModel.scrollController,
                 shrinkWrap: true,
                 physics: const PageScrollPhysics(),
-                itemCount: viewModel.recyclerData?.length,
+                itemCount: viewModel.recyclerData?.length ?? 0,
                 itemBuilder: (context, index) {
                   final recyclerDetails = viewModel.recyclerData?[index];
                   return Padding(
