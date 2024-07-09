@@ -17,29 +17,32 @@ class AuditorRecyclerForm4 extends StatelessWidget {
         onModelReady: (viewModel) {},
         viewModel: RecyclerForm4ViewModel(),
         builder: (context, viewModel, child) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CommonTitleWidget(
-                  label:
-                      "Verify the production of end products by end products by random selection of 5 invoices"),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: CommonTextWidget(
-                  "View entries",
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                      color: appColor.blue100,
-                      decoration: TextDecoration.underline),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CommonTitleWidget(
+                    label:
+                        "Verify the production of end products by end products by random selection of 5 invoices"),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16 ),
+                  child: CommonTextWidget(
+                    "View entries",
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        color: appColor.blue100,
+                        decoration: TextDecoration.underline),
+                  ),
                 ),
-              ),
-              commonForm4Tiles(context,
-                  title:
-                      "No. of invoices for which type/ quantity/ both can’t be verified"),
-              commonForm4Tiles(context,
-                  title:
-                      "No. of buyers for which type/ quantity/ both of end product sold could not be verified")
-            ],
+                commonForm4Tiles(context,
+                    title:
+                        "No. of invoices for which type/ quantity/ both can’t be verified"),
+                commonForm4Tiles(context,
+                    title:
+                        "No. of buyers for which type/ quantity/ both of end product sold could not be verified")
+              ],
+            ),
           );
         });
   }
@@ -67,7 +70,7 @@ class AuditorRecyclerForm4 extends StatelessWidget {
               groupValue = value ?? '';
             }),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: CommonTextFormFieldWidget(
               useLocalization: false,
               bgColor: appColor.white,
@@ -77,7 +80,7 @@ class AuditorRecyclerForm4 extends StatelessWidget {
         ),
         Padding(
           padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
+              const EdgeInsets.only( top: 8, bottom: 16),
           child: CommonTextFormFieldWidget(
               bgColor: appColor.white,
               hintText: "Remarks",
