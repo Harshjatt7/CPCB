@@ -189,7 +189,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: CommonMultilineTextFormField(
-                          label: stringConstants.remarks,
+                          label: stringConstants.remarks.i18n(),
                           maxLength: 500,
                           isMandatory: false,
                           controller: viewModel.gpsAuditorRemarkController),
@@ -348,7 +348,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonMultilineTextFormField(
-                            label: stringConstants.remarks,
+                            label: stringConstants.remarks.i18n(),
                             maxLength: 500,
                             controller: viewModel.remarkPowerController,
                           ),
@@ -444,7 +444,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonMultilineTextFormField(
-                            label: stringConstants.remarks,
+                            label: stringConstants.remarks.i18n(),
                             maxLength: 500,
                             controller: viewModel.remarkVideoController,
                           ),

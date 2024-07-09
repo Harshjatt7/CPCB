@@ -257,4 +257,45 @@ class StringConstants {
   final String detailsOfPollution = "details-of-pollution";
   final String videoOfPlant = "video-of-plant";
   final String uploadVideo = "upload-video";
+
+  final String plantCapacityAssessment = "plant-capacity-assessment";
+  final String typeOfEndProduct = "type-of-end-product";
+  final String select = "select";
+  final String plantProductionCapacity = "plant-production-capacity";
+  final String enter = "enter";
+  final String endProductProduced = "end-product-produced";
+  final String daysPlantOperational = "days-plant-operational";
+  final String hoursPlantOperational = "hour-plant-operational";
+  final String shiftPlantOperational = "shift-plant-operational";
+  final String actualProcessingCapacity = "actual-processing-capacity";
+  final String areValueComparable = "are-value-comparable";
+  final String differenceInActualProccessing =
+      "difference-in-actual-processing";
+  final String totalQuantitySales = "total-quantity-sales";
+  final String uploadSales = "uploaded-sales";
+  final String electricityVerification = "electricity-verification";
+  final String powerConsumptionDuringAudit = "power-consumption-during-audit";
+  final String actualAverageAnnual = "actual-average-annual";
+  final String totalElectricityConsumed = "total-electricity-consumed";
+  final String areValuedCandD = "are-value-c-and-d";
+
+  final String verificationOfProcurement = "verification-of-procurement";
+  final String noOfSuppliersContacted = "no-of-suppliers-contact";
+  final String noOfSuppliersDetailsVerified =
+      "no-of-suppliers-details-verified";
+  final String noOfSupplierSDetailsNotVerified =
+      "no-of-suppliers-details-not-verified";
+  final String physicallyVisit = "physically-visit";
+  final String viewEntries = "view-entries";
+
+  final String verifyTheProduction = "verify-the-production";
+  final String noOfInvoices = "no-of-invoices";
+  final String noOfBuyers = "no-of-buyers";
+
+  final String whetherEtpInstalled = "whether-etp-installed";
+  final String etpCapacity = "etp-capacity";
+  final String summaryOfAuditTitle = "summary-of-audit-title";
+  final String summaryOfAudit = "summary-of-audit";
+  final String textHere="text-here";
+  
 }

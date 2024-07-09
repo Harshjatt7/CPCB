@@ -70,7 +70,7 @@ class CommonStepperScreen extends StatelessWidget {
                         if (viewModel.index == 2) AuditorRecyclerForm2(),
                         if (viewModel.index == 3) AuditorRecyclerForm3(),
                         if (viewModel.index == 4) AuditorRecyclerForm4(),
-                        if (viewModel.index == 5) const AuditorRecyclerForm5()
+                        if (viewModel.index == 5) AuditorRecyclerForm5()
                         // PlantMachineryWidget()
                       ],
                     )
@@ -87,12 +87,9 @@ class CommonStepperScreen extends StatelessWidget {
                           children: [
                             if (viewModel.index == 1) AuditorRecyclerForm1(),
                             if (viewModel.index == 2) AuditorRecyclerForm2(),
-                            if (viewModel.index == 3)
-                               AuditorRecyclerForm3(),
-                            if (viewModel.index == 4)
-                               AuditorRecyclerForm4(),
-                            if (viewModel.index == 5)
-                              const AuditorRecyclerForm5()
+                            if (viewModel.index == 3) AuditorRecyclerForm3(),
+                            if (viewModel.index == 4) AuditorRecyclerForm4(),
+                            if (viewModel.index == 5) AuditorRecyclerForm5()
                             // PlantMachineryWidget()
                           ],
                         ),

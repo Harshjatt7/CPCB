@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_5_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
@@ -7,9 +8,11 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart'
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class AuditorRecyclerForm5 extends StatelessWidget {
-  const AuditorRecyclerForm5({super.key});
+  AuditorRecyclerForm5({super.key});
+  final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -25,64 +28,81 @@ class AuditorRecyclerForm5 extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: CommonMandatoryTitle(
-                      title: "Whether ETP is installed & operational"),
+                      title: stringConstants.whetherEtpInstalled),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: CommonDropdownTextFormField(
-                      labelText: "Select",
+                      labelText: stringConstants.select,
                       dropDownItem: const [],
                       onChanged: null),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: CommonTextFormFieldWidget(
-                      hintText: "Remarks",
+                  child: CommonMultilineTextFormField(
+                      maxLength: 500,
+                      label: stringConstants.remarks.i18n(),
                       isMandatory: false,
-                      controller: TextEditingController()),
+                      controller: viewModel.etpRemarksInstalledController),
                 ),
-                formRadioButton(groupValue: "confirmed"),
+                formRadioButton(
+                  groupValue: viewModel.radioInstalled,
+                  onChanged: (value) {
+                    viewModel.radioInstalled = value ?? '';
+                    viewModel.updateUI();
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: CommonMandatoryTitle(title: "ETP Capacity (KLD)"),
+                  child:
+                      CommonMandatoryTitle(title: stringConstants.etpCapacity),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8,
                   ),
                   child: CommonTextFormFieldWidget(
-                      hintText: "Enter",
-                      isMandatory: false,
-                      controller: TextEditingController()),
+                    hintText: stringConstants.enter,
+                    isMandatory: false,
+                    controller: viewModel.etpCapacityController,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8,
                   ),
-                  child: CommonTextFormFieldWidget(
-                      hintText: "Remarks",
+                  child: CommonMultilineTextFormField(
+                      label: stringConstants.remarks.i18n(),
+                      maxLength: 500,
                       isMandatory: false,
-                      controller: TextEditingController()),
+                      controller: viewModel.etpRemarksCapacityController),
                 ),
-                formRadioButton(groupValue: "confirmed"),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                formRadioButton(
+                  groupValue: viewModel.radioCapacity,
+                  onChanged: (value) {
+                    viewModel.radioCapacity = value ?? '';
+                    viewModel.updateUI();
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: CommonTitleWidget(
-                      label: "Summary of Audit (Max 500 words)"),
+                      label: stringConstants.summaryOfAuditTitle),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: CommonMandatoryTitle(
-                    title: "Summary of Audit",
+                    title: stringConstants.summaryOfAudit,
                     isMandatory: true,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: CommonMultilineTextFormField(
-                    label: "Text here",
+                    label: stringConstants.textHere.i18n(),
                     maxLength: 500,
                     maxLines: 4,
+                    controller: viewModel.summmaryRemakrController,
                   ),
                 )
               ],
@@ -91,16 +111,14 @@ class AuditorRecyclerForm5 extends StatelessWidget {
         });
   }
 
-  CommonRadioButton formRadioButton({String? groupValue}) {
+  CommonRadioButton formRadioButton(
+      {String? groupValue, void Function(String?)? onChanged}) {
     return CommonRadioButton(
-      groupValue: groupValue ?? '',
-      value1: 'not confirmed',
-      value2: 'confirmed',
-      label1: "Not Confirmed",
-      label2: "Confirmed",
-      onChanged: (value) {
-        groupValue = value ?? '';
-      },
-    );
+        groupValue: groupValue ?? '',
+        value1: stringConstants.notConfirmed,
+        value2: stringConstants.confirmed,
+        label1: stringConstants.notConfirmed,
+        label2: stringConstants.confirmed,
+        onChanged: onChanged);
   }
 }
