@@ -6,17 +6,26 @@ class CommonMultilineTextFormField extends StatelessWidget {
   final int? maxLines;
   final int? maxLength;
   final String? label;
+  final bool isMandatory;
+  final Color? bgColor;
   final appColor = AppColor();
   CommonMultilineTextFormField(
-      {super.key, this.maxLines, this.maxLength, this.controller, this.label});
+      {super.key,
+      this.maxLines,
+      this.maxLength,
+      this.controller,
+      this.bgColor,
+      this.label,
+      this.isMandatory = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
+          color: bgColor,
           border: Border.all(
-            color: appColor.grey03,
+            color: appColor.black20,
           ),
           borderRadius: BorderRadius.circular(5)),
       child: TextFormField(
@@ -27,7 +36,7 @@ class CommonMultilineTextFormField extends StatelessWidget {
         controller: controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         maxLength: maxLength ?? 100,
-        maxLines: maxLines ?? 3,
+        maxLines: maxLines,
         cursorColor: appColor.black50,
         keyboardType: TextInputType.multiline,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -48,7 +57,7 @@ class CommonMultilineTextFormField extends StatelessWidget {
                     ?.copyWith(color: appColor.grey01, height: 1),
                 children: [
                   TextSpan(
-                    text: " *",
+                    text: isMandatory == true ? " *" : '',
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall

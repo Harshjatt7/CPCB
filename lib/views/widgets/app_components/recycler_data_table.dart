@@ -20,63 +20,60 @@ class RecyclerDataTable extends StatelessWidget {
       child: CommonSingleChildScrollView(
         controller: scrollController,
         scrollDirection: Axis.horizontal,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: AppColor().grey20,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(5),
-                        topRight: Radius.circular(5)),
-                    border: Border(
-                        top: BorderSide(color: AppColor().grey40),
-                        left: BorderSide(color: AppColor().grey40),
-                        right: BorderSide(color: AppColor().grey40))),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(
-                      recyclerHeadingList.length,
-                      (index) => SizedBox(
-                            width: 286,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20,
-                              ),
-                              child: CommonTextWidget(
-                                recyclerHeadingList[index],
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium!
-                                    .copyWith(color: AppColor().black01),
-                              ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  color: AppColor().grey20,
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      topRight: Radius.circular(5)),
+                  border: Border(
+                      top: BorderSide(color: AppColor().grey40),
+                      left: BorderSide(color: AppColor().grey40),
+                      right: BorderSide(color: AppColor().grey40))),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(
+                    recyclerHeadingList.length,
+                    (index) => SizedBox(
+                          width: 286,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20,
                             ),
-                          )),
-                ),
+                            child: CommonTextWidget(
+                              recyclerHeadingList[index],
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(color: AppColor().black01),
+                            ),
+                          ),
+                        )),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(5),
-                        bottomRight: Radius.circular(5)),
-                    border: Border.all(color: AppColor().grey40)),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(list2.length, (index) {
-                    return CommonRecyclerDataRow(
-                      demoModel: list2[index],
-                      isOdd: index % 2 == 0,
-                    );
-                  }),
-                ),
-              )
-            ],
-          ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(5),
+                      bottomRight: Radius.circular(5)),
+                  border: Border.all(color: AppColor().grey40)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(list2.length, (index) {
+                  return CommonRecyclerDataRow(
+                    demoModel: list2[index],
+                    isOdd: index % 2 == 0,
+                  );
+                }),
+              ),
+            )
+          ],
         ),
       ),
     );

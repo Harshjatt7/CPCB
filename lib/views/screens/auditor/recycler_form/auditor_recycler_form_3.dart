@@ -18,42 +18,46 @@ class AuditorRecyclerForm3 extends StatelessWidget {
       onModelReady: (viewModel) {},
       viewModel: RecyclerForm3ViewModel(),
       builder: (context, model, child) {
-        return Column(
-          children: [
-            Row(
-              children: [
-                const CommonTitleWidget(
-                    label: "(A). Verification of Procurement"),
-                Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: CommonTextWidget(
-                    "View entries",
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        color: appColor.blue100,
-                        decoration: TextDecoration.underline),
-                  ),
-                )
-              ],
-            ),
-            commonRecyclerForm3Tile(
-              title: "No. of suppliers contacted",
-            ),
-            commonRecyclerForm3Tile(
-                title:
-                    "No. of suppliers for which supplier details could be verified",
-                isDisable: true,
-                notVerifiedTitle:
-                    "No. of suppliers for which supplier details could not be verified"),
-            const CommonTitleWidget(
-                label: "(B). Physically visit at least one of the suppliers"),
-            commonRecyclerForm3Tile(title: "No. of suppliers contacted"),
-            commonRecyclerForm3Tile(
-                title:
-                    "No. of suppliers for which supplier details could be verified",
-                isDisable: true,
-                notVerifiedTitle:
-                    "No. of suppliers for which supplier details could not be verified")
-          ],
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const CommonTitleWidget(
+                      label: "(A). Verification of Procurement"),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 32),
+                    child: CommonTextWidget(
+                      "View entries",
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          color: appColor.blue100,
+                          decoration: TextDecoration.underline),
+                    ),
+                  )
+                ],
+              ),
+              commonRecyclerForm3Tile(
+                title: "No. of suppliers contacted",
+              ),
+              commonRecyclerForm3Tile(
+                  title:
+                      "No. of suppliers for which supplier details could be verified",
+                  isDisable: true,
+                  notVerifiedTitle:
+                      "No. of suppliers for which supplier details could not be verified"),
+              const CommonTitleWidget(
+                  label: "(B). Physically visit at least one of the suppliers"),
+              commonRecyclerForm3Tile(title: "No. of suppliers contacted"),
+              commonRecyclerForm3Tile(
+                  title:
+                      "No. of suppliers for which supplier details could be verified",
+                  isDisable: true,
+                  notVerifiedTitle:
+                      "No. of suppliers for which supplier details could not be verified")
+            ],
+          ),
         );
       },
     );
@@ -84,7 +88,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
             onChanged: (value) {}),
         Padding(
           padding:
-              const EdgeInsets.only(top: 16, bottom: 12, left: 16, right: 16),
+              const EdgeInsets.only(top: 16, bottom: 12),
           child: CommonTextFormFieldWidget(
               useLocalization: false,
               bgColor: appColor.white,
@@ -93,7 +97,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
               controller: textEditingController ?? TextEditingController()),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(),
           child: CommonTextFormFieldWidget(
               bgColor: appColor.white,
               hintText: "Remark",
@@ -103,9 +107,9 @@ class AuditorRecyclerForm3 extends StatelessWidget {
         //TODO add remarks
         if (isDisable == true)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric( vertical: 16),
             child: CommonTextFormFieldWidget(
-              useLocalization: false,
+                useLocalization: false,
                 disabledBgColor: appColor.black10,
                 bgColor: appColor.white,
                 isReadOnly: isDisable,

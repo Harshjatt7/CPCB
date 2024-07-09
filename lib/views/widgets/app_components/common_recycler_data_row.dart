@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
@@ -11,6 +12,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
   final void Function()? onTap;
   final bool isOdd;
   String groupValue = "confirmed";
+  final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
               children: [
                 Radio(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  value: "not confirmed",
+                  value: stringConstants.notConfirmed,
                   fillColor: MaterialStateProperty.resolveWith(
                     (states) {
                       if (states.contains(MaterialState.selected)) {
@@ -84,7 +86,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
                   },
                 ),
                 CommonTextWidget(
-                  "Not Confirmed",
+                 stringConstants.notConfirmed,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 const SizedBox(
@@ -92,7 +94,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
                 ),
                 Radio(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  value: "confirmed",
+                  value: stringConstants.confirmed,
                   groupValue: groupValue,
                   fillColor: MaterialStateProperty.resolveWith(
                     (states) {
@@ -107,7 +109,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
                   },
                 ),
                 CommonTextWidget(
-                  "Confirmed",
+                  stringConstants.confirmed,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
@@ -118,7 +120,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
               child: CommonTextFormFieldWidget(
-                  hintText: "Remarks",
+                  hintText: stringConstants.remarks,
                   isMandatory: false,
                   controller: TextEditingController()),
             ),

@@ -202,7 +202,7 @@ class _CommonTextFormFieldWidgetNewState
                     : appColor.transparent,
                 filled: widget.isReadOnly ?? false,
                 label: RichText(
-                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   text: TextSpan(
                     text: widget.useLocalization == true
                         ? widget.hintText.i18n()

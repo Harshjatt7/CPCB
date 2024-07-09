@@ -5,18 +5,27 @@ import 'package:cpcb_tyre/utils/helper/global_provider_helper.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/enums/enums.dart';
 import '../../constants/routes_constant.dart';
 import '../material_app_viewmodel.dart';
 
 class SplashViewModel extends BaseViewModel {
   final HelperFunctions helperFunctions = HelperFunctions();
+
   Future wait(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 4));
-    await SecureStorage.instance.storeSensitiveInfo("isFirstInstall", true);
+    // await SecureStorage.instance.storeSensitiveInfo("isFirstInstall", true);
+
+    final prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getBool('isFirstInstall') ?? true) {
+      await SecureStorage.instance.deleteAllValues();
+
+      prefs.setBool('isFirstInstall', false);
+    }
 
     await helperFunctions.getLoginStatus(context);
-
     if (context.globalProvider.isLogin == false) {
       Navigator.pushReplacementNamed(context, AppRoutes.loginScreenRoute);
     } else {
@@ -25,10 +34,7 @@ class SplashViewModel extends BaseViewModel {
         case UserTypes.admin:
           if (context.mounted) {
             Navigator.pushReplacementNamed(
-                context, AppRoutes.auditorHomeScreen);
-            // TODO: UNCOMMENT
-            // Navigator.pushReplacementNamed(
-            //     context, AppRoutes.adminHomeScreenRoute);
+                context, AppRoutes.adminHomeScreenRoute);
           }
           break;
         case UserTypes.auditor:
@@ -73,8 +79,7 @@ class SplashViewModel extends BaseViewModel {
           }
           break;
         default:
-          Navigator.pushReplacementNamed(
-              context, AppRoutes.producerHomeScreenRoute);
+          Navigator.pushReplacementNamed(context, AppRoutes.loginScreenRoute);
           break;
       }
     }
