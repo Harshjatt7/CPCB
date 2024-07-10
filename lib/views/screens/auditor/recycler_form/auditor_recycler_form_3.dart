@@ -38,7 +38,8 @@ class AuditorRecyclerForm3 extends StatelessWidget {
                       stringConstants.viewEntries,
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           color: appColor.blue100,
-                          decoration: TextDecoration.underline),
+                          decoration: TextDecoration.underline,
+                          decorationColor: appColor.blue100),
                     ),
                   )
                 ],

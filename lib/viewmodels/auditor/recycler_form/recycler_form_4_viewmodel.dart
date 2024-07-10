@@ -28,10 +28,10 @@ class RecyclerForm4ViewModel extends BaseViewModel {
   }
 
   String? invoiceValidation() {
-    return Validations().gstValidation(invoiceController.text);
+    return Validations().numberValidation(invoiceController.text);
   }
 
   String? buyersValidation() {
-    return Validations().gstValidation(buyersController.text);
+    return Validations().numberValidation(buyersController.text);
   }
 }

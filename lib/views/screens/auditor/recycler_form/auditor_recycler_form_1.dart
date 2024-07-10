@@ -269,6 +269,8 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                         controllerList: viewModel.controllerList,
                         uploadControllerList: viewModel.uploadControllerList,
                         count: viewModel.count,
+                        isDocument: true,
+                      
                         onTap: () {
                           viewModel.handleOnTap(
                               context,

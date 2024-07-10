@@ -7,6 +7,7 @@ import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -104,6 +105,17 @@ class RecyclerForm1ViewModel extends BaseViewModel {
   TextEditingController uploadInvoiceController = TextEditingController();
   List<TextEditingController> controllerList = [];
   List<TextEditingController> uploadControllerList = [];
+
+  String? numericValidation(TextEditingController controller) {
+    return Validations().gstValidation(controller.text);
+  }
+
+  String? remarkValidation(TextEditingController controller) {
+    if (controller.text.isEmpty) {
+      return messageConstant.pleaseProvideValue;
+    }
+    return null;
+  }
 
   void initalizeGroupValues() {
     radioGst = stringConstants.confirmed;

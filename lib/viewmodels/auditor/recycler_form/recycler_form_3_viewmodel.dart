@@ -22,7 +22,7 @@ class RecyclerForm3ViewModel extends BaseViewModel {
   final MessageConstant messageConstant = MessageConstant();
 
   String? numericValidation(TextEditingController controller) {
-    return Validations().gstValidation(controller.text);
+    return Validations().numberValidation(controller.text);
   }
 
   String? invoicesRemarkValidation(TextEditingController controller) {
