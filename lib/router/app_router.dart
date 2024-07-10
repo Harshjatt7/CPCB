@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_summary_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_stepper.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_procurement_list.dart';
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
 import 'package:cpcb_tyre/views/screens/custom/custom_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
@@ -65,6 +66,8 @@ class PageRouter {
       case AppRoutes.auditorStepperScreen:
         String userType = settings.arguments as String;
         return _getPageRoute(CommonStepperScreen(userType: userType), settings);
+      case AppRoutes.auditorRecyclerProcurementScreen:
+        return _getPageRoute(const RecyclerProcurementList(), settings);
 
       // Will be displayed if no specified route is found.
       default:

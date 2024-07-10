@@ -17,7 +17,6 @@ class AuditorListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<AuditorListViewModel>(
         onModelReady: (viewModel) {
-          // viewModel.progressStatus(0.9);
         },
         viewModel: AuditorListViewModel(),
         builder: (context, viewModel, child) {
@@ -119,7 +118,7 @@ class AuditorListScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pushNamed(
                                     context, AppRoutes.auditorStepperScreen,
-                                    arguments: "Producer");
+                                    arguments: "Recycler");
                               },
                             );
                           },

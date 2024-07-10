@@ -146,7 +146,7 @@ class AuditorRecyclerForm2 extends StatelessWidget {
                 child: CommonMultilineTextFormField(
                     bgColor: appColor.white,
                     controller: TextEditingController(),
-                    maxLength: 500,
+                    maxLength: 100,
                     label: stringConstants.remarks.i18n()),
               )
             ],

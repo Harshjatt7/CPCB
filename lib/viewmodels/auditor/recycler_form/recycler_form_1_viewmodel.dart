@@ -13,6 +13,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:video_player/video_player.dart';
 
 class RecyclerForm1ViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
@@ -374,5 +375,42 @@ class RecyclerForm1ViewModel extends BaseViewModel {
         fileSize:
             '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}',
         fileSizeNum: fileSizeNum ?? 0);
+  }
+
+  Duration? videoDuration;
+  int videoSize = 0;
+
+  String? videoValidation() {
+    if (videoSize > 100 * 1024 * 1024) {
+      return 'Selected video is larger than 100 MB. Please select another video.';
+    } else if (videoDuration != null && videoDuration!.inSeconds > 30) {
+      return 'Selected video is longer than 30 seconds. Please select another video.';
+    }
+    return null;
+  }
+
+  Future<void> pickVideo() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.video,
+    );
+
+    if (result != null) {
+      String path = result.files.single.path!;
+      File file = File(path);
+
+      videoSize = await file.length();
+
+      videoDuration = await _getVideoDuration(path);
+      updateUI();
+    }
+  }
+
+  Future<Duration?> _getVideoDuration(String videoPath) async {
+    final VideoPlayerController controller =
+        VideoPlayerController.file(File(videoPath));
+    await controller.initialize();
+    final duration = controller.value.duration;
+    controller.dispose();
+    return duration;
   }
 }

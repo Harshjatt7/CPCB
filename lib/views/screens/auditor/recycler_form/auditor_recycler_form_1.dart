@@ -190,7 +190,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: CommonMultilineTextFormField(
                           label: stringConstants.remarks.i18n(),
-                          maxLength: 500,
+                          maxLength: 100,
                           isMandatory: false,
                           controller: viewModel.gpsAuditorRemarkController),
                     )
@@ -270,7 +270,6 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                         uploadControllerList: viewModel.uploadControllerList,
                         count: viewModel.count,
                         isDocument: true,
-                      
                         onTap: () {
                           viewModel.handleOnTap(
                               context,
@@ -351,7 +350,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonMultilineTextFormField(
                             label: stringConstants.remarks.i18n(),
-                            maxLength: 500,
+                            maxLength: 100,
                             controller: viewModel.remarkPowerController,
                           ),
                         )
@@ -426,18 +425,13 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                                   ? viewModel.imageConstants.fileUpload
                                   : viewModel.imageConstants.removeIcon,
                               onTap: () {
-                                viewModel.handleOnTap(
-                                    context,
-                                    RecyclerForm1.video,
-                                    viewModel.uploadVideoController,
-                                    viewModel.videoFile);
+                                viewModel.pickVideo();
                               },
                               onSuffixTap: () {
-                                viewModel.handleOnSuffixTap(
-                                    context,
-                                    RecyclerForm1.video,
-                                    viewModel.uploadVideoController,
-                                    viewModel.videoFile);
+                                viewModel.pickVideo();
+                              },
+                              validator: (value) {
+                                return viewModel.videoValidation();
                               },
                               hintText: stringConstants.uploadVideo,
                               isMandatory: false,
@@ -447,7 +441,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonMultilineTextFormField(
                             label: stringConstants.remarks.i18n(),
-                            maxLength: 500,
+                            maxLength: 100,
                             controller: viewModel.remarkVideoController,
                           ),
                         )
