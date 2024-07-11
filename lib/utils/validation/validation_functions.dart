@@ -1,7 +1,7 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
 
 class Validations {
-  final MessageConstant messageConstant=MessageConstant();
+  final MessageConstant messageConstant = MessageConstant();
   final RegExp passRegex =
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
 
@@ -111,6 +111,17 @@ class Validations {
     // RegExp regExp = RegExp(pattern);
     if (value.toString().isEmpty) {
       return "Please provide a Date";
+    }
+    return null;
+  }
+
+  String? numberValidation(String value) {
+    String pattern = r'^[0-9]*$';
+    RegExp regExp = RegExp(pattern);
+    if (value.toString().isEmpty) {
+      return messageConstant.pleaseProvideValue;
+    } else if (!regExp.hasMatch(value)) {
+      return messageConstant.onlyNumericAllow;
     }
     return null;
   }

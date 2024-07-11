@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class CommonStepperViewModel extends BaseViewModel {
+  final formKey = GlobalKey<FormState>();
   int index = 1;
   int totalIndex = 0;
   void getUser(String? user) {
@@ -49,5 +50,11 @@ class CommonStepperViewModel extends BaseViewModel {
         }
         break;
     }
+  }
+
+  void formValidation(BuildContext context, String? userType) {
+    if (formKey.currentState?.validate() ?? false) {
+      onNextButton(context, userType);
+    } else {}
   }
 }

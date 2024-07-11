@@ -7,11 +7,13 @@ import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:video_player/video_player.dart';
 
 class RecyclerForm1ViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
@@ -104,6 +106,17 @@ class RecyclerForm1ViewModel extends BaseViewModel {
   TextEditingController uploadInvoiceController = TextEditingController();
   List<TextEditingController> controllerList = [];
   List<TextEditingController> uploadControllerList = [];
+
+  String? numericValidation(TextEditingController controller) {
+    return Validations().gstValidation(controller.text);
+  }
+
+  String? remarkValidation(TextEditingController controller) {
+    if (controller.text.isEmpty) {
+      return messageConstant.pleaseProvideValue;
+    }
+    return null;
+  }
 
   void initalizeGroupValues() {
     radioGst = stringConstants.confirmed;
@@ -362,5 +375,42 @@ class RecyclerForm1ViewModel extends BaseViewModel {
         fileSize:
             '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}',
         fileSizeNum: fileSizeNum ?? 0);
+  }
+
+  Duration? videoDuration;
+  int videoSize = 0;
+
+  String? videoValidation() {
+    if (videoSize > 100 * 1024 * 1024) {
+      return 'Selected video is larger than 100 MB. Please select another video.';
+    } else if (videoDuration != null && videoDuration!.inSeconds > 30) {
+      return 'Selected video is longer than 30 seconds. Please select another video.';
+    }
+    return null;
+  }
+
+  Future<void> pickVideo() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.video,
+    );
+
+    if (result != null) {
+      String path = result.files.single.path!;
+      File file = File(path);
+
+      videoSize = await file.length();
+
+      videoDuration = await _getVideoDuration(path);
+      updateUI();
+    }
+  }
+
+  Future<Duration?> _getVideoDuration(String videoPath) async {
+    final VideoPlayerController controller =
+        VideoPlayerController.file(File(videoPath));
+    await controller.initialize();
+    final duration = controller.value.duration;
+    controller.dispose();
+    return duration;
   }
 }

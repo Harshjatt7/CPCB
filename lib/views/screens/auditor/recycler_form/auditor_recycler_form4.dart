@@ -1,18 +1,20 @@
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_4_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/common_multiline_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../constants/routes_constant.dart';
+import 'package:localization/localization.dart';
 
 class AuditorRecyclerForm4 extends StatelessWidget {
   AuditorRecyclerForm4({super.key});
   final AppColor appColor = AppColor();
+  final StringConstants stringConstants = StringConstants();
   @override
   Widget build(BuildContext context) {
     return BaseView<RecyclerForm4ViewModel>(
@@ -24,31 +26,39 @@ class AuditorRecyclerForm4 extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CommonTitleWidget(
-                    label:
-                        "Verify the production of end products by end products by random selection of 5 invoices"),
+                CommonTitleWidget(label: stringConstants.verifyTheProduction),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16 ),
-                  child: InkWell(
-                    onTap: () {
-                        Navigator.pushNamed(context,
-                            AppRoutes.auditorRecyclerDetailScreen);
-                      },
-                    child: CommonTextWidget(
-                      "View entries",
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          color: appColor.blue100,
-                          decoration: TextDecoration.underline),
-                    ),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: CommonTextWidget(
+                    stringConstants.viewEntries,
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        color: appColor.blue100,
+                        decoration: TextDecoration.underline,
+                        decorationColor: appColor.blue100),
                   ),
                 ),
-                commonForm4Tiles(context,
-                    title:
-                        "No. of invoices for which type/ quantity/ both can’t be verified"),
-                commonForm4Tiles(context,
-                    title:
-                        "No. of buyers for which type/ quantity/ both of end product sold could not be verified")
+                commonForm4Tiles(
+                  context,
+                  title: stringConstants.noOfInvoices,
+                  controller: viewModel.invoiceController,
+                  remarkController: viewModel.remakrsInvoiceController,
+                  groupValue: viewModel.radioInvoice,
+                  onChanged: (value) {
+                    viewModel.radioInvoice = value ?? '';
+                    viewModel.updateUI();
+                  },
+                ),
+                commonForm4Tiles(
+                  context,
+                  title: stringConstants.noOfBuyers,
+                  controller: viewModel.buyersController,
+                  remarkController: viewModel.remakrsBuyerController,
+                  groupValue: viewModel.radioBuyer,
+                  onChanged: (value) {
+                    viewModel.radioBuyer = value ?? '';
+                    viewModel.updateUI();
+                  },
+                )
               ],
             ),
           );
@@ -59,6 +69,9 @@ class AuditorRecyclerForm4 extends StatelessWidget {
     BuildContext context, {
     bool isMandatory = false,
     String? groupValue,
+    void Function(String?)? onChanged,
+    TextEditingController? controller,
+    TextEditingController? remarkController,
     String? title,
   }) {
     return Column(
@@ -69,31 +82,29 @@ class AuditorRecyclerForm4 extends StatelessWidget {
           isMandatory: true,
         ),
         CommonRadioButton(
-            groupValue: groupValue ?? "",
-            value1: "not confirmed",
-            value2: "confirmed",
-            label1: "Not Confirmed",
-            label2: "Confirmed",
-            onChanged: (value) {
-              groupValue = value ?? '';
-            }),
+          groupValue: groupValue ?? "",
+          value1: stringConstants.notConfirmed,
+          value2: stringConstants.confirmed,
+          label1: stringConstants.notConfirmed,
+          label2: stringConstants.confirmed,
+          onChanged: onChanged,
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: CommonTextFormFieldWidget(
-              useLocalization: false,
               bgColor: appColor.white,
               hintText: title ?? '',
               isMandatory: false,
-              controller: TextEditingController()),
+              controller: controller ?? TextEditingController()),
         ),
         Padding(
-          padding:
-              const EdgeInsets.only( top: 8, bottom: 16),
-          child: CommonTextFormFieldWidget(
+          padding: const EdgeInsets.only(top: 8, bottom: 16),
+          child: CommonMultilineTextFormField(
+              maxLength: 500,
               bgColor: appColor.white,
-              hintText: "Remarks",
+              label: stringConstants.remarks.i18n(),
               isMandatory: false,
-              controller: TextEditingController()),
+              controller: remarkController ?? TextEditingController()),
         ),
       ],
     );
