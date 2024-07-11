@@ -129,6 +129,8 @@ class PlantMachineryWidget extends StatelessWidget {
                         controller: uploadControllerList?[index] ??
                             TextEditingController(),
                         isDocument: isDocument,
+                        isReadOnly: true,
+                        disabledBgColor: appColor.white,
                         icon: uploadControllerList?[index].text.isEmpty ?? false
                             ? imageConstants.fileUpload
                             : imageConstants.removeIcon,

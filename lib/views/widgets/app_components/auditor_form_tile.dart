@@ -2,6 +2,7 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_multiline_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 import '../../../theme/app_color.dart';
 import '../components/common_text_form_field_widget.dart';
@@ -81,7 +82,7 @@ class AuditorFormTile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonMultilineTextFormField(
                 bgColor: appColor.white,
-                label: stringConstants.remark,
+                label: stringConstants.remark.i18n(),
                 isMandatory: false,
                 maxLength: 500,
                 controller: remarkController ?? TextEditingController()),

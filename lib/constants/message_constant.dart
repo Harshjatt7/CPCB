@@ -29,4 +29,5 @@ class MessageConstant {
   final String quantityProducedMoreValidation =
       "quantity-produced-more-validation";
   final String mandatoryTyreSource = "mandatory-tyre-source";
+  final String onlyNumericAllow = "only-numeric-allow";
 }

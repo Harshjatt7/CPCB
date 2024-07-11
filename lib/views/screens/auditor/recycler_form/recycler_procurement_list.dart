@@ -1,9 +1,5 @@
-import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_search_bar.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

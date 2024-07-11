@@ -9,9 +9,9 @@ import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class RecyclerHomeScreen extends StatelessWidget {
-  final ImageConstants imageConstants=ImageConstants();
-  final AppColor appColor=AppColor();
-   RecyclerHomeScreen({super.key});
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor = AppColor();
+  RecyclerHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +28,11 @@ class RecyclerHomeScreen extends StatelessWidget {
       bottomNavigationBarWidget(
         imgSrc: imageConstants.profileTabIcon,
       )
-    ], screens:  [
+    ], screens: [
       DashBoardScreen(),
-       RecyclerProcurementDataScreen(),
-       RecyclerDataScreen(),
-       ProfileScreen()
+      RecyclerProcurementDataScreen(),
+      RecyclerDataScreen(),
+      ProfileScreen()
     ]);
   }
 

@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 
 class CommonMandatoryTitle extends StatelessWidget {
   CommonMandatoryTitle(
@@ -13,7 +14,7 @@ class CommonMandatoryTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: title,
+        text: title.i18n(),
         style: style ?? Theme.of(context).textTheme.displaySmall,
         children: [
           TextSpan(
