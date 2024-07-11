@@ -140,10 +140,8 @@ class _CommonTextFormFieldWidgetNewState
     return Column(
       children: [
         Container(
-          //changed
           padding: EdgeInsets.symmetric(
               vertical: widget.isMultiline == true ? 10 : 2),
-
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: widget.isReadOnly == true
@@ -180,7 +178,6 @@ class _CommonTextFormFieldWidgetNewState
                   }
                 });
               }
-
               return widget.validator == null
                   ? null
                   : widget.validator!(widget.controller.text);
@@ -209,8 +206,6 @@ class _CommonTextFormFieldWidgetNewState
                 ? TextInputAction.done
                 : TextInputAction.next,
             decoration: InputDecoration(
-
-                // added
                 contentPadding: widget.isMultiline == true
                     ? const EdgeInsets.only(top: -10, bottom: 6, left: 20)
                     : const EdgeInsets.only(top: 8, bottom: 6, left: 20),
@@ -240,8 +235,6 @@ class _CommonTextFormFieldWidgetNewState
                     ],
                   ),
                 ),
-                // contentPadding:
-                //     const EdgeInsets.only(top: 8, bottom: 6, left: 20),
                 errorStyle: Theme.of(context)
                     .textTheme
                     .bodyLarge

@@ -12,11 +12,6 @@ class AuditorListViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   String? applicationStatus = "";
   double? progress;
-  
-  // void progressStatus(double widthFactor) {
-  //   progress = ((widthFactor * 100).toInt());
-  //   updateUI();
-  // }
 
   getStatus(String status) {
     switch (status) {
@@ -39,3 +34,4 @@ class AuditorListViewModel extends BaseViewModel {
     updateUI();
   }
 }
+
