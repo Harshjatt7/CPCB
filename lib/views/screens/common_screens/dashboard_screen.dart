@@ -30,6 +30,9 @@ class DashBoardScreen extends StatelessWidget {
       onModelReady: (viewModel) async {
         viewModel.getCurrentUserType(context);
         await viewModel.getDasboardData(context);
+        if (context.mounted) {
+          // viewModel.testPopUp(context);
+        }
       },
       viewModel: DashboardViewModel(),
       builder: (context, viewModel, child) {
@@ -564,7 +567,7 @@ class DashBoardScreen extends StatelessWidget {
                       ),
                     ),
                   )
-                : const RegistrationScreen());
+                : CommonSingleChildScrollView(child: RegistrationScreen()));
       },
     );
   }

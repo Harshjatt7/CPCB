@@ -7,7 +7,6 @@ import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
-import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -87,7 +86,6 @@ class RecyclerForm1ViewModel extends BaseViewModel {
   String? machineFilePath;
 
   String? fileError;
-  FileSizeModel? fileSizeModel;
   String? fileSize;
   double? fileSizeNum;
 
@@ -99,19 +97,26 @@ class RecyclerForm1ViewModel extends BaseViewModel {
   String? videoFileName;
   String? machineFileName;
 
+  FileSizeModel? aadharFileSizeModel;
+  FileSizeModel? panNoFileSizeModel;
+  FileSizeModel? plantFileSizeModel;
+  FileSizeModel? powerFileSizeModel;
+  FileSizeModel? pollutionFileSizeModel;
+  FileSizeModel? videoFileSizeModel;
+  FileSizeModel? machineFileSizeModel;
+
   int count = 1;
   Position? currentLocation;
+  Duration? videoDuration;
+  int videoSize = 0;
 
   final imageConstants = ImageConstants();
   TextEditingController uploadInvoiceController = TextEditingController();
   List<TextEditingController> controllerList = [];
   List<TextEditingController> uploadControllerList = [];
+  List<FileSizeModel> fileSizeModelList = [];
 
-  String? numericValidation(TextEditingController controller) {
-    return Validations().gstValidation(controller.text);
-  }
-
-  String? remarkValidation(TextEditingController controller) {
+  String? emptyValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
       return messageConstant.pleaseProvideValue;
     }
@@ -138,6 +143,7 @@ class RecyclerForm1ViewModel extends BaseViewModel {
         count == uploadControllerList.length + 1) {
       TextEditingController tempController = TextEditingController();
       TextEditingController tempUploadController = TextEditingController();
+
       controllerList.add(tempController);
       uploadControllerList.add(tempUploadController);
     }
@@ -173,6 +179,8 @@ class RecyclerForm1ViewModel extends BaseViewModel {
   Future<void> getCurrentLocation() async {
     Position? position = await determinePosition();
     currentLocation = position;
+    gpsAuditorLatitude.text = "${currentLocation?.longitude}";
+    gpsAuditorLongitude.text = "${currentLocation?.latitude}";
     HelperFunctions().logger("${currentLocation?.longitude ?? 0}");
     HelperFunctions().logger("${currentLocation?.latitude ?? 0}");
 
@@ -273,7 +281,6 @@ class RecyclerForm1ViewModel extends BaseViewModel {
           break;
         case RecyclerForm1.plant:
           helperFunctions.openFile(plantFilePath ?? '');
-
           break;
         case RecyclerForm1.pollution:
           helperFunctions.openFile(panNoFilePath ?? '');
@@ -301,56 +308,57 @@ class RecyclerForm1ViewModel extends BaseViewModel {
         case RecyclerForm1.aadhar:
           final file = File(result.files.single.path ?? "");
           aadharFilePath = file.path;
-          fileSizeModel = await getFileSize(aadharFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          aadharFileSizeModel = await getFileSize(aadharFilePath ?? "", 1);
+          fileSize = aadharFileSizeModel?.fileSize ?? "0 B";
           aadharFileName = file.path.split('/').last;
           updateUI();
           break;
         case RecyclerForm1.panNo:
           final file = File(result.files.single.path ?? "");
           panNoFilePath = file.path;
-          fileSizeModel = await getFileSize(panNoFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          panNoFileSizeModel = await getFileSize(panNoFilePath ?? "", 1);
+          fileSize = panNoFileSizeModel?.fileSize ?? "0 B";
           panNoFileName = file.path.split('/').last;
           updateUI();
           break;
         case RecyclerForm1.plant:
           final file = File(result.files.single.path ?? "");
           plantFilePath = file.path;
-          fileSizeModel = await getFileSize(plantFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          plantFileSizeModel = await getFileSize(plantFilePath ?? "", 1);
+          fileSize = plantFileSizeModel?.fileSize ?? "0 B";
           plantFileName = file.path.split('/').last;
           updateUI();
           break;
         case RecyclerForm1.pollution:
           final file = File(result.files.single.path ?? "");
           pollutionFilePath = file.path;
-          fileSizeModel = await getFileSize(plantFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          pollutionFileSizeModel =
+              await getFileSize(pollutionFilePath ?? "", 1);
+          fileSize = pollutionFileSizeModel?.fileSize ?? "0 B";
           pollutionFileName = file.path.split('/').last;
           updateUI();
           break;
         case RecyclerForm1.power:
           final file = File(result.files.single.path ?? "");
           powerFilePath = file.path;
-          fileSizeModel = await getFileSize(powerFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          powerFileSizeModel = await getFileSize(powerFilePath ?? "", 1);
+          fileSize = powerFileSizeModel?.fileSize ?? "0 B";
           powerFileName = file.path.split('/').last;
           updateUI();
           break;
         case RecyclerForm1.video:
           final file = File(result.files.single.path ?? "");
           videoFilePath = file.path;
-          fileSizeModel = await getFileSize(videoFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          videoFileSizeModel = await getFileSize(videoFilePath ?? "", 1);
+          fileSize = videoFileSizeModel?.fileSize ?? "0 B";
           videoFileName = file.path.split('/').last;
           updateUI();
           break;
         case RecyclerForm1.machine:
           final file = File(result.files.single.path ?? "");
           machineFilePath = file.path;
-          fileSizeModel = await getFileSize(machineFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          machineFileSizeModel = await getFileSize(machineFilePath ?? "", 1);
+          fileSize = machineFileSizeModel?.fileSize ?? "0 B";
           machineFileName = file.path.split('/').last;
           updateUI();
           break;
@@ -377,10 +385,10 @@ class RecyclerForm1ViewModel extends BaseViewModel {
         fileSizeNum: fileSizeNum ?? 0);
   }
 
-  Duration? videoDuration;
-  int videoSize = 0;
-
   String? videoValidation() {
+    if (uploadVideoController.text.isEmpty) {
+      return messageConstant.pleaseProvideValue;
+    }
     if (videoSize > 100 * 1024 * 1024) {
       return 'Selected video is larger than 100 MB. Please select another video.';
     } else if (videoDuration != null && videoDuration!.inSeconds > 30) {
@@ -412,5 +420,14 @@ class RecyclerForm1ViewModel extends BaseViewModel {
     final duration = controller.value.duration;
     controller.dispose();
     return duration;
+  }
+
+  String? uploadValidation(FileSizeModel? fileSizeModel) {
+    if (fileSizeModel?.fileSize.contains("MB") ?? false) {
+      if (fileSizeModel!.fileSizeNum > 2.0) {
+        return messageConstant.maxFileSize;
+      }
+    }
+    return null;
   }
 }

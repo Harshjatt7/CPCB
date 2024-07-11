@@ -14,6 +14,7 @@ class PlantMachineryWidget extends StatelessWidget {
       this.uploadControllerList,
       this.count = 1,
       this.isDocument = false,
+      this.uploadValidator,
       this.onTap,
       this.onSuffixTap,
       this.controllerList});
@@ -28,6 +29,7 @@ class PlantMachineryWidget extends StatelessWidget {
   final void Function()? onSuffixTap;
   final StringConstants stringConstants = StringConstants();
   final ImageConstants imageConstants = ImageConstants();
+  final String? Function(String?)? uploadValidator;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -136,6 +138,7 @@ class PlantMachineryWidget extends StatelessWidget {
                             : imageConstants.removeIcon,
                         onTap: onTap,
                         onSuffixTap: onSuffixTap,
+                        validator: uploadValidator,
                       ),
                     )
                   ],

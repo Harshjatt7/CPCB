@@ -2,7 +2,6 @@ import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/auditor_form_tile.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_multiline_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
@@ -51,6 +50,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     viewModel.radioGst = value ?? '';
                     viewModel.updateUI();
                   },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.gstRemarkController);
+                  },
                 ),
                 AuditorFormTile(
                   isMandatory: true,
@@ -61,6 +64,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   onChanged: (value) {
                     viewModel.radioPanOfCompany = value ?? '';
                     viewModel.updateUI();
+                  },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.companyPanController);
                   },
                 ),
                 AuditorFormTile(
@@ -84,6 +91,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     viewModel.radioCto = value ?? "";
                     viewModel.updateUI();
                   },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.recyclerRemakrCTOController);
+                  },
                 ),
                 AuditorFormTile(
                   isMandatory: true,
@@ -95,6 +106,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     viewModel.radioAuthorization = value ?? "";
                     viewModel.updateUI();
                   },
+                  validator: (value) {
+                    return viewModel.emptyValidation(
+                        viewModel.remarkAuthorizationController);
+                  },
                 ),
                 AuditorFormTile(
                   isMandatory: true,
@@ -105,6 +120,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                   onChanged: (value) {
                     viewModel.radioRecyclingDetails = value ?? "";
                     viewModel.updateUI();
+                  },
+                  validator: (value) {
+                    return viewModel.emptyValidation(
+                        viewModel.remarkRecyclingDetailsController);
                   },
                 ),
                 Padding(
@@ -140,7 +159,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                             isReadOnly: true,
                             hintText: stringConstants.gpsLongitude,
                             isMandatory: false,
-                            controller: viewModel.gpsAuditorLongitude),
+                            controller: viewModel.gpsRecyclerLongitude),
                       ),
                     ],
                   ),
@@ -165,6 +184,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                       child: CommonTextFormFieldWidget(
                           hintText: stringConstants.gpsLatitude,
                           isMandatory: false,
+                          validator: (value) {
+                            return viewModel
+                                .emptyValidation(viewModel.gpsAuditorLatitude);
+                          },
                           controller: viewModel.gpsAuditorLatitude),
                     ),
                     Padding(
@@ -172,6 +195,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                       child: CommonTextFormFieldWidget(
                           hintText: stringConstants.gpsLongitude,
                           isMandatory: false,
+                          validator: (value) {
+                            return viewModel
+                                .emptyValidation(viewModel.gpsAuditorLongitude);
+                          },
                           controller: viewModel.gpsAuditorLongitude),
                     ),
                     Padding(
@@ -188,10 +215,14 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: CommonMultilineTextFormField(
-                          label: stringConstants.remarks.i18n(),
+                      child: CommonTextFormFieldWidget(
+                          hintText: stringConstants.remarks.i18n(),
                           maxLength: 100,
                           isMandatory: false,
+                          validator: (value) {
+                            return viewModel.emptyValidation(
+                                viewModel.gpsAuditorRemarkController);
+                          },
                           controller: viewModel.gpsAuditorRemarkController),
                     )
                   ],
@@ -222,31 +253,44 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     viewModel.handleOnSuffixTap(context, RecyclerForm1.aadhar,
                         viewModel.uploadAadharController, viewModel.aadharFile);
                   },
+                  uploadValidator: (value) {
+                    return viewModel
+                        .uploadValidation(viewModel.aadharFileSizeModel);
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: AuditorFormTile(
-                    isMandatory: false,
-                    groupValue: viewModel.radioPanNo,
-                    title: stringConstants.authorizedPanNo.i18n(),
-                    isUpload: true,
-                    disableController: viewModel.panNoController,
-                    remarkController: viewModel.remarkPanNoController,
-                    uploadController: viewModel.uploadPanNoController,
-                    onChanged: (value) {
-                      viewModel.radioPanNo = value ?? "";
-                      viewModel.updateUI();
-                    },
-                    filePath: viewModel.panNoFilePath,
-                    onTap: () {
-                      viewModel.handleOnTap(context, RecyclerForm1.panNo,
-                          viewModel.uploadPanNoController, viewModel.panNoFile);
-                    },
-                    onSuffixTap: () {
-                      viewModel.handleOnSuffixTap(context, RecyclerForm1.panNo,
-                          viewModel.uploadPanNoController, viewModel.panNoFile);
-                    },
-                  ),
+                      isMandatory: false,
+                      groupValue: viewModel.radioPanNo,
+                      title: stringConstants.authorizedPanNo.i18n(),
+                      isUpload: true,
+                      disableController: viewModel.panNoController,
+                      remarkController: viewModel.remarkPanNoController,
+                      uploadController: viewModel.uploadPanNoController,
+                      onChanged: (value) {
+                        viewModel.radioPanNo = value ?? "";
+                        viewModel.updateUI();
+                      },
+                      filePath: viewModel.panNoFilePath,
+                      onTap: () {
+                        viewModel.handleOnTap(
+                            context,
+                            RecyclerForm1.panNo,
+                            viewModel.uploadPanNoController,
+                            viewModel.panNoFile);
+                      },
+                      onSuffixTap: () {
+                        viewModel.handleOnSuffixTap(
+                            context,
+                            RecyclerForm1.panNo,
+                            viewModel.uploadPanNoController,
+                            viewModel.panNoFile);
+                      },
+                      uploadValidator: (value) {
+                        return viewModel
+                            .uploadValidation(viewModel.panNoFileSizeModel);
+                      }),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,6 +329,10 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                               viewModel
                                   .uploadControllerList[viewModel.count - 1],
                               viewModel.machineFile);
+                        },
+                        uploadValidator: (value) {
+                          return viewModel
+                              .uploadValidation(viewModel.machineFileSizeModel);
                         },
                         onAdd: () {
                           viewModel.onAdd();
@@ -325,9 +373,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                               icon: viewModel.uploadPowerController.text.isEmpty
                                   ? viewModel.imageConstants.fileUpload
                                   : viewModel.imageConstants.removeIcon,
-                              isDocument: viewModel.powerFilePath == null
-                                  ? false
-                                  : true,
+                              isDocument: true,
                               onTap: () {
                                 viewModel.handleOnTap(
                                     context,
@@ -342,16 +388,25 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                                     viewModel.uploadPowerController,
                                     viewModel.powerFile);
                               },
+                              validator: (value) {
+                                return viewModel.uploadValidation(
+                                    viewModel.powerFileSizeModel);
+                              },
                               hintText: stringConstants.uploadFile,
                               isMandatory: false,
                               controller: viewModel.uploadPowerController),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonMultilineTextFormField(
-                            label: stringConstants.remarks.i18n(),
+                          child: CommonTextFormFieldWidget(
+                            isMandatory: false,
+                            hintText: stringConstants.remarks.i18n(),
                             maxLength: 100,
                             controller: viewModel.remarkPowerController,
+                            validator: (value) {
+                              return viewModel.emptyValidation(
+                                  viewModel.remarkPowerController);
+                            },
                           ),
                         )
                       ],
@@ -376,8 +431,15 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                       viewModel.radioPollution = value ?? "";
                       viewModel.updateUI();
                     },
-                    isDocument:
-                        viewModel.pollutionFilePath == null ? false : true,
+                    remarksValidator: (value) {
+                      return viewModel.emptyValidation(
+                          viewModel.remakrsPollutionController);
+                    },
+                    uploadValidator: (value) {
+                      return viewModel
+                          .uploadValidation(viewModel.pollutionFileSizeModel);
+                    },
+                    isDocument: true,
                     onTap: () {
                       viewModel.handleOnTap(
                           context,
@@ -388,7 +450,7 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                     onSuffixTap: () {
                       viewModel.handleOnSuffixTap(
                           context,
-                          RecyclerForm1.aadhar,
+                          RecyclerForm1.pollution,
                           viewModel.uploadPollutionController,
                           viewModel.pollutionFile);
                     },
@@ -414,13 +476,11 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                               viewModel.updateUI();
                             }),
                         commonRichText(stringConstants.anyOtherPlant.i18n(),
-                            context, false),
+                            context, true),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: CommonTextFormFieldWidget(
-                              isDocument: viewModel.videoFilePath == null
-                                  ? false
-                                  : true,
+                              isDocument: true,
                               icon: viewModel.uploadVideoController.text.isEmpty
                                   ? viewModel.imageConstants.fileUpload
                                   : viewModel.imageConstants.removeIcon,
@@ -439,10 +499,15 @@ class AuditorRecyclerForm1 extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CommonMultilineTextFormField(
-                            label: stringConstants.remarks.i18n(),
+                          child: CommonTextFormFieldWidget(
+                            isMandatory: false,
+                            hintText: stringConstants.remarks.i18n(),
                             maxLength: 100,
                             controller: viewModel.remarkVideoController,
+                            validator: (value) {
+                              return viewModel.emptyValidation(
+                                  viewModel.remarkVideoController);
+                            },
                           ),
                         )
                       ],
@@ -466,6 +531,8 @@ class AuditorRecyclerForm1 extends StatelessWidget {
       bool isDocument = false,
       void Function()? onTap,
       void Function()? onSuffixTap,
+      String? Function(String?)? remarksValidator,
+      String? Function(String?)? uploadValidator,
       void Function(String?)? onChanged}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -491,10 +558,11 @@ class AuditorRecyclerForm1 extends StatelessWidget {
           ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: CommonMultilineTextFormField(
+          child: CommonTextFormFieldWidget(
               bgColor: appColor.white,
-              label: stringConstants.remarks.i18n(),
+              hintText: stringConstants.remarks.i18n(),
               isMandatory: false,
+              validator: remarksValidator,
               controller: remarksController ?? TextEditingController()),
         ),
         if (isUpload == true)
@@ -510,11 +578,8 @@ class AuditorRecyclerForm1 extends StatelessWidget {
               onTap: onTap,
               onSuffixTap: onSuffixTap,
               isDocument: isDocument,
-              validator: (value) {
-                return null;
-                // return viewModel.uploadInvoiceValidation();
-              },
               isMandatory: false,
+              validator: uploadValidator,
               controller: uploadController ?? TextEditingController(),
             ),
           )

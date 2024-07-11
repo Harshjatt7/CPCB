@@ -1,5 +1,4 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
-import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -21,11 +20,9 @@ class RecyclerForm3ViewModel extends BaseViewModel {
   String radioBVerified = 'confirmed';
   final MessageConstant messageConstant = MessageConstant();
 
-  String? numericValidation(TextEditingController controller) {
-    return Validations().numberValidation(controller.text);
-  }
+ 
 
-  String? invoicesRemarkValidation(TextEditingController controller) {
+  String? emptyValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
       return messageConstant.pleaseProvideValue;
     }

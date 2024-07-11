@@ -83,7 +83,7 @@ class ProducerForm1 extends StatelessWidget {
                   validator: (value) {
                     return viewModel.validate(viewModel.gstRemark.text);
                   },
-                  onValidation: (value) {
+                  uploadValidator: (value) {
                     return viewModel
                         .uploadInvoiceValidation(viewModel.gstFileSizeModel);
                   },
@@ -118,7 +118,7 @@ class ProducerForm1 extends StatelessWidget {
                     return viewModel
                         .validate(viewModel.panOfCompanyRemark.text);
                   },
-                  onValidation: (value) {
+                  uploadValidator: (value) {
                     return viewModel
                         .uploadInvoiceValidation(viewModel.panFileSizeModel);
                   },
@@ -148,7 +148,7 @@ class ProducerForm1 extends StatelessWidget {
                   validator: (value) {
                     return viewModel.validate(viewModel.cinRemark.text);
                   },
-                  onValidation: (value) {
+                  uploadValidator: (value) {
                     return viewModel
                         .uploadInvoiceValidation(viewModel.cinFileSizeModel);
                   },
@@ -180,7 +180,7 @@ class ProducerForm1 extends StatelessWidget {
                   validator: (value) {
                     return viewModel.validate(viewModel.iecRemark.text);
                   },
-                  onValidation: (value) {
+                  uploadValidator: (value) {
                     return viewModel
                         .uploadInvoiceValidation(viewModel.iecFileSizeModel);
                   },
@@ -210,7 +210,6 @@ class ProducerForm1 extends StatelessWidget {
                   groupValue: viewModel.radioCompanyDetail,
                   remarkController: viewModel.companyNameRemark,
                   isReadOnly: true,
-                  
                 ),
                 AuditorFormTile(
                   title: viewModel.stringConstants.categoryOfProducer.i18n(),

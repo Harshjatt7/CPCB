@@ -25,6 +25,4 @@ class RecyclerForm5ViewModel extends BaseViewModel {
     installDropdownValue = newValue;
     updateUI();
   }
-
-  
 }
