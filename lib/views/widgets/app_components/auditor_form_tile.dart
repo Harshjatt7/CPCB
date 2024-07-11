@@ -29,6 +29,7 @@ class AuditorFormTile extends StatelessWidget {
   final String? filePath;
   final String? isRemarkMandatory;
   final String? Function(String?)? validator;
+  final bool? isReadOnly;
   AuditorFormTile({
     super.key,
     this.groupValue,
@@ -48,7 +49,8 @@ class AuditorFormTile extends StatelessWidget {
     this.onValidation,
     this.filePath,
     this.isRemarkMandatory,
-    this.validator
+    this.validator,
+    this.isReadOnly,
   });
 
   @override
@@ -83,10 +85,12 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
+              disabledBgColor:  appColor.black10,
               hintText: stringConstants.remark,
               bgColor: appColor.white,
               isMandatory: false,
-              // maxLength: 500,
+              maxLength: 100,
+              isReadOnly: isReadOnly ?? false,
               controller: remarkController ?? TextEditingController(),
               validator: validator,
             ),
@@ -97,7 +101,6 @@ class AuditorFormTile extends StatelessWidget {
             child: CommonTextFormFieldWidget(
               isDocument: filePath == null ? false : true,
               disabledBgColor: appColor.transparent,
-              isReadOnly: true,
               hintText: stringConstants.upload,
               icon: uploadController?.text.isEmpty ?? false
                   ? imageConstants.fileUpload
