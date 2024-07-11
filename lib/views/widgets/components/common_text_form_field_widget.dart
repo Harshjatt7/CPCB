@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +96,7 @@ class _CommonTextFormFieldWidgetNewState
   late FocusNode _focusNode;
   bool isClick = true;
   String? error;
-
+  bool isFocused = false;
   final ImageConstants imageConstants = ImageConstants();
   final AppColor appColor = AppColor();
 
@@ -131,7 +132,17 @@ class _CommonTextFormFieldWidgetNewState
 
   void _handleFocusChange() {
     if (!_focusNode.hasFocus) {
+      setState(() {
+        isFocused = !isFocused;
+      });
+      HelperFunctions().logger("UnFocus>>>$isFocused");
       removeEmptySpace();
+    }
+    if (_focusNode.hasFocus) {
+      setState(() {
+        isFocused = !isFocused;
+      });
+      HelperFunctions().logger("Focus>>>$isFocused");
     }
   }
 
@@ -140,8 +151,7 @@ class _CommonTextFormFieldWidgetNewState
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(
-              vertical: widget.isMultiline == true ? 10 : 2),
+          height: widget.isMultiline == true ? 82 : 60,
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: widget.isReadOnly == true
@@ -196,6 +206,7 @@ class _CommonTextFormFieldWidgetNewState
                     decorationColor: appColor.blue100,
                     letterSpacing: widget.isObscure ? 5 : null)
                 : Theme.of(context).textTheme.labelSmall!.copyWith(
+                    height: widget.isMultiline == true ? 2 : 0,
                     color: widget.textColor ?? appColor.black90,
                     decoration: widget.isDocument == true
                         ? TextDecoration.underline
@@ -207,8 +218,10 @@ class _CommonTextFormFieldWidgetNewState
                 : TextInputAction.next,
             decoration: InputDecoration(
                 contentPadding: widget.isMultiline == true
-                    ? const EdgeInsets.only(top: -10, bottom: 6, left: 20)
-                    : const EdgeInsets.only(top: 8, bottom: 6, left: 20),
+                    ? isFocused || widget.controller.text.isNotEmpty
+                        ? const EdgeInsets.only(top: 8, bottom: 4, left: 20)
+                        : const EdgeInsets.only(top: -10, bottom: 4, left: 20)
+                    : const EdgeInsets.only(top: 8, bottom: 8, left: 20),
                 alignLabelWithHint: widget.isMultiline == true ? true : false,
                 counterText: "",
                 fillColor: widget.isReadOnly == true
