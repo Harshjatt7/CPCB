@@ -30,7 +30,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonTitleWidget(
-                  label: viewModel.stringConstants.companyDetails.i18n()),
+                  label: viewModel.stringConstants.companyDetails),
               AuditorFormTile(
                 title: viewModel.stringConstants.companyNameAddress.i18n(),
                 isMandatory: true,
@@ -39,6 +39,9 @@ class _ProducerForm1State extends State<ProducerForm1> {
                 onChanged: (value) {
                   viewModel.radioCompanyDetail = value ?? '';
                   viewModel.updateUI();
+                },
+                validator: (value) {
+                  return viewModel.validate(viewModel.companyNameRemark.text);
                 },
               ),
               AuditorFormTile(
@@ -50,8 +53,13 @@ class _ProducerForm1State extends State<ProducerForm1> {
                   viewModel.radioCategoryOfProducer = value ?? '';
                   viewModel.updateUI();
                 },
+                validator: (value) {
+                  return viewModel
+                      .validate(viewModel.categoryOfProducerRemark.text);
+                },
               ),
               AuditorFormTile(
+                isMandatory: true,
                 title: viewModel.stringConstants.gst.i18n(),
                 isUpload: true,
                 groupValue: viewModel.radioGst,
@@ -70,12 +78,16 @@ class _ProducerForm1State extends State<ProducerForm1> {
                   viewModel.handleOnSuffixTap(context, AuditorProducerForm1.gst,
                       viewModel.gstController, viewModel.gstFile);
                 },
+                validator: (value) {
+                  return viewModel.validate(viewModel.gstRemark.text);
+                },
                 onValidation: (value) {
-                  return null;
-                  // return viewModel.uploadInvoiceValidation();
+                  return viewModel
+                      .uploadInvoiceValidation(viewModel.gstFileSizeModel);
                 },
               ),
               AuditorFormTile(
+                isMandatory: true,
                 title: viewModel.stringConstants.panOfCompany.i18n(),
                 isUpload: true,
                 groupValue: viewModel.radioPanOfCompany,
@@ -100,6 +112,13 @@ class _ProducerForm1State extends State<ProducerForm1> {
                       viewModel.panController,
                       viewModel.panFile);
                 },
+                validator: (value) {
+                  return viewModel.validate(viewModel.panOfCompanyRemark.text);
+                },
+                onValidation: (value) {
+                  return viewModel
+                      .uploadInvoiceValidation(viewModel.panFileSizeModel);
+                },
               ),
               AuditorFormTile(
                 title: viewModel.stringConstants.cin.i18n(),
@@ -120,8 +139,17 @@ class _ProducerForm1State extends State<ProducerForm1> {
                   viewModel.handleOnSuffixTap(context, AuditorProducerForm1.cin,
                       viewModel.cinController, viewModel.cinFile);
                 },
+                validator: (value) {
+                  return viewModel.validate(viewModel.cinRemark.text);
+                },
+                onValidation: (value) {
+                  
+                  return viewModel
+                      .uploadInvoiceValidation(viewModel.cinFileSizeModel);
+                },
               ),
               AuditorFormTile(
+                isMandatory: true,
                 title: viewModel.stringConstants.iec.i18n(),
                 isUpload: true,
                 groupValue: viewModel.radioIec,
@@ -141,9 +169,12 @@ class _ProducerForm1State extends State<ProducerForm1> {
                   viewModel.handleOnSuffixTap(context, AuditorProducerForm1.iec,
                       viewModel.iecController, viewModel.iecFile);
                 },
+                validator: (value) {
+                  return  viewModel.validate(viewModel.iecRemark.text);
+                },
                 onValidation: (value) {
-                  return null;
-                  // return viewModel.uploadInvoiceValidation();
+                  return viewModel
+                      .uploadInvoiceValidation(viewModel.iecFileSizeModel);
                 },
               ),
             ],

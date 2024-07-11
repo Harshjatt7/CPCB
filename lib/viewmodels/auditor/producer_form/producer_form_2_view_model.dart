@@ -4,8 +4,8 @@ import '../../base_viewmodel.dart';
 
 class ProducerForm2ViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
-  String radioMisreportingP1 = "";
-  String radioMisreportingP3 = "";
+  String radioMisreportingP1 = "confirmed";
+  String radioMisreportingP3 = "confirmed";
   
   List<String> producerHeadingList = [
     "Type of Tyre",

@@ -3,9 +3,8 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
-
-import '../../../widgets/app_components/common_multiline_text_form_field.dart';
 
 class ProducerForm3 extends StatelessWidget {
   const ProducerForm3({super.key});
@@ -35,6 +34,7 @@ class ProducerForm3 extends StatelessWidget {
                 hintText: viewModel.stringConstants.deviation,
                 isMandatory: false,
                 controller: viewModel.deviationController,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
               const SizedBox(
                 height: 24,
@@ -49,16 +49,30 @@ class ProducerForm3 extends StatelessWidget {
                   viewModel.updateUI();
                 },
               ),
-              CommonMultilineTextFormField(
-                label: viewModel.stringConstants.remarks.i18n(),
+              CommonTextFormFieldWidget(
+                isMultiline: true,
+                hintText: viewModel.stringConstants.remarks.i18n(),
+                isMandatory: true,
                 controller: viewModel.remarkController,
+                validator: (value) {
+                  return viewModel.validate(viewModel.remarkController.text);
+                },
+                maxLength: 100,
+                maxLines: 3,
               ),
               const SizedBox(
                 height: 16,
               ),
-              CommonMultilineTextFormField(
-                label: viewModel.stringConstants.summary.i18n(),
+              CommonTextFormFieldWidget(
+                isMultiline: true,
+                hintText: viewModel.stringConstants.summary.i18n(),
+                isMandatory: true,
                 controller: viewModel.summaryController,
+                validator: (value) {
+                  return viewModel.validate(viewModel.summaryController.text);
+                },
+                maxLength: 500,
+                maxLines: 3,
               ),
             ],
           ),

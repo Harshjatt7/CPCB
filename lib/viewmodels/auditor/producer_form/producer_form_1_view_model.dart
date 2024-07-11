@@ -27,27 +27,32 @@ class ProducerForm1ViewModel extends BaseViewModel {
   TextEditingController panController = TextEditingController();
   TextEditingController gstController = TextEditingController();
 
-  String radioCompanyDetail = "";
-  String radioCategoryOfProducer = "";
-  String radioGst = "";
-  String radioPanOfCompany = "";
-  String radioCin = "";
-  String radioIec = "";
-
+  String radioCompanyDetail = "confirmed";
+  String radioCategoryOfProducer = "confirmed";
+  String radioGst = "confirmed";
+  String radioPanOfCompany = "confirmed";
+  String radioCin = "confirmed";
+  String radioIec = "confirmed";
 
   MultipartFile? iecFile;
   MultipartFile? cinFile;
   MultipartFile? panFile;
   MultipartFile? gstFile;
-  
+
   String? gstFilePath;
   String? panFilePath;
   String? cinFilePath;
   String? iecFilePath;
-  String? fileError;
-  FileSizeModel? fileSizeModel;
+
+  FileSizeModel? gstFileSizeModel;
+  FileSizeModel? panFileSizeModel;
+  FileSizeModel? cinFileSizeModel;
+  FileSizeModel? iecFileSizeModel;
+  
   String? fileSize;
   double? fileSizeNum;
+
+  String? fileError;
 
   String? gstFileName;
   String? panFileName;
@@ -61,6 +66,14 @@ class ProducerForm1ViewModel extends BaseViewModel {
     radioPanOfCompany = stringConstants.confirmed;
     radioCin = stringConstants.confirmed;
     radioIec = stringConstants.confirmed;
+  }
+
+  String? validate(String? controller) {
+    if (controller?.isEmpty == true) {
+      return "Please enter value";
+    } else {
+      return null;
+    }
   }
 
   void handleOnSuffixTap(
@@ -146,32 +159,32 @@ class ProducerForm1ViewModel extends BaseViewModel {
         case AuditorProducerForm1.gst:
           final file = File(result.files.single.path ?? "");
           gstFilePath = file.path;
-          fileSizeModel = await getFileSize(gstFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          gstFileSizeModel = await getFileSize(gstFilePath ?? "", 1);
+          fileSize = gstFileSizeModel?.fileSize ?? "0 B";
           gstFileName = file.path.split('/').last;
           updateUI();
           break;
         case AuditorProducerForm1.panOfCompany:
           final file = File(result.files.single.path ?? "");
           panFilePath = file.path;
-          fileSizeModel = await getFileSize(panFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          panFileSizeModel = await getFileSize(panFilePath ?? "", 1);
+          fileSize = panFileSizeModel?.fileSize ?? "0 B";
           panFileName = file.path.split('/').last;
           updateUI();
           break;
         case AuditorProducerForm1.cin:
           final file = File(result.files.single.path ?? "");
           cinFilePath = file.path;
-          fileSizeModel = await getFileSize(cinFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          cinFileSizeModel = await getFileSize(cinFilePath ?? "", 1);
+          fileSize = cinFileSizeModel?.fileSize ?? "0 B";
           cinFileName = file.path.split('/').last;
           updateUI();
           break;
         case AuditorProducerForm1.iec:
           final file = File(result.files.single.path ?? "");
           iecFilePath = file.path;
-          fileSizeModel = await getFileSize(iecFilePath ?? "", 1);
-          fileSize = fileSizeModel?.fileSize ?? "0 B";
+          iecFileSizeModel = await getFileSize(iecFilePath ?? "", 1);
+          fileSize = iecFileSizeModel?.fileSize ?? "0 B";
           iecFileName = file.path.split('/').last;
           updateUI();
           break;
@@ -196,5 +209,14 @@ class ProducerForm1ViewModel extends BaseViewModel {
         fileSize:
             '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}',
         fileSizeNum: fileSizeNum ?? 0);
+  }
+  String? uploadInvoiceValidation(FileSizeModel? fileSizeModel) {
+
+    if (fileSizeModel?.fileSize.contains("MB") ?? false) {
+      if (fileSizeModel!.fileSizeNum > 2.0) {
+        return messageConstant.maxFileSize;
+      }
+    }
+    return null;
   }
 }

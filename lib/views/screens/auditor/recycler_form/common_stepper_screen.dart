@@ -37,30 +37,29 @@ class CommonStepperScreen extends StatelessWidget {
               return false;
             },
             appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(120),
-                child: Column(
-                  children: [
-                    CommonAppBar(
-                      title: "Audit Form - $userType",
-                      onLeadingTapped: () {
-                        viewModel.onBackButton(context);
-                      },
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(color: AppColor().black20))),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 20),
-                        child: CommonProgressBar(
-                          percentage:
-                              ((viewModel.index - 1) / viewModel.totalIndex) *
-                                  100,
-                        ),
+              preferredSize: const Size.fromHeight(120),
+              child: Column(
+                children: [
+                  CommonAppBar(
+                    title: "Audit Form - $userType",
+                    onLeadingTapped: () {
+                      viewModel.onBackButton(context);
+                    },
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: AppColor().black20))),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 20),
+                      child: CommonProgressBar(
+                        percentage:
+                            ((viewModel.index - 1) / viewModel.totalIndex) *
+                                100,
                       ),
                     )
-                  ],
+              ),],
                 )),
             body: Form(
               key: viewModel.formKey,

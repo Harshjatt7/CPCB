@@ -22,7 +22,7 @@ class ProducerForm2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonTitleWidget(
-                  label: viewModel.stringConstants.verificationA.i18n()),
+                  label: viewModel.stringConstants.verificationA),
               AuditorFormTile(
                 title: viewModel.stringConstants.misreporting.i18n(),
                 groupValue: viewModel.radioMisreportingP1,
@@ -42,7 +42,7 @@ class ProducerForm2 extends StatelessWidget {
                 height: 24,
               ),
               CommonTitleWidget(
-                  label: viewModel.stringConstants.verificationB.i18n()),
+                  label: viewModel.stringConstants.verificationB),
               AuditorFormTile(
                 title: viewModel.stringConstants.misreporting.i18n(),
                 groupValue: viewModel.radioMisreportingP3,

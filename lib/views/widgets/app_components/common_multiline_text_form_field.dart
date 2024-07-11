@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CommonMultilineTextFormField extends StatelessWidget {
@@ -9,14 +10,17 @@ class CommonMultilineTextFormField extends StatelessWidget {
   final bool isMandatory;
   final Color? bgColor;
   final appColor = AppColor();
-  CommonMultilineTextFormField(
-      {super.key,
-      this.maxLines,
-      this.maxLength,
-      this.controller,
-      this.bgColor,
-      this.label,
-      this.isMandatory = false});
+  final String? Function(String?)? validator;
+  CommonMultilineTextFormField({
+    super.key,
+    this.maxLines,
+    this.maxLength,
+    this.controller,
+    this.bgColor,
+    this.label,
+    this.isMandatory = false,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +34,7 @@ class CommonMultilineTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(5)),
       child: TextFormField(
         focusNode: FocusNode(canRequestFocus: true),
-        validator: (value) {
-          return null;
-        },
+        validator: validator,
         controller: controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         maxLength: maxLength ?? 100,
@@ -46,24 +48,26 @@ class CommonMultilineTextFormField extends StatelessWidget {
         decoration: InputDecoration(
           counter: const Offstage(),
           border: InputBorder.none,
-          alignLabelWithHint: true,
           contentPadding: const EdgeInsets.only(top: 0, bottom: 4),
           label: RichText(
-            text: TextSpan(
-                text: label,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall
-                    ?.copyWith(color: appColor.grey01, height: 1),
-                children: [
-                  TextSpan(
-                    text: isMandatory == true ? " *" : '',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(color: appColor.red, height: 1),
-                  )
-                ]),
+            text: WidgetSpan(
+              child: Row(children: [
+                CommonTextWidget(
+                  label ?? "",
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall
+                      ?.copyWith(color: appColor.grey01, height: 1),
+                ),
+                CommonTextWidget(
+                  isMandatory == true ? " *" : '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall
+                      ?.copyWith(color: appColor.red, height: 1),
+                )
+              ]),
+            ),
           ),
         ),
       ),

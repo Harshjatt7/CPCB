@@ -258,6 +258,13 @@ class StringConstants {
   final String videoOfPlant = "video-of-plant";
   final String uploadVideo = "upload-video";
 
+  final String balance = "balance";
+  final String invoiceNo = "invoice-no";
+  final String quantity = "quantity";
+  final String procurementList = "procurement-list";
+  final String detailsOnEndProducts = "details-on-end-products";
+  final String salesInvoice = "sales-invoice";
+  final String geotaggedPhotographs = "(C). Geotagged photographs of the Unit";
   final String plantCapacityAssessment = "plant-capacity-assessment";
   final String typeOfEndProduct = "type-of-end-product";
   final String select = "select";
