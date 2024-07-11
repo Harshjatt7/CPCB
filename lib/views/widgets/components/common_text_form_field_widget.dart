@@ -29,6 +29,9 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final Color? iconColor;
   final Color? bgColor;
   final bool? useLocalization;
+  final int? maxLength;
+  final int? maxLines;
+  final bool? isMultiline;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -54,29 +57,33 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   /// [isLastField] will be true if the textfield is last in any given form to show he "done" or check button in keyboard.
   /// By default it's value will be false.
 
-  const CommonTextFormFieldWidget(
-      {super.key,
-      required this.hintText,
-      required this.isMandatory,
-      required this.controller,
-      this.isObscure = false,
-      this.icon,
-      this.textColor,
-      this.isPasswordField = false,
-      this.textInputType = TextInputType.text,
-      this.validator,
-      this.isReadOnly = false,
-      this.isPassword = false,
-      this.onSuffixTap,
-      this.onChanged,
-      this.disabledBgColor,
-      this.onTap,
-      this.inputFormatters,
-      this.bgColor,
-      this.isDocument,
-      this.isLastField = false,
-      this.iconColor,
-      this.useLocalization = true});
+  const CommonTextFormFieldWidget({
+    super.key,
+    required this.hintText,
+    required this.isMandatory,
+    required this.controller,
+    this.isObscure = false,
+    this.icon,
+    this.textColor,
+    this.isPasswordField = false,
+    this.textInputType = TextInputType.text,
+    this.validator,
+    this.isReadOnly = false,
+    this.isPassword = false,
+    this.onSuffixTap,
+    this.onChanged,
+    this.disabledBgColor,
+    this.onTap,
+    this.inputFormatters,
+    this.bgColor,
+    this.isDocument,
+    this.isLastField = false,
+    this.iconColor,
+    this.useLocalization = true,
+    this.maxLines,
+    this.maxLength,
+    this.isMultiline,
+  });
 
   @override
   State<CommonTextFormFieldWidget> createState() =>
@@ -88,6 +95,7 @@ class _CommonTextFormFieldWidgetNewState
   late FocusNode _focusNode;
   bool isClick = true;
   String? error;
+
   final ImageConstants imageConstants = ImageConstants();
   final AppColor appColor = AppColor();
 
@@ -132,7 +140,10 @@ class _CommonTextFormFieldWidgetNewState
     return Column(
       children: [
         Container(
-          height: 60,
+          //changed
+          padding: EdgeInsets.symmetric(
+              vertical: widget.isMultiline == true ? 10 : 2),
+
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: widget.isReadOnly == true
@@ -156,12 +167,13 @@ class _CommonTextFormFieldWidgetNewState
             obscureText: widget.isObscure,
             cursorColor: appColor.grey01,
             showCursor: true,
+            maxLines: widget.maxLines ?? 1,
+            maxLength: widget.maxLength ?? 100,
             cursorErrorColor: appColor.grey01,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (val) {
               if (widget.validator != null) {
                 error = widget.validator!(widget.controller.text);
-
                 SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                   if (context.mounted) {
                     setState(() {});
@@ -184,7 +196,7 @@ class _CommonTextFormFieldWidgetNewState
                     decoration: widget.isDocument == true
                         ? TextDecoration.underline
                         : TextDecoration.none,
-                        decorationColor: appColor.blue100,
+                    decorationColor: appColor.blue100,
                     letterSpacing: widget.isObscure ? 5 : null)
                 : Theme.of(context).textTheme.labelSmall!.copyWith(
                     color: widget.textColor ?? appColor.black90,
@@ -197,6 +209,13 @@ class _CommonTextFormFieldWidgetNewState
                 ? TextInputAction.done
                 : TextInputAction.next,
             decoration: InputDecoration(
+
+                // added
+                contentPadding: widget.isMultiline == true
+                    ? const EdgeInsets.only(top: -10, bottom: 6, left: 20)
+                    : const EdgeInsets.only(top: 8, bottom: 6, left: 20),
+                alignLabelWithHint: widget.isMultiline == true ? true : false,
+                counterText: "",
                 fillColor: widget.isReadOnly == true
                     ? widget.disabledBgColor ?? appColor.grey03
                     : appColor.transparent,
@@ -221,8 +240,8 @@ class _CommonTextFormFieldWidgetNewState
                     ],
                   ),
                 ),
-                contentPadding:
-                    const EdgeInsets.only(top: 8, bottom: 6, left: 20),
+                // contentPadding:
+                //     const EdgeInsets.only(top: 8, bottom: 6, left: 20),
                 errorStyle: Theme.of(context)
                     .textTheme
                     .bodyLarge

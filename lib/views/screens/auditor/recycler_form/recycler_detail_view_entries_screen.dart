@@ -11,8 +11,8 @@ import '../../../widgets/app_components/auditor_view_entries_card.dart';
 import '../../../widgets/app_components/common_title_bar.dart';
 import '../../../widgets/components/common_appbar.dart';
 
-class RecyclerProcurementList extends StatelessWidget {
-  const RecyclerProcurementList({super.key});
+class RecyclerDetailScreen extends StatelessWidget {
+  const RecyclerDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class RecyclerProcurementList extends StatelessWidget {
                     showNotificationIcon: false,
                     image: ImageConstants().avatar,
                   ),
-                  CommonTitleBar(title: "Procurement List"),
+                  CommonTitleBar(title: "Details on End Products sold in the market"),
                 ],
               ),
             ),
@@ -48,7 +48,7 @@ class RecyclerProcurementList extends StatelessWidget {
                 children: List.generate(10, (index) {
                   return const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8),
-                    child: AuditorViewEntriesCard(),
+                    child: AuditorViewEntriesCard(isDetailProduct: true,),
                   );
                 }),
               ),

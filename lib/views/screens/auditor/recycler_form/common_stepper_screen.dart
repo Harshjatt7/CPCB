@@ -37,31 +37,32 @@ class CommonStepperScreen extends StatelessWidget {
               return false;
             },
             appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(120),
-                child: Column(
-                  children: [
-                    CommonAppBar(
-                      title: "Audit Form - $userType",
-                      onLeadingTapped: () {
-                        viewModel.onBackButton(context);
-                      },
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(color: AppColor().black20))),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 20),
-                        child: CommonProgressBar(
-                          percentage:
-                              ((viewModel.index - 1) / viewModel.totalIndex) *
-                                  100,
-                        ),
+              preferredSize: const Size.fromHeight(120),
+              child: Column(
+                children: [
+                  CommonAppBar(
+                    title: "Audit Form - $userType",
+                    onLeadingTapped: () {
+                      viewModel.onBackButton(context);
+                    },
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: AppColor().black20))),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 20),
+                      child: CommonProgressBar(
+                        percentage:
+                            ((viewModel.index - 1) / viewModel.totalIndex) *
+                                100,
                       ),
-                    )
-                  ],
-                )),
+                    ),
+                  )
+                ],
+              ),
+            ),
             body: CommonSingleChildScrollView(
               child: userType == "Recycler"
                   ? Column(
@@ -87,10 +88,8 @@ class CommonStepperScreen extends StatelessWidget {
                           children: [
                             if (viewModel.index == 1) AuditorRecyclerForm1(),
                             if (viewModel.index == 2) AuditorRecyclerForm2(),
-                            if (viewModel.index == 3)
-                               AuditorRecyclerForm3(),
-                            if (viewModel.index == 4)
-                               AuditorRecyclerForm4(),
+                            if (viewModel.index == 3) AuditorRecyclerForm3(),
+                            if (viewModel.index == 4) AuditorRecyclerForm4(),
                             if (viewModel.index == 5)
                               const AuditorRecyclerForm5()
                             // PlantMachineryWidget()

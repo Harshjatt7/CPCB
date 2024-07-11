@@ -12,8 +12,8 @@ class ProducerForm3ViewModel extends BaseViewModel {
   final helperFunctions = HelperFunctions();
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
-  String radioMisreporting = "";
-  String radioInformation = "";
+  String radioMisreporting = "no";
+  String radioInformation = "no";
   TextEditingController deviationController = TextEditingController();
   TextEditingController remarkController = TextEditingController();
   TextEditingController summaryController = TextEditingController();
@@ -44,11 +44,19 @@ class ProducerForm3ViewModel extends BaseViewModel {
   }
 
   Future<Duration?> _getVideoDuration(String videoPath) async {
-    final VideoPlayerController _controller =
+    final VideoPlayerController controller =
         VideoPlayerController.file(File(videoPath));
-    await _controller.initialize();
-    final duration = _controller.value.duration;
-    _controller.dispose();
+    await controller.initialize();
+    final duration = controller.value.duration;
+    controller.dispose();
     return duration;
+  }
+  
+  String? validate(String? controller) {
+    if (controller?.isEmpty == true) {
+      return "Please enter value";
+    } else {
+      return null;
+    }
   }
 }

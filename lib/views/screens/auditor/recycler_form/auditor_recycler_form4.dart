@@ -8,6 +8,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../constants/routes_constant.dart';
+
 class AuditorRecyclerForm4 extends StatelessWidget {
   AuditorRecyclerForm4({super.key});
   final AppColor appColor = AppColor();
@@ -28,11 +30,17 @@ class AuditorRecyclerForm4 extends StatelessWidget {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 16 ),
-                  child: CommonTextWidget(
-                    "View entries",
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        color: appColor.blue100,
-                        decoration: TextDecoration.underline),
+                  child: InkWell(
+                    onTap: () {
+                        Navigator.pushNamed(context,
+                            AppRoutes.auditorRecyclerDetailScreen);
+                      },
+                    child: CommonTextWidget(
+                      "View entries",
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          color: appColor.blue100,
+                          decoration: TextDecoration.underline),
+                    ),
                   ),
                 ),
                 commonForm4Tiles(context,

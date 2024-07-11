@@ -16,8 +16,7 @@ class AuditorListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<AuditorListViewModel>(
-        onModelReady: (viewModel) {
-        },
+        onModelReady: (viewModel) {},
         viewModel: AuditorListViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
@@ -116,9 +115,13 @@ class AuditorListScreen extends StatelessWidget {
                               startDate: "15-Mar-2024",
                               endDate: "-",
                               onPressed: () {
+                                // Navigator.pushNamed(
+                                //   context,
+                                //   AppRoutes.auditorRecyclerViewDataScreen,
+                                // );
                                 Navigator.pushNamed(
                                     context, AppRoutes.auditorStepperScreen,
-                                    arguments: "Recycler");
+                                    arguments: "Producer");
                               },
                             );
                           },

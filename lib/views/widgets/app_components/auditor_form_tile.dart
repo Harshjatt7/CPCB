@@ -1,6 +1,5 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_multiline_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/app_color.dart';
@@ -28,6 +27,8 @@ class AuditorFormTile extends StatelessWidget {
   final imageConstants = ImageConstants();
   final StringConstants stringConstants = StringConstants();
   final String? filePath;
+  final String? isRemarkMandatory;
+  final String? Function(String?)? validator;
   AuditorFormTile({
     super.key,
     this.groupValue,
@@ -46,6 +47,8 @@ class AuditorFormTile extends StatelessWidget {
     this.onSuffixTap,
     this.onValidation,
     this.filePath,
+    this.isRemarkMandatory,
+    this.validator
   });
 
   @override
@@ -79,12 +82,14 @@ class AuditorFormTile extends StatelessWidget {
         if (isRadioField == false)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            child: CommonMultilineTextFormField(
-                bgColor: appColor.white,
-                label: stringConstants.remark,
-                isMandatory: false,
-                maxLength: 500,
-                controller: remarkController ?? TextEditingController()),
+            child: CommonTextFormFieldWidget(
+              hintText: stringConstants.remark,
+              bgColor: appColor.white,
+              isMandatory: false,
+              // maxLength: 500,
+              controller: remarkController ?? TextEditingController(),
+              validator: validator,
+            ),
           ),
         if (isUpload == true)
           Padding(
