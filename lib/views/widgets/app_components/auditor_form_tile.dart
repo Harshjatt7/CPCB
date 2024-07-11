@@ -29,26 +29,29 @@ class AuditorFormTile extends StatelessWidget {
   final String? filePath;
   final String? isRemarkMandatory;
   final String? Function(String?)? validator;
-  AuditorFormTile(
-      {super.key,
-      this.groupValue,
-      this.title,
-      this.isMandatory = false,
-      this.onChanged,
-      this.isUpload = false,
-      this.titleStyle,
-      this.isRadioField = false,
-      this.radioPadding,
-      this.remarkController,
-      this.uploadedFileName,
-      this.disableController,
-      this.onTap,
-      this.uploadController,
-      this.onSuffixTap,
-      this.uploadValidator,
-      this.filePath,
-      this.isRemarkMandatory,
-      this.validator});
+  final bool? isReadOnly;
+  AuditorFormTile({
+    super.key,
+    this.groupValue,
+    this.title,
+    this.isMandatory = false,
+    this.onChanged,
+    this.isUpload = false,
+    this.titleStyle,
+    this.isRadioField = false,
+    this.radioPadding,
+    this.remarkController,
+    this.uploadedFileName,
+    this.disableController,
+    this.onTap,
+    this.uploadController,
+    this.onSuffixTap,
+    this.uploadValidator,
+    this.filePath,
+    this.isRemarkMandatory,
+    this.validator,
+    this.isReadOnly,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +85,12 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
+              disabledBgColor: appColor.black10,
               hintText: stringConstants.remark,
               bgColor: appColor.white,
               isMandatory: false,
+              maxLength: 100,
+              isReadOnly: isReadOnly ?? false,
               controller: remarkController ?? TextEditingController(),
               validator: validator,
             ),
@@ -95,7 +101,6 @@ class AuditorFormTile extends StatelessWidget {
             child: CommonTextFormFieldWidget(
               isDocument: true,
               disabledBgColor: appColor.transparent,
-              isReadOnly: true,
               hintText: stringConstants.upload,
               icon: uploadController?.text.isEmpty ?? false
                   ? imageConstants.fileUpload

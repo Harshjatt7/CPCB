@@ -1,6 +1,6 @@
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_summary_screen.dart';
-import 'package:cpcb_tyre/views/screens/auditor/recycler_form/common_stepper_screen.dart';
+import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_detail_view_entries_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_procurement_list.dart';
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
@@ -15,6 +15,7 @@ import 'package:cpcb_tyre/views/screens/retrader/retreader_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/spcb/spcb_home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
+import '../viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import '../views/screens/admin/admin_homescreen.dart';
 import '../views/screens/auditor/auditor_home_screen.dart';
 import '../views/screens/producer/producer_home_screen.dart';
@@ -65,8 +66,8 @@ class PageRouter {
       case AppRoutes.auditorHomeScreen:
         return _getPageRoute(AuditorHomeScreen(), settings);
       case AppRoutes.auditorStepperScreen:
-        String userType = settings.arguments as String;
-        return _getPageRoute(CommonStepperScreen(userType: userType), settings);
+        CheckUserAndSummaryScreen checkUser = settings.arguments as CheckUserAndSummaryScreen;
+        return _getPageRoute(CommonStepperScreen(checkUser: checkUser), settings);
       case AppRoutes.auditorRecyclerProcurementScreen:
         return _getPageRoute(const RecyclerProcurementList(), settings);
       case AppRoutes.auditorRecyclerDetailScreen:
