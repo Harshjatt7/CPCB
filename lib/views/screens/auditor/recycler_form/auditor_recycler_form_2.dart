@@ -4,12 +4,12 @@ import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_2_viewm
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_multiline_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 
 class AuditorRecyclerForm2 extends StatelessWidget {
@@ -47,27 +47,54 @@ class AuditorRecyclerForm2 extends StatelessWidget {
               commonRecyclerForm2Tile(
                   title: stringConstants.plantProductionCapacity,
                   hintText: stringConstants.enter,
-                  textEditingController: TextEditingController()),
+                  validator: (value) {
+                    return viewModel.emptyValidation(
+                        viewModel.plantProductionCapacityController);
+                  },
+                  textEditingController:
+                      viewModel.plantProductionCapacityController),
               commonRecyclerForm2Tile(
                   title: stringConstants.endProductProduced,
                   hintText: stringConstants.enter,
-                  textEditingController: TextEditingController()),
+                  validator: (value) {
+                    return viewModel.emptyValidation(
+                        viewModel.endProductProducedController);
+                  },
+                  textEditingController:
+                      viewModel.endProductProducedController),
               commonRecyclerForm2Tile(
                   title: stringConstants.daysPlantOperational,
                   hintText: stringConstants.enter,
-                  textEditingController: TextEditingController()),
+                  validator: (value) {
+                    return viewModel.emptyValidation(
+                        viewModel.daysPlantOperationalController);
+                  },
+                  textEditingController:
+                      viewModel.daysPlantOperationalController),
               commonRecyclerForm2Tile(
                   title: stringConstants.hoursPlantOperational,
                   hintText: stringConstants.enter,
-                  textEditingController: TextEditingController()),
+                  validator: (value) {
+                    return viewModel.emptyValidation(
+                        viewModel.hoursPlantOperationalController);
+                  },
+                  textEditingController:
+                      viewModel.hoursPlantOperationalController),
               commonRecyclerForm2Tile(
-                  title: stringConstants.shiftPlantOperational,
-                  hintText: stringConstants.enter,
-                  textEditingController: TextEditingController()),
+                title: stringConstants.shiftPlantOperational,
+                hintText: stringConstants.enter,
+                textEditingController:
+                    viewModel.shiftPlantOperationalController,
+                validator: (value) {
+                  return viewModel.emptyValidation(
+                      viewModel.shiftPlantOperationalController);
+                },
+              ),
               commonRecyclerForm2Tile(
                   title: stringConstants.actualProcessingCapacity,
                   hintText: "", //Value will come from API
-                  textEditingController: TextEditingController(),
+                  textEditingController:
+                      viewModel.actualProcessingCapacityController,
                   isDisable: true),
               Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 8),
@@ -88,17 +115,22 @@ class AuditorRecyclerForm2 extends StatelessWidget {
               commonRecyclerForm2Tile(
                   title: stringConstants.differenceInActualProccessing,
                   hintText: stringConstants.enter,
-                  textEditingController: TextEditingController(),
+                  textEditingController:
+                      viewModel.differenceInActualProccessingController,
+                  validator: (value) {
+                    return viewModel.emptyValidation(
+                        viewModel.differenceInActualProccessingController);
+                  },
                   isDisable: false),
               commonRecyclerForm2Tile(
                   title: stringConstants.totalQuantitySales,
                   hintText: "", //Value will come from API
-                  textEditingController: TextEditingController(),
+                  textEditingController: viewModel.totalQuantitySalesController,
                   isDisable: true),
               commonRecyclerForm2Tile(
                   title: stringConstants.uploadSales,
                   hintText: "", //Value will come from API
-                  textEditingController: TextEditingController(),
+                  textEditingController: viewModel.uploadSalesController,
                   isDisable: true),
               Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 8),
@@ -108,17 +140,26 @@ class AuditorRecyclerForm2 extends StatelessWidget {
               commonRecyclerForm2Tile(
                   title: stringConstants.powerConsumptionDuringAudit,
                   hintText: stringConstants.enter,
-                  textEditingController: TextEditingController(),
+                  textEditingController: viewModel.powerConsumptionController,
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.powerConsumptionController);
+                  },
                   isDisable: false),
               commonRecyclerForm2Tile(
                   title: stringConstants.actualAverageAnnual,
                   hintText: stringConstants.enter,
-                  textEditingController: TextEditingController(),
+                  textEditingController:
+                      viewModel.actualAverageAnnualController,
                   isDisable: true),
               commonRecyclerForm2Tile(
                   title: stringConstants.totalElectricityConsumed,
                   hintText: stringConstants.enter,
-                  textEditingController: TextEditingController(),
+                  textEditingController: viewModel.totalElectricityController,
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.totalElectricityController);
+                  },
                   isDisable: false),
               Padding(
                 padding: const EdgeInsets.only(
@@ -143,11 +184,16 @@ class AuditorRecyclerForm2 extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonMultilineTextFormField(
+                child: CommonTextFormFieldWidget(
                     bgColor: appColor.white,
-                    controller: TextEditingController(),
+                    controller: viewModel.areValuedCandDController,
                     maxLength: 100,
-                    label: stringConstants.remarks.i18n()),
+                    isMandatory: false,
+                    validator: (value) {
+                      return viewModel
+                          .emptyValidation(viewModel.areValuedCandDController);
+                    },
+                    hintText: stringConstants.remarks.i18n()),
               )
             ],
           ),
@@ -160,6 +206,7 @@ class AuditorRecyclerForm2 extends StatelessWidget {
       {String? title,
       String? hintText,
       TextEditingController? textEditingController,
+      String? Function(String?)? validator,
       bool isDisable = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,6 +226,9 @@ class AuditorRecyclerForm2 extends StatelessWidget {
               isReadOnly: isDisable,
               hintText: hintText ?? "",
               isMandatory: false,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              textInputType: TextInputType.number,
+              validator: validator,
               controller: textEditingController ?? TextEditingController()),
         ),
       ],

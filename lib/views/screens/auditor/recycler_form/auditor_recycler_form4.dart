@@ -3,12 +3,12 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_4_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_multiline_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 
 class AuditorRecyclerForm4 extends StatelessWidget {
@@ -47,6 +47,14 @@ class AuditorRecyclerForm4 extends StatelessWidget {
                     viewModel.radioInvoice = value ?? '';
                     viewModel.updateUI();
                   },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.invoiceController);
+                  },
+                  remarkValidator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.remakrsInvoiceController);
+                  },
                 ),
                 commonForm4Tiles(
                   context,
@@ -57,6 +65,14 @@ class AuditorRecyclerForm4 extends StatelessWidget {
                   onChanged: (value) {
                     viewModel.radioBuyer = value ?? '';
                     viewModel.updateUI();
+                  },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.buyersController);
+                  },
+                  remarkValidator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.remakrsBuyerController);
                   },
                 )
               ],
@@ -72,6 +88,9 @@ class AuditorRecyclerForm4 extends StatelessWidget {
     void Function(String?)? onChanged,
     TextEditingController? controller,
     TextEditingController? remarkController,
+    RecyclerForm4ViewModel? viewModel,
+    String? Function(String?)? validator,
+    String? Function(String?)? remarkValidator,
     String? title,
   }) {
     return Column(
@@ -95,14 +114,17 @@ class AuditorRecyclerForm4 extends StatelessWidget {
               bgColor: appColor.white,
               hintText: title ?? '',
               isMandatory: false,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              textInputType: TextInputType.number,
+              validator: validator,
               controller: controller ?? TextEditingController()),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 16),
-          child: CommonMultilineTextFormField(
-              maxLength: 500,
+          child: CommonTextFormFieldWidget(
               bgColor: appColor.white,
-              label: stringConstants.remarks.i18n(),
+              hintText: stringConstants.remarks.i18n(),
+              validator: remarkValidator,
               isMandatory: false,
               controller: remarkController ?? TextEditingController()),
         ),

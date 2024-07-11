@@ -81,7 +81,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
                 validator: (value) {
                   return viewModel.validate(viewModel.gstRemark.text);
                 },
-                onValidation: (value) {
+                uploadValidator: (value) {
                   return viewModel
                       .uploadInvoiceValidation(viewModel.gstFileSizeModel);
                 },
@@ -115,7 +115,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
                 validator: (value) {
                   return viewModel.validate(viewModel.panOfCompanyRemark.text);
                 },
-                onValidation: (value) {
+                uploadValidator: (value) {
                   return viewModel
                       .uploadInvoiceValidation(viewModel.panFileSizeModel);
                 },
@@ -142,8 +142,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
                 validator: (value) {
                   return viewModel.validate(viewModel.cinRemark.text);
                 },
-                onValidation: (value) {
-                  
+                uploadValidator: (value) {
                   return viewModel
                       .uploadInvoiceValidation(viewModel.cinFileSizeModel);
                 },
@@ -170,9 +169,9 @@ class _ProducerForm1State extends State<ProducerForm1> {
                       viewModel.iecController, viewModel.iecFile);
                 },
                 validator: (value) {
-                  return  viewModel.validate(viewModel.iecRemark.text);
+                  return viewModel.validate(viewModel.iecRemark.text);
                 },
-                onValidation: (value) {
+                uploadValidator: (value) {
                   return viewModel
                       .uploadInvoiceValidation(viewModel.iecFileSizeModel);
                 },

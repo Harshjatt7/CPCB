@@ -22,34 +22,33 @@ class AuditorFormTile extends StatelessWidget {
   final TextEditingController? uploadController;
   final TextEditingController? disableController;
   final VoidCallback? onTap;
-  final String? Function(String?)? onValidation;
+  final String? Function(String?)? uploadValidator;
   final VoidCallback? onSuffixTap;
   final imageConstants = ImageConstants();
   final StringConstants stringConstants = StringConstants();
   final String? filePath;
   final String? isRemarkMandatory;
   final String? Function(String?)? validator;
-  AuditorFormTile({
-    super.key,
-    this.groupValue,
-    this.title,
-    this.isMandatory = false,
-    this.onChanged,
-    this.isUpload = false,
-    this.titleStyle,
-    this.isRadioField = false,
-    this.radioPadding,
-    this.remarkController,
-    this.uploadedFileName,
-    this.disableController,
-    this.onTap,
-    this.uploadController,
-    this.onSuffixTap,
-    this.onValidation,
-    this.filePath,
-    this.isRemarkMandatory,
-    this.validator
-  });
+  AuditorFormTile(
+      {super.key,
+      this.groupValue,
+      this.title,
+      this.isMandatory = false,
+      this.onChanged,
+      this.isUpload = false,
+      this.titleStyle,
+      this.isRadioField = false,
+      this.radioPadding,
+      this.remarkController,
+      this.uploadedFileName,
+      this.disableController,
+      this.onTap,
+      this.uploadController,
+      this.onSuffixTap,
+      this.uploadValidator,
+      this.filePath,
+      this.isRemarkMandatory,
+      this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +85,6 @@ class AuditorFormTile extends StatelessWidget {
               hintText: stringConstants.remark,
               bgColor: appColor.white,
               isMandatory: false,
-              // maxLength: 500,
               controller: remarkController ?? TextEditingController(),
               validator: validator,
             ),
@@ -95,7 +93,7 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
-              isDocument: filePath == null ? false : true,
+              isDocument: true,
               disabledBgColor: appColor.transparent,
               isReadOnly: true,
               hintText: stringConstants.upload,
@@ -104,7 +102,7 @@ class AuditorFormTile extends StatelessWidget {
                   : imageConstants.removeIcon,
               onTap: onTap,
               onSuffixTap: onSuffixTap,
-              validator: onValidation,
+              validator: uploadValidator,
               isMandatory: false,
               controller: uploadController ?? TextEditingController(),
             ),
