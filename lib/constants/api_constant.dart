@@ -54,6 +54,7 @@ class APIRoutes {
   final String spcbGetAllUsersAPIRoute = "api/spcb/get-all-users/";
   final String recyclerDownloadCertificateAPIRoute =
       "api/recycler/download-certificate";
+  final String auditorDashboardAPIRoute = "api/auditor/dashboard";
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
 }

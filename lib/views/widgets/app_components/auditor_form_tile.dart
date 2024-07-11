@@ -22,7 +22,7 @@ class AuditorFormTile extends StatelessWidget {
   final TextEditingController? uploadController;
   final TextEditingController? disableController;
   final VoidCallback? onTap;
-  final String? Function(String?)? onValidation;
+  final String? Function(String?)? uploadValidator;
   final VoidCallback? onSuffixTap;
   final imageConstants = ImageConstants();
   final StringConstants stringConstants = StringConstants();
@@ -46,7 +46,7 @@ class AuditorFormTile extends StatelessWidget {
     this.onTap,
     this.uploadController,
     this.onSuffixTap,
-    this.onValidation,
+    this.uploadValidator,
     this.filePath,
     this.isRemarkMandatory,
     this.validator,
@@ -85,7 +85,7 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
-              disabledBgColor:  appColor.black10,
+              disabledBgColor: appColor.black10,
               hintText: stringConstants.remark,
               bgColor: appColor.white,
               isMandatory: false,
@@ -99,7 +99,7 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
-              isDocument: filePath == null ? false : true,
+              isDocument: true,
               disabledBgColor: appColor.transparent,
               hintText: stringConstants.upload,
               icon: uploadController?.text.isEmpty ?? false
@@ -107,7 +107,7 @@ class AuditorFormTile extends StatelessWidget {
                   : imageConstants.removeIcon,
               onTap: onTap,
               onSuffixTap: onSuffixTap,
-              validator: onValidation,
+              validator: uploadValidator,
               isMandatory: false,
               controller: uploadController ?? TextEditingController(),
             ),

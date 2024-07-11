@@ -3,12 +3,12 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_3_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_multiline_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 
 class AuditorRecyclerForm3 extends StatelessWidget {
@@ -45,29 +45,43 @@ class AuditorRecyclerForm3 extends StatelessWidget {
                 ],
               ),
               commonRecyclerForm3Tile(
-                title: stringConstants.noOfSuppliersContacted,
-                groupValue: viewModel.radioAContact,
-                textEditingController: viewModel.aContactController,
-                remakrsController: viewModel.aContactRemarksController,
-                onChanged: (value) {
-                  viewModel.radioAContact = value ?? '';
-                  viewModel.updateUI();
-                },
-              ),
+                  title: stringConstants.noOfSuppliersContacted,
+                  groupValue: viewModel.radioAContact,
+                  textEditingController: viewModel.aContactController,
+                  remakrsController: viewModel.aContactRemarksController,
+                  onChanged: (value) {
+                    viewModel.radioAContact = value ?? '';
+                    viewModel.updateUI();
+                  },
+                  remarkValidator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.aContactRemarksController);
+                  },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.aContactController);
+                  }),
               commonRecyclerForm3Tile(
-                title: stringConstants.noOfSuppliersDetailsVerified,
-                isDisable: true,
-                notVerifiedTitle:
-                    stringConstants.noOfSupplierSDetailsNotVerified,
-                groupValue: viewModel.radioAVerified,
-                textEditingController: viewModel.aVerifiedController,
-                remakrsController: viewModel.aVerifiedRemakrsController,
-                disableController: viewModel.aNotVerifiedController,
-                onChanged: (value) {
-                  viewModel.radioAVerified = value ?? "";
-                  viewModel.updateUI();
-                },
-              ),
+                  title: stringConstants.noOfSuppliersDetailsVerified,
+                  isDisable: true,
+                  notVerifiedTitle:
+                      stringConstants.noOfSupplierSDetailsNotVerified,
+                  groupValue: viewModel.radioAVerified,
+                  textEditingController: viewModel.aVerifiedController,
+                  remakrsController: viewModel.aVerifiedRemakrsController,
+                  disableController: viewModel.aNotVerifiedController,
+                  onChanged: (value) {
+                    viewModel.radioAVerified = value ?? "";
+                    viewModel.updateUI();
+                  },
+                  remarkValidator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.aVerifiedController);
+                  },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.aVerifiedRemakrsController);
+                  }),
               CommonTitleWidget(label: stringConstants.physicallyVisit),
               commonRecyclerForm3Tile(
                 title: stringConstants.noOfSuppliersContacted,
@@ -78,6 +92,14 @@ class AuditorRecyclerForm3 extends StatelessWidget {
                   viewModel.radioBContact = value ?? '';
                   viewModel.updateUI();
                 },
+                 remarkValidator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.bContactRemarksController);
+                  },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.bContactController);
+                  }
               ),
               commonRecyclerForm3Tile(
                   title: stringConstants.noOfSuppliersDetailsVerified,
@@ -85,10 +107,18 @@ class AuditorRecyclerForm3 extends StatelessWidget {
                   groupValue: viewModel.radioBVerified,
                   textEditingController: viewModel.bVerifiedController,
                   disableController: viewModel.bNotVerifiedController,
-                  remakrsController: viewModel.bContactRemarksController,
+                  remakrsController: viewModel.bVerifiedRemakrsController,
                   onChanged: (value) {
                     viewModel.radioBVerified = value ?? '';
                     viewModel.updateUI();
+                  },
+                   remarkValidator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.bVerifiedRemakrsController);
+                  },
+                  validator: (value) {
+                    return viewModel
+                        .emptyValidation(viewModel.bVerifiedController);
                   },
                   notVerifiedTitle:
                       stringConstants.noOfSupplierSDetailsNotVerified)
@@ -106,6 +136,9 @@ class AuditorRecyclerForm3 extends StatelessWidget {
       TextEditingController? remakrsController,
       TextEditingController? disableController,
       void Function(String?)? onChanged,
+      String? Function(String?)? validator,
+      String? Function(String?)? remarkValidator,
+      RecyclerForm3ViewModel? viewModel,
       String? groupValue,
       bool isDisable = false}) {
     return Column(
@@ -133,15 +166,18 @@ class AuditorRecyclerForm3 extends StatelessWidget {
               bgColor: appColor.white,
               hintText: title ?? "",
               isMandatory: false,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              textInputType: TextInputType.number,
+              validator: validator,
               controller: textEditingController ?? TextEditingController()),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(),
-          child: CommonMultilineTextFormField(
+          child: CommonTextFormFieldWidget(
               bgColor: appColor.white,
-              label: stringConstants.remarks.i18n(),
+              hintText: stringConstants.remarks.i18n(),
               isMandatory: false,
-              maxLength: 500,
+              validator: remarkValidator,
               controller: remakrsController ?? TextEditingController()),
         ),
         if (isDisable == true)
