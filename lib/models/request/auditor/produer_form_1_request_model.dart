@@ -15,12 +15,12 @@ class ProducerForm1RequestModel {
 }
 
 class CompanyDetails {
-    CompanyCin? companyNameAddress;
-    CompanyCin? producerCategory;
-    CompanyCin? companyGst;
-    CompanyCin? companyPan;
-    CompanyCin? companyCin;
-    CompanyCin? companyIec;
+    CompanyData? companyNameAddress;
+    CompanyData? producerCategory;
+    CompanyData? companyGst;
+    CompanyData? companyPan;
+    CompanyData? companyCin;
+    CompanyData? companyIec;
 
     CompanyDetails({
         this.companyNameAddress,
@@ -41,11 +41,11 @@ class CompanyDetails {
     };
 }
 
-class CompanyCin {
+class CompanyData {
     String? auditConfirmedStatus;
     String? auditRemark;
 
-    CompanyCin({
+    CompanyData({
         this.auditConfirmedStatus,
         this.auditRemark,
     });

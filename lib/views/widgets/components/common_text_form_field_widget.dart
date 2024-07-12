@@ -206,7 +206,7 @@ class _CommonTextFormFieldWidgetNewState
                     decorationColor: appColor.blue100,
                     letterSpacing: widget.isObscure ? 5 : null)
                 : Theme.of(context).textTheme.labelSmall!.copyWith(
-                    height: widget.isMultiline == true ? 2 : 0,
+                    height: 1.5,
                     color: widget.textColor ?? appColor.black90,
                     decoration: widget.isDocument == true
                         ? TextDecoration.underline
@@ -219,7 +219,7 @@ class _CommonTextFormFieldWidgetNewState
             decoration: InputDecoration(
                 contentPadding: widget.isMultiline == true
                     ? isFocused || widget.controller.text.isNotEmpty
-                        ? const EdgeInsets.only(top: 8, bottom: 4, left: 20)
+                        ? const EdgeInsets.only(top: 8, bottom: 8, left: 20)
                         : const EdgeInsets.only(top: -10, bottom: 4, left: 20)
                     : const EdgeInsets.only(top: 8, bottom: 8, left: 20),
                 alignLabelWithHint: widget.isMultiline == true ? true : false,
