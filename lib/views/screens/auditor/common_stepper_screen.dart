@@ -2,11 +2,11 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
-import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_form4.dart';
-import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_form5.dart';
-import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_form_1.dart';
-import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_form_2.dart';
-import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_form_3.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form4.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form5.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_1.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_2.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_3.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_progress_bar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
@@ -69,7 +69,8 @@ class CommonStepperScreen extends StatelessWidget {
                 child: checkUser?.userType == "Recycler"
                     ? Column(
                         children: [
-                          if (viewModel.index == 1) AuditorRecyclerForm1(),
+                          if (viewModel.index == 1)
+                            const AuditorRecyclerForm1(),
                           if (viewModel.index == 2) AuditorRecyclerForm2(),
                           if (viewModel.index == 3) AuditorRecyclerForm3(),
                           if (viewModel.index == 4) AuditorRecyclerForm4(),
@@ -97,7 +98,8 @@ class CommonStepperScreen extends StatelessWidget {
                           )
                         : Column(
                             children: [
-                              if (viewModel.index == 1) AuditorRecyclerForm1(),
+                              if (viewModel.index == 1)
+                                const AuditorRecyclerForm1(),
                               if (viewModel.index == 2) AuditorRecyclerForm2(),
                               if (viewModel.index == 3) AuditorRecyclerForm3(),
                               if (viewModel.index == 4) AuditorRecyclerForm4(),
