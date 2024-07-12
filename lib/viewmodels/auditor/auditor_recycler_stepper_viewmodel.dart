@@ -19,6 +19,7 @@ import '../../../models/response/common/file_size_model.dart';
 class CommonStepperViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   int index = 1;
+  
   int totalIndex = 0;
   void getUser(String? user) {
     switch (user) {
@@ -308,7 +309,7 @@ class CommonStepperViewModel extends BaseViewModel {
 class CheckUserAndSummaryScreen {
   final String? userType;
   final bool? isSummaryScreen;
-  const CheckUserAndSummaryScreen({this.userType, this.isSummaryScreen});
+  const CheckUserAndSummaryScreen({this.userType, this.isSummaryScreen = false});
 }
 
 
