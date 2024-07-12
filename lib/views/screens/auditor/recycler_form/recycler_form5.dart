@@ -1,35 +1,69 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_5_viewmodel.dart';
-import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
+import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 
-class AuditorRecyclerForm5 extends StatelessWidget {
-  AuditorRecyclerForm5({super.key, this.isSummaryScreen = false});
-  final StringConstants stringConstants = StringConstants();
+class AuditorRecyclerForm5 extends StatefulWidget {
+  const AuditorRecyclerForm5({super.key, this.isSummaryScreen = false});
   final bool? isSummaryScreen;
 
   @override
-  Widget build(BuildContext context) {
-    return BaseView<RecyclerForm5ViewModel>(
-        onModelReady: (value) {},
-        viewModel: RecyclerForm5ViewModel(),
-        builder: (context, viewModel, child) {
-          return isSummaryScreen == false
-              ? form5View(viewModel)
-              : summaryForm5View(viewModel);
-        });
+  State<AuditorRecyclerForm5> createState() => _AuditorRecyclerForm5State();
+}
+
+class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
+  final StringConstants stringConstants = StringConstants();
+  ScrollController? controller;
+
+  late RecyclerFormViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    super.initState();
   }
 
-  Padding summaryForm5View(RecyclerForm5ViewModel viewModel) {
-    return Padding(
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<RecyclerFormViewModel>(
+      builder: (context, value, child) {
+        return Stack(
+          children: [
+            widget.isSummaryScreen == true
+                ? CommonSingleChildScrollView(
+                    child: summaryForm5View(viewModel))
+                : CommonSingleChildScrollView(child: form5View(viewModel)),
+            Positioned(
+                bottom: 0,
+                left: 10,
+                right: 10,
+                child: StepperButton(
+                  isLastStep: false,
+                  isSummaryScreen: false,
+                  onNextOrSubmit: () {
+                    Provider.of<CommonStepperViewModel>(context, listen: false)
+                        .onNextButton(context, "Recycler");
+                  },
+                ))
+          ],
+        );
+      },
+    );
+  }
+
+  Widget summaryForm5View(RecyclerFormViewModel viewModel) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 120),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +76,7 @@ class AuditorRecyclerForm5 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonDropdownTextFormField(
-              hideIcon: isSummaryScreen,
+              hideIcon: widget.isSummaryScreen,
               bgColor: AppColor().black10,
               labelText: stringConstants.select,
               dropDownItem: const ["Yes", "No"],
@@ -53,7 +87,7 @@ class AuditorRecyclerForm5 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
-                isReadOnly: isSummaryScreen,
+                isReadOnly: widget.isSummaryScreen,
                 hintText: stringConstants.remarks.i18n(),
                 isMandatory: false,
                 controller: viewModel.etpRemarksInstalledController),
@@ -71,7 +105,7 @@ class AuditorRecyclerForm5 extends StatelessWidget {
               vertical: 8,
             ),
             child: CommonTextFormFieldWidget(
-              isReadOnly: isSummaryScreen,
+              isReadOnly: widget.isSummaryScreen,
               hintText: stringConstants.enter,
               isMandatory: false,
               controller: viewModel.etpCapacityController,
@@ -82,7 +116,7 @@ class AuditorRecyclerForm5 extends StatelessWidget {
               vertical: 8,
             ),
             child: CommonTextFormFieldWidget(
-                isReadOnly: isSummaryScreen,
+                isReadOnly: widget.isSummaryScreen,
                 hintText: stringConstants.remarks.i18n(),
                 isMandatory: false,
                 controller: viewModel.etpRemarksCapacityController),
@@ -106,7 +140,7 @@ class AuditorRecyclerForm5 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
-              isReadOnly: isSummaryScreen,
+              isReadOnly: widget.isSummaryScreen,
               maxLength: 500,
               maxLines: 4,
               isMandatory: false,
@@ -119,8 +153,9 @@ class AuditorRecyclerForm5 extends StatelessWidget {
     );
   }
 
-  Padding form5View(RecyclerForm5ViewModel viewModel) {
-    return Padding(
+  Widget form5View(RecyclerFormViewModel viewModel) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 120),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

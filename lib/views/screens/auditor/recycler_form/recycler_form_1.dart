@@ -1,19 +1,23 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/auditor_form_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_auditor_recycler_form1_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_rich_text.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
-import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/plant_machinery_widget.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/recycler_data_table.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
+import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AuditorRecyclerForm1 extends StatefulWidget {
@@ -27,26 +31,50 @@ class AuditorRecyclerForm1 extends StatefulWidget {
 class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
   final AppColor appColor = AppColor();
   final stringConstants = StringConstants();
+  ScrollController? controller;
+
+  late RecyclerFormViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<RecyclerForm1ViewModel>(
-        onModelReady: (viewModel) async {
-          viewModel.initalizeGroupValues();
-          viewModel.addController();
-          viewModel.getCurrentLocation();
-        },
-        viewModel: RecyclerForm1ViewModel(),
-        builder: (context, viewModel, child) {
-          return widget.isSummaryScreen == false
-              ? form1View(viewModel, context)
-              : summaryForm1View(viewModel, context);
-        });
+    return Consumer<RecyclerFormViewModel>(
+      builder: (context, value, child) {
+        return Stack(
+          children: [
+            widget.isSummaryScreen == true
+                ? CommonSingleChildScrollView(
+                    child: summaryForm1View(viewModel, context))
+                : CommonSingleChildScrollView(
+                    child: form1View(viewModel, context)),
+            Positioned(
+                bottom: 0,
+                left: 10,
+                right: 10,
+                child: StepperButton(
+                  isLastStep: false,
+                  isSummaryScreen: false,
+                  onNextOrSubmit: () {
+                    // Provider.of<CommonStepperViewModel>(context, listen: false)
+                    //     .formValidation(context, "Recycler");
+                    Provider.of<CommonStepperViewModel>(context, listen: false)
+                        .onNextButton(context, "Recycler");
+                  },
+                ))
+          ],
+        );
+      },
+    );
   }
 
-  Padding summaryForm1View(
-      RecyclerForm1ViewModel viewModel, BuildContext context) {
-    return Padding(
+  Widget summaryForm1View(
+      RecyclerFormViewModel viewModel, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 100),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -355,8 +383,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
     );
   }
 
-  Padding form1View(RecyclerForm1ViewModel viewModel, BuildContext context) {
-    return Padding(
+  Widget form1View(RecyclerFormViewModel viewModel, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 100),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,6 +403,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
             remarkController: viewModel.gstRemarkController,
             onChanged: (value) {
               viewModel.radioGst = value ?? '';
+              HelperFunctions().logger(viewModel.radioGst);
               viewModel.updateUI();
             },
             validator: (value) {

@@ -4,12 +4,14 @@ import 'dart:math';
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/request/auditor/produer_form_1_request_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
+import '../../../controllers/auditor/auditor_repository.dart';
 import '../../../models/response/common/file_size_model.dart';
 
 class ProducerForm1ViewModel extends BaseViewModel {
@@ -48,7 +50,7 @@ class ProducerForm1ViewModel extends BaseViewModel {
   FileSizeModel? panFileSizeModel;
   FileSizeModel? cinFileSizeModel;
   FileSizeModel? iecFileSizeModel;
-  
+
   String? fileSize;
   double? fileSizeNum;
 
@@ -59,6 +61,28 @@ class ProducerForm1ViewModel extends BaseViewModel {
   String? cinFileName;
   String? iecFileName;
 
+  final _auditorRepository = AuditorRepository();
+  ProducerForm1RequestModel? data;
+  ProducerForm1RequestModel? producerForm1data;
+
+  Future<void> postForm1Data(BuildContext context, ProducerForm1RequestModel requestModel) async {
+   
+    try {
+      final res = await _auditorRepository.postProducerForm1Data(requestModel);
+      if (res?.isSuccess == true) {
+        if (context.mounted) {
+          HelperFunctions()
+              .commonErrorSnackBar(context, res?.data?.message ?? "");
+        }
+      }
+    } catch (e) {
+      if (context.mounted) {
+        HelperFunctions()
+            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+      }
+    }
+  }
+
   void initalizeGroupValues() {
     radioCompanyDetail = stringConstants.confirmed;
     radioCategoryOfProducer = stringConstants.confirmed;
@@ -68,9 +92,9 @@ class ProducerForm1ViewModel extends BaseViewModel {
     radioIec = stringConstants.confirmed;
   }
 
-  String? validate(String? controller) {
-    if (controller?.isEmpty == true) {
-      return "Please enter value";
+  String? validate(String controller) {
+    if (controller.isEmpty) {
+      return "Please enter a value";
     } else {
       return null;
     }
@@ -210,8 +234,8 @@ class ProducerForm1ViewModel extends BaseViewModel {
             '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}',
         fileSizeNum: fileSizeNum ?? 0);
   }
-  String? uploadInvoiceValidation(FileSizeModel? fileSizeModel) {
 
+  String? uploadInvoiceValidation(FileSizeModel? fileSizeModel) {
     if (fileSizeModel?.fileSize.contains("MB") ?? false) {
       if (fileSizeModel!.fileSizeNum > 2.0) {
         return messageConstant.maxFileSize;

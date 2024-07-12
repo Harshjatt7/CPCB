@@ -1,39 +1,74 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_2_viewmodel.dart';
-import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
+import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 
-class AuditorRecyclerForm2 extends StatelessWidget {
-  AuditorRecyclerForm2({super.key, this.isSummaryScreen = false});
-  final AppColor appColor = AppColor();
-  final StringConstants stringConstants = StringConstants();
+class AuditorRecyclerForm2 extends StatefulWidget {
+  const AuditorRecyclerForm2({super.key, this.isSummaryScreen = false});
   final bool? isSummaryScreen;
 
   @override
+  State<AuditorRecyclerForm2> createState() => _AuditorRecyclerForm2State();
+}
+
+class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
+  final AppColor appColor = AppColor();
+
+  final StringConstants stringConstants = StringConstants();
+  ScrollController? controller;
+
+  late RecyclerFormViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BaseView<RecyclerForm2ViewModel>(
-      onModelReady: (viewModel) {},
-      viewModel: RecyclerForm2ViewModel(),
-      builder: (context, viewModel, child) {
-        return isSummaryScreen == false
-            ? form2View(viewModel, context)
-            : summaryForm2View(viewModel, context);
+    return Consumer<RecyclerFormViewModel>(
+      builder: (context, value, child) {
+        return Stack(
+          children: [
+            widget.isSummaryScreen == true
+                ? CommonSingleChildScrollView(
+                    child: summaryForm2View(viewModel, context))
+                : CommonSingleChildScrollView(
+                    child: form2View(viewModel, context)),
+            Positioned(
+                bottom: 0,
+                left: 10,
+                right: 10,
+                child: StepperButton(
+                  isLastStep: false,
+                  isSummaryScreen: false,
+                  onNextOrSubmit: () {
+                    Provider.of<CommonStepperViewModel>(context, listen: false)
+                        .onNextButton(context, "Recycler");
+                  },
+                ))
+          ],
+        );
       },
     );
   }
 
-  Padding summaryForm2View(
-      RecyclerForm2ViewModel viewModel, BuildContext context) {
-    return Padding(
+  Widget summaryForm2View(
+      RecyclerFormViewModel viewModel, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 100),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,8 +202,9 @@ class AuditorRecyclerForm2 extends StatelessWidget {
     );
   }
 
-  Padding form2View(RecyclerForm2ViewModel viewModel, BuildContext context) {
-    return Padding(
+  Widget form2View(RecyclerFormViewModel viewModel, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 100),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

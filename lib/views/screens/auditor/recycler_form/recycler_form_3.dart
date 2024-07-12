@@ -1,38 +1,72 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_3_viewmodel.dart';
-import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
+import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 
-class AuditorRecyclerForm3 extends StatelessWidget {
-  AuditorRecyclerForm3({super.key, this.isSummaryScreen = false});
-  final AppColor appColor = AppColor();
-  final StringConstants stringConstants = StringConstants();
+class AuditorRecyclerForm3 extends StatefulWidget {
+  const AuditorRecyclerForm3({super.key, this.isSummaryScreen = false});
   final bool? isSummaryScreen;
 
   @override
+  State<AuditorRecyclerForm3> createState() => _AuditorRecyclerForm3State();
+}
+
+class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
+  final AppColor appColor = AppColor();
+  final StringConstants stringConstants = StringConstants();
+  ScrollController? controller;
+  late RecyclerFormViewModel viewModel;
+
+  @override
+  void initState() {
+    viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BaseView<RecyclerForm3ViewModel>(
-      onModelReady: (viewModel) {},
-      viewModel: RecyclerForm3ViewModel(),
-      builder: (context, viewModel, child) {
-        return isSummaryScreen == false
-            ? form3View(context, viewModel)
-            : summaryForm3View(context, viewModel);
+    return Consumer(
+      builder: (context, value, child) {
+        return Stack(
+          children: [
+            widget.isSummaryScreen == true
+                ? CommonSingleChildScrollView(
+                    child: summaryForm3View(context, viewModel))
+                : CommonSingleChildScrollView(
+                    child: form3View(context, viewModel)),
+            Positioned(
+                bottom: 0,
+                left: 10,
+                right: 10,
+                child: StepperButton(
+                  isLastStep: false,
+                  isSummaryScreen: false,
+                  onNextOrSubmit: () {
+                    Provider.of<CommonStepperViewModel>(context, listen: false)
+                        .onNextButton(context, "Recycler");
+                  },
+                ))
+          ],
+        );
       },
     );
   }
 
-  Padding summaryForm3View(
-      BuildContext context, RecyclerForm3ViewModel viewModel) {
-    return Padding(
+  Widget summaryForm3View(
+      BuildContext context, RecyclerFormViewModel viewModel) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 100),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,8 +129,9 @@ class AuditorRecyclerForm3 extends StatelessWidget {
     );
   }
 
-  Padding form3View(BuildContext context, RecyclerForm3ViewModel viewModel) {
-    return Padding(
+  Widget form3View(BuildContext context, RecyclerFormViewModel viewModel) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 100),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,7 +238,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
       void Function(String?)? onChanged,
       String? Function(String?)? validator,
       String? Function(String?)? remarkValidator,
-      RecyclerForm3ViewModel? viewModel,
+      RecyclerFormViewModel? viewModel,
       String? groupValue,
       bool isDisable = false,
       bool? isSummaryScreen = false}) {

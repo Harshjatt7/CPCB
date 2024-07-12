@@ -1,37 +1,71 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_4_viewmodel.dart';
-import 'package:cpcb_tyre/views/screens/base_view.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
+import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 
-class AuditorRecyclerForm4 extends StatelessWidget {
-  AuditorRecyclerForm4({super.key, this.isSummaryScreen = false});
-  final AppColor appColor = AppColor();
-  final StringConstants stringConstants = StringConstants();
+class AuditorRecyclerForm4 extends StatefulWidget {
+  const AuditorRecyclerForm4({super.key, this.isSummaryScreen = false});
   final bool? isSummaryScreen;
 
   @override
-  Widget build(BuildContext context) {
-    return BaseView<RecyclerForm4ViewModel>(
-        onModelReady: (viewModel) {},
-        viewModel: RecyclerForm4ViewModel(),
-        builder: (context, viewModel, child) {
-          return isSummaryScreen == false
-              ? form4View(context, viewModel)
-              : summaryForm4View(context, viewModel);
-        });
+  State<AuditorRecyclerForm4> createState() => _AuditorRecyclerForm4State();
+}
+
+class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
+  final AppColor appColor = AppColor();
+  final StringConstants stringConstants = StringConstants();
+  ScrollController? controller;
+  late RecyclerFormViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    super.initState();
   }
 
-  Padding summaryForm4View(
-      BuildContext context, RecyclerForm4ViewModel viewModel) {
-    return Padding(
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<RecyclerFormViewModel>(
+      builder: (context, value, child) {
+        return Stack(
+          children: [
+            widget.isSummaryScreen == true
+                ? CommonSingleChildScrollView(
+                    child: summaryForm4View(context, viewModel))
+                : CommonSingleChildScrollView(
+                    child: form4View(context, viewModel)),
+            Positioned(
+                bottom: 0,
+                left: 10,
+                right: 10,
+                child: StepperButton(
+                  isLastStep: false,
+                  isSummaryScreen: false,
+                  onNextOrSubmit: () {
+                    Provider.of<CommonStepperViewModel>(context, listen: false)
+                        .onNextButton(context, "Recycler");
+                  },
+                ))
+          ],
+        );
+      },
+    );
+  }
+
+  Widget summaryForm4View(
+      BuildContext context, RecyclerFormViewModel viewModel) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 150),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,21 +87,22 @@ class AuditorRecyclerForm4 extends StatelessWidget {
               remarkController: viewModel.remakrsInvoiceController,
               groupValue: viewModel.radioInvoice,
               isMandatory: false,
-              isSummaryScreen: isSummaryScreen),
+              isSummaryScreen: widget.isSummaryScreen),
           commonForm4Tiles(context,
               title: stringConstants.noOfBuyers,
               controller: viewModel.buyersController,
               remarkController: viewModel.remakrsBuyerController,
               groupValue: viewModel.radioBuyer,
               isMandatory: false,
-              isSummaryScreen: isSummaryScreen)
+              isSummaryScreen: widget.isSummaryScreen)
         ],
       ),
     );
   }
 
-  Padding form4View(BuildContext context, RecyclerForm4ViewModel viewModel) {
-    return Padding(
+  Widget form4View(BuildContext context, RecyclerFormViewModel viewModel) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 150),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +167,7 @@ class AuditorRecyclerForm4 extends StatelessWidget {
     void Function(String?)? onChanged,
     TextEditingController? controller,
     TextEditingController? remarkController,
-    RecyclerForm4ViewModel? viewModel,
+    RecyclerFormViewModel? viewModel,
     String? Function(String?)? validator,
     String? Function(String?)? remarkValidator,
     String? title,

@@ -34,7 +34,7 @@ class CommonAuditorRecyclerForm1Tile extends StatelessWidget {
   final String? title;
   final bool? isUpload;
   final bool? isDisableField;
-  final RecyclerForm1ViewModel? viewModel;
+  final RecyclerFormViewModel? viewModel;
   final TextEditingController? disableController;
   final TextEditingController? remarksController;
   final TextEditingController? uploadController;
