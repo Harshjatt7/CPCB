@@ -12,121 +12,197 @@ import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 
 class AuditorRecyclerForm3 extends StatelessWidget {
-  AuditorRecyclerForm3({super.key});
+  AuditorRecyclerForm3({super.key, this.isSummaryScreen = false});
   final AppColor appColor = AppColor();
   final StringConstants stringConstants = StringConstants();
+  final bool? isSummaryScreen;
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<RecyclerForm3ViewModel>(
-      onModelReady: (viewModel) {},
-      viewModel: RecyclerForm3ViewModel(),
-      builder: (context, viewModel, child) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  CommonTitleWidget(
-                      label: stringConstants.verificationOfProcurement),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 32),
-                    child: CommonTextWidget(
-                      useLocalization: true,
-                      stringConstants.viewEntries,
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          color: appColor.blue100,
-                          decoration: TextDecoration.underline,
-                          decorationColor: appColor.blue100),
+    return isSummaryScreen == false
+        ? BaseView<RecyclerForm3ViewModel>(
+            onModelReady: (viewModel) {},
+            viewModel: RecyclerForm3ViewModel(),
+            builder: (context, viewModel, child) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CommonTitleWidget(
+                            label: stringConstants.verificationOfProcurement),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 32),
+                          child: CommonTextWidget(
+                            useLocalization: true,
+                            stringConstants.viewEntries,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
+                                    color: appColor.blue100,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: appColor.blue100),
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
-              commonRecyclerForm3Tile(
-                  title: stringConstants.noOfSuppliersContacted,
-                  groupValue: viewModel.radioAContact,
-                  textEditingController: viewModel.aContactController,
-                  remakrsController: viewModel.aContactRemarksController,
-                  onChanged: (value) {
-                    viewModel.radioAContact = value ?? '';
-                    viewModel.updateUI();
-                  },
-                  remarkValidator: (value) {
-                    return viewModel
-                        .emptyValidation(viewModel.aContactRemarksController);
-                  },
-                  validator: (value) {
-                    return viewModel
-                        .emptyValidation(viewModel.aContactController);
-                  }),
-              commonRecyclerForm3Tile(
-                  title: stringConstants.noOfSuppliersDetailsVerified,
-                  isDisable: true,
-                  notVerifiedTitle:
-                      stringConstants.noOfSupplierSDetailsNotVerified,
-                  groupValue: viewModel.radioAVerified,
-                  textEditingController: viewModel.aVerifiedController,
-                  remakrsController: viewModel.aVerifiedRemakrsController,
-                  disableController: viewModel.aNotVerifiedController,
-                  onChanged: (value) {
-                    viewModel.radioAVerified = value ?? "";
-                    viewModel.updateUI();
-                  },
-                  remarkValidator: (value) {
-                    return viewModel
-                        .emptyValidation(viewModel.aVerifiedController);
-                  },
-                  validator: (value) {
-                    return viewModel
-                        .emptyValidation(viewModel.aVerifiedRemakrsController);
-                  }),
-              CommonTitleWidget(label: stringConstants.physicallyVisit),
-              commonRecyclerForm3Tile(
-                title: stringConstants.noOfSuppliersContacted,
-                groupValue: viewModel.radioBContact,
-                textEditingController: viewModel.bContactController,
-                remakrsController: viewModel.bContactRemarksController,
-                onChanged: (value) {
-                  viewModel.radioBContact = value ?? '';
-                  viewModel.updateUI();
-                },
-                 remarkValidator: (value) {
-                    return viewModel
-                        .emptyValidation(viewModel.bContactRemarksController);
-                  },
-                  validator: (value) {
-                    return viewModel
-                        .emptyValidation(viewModel.bContactController);
-                  }
-              ),
-              commonRecyclerForm3Tile(
-                  title: stringConstants.noOfSuppliersDetailsVerified,
-                  isDisable: true,
-                  groupValue: viewModel.radioBVerified,
-                  textEditingController: viewModel.bVerifiedController,
-                  disableController: viewModel.bNotVerifiedController,
-                  remakrsController: viewModel.bVerifiedRemakrsController,
-                  onChanged: (value) {
-                    viewModel.radioBVerified = value ?? '';
-                    viewModel.updateUI();
-                  },
-                   remarkValidator: (value) {
-                    return viewModel
-                        .emptyValidation(viewModel.bVerifiedRemakrsController);
-                  },
-                  validator: (value) {
-                    return viewModel
-                        .emptyValidation(viewModel.bVerifiedController);
-                  },
-                  notVerifiedTitle:
-                      stringConstants.noOfSupplierSDetailsNotVerified)
-            ],
-          ),
-        );
-      },
-    );
+                    commonRecyclerForm3Tile(
+                        title: stringConstants.noOfSuppliersContacted,
+                        groupValue: viewModel.radioAContact,
+                        textEditingController: viewModel.aContactController,
+                        remakrsController: viewModel.aContactRemarksController,
+                        onChanged: (value) {
+                          viewModel.radioAContact = value ?? '';
+                          viewModel.updateUI();
+                        },
+                        remarkValidator: (value) {
+                          return viewModel.emptyValidation(
+                              viewModel.aContactRemarksController);
+                        },
+                        validator: (value) {
+                          return viewModel
+                              .emptyValidation(viewModel.aContactController);
+                        }),
+                    commonRecyclerForm3Tile(
+                        title: stringConstants.noOfSuppliersDetailsVerified,
+                        isDisable: true,
+                        notVerifiedTitle:
+                            stringConstants.noOfSupplierSDetailsNotVerified,
+                        groupValue: viewModel.radioAVerified,
+                        textEditingController: viewModel.aVerifiedController,
+                        remakrsController: viewModel.aVerifiedRemakrsController,
+                        disableController: viewModel.aNotVerifiedController,
+                        onChanged: (value) {
+                          viewModel.radioAVerified = value ?? "";
+                          viewModel.updateUI();
+                        },
+                        remarkValidator: (value) {
+                          return viewModel
+                              .emptyValidation(viewModel.aVerifiedController);
+                        },
+                        validator: (value) {
+                          return viewModel.emptyValidation(
+                              viewModel.aVerifiedRemakrsController);
+                        }),
+                    CommonTitleWidget(label: stringConstants.physicallyVisit),
+                    commonRecyclerForm3Tile(
+                        title: stringConstants.noOfSuppliersContacted,
+                        groupValue: viewModel.radioBContact,
+                        textEditingController: viewModel.bContactController,
+                        remakrsController: viewModel.bContactRemarksController,
+                        onChanged: (value) {
+                          viewModel.radioBContact = value ?? '';
+                          viewModel.updateUI();
+                        },
+                        remarkValidator: (value) {
+                          return viewModel.emptyValidation(
+                              viewModel.bContactRemarksController);
+                        },
+                        validator: (value) {
+                          return viewModel
+                              .emptyValidation(viewModel.bContactController);
+                        }),
+                    commonRecyclerForm3Tile(
+                        title: stringConstants.noOfSuppliersDetailsVerified,
+                        isDisable: true,
+                        groupValue: viewModel.radioBVerified,
+                        textEditingController: viewModel.bVerifiedController,
+                        disableController: viewModel.bNotVerifiedController,
+                        remakrsController: viewModel.bVerifiedRemakrsController,
+                        onChanged: (value) {
+                          viewModel.radioBVerified = value ?? '';
+                          viewModel.updateUI();
+                        },
+                        remarkValidator: (value) {
+                          return viewModel.emptyValidation(
+                              viewModel.bVerifiedRemakrsController);
+                        },
+                        validator: (value) {
+                          return viewModel
+                              .emptyValidation(viewModel.bVerifiedController);
+                        },
+                        notVerifiedTitle:
+                            stringConstants.noOfSupplierSDetailsNotVerified)
+                  ],
+                ),
+              );
+            },
+          )
+        : BaseView<RecyclerForm3ViewModel>(
+            onModelReady: (viewModel) {},
+            viewModel: RecyclerForm3ViewModel(),
+            builder: (context, viewModel, child) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CommonTitleWidget(
+                            label: stringConstants.verificationOfProcurement),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 32),
+                          child: CommonTextWidget(
+                            useLocalization: true,
+                            stringConstants.viewEntries,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
+                                    color: appColor.blue100,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: appColor.blue100),
+                          ),
+                        )
+                      ],
+                    ),
+                    commonRecyclerForm3Tile(
+                      isDisable: true,
+                      isSummaryScreen: true,
+                      title: stringConstants.noOfSuppliersContacted,
+                      groupValue: viewModel.radioAContact,
+                      textEditingController: viewModel.aContactController,
+                      remakrsController: viewModel.aContactRemarksController,
+                    ),
+                    commonRecyclerForm3Tile(
+                      title: stringConstants.noOfSuppliersDetailsVerified,
+                      isDisable: true,
+                      isSummaryScreen: true,
+                      notVerifiedTitle:
+                          stringConstants.noOfSupplierSDetailsNotVerified,
+                      groupValue: viewModel.radioAVerified,
+                      textEditingController: viewModel.aVerifiedController,
+                      remakrsController: viewModel.aVerifiedRemakrsController,
+                      disableController: viewModel.aNotVerifiedController,
+                    ),
+                    CommonTitleWidget(label: stringConstants.physicallyVisit),
+                    commonRecyclerForm3Tile(
+                      isDisable: true,
+                      isSummaryScreen: true,
+                      title: stringConstants.noOfSuppliersContacted,
+                      groupValue: viewModel.radioBContact,
+                      textEditingController: viewModel.bContactController,
+                      remakrsController: viewModel.bContactRemarksController,
+                    ),
+                    commonRecyclerForm3Tile(
+                        title: stringConstants.noOfSuppliersDetailsVerified,
+                        isDisable: true,
+                        isSummaryScreen: true,
+                        groupValue: viewModel.radioBVerified,
+                        textEditingController: viewModel.bVerifiedController,
+                        disableController: viewModel.bNotVerifiedController,
+                        remakrsController: viewModel.bVerifiedRemakrsController,
+                        notVerifiedTitle:
+                            stringConstants.noOfSupplierSDetailsNotVerified)
+                  ],
+                ),
+              );
+            },
+          );
   }
 
   Column commonRecyclerForm3Tile(
@@ -140,7 +216,8 @@ class AuditorRecyclerForm3 extends StatelessWidget {
       String? Function(String?)? remarkValidator,
       RecyclerForm3ViewModel? viewModel,
       String? groupValue,
-      bool isDisable = false}) {
+      bool isDisable = false,
+      bool? isSummaryScreen = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -165,6 +242,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
               useLocalization: true,
               bgColor: appColor.white,
               hintText: title ?? "",
+              isReadOnly: isSummaryScreen,
               isMandatory: false,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               textInputType: TextInputType.number,
@@ -175,6 +253,7 @@ class AuditorRecyclerForm3 extends StatelessWidget {
           padding: const EdgeInsets.symmetric(),
           child: CommonTextFormFieldWidget(
               bgColor: appColor.white,
+              isReadOnly: isSummaryScreen,
               hintText: stringConstants.remarks.i18n(),
               isMandatory: false,
               validator: remarkValidator,

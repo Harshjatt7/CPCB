@@ -160,7 +160,9 @@ class CommonStepperScreen extends StatelessWidget {
                                   checkUser?.isSummaryScreen == true
                               ? () {}
                               : () {
-                                  viewModel.formValidation(
+                                  // viewModel.formValidation(
+                                  //     context, checkUser?.userType);
+                                  viewModel.onNextButton(
                                       context, checkUser?.userType);
                                 },
                         ),

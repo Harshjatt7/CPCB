@@ -15,12 +15,14 @@ class CommonDropdownTextFormField extends StatelessWidget {
   final bool? isMandatory;
   final Color? bgColor;
   final AppColor appColor = AppColor();
+  final bool? hideIcon;
   CommonDropdownTextFormField(
       {super.key,
       required this.labelText,
       required this.dropDownItem,
       required this.onChanged,
       this.onTap,
+      this.hideIcon = false,
       this.value,
       this.bgColor,
       this.error,
@@ -65,14 +67,16 @@ class CommonDropdownTextFormField extends StatelessWidget {
                       ],
                     ),
                   ),
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18, vertical: 17),
-                    child: CommonImageWidget(
-                      imageSource: ImageConstants().dropdownIcon,
-                      isNetworkImage: false,
-                    ),
-                  ),
+                  suffixIcon: hideIcon == false
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 18, vertical: 17),
+                          child: CommonImageWidget(
+                            imageSource: ImageConstants().dropdownIcon,
+                            isNetworkImage: false,
+                          ),
+                        )
+                      : null,
                 ),
                 icon: const SizedBox.shrink(),
                 items: dropDownItem

@@ -422,7 +422,11 @@ class RecyclerForm1ViewModel extends BaseViewModel {
     return duration;
   }
 
-  String? uploadValidation(FileSizeModel? fileSizeModel) {
+  String? uploadValidation(FileSizeModel? fileSizeModel,
+      {TextEditingController? controller}) {
+    if (controller?.text.isEmpty ?? false) {
+      return messageConstant.pleaseProvideValue;
+    }
     if (fileSizeModel?.fileSize.contains("MB") ?? false) {
       if (fileSizeModel!.fileSizeNum > 2.0) {
         return messageConstant.maxFileSize;
