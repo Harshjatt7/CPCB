@@ -2,7 +2,7 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/producer_form/producer_form_1_view_model.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/producer_form/producer_forms_view_model.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_form4.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_form5.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/auditor_recycler_form_1.dart';
@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/request/auditor/produer_form_1_request_model.dart';
+import '../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import 'producer_form/producer_form_1.dart';
 import 'producer_form/producer_form_2.dart';
 import 'producer_form/producer_form_3.dart';
@@ -31,7 +32,6 @@ class CommonStepperScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<CommonStepperViewModel>(
         onModelReady: (viewModel) {
-          HelperFunctions().logger(">>>>>>>>${checkUser?.userType}");
           viewModel.getUser(checkUser?.userType.toString());
         },
         viewModel: CommonStepperViewModel(),
@@ -86,7 +86,6 @@ class CommonStepperScreen extends StatelessWidget {
                             children: [
                               if (viewModel.index == 1)
                                 ProducerForm1(
-                                 
                                   isSummaryScreen: checkUser?.isSummaryScreen,
                                 ),
                               if (viewModel.index == 2)
@@ -161,37 +160,53 @@ class CommonStepperScreen extends StatelessWidget {
                               .textTheme
                               .labelMedium
                               ?.copyWith(color: AppColor().white),
-                          onPressed: viewModel.index == viewModel.totalIndex &&
-                                  checkUser?.isSummaryScreen == true
-                              ? () {}
-                              : () {
-                                  viewModel.formValidation(
-                                      context, checkUser?.userType);
+                          onPressed:
+                              viewModel.index == viewModel.totalIndex &&
+                                      checkUser?.isSummaryScreen == true
+                                  ? () {}
+                                  : () {
+                                      viewModel.formValidation(
+                                          context, checkUser?.userType);
 
-                                      var abc = Provider.of<ProducerForm1ViewModel>(context, listen: false);
+                                      var abc =
+                                          Provider.of<ProducerFormsViewModel>(
+                                              context,
+                                              listen: false);
 
-                                       ProducerForm1RequestModel requestModel = ProducerForm1RequestModel(
-      companyDetails: CompanyDetails(
-          companyNameAddress: CompanyData(
-              auditConfirmedStatus:  abc. radioCompanyDetail,
-              auditRemark:abc. companyNameRemark.text),
-          producerCategory: CompanyData(
-              auditConfirmedStatus:abc. radioCategoryOfProducer,
-              auditRemark:abc. categoryOfProducerRemark.text),
-          companyPan: CompanyData(
-              auditConfirmedStatus:abc. radioPanOfCompany,
-              auditRemark:abc. panController.text),
-          companyGst: CompanyData(
-              auditConfirmedStatus:abc. radioGst, auditRemark:abc. gstController.text),
-          companyCin: CompanyData(
-              auditConfirmedStatus:abc. radioCin, auditRemark:abc. cinController.text),
-          companyIec: CompanyData(
-              auditConfirmedStatus:abc. radioIec, auditRemark:abc. iecController.text)),
-    );
+                                      ProducerForm1RequestModel requestModel =
+                                          ProducerForm1RequestModel(
+                                        companyDetails: CompanyDetails(
+                                            companyNameAddress: CompanyData(
+                                                auditConfirmedStatus:
+                                                    abc.radioCompanyDetail,
+                                                auditRemark:
+                                                    abc.companyNameRemark.text),
+                                            producerCategory: CompanyData(
+                                                auditConfirmedStatus:
+                                                    abc.radioCategoryOfProducer,
+                                                auditRemark: abc
+                                                    .categoryOfProducerRemark
+                                                    .text),
+                                            companyPan: CompanyData(
+                                                auditConfirmedStatus:
+                                                    abc.radioPanOfCompany,
+                                                auditRemark:
+                                                    abc.panController.text),
+                                            companyGst: CompanyData(
+                                                auditConfirmedStatus:
+                                                    abc.radioGst,
+                                                auditRemark:
+                                                    abc.gstController.text),
+                                            companyCin: CompanyData(
+                                                auditConfirmedStatus:
+                                                    abc.radioCin,
+                                                auditRemark: abc.cinController.text),
+                                            companyIec: CompanyData(auditConfirmedStatus: abc.radioIec, auditRemark: abc.iecController.text)),
+                                      );
 
-
-    HelperFunctions().logger("${requestModel.toJson()}");
-                                },
+                                      HelperFunctions()
+                                          .logger("${requestModel.toJson()}");
+                                    },
                         ),
                       ),
                     )
