@@ -155,7 +155,7 @@ class _CommonTextFormFieldWidgetNewState
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: widget.isReadOnly == true
-                  ? widget.disabledBgColor ?? appColor.grey03
+                  ? widget.disabledBgColor ?? appColor.black10
                   : widget.bgColor ?? appColor.transparent,
               border: Border.all(
                   color: error != null ? appColor.red : appColor.black20),
@@ -206,7 +206,7 @@ class _CommonTextFormFieldWidgetNewState
                     decorationColor: appColor.blue100,
                     letterSpacing: widget.isObscure ? 5 : null)
                 : Theme.of(context).textTheme.labelSmall!.copyWith(
-                    height: widget.isMultiline == true ? 2 : 0,
+                    height: 1.5,
                     color: widget.textColor ?? appColor.black90,
                     decoration: widget.isDocument == true
                         ? TextDecoration.underline
@@ -219,13 +219,13 @@ class _CommonTextFormFieldWidgetNewState
             decoration: InputDecoration(
                 contentPadding: widget.isMultiline == true
                     ? isFocused || widget.controller.text.isNotEmpty
-                        ? const EdgeInsets.only(top: 8, bottom: 4, left: 20)
+                        ? const EdgeInsets.only(top: 8, bottom: 8, left: 20)
                         : const EdgeInsets.only(top: -10, bottom: 4, left: 20)
                     : const EdgeInsets.only(top: 8, bottom: 8, left: 20),
                 alignLabelWithHint: widget.isMultiline == true ? true : false,
                 counterText: "",
                 fillColor: widget.isReadOnly == true
-                    ? widget.disabledBgColor ?? appColor.grey03
+                    ? widget.disabledBgColor ?? appColor.black10
                     : appColor.transparent,
                 filled: widget.isReadOnly ?? false,
                 label: RichText(

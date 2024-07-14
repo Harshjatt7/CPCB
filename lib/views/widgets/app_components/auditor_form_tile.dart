@@ -30,6 +30,7 @@ class AuditorFormTile extends StatelessWidget {
   final String? isRemarkMandatory;
   final String? Function(String?)? validator;
   final bool? isReadOnly;
+  final bool? isSummaryScreen;
   AuditorFormTile({
     super.key,
     this.groupValue,
@@ -50,6 +51,7 @@ class AuditorFormTile extends StatelessWidget {
     this.filePath,
     this.isRemarkMandatory,
     this.validator,
+    this.isSummaryScreen = false,
     this.isReadOnly,
   });
 
@@ -75,7 +77,6 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
-                disabledBgColor: appColor.black10,
                 isReadOnly: true,
                 hintText: title ?? '',
                 isMandatory: false,
@@ -100,11 +101,13 @@ class AuditorFormTile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
               isDocument: true,
-              disabledBgColor: appColor.transparent,
+              isReadOnly: isReadOnly,
               hintText: stringConstants.upload,
-              icon: uploadController?.text.isEmpty ?? false
-                  ? imageConstants.fileUpload
-                  : imageConstants.removeIcon,
+              icon: isSummaryScreen == false
+                  ? uploadController?.text.isEmpty ?? false
+                      ? imageConstants.fileUpload
+                      : imageConstants.removeIcon
+                  : null,
               onTap: onTap,
               onSuffixTap: onSuffixTap,
               validator: uploadValidator,

@@ -16,7 +16,9 @@ class AuditorDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<AuditorDashboardViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) async {
+          await viewModel.getDasboardData(context);
+        },
         viewModel: AuditorDashboardViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(

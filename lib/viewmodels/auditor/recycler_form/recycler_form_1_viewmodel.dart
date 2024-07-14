@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:video_player/video_player.dart';
 
-class RecyclerForm1ViewModel extends BaseViewModel {
+class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
   final helperFunctions = HelperFunctions();
@@ -55,6 +55,44 @@ class RecyclerForm1ViewModel extends BaseViewModel {
 
   TextEditingController remarkVideoController = TextEditingController();
   TextEditingController uploadVideoController = TextEditingController();
+  TextEditingController typeOfProductController = TextEditingController();
+  TextEditingController plantProductionCapacityController =
+      TextEditingController();
+  TextEditingController endProductProducedController = TextEditingController();
+  TextEditingController daysPlantOperationalController =
+      TextEditingController();
+  TextEditingController hoursPlantOperationalController =
+      TextEditingController();
+  TextEditingController shiftPlantOperationalController =
+      TextEditingController();
+  TextEditingController actualProcessingCapacityController =
+      TextEditingController();
+  TextEditingController differenceInActualProccessingController =
+      TextEditingController();
+  TextEditingController totalQuantitySalesController = TextEditingController();
+  TextEditingController uploadSalesController = TextEditingController();
+  TextEditingController powerConsumptionController = TextEditingController();
+  TextEditingController actualAverageAnnualController = TextEditingController();
+  TextEditingController totalElectricityController = TextEditingController();
+  TextEditingController areValuedCandDController = TextEditingController();
+  TextEditingController aContactController = TextEditingController();
+  TextEditingController aContactRemarksController = TextEditingController();
+  TextEditingController aVerifiedController = TextEditingController();
+  TextEditingController aVerifiedRemakrsController = TextEditingController();
+  TextEditingController aNotVerifiedController = TextEditingController();
+  TextEditingController bContactController = TextEditingController();
+  TextEditingController bContactRemarksController = TextEditingController();
+  TextEditingController bVerifiedController = TextEditingController();
+  TextEditingController bVerifiedRemakrsController = TextEditingController();
+  TextEditingController bNotVerifiedController = TextEditingController();
+  TextEditingController invoiceController = TextEditingController();
+  TextEditingController remakrsInvoiceController = TextEditingController();
+  TextEditingController buyersController = TextEditingController();
+  TextEditingController remakrsBuyerController = TextEditingController();
+  TextEditingController etpCapacityController = TextEditingController();
+  TextEditingController etpRemarksInstalledController = TextEditingController();
+  TextEditingController etpRemarksCapacityController = TextEditingController();
+  TextEditingController summmaryRemakrController = TextEditingController();
 
   String radioGst = "";
   String radioPanOfCompany = "";
@@ -68,6 +106,19 @@ class RecyclerForm1ViewModel extends BaseViewModel {
   String radioPowerConsumption = "";
   String radioPollution = "";
   String radioPlant = "";
+  String radioxy = 'confirmed';
+  String radiocd = 'confirmed';
+  String radioAContact = 'confirmed';
+  String radioAVerified = 'confirmed';
+  String radioBContact = 'confirmed';
+  String radioBVerified = 'confirmed';
+  String radioInvoice = 'confirmed';
+  String radioBuyer = 'confirmed';
+  String radioInstalled = 'confirmed';
+  String radioCapacity = 'confirmed';
+
+  String? installDropdownValue;
+  List installList = <String>[];
 
   MultipartFile? aadharFile;
   MultipartFile? panNoFile;
@@ -422,12 +473,201 @@ class RecyclerForm1ViewModel extends BaseViewModel {
     return duration;
   }
 
-  String? uploadValidation(FileSizeModel? fileSizeModel) {
+  String? uploadValidation(FileSizeModel? fileSizeModel,
+      {TextEditingController? controller}) {
+    if (controller?.text.isEmpty ?? false) {
+      return messageConstant.pleaseProvideValue;
+    }
     if (fileSizeModel?.fileSize.contains("MB") ?? false) {
       if (fileSizeModel!.fileSizeNum > 2.0) {
         return messageConstant.maxFileSize;
       }
     }
     return null;
+  }
+
+  void textForm2Listener() {
+    plantProductionCapacityController.addListener(() {
+      actualProcessingValue();
+    });
+    endProductProducedController.addListener(() {
+      actualProcessingValue();
+    });
+    daysPlantOperationalController.addListener(() {
+      actualProcessingValue();
+    });
+    hoursPlantOperationalController.addListener(() {
+      actualProcessingValue();
+    });
+    shiftPlantOperationalController.addListener(() {
+      actualProcessingValue();
+    });
+    actualProcessingCapacityController.addListener(() {
+      differenceInActualProcessingValue();
+    });
+    powerConsumptionController.addListener(() {
+      actualAveragePowerValue();
+    });
+  }
+
+  void actualAveragePowerValue() {
+    int a = int.parse(powerConsumptionController.text.isEmpty
+        ? "1"
+        : powerConsumptionController.text);
+    int b = int.parse(endProductProducedController.text.isEmpty
+        ? "1"
+        : endProductProducedController.text);
+    int z = int.parse(totalQuantitySalesController.text.isEmpty
+        ? "1"
+        : totalQuantitySalesController.text);
+
+    if (powerConsumptionController.text.isNotEmpty ||
+        endProductProducedController.text.isNotEmpty ||
+        totalQuantitySalesController.text.isNotEmpty) {
+      actualAverageAnnualController.text = (a / b - z).toString();
+    }
+  }
+
+  void differenceInActualProcessingValue() {
+    int y = int.parse(actualProcessingCapacityController.text.isEmpty
+        ? "1"
+        : actualProcessingCapacityController.text);
+    int z = int.parse(totalQuantitySalesController.text.isEmpty
+        ? "1"
+        : totalQuantitySalesController.text);
+
+    if (differenceInActualProccessingController.text.isNotEmpty) {
+      uploadSalesController.text = (y - 1.05 * z).toString();
+    }
+  }
+
+  void actualProcessingValue() {
+    int endProduct = int.parse(endProductProducedController.text.isEmpty
+        ? "1"
+        : endProductProducedController.text);
+    int daysPlant = int.parse(daysPlantOperationalController.text.isEmpty
+        ? "1"
+        : daysPlantOperationalController.text);
+    int hoursPlant = int.parse(hoursPlantOperationalController.text.isEmpty
+        ? "1"
+        : hoursPlantOperationalController.text);
+    int shiftPlant = int.parse(shiftPlantOperationalController.text.isEmpty
+        ? "1"
+        : shiftPlantOperationalController.text);
+
+    if (plantProductionCapacityController.text.isNotEmpty ||
+        endProductProducedController.text.isNotEmpty ||
+        daysPlantOperationalController.text.isNotEmpty ||
+        hoursPlantOperationalController.text.isNotEmpty ||
+        shiftPlantOperationalController.text.isNotEmpty) {
+      actualProcessingCapacityController.text =
+          (endProduct * daysPlant * hoursPlant * shiftPlant).toString();
+    }
+  }
+
+  void textForm3Listener() {
+    aContactController.addListener(() {
+      totalValueA();
+    });
+    aVerifiedController.addListener(() {
+      totalValueA();
+    });
+    bContactController.addListener(() {
+      totalValueB();
+    });
+    bVerifiedController.addListener(() {
+      totalValueB();
+    });
+  }
+
+  void totalValueA() {
+    int supplierContact = int.parse(
+        aContactController.text.isEmpty ? "0" : aContactController.text);
+    int verified = int.parse(
+        aVerifiedController.text.isEmpty ? "0" : aVerifiedController.text);
+    if (aContactController.text.isNotEmpty ||
+        aVerifiedController.text.isNotEmpty) {
+      aNotVerifiedController.text = (supplierContact - verified).toString();
+    }
+  }
+
+  void totalValueB() {
+    int supplierContact = int.parse(
+        bContactController.text.isEmpty ? "0" : bContactController.text);
+    int verified = int.parse(
+        bVerifiedController.text.isEmpty ? "0" : bVerifiedController.text);
+    if (bContactController.text.isNotEmpty ||
+        bVerifiedController.text.isNotEmpty) {
+      bNotVerifiedController.text = (supplierContact - verified).toString();
+    }
+  }
+
+  String? summaryValidation() {
+    if (summmaryRemakrController.text.isEmpty) {
+      return messageConstant.pleaseProvideValue;
+    }
+    return null;
+  }
+
+  void changeDropdownValue(newValue) {
+    installDropdownValue = newValue;
+    updateUI();
+  }
+
+  final formKey = GlobalKey<FormState>();
+  int index = 1;
+
+  int totalIndex = 0;
+  void getUser(String? user) {
+    switch (user) {
+      case "Producer":
+        totalIndex = 3;
+        break;
+      case "Recycler":
+        totalIndex = 5;
+        break;
+      default:
+        totalIndex = 3;
+        break;
+    }
+    updateUI();
+  }
+
+  void onBackButton(BuildContext context) {
+    if (index > 1) {
+      index--;
+      updateUI();
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
+  void onNextButton(BuildContext context, String? user) {
+    switch (user) {
+      case "Producer":
+        if (index < 3) {
+          index++;
+          updateUI();
+        }
+        break;
+      case "Recycler":
+        if (index < 5) {
+          index++;
+          updateUI();
+        }
+        break;
+      default:
+        if (index < 5) {
+          index++;
+          updateUI();
+        }
+        break;
+    }
+  }
+
+  void formValidation(BuildContext context, String? userType) {
+    if (formKey.currentState?.validate() ?? false) {
+      onNextButton(context, userType);
+    } else {}
   }
 }
