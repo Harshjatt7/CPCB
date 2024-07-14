@@ -68,9 +68,9 @@ class ProducerForm1ViewModel extends BaseViewModel {
     radioIec = stringConstants.confirmed;
   }
 
-  String? validate(String? controller) {
-    if (controller?.isEmpty == true) {
-      return "Please enter value";
+  String? validate(String controller) {
+    if (controller.isEmpty) {
+      return "Please enter a value";
     } else {
       return null;
     }

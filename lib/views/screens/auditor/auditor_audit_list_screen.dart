@@ -124,7 +124,7 @@ class AuditorListScreen extends StatelessWidget {
                                     context, AppRoutes.auditorStepperScreen,
                                     arguments: const CheckUserAndSummaryScreen(
                                         userType: "Producer",
-                                        isSummaryScreen: true));
+                                        isSummaryScreen: false));
                               },
                             );
                           },
