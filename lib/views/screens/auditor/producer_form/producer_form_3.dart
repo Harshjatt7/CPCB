@@ -1,28 +1,66 @@
+import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import '../../../../viewmodels/auditor/producer_form/producer_forms_view_model.dart';
 import '../../../widgets/components/common_single_child_scrollview.dart';
+import '../../../widgets/forms/stepper_button.dart';
 
-class ProducerForm3 extends StatelessWidget {
+class ProducerForm3 extends StatefulWidget {
   final bool? isSummaryScreen;
   const ProducerForm3({super.key, this.isSummaryScreen});
 
   @override
+  State<ProducerForm3> createState() => _ProducerForm3State();
+}
+
+class _ProducerForm3State extends State<ProducerForm3> {
+  late ProducerFormsViewModel viewModel;
+
+  @override
+  void initState() {
+    viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BaseView(
-      onModelReady: (viewModel) {},
-      viewModel: ProducerFormsViewModel(),
+    return Consumer<ProducerFormsViewModel>(
       builder: (context, viewModel, child) {
-        return isSummaryScreen == true
-            ? CommonSingleChildScrollView(
-                child: viewReportView(context, viewModel))
-            : CommonSingleChildScrollView(
-                child: fillFormView(context, viewModel));
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  widget.isSummaryScreen == true
+                      ? CommonSingleChildScrollView(
+                          child: viewReportView(context, viewModel))
+                      : CommonSingleChildScrollView(
+                          child: fillFormView(context, viewModel)),
+                  Positioned(
+                      bottom: 0,
+                      left: 10,
+                      right: 10,
+                      child: StepperButton(
+                        isLastStep: false,
+                        isSummaryScreen: false,
+                        onNextOrSubmit: () {
+                          Provider.of<CommonStepperViewModel>(context, listen: false)
+                              .onNextButton(context, "Producer");
+                        },
+                      ))
+                ],
+              ),
+            ),
+          ],
+        );
       },
     );
   }

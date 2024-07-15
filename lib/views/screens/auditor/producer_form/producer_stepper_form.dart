@@ -1,5 +1,5 @@
 import 'package:cpcb_tyre/viewmodels/auditor/producer_form/producer_forms_view_model.dart';
-import 'package:cpcb_tyre/views/screens/auditor/common_stepper_new.dart';
+import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_1.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_2.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_3.dart';
@@ -8,19 +8,19 @@ import 'package:flutter/material.dart';
 
 import '../../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 
-class ProdcerStepper extends StatefulWidget {
-  const ProdcerStepper({super.key});
+class ProducerStepper extends StatefulWidget {
+  const ProducerStepper({super.key});
 
   @override
-  State<ProdcerStepper> createState() => _ProdcerStepperState();
+  State<ProducerStepper> createState() => _ProdcerStepperState();
 }
 
-class _ProdcerStepperState extends State<ProdcerStepper> {
+class _ProdcerStepperState extends State<ProducerStepper> {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProducerFormsViewModel>(
         builder: (context, model, child) {
-          return CommonStepperScreenNew(
+          return CommonStepperScreen(
               checkUser: const CheckUserAndSummaryScreen(
                   isSummaryScreen: false, userType: "Producer"),
               forms: [

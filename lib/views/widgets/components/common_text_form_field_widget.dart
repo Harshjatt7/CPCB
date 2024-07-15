@@ -155,7 +155,7 @@ class _CommonTextFormFieldWidgetNewState
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: widget.isReadOnly == true
-                  ? widget.disabledBgColor ?? appColor.grey03
+                  ? widget.disabledBgColor ?? appColor.black10
                   : widget.bgColor ?? appColor.transparent,
               border: Border.all(
                   color: error != null ? appColor.red : appColor.black20),
@@ -225,7 +225,7 @@ class _CommonTextFormFieldWidgetNewState
                 alignLabelWithHint: widget.isMultiline == true ? true : false,
                 counterText: "",
                 fillColor: widget.isReadOnly == true
-                    ? widget.disabledBgColor ?? appColor.grey03
+                    ? widget.disabledBgColor ?? appColor.black10
                     : appColor.transparent,
                 filled: widget.isReadOnly ?? false,
                 label: RichText(

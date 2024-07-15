@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import '../../../../viewmodels/auditor/producer_form/producer_forms_view_model.dart';
 import '../../../widgets/app_components/auditor_form_tile.dart';
 import '../../../widgets/app_components/common_title_widget.dart';
+import '../../../widgets/forms/stepper_button.dart';
 
 class ProducerForm2 extends StatefulWidget {
   final bool? isSummaryScreen;
@@ -28,15 +30,31 @@ class _ProducerForm2State extends State<ProducerForm2> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView(
-      onModelReady: (viewModel) {},
-      viewModel: ProducerFormsViewModel(),
-      builder: (context, viewModel, child) {
-        return widget.isSummaryScreen == true
-            ? CommonSingleChildScrollView(
-                child: viewReportView(viewModel, context))
-            : CommonSingleChildScrollView(
-                child: fillFormView(viewModel, context));
+    return  Consumer<ProducerFormsViewModel>(
+      builder: (context, value, child) {
+        return Stack(
+          children: [
+            widget.isSummaryScreen == true
+                ? CommonSingleChildScrollView(child: viewReportView(viewModel,context))
+                : CommonSingleChildScrollView(
+                    child: fillFormView(viewModel, context)),
+            Positioned(
+                bottom: 0,
+                left: 10,
+                right: 10,
+                child: StepperButton(
+                  isLastStep: false,
+                  isSummaryScreen: false,
+                  onNextOrSubmit: () {
+                    Provider.of<CommonStepperViewModel>(context, listen: false)
+                        .onNextButton(
+                      context,
+                      "Producer",
+                    );
+                  },
+                ))
+          ],
+        );
       },
     );
   }

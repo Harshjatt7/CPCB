@@ -33,30 +33,30 @@ class _ProducerForm1State extends State<ProducerForm1> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        widget.isSummaryScreen == true
-            ? CommonSingleChildScrollView(child: viewReportView(viewModel))
-            : CommonSingleChildScrollView(
-                child: fillFormView(viewModel, context)),
-        Positioned(
-            bottom: 10,
-            left: 10,
-            right: 10,
-            child: StepperButton(
-              isLastStep: false,
-              isSummaryScreen: false,
-              onNextOrSubmit: () {
-                Provider.of<CommonStepperViewModel>(context, listen: false)
-                    .onNextButton(context, "Producer");
-                Provider.of<CommonStepperViewModel>(context, listen: false)
-                    .onNextButton(
-                  context,
-                  "Producer",
-                );
-              },
-            ))
-      ],
+    return Consumer<ProducerFormsViewModel>(
+      builder: (context, value, child) {
+        return Stack(
+        children: [
+          widget.isSummaryScreen == true
+              ? CommonSingleChildScrollView(child: viewReportView(viewModel))
+              : CommonSingleChildScrollView(
+                  child: fillFormView(viewModel, context)),
+          Positioned(
+              bottom: 0,
+              left: 10,
+              right: 10,
+              child: StepperButton(
+                isLastStep: false,
+                isSummaryScreen: false,
+                onNextOrSubmit: () {
+                  Provider.of<CommonStepperViewModel>(context, listen: false)
+                      .onNextButton(context, "Producer");
+                 
+                },
+              ))
+        ],
+      );
+      }
     );
   }
 

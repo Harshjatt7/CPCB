@@ -15,8 +15,10 @@ class PlantMachineryWidget extends StatelessWidget {
       this.count = 1,
       this.isDocument = false,
       this.uploadValidator,
+      this.isReadOnly = false,
       this.onTap,
       this.onSuffixTap,
+      this.isSummaryScreen = false,
       this.controllerList});
   final AppColor appColor = AppColor();
   final void Function()? onAdd;
@@ -30,6 +32,8 @@ class PlantMachineryWidget extends StatelessWidget {
   final StringConstants stringConstants = StringConstants();
   final ImageConstants imageConstants = ImageConstants();
   final String? Function(String?)? uploadValidator;
+  final bool? isReadOnly;
+  final bool? isSummaryScreen;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,49 +62,51 @@ class PlantMachineryWidget extends StatelessWidget {
               const SizedBox(
                 width: 16,
               ),
-              Flexible(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: onAdd,
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: appColor.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5)),
-                        border: Border.all(color: appColor.black20)),
-                    child: CommonImageWidget(
-                      imageSource: ImageConstants().plusIcon,
-                      imageColor: appColor.darkGreen,
-                      bgColor: appColor.white,
-                      isNetworkImage: false,
+              if (isReadOnly == false)
+                Flexible(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: onAdd,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: appColor.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5)),
+                          border: Border.all(color: appColor.black20)),
+                      child: CommonImageWidget(
+                        imageSource: ImageConstants().plusIcon,
+                        imageColor: appColor.darkGreen,
+                        bgColor: appColor.white,
+                        isNetworkImage: false,
+                      ),
                     ),
                   ),
                 ),
-              ),
               const SizedBox(
                 width: 16,
               ),
-              Flexible(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: onDelete,
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: appColor.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5)),
-                        border: Border.all(color: appColor.black20)),
-                    child: CommonImageWidget(
-                      imageSource: ImageConstants().deleteIcon,
-                      imageColor: appColor.darkGreen,
-                      bgColor: appColor.white,
-                      isNetworkImage: false,
+              if (isReadOnly == false)
+                Flexible(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: onDelete,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: appColor.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5)),
+                          border: Border.all(color: appColor.black20)),
+                      child: CommonImageWidget(
+                        imageSource: ImageConstants().deleteIcon,
+                        imageColor: appColor.darkGreen,
+                        bgColor: appColor.white,
+                        isNetworkImage: false,
+                      ),
                     ),
                   ),
-                ),
-              )
+                )
             ],
           ),
           ListView.builder(
@@ -116,6 +122,7 @@ class PlantMachineryWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 9),
                       child: CommonTextFormFieldWidget(
+                          isReadOnly: isReadOnly,
                           bgColor: appColor.white,
                           hintText: stringConstants.anyOtherPlant,
                           isMandatory: false,
@@ -132,10 +139,15 @@ class PlantMachineryWidget extends StatelessWidget {
                             TextEditingController(),
                         isDocument: isDocument,
                         isReadOnly: true,
-                        disabledBgColor: appColor.white,
-                        icon: uploadControllerList?[index].text.isEmpty ?? false
-                            ? imageConstants.fileUpload
-                            : imageConstants.removeIcon,
+                        disabledBgColor: isSummaryScreen == false
+                            ? appColor.white
+                            : appColor.black10,
+                        icon: isReadOnly == false
+                            ? (uploadControllerList?[index].text.isEmpty ??
+                                    false
+                                ? imageConstants.fileUpload
+                                : imageConstants.removeIcon)
+                            : null,
                         onTap: onTap,
                         onSuffixTap: onSuffixTap,
                         validator: uploadValidator,
