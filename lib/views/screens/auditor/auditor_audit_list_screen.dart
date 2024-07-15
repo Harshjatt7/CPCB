@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/image_constants.dart';
+import '../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import '../../../viewmodels/auditor/auditor_list_view_model.dart';
 import '../../widgets/app_components/audit_list_card.dart';
 import '../../widgets/app_components/auditor_bottom_sheet.dart';
@@ -115,19 +116,20 @@ class AuditorListScreen extends StatelessWidget {
                               startDate: "15-Mar-2024",
                               endDate: "-",
                               onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.producerStepperScreenRoute,
-                                );
                                 // Navigator.pushNamed(
-                                //     context, AppRoutes.auditorStepperScreen,
+                                //   context,
+                                //   AppRoutes.auditorRecyclerViewDataScreen,
+                                // );
+                                // Navigator.pushNamed(
+                                //     context, AppRoutes.auditorProducerStepperScreen,
                                 //     arguments: const CheckUserAndSummaryScreen(
-                                //         userType: "Retreader",
+                                //         userType: "Producer",
                                 //         isSummaryScreen: false));
-                                // Navigator.pushNamed(context,
-                                //     AppRoutes.recyclerStepperScreenRoute);
-                                // Navigator.pushNamed(context,
-                                //     AppRoutes.retreaderStpperScreenRoute);
+                                   Navigator.pushNamed(
+                                    context, AppRoutes.auditorRecyclerStepperScreen,
+                                    arguments: const CheckUserAndSummaryScreen(
+                                        userType: "Recycler",
+                                        isSummaryScreen: false));
                               },
                             );
                           },

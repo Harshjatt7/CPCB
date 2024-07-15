@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';

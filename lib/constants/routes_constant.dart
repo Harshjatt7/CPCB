@@ -37,4 +37,8 @@ class AppRoutes {
       "auditor/retreader/retreaderStepperScreenRoute";
   static const String producerStepperScreenRoute =
       "auditor/recycler/recyclerStepperScreenRoute";
+  static const String auditorProducerStepperScreen =
+      "auditorProducerStepperScreenRoute";
+  static const String auditorRecyclerStepperScreen =
+      "auditorRecyclerStepperScreenRoute";
 }

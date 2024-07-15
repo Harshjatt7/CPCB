@@ -7,7 +7,6 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
 import '../router/app_router.dart';
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -52,7 +51,7 @@ class MyAppState extends State<MyApp> {
             theme: _appTheme.lightTheme(context),
             supportedLocales: const [
               Locale('en'),
-              Locale('es'),
+              Locale('en_GB'),
             ],
             darkTheme: _appTheme.darkTheme(context),
             locale: currentLocale,

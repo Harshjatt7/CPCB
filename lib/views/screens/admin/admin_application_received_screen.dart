@@ -54,7 +54,8 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                 Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: (viewModel.data?.length ?? 0) == 0
+                    child: (viewModel.data?.length ?? 0) == 0 &&
+                            viewModel.state == ViewState.idle
                         ? Center(
                             child: CommonTextWidget(
                                 MessageConstant().noMatchingResultsFound))
@@ -78,9 +79,9 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                                       "${applicationData?.applicationNumber}",
                                   markedTo: applicationData?.markedTo,
                                   lastMarked: applicationData?.lastMarked,
-                                  date: helperFunctions.getFormattedDate(
-                                    dtstr: applicationData?.lastReceived,
-                                  ),
+                                  // date: helperFunctions.getFormattedDate(
+                                  //   dtstr: applicationData?.lastReceived,
+                                  // ),
                                 ),
                               );
                             }),

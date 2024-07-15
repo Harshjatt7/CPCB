@@ -1,4 +1,4 @@
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
+import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/auditor/common_stepper_new.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form4.dart';

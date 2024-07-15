@@ -1,31 +1,38 @@
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/producer_form/producer_form_1_view_model.dart';
-import 'package:cpcb_tyre/views/screens/auditor/common_stepper_new.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/producer_form/producer_forms_view_model.dart';
+import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_1.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_2.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_3.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:flutter/material.dart';
 
-class ProdcerStepper extends StatefulWidget {
-  const ProdcerStepper({super.key});
+import '../../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
+
+class ProducerStepper extends StatefulWidget {
+  const ProducerStepper({super.key});
 
   @override
-  State<ProdcerStepper> createState() => _ProdcerStepperState();
+  State<ProducerStepper> createState() => _ProdcerStepperState();
 }
 
-class _ProdcerStepperState extends State<ProdcerStepper> {
+class _ProdcerStepperState extends State<ProducerStepper> {
   @override
   Widget build(BuildContext context) {
-    return BaseView<ProducerForm1ViewModel>(
+    return BaseView<ProducerFormsViewModel>(
         builder: (context, model, child) {
-          return CommonStepperScreenNew(
+          return CommonStepperScreen(
               checkUser: const CheckUserAndSummaryScreen(
                   isSummaryScreen: false, userType: "Producer"),
-              forms: [form1(), form2(), form3()]);
+              forms: [
+                form1(),
+                form2(),
+                form3(),
+              ]);
         },
-        onModelReady: (model) {},
-        viewModel: ProducerForm1ViewModel());
+        onModelReady: (viewModel) {
+            viewModel.initalizeGroupValues();
+        },
+        viewModel: ProducerFormsViewModel());
   }
 
   Widget form1() {

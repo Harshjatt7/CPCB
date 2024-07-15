@@ -17,7 +17,7 @@ class CommonPopUp extends StatelessWidget {
       contentPadding: const EdgeInsets.all(0),
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       content: Container(
-        height: 200,
+        padding: const EdgeInsets.symmetric(vertical: 16),
         width: double.infinity,
         decoration: BoxDecoration(
             color: appColor.white,
@@ -26,10 +26,10 @@ class CommonPopUp extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
               child: CommonTextWidget(
                 MessageConstant().submitAlertTitle,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
             Align(

@@ -1,6 +1,4 @@
 {
-    "welcome-text": "This text is in english",
-    "cart-count": "Cart Count",
     "note": "NOTE*",
     "login-to-your-acc": "Login to your account",
     "enter-email-pass-to-sign-in": "Enter Email and password to sign in.",
@@ -281,10 +279,5 @@
     "summary-of-audit-title":"Summary of Audit (Max 500 words)",
     "summary-of-audit":"Summary of Audit",
     "text-here":"Text here",
-    "only-numeric-allow":"Only numeric value allowed",
-    "financial-year-validation-message":"It is mandatory to select Financial year",
-    "audits-start":"Audits Start",
-    "pending-audits":"Pending Audits",
-    "completed-audits":"Completed Audits",
-    "agency":"Agency"
+    "only-numeric-allow":"Only numeric value allowed"
 }

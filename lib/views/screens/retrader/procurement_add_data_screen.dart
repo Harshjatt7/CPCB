@@ -51,7 +51,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         if (viewModel.supplierNameError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.supplierNameError ?? ''),
-                        contactDetailsField(viewModel),
+                      
                         supplierContactDetailsField(viewModel),
                         if (viewModel.supplierContactError?.isNotEmpty ?? false)
                           showErrorMessage(
@@ -271,21 +271,6 @@ class ProcurementAddDataScreen extends StatelessWidget {
             return viewModel.supplierContactDetailsValidation();
           },
           controller: viewModel.supplierContactDetailsController),
-    );
-  }
-
-  Padding contactDetailsField(ProcurementAddDataViewModel viewModel) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: CommonTextFormFieldWidget(
-          inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          hintText: viewModel.stringConstants.contactDetails,
-          textInputType: TextInputType.number,
-          isMandatory: true,
-          validator: (value) {
-            return viewModel.contactDetailsValidation();
-          },
-          controller: viewModel.contactDetailsController),
     );
   }
 

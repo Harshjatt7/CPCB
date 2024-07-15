@@ -336,7 +336,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          inputFormatters: [LengthLimitingTextInputFormatter(10)],
+          inputFormatters: [LengthLimitingTextInputFormatter(50)],
           hintText: viewModel.stringConstants.nameOfWasteTyreSupplier,
           textInputType: TextInputType.text,
           isMandatory: true,

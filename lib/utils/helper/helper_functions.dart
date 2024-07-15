@@ -486,6 +486,7 @@ class HelperFunctions {
   Future<DateTime?> datePicker(
       BuildContext context, DateTime firstDate, DateTime lastDate) {
     return showDatePicker(
+        locale: const Locale("en", "GB"),
         builder: (context, child) {
           return Theme(
               data: Theme.of(context).copyWith(
@@ -504,7 +505,6 @@ class HelperFunctions {
                                 fontWeight: FontWeight.bold,
                                 color: appColor
                                     .white), // color of button's letters
-
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
                                 color: appColor.transparent,
@@ -512,6 +512,7 @@ class HelperFunctions {
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(12)))),
                 dialogTheme: DialogTheme(
+
                     backgroundColor: appColor.white,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12)))),
