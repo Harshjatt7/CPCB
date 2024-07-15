@@ -352,17 +352,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     return Validations()
         .numbericWithDotValidation(quantityReceivedController.text);
   }
-  //TODO: confirm
 
-  // String? quantityReceivedValidation() {
-  //   if (quantityReceivedController.text.contains("0")) {
-  //     return "Quantity Should be greater than 0";
-  //   } else {
-  //     return Validations()
-  //         .numbericWithDotValidation(quantityReceivedController.text);
-  //   }
-  // }
-  
   String? valueValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
       return messageConstant.pleaseProvideValue;
