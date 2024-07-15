@@ -288,7 +288,7 @@ class SalesDataViewModel extends BaseViewModel {
         otherController.text.isNotEmpty) {
       totalController.text = total.toString();
     }
-    notifyListeners();
+    updateUI();
   }
 
   void changeDropdownValue(dropdownValue, newValue) {
