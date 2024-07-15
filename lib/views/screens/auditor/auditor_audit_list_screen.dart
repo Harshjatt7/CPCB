@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../constants/image_constants.dart';
 import '../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import '../../../viewmodels/auditor/auditor_list_view_model.dart';
-import '../../../viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import '../../widgets/app_components/audit_list_card.dart';
 import '../../widgets/app_components/auditor_bottom_sheet.dart';
 import '../../widgets/app_components/common_search_bar.dart';
@@ -18,7 +17,12 @@ class AuditorListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<AuditorListViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) async {
+          await viewModel.getAuditPlanList(context);
+          if (context.mounted) {
+            await viewModel.getAuditPlanDetail(context);
+          }
+        },
         viewModel: AuditorListViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
@@ -81,41 +85,45 @@ class AuditorListScreen extends StatelessWidget {
                 child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: Column(
-                children: List<Widget>.generate(10, (index) {
+                children: List<Widget>.generate(
+                    viewModel.auditPlanDetaildata?.length ?? 0, (index) {
+                  final auditPlanDetail = viewModel.auditPlanDetaildata?[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: AuditListCard(
-                      userType: "Producer",
-                      unitName: "ABC-XYZ Unit",
-                      status: "Open",
-                      district: "South Delhi",
-                      year: "Apr-Jul, 2023-24",
-                      date: "30/08/2023",
-                      progress: 90,
+                      userType: auditPlanDetail?.legalName,
+                      unitName: auditPlanDetail?.unitName,
+                      status: auditPlanDetail?.status,
+                      district: auditPlanDetail?.district,
+                      year: auditPlanDetail?.financialYear,
+                      date: auditPlanDetail?.endDate.toString(),
+                      progress: auditPlanDetail?.statusPercentage?.toDouble(),
                       onTap: () {
-                        viewModel.getStatus("Open");
-
+                        viewModel.getStatus(
+                            auditPlanDetail?.status.toString() ?? "Open");
                         showModalBottomSheet(
                           isScrollControlled: true,
                           context: context,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero),
                           builder: (context) {
+                            final auditPlanList =
+                                viewModel.auditPlanListdata?[index];
                             return AuditorBottomSheet(
-                              progress: 60,
+                              progress: auditPlanList?.statusPercentage?.toDouble(),
                               status: viewModel.applicationStatus,
-                              unitName: "ABC-XYZ Unit",
-                              unitRegisteration: "24753942FH",
-                              unitGstin: "FHR5478D",
-                              unitType: "Producer",
+                              unitName: auditPlanList?.unitName,
+                              unitRegisteration: auditPlanList?.regNum,
+                              unitGstin: auditPlanList?.gstin,
+                              unitType: auditPlanList?.legalName,
                               unitAddress:
-                                  "12/D Ayurveda Nagar, Opp. Ansal Plaza, South Delhi, New Delhi-110049",
-                              district: "South District",
-                              state: "New Delhi",
-                              currentStatus: "In progress",
-                              createdOn: "12-Mar-2024",
-                              startDate: "15-Mar-2024",
-                              endDate: "-",
+                                  auditPlanList?.address,
+                              district: auditPlanList?.district,
+                              state: auditPlanList?.state,
+                              currentStatus: auditPlanList?.status,
+                              createdOn: "",
+                              startDate: auditPlanList?.startDate,
+                              endDate: auditPlanList?.endDate.toString(),
                               onPressed: () {
                                 // Navigator.pushNamed(
                                 //   context,

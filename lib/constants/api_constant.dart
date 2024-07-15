@@ -55,6 +55,8 @@ class APIRoutes {
   final String recyclerDownloadCertificateAPIRoute =
       "api/recycler/download-certificate";
   final String auditorDashboardAPIRoute = "api/auditor/dashboard";
+  final String auditorAuditPlanListAPIRoute = "api/auditor/audit-plans";
+  final String auditorAuditPlanDetailAPIRoute = "api/auditor/audit-plan-details";
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
 }
