@@ -85,8 +85,8 @@ flutter:
     - assets/images/logo/
     - assets/images/icons/
     - assets/images/background/
-    - lib/i18n/es.json
     - lib/i18n/en.json
+    - lib/i18n/en_GB.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
