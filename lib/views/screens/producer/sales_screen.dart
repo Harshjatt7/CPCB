@@ -64,7 +64,8 @@ class SalesScreen extends StatelessWidget {
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),
-                          child: (viewModel.data?.isEmpty ?? true && viewModel.state == ViewState.idle)
+                          child: (viewModel.data?.isEmpty ??
+                                  true && viewModel.state == ViewState.idle)
                               ? Center(
                                   child: CommonTextWidget(
                                       MessageConstant().noMatchingResultsFound))
