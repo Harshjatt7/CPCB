@@ -81,6 +81,14 @@ class Validations {
       return null;
     }
   }
+  // String? validatePhone(String value) {
+  //   RegExp regex = RegExp(r'^(0[6-9]\d{9}|91[6-9]\d{9}|[6-9]\d{9})$');
+  //   if (!regex.hasMatch(value)) {
+  //     return 'Please enter a valid phone number';
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   String? numbericWithDotValidation(String value) {
     String pattern = r'^\d*\.?\d*$';

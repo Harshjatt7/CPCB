@@ -106,8 +106,6 @@ class CommonAdminApplicationCard extends StatelessWidget {
                   buildRowWidget(context,
                       image: imageConstants.calendarIcon,
                       text: "${stringConstants.dateLabel.i18n()} $date"),
-                  buildRowWidget(context,
-                      image: imageConstants.calendarIcon, text: year),
                 ],
               ),
             ],

@@ -55,11 +55,11 @@ class CustomDashboardScreen extends StatelessWidget {
                         }
                       },
                       title: viewModel.stringConstants.dashboard,
-                      onSuffixTap: () async{
+                      onSuffixTap: () async {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
                               !viewModel.isSearchExpanded;
-                        viewModel.getUpdatedList();
+                          viewModel.getUpdatedList();
                           viewModel.updateUI();
                         } else {
                           viewModel.isSearchExpanded = false;
@@ -103,30 +103,32 @@ class CustomDashboardScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: (viewModel.customData?.length ?? 0) == 0
-                            ? Center(
-                                child: CommonTextWidget(
-                                    MessageConstant().noMatchingResultsFound))
-                            : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: List<Widget>.generate(
-                        viewModel.customData?.length ?? 0, (index) {
-                      final applicationData = viewModel.customData?[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonCustomListingCard(
-                          companyName: applicationData?.name,
-                          email: applicationData?.email,
-                          contactNumber: applicationData?.mobileNumber,
-                          state: applicationData?.stateName,
-                          onMenuTap: () {
-                            viewModel.downloadCertificate(
-                                context, applicationData?.id ?? '');
-                          },
+                  child: (viewModel.customData?.isEmpty ?? false) &&
+                          viewModel.state == ViewState.idle
+                      ? Center(
+                          child: CommonTextWidget(
+                              MessageConstant().noMatchingResultsFound))
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List<Widget>.generate(
+                              viewModel.customData?.length ?? 0, (index) {
+                            final applicationData =
+                                viewModel.customData?[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: CommonCustomListingCard(
+                                companyName: applicationData?.name,
+                                email: applicationData?.email,
+                                contactNumber: applicationData?.mobileNumber,
+                                state: applicationData?.stateName,
+                                onMenuTap: () {
+                                  viewModel.downloadCertificate(
+                                      context, applicationData?.id ?? '');
+                                },
+                              ),
+                            );
+                          }),
                         ),
-                      );
-                    }),
-                  ),
                 ),
                 if (viewModel.state == ViewState.parallelBusy)
                   const Positioned(
