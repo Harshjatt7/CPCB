@@ -51,7 +51,7 @@ class MyAppState extends State<MyApp> {
             theme: _appTheme.lightTheme(context),
             supportedLocales: const [
               Locale('en'),
-              Locale('es'),
+              Locale('en_GB'),
             ],
             darkTheme: _appTheme.darkTheme(context),
             locale: currentLocale,
