@@ -18,6 +18,7 @@ class DashboardViewModel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
   final HelperFunctions helperFunctions = HelperFunctions();
   final AppColor appColor = AppColor();
+  bool? isRegistered = true;
 
   UserTypes? currentUser;
   APIResponse<DashboardResponseModel?>? _dashboardResponseModel;
@@ -42,6 +43,12 @@ class DashboardViewModel extends BaseViewModel {
         _dashboardResponseModel?.data = DashboardResponseModel.fromJson(
             _dashboardResponseModel?.completeResponse);
         data = _dashboardResponseModel?.data?.data;
+        if (context.mounted) {
+          isRegistered = data?.currentStatus == "Approved";
+          updateUI();
+          helperFunctions
+              .logger('gdrghded $isRegistered}');
+        }
       } else {
         if (context.mounted) {
           helperFunctions.commonErrorSnackBar(

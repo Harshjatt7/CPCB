@@ -4,7 +4,6 @@ import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/financial_number.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
-import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/screens/common_screens/registration_screen.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_environment_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_erp_tile.dart';
@@ -16,44 +15,59 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../viewmodels/common_viewmodel/dashboard_viewmodel.dart';
 import '../../widgets/app_components/producer_annual_return_widget.dart';
 
-class DashBoardScreen extends StatelessWidget {
-  DashBoardScreen({super.key});
+class DashBoardScreen extends StatefulWidget {
+  const DashBoardScreen({super.key});
+
+  @override
+  State<DashBoardScreen> createState() => _DashBoardScreenState();
+}
+
+class _DashBoardScreenState extends State<DashBoardScreen> {
   final ImageConstants imageConstants = ImageConstants();
+
   final AppColor appColor = AppColor();
+  late DashboardViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<DashboardViewModel>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<DashboardViewModel>(
-      onModelReady: (viewModel) async {
-        viewModel.getCurrentUserType(context);
-        await viewModel.getDasboardData(context);
-        if (context.mounted) {
-          // viewModel.testPopUp(context);
-        }
+    return Consumer<DashboardViewModel>(
+      builder: (context, value, child) {
+        return dashboardView(viewModel, context);
       },
-      viewModel: DashboardViewModel(),
-      builder: (context, viewModel, child) {
-        return CustomScaffold(
-            isLoading: viewModel.state == ViewState.busy,
-            appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(125),
-              child: SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CommonAppBar(
-                      isIconBar: true,
-                      showNotificationIcon: false,
-                    ),
-                    CommonTitleBar(title: viewModel.stringConstants.dashboard)
-                  ],
+    );
+  }
+
+  Widget dashboardView(DashboardViewModel viewModel, BuildContext context) {
+    return CustomScaffold(
+        isLoading: viewModel.state == ViewState.busy,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(125),
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CommonAppBar(
+                  isIconBar: true,
+                  showNotificationIcon: false,
                 ),
-              ),
+                CommonTitleBar(title: viewModel.stringConstants.dashboard)
+              ],
             ),
-            body: viewModel.data?.currentStatus == "Approved"
+          ),
+        ),
+        body: viewModel.data != null
+            ? viewModel.data?.currentStatus == "Approved" ||
+                    viewModel.data?.currentStatus ==
+                        "Submitted for kind approval"
                 ? CommonSingleChildScrollView(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -567,8 +581,10 @@ class DashBoardScreen extends StatelessWidget {
                       ),
                     ),
                   )
-                : CommonSingleChildScrollView(child: RegistrationScreen()));
-      },
-    );
+                : CommonSingleChildScrollView(
+                    child: RegistrationScreen(
+                    viewModel: viewModel,
+                  ))
+            : Container());
   }
 }

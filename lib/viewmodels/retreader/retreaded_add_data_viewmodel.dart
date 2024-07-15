@@ -137,7 +137,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
     }
     updateUI();
     if (changeDropdown == null) {
-      yearDropdownError = messageConstant.pleaseSelectDropdownValue;
+      yearDropdownError = messageConstant.financialYearValidationMessage;
     }
   }
 

@@ -16,8 +16,10 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm2 extends StatefulWidget {
-  const AuditorRecyclerForm2({super.key, this.isSummaryScreen = false});
+  const AuditorRecyclerForm2(
+      {super.key, this.isSummaryScreen = false, this.isRetreader = false});
   final bool? isSummaryScreen;
+  final bool isRetreader;
 
   @override
   State<AuditorRecyclerForm2> createState() => _AuditorRecyclerForm2State();
@@ -46,7 +48,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                 ? CommonSingleChildScrollView(
                     child: summaryForm2View(viewModel, context))
                 : CommonSingleChildScrollView(
-                    child: form2View(viewModel, context)),
+                    child: form2View(viewModel, context, widget.isRetreader)),
             Positioned(
                 bottom: 0,
                 left: 10,
@@ -202,7 +204,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
     );
   }
 
-  Widget form2View(RecyclerFormViewModel viewModel, BuildContext context) {
+  Widget form2View(
+      RecyclerFormViewModel viewModel, BuildContext context, bool isRetreader) {
     return Container(
       margin: const EdgeInsets.only(bottom: 100),
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -217,14 +220,20 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               isMandatory: true,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(),
-            child: CommonDropdownTextFormField(
-                bgColor: appColor.white,
-                labelText: stringConstants.select,
-                dropDownItem: const [],
-                onChanged: null),
-          ),
+          isRetreader == false
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(),
+                  child: CommonDropdownTextFormField(
+                      bgColor: appColor.white,
+                      labelText: stringConstants.select,
+                      dropDownItem: const [],
+                      onChanged: null),
+                )
+              : CommonTextFormFieldWidget(
+                  hintText: '',
+                  isReadOnly: true,
+                  isMandatory: false,
+                  controller: TextEditingController()),
           commonRecyclerForm2Tile(
               title: stringConstants.plantProductionCapacity,
               hintText: stringConstants.enter,

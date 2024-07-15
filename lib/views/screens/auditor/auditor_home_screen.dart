@@ -21,10 +21,10 @@ class AuditorHomeScreen extends StatelessWidget {
         bottomNavigationBarWidget(imgSrc: imageConstants.profileTabIcon)
       ],
       screens: [
-        const AuditorDashboardScreen(),
+        AuditorDashboardScreen(),
         const AuditorListScreen(),
         ProfileScreen(
-          isAdmin: true,
+              isAuditor: true,
         )
       ],
     );

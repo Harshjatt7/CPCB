@@ -281,5 +281,10 @@
     "summary-of-audit-title":"Summary of Audit (Max 500 words)",
     "summary-of-audit":"Summary of Audit",
     "text-here":"Text here",
-    "only-numeric-allow":"Only numeric value allowed"
+    "only-numeric-allow":"Only numeric value allowed",
+    "financial-year-validation-message":"It is mandatory to select Financial year",
+    "audits-start":"Audits Start",
+    "pending-audits":"Pending Audits",
+    "completed-audits":"Completed Audits",
+    "agency":"Agency"
 }
