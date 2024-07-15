@@ -2,7 +2,6 @@ import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:math';
-
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
@@ -10,13 +9,14 @@ import 'package:cpcb_tyre/models/request/auditor/produer_form_1_request_model.da
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+
 import '../../../controllers/auditor/auditor_repository.dart';
 import '../../../models/response/common/file_size_model.dart';
 
 class CommonStepperViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
   int index = 1;
-  
+
   int totalIndex = 0;
   void getUser(String? user) {
     switch (user) {
@@ -71,7 +71,6 @@ class CommonStepperViewModel extends BaseViewModel {
     } else {}
   }
 
-
   // Producer Form 1 viewModel
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
@@ -123,8 +122,8 @@ class CommonStepperViewModel extends BaseViewModel {
   ProducerForm1RequestModel? data;
   ProducerForm1RequestModel? producerForm1data;
 
-  Future<void> postForm1Data(BuildContext context, ProducerForm1RequestModel requestModel) async {
-   
+  Future<void> postForm1Data(
+      BuildContext context, ProducerForm1RequestModel requestModel) async {
     try {
       final res = await _auditorRepository.postProducerForm1Data(requestModel);
       if (res?.isSuccess == true) {
@@ -302,14 +301,5 @@ class CommonStepperViewModel extends BaseViewModel {
     return null;
   }
 }
-
-class CheckUserAndSummaryScreen {
-  final String? userType;
-  final bool? isSummaryScreen;
-  const CheckUserAndSummaryScreen({this.userType, this.isSummaryScreen = false});
-}
-
-
-
 
 

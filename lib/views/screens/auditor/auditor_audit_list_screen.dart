@@ -1,6 +1,7 @@
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/image_constants.dart';
+import '../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import '../../../viewmodels/auditor/auditor_list_view_model.dart';
 import '../../../viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import '../../widgets/app_components/audit_list_card.dart';

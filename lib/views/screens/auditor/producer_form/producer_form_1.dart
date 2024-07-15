@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
-import '../../../../viewmodels/auditor/producer_form/producer_form_1_view_model.dart';
+import '../../../../viewmodels/auditor/producer_form/producer_forms_view_model.dart';
 
 // ignore: must_be_immutable
 class ProducerForm1 extends StatefulWidget {
@@ -23,54 +23,44 @@ class ProducerForm1 extends StatefulWidget {
 }
 
 class _ProducerForm1State extends State<ProducerForm1> {
-  ScrollController? controller;
-
-  late ProducerForm1ViewModel viewModel;
+  late ProducerFormsViewModel viewModel;
 
   @override
   void initState() {
-    viewModel = Provider.of<ProducerForm1ViewModel>(context, listen: false);
+    viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        widget.isSummaryScreen == true
-            ? CommonSingleChildScrollView(child: viewReportView(viewModel))
-            : CommonSingleChildScrollView(
-                child: fillFormView(viewModel, context)),
-        Positioned(
-            bottom: 10,
-            left: 10,
-            right: 10,
-            child: StepperButton(
-              isLastStep: false,
-              isSummaryScreen: false,
-              onNextOrSubmit: () {
-                Provider.of<CommonStepperViewModel>(context, listen: false)
-                    .onNextButton(context, "Producer");
-              },
-            ))
-      ],
+    return Consumer<ProducerFormsViewModel>(
+      builder: (context, value, child) {
+        return Stack(
+        children: [
+          widget.isSummaryScreen == true
+              ? CommonSingleChildScrollView(child: viewReportView(viewModel))
+              : CommonSingleChildScrollView(
+                  child: fillFormView(viewModel, context)),
+          Positioned(
+              bottom: 0,
+              left: 10,
+              right: 10,
+              child: StepperButton(
+                isLastStep: false,
+                isSummaryScreen: false,
+                onNextOrSubmit: () {
+                  Provider.of<CommonStepperViewModel>(context, listen: false)
+                      .onNextButton(context, "Producer");
+                 
+                },
+              ))
+        ],
+      );
+      }
     );
-
-    // BaseView<ProducerForm1ViewModel>(
-    //   onModelReady: (viewModel) {
-
-    //     viewModel.initalizeGroupValues();
-    //   },
-    //   viewModel: ProducerForm1ViewModel(),
-    //   builder: (context, viewModel, child) {
-    //     return
-    //     isSummaryScreen == true ? viewReportView(viewModel):
-    //     fillFormView(viewModel, context);
-    //   },
-    // );
   }
 
-  Widget fillFormView(ProducerForm1ViewModel viewModel, BuildContext context) {
+  Widget fillFormView(ProducerFormsViewModel viewModel, BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 100),
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -225,7 +215,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
     );
   }
 
-  Padding viewReportView(ProducerForm1ViewModel viewModel) {
+  Padding viewReportView(ProducerFormsViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(

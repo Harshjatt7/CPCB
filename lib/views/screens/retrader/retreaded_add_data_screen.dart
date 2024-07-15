@@ -92,7 +92,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
-                  inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                  inputFormatters: [LengthLimitingTextInputFormatter(1)],
                   hintText: viewModel.stringConstants.contactDetails,
                   isMandatory: false,
                   controller: viewModel.contactDetailsController,

@@ -1,6 +1,5 @@
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
-import 'package:cpcb_tyre/views/screens/auditor/common_stepper_new.dart';
+import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form4.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form5.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_1.dart';
@@ -8,6 +7,8 @@ import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_2.da
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_3.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 
 class RecyclerStepper extends StatefulWidget {
   const RecyclerStepper({super.key});
@@ -21,7 +22,7 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
   Widget build(BuildContext context) {
     return BaseView<RecyclerFormViewModel>(
         builder: (context, viewModel, child) {
-          return const CommonStepperScreenNew(
+          return const CommonStepperScreen(
               checkUser: CheckUserAndSummaryScreen(
                   isSummaryScreen: false, userType: "Recycler"),
               forms: [

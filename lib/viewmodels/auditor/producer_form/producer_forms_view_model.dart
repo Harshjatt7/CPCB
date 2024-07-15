@@ -13,11 +13,15 @@ import 'package:flutter/material.dart';
 
 import '../../../controllers/auditor/auditor_repository.dart';
 import '../../../models/response/common/file_size_model.dart';
+import '../../../theme/app_color.dart';
 
-class ProducerForm1ViewModel extends BaseViewModel {
+class ProducerFormsViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
   final helperFunctions = HelperFunctions();
+  final appColor = AppColor();
+
+  //Form 1
   TextEditingController companyNameRemark = TextEditingController();
   TextEditingController categoryOfProducerRemark = TextEditingController();
   TextEditingController gstRemark = TextEditingController();
@@ -64,6 +68,33 @@ class ProducerForm1ViewModel extends BaseViewModel {
   final _auditorRepository = AuditorRepository();
   ProducerForm1RequestModel? data;
   ProducerForm1RequestModel? producerForm1data;
+
+  //Form 2
+  String radioMisreportingP1 = "confirmed";
+  String radioMisreportingP3 = "confirmed";
+  
+  List<String> producerHeadingList = [
+    "Type of Tyre",
+    "Financial Year",
+    "Motorcycle",
+    "Passenger Car",
+    "Scooter",
+    "Truck",
+    "Bus",
+    "LCV",
+    "T Rear",
+    "Other",
+    "Total"
+  ];
+
+  // Form 3
+  String radioMisreporting = "no";
+  String radioInformation = "no";
+  TextEditingController deviationController = TextEditingController();
+  TextEditingController remarkController = TextEditingController();
+  TextEditingController summaryController = TextEditingController();
+  
+
 
   Future<void> postForm1Data(BuildContext context, ProducerForm1RequestModel requestModel) async {
    
