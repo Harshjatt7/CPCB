@@ -121,10 +121,15 @@ class AuditorListScreen extends StatelessWidget {
                                 //   context,
                                 //   AppRoutes.auditorRecyclerViewDataScreen,
                                 // );
-                                Navigator.pushNamed(
-                                    context, AppRoutes.auditorStepperScreen,
+                                // Navigator.pushNamed(
+                                //     context, AppRoutes.auditorProducerStepperScreen,
+                                //     arguments: const CheckUserAndSummaryScreen(
+                                //         userType: "Producer",
+                                //         isSummaryScreen: false));
+                                   Navigator.pushNamed(
+                                    context, AppRoutes.auditorRecyclerStepperScreen,
                                     arguments: const CheckUserAndSummaryScreen(
-                                        userType: "Producer",
+                                        userType: "Recycler",
                                         isSummaryScreen: false));
                               },
                             );

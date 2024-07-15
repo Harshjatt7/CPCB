@@ -29,7 +29,9 @@ class _ProdcerStepperState extends State<ProducerStepper> {
                 form3(),
               ]);
         },
-        onModelReady: (model) {},
+        onModelReady: (viewModel) {
+            viewModel.initalizeGroupValues();
+        },
         viewModel: ProducerFormsViewModel());
   }
 

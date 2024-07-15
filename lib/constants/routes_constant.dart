@@ -27,4 +27,6 @@ class AppRoutes {
   static const String auditorRecyclerProcurementScreen = "auditor/recycler/procurementRoute";
   static const String auditorRecyclerDetailScreen = "auditor/recycler/RecyclerDetailRoute";
   static const String auditorRecyclerViewDataScreen = "auditorRecyclerDetailScreenRoute";
+  static const String auditorProducerStepperScreen = "auditorProducerStepperScreenRoute";
+  static const String auditorRecyclerStepperScreen = "auditorRecyclerStepperScreenRoute";
 }

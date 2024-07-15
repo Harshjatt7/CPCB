@@ -1,7 +1,9 @@
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_summary_screen.dart';
+import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_stepper_form.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_detail_view_entries_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_procurement_list.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/reycler_stepper_form.dart';
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
 import 'package:cpcb_tyre/views/screens/custom/custom_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
@@ -66,13 +68,17 @@ class PageRouter {
       case AppRoutes.auditorHomeScreen:
         return _getPageRoute(AuditorHomeScreen(), settings);
       case AppRoutes.auditorStepperScreen:
-        // CheckUserAndSummaryScreen checkUser = settings.arguments as CheckUserAndSummaryScreen;
-        // return _getPageRoute(CommonStepperScreen(checkUser: checkUser,forms: [],), settings);
+        CheckUserAndSummaryScreen checkUser = settings.arguments as CheckUserAndSummaryScreen;
+        return _getPageRoute(CommonStepperScreen(checkUser: checkUser,forms: [],), settings);
       case AppRoutes.auditorRecyclerProcurementScreen:
         return _getPageRoute(const RecyclerProcurementList(), settings);
       case AppRoutes.auditorRecyclerDetailScreen:
         return _getPageRoute(const RecyclerDetailScreen(), settings);
-
+      case AppRoutes.auditorProducerStepperScreen:
+        return _getPageRoute(const ProducerStepper(), settings);
+      case AppRoutes.auditorRecyclerStepperScreen:
+        return _getPageRoute(const RecyclerStepper(), settings);
+        
       // Will be displayed if no specified route is found.
       default:
         return MaterialPageRoute(
