@@ -49,8 +49,6 @@ class SplashScreen extends StatelessWidget {
                       ),
                     );
                   });
-            } else {
-              viewmodel.wait(context);
             }
           });
           return CustomScaffold(
