@@ -45,6 +45,7 @@ class ProfileData {
   dynamic whitelistedCompany;
   num? isPublished;
   String? companyEmail;
+  String? agency;
 
   ProfileData(
       {this.id,
@@ -79,7 +80,8 @@ class ProfileData {
       this.authorizedFileName,
       this.whitelistedCompany,
       this.isPublished,
-      this.companyEmail});
+      this.companyEmail,
+      this.agency});
 
   factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
       id: json["id"],
@@ -114,5 +116,6 @@ class ProfileData {
       authorizedFileName: json["authorized_file_name"],
       whitelistedCompany: json["whitelisted_company"],
       isPublished: json["is_published"],
-      companyEmail: json["companyEmail"]);
+      companyEmail: json["companyEmail"],
+      agency: json["agency"]);
 }

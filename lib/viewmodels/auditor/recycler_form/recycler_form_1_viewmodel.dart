@@ -2,9 +2,14 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/controllers/auditor/auditor_repository.dart';
+import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form1_request_model.dart';
+import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form_response_model.dart';
+import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -166,6 +171,42 @@ class RecyclerFormViewModel extends BaseViewModel {
   List<TextEditingController> controllerList = [];
   List<TextEditingController> uploadControllerList = [];
   List<FileSizeModel> fileSizeModelList = [];
+  APIResponse<AuditorRecyclerFormResponseModel?>? _auditorRecyclerResponseModel;
+  APIResponse<AuditorRecyclerFormResponseModel?>?
+      get auditorRecyclerResponseModel => _auditorRecyclerResponseModel;
+  GeneralInfoResponse? generalInfoResponseData;
+  EndProducts? endProductsData;
+  final AuditorRepository auditorRepository = AuditorRepository();
+
+  Future<APIResponse<AuditorRecyclerFormResponseModel?>?> getRecyclerData(
+      BuildContext context,
+      {String? url}) async {
+    state = ViewState.busy;
+
+    try {
+      _auditorRecyclerResponseModel =
+          await auditorRepository.getRecyclerData(url: url);
+      if (_auditorRecyclerResponseModel?.isSuccess == true) {
+        _auditorRecyclerResponseModel?.data =
+            AuditorRecyclerFormResponseModel.fromJson(
+                _auditorRecyclerResponseModel?.completeResponse);
+        generalInfoResponseData =
+            _auditorRecyclerResponseModel?.data?.generalInfo;
+        endProductsData = _auditorRecyclerResponseModel?.data?.endProducts;
+      } else {
+        if (context.mounted) {
+          helperFunctions.commonErrorSnackBar(
+              context, MessageConstant().somethingWentWrong);
+        }
+      }
+    } catch (err) {
+      helperFunctions.logger("$err");
+    }
+
+    state = ViewState.idle;
+
+    return _auditorRecyclerResponseModel;
+  }
 
   String? emptyValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
@@ -663,6 +704,69 @@ class RecyclerFormViewModel extends BaseViewModel {
         }
         break;
     }
+  }
+
+  void addData() {
+    AuditorRecyclerForm1RequestModel recyclerForm1RequestModel =
+        AuditorRecyclerForm1RequestModel(
+            generalInfo: GeneralInfo(
+                gstNo: AddressLine1(
+                    auditConfirmedStatus: radioGst,
+                    auditRemark: gstRemarkController.text),
+                companyPan: AddressLine1(
+                    auditConfirmedStatus: radioPanOfCompany,
+                    auditRemark: companyPanRemarkController.text),
+                companyIec: AddressLine1(
+                    auditConfirmedStatus: radioIec,
+                    auditRemark: companyRemarkIECController.text),
+                cto: AddressLine1(
+                    auditConfirmedStatus: radioCto,
+                    auditRemark: recyclerRemakrCTOController.text),
+                authorizationUnderHomwRules: AddressLine1(
+                    auditConfirmedStatus: radioAuthorization,
+                    auditRemark: remarkAuthorizationController.text),
+                addressLine1: AddressLine1(
+                    auditConfirmedStatus: radioRecyclingDetails,
+                    auditRemark: remarkRecyclingDetailsController.text),
+                gpsLocationRecycler:
+                    GpsLocationRecycler(auditConfirmedStatus: radioGps),
+                gpsLocationAuditor: GpsLocationAuditor(
+                  auditConfirmedStatus: radioGps,
+                  auditRemark: gpsAuditorRemarkController.text,
+                  additionalData: GpsLocationAuditorAdditionalData(
+                      lat: gpsAuditorLatitude.text,
+                      long: gpsAuditorLongitude.text),
+                ),
+                //TODO File Upload changes
+                authorizedPersonAdhar: AirPollutionControlDevices(
+                    auditRemark: remarkAadharController.text,
+                    auditConfirmedStatus: radioAadharCard,
+                    auditDocument: aadharFileName,
+                    additionalData: AirPollutionControlDevicesAdditionalData()),
+                authorizedPersonPan: AirPollutionControlDevices(
+                    auditRemark: remarkPanNoController.text,
+                    auditConfirmedStatus: radioPanNo,
+                    auditDocument: panNoFileName,
+                    additionalData: AirPollutionControlDevicesAdditionalData()),
+                //TODO
+                otherMachineries: OtherMachineries(
+                    additionalData: OtherMachineriesAdditionalData(om: [Om()])),
+                lastYearElectricityBill: AirPollutionControlDevices(
+                    auditRemark: remarkPowerController.text,
+                    auditConfirmedStatus: radioPowerConsumption,
+                    auditDocument: powerFileName,
+                    additionalData: AirPollutionControlDevicesAdditionalData()),
+                airPollutionControlDevices: AirPollutionControlDevices(
+                    auditRemark: remakrsPollutionController.text,
+                    auditConfirmedStatus: radioPollution,
+                    auditDocument: pollutionFileName,
+                    additionalData: AirPollutionControlDevicesAdditionalData()),
+                geoTaggedVideoUpload: AirPollutionControlDevices(
+                    auditRemark: remarkVideoController.text,
+                    auditConfirmedStatus: radioPlant,
+                    auditDocument: videoFileName,
+                    additionalData:
+                        AirPollutionControlDevicesAdditionalData())));
   }
 
   void formValidation(BuildContext context, String? userType) {

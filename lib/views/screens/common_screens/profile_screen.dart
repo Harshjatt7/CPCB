@@ -17,13 +17,15 @@ class ProfileScreen extends StatelessWidget {
   final bool? isAdmin;
   final bool? isCustom;
   final bool? isSPCB;
+  final bool? isAuditor;
   final ImageConstants imageConstants = ImageConstants();
   final AppColor appColor = AppColor();
   ProfileScreen(
       {super.key,
       this.isAdmin = false,
       this.isCustom = false,
-      this.isSPCB = false});
+      this.isSPCB = false,
+      this.isAuditor = false});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,9 @@ class ProfileScreen extends StatelessWidget {
                               ? viewModel.data?.name ?? "NA"
                               : viewModel.data?.email
                           : null),
-                  if (isAdmin == false && isCustom == false)
+                  if (isAdmin == false &&
+                      isCustom == false &&
+                      isAuditor == false)
                     detailContainer(context, viewModel,
                         backgroundColor: appColor.darkBlue10,
                         borderColor: appColor.black20,
@@ -83,16 +87,17 @@ class ProfileScreen extends StatelessWidget {
                             viewModel.stringConstants.authorizedPersonDetails,
                         email: viewModel.data?.authorizedPersonEmailId ?? "",
                         phoneNo: viewModel.data?.authorizedcontactNumber ?? ""),
-                  // Padding(
-                  //   padding:
-                  //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  //   child: ProducerListTile(
-                  //       isBackgroundIcon: true,
-                  //       image: imageConstants.person,
-                  //       title: viewModel.stringConstants.userType,
-                  //       subtitle: viewModel.data?.userType ?? ""),
-                  // ),
-                  if (isCustom == true)
+                  if (isAuditor == true)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: ProducerListTile(
+                          isBackgroundIcon: true,
+                          image: imageConstants.passKey,
+                          title: viewModel.stringConstants.agency,
+                          subtitle: viewModel.data?.agency ?? ""),
+                    ),
+                  if (isCustom == true || isAuditor == true)
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 8),
@@ -101,6 +106,16 @@ class ProfileScreen extends StatelessWidget {
                           image: imageConstants.passKey,
                           title: viewModel.stringConstants.stateAuthorized,
                           subtitle: viewModel.data?.state ?? ""),
+                    ),
+                  if (isAuditor == true)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: ProducerListTile(
+                          isBackgroundIcon: true,
+                          image: imageConstants.person,
+                          title: viewModel.stringConstants.userType,
+                          subtitle: viewModel.data?.userType ?? ""),
                     ),
                   Padding(
                     padding:

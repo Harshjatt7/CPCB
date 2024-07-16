@@ -1,6 +1,6 @@
-import 'package:cpcb_tyre/constants/api_constant.dart';
+import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
-import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
+import 'package:cpcb_tyre/views/screens/auditor/common_stepper_new.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form4.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form5.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_1.dart';
@@ -9,26 +9,26 @@ import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_3.da
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
-
-class RecyclerStepper extends StatefulWidget {
-  const RecyclerStepper({super.key});
+class RetreaderStepper extends StatefulWidget {
+  const RetreaderStepper({super.key});
 
   @override
-  State<RecyclerStepper> createState() => _ProdcerStepperState();
+  State<RetreaderStepper> createState() => _ProdcerStepperState();
 }
 
-class _ProdcerStepperState extends State<RecyclerStepper> {
+class _ProdcerStepperState extends State<RetreaderStepper> {
   @override
   Widget build(BuildContext context) {
     return BaseView<RecyclerFormViewModel>(
         builder: (context, viewModel, child) {
-          return const CommonStepperScreen(
+          return const CommonStepperScreenNew(
               checkUser: CheckUserAndSummaryScreen(
-                  isSummaryScreen: false, userType: "Recycler"),
+                  isSummaryScreen: false, userType: "Retreader"),
               forms: [
                 AuditorRecyclerForm1(),
-                AuditorRecyclerForm2(),
+                AuditorRecyclerForm2(
+                  isRetreader: true,
+                ),
                 AuditorRecyclerForm3(),
                 AuditorRecyclerForm4(),
                 AuditorRecyclerForm5()
@@ -40,14 +40,6 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
           viewModel.textForm2Listener();
           viewModel.textForm3Listener();
           await viewModel.getCurrentLocation();
-          if (context.mounted) {
-            await viewModel.getRecyclerData(context,
-                url: APIRoutes().auditorRecyclerForm1APIRoute);
-          }
-          if (context.mounted) {
-            await viewModel.getRecyclerData(context,
-                url: APIRoutes().auditorRecyclerForm2APIRoute);
-          }
         },
         viewModel: RecyclerFormViewModel());
   }

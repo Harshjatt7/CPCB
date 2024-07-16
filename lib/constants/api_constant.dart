@@ -55,8 +55,16 @@ class APIRoutes {
   final String recyclerDownloadCertificateAPIRoute =
       "api/recycler/download-certificate";
   final String auditorDashboardAPIRoute = "api/auditor/dashboard";
+  final String auditorRecyclerForm1APIRoute = "api/auditor/recyclerChecklist/";
+  final String auditorRecyclerForm2APIRoute =
+      "api/auditor/checklist/recycler/processing-capacity/";
+  final String fileUploadAPIRoute = "api/auditor/recyclerChecklist/file-upload";
+  final String auditorRecyclerForm1PostAPIRoute="api/auditor/recyclerChecklist/store-general-information/";
+  
+
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
+  final String initiateRegistrationWebUrl = "initiateRegistration";
 }
 
 extension ApiBaseURL on ApiEnvironments {

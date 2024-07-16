@@ -304,5 +304,8 @@ class StringConstants {
   final String summaryOfAuditTitle = "summary-of-audit-title";
   final String summaryOfAudit = "summary-of-audit";
   final String textHere="text-here";
-  
+  final String auditsStart="audits-start";
+  final String pendingAudits="pending-audits";
+  final String completedAudits="completed-audits";
+  final String agency="Agency";
 }

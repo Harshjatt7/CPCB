@@ -1,3 +1,5 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_bottom_navigation_bar_screen_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
@@ -11,7 +13,8 @@ import '../../widgets/app_components/common_total_application_card.dart';
 import '../../widgets/components/common_appbar.dart';
 
 class AuditorDashboardScreen extends StatelessWidget {
-  const AuditorDashboardScreen({super.key});
+  AuditorDashboardScreen({super.key});
+  final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +25,7 @@ class AuditorDashboardScreen extends StatelessWidget {
         viewModel: AuditorDashboardViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+            isLoading: viewModel.state == ViewState.busy,
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(125),
               child: SafeArea(
@@ -41,7 +45,7 @@ class AuditorDashboardScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CommonTotalApplicationCard(
-                    totalApplication: "1,000",
+                    totalApplication: '${viewModel.data?.total ?? ''}',
                     isAuditor: true,
                     onTap: () {
                       CommonScreenWithBottomNavigationBar.of(context)
@@ -53,29 +57,29 @@ class AuditorDashboardScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CommonTextWidget("Application"),
+                        CommonTextWidget(stringConstants.application),
                         const SizedBox(
                           height: 16,
                         ),
                         CommonEndProduct(
                           title: viewModel.stringConstants.totalAudits,
                           generated: "",
-                          transferred: "1,000",
+                          transferred: "${viewModel.data?.total ?? ''}",
                         ),
-                        const CommonEndProduct(
-                          title: "Audits Start",
+                        CommonEndProduct(
+                          title: stringConstants.auditsStart,
                           generated: "",
-                          transferred: "1,000",
+                          transferred: "${viewModel.data?.started ?? ''}",
                         ),
-                        const CommonEndProduct(
-                          title: "Pending Audits",
+                        CommonEndProduct(
+                          title: stringConstants.pendingAudits,
                           generated: "",
-                          transferred: "1,000",
+                          transferred: "${viewModel.data?.pending ?? ''}",
                         ),
-                        const CommonEndProduct(
-                          title: "Completed Audits",
+                        CommonEndProduct(
+                          title: stringConstants.completedAudits,
                           generated: "",
-                          transferred: "1,000",
+                          transferred: "${viewModel.data?.completed ?? ''}",
                         ),
                       ],
                     ),
