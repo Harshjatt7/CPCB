@@ -7,6 +7,8 @@ import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form_respons
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/produer_form_1_request_model.dart';
 
+import '../../models/response/auditor/audit_list_response_model.dart';
+import '../../models/response/auditor/audit_plan_detail_response_model.dart';
 import '../../models/response/common/add_data_response_model.dart';
 
 class AuditorRepository {
@@ -16,6 +18,20 @@ class AuditorRepository {
   Future getDasboardData() async {
     APIResponse<AuditorDashBoardResponseModel?>? response =
         await _apiBase.getRequest(_apiRoutes.auditorDashboardAPIRoute,
+            isAuthorizationRequired: true);
+    return response;
+  }
+
+  Future getAuditPlanListData() async {
+    APIResponse<AuditPlanListResponseModel?>? response =
+        await _apiBase.getRequest(_apiRoutes.auditorAuditPlanListAPIRoute,
+            isAuthorizationRequired: true);
+    return response;
+  }
+
+  Future getAuditPlanDetail(String? id) async {
+    APIResponse<AuditPlanDetailResponseModel?>? response =
+        await _apiBase.getRequest("${_apiRoutes.auditorAuditPlanDetailAPIRoute}/$id",
             isAuthorizationRequired: true);
     return response;
   }

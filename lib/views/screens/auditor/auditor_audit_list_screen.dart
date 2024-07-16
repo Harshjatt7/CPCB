@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/image_constants.dart';
@@ -17,10 +18,16 @@ class AuditorListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<AuditorListViewModel>(
-        onModelReady: (viewModel) {},
+        onModelReady: (viewModel) async {
+          await viewModel.getAuditPlanList(context);
+          // if (context.mounted) {
+          //
+          // }
+        },
         viewModel: AuditorListViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+            isLoading: viewModel.state == ViewState.busy,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(
                   (viewModel.searchController.text.isNotEmpty ||
@@ -80,56 +87,64 @@ class AuditorListScreen extends StatelessWidget {
                 child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: Column(
-                children: List<Widget>.generate(10, (index) {
+                children: List<Widget>.generate(
+                    viewModel.auditPlanListdata?.length ?? 0, (index) {
+                  final auditPlanList = viewModel.auditPlanListdata?[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: AuditListCard(
-                      userType: "Producer",
-                      unitName: "ABC-XYZ Unit",
-                      status: "Open",
-                      district: "South Delhi",
-                      year: "Apr-Jul, 2023-24",
-                      date: "30/08/2023",
-                      progress: 90,
-                      onTap: () {
-                        viewModel.getStatus("Open");
-
+                      userType: auditPlanList?.legalName,
+                      unitName: auditPlanList?.unitName,
+                      status: auditPlanList?.status,
+                      district: auditPlanList?.district,
+                      year: auditPlanList?.financialYear,
+                      date: auditPlanList?.endDate.toString(),
+                      progress: auditPlanList?.statusPercentage?.toDouble(),
+                      onTap: () async {
+                        if (context.mounted) {
+                          await viewModel.getAuditPlanDetail(context,
+                              id: auditPlanList?.id);
+                        }
+                        viewModel.getStatus(
+                            auditPlanList?.status.toString() ?? "assigned");
                         showModalBottomSheet(
                           isScrollControlled: true,
                           context: context,
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero),
                           builder: (context) {
+                            final auditPlanDetail =
+                                viewModel.auditPlanDetaildata?[index];
                             return AuditorBottomSheet(
-                              progress: 60,
+                              progress:
+                                  auditPlanDetail?.statusPercentage?.toDouble(),
                               status: viewModel.applicationStatus,
-                              unitName: "ABC-XYZ Unit",
-                              unitRegisteration: "24753942FH",
-                              unitGstin: "FHR5478D",
-                              unitType: "Producer",
-                              unitAddress:
-                                  "12/D Ayurveda Nagar, Opp. Ansal Plaza, South Delhi, New Delhi-110049",
-                              district: "South District",
-                              state: "New Delhi",
-                              currentStatus: "In progress",
-                              createdOn: "12-Mar-2024",
-                              startDate: "15-Mar-2024",
-                              endDate: "-",
+                              unitName: auditPlanDetail?.unitName,
+                              unitRegisteration: auditPlanDetail?.regNum,
+                              unitGstin: auditPlanDetail?.gstin,
+                              unitType: auditPlanDetail?.legalName,
+                              unitAddress: auditPlanDetail?.address,
+                              district: auditPlanDetail?.district,
+                              state: auditPlanDetail?.state,
+                              currentStatus: auditPlanDetail?.status,
+                              createdOn: auditPlanDetail?.quarter,
+                              startDate: auditPlanDetail?.startDate,
+                              endDate: auditPlanDetail?.endDate,
                               onPressed: () {
                                 // Navigator.pushNamed(
                                 //   context,
                                 //   AppRoutes.auditorRecyclerViewDataScreen,
                                 // );
-                                // Navigator.pushNamed(
-                                //     context, AppRoutes.auditorProducerStepperScreen,
-                                //     arguments: const CheckUserAndSummaryScreen(
-                                //         userType: "Producer",
-                                //         isSummaryScreen: false));
-                                   Navigator.pushNamed(
-                                    context, AppRoutes.auditorRecyclerStepperScreen,
+                                Navigator.pushNamed(
+                                    context, AppRoutes.auditorProducerStepperScreen,
                                     arguments: const CheckUserAndSummaryScreen(
-                                        userType: "Recycler",
+                                        userType: "Producer",
                                         isSummaryScreen: false));
+                                // Navigator.pushNamed(context,
+                                //     AppRoutes.auditorRecyclerStepperScreen,
+                                //     arguments: const CheckUserAndSummaryScreen(
+                                //         userType: "Recycler",
+                                //         isSummaryScreen: false));
                               },
                             );
                           },
