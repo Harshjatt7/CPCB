@@ -9,3 +9,4 @@ extension GlobalProviderHelper on BuildContext {
     return Provider.of<MaterialAppViewModel>(this, listen: false);
   }
 }
+

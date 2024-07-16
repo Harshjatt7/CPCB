@@ -57,8 +57,16 @@ class APIRoutes {
   final String auditorDashboardAPIRoute = "api/auditor/dashboard";
   final String auditorAuditPlanListAPIRoute = "api/auditor/audit-plans";
   final String auditorAuditPlanDetailAPIRoute = "api/auditor/audit-plan-details";
+  final String auditorRecyclerForm1APIRoute = "api/auditor/recyclerChecklist/";
+  final String auditorRecyclerForm2APIRoute =
+      "api/auditor/checklist/recycler/processing-capacity/";
+  final String fileUploadAPIRoute = "api/auditor/recyclerChecklist/file-upload";
+  final String auditorRecyclerForm1PostAPIRoute="api/auditor/recyclerChecklist/store-general-information/";
+  
+
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
+  final String initiateRegistrationWebUrl = "initiateRegistration";
 }
 
 extension ApiBaseURL on ApiEnvironments {

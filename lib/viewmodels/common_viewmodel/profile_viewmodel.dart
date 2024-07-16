@@ -16,7 +16,7 @@ import '../material_app_viewmodel.dart';
 class ProfileViewModel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
   final StoreKeyConstants storeKeyConstants = StoreKeyConstants();
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
 
   final _commonRepo = CommonRepository();
   APIResponse<ProfileResponseModel?>? _profileResponseModel;
@@ -25,12 +25,11 @@ class ProfileViewModel extends BaseViewModel {
   ProfileData? data;
 
   void clearAppData(context) async {
-    var res = await logout();
+    var res = await logout(context);
     if (res?.isSuccess == true) {
       await SecureStorage.instance
           .deleteSensitiveInfo(storeKeyConstants.userType);
-      await SecureStorage.instance
-          .deleteSensitiveInfo(storeKeyConstants.token);
+      await SecureStorage.instance.deleteSensitiveInfo(storeKeyConstants.token);
       await SecureStorage.instance
           .deleteSensitiveInfo(storeKeyConstants.refreshToken);
       await SecureStorage.instance
@@ -70,10 +69,9 @@ class ProfileViewModel extends BaseViewModel {
     return _profileResponseModel;
   }
 
-  Future<APIResponse?> logout() async {
+  Future<APIResponse?> logout(BuildContext context) async {
     state = ViewState.busy;
     var res = await _commonRepo.logout();
-
     state = ViewState.idle;
 
     return res;
