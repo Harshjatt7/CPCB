@@ -27,9 +27,9 @@ class AuditorRepository {
     return response;
   }
 
-  Future getAuditPlanDetail() async {
+  Future getAuditPlanDetail(String? id) async {
     APIResponse<AuditPlanDetailResponseModel?>? response =
-        await _apiBase.getRequest(_apiRoutes.auditorAuditPlanDetailAPIRoute,
+        await _apiBase.getRequest("${_apiRoutes.auditorAuditPlanDetailAPIRoute}/$id",
             isAuthorizationRequired: true);
     return response;
   }

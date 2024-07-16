@@ -31,7 +31,8 @@ enum AuditorStatus {
   acknowledge('Acknowledge'),
   start('Start'),
   viewReport('View Report'),
-  resume("Continue");
+  resume("Continue"),
+  assigned('assigned');
 
   const AuditorStatus(this.text);
   final String text;

@@ -88,8 +88,8 @@ class AuditorBottomSheet extends StatelessWidget {
                   thirdLabel: stringConstants.unitGstin,
                   fourthLabel: stringConstants.unitType,
                   firstValue: unitName,
-                  secondValue: unitGstin,
-                  thirdValue: unitRegisteration,
+                  secondValue: unitRegisteration,
+                  thirdValue: unitGstin,
                   fourthValue: unitType,
                   labelStyle: Theme.of(context)
                       .textTheme
@@ -106,8 +106,8 @@ class AuditorBottomSheet extends StatelessWidget {
                 thirdLabel: stringConstants.createdOn,
                 fourthLabel: stringConstants.auditorEndDate,
                 firstValue: currentStatus,
-                secondValue: createdOn,
-                thirdValue: startDate,
+                secondValue: startDate,
+                thirdValue: createdOn,
                 fourthValue: endDate,
               ),
               buildDivider(),

@@ -1,18 +1,24 @@
+// To parse this JSON data, do
+//
+//     final auditPlanListResponseModel = auditPlanListResponseModelFromJson(jsonString);
+
 import 'dart:convert';
 
 AuditPlanListResponseModel auditPlanListResponseModelFromJson(String str) => AuditPlanListResponseModel.fromJson(json.decode(str));
 
 class AuditPlanListResponseModel {
     List<AuditPlanListData>? data;
+    int? status;
 
     AuditPlanListResponseModel({
         this.data,
+        this.status,
     });
 
     factory AuditPlanListResponseModel.fromJson(Map<String, dynamic> json) => AuditPlanListResponseModel(
         data: json["data"] == null ? [] : List<AuditPlanListData>.from(json["data"]!.map((x) => AuditPlanListData.fromJson(x))),
+        status: json["status"],
     );
-
 }
 
 class AuditPlanListData {
@@ -26,8 +32,8 @@ class AuditPlanListData {
     String? state;
     String? quarter;
     String? financialYear;
-    dynamic startDate;
-    DateTime? endDate;
+    String? startDate;
+    String? endDate;
     String? status;
     int? statusPercentage;
     String? address;
@@ -64,7 +70,7 @@ class AuditPlanListData {
         quarter: json["quarter"],
         financialYear: json["financial_year"],
         startDate: json["start_date"],
-        endDate: json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
+        endDate: json["end_date"],
         status: json["status"],
         statusPercentage: json["status_percentage"],
         address: json["address"],

@@ -33,11 +33,11 @@ class AuditorListViewModel extends BaseViewModel {
   List<AuditPlanDetailData>? auditPlanDetaildata;
 
   Future<APIResponse<AuditPlanDetailResponseModel?>?> getAuditPlanDetail(
-      BuildContext context) async {
+      BuildContext context,{String? id}) async {
     state = ViewState.busy;
 
     try {
-      _auditPlanDetailModel = await auditorRepository.getAuditPlanDetail();
+      _auditPlanDetailModel = await auditorRepository.getAuditPlanDetail(id);
       if (_auditPlanDetailModel?.isSuccess == true) {
         _auditPlanDetailModel?.data = AuditPlanDetailResponseModel.fromJson(
             _auditPlanDetailModel?.completeResponse);
@@ -76,26 +76,27 @@ class AuditorListViewModel extends BaseViewModel {
     } catch (err) {
       helperFunction.logger("$err");
     }
-
     state = ViewState.idle;
-
     return _auditPlanListModel;
   }
 
   getStatus(String status) {
     switch (status) {
-      case "In Progress":
+      case "continue":
         applicationStatus = AuditorStatus.resume.text;
         break;
-      case "Open":
+      case "assigned":
         applicationStatus = AuditorStatus.acknowledge.text;
         break;
-      case "Scheduled":
+      case "started":
         applicationStatus = AuditorStatus.start.text;
         break;
       case "Completed":
         applicationStatus = AuditorStatus.viewReport.text;
         break;
+      case "acknowledged":
+        applicationStatus = AuditorStatus.acknowledge.text;
+        break;  
       default:
         applicationStatus = AuditorStatus.start.text;
         break;
