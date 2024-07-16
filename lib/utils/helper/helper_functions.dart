@@ -486,7 +486,7 @@ class HelperFunctions {
   Future<DateTime?> datePicker(
       BuildContext context, DateTime firstDate, DateTime lastDate) {
     return showDatePicker(
-        locale: Locale("en", "GB"),
+        locale: const Locale("en", "GB"),
         builder: (context, child) {
           return Theme(
               data: Theme.of(context).copyWith(

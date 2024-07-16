@@ -16,10 +16,8 @@ import 'package:cpcb_tyre/views/screens/retrader/retreader_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/spcb/spcb_home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
-import '../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import '../views/screens/admin/admin_homescreen.dart';
 import '../views/screens/auditor/auditor_home_screen.dart';
-import '../views/screens/auditor/common_stepper_screen.dart';
 import '../views/screens/producer/producer_home_screen.dart';
 import '../views/screens/producer/sales_data_screen.dart';
 
@@ -67,9 +65,6 @@ class PageRouter {
         return _getPageRoute(const CustomHomeScreen(), settings);
       case AppRoutes.auditorHomeScreen:
         return _getPageRoute(AuditorHomeScreen(), settings);
-      case AppRoutes.auditorStepperScreen:
-        CheckUserAndSummaryScreen checkUser = settings.arguments as CheckUserAndSummaryScreen;
-        return _getPageRoute(CommonStepperScreen(checkUser: checkUser,forms: [],), settings);
       case AppRoutes.auditorRecyclerProcurementScreen:
         return _getPageRoute(const RecyclerProcurementList(), settings);
       case AppRoutes.auditorRecyclerDetailScreen:
