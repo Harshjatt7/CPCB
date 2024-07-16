@@ -37,81 +37,81 @@ class SplashViewModel extends BaseViewModel {
 
     isJailbroken = jailbroken;
 
+    if (isJailbroken == false) {
+      wait(context);
+    }
+
     updateUI();
   }
 
   Future wait(BuildContext context) async {
-    initPlatformState(context);
+    await Future.delayed(const Duration(seconds: 4));
+    // await SecureStorage.instance.storeSensitiveInfo("isFirstInstall", true);
 
-    if (isJailbroken == false) {
-      await Future.delayed(const Duration(seconds: 4));
-      // await SecureStorage.instance.storeSensitiveInfo("isFirstInstall", true);
+    final prefs = await SharedPreferences.getInstance();
 
-      final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('isFirstInstall') ?? true) {
+      await SecureStorage.instance.deleteAllValues();
 
-      if (prefs.getBool('isFirstInstall') ?? true) {
-        await SecureStorage.instance.deleteAllValues();
+      prefs.setBool('isFirstInstall', false);
+    }
 
-        prefs.setBool('isFirstInstall', false);
-      }
-
-      await helperFunctions.getLoginStatus(context);
-      if (context.globalProvider.isLogin == false) {
-        Navigator.pushReplacementNamed(context, AppRoutes.loginScreenRoute);
-      } else {
-        await helperFunctions.getUserType(context);
-        switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
-          case UserTypes.admin:
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(
-                  context, AppRoutes.adminHomeScreenRoute);
-            }
-            break;
-          case UserTypes.auditor:
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(
-                  context, AppRoutes.auditorHomeScreen);
-            }
-            break;
-          case UserTypes.spcb:
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(
-                  context, AppRoutes.spcbHomeScreenRoute);
-            }
-            break;
-          case UserTypes.inspection:
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(context, '');
-            }
-            break;
-          case UserTypes.producer:
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(
-                  context, AppRoutes.producerHomeScreenRoute);
-            }
-            break;
-          case UserTypes.recycler:
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(
-                  context, AppRoutes.recyclerHomeScreenRoute);
-            }
-            break;
-          case UserTypes.retreader:
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(
-                  context, AppRoutes.retraderHomeScreenRoute);
-            }
-            break;
-          case UserTypes.custom:
-            if (context.mounted) {
-              Navigator.pushReplacementNamed(
-                  context, AppRoutes.customHomeScreenRoute);
-            }
-            break;
-          default:
-            Navigator.pushReplacementNamed(context, AppRoutes.loginScreenRoute);
-            break;
-        }
+    await helperFunctions.getLoginStatus(context);
+    if (context.globalProvider.isLogin == false) {
+      Navigator.pushReplacementNamed(context, AppRoutes.loginScreenRoute);
+    } else {
+      await helperFunctions.getUserType(context);
+      switch (MaterialAppViewModel.userTypeEnum ?? UserTypes.custom) {
+        case UserTypes.admin:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.adminHomeScreenRoute);
+          }
+          break;
+        case UserTypes.auditor:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.auditorHomeScreen);
+          }
+          break;
+        case UserTypes.spcb:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.spcbHomeScreenRoute);
+          }
+          break;
+        case UserTypes.inspection:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(context, '');
+          }
+          break;
+        case UserTypes.producer:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.producerHomeScreenRoute);
+          }
+          break;
+        case UserTypes.recycler:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.recyclerHomeScreenRoute);
+          }
+          break;
+        case UserTypes.retreader:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.retraderHomeScreenRoute);
+          }
+          break;
+        case UserTypes.custom:
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(
+                context, AppRoutes.customHomeScreenRoute);
+          }
+          break;
+        default:
+          Navigator.pushReplacementNamed(context, AppRoutes.loginScreenRoute);
+          break;
       }
     }
   }

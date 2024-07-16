@@ -18,8 +18,8 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<SplashViewModel>(
-        onModelReady: (viewmodel) {
-          viewmodel.wait(context);
+        onModelReady: (viewmodel) async {
+          await viewmodel.initPlatformState(context);
         },
         viewModel: SplashViewModel(),
         builder: (context, viewmodel, child) {
@@ -49,6 +49,8 @@ class SplashScreen extends StatelessWidget {
                       ),
                     );
                   });
+            } else {
+              viewmodel.wait(context);
             }
           });
           return CustomScaffold(
