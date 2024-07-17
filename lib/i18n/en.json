@@ -287,5 +287,7 @@
     "pending-audits":"Pending Audits",
     "completed-audits":"Completed Audits",
     "agency":"Agency",
-    "year":"Year"
+    "year":"Year",
+    "rooted-device-desc": "This application is not supported for rooted device. Please try installing on a non rooted device.",
+    "rooted-device-detected": "Rooted Device Detected!!"
 }
