@@ -50,11 +50,9 @@ enum AuditorProducerForm1 {
 enum RecyclerForm1 {
   aadhar('aadhar'),
   panNo("panNo"),
-  plant("plantUpload"),
   power("power"),
   pollution("pollution"),
-  video("video"),
-  machine("machine");
+  video("video");
 
   const RecyclerForm1(this.text);
   final String text;

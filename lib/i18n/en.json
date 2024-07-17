@@ -286,5 +286,6 @@
     "audits-start":"Audits Start",
     "pending-audits":"Pending Audits",
     "completed-audits":"Completed Audits",
-    "agency":"Agency"
+    "agency":"Agency",
+    "year":"Year"
 }

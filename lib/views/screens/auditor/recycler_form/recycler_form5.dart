@@ -172,7 +172,7 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
               dropDownItem: const ["Yes", "No"],
               value: viewModel.installDropdownValue,
               onChanged: (value) {
-                viewModel.changeDropdownValue(value);
+                viewModel.installChangeDropdownValue(value);
               },
             ),
           ),
@@ -256,8 +256,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
       {String? groupValue, void Function(String?)? onChanged}) {
     return CommonRadioButton(
         groupValue: groupValue ?? '',
-        value1: stringConstants.notConfirmed,
-        value2: stringConstants.confirmed,
+        value1: stringConstants.radioValue1,
+        value2: stringConstants.radioValue2,
         label1: stringConstants.notConfirmed,
         label2: stringConstants.confirmed,
         onChanged: onChanged);
