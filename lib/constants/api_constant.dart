@@ -57,6 +57,12 @@ class APIRoutes {
   final String auditorDashboardAPIRoute = "api/auditor/dashboard";
   final String auditorAuditPlanListAPIRoute = "api/auditor/audit-plans";
   final String auditorAuditPlanDetailAPIRoute = "api/auditor/audit-plan-details";
+  final String auditorProducerForm1ResponseAPIRoute = "api/auditor/checklist/producer/company-details";
+  final String auditorProducerForm1RequestAPIRoute = "api/auditor/checklist/producer/company-details-store";
+  final String auditorProducerForm2ResponseAPIRoute = "api/auditor/checklist/producer/producer-sales-data";
+  final String auditorProducerForm2RequestAPIRoute = "api/auditor/checklist/producer/producer-sales-data-store";
+  final String auditorProducerForm3RequestAPIRoute = "api/auditor/checklist/producer/summary-report-store";
+  final String auditorProducerForm3ResponseAPIRoute ="api/auditor/checklist/producer/producer-sales-data";
   final String auditorRecyclerForm1APIRoute = "api/auditor/recyclerChecklist/";
   final String auditorRecyclerForm2APIRoute =
       "api/auditor/checklist/recycler/processing-capacity/";

@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/models/request/auditor/produer_form_1_request_model.dart';
+import 'package:cpcb_tyre/models/request/auditor/producer/produer_form_1_request_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
