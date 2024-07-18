@@ -13,14 +13,12 @@ import '../../../widgets/forms/stepper_button.dart';
 class ProducerForm3 extends StatelessWidget {
   final bool? isSummaryScreen;
   final String? id;
-  ProducerForm3({super.key, this.isSummaryScreen, this.id});
-
-  late ProducerFormsViewModel viewModel;
+  ProducerFormsViewModel viewModel;
+  ProducerForm3(
+      {super.key, this.isSummaryScreen, this.id, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
-    viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
-    
     return Consumer<ProducerFormsViewModel>(
       builder: (context, viewModel, child) {
         return Stack(children: [

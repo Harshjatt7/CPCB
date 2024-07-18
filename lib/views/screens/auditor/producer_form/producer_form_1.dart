@@ -13,13 +13,11 @@ import '../../../widgets/components/common_text_widget.dart';
 class ProducerForm1 extends StatelessWidget {
   final bool? isSummaryScreen;
   final String? id;
-  ProducerForm1({super.key, this.isSummaryScreen, this.id});
-
-  late ProducerFormsViewModel viewModel;
+  ProducerFormsViewModel viewModel;
+  ProducerForm1({super.key, this.isSummaryScreen, this.id,required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
-    viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
     return Consumer<ProducerFormsViewModel>(builder: (context, value, child) {
       return Stack(
         children: [

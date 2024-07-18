@@ -135,14 +135,12 @@ class _CommonTextFormFieldWidgetNewState
       setState(() {
         isFocused = !isFocused;
       });
-      HelperFunctions().logger("UnFocus>>>$isFocused");
       removeEmptySpace();
     }
     if (_focusNode.hasFocus) {
       setState(() {
         isFocused = !isFocused;
       });
-      HelperFunctions().logger("Focus>>>$isFocused");
     }
   }
 

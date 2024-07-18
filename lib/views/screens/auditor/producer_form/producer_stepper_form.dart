@@ -26,9 +26,9 @@ class _ProdcerStepperState extends State<ProducerStepper> {
                   userType: widget.userDetails?.userType,
                   id: widget.userDetails?.id),
               forms: [
-                form1(widget.userDetails?.id),
-                form2(widget.userDetails?.id),
-                form3(widget.userDetails?.id),
+                form1(widget.userDetails?.id,viewModel: viewModel),
+                form2(widget.userDetails?.id,viewModel: viewModel),
+                form3(widget.userDetails?.id,viewModel: viewModel),
               ]);
         },
         onModelReady: (viewModel) async {
@@ -39,15 +39,15 @@ class _ProdcerStepperState extends State<ProducerStepper> {
         viewModel: ProducerFormsViewModel());
   }
 
-  Widget form1(String? id) {
-    return ProducerForm1(id: id);
+  Widget form1(String? id, {required ProducerFormsViewModel viewModel}) {
+    return ProducerForm1(id: id,viewModel: viewModel,);
   }
 
-  Widget form2(String? id) {
-    return ProducerForm2(id: id);
+  Widget form2(String? id,{required ProducerFormsViewModel viewModel}) {
+    return ProducerForm2(id: id,viewModel: viewModel);
   }
 
-  Widget form3(String? id) {
-    return ProducerForm3(id: id);
+  Widget form3(String? id,{required ProducerFormsViewModel viewModel}) {
+    return ProducerForm3(id: id,viewModel: viewModel);
   }
 }
