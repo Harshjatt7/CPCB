@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form3_reponse_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form4_response_model.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
@@ -83,7 +84,8 @@ class PageRouter {
             ),
             settings);
       case AppRoutes.auditorProducerStepperScreen:
-        return _getPageRoute(const ProducerStepper(), settings);
+      CheckUserAndSummaryScreen userDetails = settings.arguments as CheckUserAndSummaryScreen;
+        return _getPageRoute(ProducerStepper(userDetails: userDetails), settings);
       case AppRoutes.auditorRecyclerStepperScreen:
         return _getPageRoute(const RecyclerStepper(), settings);
 

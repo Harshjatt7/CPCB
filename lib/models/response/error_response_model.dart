@@ -68,6 +68,13 @@ class ErrorsList {
   List<String>? month;
   List<String>? total;
   List<String>? complaint;
+  List<String>? companyNameAndAddressRemark;
+  List<String>? producerCategoryRemark;
+  List<String>? gstRemark;
+  List<String>? panRemark;
+  List<String>? iecRemark;
+  List<String>? auditRemark;
+  List<String>? summary;
 
   ErrorsList(
       {this.financialYear,
@@ -97,7 +104,13 @@ class ErrorsList {
       this.month,
       this.total,
       this.complaint,
-      });
+      this.companyNameAndAddressRemark,
+      this.producerCategoryRemark,
+      this.panRemark,
+      this.gstRemark,
+      this.iecRemark,
+      this.auditRemark,
+      this.summary});
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
         financialYear: json["financial_year"] == null
@@ -171,23 +184,57 @@ class ErrorsList {
         sourceTyre: json["source_tyre"] == null
             ? []
             : List<String>.from(json["source_tyre"]!.map((x) => x)),
-
-        producerType: json["producer_type"] == null 
-            ? [] 
+        producerType: json["producer_type"] == null
+            ? []
             : List<String>.from(json["producer_type"]!.map((x) => x)),
-        typeOfTyreManufacture: json["type_of_tyre_manufacture"] == null 
-            ? [] 
-            : List<String>.from(json["type_of_tyre_manufacture"]!.map((x) => x)),
-        month: json["month"] == null 
-            ? [] 
+        typeOfTyreManufacture: json["type_of_tyre_manufacture"] == null
+            ? []
+            : List<String>.from(
+                json["type_of_tyre_manufacture"]!.map((x) => x)),
+        month: json["month"] == null
+            ? []
             : List<String>.from(json["month"]!.map((x) => x)),
-        total: json["total"] == null 
-            ? [] 
+        total: json["total"] == null
+            ? []
             : List<String>.from(json["total"]!.map((x) => x)),
-        complaint: json["complaint"] == null 
-            ? [] 
+        complaint: json["complaint"] == null
+            ? []
             : List<String>.from(json["complaint"]!.map((x) => x)),
-
+        companyNameAndAddressRemark:
+            json["companyDetails.companyNameAddress.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["companyDetails.companyNameAddress.audit_remark"]!
+                        .map((x) => x)),
+        producerCategoryRemark:
+            json["companyDetails.producerCategory.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["companyDetails.producerCategory.audit_remark"]!
+                        .map((x) => x)),
+        panRemark: json["companyDetails.companyPan.audit_remark"] == null
+            ? []
+            : List<String>.from(
+                json["companyDetails.companyPan.audit_remark"]!.map((x) => x)),
+        gstRemark: json["companyDetails.companyPan.audit_remark"] == null
+            ? []
+            : List<String>.from(
+                json["companyDetails.companyPan.audit_remark"]!.map((x) => x)),
+        iecRemark: json["companyDetails.companyIec.audit_remark"] == null
+            ? []
+            : List<String>.from(
+                json["companyDetails.companyIec.audit_remark"]!.map((x) => x)),
+        auditRemark: json["summaryReport.falseInformation.audit_remark"] == null
+            ? []
+            : List<String>.from(
+                json["summaryReport.falseInformation.audit_remark"]!
+                    .map((x) => x)),
+        summary: json[
+                    "summaryReport.falseInformation.additional_data.overall_summary"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "summaryReport.falseInformation.additional_data.overall_summary"]!
+                .map((x) => x)),
       );
-
 }

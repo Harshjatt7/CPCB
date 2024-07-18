@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -26,7 +27,7 @@ class CommonStepperScreen extends StatelessWidget {
         viewModel: CommonStepperViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
-            isLoading: isLoading,
+            isLoading: viewModel.state == ViewState.busy,
             resizeToBottomInset: true,
             onWillPop: () async {
               viewModel.onBackButton(context);

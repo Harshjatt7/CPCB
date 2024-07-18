@@ -17,7 +17,7 @@ class ProducerForm1ResponseModel {
 
 class ProducerForm1Data {
     String? auditPlanId;
-    CompanyDetails? companyDetails;
+    CompanyDetailsResponse? companyDetails;
     AuditSummary? auditSummary;
 
     ProducerForm1Data({
@@ -28,8 +28,8 @@ class ProducerForm1Data {
 
     factory ProducerForm1Data.fromJson(Map<String, dynamic> json) => ProducerForm1Data(
         auditPlanId: json["auditPlanId"],
-        companyDetails: json["companyDetails"] == null ? null : CompanyDetails.fromJson(json["companyDetails"]),
-        auditSummary: json["auditSummary"] == null ? null : AuditSummary.fromJson(json["auditSummary"]),
+        companyDetails: json["companyDetails"] == null ? null : CompanyDetailsResponse.fromJson(json["companyDetails"]),
+        // auditSummary: json["auditSummary"] == null ? null : AuditSummary.fromJson(json["auditSummary"]),
     );
 
 }
@@ -86,7 +86,7 @@ class CompanyCin {
     );
 }
 
-class CompanyDetails {
+class CompanyDetailsResponse {
     String? companyNameAndAddress;
     String? categoryOfProducer;
     String? gstNo;
@@ -102,7 +102,7 @@ class CompanyDetails {
     String? cinFileName;
     String? iecFileName;
 
-    CompanyDetails({
+    CompanyDetailsResponse({
         this.companyNameAndAddress,
         this.categoryOfProducer,
         this.gstNo,
@@ -119,7 +119,7 @@ class CompanyDetails {
         this.iecFileName,
     });
 
-    factory CompanyDetails.fromJson(Map<String, dynamic> json) => CompanyDetails(
+    factory CompanyDetailsResponse.fromJson(Map<String, dynamic> json) => CompanyDetailsResponse(
         companyNameAndAddress: json["companyNameAndAddress"],
         categoryOfProducer: json["categoryOfProducer"],
         gstNo: json["gstNo"],
