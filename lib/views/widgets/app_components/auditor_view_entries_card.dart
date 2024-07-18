@@ -1,11 +1,8 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-
-import '../../../constants/image_constants.dart';
 
 class AuditorViewEntriesCard extends StatelessWidget {
   final bool? isDetailProduct;
@@ -47,69 +44,79 @@ class AuditorViewEntriesCard extends StatelessWidget {
             children: [
               CommonTextWidget(supplierName ?? "",
                   style: Theme.of(context).textTheme.displayMedium),
-              if (isDetailProduct == false)
-                InkWell(
-                  onTap: onEditTap,
-                  child: CommonImageWidget(
-                      imageSource: ImageConstants().editIcon,
-                      isNetworkImage: false),
-                ),
-              if (isDetailProduct == true)
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: onViewTap,
-                      child: CommonImageWidget(
-                        imageSource: ImageConstants().viewEyes,
-                        isNetworkImage: false,
-                        imageColor: AppColor().darkGreen,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    InkWell(
-                      onTap: onDownloadTap,
-                      child: CommonImageWidget(
-                        imageSource: ImageConstants().fileUpload,
-                        isNetworkImage: false,
-                        imageColor: AppColor().darkGreen,
-                      ),
-                    ),
-                  ],
-                )
+              // if (isDetailProduct == false)
+              //   InkWell(
+              //     onTap: onEditTap,
+              //     child: CommonImageWidget(
+              //         imageSource: ImageConstants().editIcon,
+              //         isNetworkImage: false),
+              //   ),
+              // if (isDetailProduct == true)
+              //   Row(
+              //     children: [
+              //       InkWell(
+              //         onTap: onViewTap,
+              //         child: CommonImageWidget(
+              //           imageSource: ImageConstants().viewEyes,
+              //           isNetworkImage: false,
+              //           imageColor: AppColor().darkGreen,
+              //         ),
+              //       ),
+              //       const SizedBox(
+              //         width: 5,
+              //       ),
+              //       InkWell(
+              //         onTap: onDownloadTap,
+              //         child: CommonImageWidget(
+              //           imageSource: ImageConstants().fileUpload,
+              //           isNetworkImage: false,
+              //           imageColor: AppColor().darkGreen,
+              //         ),
+              //       ),
+              //     ],
+              //   )
             ],
           ),
           const SizedBox(height: 8),
-          buildColumnData(context, label: "${StringConstants().invoiceNo.i18n()}: ", data: invoiceNo),
+          buildColumnData(context,
+              label: "${StringConstants().invoiceNo.i18n()}: ",
+              data: invoiceNo),
           const SizedBox(height: 8),
           buildColumnData(context,
-              label: "${StringConstants().typeOfRawMaterial.i18n()}: ", data: rawMaterial),
+              label: "${StringConstants().typeOfRawMaterial.i18n()}: ",
+              data: rawMaterial),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: Divider(
               color: AppColor().black10,
             ),
           ),
-          Row(
-            children: [
-              Flexible(
-                  flex: 1,
-                  child: buildRowData(context, label: "${StringConstants().financialYearLabel.i18n()}: ", data: year)),
-              Flexible(
-                flex: 1,
-                child: buildRowData(context,
-                    label: isDetailProduct == true
-                        ? "${StringConstants().salesInvoice.i18n()}: "
-                        : "${StringConstants().quantity.i18n()}: ",
-                    data: isDetailProduct == true ? salesInvoice : quantity),
-              ),
-              if (isDetailProduct == false)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4,),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Flexible(
                     flex: 1,
                     child: buildRowData(context,
-                        label: "${StringConstants().balance.i18n()}: ", data: balance)),
-            ],
+                        label: "${StringConstants().year.i18n()}: ",
+                        data: year)),
+                Flexible(
+                  flex: 1,
+                  child: buildRowData(context,
+                      label: isDetailProduct == true
+                          ? "${StringConstants().salesInvoice.i18n()}: "
+                          : "${StringConstants().quantity.i18n()}: ",
+                      data: isDetailProduct == true ? salesInvoice : quantity),
+                ),
+                if (isDetailProduct == false)
+                  Flexible(
+                      flex: 1,
+                      child: buildRowData(context,
+                          label: "${StringConstants().balance.i18n()}: ",
+                          data: balance)),
+              ],
+            ),
           )
         ],
       ),
@@ -120,6 +127,7 @@ class AuditorViewEntriesCard extends StatelessWidget {
     return RichText(
       text: WidgetSpan(
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             CommonTextWidget(label ?? "",
                 style: Theme.of(context)

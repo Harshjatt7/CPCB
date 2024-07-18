@@ -85,10 +85,12 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(),
-            child: CommonDropdownTextFormField(
+            child: CommonTextFormFieldWidget(
                 bgColor: appColor.black10,
-                labelText: stringConstants.select,
-                dropDownItem: const [],
+                hintText: stringConstants.select,
+                controller: viewModel.typeOfProductController,
+                isReadOnly: true,
+                isMandatory: false,
                 onChanged: null),
           ),
           commonRecyclerForm2Tile(
@@ -120,7 +122,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           ),
           commonRecyclerForm2Tile(
               title: stringConstants.actualProcessingCapacity,
-              hintText: "", //Value will come from API
+              hintText: stringConstants.enter,
               textEditingController:
                   viewModel.actualProcessingCapacityController,
               isDisable: true),
@@ -130,8 +132,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           ),
           CommonRadioButton(
             groupValue: viewModel.radioxy,
-            value1: stringConstants.notConfirmed,
-            value2: stringConstants.confirmed,
+            value1: stringConstants.radioValue1,
+            value2: stringConstants.radioValue2,
             label1: stringConstants.notConfirmed,
             label2: stringConstants.confirmed,
             onChanged: null,
@@ -144,12 +146,12 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               isDisable: true),
           commonRecyclerForm2Tile(
               title: stringConstants.totalQuantitySales,
-              hintText: "", //Value will come from API
+              hintText: "",
               textEditingController: viewModel.totalQuantitySalesController,
               isDisable: true),
           commonRecyclerForm2Tile(
               title: stringConstants.uploadSales,
-              hintText: "", //Value will come from API
+              hintText: "",
               textEditingController: viewModel.uploadSalesController,
               isDisable: true),
           Padding(
@@ -184,8 +186,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           ),
           CommonRadioButton(
               groupValue: viewModel.radiocd,
-              value1: stringConstants.notConfirmed,
-              value2: stringConstants.confirmed,
+              value1: stringConstants.radioValue1,
+              value2: stringConstants.radioValue2,
               label1: stringConstants.notConfirmed,
               label2: stringConstants.confirmed,
               onChanged: null),
@@ -224,13 +226,24 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               ? Padding(
                   padding: const EdgeInsets.symmetric(),
                   child: CommonDropdownTextFormField(
-                      bgColor: appColor.white,
-                      labelText: stringConstants.select,
-                      dropDownItem: const [],
-                      onChanged: null),
+                    bgColor: appColor.white,
+                    labelText: stringConstants.select,
+                    dropDownItem: viewModel.typeOfEndProduct,
+                    error: viewModel.endProductDropDownError,
+                    value: viewModel.endProductDropdownValue,
+                    onTap: () {
+                      viewModel.endProductChangeDropDown(
+                          viewModel.endProductDropdownValue);
+                    },
+                    onChanged: (value) {
+                      viewModel.endProductChangeDropDown(value);
+
+                      viewModel.endProductDropDownError = null;
+                    },
+                  ),
                 )
               : CommonTextFormFieldWidget(
-                  hintText: '',
+                  hintText: stringConstants.enter,
                   isReadOnly: true,
                   isMandatory: false,
                   controller: TextEditingController()),
@@ -278,7 +291,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           ),
           commonRecyclerForm2Tile(
               title: stringConstants.actualProcessingCapacity,
-              hintText: "", //Value will come from API
+              hintText: stringConstants.enter,
               textEditingController:
                   viewModel.actualProcessingCapacityController,
               isDisable: true),
@@ -288,8 +301,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           ),
           CommonRadioButton(
             groupValue: viewModel.radioxy,
-            value1: stringConstants.notConfirmed,
-            value2: stringConstants.confirmed,
+            value1: stringConstants.radioValue1,
+            value2: stringConstants.radioValue2,
             label1: stringConstants.notConfirmed,
             label2: stringConstants.confirmed,
             onChanged: (value) {
@@ -309,12 +322,12 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               isDisable: false),
           commonRecyclerForm2Tile(
               title: stringConstants.totalQuantitySales,
-              hintText: "", //Value will come from API
+              hintText: stringConstants.enter,
               textEditingController: viewModel.totalQuantitySalesController,
               isDisable: true),
           commonRecyclerForm2Tile(
               title: stringConstants.uploadSales,
-              hintText: "", //Value will come from API
+              hintText: stringConstants.enter,
               textEditingController: viewModel.uploadSalesController,
               isDisable: true),
           Padding(
@@ -357,8 +370,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           ),
           CommonRadioButton(
             groupValue: viewModel.radiocd,
-            value1: stringConstants.notConfirmed,
-            value2: stringConstants.confirmed,
+            value1: stringConstants.radioValue1,
+            value2: stringConstants.radioValue2,
             label1: stringConstants.notConfirmed,
             label2: stringConstants.confirmed,
             onChanged: (value) {

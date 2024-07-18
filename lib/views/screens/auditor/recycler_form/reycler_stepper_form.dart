@@ -1,4 +1,4 @@
-import 'package:cpcb_tyre/constants/api_constant.dart';
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form4.dart';
@@ -23,10 +23,11 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
   Widget build(BuildContext context) {
     return BaseView<RecyclerFormViewModel>(
         builder: (context, viewModel, child) {
-          return const CommonStepperScreen(
-              checkUser: CheckUserAndSummaryScreen(
+          return CommonStepperScreen(
+              isLoading: viewModel.state == ViewState.busy,
+              checkUser: const CheckUserAndSummaryScreen(
                   isSummaryScreen: false, userType: "Recycler"),
-              forms: [
+              forms: const [
                 AuditorRecyclerForm1(),
                 AuditorRecyclerForm2(),
                 AuditorRecyclerForm3(),
@@ -40,13 +41,28 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
           viewModel.textForm2Listener();
           viewModel.textForm3Listener();
           await viewModel.getCurrentLocation();
+          // if (context.mounted) {
+          //   await viewModel.getRecycler1Data(context);
+          // }
+          // if (context.mounted) {
+          //   await viewModel.getRecycler2Data(
+          //     context,
+          //   );
+          // }
+          // if (context.mounted) {
+          //   await viewModel.getRecycler3Data(
+          //     context,
+          //   );
+          // }
           if (context.mounted) {
-            await viewModel.getRecyclerData(context,
-                url: APIRoutes().auditorRecyclerForm1APIRoute);
+            await viewModel.getRecycler4Data(
+              context,
+            );
           }
           if (context.mounted) {
-            await viewModel.getRecyclerData(context,
-                url: APIRoutes().auditorRecyclerForm2APIRoute);
+            await viewModel.getRecycler5Data(
+              context,
+            );
           }
         },
         viewModel: RecyclerFormViewModel());

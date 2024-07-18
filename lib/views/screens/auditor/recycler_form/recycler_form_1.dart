@@ -37,6 +37,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+
     super.initState();
   }
 
@@ -171,8 +172,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 isMandatory: false,
                 title: stringConstants.gpsAuditor.i18n(),
                 groupValue: viewModel.radioGps,
-                value1: stringConstants.notConfirmed,
-                value2: stringConstants.confirmed,
+                value1: stringConstants.radioValue1,
+                value2: stringConstants.radioValue2,
                 label1: stringConstants.notConfirmed,
                 label2: stringConstants.confirmed,
                 onChanged: null,
@@ -289,8 +290,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   CommonRadioButton(
                       isMandatory: false,
                       groupValue: viewModel.radioPowerConsumption,
-                      value1: stringConstants.notConfirmed,
-                      value2: stringConstants.confirmed,
+                      value1: stringConstants.radioValue1,
+                      value2: stringConstants.radioValue2,
                       label1: stringConstants.notConfirmed,
                       label2: stringConstants.confirmed,
                       onChanged: null),
@@ -349,8 +350,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 children: [
                   CommonRadioButton(
                       groupValue: viewModel.radioPlant,
-                      value1: stringConstants.notConfirmed,
-                      value2: stringConstants.confirmed,
+                      value1: stringConstants.radioValue1,
+                      value2: stringConstants.radioValue2,
                       label1: stringConstants.notConfirmed,
                       label2: stringConstants.confirmed,
                       onChanged: null),
@@ -525,8 +526,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isMandatory: true,
                   title: stringConstants.gpsAuditor.i18n(),
                   groupValue: viewModel.radioGps,
-                  value1: stringConstants.notConfirmed,
-                  value2: stringConstants.confirmed,
+                  value1: stringConstants.radioValue1,
+                  value2: stringConstants.radioValue2,
                   label1: stringConstants.notConfirmed,
                   label2: stringConstants.confirmed,
                   onChanged: (value) {
@@ -600,11 +601,14 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
             filePath: viewModel.aadharFilePath,
             onTap: () {
               viewModel.handleOnTap(context, RecyclerForm1.aadhar,
-                  viewModel.uploadAadharController, viewModel.aadharFile);
+                  viewModel.uploadAadharController);
             },
             onSuffixTap: () {
-              viewModel.handleOnSuffixTap(context, RecyclerForm1.aadhar,
-                  viewModel.uploadAadharController, viewModel.aadharFile);
+              viewModel.handleOnSuffixTap(
+                context,
+                RecyclerForm1.aadhar,
+                viewModel.uploadAadharController,
+              );
             },
             uploadValidator: (value) {
               return viewModel.uploadValidation(viewModel.aadharFileSizeModel);
@@ -627,11 +631,14 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 filePath: viewModel.panNoFilePath,
                 onTap: () {
                   viewModel.handleOnTap(context, RecyclerForm1.panNo,
-                      viewModel.uploadPanNoController, viewModel.panNoFile);
+                      viewModel.uploadPanNoController);
                 },
                 onSuffixTap: () {
-                  viewModel.handleOnSuffixTap(context, RecyclerForm1.panNo,
-                      viewModel.uploadPanNoController, viewModel.panNoFile);
+                  viewModel.handleOnSuffixTap(
+                    context,
+                    RecyclerForm1.panNo,
+                    viewModel.uploadPanNoController,
+                  );
                 },
                 uploadValidator: (value) {
                   return viewModel
@@ -662,22 +669,19 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   count: viewModel.count,
                   isDocument: true,
                   onTap: () {
-                    viewModel.handleOnTap(
-                        context,
-                        RecyclerForm1.machine,
-                        viewModel.uploadControllerList[viewModel.count - 1],
-                        viewModel.machineFile);
+                    // viewModel.handleOnTap(
+                    //     context,
+                    //     RecyclerForm1.machine,
+                    //     viewModel.uploadControllerList[viewModel.count - 1],
+                    //     viewModel.machineFile);
                   },
-                  onSuffixTap: () {
-                    viewModel.handleOnSuffixTap(
-                        context,
-                        RecyclerForm1.machine,
-                        viewModel.uploadControllerList[viewModel.count - 1],
-                        viewModel.machineFile);
+                  onSuffixTap: () async {
+                    await viewModel.handleOnMachineSuffixTap(context,
+                        viewModel.uploadControllerList[viewModel.count - 1]);
                   },
                   uploadValidator: (value) {
-                    return viewModel
-                        .uploadValidation(viewModel.machineFileSizeModel);
+                    return viewModel.uploadValidation(
+                        viewModel.machineFileSizeModel[viewModel.count - 1]);
                   },
                   onAdd: () {
                     viewModel.onAdd();
@@ -701,8 +705,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   CommonRadioButton(
                       isMandatory: true,
                       groupValue: viewModel.radioPowerConsumption,
-                      value1: stringConstants.notConfirmed,
-                      value2: stringConstants.confirmed,
+                      value1: stringConstants.radioValue1,
+                      value2: stringConstants.radioValue2,
                       label1: stringConstants.notConfirmed,
                       label2: stringConstants.confirmed,
                       onChanged: (value) {
@@ -721,17 +725,17 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         isDocument: true,
                         onTap: () {
                           viewModel.handleOnTap(
-                              context,
-                              RecyclerForm1.power,
-                              viewModel.uploadPowerController,
-                              viewModel.powerFile);
+                            context,
+                            RecyclerForm1.power,
+                            viewModel.uploadPowerController,
+                          );
                         },
                         onSuffixTap: () {
                           viewModel.handleOnSuffixTap(
-                              context,
-                              RecyclerForm1.power,
-                              viewModel.uploadPowerController,
-                              viewModel.powerFile);
+                            context,
+                            RecyclerForm1.power,
+                            viewModel.uploadPowerController,
+                          );
                         },
                         validator: (value) {
                           return viewModel
@@ -783,17 +787,17 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               isDocument: true,
               onTap: () {
                 viewModel.handleOnTap(
-                    context,
-                    RecyclerForm1.pollution,
-                    viewModel.uploadPollutionController,
-                    viewModel.pollutionFile);
+                  context,
+                  RecyclerForm1.pollution,
+                  viewModel.uploadPollutionController,
+                );
               },
               onSuffixTap: () {
                 viewModel.handleOnSuffixTap(
-                    context,
-                    RecyclerForm1.pollution,
-                    viewModel.uploadPollutionController,
-                    viewModel.pollutionFile);
+                  context,
+                  RecyclerForm1.pollution,
+                  viewModel.uploadPollutionController,
+                );
               },
             ),
           ),
@@ -808,8 +812,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 children: [
                   CommonRadioButton(
                       groupValue: viewModel.radioPlant,
-                      value1: stringConstants.notConfirmed,
-                      value2: stringConstants.confirmed,
+                      value1: stringConstants.radioValue1,
+                      value2: stringConstants.radioValue2,
                       label1: stringConstants.notConfirmed,
                       label2: stringConstants.confirmed,
                       onChanged: (value) {

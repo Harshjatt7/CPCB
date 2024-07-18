@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
@@ -11,6 +12,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
@@ -75,15 +77,22 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
             children: [
               CommonTitleWidget(
                   label: stringConstants.verificationOfProcurement),
-              Padding(
-                padding: const EdgeInsets.only(left: 32),
-                child: CommonTextWidget(
-                  useLocalization: true,
-                  stringConstants.viewEntries,
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                      color: appColor.blue100,
-                      decoration: TextDecoration.underline,
-                      decorationColor: appColor.blue100),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, AppRoutes.auditorRecyclerProcurementScreen,
+                      arguments: viewModel.procurementData);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 32),
+                  child: CommonTextWidget(
+                    useLocalization: true,
+                    stringConstants.viewEntries,
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        color: appColor.blue100,
+                        decoration: TextDecoration.underline,
+                        decorationColor: appColor.blue100),
+                  ),
                 ),
               )
             ],
@@ -140,15 +149,22 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
             children: [
               CommonTitleWidget(
                   label: stringConstants.verificationOfProcurement),
-              Padding(
-                padding: const EdgeInsets.only(left: 32),
-                child: CommonTextWidget(
-                  useLocalization: true,
-                  stringConstants.viewEntries,
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                      color: appColor.blue100,
-                      decoration: TextDecoration.underline,
-                      decorationColor: appColor.blue100),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, AppRoutes.auditorRecyclerProcurementScreen,
+                      arguments: viewModel.procurementData);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 32),
+                  child: CommonTextWidget(
+                    useLocalization: true,
+                    stringConstants.viewEntries,
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                        color: appColor.blue100,
+                        decoration: TextDecoration.underline,
+                        decorationColor: appColor.blue100),
+                  ),
                 ),
               )
             ],
@@ -255,8 +271,8 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
         CommonRadioButton(
             isMandatory: false,
             groupValue: groupValue ?? '',
-            value1: stringConstants.notConfirmed,
-            value2: stringConstants.confirmed,
+            value1: stringConstants.radioValue1,
+            value2: stringConstants.radioValue2,
             label1: stringConstants.notConfirmed,
             label2: stringConstants.confirmed,
             onChanged: onChanged),
