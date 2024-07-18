@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
@@ -71,14 +72,21 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonTitleWidget(label: stringConstants.verifyTheProduction),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: CommonTextWidget(
-              stringConstants.viewEntries,
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                  color: appColor.blue100,
-                  decoration: TextDecoration.underline,
-                  decorationColor: appColor.blue100),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                  context, AppRoutes.auditorRecyclerDetailScreen,
+                  arguments: viewModel.eprData);
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: CommonTextWidget(
+                stringConstants.viewEntries,
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                    color: appColor.blue100,
+                    decoration: TextDecoration.underline,
+                    decorationColor: appColor.blue100),
+              ),
             ),
           ),
           commonForm4Tiles(context,
@@ -108,14 +116,21 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonTitleWidget(label: stringConstants.verifyTheProduction),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: CommonTextWidget(
-              stringConstants.viewEntries,
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                  color: appColor.blue100,
-                  decoration: TextDecoration.underline,
-                  decorationColor: appColor.blue100),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                  context, AppRoutes.auditorRecyclerDetailScreen,
+                  arguments: viewModel.eprData);
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: CommonTextWidget(
+                stringConstants.viewEntries,
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                    color: appColor.blue100,
+                    decoration: TextDecoration.underline,
+                    decorationColor: appColor.blue100),
+              ),
             ),
           ),
           commonForm4Tiles(
@@ -181,8 +196,8 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
         ),
         CommonRadioButton(
           groupValue: groupValue ?? "",
-          value1: stringConstants.notConfirmed,
-          value2: stringConstants.confirmed,
+          value1: stringConstants.radioValue1,
+          value2: stringConstants.radioValue2,
           label1: stringConstants.notConfirmed,
           label2: stringConstants.confirmed,
           onChanged: onChanged,

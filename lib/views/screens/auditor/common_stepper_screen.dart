@@ -12,19 +12,21 @@ class CommonStepperScreen extends StatelessWidget {
   final CheckUserAndSummaryScreen? checkUser;
 
   final List<Widget> forms;
+  final bool? isLoading;
 
-  const CommonStepperScreen(
-      {super.key, this.checkUser, required this.forms});
+  const CommonStepperScreen({super.key, this.checkUser, required this.forms,this.isLoading=false});
 
   @override
   Widget build(BuildContext context) {
     return BaseView<CommonStepperViewModel>(
+      
         onModelReady: (viewModel) {
           viewModel.getUser(checkUser?.userType.toString());
         },
         viewModel: CommonStepperViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+            isLoading: isLoading,
             resizeToBottomInset: true,
             onWillPop: () async {
               viewModel.onBackButton(context);
