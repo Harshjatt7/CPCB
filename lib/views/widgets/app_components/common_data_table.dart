@@ -5,10 +5,10 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CommonDataTable extends StatelessWidget {
-  CommonDataTable({super.key, required this.headingList,this.list});
+  CommonDataTable({super.key, required this.headingList, this.list});
   final ScrollController scrollController = ScrollController();
   final List<String> headingList;
-  final List<P1>?  list;
+  final List<P1>? list;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -67,7 +67,7 @@ class CommonDataTable extends StatelessWidget {
                       border: Border.all(color: AppColor().grey40)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(1, (index) {
+                    children: List.generate(list?.length ?? 1, (index) {
                       return CommonProducerDataRow(
                         demoModel: list?[index],
                         isOdd: index % 2 == 0,

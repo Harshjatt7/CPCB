@@ -3,6 +3,8 @@ import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
 import 'package:cpcb_tyre/models/request/auditor/producer/producer_form_3_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form1_request_model.dart';
+import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form4_request_model.dart';
+import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form5_request_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/auditor_dashboard_response_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/producer/producer_form_1_response_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/producer/producer_form_2_response_model.dart';
@@ -161,6 +163,29 @@ class AuditorRepository {
     APIResponse<AuditorRecyclerForm1RequestModel?>? response =
         await _apiBase.postRequest(
       _apiRoutes.auditorRecyclerForm1PostAPIRoute,
+      data: request,
+      isAuthorizationRequired: true,
+    );
+    return response;
+  }
+
+  Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm4Data(
+      AuditorRecyclerForm4RequestModel requestModel,
+      {String? id}) async {
+    Map<String, dynamic> request = requestModel.toJson();
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
+      "${_apiRoutes.auditorRecyclerForm4RequestAPIRoute}$id",
+      data: request,
+      isAuthorizationRequired: true,
+    );
+    return response;
+  }
+
+  Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm5Data(
+      AuditorRecyclerForm5RequestModel requestModel) async {
+    Map<String, dynamic> request = requestModel.toJson();
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
+      _apiRoutes.auditorRecyclerForm5RequestAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );

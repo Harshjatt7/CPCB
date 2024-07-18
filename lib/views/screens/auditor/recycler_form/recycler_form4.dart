@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
@@ -16,8 +17,10 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm4 extends StatefulWidget {
-  const AuditorRecyclerForm4({super.key, this.isSummaryScreen = false});
+  const AuditorRecyclerForm4(
+      {super.key, this.isSummaryScreen = false, this.id});
   final bool? isSummaryScreen;
+  final String? id;
 
   @override
   State<AuditorRecyclerForm4> createState() => _AuditorRecyclerForm4State();
@@ -40,11 +43,22 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
       builder: (context, value, child) {
         return Stack(
           children: [
-            widget.isSummaryScreen == true
-                ? CommonSingleChildScrollView(
-                    child: summaryForm4View(context, viewModel))
-                : CommonSingleChildScrollView(
-                    child: form4View(context, viewModel)),
+            Opacity(
+              opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
+              child: widget.isSummaryScreen == true
+                  ? CommonSingleChildScrollView(
+                      child: summaryForm4View(context, viewModel))
+                  : CommonSingleChildScrollView(
+                      child: form4View(context, viewModel)),
+            ),
+            if (viewModel.state == ViewState.busy)
+              Positioned.fill(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: appColor.black,
+                  ),
+                ),
+              ),
             Positioned(
                 bottom: 0,
                 left: 10,
@@ -52,9 +66,13 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
                 child: StepperButton(
                   isLastStep: false,
                   isSummaryScreen: false,
-                  onNextOrSubmit: () {
+                  onNextOrSubmit: () async {
                     Provider.of<CommonStepperViewModel>(context, listen: false)
                         .onNextButton(context, "Recycler");
+                    await viewModel.postForm4Data(context, submit: '');
+                  },
+                  onSavedDraft: () async {
+                    await viewModel.postForm4Data(context);
                   },
                 ))
           ],
