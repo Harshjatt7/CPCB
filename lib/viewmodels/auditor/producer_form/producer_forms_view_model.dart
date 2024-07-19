@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/request/auditor/producer/produer_form_1_request_model.dart';

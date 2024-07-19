@@ -92,59 +92,74 @@ class ErrorsList {
   List<String>? actualProcessingCapacity;
   List<String>? powerOnAuditDay;
   List<String>? totalElectricityConsumption;
+  List<String>? productionInfoInvoiceAuditConfirmedStatus;
+  List<String>? productionInfoInvoiceAdditionalDataNumberOfSuppliersContacted;
+  List<String>? productionInfoInvoiceAuditRemark;
+  List<String>? productionInfoBuyersAuditConfirmedStatus;
+  List<String>? productionInfoBuyersAdditionalDataNumberOfBuyersContacted;
+  List<String>? productionInfoBuyersAuditRemark;
+  List<String>? wasteWaterGenerationAndDisposalSummaryAuditRemark;
 
-  ErrorsList(
-      {this.financialYear,
-      this.processedQty,
-      this.producedQty,
-      this.retreadedDate,
-      this.sellerName,
-      this.sellerMobile,
-      this.sellerAddress,
-      this.rawMaterial,
-      this.purchasedQuantity,
-      this.invoiceNumber,
-      this.sellerGstNo,
-      this.purchaseDate,
-      this.procurementInvoiceFile,
-      this.financeYear,
-      this.wasteTyreSupplierName,
-      this.wasteTyreSupplierContact,
-      this.wasteTyreSupplierAddress,
-      this.typeOfRecycledMaterial,
-      this.wasteTyreSupplierGst,
-      this.wasteGeneratedQty,
-      this.sourceTyre,
-      this.recycledDate,
-      this.producerType,
-      this.typeOfTyreManufacture,
-      this.month,
-      this.total,
-      this.complaint,
-      this.companyNameAndAddressRemark,
-      this.producerCategoryRemark,
-      this.panRemark,
-      this.gstRemark,
-      this.iecRemark,
-      this.auditRemark,
-      this.summary,
-      this.actualProcessingCapacity,
-      this.capacityTypeofEndProduct,
-      this.contactedAuditRemark,
-      this.contactedSuppliers,
-      this.endProductProducedAuditDay,
-      this.physicallyContactedAuditRemark,
-      this.physicallyVerifiedAuditRemark,
-      this.physicallyContactedSuppliers,
-      this.physicallyVerifiedSuppliers,
-      this.plantPerDay,
-      this.plantPerShift,
-      this.plantPerYear,
-      this.plantProductionCapacity,
-      this.powerOnAuditDay,
-      this.totalElectricityConsumption,
-      this.verifiedAuditRemark,
-      this.verifiedSuppliers});
+  ErrorsList({
+    this.financialYear,
+    this.processedQty,
+    this.producedQty,
+    this.retreadedDate,
+    this.sellerName,
+    this.sellerMobile,
+    this.sellerAddress,
+    this.rawMaterial,
+    this.purchasedQuantity,
+    this.invoiceNumber,
+    this.sellerGstNo,
+    this.purchaseDate,
+    this.procurementInvoiceFile,
+    this.financeYear,
+    this.wasteTyreSupplierName,
+    this.wasteTyreSupplierContact,
+    this.wasteTyreSupplierAddress,
+    this.typeOfRecycledMaterial,
+    this.wasteTyreSupplierGst,
+    this.wasteGeneratedQty,
+    this.sourceTyre,
+    this.recycledDate,
+    this.producerType,
+    this.typeOfTyreManufacture,
+    this.month,
+    this.total,
+    this.complaint,
+    this.companyNameAndAddressRemark,
+    this.producerCategoryRemark,
+    this.panRemark,
+    this.gstRemark,
+    this.iecRemark,
+    this.auditRemark,
+    this.summary,
+    this.actualProcessingCapacity,
+    this.capacityTypeofEndProduct,
+    this.contactedAuditRemark,
+    this.contactedSuppliers,
+    this.endProductProducedAuditDay,
+    this.physicallyContactedAuditRemark,
+    this.physicallyVerifiedAuditRemark,
+    this.physicallyContactedSuppliers,
+    this.physicallyVerifiedSuppliers,
+    this.plantPerDay,
+    this.plantPerShift,
+    this.plantPerYear,
+    this.plantProductionCapacity,
+    this.powerOnAuditDay,
+    this.totalElectricityConsumption,
+    this.verifiedAuditRemark,
+    this.verifiedSuppliers,
+    this.productionInfoInvoiceAuditConfirmedStatus,
+    this.productionInfoInvoiceAdditionalDataNumberOfSuppliersContacted,
+    this.productionInfoInvoiceAuditRemark,
+    this.productionInfoBuyersAuditConfirmedStatus,
+    this.productionInfoBuyersAdditionalDataNumberOfBuyersContacted,
+    this.productionInfoBuyersAuditRemark,
+    this.wasteWaterGenerationAndDisposalSummaryAuditRemark,
+  });
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
         financialYear: json["financial_year"] == null
@@ -381,5 +396,47 @@ class ErrorsList {
             : List<String>.from(json[
                     "processingCapacity.electricityVerification.additional_data.total_electricity_consumption"]!
                 .map((x) => x)),
+        productionInfoInvoiceAuditConfirmedStatus:
+            json["productionInfo.invoice.audit_confirmed_status"] == null
+                ? []
+                : List<String>.from(
+                    json["productionInfo.invoice.audit_confirmed_status"]!
+                        .map((x) => x)),
+        productionInfoInvoiceAdditionalDataNumberOfSuppliersContacted: json[
+                    "productionInfo.invoice.additional_data.numberOfSuppliersContacted"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "productionInfo.invoice.additional_data.numberOfSuppliersContacted"]!
+                .map((x) => x)),
+        productionInfoInvoiceAuditRemark:
+            json["productionInfo.invoice.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["productionInfo.invoice.audit_remark"]!.map((x) => x)),
+        productionInfoBuyersAuditConfirmedStatus:
+            json["productionInfo.buyers.audit_confirmed_status"] == null
+                ? []
+                : List<String>.from(
+                    json["productionInfo.buyers.audit_confirmed_status"]!
+                        .map((x) => x)),
+        productionInfoBuyersAdditionalDataNumberOfBuyersContacted: json[
+                    "productionInfo.buyers.additional_data.numberOfBuyersContacted"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "productionInfo.buyers.additional_data.numberOfBuyersContacted"]!
+                .map((x) => x)),
+        productionInfoBuyersAuditRemark:
+            json["productionInfo.buyers.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["productionInfo.buyers.audit_remark"]!.map((x) => x)),
+        wasteWaterGenerationAndDisposalSummaryAuditRemark:
+            json["wasteWaterGenerationAndDisposal.summary.audit_remark"] == null
+                ? []
+                : List<String>.from(json[
+                        "wasteWaterGenerationAndDisposal.summary.audit_remark"]!
+                    .map((x) => x)),
       );
 }

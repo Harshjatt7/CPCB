@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
@@ -42,11 +43,22 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
       builder: (context, value, child) {
         return Stack(
           children: [
-            widget.isSummaryScreen == true
-                ? CommonSingleChildScrollView(
-                    child: summaryForm3View(context, viewModel))
-                : CommonSingleChildScrollView(
-                    child: form3View(context, viewModel)),
+            Opacity(
+              opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
+              child: widget.isSummaryScreen == true
+                  ? CommonSingleChildScrollView(
+                      child: summaryForm3View(context, viewModel))
+                  : CommonSingleChildScrollView(
+                      child: form3View(context, viewModel)),
+            ),
+            if (viewModel.state == ViewState.busy)
+              Positioned.fill(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: appColor.black,
+                  ),
+                ),
+              ),
             Positioned(
                 bottom: 0,
                 left: 10,

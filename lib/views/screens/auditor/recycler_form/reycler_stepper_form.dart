@@ -26,16 +26,20 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
               isLoading: viewModel.state == ViewState.busy,
-              checkUser: const CheckUserAndSummaryScreen(
-                  isSummaryScreen: false, userType: "Recycler"),
+              checkUser:  CheckUserAndSummaryScreen(
+                  isSummaryScreen: false,
+                  userType: widget.userDetails?.userType,
+                  id: widget.userDetails?.id),
               forms: [
-                AuditorRecyclerForm1(),
+                const AuditorRecyclerForm1(),
                 AuditorRecyclerForm2(
                   id: widget.userDetails?.id,
                   isRetreader: true,
                 ),
                 AuditorRecyclerForm3(id: widget.userDetails?.id),
-                AuditorRecyclerForm4(),
+                AuditorRecyclerForm4(
+                  id: widget.userDetails?.id,
+                ),
                 AuditorRecyclerForm5()
               ]);
         },
@@ -59,14 +63,7 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
             );
           }
           if (context.mounted) {
-            await viewModel.getRecycler4Data(
-              context,
-            );
-          }
-          if (context.mounted) {
-            await viewModel.getRecycler5Data(
-              context,
-            );
+            await viewModel.getRecycler1Data(context);
           }
         
         },
