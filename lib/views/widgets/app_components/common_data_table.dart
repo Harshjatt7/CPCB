@@ -8,7 +8,7 @@ class CommonDataTable extends StatelessWidget {
   CommonDataTable({super.key, required this.headingList, this.list});
   final ScrollController scrollController = ScrollController();
   final List<String> headingList;
-  final List<P1>? list;
+  final List<Producers>?  list;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

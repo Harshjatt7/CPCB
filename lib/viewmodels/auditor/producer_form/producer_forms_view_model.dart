@@ -3,11 +3,13 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/request/auditor/producer/produer_form_1_request_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
+import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/enums/state_enums.dart';
+import '../../../constants/routes_constant.dart';
 import '../../../controllers/auditor/auditor_repository.dart';
 import '../../../models/request/auditor/producer/producer_form_2_request_model.dart';
 import '../../../models/request/auditor/producer/producer_form_3_request_model.dart';
@@ -45,12 +47,12 @@ class ProducerFormsViewModel extends BaseViewModel {
   TextEditingController panController = TextEditingController();
   TextEditingController gstController = TextEditingController();
 
-  String radioCompanyDetail = "1";
-  String radioCategoryOfProducer = "1";
-  String radioGst = "1";
-  String radioPanOfCompany = "1";
-  String radioCin = "1";
-  String radioIec = "1";
+  String? radioCompanyDetail;
+  String? radioCategoryOfProducer;
+  String? radioGst;
+  String? radioPanOfCompany;
+  String? radioCin;
+  String? radioIec;
 
   MultipartFile? iecFile;
   MultipartFile? cinFile;
@@ -92,11 +94,11 @@ class ProducerFormsViewModel extends BaseViewModel {
 
   //Form 2
   String? radioMisreportingP1;
-  String? radioMisreportingP2 = "1";
-  String? radioMisreportingP3 = "1";
-  String? radioMisreportingP4 = "1";
-  String? radioMisreportingP5 = "1";
-  String? radioMisreportingP6 = "1";
+  String? radioMisreportingP2;
+  String? radioMisreportingP3;
+  String? radioMisreportingP4;
+  String? radioMisreportingP5;
+  String? radioMisreportingP6;
 
   List<String> producerHeadingList = [
     "Type of Tyre",
@@ -118,15 +120,15 @@ class ProducerFormsViewModel extends BaseViewModel {
   ProducerSalesData? producerForm2Data;
 
   // Form 3
-  String radioMisreporting = "1";
-  String radioInformation = "1";
+  String? radioMisreporting;
+  String? radioInformation;
   TextEditingController deviationController = TextEditingController();
   TextEditingController remarkController = TextEditingController();
   TextEditingController summaryController = TextEditingController();
   APIResponse<ProducerForm3ResponseModel?>? _producerForm3ResponseModel;
   APIResponse<ProducerForm3ResponseModel?>? get producerForm3ResponseModel =>
       _producerForm3ResponseModel;
-  ProducerForm3Data? producerForm3Data;
+  ProducerForm3AuditSummary? producerForm3Data;
   String? auditRemarkError;
   String? summaryError;
 
@@ -141,37 +143,56 @@ class ProducerFormsViewModel extends BaseViewModel {
     return title;
   }
 
-  void initalizeGroupValues() {
-    radioCompanyDetail = "1";
-    radioCategoryOfProducer = "1";
-    radioGst = "1";
-    radioPanOfCompany = "1";
-    radioCin = "1";
-    radioIec = "1";
-    radioMisreportingP1 = "1";
-    radioMisreportingP3 = "1";
-    radioMisreportingP2 = "1";
-    radioMisreportingP4 = "1";
-    radioMisreportingP5 = "1";
-    radioMisreportingP6 = "1";
-    radioMisreporting = "1";
-    radioInformation = "1";
-  }
+  int index = 1;
 
-  Future<void> postForm3Data(BuildContext context, {String? id}) async {
+  int totalIndex = 0;
+  void getUser(String? user) {
+    switch (user) {
+      case "Producer":
+        totalIndex = 3;
+        break;
+      case "Recycler":
+        totalIndex = 5;
+        break;
+      default:
+        totalIndex = 3;
+        break;
+    }
+    updateUI();
+  }
+  // void initalizeGroupValues() {
+  //   radioCompanyDetail ;
+  //   radioCategoryOfProducer ;
+  //   radioGst =;
+  //   radioPanOfCompany = "1";
+  //   radioCin = "1";
+  //   radioIec = "1";
+  //   radioMisreportingP1 = "1";
+  //   radioMisreportingP3 = "1";
+  //   radioMisreportingP2 = "1";
+  //   radioMisreportingP4 = "1";
+  //   radioMisreportingP5 = "1";
+  //   radioMisreportingP6 = "1";
+  //   radioMisreporting = "1";
+  //   radioInformation = "1";
+  // }
+
+  Future<void> postForm3Data(BuildContext context,
+      {String? id, String? saveAsDraft}) async {
     ProducerForm3RequestModel requestModel = ProducerForm3RequestModel(
       summaryReport: SummaryReport(
-        missReporting: MissReporting(
+        missReporting: MissReportingResponse(
           auditConfirmedStatus: radioMisreporting,
-          additionalData: MissReportingAdditionalData(
+          additionalData: MissReportingAdditionalDataResponse(
               deviationValue: deviationController.text),
         ),
-        falseInformation: FalseInformation(
+        falseInformation: FalseInformationResponse(
             auditConfirmedStatus: radioInformation,
             auditRemark: remarkController.text,
-            additionalData: FalseInformationAdditionalData(
+            additionalData: FalseInformationAdditionalDataResponse(
                 overallSummary: summaryController.text)),
       ),
+      submit: saveAsDraft ?? "",
     );
     state = ViewState.busy;
     try {
@@ -182,8 +203,11 @@ class ProducerFormsViewModel extends BaseViewModel {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
 
-          Provider.of<CommonStepperViewModel>(context, listen: false)
-              .onNextButton(context, "Producer");
+          MaterialAppViewModel.selectedPageIndex = 1;
+          Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.auditorHomeScreen,
+              ModalRoute.withName(AppRoutes.auditorHomeScreen));
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -214,10 +238,14 @@ class ProducerFormsViewModel extends BaseViewModel {
         _producerForm3ResponseModel?.data = ProducerForm3ResponseModel.fromJson(
             _producerForm3ResponseModel?.completeResponse);
 
-        producerForm3Data = _producerForm3ResponseModel?.data?.auditSummary;
+        producerForm3Data =
+            _producerForm3ResponseModel?.data?.data?.auditSummary;
         deviationController.text =
             producerForm3Data?.missReporting?.additionalData?.deviationValue ??
                 "";
+        // contoller .text =
+        //     producerForm3Data?.missReporting?.additionalData?.deviationValue ??
+        //         "";
         remarkController.text =
             producerForm3Data?.falseInformation?.auditRemark ?? "";
         summaryController.text = producerForm3Data
@@ -236,11 +264,13 @@ class ProducerFormsViewModel extends BaseViewModel {
     } catch (err) {
       helperFunctions.logger("$err");
     }
+    updateUI();
     state = ViewState.idle;
     return _producerForm3ResponseModel;
   }
 
-  Future<void> postForm2Data(BuildContext context, {String? id}) async {
+  Future<void> postForm2Data(BuildContext context,
+      {String? id, String? saveAsDraft}) async {
     ProducerForm2RequestModel requestModel = ProducerForm2RequestModel(
       producerSalesData: ProducerRequestSalesData(
         salesP1: ProducerSalesDetail(auditConfirmedStatus: radioMisreportingP1),
@@ -250,6 +280,7 @@ class ProducerFormsViewModel extends BaseViewModel {
         salesP5: ProducerSalesDetail(auditConfirmedStatus: radioMisreportingP5),
         salesP6: ProducerSalesDetail(auditConfirmedStatus: radioMisreportingP6),
       ),
+      submit: saveAsDraft ?? "",
     );
     state = ViewState.busy;
     try {
@@ -259,10 +290,11 @@ class ProducerFormsViewModel extends BaseViewModel {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          await getProducerForm3Data(id: id);
-          if (context.mounted) {
-            Provider.of<CommonStepperViewModel>(context, listen: false)
-                .onNextButton(context, "Producer");
+          if (saveAsDraft == null) {
+            if (context.mounted) {
+              Provider.of<CommonStepperViewModel>(context, listen: false)
+                  .onNextButton(context, "Producer");
+            }
           }
         }
       }
@@ -289,23 +321,25 @@ class ProducerFormsViewModel extends BaseViewModel {
         producerForm2Data = _producerForm2ResponseModel?.data?.data?.salesData;
         final data = _producerForm2ResponseModel?.data?.data?.salesData;
         radioMisreportingP1 =
-            data?.p1?.isEmpty == true ? null : data?.p1?[0].selectStatus;
+            data?.p1?.isEmpty == true ? "1" : data?.p1?[0].selectStatus;
         radioMisreportingP2 =
-            data?.p2?.isEmpty == true ? null : data?.p2?[0].selectStatus;
+            data?.p2?.isEmpty == true ? "1" : data?.p2?[0].selectStatus;
         radioMisreportingP3 =
-            data?.p3?.isEmpty == true ? null : data?.p3?[0].selectStatus;
+            data?.p3?.isEmpty == true ? "1" : data?.p3?[0].selectStatus;
         radioMisreportingP4 =
-            data?.p4?.isEmpty == true ? null : data?.p4?[0].selectStatus;
+            data?.p4?.isEmpty == true ? "1" : data?.p4?[0].selectStatus;
         radioMisreportingP5 =
-            data?.p5?.isEmpty == true ? null : data?.p5?[0].selectStatus;
+            data?.p5?.isEmpty == true ? "1" : data?.p5?[0].selectStatus;
         radioMisreportingP6 =
-            data?.p6?.isEmpty == true ? null : data?.p6?[0].selectStatus;
+            data?.p6?.isEmpty == true ? "1" : data?.p6?[0].selectStatus;
+        await getProducerForm3Data(id: id);
       } else {
         helperFunctions.logger("No response");
       }
     } catch (err) {
       helperFunctions.logger("$err");
     }
+    updateUI();
     state = ViewState.idle;
     return _producerForm2ResponseModel;
   }
@@ -332,6 +366,25 @@ class ProducerFormsViewModel extends BaseViewModel {
         disabledCin.text = producerForm1Data?.cinNo ?? "";
         disabledIec.text = producerForm1Data?.iec ?? "";
 
+        final data = _producerForm1ResponseModel?.data?.data?.auditSummary;
+        companyNameRemark.text = data?.companyNameAddress?.auditRemark ?? "";
+        categoryOfProducerRemark.text =
+            data?.producerCategory?.auditRemark ?? "";
+        gstRemark.text = data?.companyGst?.auditRemark ?? "";
+        panOfCompanyRemark.text = data?.companyPan?.auditRemark ?? "";
+        cinRemark.text = data?.companyCin?.auditRemark ?? "";
+        iecRemark.text = data?.companyIec?.auditRemark ?? "";
+
+        radioCompanyDetail =
+            data?.companyNameAddress?.auditConfirmedStatus.toString() ?? "1";
+        radioCategoryOfProducer =
+            data?.producerCategory?.auditConfirmedStatus.toString() ?? "1";
+        radioGst = data?.companyGst?.auditConfirmedStatus.toString() ?? "1";
+        radioPanOfCompany =
+            data?.companyPan?.auditConfirmedStatus.toString() ?? "1";
+        radioCin = data?.companyCin?.auditConfirmedStatus.toString() ?? "1";
+        radioIec = data?.companyIec?.auditConfirmedStatus.toString() ?? "1";
+
         gstFileName.text = producerForm1Data?.gstFileName ?? "";
         panFileName.text = producerForm1Data?.panFileName ?? "";
         cinFileName.text = producerForm1Data?.cinFileName ?? "";
@@ -341,17 +394,21 @@ class ProducerFormsViewModel extends BaseViewModel {
         panFilePath = producerForm1Data?.panFilePath;
         cinFilePath = producerForm1Data?.cinFilePath;
         iecFilePath = producerForm1Data?.iecFilePath;
+
+        await getProducerForm2Data(id: id);
       } else {
         helperFunctions.logger("No response");
       }
     } catch (err) {
       helperFunctions.logger("$err");
     }
+    updateUI();
     state = ViewState.idle;
     return _producerForm1ResponseModel;
   }
 
-  Future<void> postForm1Data(BuildContext context, {String? id}) async {
+  Future<void> postForm1Data(BuildContext context,
+      {String? id, String? saveAsDraft}) async {
     ProducerForm1RequestModel requestModel = ProducerForm1RequestModel(
       companyDetails: CompanyDetails(
         companyNameAddress: CompanyData(
@@ -370,6 +427,7 @@ class ProducerFormsViewModel extends BaseViewModel {
         companyIec: CompanyData(
             auditConfirmedStatus: radioIec, auditRemark: iecRemark.text),
       ),
+      submit: saveAsDraft ?? "",
     );
     state = ViewState.busy;
     try {
@@ -379,10 +437,11 @@ class ProducerFormsViewModel extends BaseViewModel {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          await getProducerForm2Data(id: id);
-          if (context.mounted) {
-            Provider.of<CommonStepperViewModel>(context, listen: false)
-                .onNextButton(context, "Producer");
+          if (saveAsDraft == null) {
+            if (context.mounted) {
+              Provider.of<CommonStepperViewModel>(context, listen: false)
+                  .onNextButton(context, "Producer");
+            }
           }
         }
       } else {

@@ -4,37 +4,37 @@ ProducerForm2ResponseModel producerForm2ResponseModelFromJson(String str) =>
     ProducerForm2ResponseModel.fromJson(json.decode(str));
 
 class ProducerForm2ResponseModel {
-  Data? data;
+  ProducerForm2Data? data;
+  AuditSummary? auditSummary;
 
-  ProducerForm2ResponseModel({
-    this.data,
-  });
+  ProducerForm2ResponseModel({this.data, this.auditSummary});
 
   factory ProducerForm2ResponseModel.fromJson(Map<String, dynamic> json) =>
       ProducerForm2ResponseModel(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null
+            ? null
+            : ProducerForm2Data.fromJson(json["data"]),
+        auditSummary: json["auditSummary"] == null
+            ? null
+            : AuditSummary.fromJson(json["auditSummary"]),
       );
 }
 
-class Data {
+class ProducerForm2Data {
   String? auditPlanId;
   ProducerSalesData? salesData;
-  // AuditSummary? auditSummary;
 
-  Data({
+  ProducerForm2Data({
     this.auditPlanId,
     this.salesData,
-    // this.auditSummary,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory ProducerForm2Data.fromJson(Map<String, dynamic> json) =>
+      ProducerForm2Data(
         auditPlanId: json["auditPlanId"],
         salesData: json["salesData"] == null
             ? null
             : ProducerSalesData.fromJson(json["salesData"]),
-        // auditSummary: json["auditSummary"] == null
-        //     ? null
-        //     : AuditSummary.fromJson(json["auditSummary"]),
       );
 }
 
@@ -53,6 +53,11 @@ class AuditSummary {
         salesP1:
             json["salesP1"] == null ? null : SalesP.fromJson(json["salesP1"]),
       );
+
+  Map<String, dynamic> toJson() => {
+        "salesP2": salesP2?.toJson(),
+        "salesP1": salesP1?.toJson(),
+      };
 }
 
 class SalesP {
@@ -79,15 +84,25 @@ class SalesP {
             ? []
             : List<dynamic>.from(json["additional_data"]!.map((x) => x)),
       );
+
+  Map<String, dynamic> toJson() => {
+        "audit_value": auditValue,
+        "audit_document": auditDocument,
+        "audit_remark": auditRemark,
+        "audit_confirmed_status": auditConfirmedStatus,
+        "additional_data": additionalData == null
+            ? []
+            : List<dynamic>.from(additionalData!.map((x) => x)),
+      };
 }
 
 class ProducerSalesData {
-  List<P1>? p1;
-  List<P1>? p2;
-  List<P1>? p3;
-  List<P1>? p4;
-  List<P1>? p5;
-  List<P1>? p6;
+  List<Producers>? p1;
+  List<Producers>? p2;
+  List<Producers>? p3;
+  List<Producers>? p4;
+  List<Producers>? p5;
+  List<Producers>? p6;
 
   ProducerSalesData({
     this.p1,
@@ -98,29 +113,36 @@ class ProducerSalesData {
     this.p6,
   });
 
-  factory ProducerSalesData.fromJson(Map<String, dynamic> json) => ProducerSalesData(
+  factory ProducerSalesData.fromJson(Map<String, dynamic> json) =>
+      ProducerSalesData(
         p1: json["p1"] == null
             ? []
-            : List<P1>.from(json["p1"]!.map((x) => P1.fromJson(x))),
+            : List<Producers>.from(
+                json["p1"]!.map((x) => Producers.fromJson(x))),
         p2: json["p2"] == null
             ? []
-            : List<P1>.from(json["p2"]!.map((x) => P1.fromJson(x))),
+            : List<Producers>.from(
+                json["p2"]!.map((x) => Producers.fromJson(x))),
         p3: json["p3"] == null
             ? []
-            : List<P1>.from(json["p3"]!.map((x) => P1.fromJson(x))),
+            : List<Producers>.from(
+                json["p3"]!.map((x) => Producers.fromJson(x))),
         p4: json["p4"] == null
             ? []
-            : List<P1>.from(json["p4"]!.map((x) => P1.fromJson(x))),
+            : List<Producers>.from(
+                json["p4"]!.map((x) => Producers.fromJson(x))),
         p5: json["p5"] == null
             ? []
-            : List<P1>.from(json["p5"]!.map((x) => P1.fromJson(x))),
+            : List<Producers>.from(
+                json["p5"]!.map((x) => Producers.fromJson(x))),
         p6: json["p6"] == null
             ? []
-            : List<P1>.from(json["p6"]!.map((x) => P1.fromJson(x))),
+            : List<Producers>.from(
+                json["p6"]!.map((x) => Producers.fromJson(x))),
       );
 }
 
-class P1 {
+class Producers {
   int? id;
   String? userId;
   String? typeOfTyreManufacture;
@@ -143,7 +165,7 @@ class P1 {
   int? appId;
   int? totalGst;
 
-  P1({
+  Producers({
     this.id,
     this.userId,
     this.typeOfTyreManufacture,
@@ -167,7 +189,7 @@ class P1 {
     this.totalGst,
   });
 
-  factory P1.fromJson(Map<String, dynamic> json) => P1(
+  factory Producers.fromJson(Map<String, dynamic> json) => Producers(
         id: json["id"],
         userId: json["user_id"],
         typeOfTyreManufacture: json["type_of_tyre_manufacture"],

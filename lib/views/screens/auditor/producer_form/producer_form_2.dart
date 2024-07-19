@@ -12,15 +12,26 @@ import '../../../widgets/app_components/common_title_widget.dart';
 import '../../../widgets/forms/stepper_button.dart';
 
 // ignore: must_be_immutable
-class ProducerForm2 extends StatelessWidget {
+class ProducerForm2 extends StatefulWidget {
   final bool? isSummaryScreen;
   final String? id;
-  ProducerFormsViewModel viewModel;
-  ProducerForm2({super.key, this.isSummaryScreen, this.id,required this.viewModel});
+  const ProducerForm2(
+      {super.key, this.isSummaryScreen, this.id});
 
   @override
-  Widget build(BuildContext context) {
+  State<ProducerForm2> createState() => _ProducerForm2State();
+}
 
+class _ProducerForm2State extends State<ProducerForm2> {
+  late ProducerFormsViewModel viewModel;
+
+  @override
+  void initState() {
+    viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     return Consumer<ProducerFormsViewModel>(
       builder: (context, value, child) {
         return Stack(
@@ -32,7 +43,7 @@ class ProducerForm2 extends StatelessWidget {
                   Expanded(
                     child: Stack(
                       children: [
-                        isSummaryScreen == true
+                        widget.isSummaryScreen == true
                             ? CommonSingleChildScrollView(
                                 child: viewReportView(viewModel, context))
                             : CommonSingleChildScrollView(
@@ -45,12 +56,13 @@ class ProducerForm2 extends StatelessWidget {
                               isLastStep: false,
                               isSummaryScreen: false,
                               onNextOrSubmit: () async {
-                                await viewModel.postForm2Data(context, id: id);
+                                await viewModel.postForm2Data(context, id: widget.id);
                               },
                               onSavedDraft: () async {
-                                await viewModel.postForm2Data(context, id: id);
+                                await viewModel.postForm2Data(context,
+                                    id: widget.id, saveAsDraft: "SaveAsDraft");
                               },
-                            ))
+                            ),),
                       ],
                     ),
                   ),
@@ -58,11 +70,10 @@ class ProducerForm2 extends StatelessWidget {
               ),
             ),
             if (viewModel.state == ViewState.busy)
-              Positioned.fill(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: viewModel.appColor.black,
-                  ),
+              Center(
+              
+                child: CircularProgressIndicator(
+                  color: viewModel.appColor.black,
                 ),
               ),
           ],
@@ -204,7 +215,7 @@ class ProducerForm2 extends StatelessWidget {
     String? radioTitle,
     String? groupValue,
     Function(String?)? onRadioChanged,
-    List<P1>? list,
+    List<Producers>? list,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

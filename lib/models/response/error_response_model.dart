@@ -75,6 +75,23 @@ class ErrorsList {
   List<String>? iecRemark;
   List<String>? auditRemark;
   List<String>? summary;
+  List<String>? contactedSuppliers;
+  List<String>? contactedAuditRemark;
+  List<String>? verifiedSuppliers;
+  List<String>? verifiedAuditRemark;
+  List<String>? physicallyContactedSuppliers;
+  List<String>? physicallyContactedAuditRemark;
+  List<String>? physicallyVerifiedSuppliers;
+  List<String>? physicallyVerifiedAuditRemark;
+  List<String>? capacityTypeofEndProduct;
+  List<String>? plantProductionCapacity;
+  List<String>? endProductProducedAuditDay;
+  List<String>? plantPerYear;
+  List<String>? plantPerDay;
+  List<String>? plantPerShift;
+  List<String>? actualProcessingCapacity;
+  List<String>? powerOnAuditDay;
+  List<String>? totalElectricityConsumption;
   List<String>? productionInfoInvoiceAuditConfirmedStatus;
   List<String>? productionInfoInvoiceAdditionalDataNumberOfSuppliersContacted;
   List<String>? productionInfoInvoiceAuditRemark;
@@ -118,6 +135,23 @@ class ErrorsList {
     this.iecRemark,
     this.auditRemark,
     this.summary,
+    this.actualProcessingCapacity,
+    this.capacityTypeofEndProduct,
+    this.contactedAuditRemark,
+    this.contactedSuppliers,
+    this.endProductProducedAuditDay,
+    this.physicallyContactedAuditRemark,
+    this.physicallyVerifiedAuditRemark,
+    this.physicallyContactedSuppliers,
+    this.physicallyVerifiedSuppliers,
+    this.plantPerDay,
+    this.plantPerShift,
+    this.plantPerYear,
+    this.plantProductionCapacity,
+    this.powerOnAuditDay,
+    this.totalElectricityConsumption,
+    this.verifiedAuditRemark,
+    this.verifiedSuppliers,
     this.productionInfoInvoiceAuditConfirmedStatus,
     this.productionInfoInvoiceAdditionalDataNumberOfSuppliersContacted,
     this.productionInfoInvoiceAuditRemark,
@@ -250,6 +284,117 @@ class ErrorsList {
             ? []
             : List<String>.from(json[
                     "summaryReport.falseInformation.additional_data.overall_summary"]!
+                .map((x) => x)),
+        contactedSuppliers:
+            json["procurementInfo.contacted.additional_data.suppliers"] == null
+                ? []
+                : List<String>.from(
+                    json["procurementInfo.contacted.additional_data.suppliers"]!
+                        .map((x) => x)),
+        contactedAuditRemark: json["procurementInfo.contacted.audit_remark"] ==
+                null
+            ? []
+            : List<String>.from(
+                json["procurementInfo.contacted.audit_remark"]!.map((x) => x)),
+        verifiedSuppliers:
+            json["procurementInfo.verified.additional_data.suppliers"] == null
+                ? []
+                : List<String>.from(
+                    json["procurementInfo.verified.additional_data.suppliers"]!
+                        .map((x) => x)),
+        verifiedAuditRemark: json["procurementInfo.verified.audit_remark"] ==
+                null
+            ? []
+            : List<String>.from(
+                json["procurementInfo.verified.audit_remark"]!.map((x) => x)),
+        physicallyContactedSuppliers: json[
+                    "procurementInfo.physicallyContacted.additional_data.suppliers"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "procurementInfo.physicallyContacted.additional_data.suppliers"]!
+                .map((x) => x)),
+        physicallyContactedAuditRemark:
+            json["procurementInfo.physicallyContacted.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["procurementInfo.physicallyContacted.audit_remark"]!
+                        .map((x) => x)),
+        physicallyVerifiedSuppliers: json[
+                    "procurementInfo.physicallyVerified.additional_data.suppliers"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "procurementInfo.physicallyVerified.additional_data.suppliers"]!
+                .map((x) => x)),
+        physicallyVerifiedAuditRemark:
+            json["procurementInfo.physicallyVerified.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["procurementInfo.physicallyVerified.audit_remark"]!
+                        .map((x) => x)),
+        capacityTypeofEndProduct: json[
+                    "processingCapacity.planCapacityAssesment.additional_data.type_of_end_product"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.planCapacityAssesment.additional_data.type_of_end_product"]!
+                .map((x) => x)),
+        plantProductionCapacity: json[
+                    "processingCapacity.planCapacityAssesment.additional_data.plant_production_capacity"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.planCapacityAssesment.additional_data.plant_production_capacity"]!
+                .map((x) => x)),
+        endProductProducedAuditDay: json[
+                    "processingCapacity.planCapacityAssesment.additional_data.end_product_produced_on_audit_day"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.planCapacityAssesment.additional_data.end_product_produced_on_audit_day"]!
+                .map((x) => x)),
+        plantPerYear: json[
+                    "processingCapacity.planCapacityAssesment.additional_data.plant_operational_per_year"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.planCapacityAssesment.additional_data.plant_operational_per_year"]!
+                .map((x) => x)),
+        plantPerDay: json[
+                    "processingCapacity.planCapacityAssesment.additional_data.plant_operational_per_day"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.planCapacityAssesment.additional_data.plant_operational_per_day"]!
+                .map((x) => x)),
+        plantPerShift: json[
+                    "processingCapacity.planCapacityAssesment.additional_data.plant_operational_per_shift"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.planCapacityAssesment.additional_data.plant_operational_per_shift"]!
+                .map((x) => x)),
+        actualProcessingCapacity: json[
+                    "processingCapacity.valueComparable.additional_data.actual_processing_capacity"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.valueComparable.additional_data.actual_processing_capacity"]!
+                .map((x) => x)),
+        powerOnAuditDay: json[
+                    "processingCapacity.electricityVerification.additional_data.power_on_audit_day"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.electricityVerification.additional_data.power_on_audit_day"]!
+                .map((x) => x)),
+        totalElectricityConsumption: json[
+                    "processingCapacity.electricityVerification.additional_data.total_electricity_consumption"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "processingCapacity.electricityVerification.additional_data.total_electricity_consumption"]!
                 .map((x) => x)),
         productionInfoInvoiceAuditConfirmedStatus:
             json["productionInfo.invoice.audit_confirmed_status"] == null

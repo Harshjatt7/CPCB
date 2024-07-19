@@ -18,9 +18,13 @@ import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm2 extends StatefulWidget {
   const AuditorRecyclerForm2(
-      {super.key, this.isSummaryScreen = false, this.isRetreader = false});
+      {super.key,
+      this.isSummaryScreen = false,
+      this.isRetreader = false,
+      this.id});
   final bool? isSummaryScreen;
   final bool isRetreader;
+  final String? id;
 
   @override
   State<AuditorRecyclerForm2> createState() => _AuditorRecyclerForm2State();
@@ -68,9 +72,16 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                 child: StepperButton(
                   isLastStep: false,
                   isSummaryScreen: false,
-                  onNextOrSubmit: () {
+                  onNextOrSubmit: () async {
+                    await viewModel.recyclerPostForm2Data(context,
+                        id: widget.id);
                     Provider.of<CommonStepperViewModel>(context, listen: false)
                         .onNextButton(context, "Recycler");
+                  },
+                  onSavedDraft: () async {
+                    viewModel.saveAsDraft = "SaveAsDraft";
+                    await viewModel.recyclerPostForm2Data(context,
+                        id: widget.id);
                   },
                 ))
           ],
@@ -259,6 +270,9 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                   isReadOnly: true,
                   isMandatory: false,
                   controller: TextEditingController()),
+          if (viewModel.capacityTypeofEndProductError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.capacityTypeofEndProductError ?? ""),
           commonRecyclerForm2Tile(
               title: stringConstants.plantProductionCapacity,
               hintText: stringConstants.enter,
@@ -268,6 +282,9 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               },
               textEditingController:
                   viewModel.plantProductionCapacityController),
+          if (viewModel.plantProductionCapacityError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.plantProductionCapacityError ?? ""),
           commonRecyclerForm2Tile(
               title: stringConstants.endProductProduced,
               hintText: stringConstants.enter,
@@ -276,6 +293,9 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                     .emptyValidation(viewModel.endProductProducedController);
               },
               textEditingController: viewModel.endProductProducedController),
+          if (viewModel.capacityTypeofEndProductError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.capacityTypeofEndProductError ?? ""),
           commonRecyclerForm2Tile(
               title: stringConstants.daysPlantOperational,
               hintText: stringConstants.enter,
@@ -284,6 +304,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                     .emptyValidation(viewModel.daysPlantOperationalController);
               },
               textEditingController: viewModel.daysPlantOperationalController),
+          if (viewModel.plantPerDayError?.isNotEmpty ?? false)
+            showErrorMessage(context, viewModel.plantPerDayError ?? ""),
           commonRecyclerForm2Tile(
               title: stringConstants.hoursPlantOperational,
               hintText: stringConstants.enter,
@@ -292,6 +314,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                     .emptyValidation(viewModel.hoursPlantOperationalController);
               },
               textEditingController: viewModel.hoursPlantOperationalController),
+          if (viewModel.plantPerYearError?.isNotEmpty ?? false)
+            showErrorMessage(context, viewModel.plantPerYearError ?? ""),
           commonRecyclerForm2Tile(
             title: stringConstants.shiftPlantOperational,
             hintText: stringConstants.enter,
@@ -301,12 +325,17 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                   .emptyValidation(viewModel.shiftPlantOperationalController);
             },
           ),
+          if (viewModel.plantPerShiftError?.isNotEmpty ?? false)
+            showErrorMessage(context, viewModel.plantPerShiftError ?? ""),
           commonRecyclerForm2Tile(
               title: stringConstants.actualProcessingCapacity,
               hintText: stringConstants.enter,
               textEditingController:
                   viewModel.actualProcessingCapacityController,
               isDisable: true),
+          if (viewModel.actualProcessingCapacityError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.actualProcessingCapacityError ?? ""),
           Padding(
             padding: const EdgeInsets.only(top: 16, bottom: 8),
             child: CommonTitleWidget(label: stringConstants.areValueComparable),
@@ -356,6 +385,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                     .emptyValidation(viewModel.powerConsumptionController);
               },
               isDisable: false),
+          if (viewModel.powerOnAuditDayError?.isNotEmpty ?? false)
+            showErrorMessage(context, viewModel.powerOnAuditDayError ?? ""),
           commonRecyclerForm2Tile(
               title: stringConstants.actualAverageAnnual,
               hintText: stringConstants.enter,
@@ -370,6 +401,9 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                     .emptyValidation(viewModel.totalElectricityController);
               },
               isDisable: false),
+          if (viewModel.totalElectricityConsumptionError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.totalElectricityConsumptionError ?? ""),
           Padding(
             padding: const EdgeInsets.only(
               top: 16,
@@ -438,6 +472,22 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               controller: textEditingController ?? TextEditingController()),
         ),
       ],
+    );
+  }
+
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: appColor.red),
+        ),
+      ),
     );
   }
 }

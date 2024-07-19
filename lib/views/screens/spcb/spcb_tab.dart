@@ -34,10 +34,8 @@ class SpcbCommonTab extends StatelessWidget {
     final stringConstants = StringConstants();
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
-        HelperFunctions().logger("hgvhgv hn hhhh");
         if (notification is ScrollEndNotification &&
             notification.metrics.extentAfter == 0) {
-          HelperFunctions().logger("mamamanana");
         }
         return false;
       },

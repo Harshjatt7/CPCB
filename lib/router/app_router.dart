@@ -87,7 +87,8 @@ class PageRouter {
       CheckUserAndSummaryScreen userDetails = settings.arguments as CheckUserAndSummaryScreen;
         return _getPageRoute(ProducerStepper(userDetails: userDetails), settings);
       case AppRoutes.auditorRecyclerStepperScreen:
-        return _getPageRoute(const RecyclerStepper(), settings);
+      CheckUserAndSummaryScreen userDetails = settings.arguments as CheckUserAndSummaryScreen;
+        return _getPageRoute(RecyclerStepper(userDetails: userDetails), settings);
 
       // Will be displayed if no specified route is found.
       default:

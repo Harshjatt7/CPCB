@@ -22,32 +22,54 @@ class _ProdcerStepperState extends State<ProducerStepper> {
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
               checkUser: CheckUserAndSummaryScreen(
-                  isSummaryScreen: false,
-                  userType: widget.userDetails?.userType,
-                  id: widget.userDetails?.id),
-              forms: [
-                form1(widget.userDetails?.id,viewModel: viewModel),
-                form2(widget.userDetails?.id,viewModel: viewModel),
-                form3(widget.userDetails?.id,viewModel: viewModel),
-              ]);
+                isSummaryScreen: true,
+                userType: widget.userDetails?.userType,
+                id: widget.userDetails?.id,
+              ),
+              forms: widget.userDetails?.progress == 0
+                  ? [
+                      form1(widget.userDetails?.id),
+                      form2(widget.userDetails?.id),
+                      form3(widget.userDetails?.id),
+                    ]
+                  : widget.userDetails?.progress == 33
+                      ? [
+                          form2(widget.userDetails?.id),
+                          form3(widget.userDetails?.id),
+                        ]
+                      : [
+                          form3(widget.userDetails?.id),
+                        ]);
         },
         onModelReady: (viewModel) async {
-          viewModel.initalizeGroupValues();
-          viewModel.getProducerForm1Data(id: widget.userDetails?.id);
+          // viewModel.initalizeGroupValues();
+          if (widget.userDetails?.progress == 0) {
+            await viewModel.getProducerForm1Data(id: widget.userDetails?.id);
+          }
+          if (widget.userDetails?.progress == 33) {
+            await viewModel.getProducerForm2Data(id: widget.userDetails?.id);
+          }
+          if (widget.userDetails?.progress == 66) {
+            await viewModel.getProducerForm3Data(id: widget.userDetails?.id);
+          }
           viewModel.counter = 0;
         },
         viewModel: ProducerFormsViewModel());
   }
 
-  Widget form1(String? id, {required ProducerFormsViewModel viewModel}) {
-    return ProducerForm1(id: id,viewModel: viewModel,);
+  Widget form1(
+    String? id,
+  ) {
+    return ProducerForm1(
+      id: id,
+    );
   }
 
-  Widget form2(String? id,{required ProducerFormsViewModel viewModel}) {
-    return ProducerForm2(id: id,viewModel: viewModel);
+  Widget form2(String? id) {
+    return ProducerForm2(id: id);
   }
 
-  Widget form3(String? id,{required ProducerFormsViewModel viewModel}) {
-    return ProducerForm3(id: id,viewModel: viewModel);
+  Widget form3(String? id) {
+    return ProducerForm3(id: id);
   }
 }

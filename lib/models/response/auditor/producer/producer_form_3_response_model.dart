@@ -9,17 +9,33 @@ ProducerForm3ResponseModel producerForm3ResponseModelFromJson(String str) => Pro
 String producerForm3ResponseModelToJson(ProducerForm3ResponseModel data) => json.encode(data.toJson());
 
 class ProducerForm3ResponseModel {
-    String? auditPlanId;
-    ProducerForm3Data? auditSummary;
+    ProducerForm3Data? data;
 
     ProducerForm3ResponseModel({
+        this.data,
+    });
+
+    factory ProducerForm3ResponseModel.fromJson(Map<String, dynamic> json) => ProducerForm3ResponseModel(
+        data: json["data"] == null ? null : ProducerForm3Data.fromJson(json["data"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "data": data?.toJson(),
+    };
+}
+
+class ProducerForm3Data {
+    String? auditPlanId;
+    ProducerForm3AuditSummary? auditSummary;
+
+    ProducerForm3Data({
         this.auditPlanId,
         this.auditSummary,
     });
 
-    factory ProducerForm3ResponseModel.fromJson(Map<String, dynamic> json) => ProducerForm3ResponseModel(
+    factory ProducerForm3Data.fromJson(Map<String, dynamic> json) => ProducerForm3Data(
         auditPlanId: json["auditPlanId"],
-        auditSummary: json["auditSummary"] == null ? null : ProducerForm3Data.fromJson(json["auditSummary"]),
+        auditSummary: json["auditSummary"] == null ? null : ProducerForm3AuditSummary.fromJson(json["auditSummary"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,18 +44,18 @@ class ProducerForm3ResponseModel {
     };
 }
 
-class ProducerForm3Data {
-    MissReportingResponse? missReporting;
-    FalseInformationResponse? falseInformation;
+class ProducerForm3AuditSummary {
+    MissReporting? missReporting;
+    FalseInformation? falseInformation;
 
-    ProducerForm3Data({
+    ProducerForm3AuditSummary({
         this.missReporting,
         this.falseInformation,
     });
 
-    factory ProducerForm3Data.fromJson(Map<String, dynamic> json) => ProducerForm3Data(
-        missReporting: json["missReporting"] == null ? null : MissReportingResponse.fromJson(json["missReporting"]),
-        falseInformation: json["falseInformation"] == null ? null : FalseInformationResponse.fromJson(json["falseInformation"]),
+    factory ProducerForm3AuditSummary.fromJson(Map<String, dynamic> json) => ProducerForm3AuditSummary(
+        missReporting: json["missReporting"] == null ? null : MissReporting.fromJson(json["missReporting"]),
+        falseInformation: json["falseInformation"] == null ? null : FalseInformation.fromJson(json["falseInformation"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -48,14 +64,14 @@ class ProducerForm3Data {
     };
 }
 
-class FalseInformationResponse {
+class FalseInformation {
     dynamic auditValue;
     dynamic auditDocument;
     String? auditRemark;
     int? auditConfirmedStatus;
-    FalseInformationResponseAdditionalData? additionalData;
+    FalseInformationAdditionalData? additionalData;
 
-    FalseInformationResponse({
+    FalseInformation({
         this.auditValue,
         this.auditDocument,
         this.auditRemark,
@@ -63,12 +79,12 @@ class FalseInformationResponse {
         this.additionalData,
     });
 
-    factory FalseInformationResponse.fromJson(Map<String, dynamic> json) => FalseInformationResponse(
+    factory FalseInformation.fromJson(Map<String, dynamic> json) => FalseInformation(
         auditValue: json["audit_value"],
         auditDocument: json["audit_document"],
         auditRemark: json["audit_remark"],
         auditConfirmedStatus: json["audit_confirmed_status"],
-        additionalData: json["additional_data"] == null ? null : FalseInformationResponseAdditionalData.fromJson(json["additional_data"]),
+        additionalData: json["additional_data"] == null ? null : FalseInformationAdditionalData.fromJson(json["additional_data"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -80,14 +96,14 @@ class FalseInformationResponse {
     };
 }
 
-class FalseInformationResponseAdditionalData {
+class FalseInformationAdditionalData {
     String? overallSummary;
 
-    FalseInformationResponseAdditionalData({
+    FalseInformationAdditionalData({
         this.overallSummary,
     });
 
-    factory FalseInformationResponseAdditionalData.fromJson(Map<String, dynamic> json) => FalseInformationResponseAdditionalData(
+    factory FalseInformationAdditionalData.fromJson(Map<String, dynamic> json) => FalseInformationAdditionalData(
         overallSummary: json["overall_summary"],
     );
 
@@ -96,14 +112,14 @@ class FalseInformationResponseAdditionalData {
     };
 }
 
-class MissReportingResponse {
+class MissReporting {
     dynamic auditValue;
     dynamic auditDocument;
     dynamic auditRemark;
     int? auditConfirmedStatus;
-    MissReportingResponseAdditionalData? additionalData;
+    MissReportingAdditionalData? additionalData;
 
-    MissReportingResponse({
+    MissReporting({
         this.auditValue,
         this.auditDocument,
         this.auditRemark,
@@ -111,12 +127,12 @@ class MissReportingResponse {
         this.additionalData,
     });
 
-    factory MissReportingResponse.fromJson(Map<String, dynamic> json) => MissReportingResponse(
+    factory MissReporting.fromJson(Map<String, dynamic> json) => MissReporting(
         auditValue: json["audit_value"],
         auditDocument: json["audit_document"],
         auditRemark: json["audit_remark"],
         auditConfirmedStatus: json["audit_confirmed_status"],
-        additionalData: json["additional_data"] == null ? null : MissReportingResponseAdditionalData.fromJson(json["additional_data"]),
+        additionalData: json["additional_data"] == null ? null : MissReportingAdditionalData.fromJson(json["additional_data"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -128,14 +144,14 @@ class MissReportingResponse {
     };
 }
 
-class MissReportingResponseAdditionalData {
+class MissReportingAdditionalData {
     String? deviationValue;
 
-    MissReportingResponseAdditionalData({
+    MissReportingAdditionalData({
         this.deviationValue,
     });
 
-    factory MissReportingResponseAdditionalData.fromJson(Map<String, dynamic> json) => MissReportingResponseAdditionalData(
+    factory MissReportingAdditionalData.fromJson(Map<String, dynamic> json) => MissReportingAdditionalData(
         deviationValue: json["deviation_value"],
     );
 
