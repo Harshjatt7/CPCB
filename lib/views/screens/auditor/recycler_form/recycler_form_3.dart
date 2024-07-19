@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
@@ -12,13 +11,14 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm3 extends StatefulWidget {
-  const AuditorRecyclerForm3({super.key, this.isSummaryScreen = false});
+  const AuditorRecyclerForm3(
+      {super.key, this.isSummaryScreen = false, this.id});
   final bool? isSummaryScreen;
+  final String? id;
 
   @override
   State<AuditorRecyclerForm3> createState() => _AuditorRecyclerForm3State();
@@ -54,9 +54,11 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 child: StepperButton(
                   isLastStep: false,
                   isSummaryScreen: false,
-                  onNextOrSubmit: () {
-                    Provider.of<CommonStepperViewModel>(context, listen: false)
-                        .onNextButton(context, "Recycler");
+                  onNextOrSubmit: () async {
+                    await viewModel.recyclerPostForm3Data(context,
+                        id: widget.id);
+                    // Provider.of<CommonStepperViewModel>(context, listen: false)
+                    //     .onNextButton(context, "Recycler");
                   },
                 ))
           ],
@@ -178,13 +180,19 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 viewModel.radioAContact = value ?? '';
                 viewModel.updateUI();
               },
-              remarkValidator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.aContactRemarksController);
-              },
-              validator: (value) {
-                return viewModel.emptyValidation(viewModel.aContactController);
-              }),
+              // remarkValidator: (value) {
+              //   return viewModel
+              //       .emptyValidation(viewModel.aContactRemarksController);
+              // },
+              // validator: (value) {
+              //   return viewModel.emptyValidation(viewModel.aContactController);
+              // }
+              ),
+          if (viewModel.contactedSuppliersError?.isNotEmpty ?? false)
+            showErrorMessage(context, viewModel.contactedSuppliersError ?? ""),
+          if (viewModel.contactedAuditRemarkError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.contactedAuditRemarkError ?? ""),
           commonRecyclerForm3Tile(
               title: stringConstants.noOfSuppliersDetailsVerified,
               isDisable: true,
@@ -197,30 +205,42 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 viewModel.radioAVerified = value ?? "";
                 viewModel.updateUI();
               },
-              remarkValidator: (value) {
-                return viewModel.emptyValidation(viewModel.aVerifiedController);
-              },
-              validator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.aVerifiedRemakrsController);
-              }),
+              // remarkValidator: (value) {
+              //   return viewModel.emptyValidation(viewModel.aVerifiedController);
+              // },
+              // validator: (value) {
+              //   return viewModel
+              //       .emptyValidation(viewModel.aVerifiedRemakrsController);
+              // }
+              ),
+          if (viewModel.verifiedSuppliersError?.isNotEmpty ?? false)
+            showErrorMessage(context, viewModel.verifiedSuppliersError ?? ""),
+          if (viewModel.verifiedAuditRemarkError?.isNotEmpty ?? false)
+            showErrorMessage(context, viewModel.verifiedAuditRemarkError ?? ""),
           CommonTitleWidget(label: stringConstants.physicallyVisit),
           commonRecyclerForm3Tile(
-              title: stringConstants.noOfSuppliersContacted,
-              groupValue: viewModel.radioBContact,
-              textEditingController: viewModel.bContactController,
-              remakrsController: viewModel.bContactRemarksController,
-              onChanged: (value) {
-                viewModel.radioBContact = value ?? '';
-                viewModel.updateUI();
-              },
-              remarkValidator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.bContactRemarksController);
-              },
-              validator: (value) {
-                return viewModel.emptyValidation(viewModel.bContactController);
-              }),
+            title: stringConstants.noOfSuppliersContacted,
+            groupValue: viewModel.radioBContact,
+            textEditingController: viewModel.bContactController,
+            remakrsController: viewModel.bContactRemarksController,
+            onChanged: (value) {
+              viewModel.radioBContact = value ?? '';
+              viewModel.updateUI();
+            },
+            // remarkValidator: (value) {
+            //   return viewModel
+            //       .emptyValidation(viewModel.bContactRemarksController);
+            // },
+            // validator: (value) {
+            //   return viewModel.emptyValidation(viewModel.bContactController);
+            // }
+          ),
+          if (viewModel.physicallyVerifiedSuppliersError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.physicallyVerifiedSuppliersError ?? ""),
+          if (viewModel.physicallyVerifiedAuditRemarkError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.physicallyVerifiedAuditRemarkError ?? ""),
           commonRecyclerForm3Tile(
               title: stringConstants.noOfSuppliersDetailsVerified,
               isDisable: true,
@@ -232,14 +252,22 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 viewModel.radioBVerified = value ?? '';
                 viewModel.updateUI();
               },
-              remarkValidator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.bVerifiedRemakrsController);
-              },
-              validator: (value) {
-                return viewModel.emptyValidation(viewModel.bVerifiedController);
-              },
-              notVerifiedTitle: stringConstants.noOfSupplierSDetailsNotVerified)
+              // remarkValidator: (value) {
+              //   return viewModel
+              //       .emptyValidation(viewModel.bVerifiedRemakrsController);
+              // },
+              // validator: (value) {
+              //   return viewModel.emptyValidation(viewModel.bVerifiedController);
+              // },
+              notVerifiedTitle:
+                  stringConstants.noOfSupplierSDetailsNotVerified),
+          if (viewModel.physicallyContactedSuppliersError?.isNotEmpty ?? false)
+            showErrorMessage(
+                context, viewModel.physicallyContactedSuppliersError ?? ""),
+          if (viewModel.physicallyContactedAuditRemarkError?.isNotEmpty ??
+              false)
+            showErrorMessage(
+                context, viewModel.physicallyContactedAuditRemarkError ?? ""),
         ],
       ),
     );
@@ -312,6 +340,22 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 controller: disableController ?? TextEditingController()),
           ),
       ],
+    );
+  }
+
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: appColor.red),
+        ),
+      ),
     );
   }
 }

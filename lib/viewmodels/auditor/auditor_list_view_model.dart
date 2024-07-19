@@ -74,11 +74,17 @@ class AuditorListViewModel extends BaseViewModel {
     state = isPaginating == true ? ViewState.parallelBusy : ViewState.busy;
 
     try {
-      _auditPlanListModel = await _auditorRepository.getAuditPlanListData(page: "$page");
+      _auditPlanListModel =
+          await _auditorRepository.getAuditPlanListData(page: "$page");
       if (_auditPlanListModel?.isSuccess == true) {
         _auditPlanListModel?.data = AuditPlanListResponseModel.fromJson(
             _auditPlanListModel?.completeResponse);
-        auditPlanListdata = _auditPlanListModel?.data?.data;
+
+        if (isPaginating == true) {
+          auditPlanListdata?.addAll(_auditPlanListModel?.data?.data ?? []);
+        } else {
+          auditPlanListdata = _auditPlanListModel?.data?.data;
+        }
       } else {
         // if (context.mounted) {
         // helperFunction.commonErrorSnackBar(
@@ -216,8 +222,8 @@ class AuditorListViewModel extends BaseViewModel {
         });
       }
     }
-    state = ViewState.idle;
     updateUI();
+    state = ViewState.idle;
   }
 
   void resetPage() {

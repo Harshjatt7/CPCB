@@ -12,7 +12,8 @@ import 'package:flutter/material.dart';
 import '../../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 
 class RecyclerStepper extends StatefulWidget {
-  const RecyclerStepper({super.key});
+  final CheckUserAndSummaryScreen? userDetails;
+  const RecyclerStepper({super.key, this.userDetails});
 
   @override
   State<RecyclerStepper> createState() => _ProdcerStepperState();
@@ -27,10 +28,13 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
               isLoading: viewModel.state == ViewState.busy,
               checkUser: const CheckUserAndSummaryScreen(
                   isSummaryScreen: false, userType: "Recycler"),
-              forms: const [
+              forms: [
                 AuditorRecyclerForm1(),
-                AuditorRecyclerForm2(),
-                AuditorRecyclerForm3(),
+                AuditorRecyclerForm2(
+                  id: widget.userDetails?.id,
+                  isRetreader: true,
+                ),
+                AuditorRecyclerForm3(id: widget.userDetails?.id),
                 AuditorRecyclerForm4(),
                 AuditorRecyclerForm5()
               ]);
@@ -44,16 +48,16 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
           // if (context.mounted) {
           //   await viewModel.getRecycler1Data(context);
           // }
-          // if (context.mounted) {
-          //   await viewModel.getRecycler2Data(
-          //     context,
-          //   );
-          // }
-          // if (context.mounted) {
-          //   await viewModel.getRecycler3Data(
-          //     context,
-          //   );
-          // }
+          if (context.mounted) {
+            await viewModel.getRecycler2Data(
+              context,
+            );
+          }
+          if (context.mounted) {
+            await viewModel.getRecycler3Data(
+              context,
+            );
+          }
           if (context.mounted) {
             await viewModel.getRecycler4Data(
               context,
@@ -64,6 +68,7 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
               context,
             );
           }
+        
         },
         viewModel: RecyclerFormViewModel());
   }
