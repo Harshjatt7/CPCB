@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
@@ -47,11 +48,22 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
       builder: (context, value, child) {
         return Stack(
           children: [
-            widget.isSummaryScreen == true
-                ? CommonSingleChildScrollView(
-                    child: summaryForm1View(viewModel, context))
-                : CommonSingleChildScrollView(
-                    child: form1View(viewModel, context)),
+            Opacity(
+              opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
+              child: widget.isSummaryScreen == true
+                  ? CommonSingleChildScrollView(
+                      child: summaryForm1View(viewModel, context))
+                  : CommonSingleChildScrollView(
+                      child: form1View(viewModel, context)),
+            ),
+            if (viewModel.state == ViewState.busy)
+              Positioned.fill(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: appColor.black,
+                  ),
+                ),
+              ),
             Positioned(
                 bottom: 0,
                 left: 10,
@@ -60,8 +72,6 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isLastStep: false,
                   isSummaryScreen: false,
                   onNextOrSubmit: () {
-                    // Provider.of<CommonStepperViewModel>(context, listen: false)
-                    //     .formValidation(context, "Recycler");
                     Provider.of<CommonStepperViewModel>(context, listen: false)
                         .onNextButton(context, "Recycler");
                   },
@@ -263,7 +273,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: RecyclerDataTable(),
+                child: RecyclerDataTable(
+                  headingList: viewModel.recyclerHeadingList,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -659,7 +671,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isMandatory: true),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: RecyclerDataTable(),
+                child: RecyclerDataTable(
+                  headingList: viewModel.recyclerHeadingList,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -680,8 +694,15 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         viewModel.uploadControllerList[viewModel.count - 1]);
                   },
                   uploadValidator: (value) {
-                    return viewModel.uploadValidation(
-                        viewModel.machineFileSizeModel[viewModel.count - 1]);
+                    if (viewModel.machineFileSizeModel.isNotEmpty) {
+                      int i = 0;
+                      if (viewModel.uploadControllerList.length - 2 > 0) {
+                        i = viewModel.uploadControllerList.length - 2;
+                      }
+                      return viewModel
+                          .uploadValidation(viewModel.machineFileSizeModel[i]);
+                    }
+                    return null;
                   },
                   onAdd: () {
                     viewModel.onAdd();

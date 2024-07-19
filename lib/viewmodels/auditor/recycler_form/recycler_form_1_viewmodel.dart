@@ -9,6 +9,8 @@ import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/auditor/auditor_repository.dart';
 import 'package:cpcb_tyre/models/request/auditor/document_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form1_request_model.dart';
+import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form4_request_model.dart';
+import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form5_request_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/document_response_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form1_response_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form2_response_model.dart';
@@ -227,6 +229,22 @@ class RecyclerFormViewModel extends BaseViewModel {
   DocumentData? otherMachineriesDocument;
   DocumentData? geoTaggedVideoUploadDocument;
 
+  List<String> recyclerHeadingList = [
+    "Name of Plant Machinery",
+    "Capacity of Plant Machinery",
+    "Power of Plant Machinery",
+    "Action",
+    "Remarks",
+  ];
+
+  String invoiceAuditConfirmedStatusError = "";
+  String invoiceAdditionalDataNumberOfSuppliersContactedError = "";
+  String invoiceAuditRemarkError = "";
+  String buyersAuditConfirmedStatusError = "";
+  String buyersAdditionalDataNumberOfBuyersContactedError = "";
+  String buyersAuditRemarkError = "";
+  String summaryAuditRemarkError = "";
+
   Future<APIResponse<AuditorRecyclerForm1ResponseModel?>?> getRecycler1Data(
     BuildContext context,
   ) async {
@@ -234,7 +252,7 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     try {
       _auditorRecycler1ResponseModel = await auditorRepository.getRecyclerForm1Data(
-          "eyJpdiI6IkRzVzY2SENNOUF0dDM4bnZDK2t2N1E9PSIsInZhbHVlIjoiYk1VRm1ZWnQ0eXJHdWxoZW1TaGpXZz09IiwibWFjIjoiZDRlOGE5YTM5MzA0MjJmYzYzMGZjNDE2MzM2ZWJiNzg4YmJhZTcyMWNlNGMxNGY0ZTdlMzExYTQwZTlhZmJkZiIsInRhZyI6IiJ9");
+          "eyJpdiI6ImJYVTE0SDl6TXAwNE1HUEFqbmhoTEE9PSIsInZhbHVlIjoieXI3aHFvOW1CV2NLR2kxS3hvd1R6Zz09IiwibWFjIjoiZmI4OTVmNmY3Y2E2N2NlMTU2Mzg2OTIwMzllMmUwZjVjYzk3Mjk2MmJlMmI0YWZjMzBkNDZkNGQ1ZDY1ODI1MyIsInRhZyI6IiJ9");
       if (_auditorRecycler1ResponseModel?.isSuccess == true) {
         _auditorRecycler1ResponseModel?.data =
             AuditorRecyclerForm1ResponseModel.fromJson(
@@ -455,8 +473,8 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void onAdd() {
-    if (controllerList[count - 1].text.isNotEmpty &&
-        uploadControllerList[count - 1].text.isNotEmpty) {
+    if ((controllerList[count - 1].text.isNotEmpty &&
+        uploadControllerList[count - 1].text.isNotEmpty)) {
       count++;
       addController();
       HelperFunctions().logger(controllerList.length.toString());
@@ -736,18 +754,15 @@ class RecyclerFormViewModel extends BaseViewModel {
     endProductProducedController.text =
         planCapacityAssesment?.additionalData?.endProductProducedOnAuditDay ??
             '';
-
+//daysPlantOperational is plantOperationalPerYear
     daysPlantOperationalController.text =
-        planCapacityAssesment?.additionalData?.plantOperationalPerDay ?? '';
-    //TODO ask Vishal Sir
-    //  about below line
-    //ask about endproduct in summary are mutiple value
-    // view entries data for recycler and retreader
-    hoursPlantOperationalController.text =
         planCapacityAssesment?.additionalData?.plantOperationalPerYear ?? '';
-
-    shiftPlantOperationalController.text =
+//hoursPlantOperational is plantOperationalPerShift
+    hoursPlantOperationalController.text =
         planCapacityAssesment?.additionalData?.plantOperationalPerShift ?? '';
+//shiftPlantOperational is PlantOperationalPerDay
+    shiftPlantOperationalController.text =
+        planCapacityAssesment?.additionalData?.plantOperationalPerDay ?? '';
 
     actualProcessingCapacityController.text =
         "${planCapacityAssesment?.additionalData?.actualProcessingCapacityDerived ?? ''}";
@@ -1250,9 +1265,6 @@ class RecyclerFormViewModel extends BaseViewModel {
       case RecyclerForm1.power:
         lastYearElectricityBillDocument = response?.data?.data;
         break;
-      // case RecyclerForm1.machine:
-      //   otherMachineriesDocument = response?.data?.data;
-      //   break;
     }
   }
 
@@ -1324,5 +1336,125 @@ class RecyclerFormViewModel extends BaseViewModel {
       }
     }
     return null;
+  }
+
+  Future<void> postForm4Data(BuildContext context,
+      {String? id, String? submit}) async {
+    AuditorRecyclerForm4RequestModel requestModel =
+        AuditorRecyclerForm4RequestModel(
+            productionInfo: ProductionInfoRequest(
+              invoice: InvoiceRequest(
+                  auditConfirmedStatus: radioInvoice,
+                  auditRemark: remakrsInvoiceController.text,
+                  additionalData: InvoiceAdditionalRequestData(
+                      numberOfSuppliersContacted: invoiceController.text)),
+              buyers: BuyersRequest(
+                  auditConfirmedStatus: radioBuyer,
+                  auditRemark: remakrsBuyerController.text,
+                  additionalData: BuyersAdditionalRequestData(
+                      numberOfBuyersContacted: buyersController.text)),
+            ),
+            submit: submit ?? '');
+    state = ViewState.busy;
+    try {
+      final res =
+          await auditorRepository.postRecyclerForm4Data(requestModel, id: id);
+      if (res?.isSuccess == true) {
+        if (context.mounted) {
+          HelperFunctions()
+              .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          await getRecycler5Data(context);
+        }
+      } else {
+        final apiError = res?.error?.errorsList;
+        invoiceAuditConfirmedStatusError =
+            (apiError?.productionInfoInvoiceAuditConfirmedStatus ?? []).isEmpty
+                ? ""
+                : apiError?.productionInfoInvoiceAuditConfirmedStatus?.first ??
+                    "";
+        invoiceAdditionalDataNumberOfSuppliersContactedError = (apiError
+                        ?.productionInfoInvoiceAdditionalDataNumberOfSuppliersContacted ??
+                    [])
+                .isEmpty
+            ? ""
+            : apiError
+                    ?.productionInfoInvoiceAdditionalDataNumberOfSuppliersContacted
+                    ?.first ??
+                "";
+        invoiceAuditRemarkError =
+            (apiError?.productionInfoInvoiceAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.productionInfoInvoiceAuditRemark?.first ?? "";
+        buyersAuditConfirmedStatusError =
+            (apiError?.productionInfoBuyersAuditConfirmedStatus ?? []).isEmpty
+                ? ""
+                : apiError?.productionInfoBuyersAuditConfirmedStatus?.first ??
+                    "";
+
+        buyersAdditionalDataNumberOfBuyersContactedError =
+            (apiError?.productionInfoInvoiceAuditConfirmedStatus ?? []).isEmpty
+                ? ""
+                : apiError?.productionInfoInvoiceAuditConfirmedStatus?.first ??
+                    "";
+        buyersAuditRemarkError =
+            (apiError?.productionInfoBuyersAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.productionInfoBuyersAuditRemark?.first ?? "";
+      }
+    } catch (e) {
+      if (context.mounted) {
+        HelperFunctions()
+            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+      }
+    }
+    updateUI();
+    state = ViewState.idle;
+  }
+
+  Future<void> postForm5Data(BuildContext context,
+      {String? id, String submit = "SaveAsDraft"}) async {
+    AuditorRecyclerForm5RequestModel requestModel =
+        AuditorRecyclerForm5RequestModel(
+            submit: submit,
+            wasteWaterGenerationAndDisposal:
+                InvoiceAdditionalRequestDataRequest(
+                    etpInstalled: EtpInstalledRequest(
+                        auditConfirmedStatus: radioInstalled,
+                        auditRemark: etpRemarksInstalledController.text,
+                        additionalData: EtpInstalledAdditionalDataRequest(
+                            operational: installDropdownValue)),
+                    etpCapacity: EtpCapacityRequest(
+                        auditConfirmedStatus: radioCapacity,
+                        auditRemark: etpRemarksCapacityController.text,
+                        additionalData: EtpCapacityAdditionalDataRequest(
+                            capacity: etpCapacityController.text)),
+                    summary: SummaryRequest(
+                        auditRemark: summmaryRemakrController.text)));
+    state = ViewState.busy;
+    try {
+      final res = await auditorRepository.postRecyclerForm5Data(requestModel);
+      if (res?.isSuccess == true) {
+        if (context.mounted) {
+          HelperFunctions()
+              .commonSuccessSnackBar(context, res?.data?.message ?? "");
+        }
+      } else {
+        final apiError = res?.error?.errorsList;
+        summaryAuditRemarkError =
+            (apiError?.wasteWaterGenerationAndDisposalSummaryAuditRemark ?? [])
+                    .isEmpty
+                ? ""
+                : apiError?.wasteWaterGenerationAndDisposalSummaryAuditRemark
+                        ?.first ??
+                    "";
+      }
+    } catch (e) {
+      if (context.mounted) {
+        HelperFunctions()
+            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+      }
+    }
+    updateUI();
+    state = ViewState.idle;
   }
 }

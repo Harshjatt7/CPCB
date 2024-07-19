@@ -5,9 +5,8 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class RecyclerDataTable extends StatelessWidget {
-  RecyclerDataTable({
-    super.key,
-  });
+  RecyclerDataTable({super.key, required this.headingList});
+  final List<String> headingList;
   final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class RecyclerDataTable extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: List.generate(
-                    recyclerHeadingList.length,
+                    headingList.length,
                     (index) => SizedBox(
                           width: 286,
                           child: Padding(
@@ -45,7 +44,7 @@ class RecyclerDataTable extends StatelessWidget {
                               vertical: 20,
                             ),
                             child: CommonTextWidget(
-                              recyclerHeadingList[index],
+                              headingList[index],
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
@@ -79,11 +78,3 @@ class RecyclerDataTable extends StatelessWidget {
     );
   }
 }
-
-List<String> recyclerHeadingList = [
-  "Name of Plant Machinery",
-  "Capacity of Plant Machinery",
-  "Power of Plant Machinery",
-  "Action",
-  "Remarks",
-];

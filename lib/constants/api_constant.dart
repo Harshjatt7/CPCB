@@ -56,13 +56,20 @@ class APIRoutes {
       "api/recycler/download-certificate";
   final String auditorDashboardAPIRoute = "api/auditor/dashboard";
   final String auditorAuditPlanListAPIRoute = "api/auditor/audit-plans";
-  final String auditorAuditPlanDetailAPIRoute = "api/auditor/audit-plan-details";
-  final String auditorProducerForm1ResponseAPIRoute = "api/auditor/checklist/producer/company-details";
-  final String auditorProducerForm1RequestAPIRoute = "api/auditor/checklist/producer/company-details-store";
-  final String auditorProducerForm2ResponseAPIRoute = "api/auditor/checklist/producer/producer-sales-data";
-  final String auditorProducerForm2RequestAPIRoute = "api/auditor/checklist/producer/producer-sales-data-store";
-  final String auditorProducerForm3RequestAPIRoute = "api/auditor/checklist/producer/summary-report-store";
-  final String auditorProducerForm3ResponseAPIRoute ="api/auditor/checklist/producer/producer-sales-data";
+  final String auditorAuditPlanDetailAPIRoute =
+      "api/auditor/audit-plan-details";
+  final String auditorProducerForm1ResponseAPIRoute =
+      "api/auditor/checklist/producer/company-details";
+  final String auditorProducerForm1RequestAPIRoute =
+      "api/auditor/checklist/producer/company-details-store";
+  final String auditorProducerForm2ResponseAPIRoute =
+      "api/auditor/checklist/producer/producer-sales-data";
+  final String auditorProducerForm2RequestAPIRoute =
+      "api/auditor/checklist/producer/producer-sales-data-store";
+  final String auditorProducerForm3RequestAPIRoute =
+      "api/auditor/checklist/producer/summary-report-store";
+  final String auditorProducerForm3ResponseAPIRoute =
+      "api/auditor/checklist/producer/producer-sales-data";
   final String auditorRecyclerForm1APIRoute = "api/auditor/recyclerChecklist/";
   final String auditorRecyclerForm2APIRoute =
       "api/auditor/checklist/recycler/processing-capacity/";
@@ -73,6 +80,10 @@ class APIRoutes {
 
   final String auditorRecyclerForm5APIRoute =
       "api/auditor/recyclerChecklist/waste-water-generation-and-disposal/";
+  final String auditorRecyclerForm4RequestAPIRoute =
+      "api/auditor/retreaderChecklist/store-production-information/";
+  final String auditorRecyclerForm5RequestAPIRoute =
+      "api/auditor/retreaderChecklist/store-waste-water-generation-and-disposal/";
 
   final String fileUploadAPIRoute =
       "api/auditor/recyclerChecklist/file-upload/mobile";

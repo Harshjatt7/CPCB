@@ -130,91 +130,94 @@ class AuditorListScreen extends StatelessWidget {
                                                   ?.status
                                                   .toString() ??
                                               "assigned");
-                                          showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            context: context,
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.zero),
-                                            builder: (context) {
-                                              final auditPlanDetail = viewModel
-                                                  .auditPlanDetaildata?[0];
-                                              return AuditorBottomSheet(
-                                                progress: auditPlanDetail
-                                                    ?.statusPercentage
-                                                    ?.toDouble(),
-                                                status:
-                                                    viewModel.applicationStatus,
-                                                unitName:
-                                                    auditPlanDetail?.unitName,
-                                                unitRegisteration:
-                                                    auditPlanDetail?.regNum,
-                                                unitGstin:
-                                                    auditPlanDetail?.gstin,
-                                                unitType:
-                                                    auditPlanDetail?.legalName,
-                                                unitAddress:
-                                                    auditPlanDetail?.address,
-                                                district:
-                                                    auditPlanDetail?.district,
-                                                state: auditPlanDetail?.state,
-                                                currentStatus:
-                                                    auditPlanDetail?.status,
-                                                createdOn:
-                                                    auditPlanDetail?.quarter,
-                                                startDate:
-                                                    auditPlanDetail?.startDate,
-                                                endDate:
-                                                    auditPlanDetail?.endDate,
-                                                onPressed: () {
-                                                  if (auditPlanDetail
-                                                          ?.legalName ==
-                                                      "Producer") {
-                                                    Navigator.pushNamed(
-                                                        context,
-                                                        AppRoutes
-                                                            .auditorProducerStepperScreen,
-                                                        arguments: CheckUserAndSummaryScreen(
-                                                            id: auditPlanDetail
-                                                                ?.id,
-                                                            userType:
-                                                                auditPlanDetail
-                                                                    ?.legalName,
-                                                            isSummaryScreen:
-                                                                false));
-                                                  } else if (auditPlanDetail
-                                                          ?.legalName ==
-                                                      "Recycler") {
-                                                    Navigator.pushNamed(
-                                                        context,
-                                                        AppRoutes
-                                                            .auditorRecyclerStepperScreen,
-                                                        arguments: CheckUserAndSummaryScreen(
-                                                            id: auditPlanDetail
-                                                                ?.id,
-                                                            userType:
-                                                                auditPlanDetail
-                                                                    ?.legalName,
-                                                            isSummaryScreen:
-                                                                false));
-                                                  } else {
-                                                    Navigator.pushNamed(
-                                                        context,
-                                                        AppRoutes
-                                                            .auditorRecyclerStepperScreen,
-                                                        arguments: CheckUserAndSummaryScreen(
-                                                            id: auditPlanDetail
-                                                                ?.id,
-                                                            userType:
-                                                                auditPlanDetail
-                                                                    ?.legalName,
-                                                            isSummaryScreen:
-                                                                false));
-                                                  }
-                                                },
-                                              );
-                                            },
-                                          );
+                                          if (context.mounted) {
+                                            showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              context: context,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.zero),
+                                              builder: (context) {
+                                                final auditPlanDetail = viewModel
+                                                    .auditPlanDetaildata?[0];
+                                                return AuditorBottomSheet(
+                                                  progress: auditPlanDetail
+                                                      ?.statusPercentage
+                                                      ?.toDouble(),
+                                                  status: viewModel
+                                                      .applicationStatus,
+                                                  unitName:
+                                                      auditPlanDetail?.unitName,
+                                                  unitRegisteration:
+                                                      auditPlanDetail?.regNum,
+                                                  unitGstin:
+                                                      auditPlanDetail?.gstin,
+                                                  unitType: auditPlanDetail
+                                                      ?.legalName,
+                                                  unitAddress:
+                                                      auditPlanDetail?.address,
+                                                  district:
+                                                      auditPlanDetail?.district,
+                                                  state: auditPlanDetail?.state,
+                                                  currentStatus:
+                                                      auditPlanDetail?.status,
+                                                  createdOn:
+                                                      auditPlanDetail?.quarter,
+                                                  startDate: auditPlanDetail
+                                                      ?.startDate,
+                                                  endDate:
+                                                      auditPlanDetail?.endDate,
+                                                  onPressed: () {
+                                                    if (auditPlanDetail
+                                                            ?.legalName ==
+                                                        "Producer") {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          AppRoutes
+                                                              .auditorProducerStepperScreen,
+                                                          arguments: CheckUserAndSummaryScreen(
+                                                              id: auditPlanDetail
+                                                                  ?.id,
+                                                              userType:
+                                                                  auditPlanDetail
+                                                                      ?.legalName,
+                                                              isSummaryScreen:
+                                                                  false));
+                                                    } else if (auditPlanDetail
+                                                            ?.legalName ==
+                                                        "Recycler") {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          AppRoutes
+                                                              .auditorRecyclerStepperScreen,
+                                                          arguments: CheckUserAndSummaryScreen(
+                                                              id: auditPlanDetail
+                                                                  ?.id,
+                                                              userType:
+                                                                  auditPlanDetail
+                                                                      ?.legalName,
+                                                              isSummaryScreen:
+                                                                  false));
+                                                    } else {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          AppRoutes
+                                                              .auditorRecyclerStepperScreen,
+                                                          arguments: CheckUserAndSummaryScreen(
+                                                              id: auditPlanDetail
+                                                                  ?.id,
+                                                              userType:
+                                                                  auditPlanDetail
+                                                                      ?.legalName,
+                                                              isSummaryScreen:
+                                                                  false));
+                                                    }
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          }
                                         },
                                       ),
                                     );
