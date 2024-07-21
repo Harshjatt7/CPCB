@@ -18,9 +18,10 @@ import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm2 extends StatefulWidget {
   const AuditorRecyclerForm2(
-      {super.key, this.isSummaryScreen = false, this.isRetreader = false});
+      {super.key, this.isSummaryScreen = false, this.isRetreader = false,this.id});
   final bool? isSummaryScreen;
   final bool isRetreader;
+  final String? id;
 
   @override
   State<AuditorRecyclerForm2> createState() => _AuditorRecyclerForm2State();

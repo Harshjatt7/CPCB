@@ -77,18 +77,36 @@ class APIRoutes {
       "api/auditor/recyclerChecklist/procurement-information/";
   final String auditorRecyclerForm4APIRoute =
       "api/auditor/recyclerChecklist/production-information/";
-
   final String auditorRecyclerForm5APIRoute =
       "api/auditor/recyclerChecklist/waste-water-generation-and-disposal/";
+  final String auditorRetreaderForm1APIRoute =
+      "api/auditor/retreaderChecklist/";
+  final String auditorRetreaderForm2APIRoute =
+      "api/auditor/checklist/retreader/processing-capacity/";
+  final String auditorRetreaderForm3APIRoute =
+      "api/auditor/retreaderChecklist/procurement-information/";
+  final String auditorRetreaderForm4APIRoute =
+      "api/auditor/retreaderChecklist/production-information/";
+  final String auditorRetreaderForm5APIRoute =
+      "api/auditor/retreaderChecklist/waste-water-generation-and-disposal/";
+
+  final String auditorRecyclerForm1RequestAPIRoute =
+      "api/auditor/recyclerChecklist/store-general-information/";
   final String auditorRecyclerForm4RequestAPIRoute =
-      "api/auditor/retreaderChecklist/store-production-information/";
+      "api/auditor/reyclerChecklist/store-production-information/";
   final String auditorRecyclerForm5RequestAPIRoute =
+      "api/auditor/reyclerChecklist/store-waste-water-generation-and-disposal/";
+  final String auditorRetreaderForm1RequestAPIRoute =
+      "api/auditor/retreaderChecklist/store-general-information/";
+  final String auditorRetreaderForm4RequestAPIRoute =
+      "api/auditor/retreaderChecklist/store-production-information/";
+  final String auditorRetreaderForm5RequestAPIRoute =
       "api/auditor/retreaderChecklist/store-waste-water-generation-and-disposal/";
 
-  final String fileUploadAPIRoute =
+  final String recyclerFileUploadAPIRoute =
       "api/auditor/recyclerChecklist/file-upload/mobile";
-  final String auditorRecyclerForm1PostAPIRoute =
-      "api/auditor/recyclerChecklist/store-general-information/";
+  final String retreaderFileUploadAPIRoute =
+      "api/auditor/retreaderChecklist/file-upload/mobile";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";

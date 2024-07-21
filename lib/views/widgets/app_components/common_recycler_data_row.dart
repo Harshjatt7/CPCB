@@ -1,24 +1,39 @@
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form1_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class CommonRecyclerDataRow extends StatelessWidget {
+class CommonRecyclerDataRow extends StatefulWidget {
   CommonRecyclerDataRow(
-      {super.key, required this.demoModel, this.onTap, required this.isOdd});
-  final DemoModel2 demoModel;
+      {super.key,
+      required this.nwModel,
+      this.onTap,
+      required this.isOdd,
+      required this.machineController,
+      required this.index,
+      required this.groupValue});
+  final Nw? nwModel;
   final void Function()? onTap;
   final bool isOdd;
-  String groupValue = "confirmed";
+  final int index;
+  final TextEditingController machineController;
+  String groupValue;
+
+  @override
+  State<CommonRecyclerDataRow> createState() => _CommonRecyclerDataRowState();
+}
+
+class _CommonRecyclerDataRowState extends State<CommonRecyclerDataRow> {
   final StringConstants stringConstants = StringConstants();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: isOdd == true ? AppColor().white : AppColor().grey15),
+          color: widget.isOdd == true ? AppColor().white : AppColor().grey15),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -27,7 +42,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 70, top: 14, bottom: 14),
               child: CommonTextWidget(
-                demoModel.name ?? '',
+                widget.nwModel?.machineryInstalled ?? '',
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall!
@@ -40,9 +55,9 @@ class CommonRecyclerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: GestureDetector(
-                onTap: onTap,
+                onTap: widget.onTap,
                 child: CommonTextWidget(
-                  demoModel.capacity ?? '',
+                  widget.nwModel?.capacity ?? '',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         color: AppColor().black02,
@@ -56,7 +71,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.power ?? '',
+                widget.nwModel?.power ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -71,7 +86,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
               children: [
                 Radio(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  value: stringConstants.notConfirmed,
+                  value: stringConstants.radioValue1,
                   fillColor: MaterialStateProperty.resolveWith(
                     (states) {
                       if (states.contains(MaterialState.selected)) {
@@ -80,13 +95,14 @@ class CommonRecyclerDataRow extends StatelessWidget {
                       return AppColor().black40;
                     },
                   ),
-                  groupValue: groupValue,
+                  groupValue: widget.groupValue,
                   onChanged: (value) {
-                    groupValue = value ?? '';
+                    widget.groupValue = value ?? '';
+                    setState(() {});
                   },
                 ),
                 CommonTextWidget(
-                 stringConstants.notConfirmed,
+                  stringConstants.notConfirmed,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 const SizedBox(
@@ -94,8 +110,8 @@ class CommonRecyclerDataRow extends StatelessWidget {
                 ),
                 Radio(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  value: stringConstants.confirmed,
-                  groupValue: groupValue,
+                  value: stringConstants.radioValue2,
+                  groupValue: widget.groupValue,
                   fillColor: MaterialStateProperty.resolveWith(
                     (states) {
                       if (states.contains(MaterialState.selected)) {
@@ -105,7 +121,8 @@ class CommonRecyclerDataRow extends StatelessWidget {
                     },
                   ),
                   onChanged: (value) {
-                    groupValue = value ?? '';
+                    widget.groupValue = value ?? '';
+                    setState(() {});
                   },
                 ),
                 CommonTextWidget(
@@ -122,7 +139,7 @@ class CommonRecyclerDataRow extends StatelessWidget {
               child: CommonTextFormFieldWidget(
                   hintText: stringConstants.remarks,
                   isMandatory: false,
-                  controller: TextEditingController()),
+                  controller: widget.machineController),
             ),
           )
         ],

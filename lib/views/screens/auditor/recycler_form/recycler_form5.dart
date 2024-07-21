@@ -9,6 +9,7 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart'
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,8 +17,14 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm5 extends StatefulWidget {
-  const AuditorRecyclerForm5({super.key, this.isSummaryScreen = false});
+  const AuditorRecyclerForm5(
+      {super.key,
+      this.isSummaryScreen = false,
+      this.isRetreader = false,
+      this.id});
   final bool? isSummaryScreen;
+  final bool isRetreader;
+  final String? id;
 
   @override
   State<AuditorRecyclerForm5> createState() => _AuditorRecyclerForm5State();
@@ -66,10 +73,15 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
                   onNextOrSubmit: () async {
                     Provider.of<CommonStepperViewModel>(context, listen: false)
                         .onNextButton(context, "Recycler");
-                    await viewModel.postForm5Data(context, submit: '');
+                    await viewModel.postForm5Data(context,
+                        submit: '',
+                        userId: widget.id ?? '',
+                        isRetreader: widget.isRetreader);
                   },
                   onSavedDraft: () async {
-                    await viewModel.postForm5Data(context);
+                    await viewModel.postForm5Data(context,
+                        userId: widget.id ?? '',
+                        isRetreader: widget.isRetreader);
                   },
                 ))
           ],
@@ -263,7 +275,9 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
               hintText: stringConstants.textHere.i18n(),
               controller: viewModel.summmaryRemakrController,
             ),
-          )
+          ),
+          if (viewModel.summaryAuditRemarkError.isNotEmpty)
+            showErrorMessage(context, viewModel.summaryAuditRemarkError),
         ],
       ),
     );
@@ -278,5 +292,21 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
         label1: stringConstants.notConfirmed,
         label2: stringConstants.confirmed,
         onChanged: onChanged);
+  }
+
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: appColor.red),
+        ),
+      ),
+    );
   }
 }

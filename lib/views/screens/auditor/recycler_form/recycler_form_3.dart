@@ -17,8 +17,14 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm3 extends StatefulWidget {
-  const AuditorRecyclerForm3({super.key, this.isSummaryScreen = false});
+  const AuditorRecyclerForm3(
+      {super.key,
+      this.isSummaryScreen = false,
+      this.isRetreader = false,
+      this.id});
   final bool? isSummaryScreen;
+  final bool isRetreader;
+  final String? id;
 
   @override
   State<AuditorRecyclerForm3> createState() => _AuditorRecyclerForm3State();

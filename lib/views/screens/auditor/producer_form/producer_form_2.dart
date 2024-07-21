@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/views/widgets/app_components/common_data_table.dart';
+import 'package:cpcb_tyre/views/widgets/app_components/producer_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -224,7 +225,7 @@ class ProducerForm2 extends StatelessWidget {
         const SizedBox(
           height: 7,
         ),
-        CommonDataTable(headingList: viewModel.producerHeadingList, list: list),
+        ProducerDataTable(headingList: viewModel.producerHeadingList, list: list),
       ],
     );
   }
