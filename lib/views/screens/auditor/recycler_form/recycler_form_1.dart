@@ -716,6 +716,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   count: viewModel.count,
                   isDocument: true,
                   onTap: () {
+                    viewModel.handleOnMachineTap(context,
+                        viewModel.uploadControllerList[viewModel.count - 1]);
                     // viewModel.handleOnTap(
                     //     context,
                     //     RecyclerForm1.machine,
@@ -893,10 +895,18 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
                         onTap: () {
-                          viewModel.pickVideo();
+                          viewModel.handleOnTap(
+                            context,
+                            RecyclerForm1.video,
+                            viewModel.uploadVideoController,
+                          );
                         },
                         onSuffixTap: () {
-                          viewModel.pickVideo();
+                          viewModel.handleOnSuffixTap(
+                            context,
+                            RecyclerForm1.power,
+                            viewModel.uploadVideoController,
+                          );
                         },
                         validator: (value) {
                           return viewModel.videoValidation();

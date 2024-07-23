@@ -35,6 +35,7 @@ class _ProdcerStepperState extends State<ProducerStepper> {
           viewModel.initalizeGroupValues();
           viewModel.getProducerForm1Data(id: widget.userDetails?.id);
           viewModel.counter = 0;
+          
         },
         viewModel: ProducerFormsViewModel());
   }

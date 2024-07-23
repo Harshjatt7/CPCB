@@ -230,4 +230,11 @@ class AuditorRepository {
     );
     return response;
   }
+
+  Future getDownloadFile(String fileKey) async {
+    final response = await _apiBase.getRequest(
+        "${_apiRoutes.auditorUploadFileViewer}$fileKey",
+        isMediaAuthorizationRequired: true);
+    return response;
+  }
 }

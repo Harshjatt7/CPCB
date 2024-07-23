@@ -107,7 +107,7 @@ class APIRoutes {
       "api/auditor/recyclerChecklist/file-upload/mobile";
   final String retreaderFileUploadAPIRoute =
       "api/auditor/retreaderChecklist/file-upload/mobile";
-
+  final String auditorUploadFileViewer = "api/view-file/";
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
   final String initiateRegistrationWebUrl = "initiateRegistration";
@@ -119,6 +119,7 @@ extension ApiBaseURL on ApiEnvironments {
       case ApiEnvironments.dev:
         return "https://dev-cpcb-tyre.writso.com/";
       case ApiEnvironments.qa:
+        // return "http://192.168.4.228:8000/";
         return "https://qa2-cpcb-tyre.writso.com/";
       case ApiEnvironments.prod:
         return "PROD BASE URL";

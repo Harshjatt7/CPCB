@@ -231,7 +231,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   DocumentData? authorizedPersonPanDocument;
   DocumentData? lastYearElectricityBillDocument;
   DocumentData? airPollutionControlDevicesDocument;
-  DocumentData? otherMachineriesDocument;
+  List<DocumentData?> otherMachineriesDocument = [];
   DocumentData? geoTaggedVideoUploadDocument;
 
   List<String> recyclerHeadingList = [
@@ -596,7 +596,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           lastYearElectricityBill: powerFile,
         );
         if (context.mounted) {
-          await postDocumentData(context, requestModel, fieldName);
+          await postDocumentData(context, requestModel, type: fieldName);
         }
       }
     } else {
@@ -681,10 +681,27 @@ class RecyclerFormViewModel extends BaseViewModel {
         case RecyclerForm1.video:
           helperFunctions.openFile(videoFilePath ?? '');
           break;
-        // case RecyclerForm1.machine:
-        //   helperFunctions.openFile(machineFilePath ?? '');
-        //   break;
       }
+    }
+  }
+
+  void handleOnMachineTap(
+    BuildContext context,
+    TextEditingController controller,
+  ) async {
+    if (controller.text.isEmpty) {
+      var res = await openMachineFileManager(context);
+
+      if (res != null) {
+        controller.text = res.files.isEmpty ? "" : res.files.first.name;
+        updateUI();
+        helperFunctions.logger(uploadControllerList.length.toString());
+
+        machineFile.add(await MultipartFile.fromFile(res.files.first.path ?? '',
+            filename: res.files.first.name));
+      }
+    } else {
+      helperFunctions.openFile(machineFilePath[count - 1] ?? '');
     }
   }
 
@@ -923,17 +940,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           videoFileName = file.path.split('/').last;
           updateUI();
           break;
-        // case RecyclerForm1.machine:
-        //   for (int i = count; i > 1; i++) {
-        //     final file = File(result.files.single.path ?? "");
-        //     machineFilePath = file.path;
-        //     machineFileSizeModel[i] =
-        //         await getFileSize(machineFilePath ?? "", 1);
-        //     fileSize = machineFileSizeModel[i]?.fileSize ?? "0 B";
-        //     machineFileName[i] = file.path.split('/').last;
-        //     updateUI();
-        //   }
-        //   break;
       }
     } else {
       fileError = messageConstant.pleaseSelectFile;
@@ -1195,8 +1201,9 @@ class RecyclerFormViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> postDocumentData(BuildContext context,
-      DocumentRequestModel request, RecyclerForm1 type) async {
+  Future<void> postDocumentData(
+      BuildContext context, DocumentRequestModel request,
+      {RecyclerForm1? type}) async {
     state = ViewState.busy;
     APIResponse<DocumentResponseModel?>? response;
     try {
@@ -1207,7 +1214,11 @@ class RecyclerFormViewModel extends BaseViewModel {
             DocumentResponseModel.fromJson(response.completeResponse);
         if (context.mounted) {
           state = ViewState.idle;
-          setUploadFileData(type, response);
+          if (type != null) {
+            setUploadFileData(type, response);
+          } else {
+            setMachineUploadFileData(response);
+          }
         }
       }
     } catch (e) {
@@ -1216,25 +1227,61 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.idle;
   }
 
+  Future getAuditorFile(BuildContext context) async {
+    state = ViewState.busy;
+    try {
+      APIResponse value = await auditorRepository.getDownloadFile("");
+      if (value.isSuccess == true) {
+        helperFunctions.downloadAndStoreFile(
+            name: "Certificate", response: value);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+        if (context.mounted) {
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
+        }
+      }
+    } catch (error) {
+      helperFunctions.logger("$error");
+    }
+    state = ViewState.idle;
+    return null;
+  }
+
   void setUploadFileData(
       RecyclerForm1 type, APIResponse<DocumentResponseModel?>? response) {
     switch (type) {
       case RecyclerForm1.aadhar:
         aadharDocument = response?.data?.data;
+        aadharFile = null;
         break;
       case RecyclerForm1.pollution:
         airPollutionControlDevicesDocument = response?.data?.data;
+        pollutionFile = null;
         break;
       case RecyclerForm1.panNo:
         authorizedPersonPanDocument = response?.data?.data;
+        panNoFile = null;
         break;
       case RecyclerForm1.video:
         geoTaggedVideoUploadDocument = response?.data?.data;
+        videoFile = null;
         break;
       case RecyclerForm1.power:
         lastYearElectricityBillDocument = response?.data?.data;
+        powerFile = null;
         break;
     }
+    updateUI();
+  }
+
+  void setMachineUploadFileData(APIResponse<DocumentResponseModel?>? response) {
+    otherMachineriesDocument.add(response?.data?.data);
+    machineFile.clear();
+    helperFunctions.logger(machineFile.length.toString());
+    updateUI();
   }
 
   void formValidation(BuildContext context, String? userType) {
@@ -1255,26 +1302,17 @@ class RecyclerFormViewModel extends BaseViewModel {
           updateUI();
           helperFunctions.logger(uploadControllerList.length.toString());
 
-          for (int i = 0; i < count; i++) {
-            machineFile.add(await MultipartFile.fromFile(
-                res.files.first.path ?? '',
-                filename: res.files.first.name));
+          machineFile.add(await MultipartFile.fromFile(
+              res.files.first.path ?? '',
+              filename: res.files.first.name));
+
+          DocumentRequestModel requestModel =
+              DocumentRequestModel(otherMachineries: machineFile.first);
+          if (context.mounted) {
+            await postDocumentData(context, requestModel);
           }
         }
       }
-
-      // for (int i = count; i > 1; i--) {
-      //   DocumentRequestModel requestModel = DocumentRequestModel(
-      //       aaddhar: aadharFile,
-      //       airPollutionControlDevices: pollutionFile,
-      //       authorizedPersonPan: panNoFile,
-      //       geoTaggedVideoUpload: videoFile,
-      //       lastYearElectricityBill: powerFile,
-      //       otherMachineries: machineFile[i]);
-      //   if (context.mounted) {
-      //    await postDocumentData(context, requestModel, type);
-      //   }
-      // }
     } else {
       controller.text = "";
       machineFilePath = [];
@@ -1311,7 +1349,9 @@ class RecyclerFormViewModel extends BaseViewModel {
     for (int i = 0; i < controllerList.length; i++) {
       OmRequest omRequest = OmRequest(
           auditDocument: uploadControllerList[i].text,
-          value: controllerList[i].text);
+          value: controllerList[i].text,
+          fileKey: otherMachineriesDocument[i]?.fileKey,
+          fileLink: otherMachineriesDocument[i]?.fileUrl);
       omRequestList.add(omRequest);
     }
     return omRequestList;
@@ -1353,19 +1393,21 @@ class RecyclerFormViewModel extends BaseViewModel {
                       lat: gpsAuditorLatitude.text,
                       long: gpsAuditorLongitude.text),
                 ),
-                //TODO File Upload changes
                 authorizedPersonAdhar: AirPollutionControlDevicesRequest(
                     auditRemark: remarkAadharController.text,
                     auditConfirmedStatus: radioAadharCard,
                     auditDocument: aadharFileName,
                     additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest()),
+                        AirPollutionControlDevicesAdditionalDataRequest(
+                            fileKey: aadharDocument?.fileKey ?? '',
+                            fileLink: aadharDocument?.fileUrl ?? '')),
                 authorizedPersonPan: AirPollutionControlDevicesRequest(
                     auditRemark: remarkPanNoController.text,
                     auditConfirmedStatus: radioPanNo,
                     auditDocument: panNoFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest()),
+                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                        fileKey: authorizedPersonPanDocument?.fileKey ?? '',
+                        fileLink: authorizedPersonPanDocument?.fileUrl ?? '')),
                 otherMachineries: OtherMachineriesRequest(
                     additionalData: OtherMachineriesAdditionalDataRequest(
                         om: getOmRequest())),
@@ -1373,20 +1415,27 @@ class RecyclerFormViewModel extends BaseViewModel {
                     auditRemark: remarkPowerController.text,
                     auditConfirmedStatus: radioPowerConsumption,
                     auditDocument: powerFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest()),
+                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                        fileKey: lastYearElectricityBillDocument?.fileKey ?? '',
+                        fileLink:
+                            lastYearElectricityBillDocument?.fileUrl ?? '')),
                 airPollutionControlDevices: AirPollutionControlDevicesRequest(
                     auditRemark: remakrsPollutionController.text,
                     auditConfirmedStatus: radioPollution,
                     auditDocument: pollutionFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest()),
+                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                        fileKey:
+                            airPollutionControlDevicesDocument?.fileKey ?? '',
+                        fileLink:
+                            airPollutionControlDevicesDocument?.fileUrl ?? '')),
                 geoTaggedVideoUpload: AirPollutionControlDevicesRequest(
                     auditRemark: remarkVideoController.text,
                     auditConfirmedStatus: radioPlant,
                     auditDocument: videoFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest())));
+                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                        fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '',
+                        fileLink:
+                            geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
 
     state = ViewState.busy;
     try {
