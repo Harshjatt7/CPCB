@@ -463,29 +463,30 @@ AuditorRecyclerForm1ResponseModel stateAndDistrictResponseModelFromJson(
     AuditorRecyclerForm1ResponseModel.fromJson(json.decode(str));
 
 class AuditorRecyclerForm1ResponseModel {
-  Data? data;
+  Form1Data? data;
 
   AuditorRecyclerForm1ResponseModel({
     this.data,
   });
 
-  factory AuditorRecyclerForm1ResponseModel.fromJson(Map<String, dynamic> json) =>
+  factory AuditorRecyclerForm1ResponseModel.fromJson(
+          Map<String, dynamic> json) =>
       AuditorRecyclerForm1ResponseModel(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : Form1Data.fromJson(json["data"]),
       );
 }
 
-class Data {
+class Form1Data {
   String? auditPlanId;
   GeneralInfoStep1Data? generalInfo;
   AuditSummary? auditSummary;
-  Data({
+  Form1Data({
     this.auditPlanId,
     this.generalInfo,
     this.auditSummary,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Form1Data.fromJson(Map<String, dynamic> json) => Form1Data(
         auditPlanId: json["auditPlanId"],
         generalInfo: json["generalInfo"] == null
             ? null
@@ -826,7 +827,6 @@ class Om {
       };
 }
 
-
 class GeneralInfoStep1Data {
   String? gstNo;
   String? companyPan;
@@ -838,7 +838,7 @@ class GeneralInfoStep1Data {
   String? long;
   String? authorizedPersonAdhar;
   String? authorizedPersonPan;
-  Map<String, Nw>? detailsOfMachinery;
+  Map<String, dynamic>? detailsOfMachinery;
   String? airPollutionControlDevices;
 
   GeneralInfoStep1Data({
@@ -868,11 +868,12 @@ class GeneralInfoStep1Data {
         long: json["long"],
         authorizedPersonAdhar: json["authorizedPersonAdhar"],
         authorizedPersonPan: json["authorizedPersonPan"],
-        detailsOfMachinery: json["detailsOfMachinery"].forEach(
-          (key, value) {
-            json["detailsOfMachinery"][key] = Nw.fromJson(value);
-          },
-        ),
+        detailsOfMachinery: json["detailsOfMachinery"],
+        // .forEach(
+        //   (key, value) {
+        //     json["detailsOfMachinery"][key] = Nw.fromJson(value);
+        //   },
+        // ),
         airPollutionControlDevices: json["airPollutionControlDevices"],
       );
 
@@ -892,22 +893,22 @@ class GeneralInfoStep1Data {
       };
 }
 
-class DetailsOfMachinery {
-  Nw? nw;
+// class DetailsOfMachinery {
+//   Nw? nw;
 
-  DetailsOfMachinery({
-    this.nw,
-  });
+//   DetailsOfMachinery({
+//     this.nw,
+//   });
 
-  factory DetailsOfMachinery.fromJson(Map<String, dynamic> json) =>
-      DetailsOfMachinery(
-        nw: json["Nw"] == null ? null : Nw.fromJson(json["Nw"]),
-      );
+//   factory DetailsOfMachinery.fromJson(Map<String, dynamic> json) =>
+//       DetailsOfMachinery(
+//         nw: json["Nw"] == null ? null : Nw.fromJson(json["Nw"]),
+//       );
 
-  Map<String, dynamic> toJson() => {
-        "Nw": nw?.toJson(),
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "Nw": nw?.toJson(),
+//       };
+// }
 
 class Nw {
   String? machineryInstalled;

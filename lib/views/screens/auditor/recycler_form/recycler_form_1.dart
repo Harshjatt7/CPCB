@@ -22,8 +22,14 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AuditorRecyclerForm1 extends StatefulWidget {
-  const AuditorRecyclerForm1({super.key, this.isSummaryScreen = false});
+  const AuditorRecyclerForm1(
+      {super.key,
+      this.isSummaryScreen = false,
+      this.isRetreader = false,
+      this.id});
   final bool? isSummaryScreen;
+  final bool isRetreader;
+  final String? id;
 
   @override
   State<AuditorRecyclerForm1> createState() => _AuditorRecyclerForm1State();
@@ -274,6 +280,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: RecyclerDataTable(
+                  machineControllerList: viewModel.plantMachineryControllerList,
+                  radioList: viewModel.plantMachineyRadioList,
+                  nwList: viewModel.nw ?? [],
                   headingList: viewModel.recyclerHeadingList,
                 ),
               ),
@@ -423,6 +432,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               return viewModel.emptyValidation(viewModel.gstRemarkController);
             },
           ),
+          if (viewModel.gstNoAuditRemarkError.isNotEmpty)
+            showErrorMessage(context, viewModel.gstNoAuditRemarkError),
           AuditorFormTile(
             isMandatory: true,
             groupValue: viewModel.radioPanOfCompany,
@@ -437,6 +448,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               return viewModel.emptyValidation(viewModel.companyPanController);
             },
           ),
+          if (viewModel.companyPanAuditRemarkError.isNotEmpty)
+            showErrorMessage(context, viewModel.companyPanAuditRemarkError),
           AuditorFormTile(
             isMandatory: false,
             groupValue: viewModel.radioIec,
@@ -463,6 +476,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   .emptyValidation(viewModel.recyclerRemakrCTOController);
             },
           ),
+          if (viewModel.ctoAuditRemarkError.isNotEmpty)
+            showErrorMessage(context, viewModel.ctoAuditRemarkError),
           AuditorFormTile(
             isMandatory: true,
             groupValue: viewModel.radioAuthorization,
@@ -478,6 +493,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   .emptyValidation(viewModel.remarkAuthorizationController);
             },
           ),
+          if (viewModel.authorizationUnderHomwRulesAuditRemarkError.isNotEmpty)
+            showErrorMessage(
+                context, viewModel.authorizationUnderHomwRulesAuditRemarkError),
           AuditorFormTile(
             isMandatory: true,
             groupValue: viewModel.radioRecyclingDetails,
@@ -493,6 +511,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   .emptyValidation(viewModel.remarkRecyclingDetailsController);
             },
           ),
+          if (viewModel.addressLine1AuditRemarkError.isNotEmpty)
+            showErrorMessage(context, viewModel.addressLine1AuditRemarkError),
           Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 8,
@@ -557,6 +577,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     },
                     controller: viewModel.gpsAuditorLatitude),
               ),
+              if (viewModel.gpsLocationAuditorAdditionalDataLatError.isNotEmpty)
+                showErrorMessage(context,
+                    viewModel.gpsLocationAuditorAdditionalDataLatError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
@@ -568,6 +591,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     },
                     controller: viewModel.gpsAuditorLongitude),
               ),
+              if (viewModel
+                  .gpsLocationAuditorAdditionalDataLongError.isNotEmpty)
+                showErrorMessage(context,
+                    viewModel.gpsLocationAuditorAdditionalDataLongError),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8,
@@ -591,7 +618,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                           viewModel.gpsAuditorRemarkController);
                     },
                     controller: viewModel.gpsAuditorRemarkController),
-              )
+              ),
+              if (viewModel.gpsLocationAuditorAuditRemarkError.isNotEmpty)
+                showErrorMessage(
+                    context, viewModel.gpsLocationAuditorAuditRemarkError),
             ],
           ),
           Padding(
@@ -672,6 +702,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: RecyclerDataTable(
+                  machineControllerList: viewModel.plantMachineryControllerList,
+                  radioList: viewModel.plantMachineyRadioList,
+                  nwList: viewModel.nw ?? [],
                   headingList: viewModel.recyclerHeadingList,
                 ),
               ),
@@ -683,6 +716,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   count: viewModel.count,
                   isDocument: true,
                   onTap: () {
+                    viewModel.handleOnMachineTap(context,
+                        viewModel.uploadControllerList[viewModel.count - 1]);
                     // viewModel.handleOnTap(
                     //     context,
                     //     RecyclerForm1.machine,
@@ -766,6 +801,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         isMandatory: false,
                         controller: viewModel.uploadPowerController),
                   ),
+                  if (viewModel
+                      .lastYearElectricityBillAuditDocumentError.isNotEmpty)
+                    showErrorMessage(context,
+                        viewModel.lastYearElectricityBillAuditDocumentError),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: CommonTextFormFieldWidget(
@@ -778,7 +817,11 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                             .emptyValidation(viewModel.remarkPowerController);
                       },
                     ),
-                  )
+                  ),
+                  if (viewModel
+                      .lastYearElectricityBillAuditRemarkError.isNotEmpty)
+                    showErrorMessage(context,
+                        viewModel.lastYearElectricityBillAuditRemarkError),
                 ],
               )),
           Padding(
@@ -852,10 +895,18 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
                         onTap: () {
-                          viewModel.pickVideo();
+                          viewModel.handleOnTap(
+                            context,
+                            RecyclerForm1.video,
+                            viewModel.uploadVideoController,
+                          );
                         },
                         onSuffixTap: () {
-                          viewModel.pickVideo();
+                          viewModel.handleOnSuffixTap(
+                            context,
+                            RecyclerForm1.power,
+                            viewModel.uploadVideoController,
+                          );
                         },
                         validator: (value) {
                           return viewModel.videoValidation();
@@ -864,6 +915,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         isMandatory: false,
                         controller: viewModel.uploadVideoController),
                   ),
+                  if (viewModel
+                      .geoTaggedVideoUploadAuditDocumentError.isNotEmpty)
+                    showErrorMessage(context,
+                        viewModel.geoTaggedVideoUploadAuditDocumentError),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: CommonTextFormFieldWidget(
@@ -876,10 +931,29 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                             .emptyValidation(viewModel.remarkVideoController);
                       },
                     ),
-                  )
+                  ),
+                  if (viewModel.geoTaggedVideoUploadAuditRemarkError.isNotEmpty)
+                    showErrorMessage(context,
+                        viewModel.geoTaggedVideoUploadAuditRemarkError),
                 ],
               )),
         ],
+      ),
+    );
+  }
+
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: appColor.red),
+        ),
       ),
     );
   }

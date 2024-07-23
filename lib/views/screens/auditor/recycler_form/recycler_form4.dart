@@ -18,9 +18,13 @@ import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm4 extends StatefulWidget {
   const AuditorRecyclerForm4(
-      {super.key, this.isSummaryScreen = false, this.id});
+      {super.key,
+      this.isSummaryScreen = false,
+      this.id,
+      this.isRetreader = false});
   final bool? isSummaryScreen;
   final String? id;
+  final bool isRetreader;
 
   @override
   State<AuditorRecyclerForm4> createState() => _AuditorRecyclerForm4State();
@@ -69,10 +73,15 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
                   onNextOrSubmit: () async {
                     Provider.of<CommonStepperViewModel>(context, listen: false)
                         .onNextButton(context, "Recycler");
-                    await viewModel.postForm4Data(context, submit: '');
+                    await viewModel.postForm4Data(context,
+                        submit: '',
+                        isRetreader: widget.isRetreader,
+                        userId: widget.id ?? '');
                   },
                   onSavedDraft: () async {
-                    await viewModel.postForm4Data(context);
+                    await viewModel.postForm4Data(context,
+                        isRetreader: widget.isRetreader,
+                        userId: widget.id ?? '');
                   },
                 ))
           ],
@@ -157,6 +166,10 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
             controller: viewModel.invoiceController,
             remarkController: viewModel.remakrsInvoiceController,
             groupValue: viewModel.radioInvoice,
+            notVerifiedError:
+                viewModel.invoiceAdditionalDataNumberOfSuppliersContactedError,
+            remarkError: viewModel.invoiceAuditRemarkError,
+            radioError: viewModel.invoiceAuditConfirmedStatusError,
             onChanged: (value) {
               viewModel.radioInvoice = value ?? '';
               viewModel.updateUI();
@@ -175,6 +188,10 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
             controller: viewModel.buyersController,
             remarkController: viewModel.remakrsBuyerController,
             groupValue: viewModel.radioBuyer,
+            notVerifiedError:
+                viewModel.buyersAdditionalDataNumberOfBuyersContactedError,
+            remarkError: viewModel.buyersAuditRemarkError,
+            radioError: viewModel.buyersAuditConfirmedStatusError,
             onChanged: (value) {
               viewModel.radioBuyer = value ?? '';
               viewModel.updateUI();
@@ -192,19 +209,20 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
     );
   }
 
-  Column commonForm4Tiles(
-    BuildContext context, {
-    bool isMandatory = false,
-    bool? isSummaryScreen = false,
-    String? groupValue,
-    void Function(String?)? onChanged,
-    TextEditingController? controller,
-    TextEditingController? remarkController,
-    RecyclerFormViewModel? viewModel,
-    String? Function(String?)? validator,
-    String? Function(String?)? remarkValidator,
-    String? title,
-  }) {
+  Column commonForm4Tiles(BuildContext context,
+      {bool isMandatory = false,
+      bool? isSummaryScreen = false,
+      String? groupValue,
+      void Function(String?)? onChanged,
+      TextEditingController? controller,
+      TextEditingController? remarkController,
+      RecyclerFormViewModel? viewModel,
+      String? Function(String?)? validator,
+      String? Function(String?)? remarkValidator,
+      String? title,
+      String? remarkError,
+      String? radioError,
+      String? notVerifiedError}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -220,6 +238,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
           label2: stringConstants.confirmed,
           onChanged: onChanged,
         ),
+        if (radioError != null) showErrorMessage(context, radioError),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: CommonTextFormFieldWidget(
@@ -232,6 +251,8 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
               validator: validator,
               controller: controller ?? TextEditingController()),
         ),
+        if (notVerifiedError != null)
+          showErrorMessage(context, notVerifiedError),
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 16),
           child: CommonTextFormFieldWidget(
@@ -242,7 +263,24 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
               isMandatory: false,
               controller: remarkController ?? TextEditingController()),
         ),
+        if (remarkError != null) showErrorMessage(context, remarkError),
       ],
+    );
+  }
+
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: appColor.red),
+        ),
+      ),
     );
   }
 }

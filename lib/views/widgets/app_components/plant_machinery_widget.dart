@@ -110,11 +110,10 @@ class PlantMachineryWidget extends StatelessWidget {
             ],
           ),
           ListView.builder(
-            itemCount: controllerList?.length??0,
+            itemCount: controllerList?.length ?? 0,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-            // return  Container(width:300,height:100,child : Text("current index:: $index count :: $count :: normal controller :: ${controllerList?.length} >>>>> updaload list :: ${uploadControllerList?.length}"),);
               return Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
@@ -144,10 +143,12 @@ class PlantMachineryWidget extends StatelessWidget {
                             ? appColor.white
                             : appColor.black10,
                         icon: isReadOnly == false
-                            ? (uploadControllerList?[index].text.isEmpty ??
-                                    false
-                                ? imageConstants.fileUpload
-                                : imageConstants.removeIcon)
+                            ? (uploadControllerList?.length == index+1)
+                                ? (uploadControllerList?[index].text.isEmpty ??
+                                        false
+                                    ? imageConstants.fileUpload
+                                    : imageConstants.removeIcon)
+                                : null
                             : null,
                         onTap: onTap,
                         onSuffixTap: onSuffixTap,

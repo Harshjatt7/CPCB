@@ -17,11 +17,15 @@ class DocumentRequestModel {
       this.geoTaggedVideoUpload});
 
   Map<String, dynamic> toJson() => {
-        "aadhaar-card": aaddhar,
-        "authorizedPersonPan": authorizedPersonPan,
-        "lastYearElectricityBill": lastYearElectricityBill,
-        "airPollutionControlDevices": airPollutionControlDevices,
-        "otherMachineries": otherMachineries,
-        "geoTaggedVideoUpload": geoTaggedVideoUpload
+        if (aaddhar != null) "aadhaar-card": aaddhar,
+        if (authorizedPersonPan != null)
+          "authorizedPersonPan": authorizedPersonPan,
+        if (lastYearElectricityBill != null)
+          "lastYearElectricityBill": lastYearElectricityBill,
+        if (airPollutionControlDevices != null)
+          "airPollutionControlDevices": airPollutionControlDevices,
+        if (otherMachineries != null) "otherMachineries": otherMachineries,
+        if (geoTaggedVideoUpload != null)
+          "geoTaggedVideoUpload": geoTaggedVideoUpload
       };
 }

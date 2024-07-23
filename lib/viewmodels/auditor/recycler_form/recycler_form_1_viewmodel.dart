@@ -186,7 +186,11 @@ class RecyclerFormViewModel extends BaseViewModel {
   TextEditingController uploadInvoiceController = TextEditingController();
   List<TextEditingController> controllerList = [];
   List<TextEditingController> uploadControllerList = [];
+  List<TextEditingController> plantMachineryControllerList = [];
+  List<String> plantMachineyRadioList = [];
   List<FileSizeModel> fileSizeModelList = [];
+  List<OmRequest> omRequestList = [];
+
   APIResponse<AuditorRecyclerForm1ResponseModel?>?
       _auditorRecycler1ResponseModel;
   APIResponse<AuditorRecyclerForm1ResponseModel?>?
@@ -216,6 +220,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   WasteWaterGenerationAndDisposal? wasteWaterGenerationAndDisposal;
   ProductionInfo? productionInfo;
   List<EprDatum>? eprData;
+  List<Nw>? nw = [];
   ProcurementInfo? procurementInfo;
   List<ProcurementDatum>? procurementData;
   PlanCapacityAssesment? planCapacityAssesment;
@@ -229,7 +234,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   DocumentData? authorizedPersonPanDocument;
   DocumentData? lastYearElectricityBillDocument;
   DocumentData? airPollutionControlDevicesDocument;
-  DocumentData? otherMachineriesDocument;
+  List<DocumentData?> otherMachineriesDocument = [];
   DocumentData? geoTaggedVideoUploadDocument;
 
 //Form 2
@@ -411,7 +416,6 @@ class RecyclerFormViewModel extends BaseViewModel {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          // await getProducerForm2Data(id: id);
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -446,8 +450,6 @@ class RecyclerFormViewModel extends BaseViewModel {
                 ? ""
                 : apiError?.physicallyVerifiedAuditRemark?.first ?? "";
 
-        HelperFunctions()
-            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
       }
     } catch (e) {
       if (context.mounted) {
@@ -473,15 +475,30 @@ class RecyclerFormViewModel extends BaseViewModel {
   String buyersAdditionalDataNumberOfBuyersContactedError = "";
   String buyersAuditRemarkError = "";
   String summaryAuditRemarkError = "";
+  String gstNoAuditRemarkError = "";
+  String companyPanAuditRemarkError = "";
+  String ctoAuditRemarkError = "";
+  String authorizationUnderHomwRulesAuditRemarkError = "";
+  String addressLine1AuditRemarkError = "";
+  String gpsLocationAuditorAdditionalDataLatError = "";
+  String gpsLocationAuditorAdditionalDataLongError = "";
+  String gpsLocationAuditorAuditRemarkError = "";
+  String lastYearElectricityBillAuditDocumentError = "";
+  String lastYearElectricityBillAuditRemarkError = "";
+  String geoTaggedVideoUploadAuditDocumentError = "";
+  String geoTaggedVideoUploadAuditRemarkError = "";
 
   Future<APIResponse<AuditorRecyclerForm1ResponseModel?>?> getRecycler1Data(
-    BuildContext context,
-  ) async {
+      BuildContext context,
+      {String userId = "",
+      bool isRetreader = false}) async {
     state = ViewState.busy;
 
     try {
       _auditorRecycler1ResponseModel = await auditorRepository.getRecyclerForm1Data(
-          "eyJpdiI6ImJYVTE0SDl6TXAwNE1HUEFqbmhoTEE9PSIsInZhbHVlIjoieXI3aHFvOW1CV2NLR2kxS3hvd1R6Zz09IiwibWFjIjoiZmI4OTVmNmY3Y2E2N2NlMTU2Mzg2OTIwMzllMmUwZjVjYzk3Mjk2MmJlMmI0YWZjMzBkNDZkNGQ1ZDY1ODI1MyIsInRhZyI6IiJ9");
+          isRetreader: isRetreader,
+          userId:
+              "eyJpdiI6ImJYVTE0SDl6TXAwNE1HUEFqbmhoTEE9PSIsInZhbHVlIjoieXI3aHFvOW1CV2NLR2kxS3hvd1R6Zz09IiwibWFjIjoiZmI4OTVmNmY3Y2E2N2NlMTU2Mzg2OTIwMzllMmUwZjVjYzk3Mjk2MmJlMmI0YWZjMzBkNDZkNGQ1ZDY1ODI1MyIsInRhZyI6IiJ9");
       if (_auditorRecycler1ResponseModel?.isSuccess == true) {
         _auditorRecycler1ResponseModel?.data =
             AuditorRecyclerForm1ResponseModel.fromJson(
@@ -491,6 +508,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         List<Om>? machineList = _auditorRecycler1ResponseModel?.data?.data
                 ?.auditSummary?.otherMachineries?.additionalData?.om ??
             [];
+
         count = machineList.length;
         updatePlantMachine();
         disableFormView();
@@ -527,13 +545,16 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<AuditorRecyclerForm2ResponseModel?>?> getRecycler2Data(
-    BuildContext context,
-  ) async {
+      BuildContext context,
+      {String userId = "",
+      bool isRetreader = false}) async {
     state = ViewState.busy;
 
     try {
       _auditorRecycler2ResponseModel = await auditorRepository.getRecyclerForm2Data(
-          "eyJpdiI6IkRzVzY2SENNOUF0dDM4bnZDK2t2N1E9PSIsInZhbHVlIjoiYk1VRm1ZWnQ0eXJHdWxoZW1TaGpXZz09IiwibWFjIjoiZDRlOGE5YTM5MzA0MjJmYzYzMGZjNDE2MzM2ZWJiNzg4YmJhZTcyMWNlNGMxNGY0ZTdlMzExYTQwZTlhZmJkZiIsInRhZyI6IiJ9");
+          isRetreader: isRetreader,
+          userId:
+              "eyJpdiI6IkRzVzY2SENNOUF0dDM4bnZDK2t2N1E9PSIsInZhbHVlIjoiYk1VRm1ZWnQ0eXJHdWxoZW1TaGpXZz09IiwibWFjIjoiZDRlOGE5YTM5MzA0MjJmYzYzMGZjNDE2MzM2ZWJiNzg4YmJhZTcyMWNlNGMxNGY0ZTdlMzExYTQwZTlhZmJkZiIsInRhZyI6IiJ9");
       if (_auditorRecycler2ResponseModel?.isSuccess == true) {
         _auditorRecycler2ResponseModel?.data =
             AuditorRecyclerForm2ResponseModel.fromJson(
@@ -569,13 +590,16 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<AuditorRecyclerForm3ResponseModel?>?> getRecycler3Data(
-    BuildContext context,
-  ) async {
+      BuildContext context,
+      {String userId = "",
+      bool isRetreader = false}) async {
     state = ViewState.busy;
 
     try {
       _auditorRecycler3ResponseModel = await auditorRepository.getRecyclerForm3Data(
-          "eyJpdiI6IkM3MlV2dWJ4d24xKzd0OHR0Mzh1NVE9PSIsInZhbHVlIjoiV0drbnlDRHFlRXY1TDJ6M2MzRVBGdz09IiwibWFjIjoiNDM0NDE0NzhmOTRiYmFiMWU5NjQ2NmNhNzU2NjI5YmY4NmFhMGU3Yzc5OTFlYzRhNzg5ZmQ4ZjVkZGFmMmE5YiIsInRhZyI6IiJ9");
+          isRetreader: isRetreader,
+          userId:
+              "eyJpdiI6IkM3MlV2dWJ4d24xKzd0OHR0Mzh1NVE9PSIsInZhbHVlIjoiV0drbnlDRHFlRXY1TDJ6M2MzRVBGdz09IiwibWFjIjoiNDM0NDE0NzhmOTRiYmFiMWU5NjQ2NmNhNzU2NjI5YmY4NmFhMGU3Yzc5OTFlYzRhNzg5ZmQ4ZjVkZGFmMmE5YiIsInRhZyI6IiJ9");
       if (_auditorRecycler3ResponseModel?.isSuccess == true) {
         _auditorRecycler3ResponseModel?.data =
             AuditorRecyclerForm3ResponseModel.fromJson(
@@ -602,12 +626,15 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<AuditorRecyclerForm4ResponseModel?>?> getRecycler4Data(
-    BuildContext context,
-  ) async {
+      BuildContext context,
+      {String userId = "",
+      bool isRetreader = false}) async {
     state = ViewState.busy;
     try {
       _auditorRecycler4ResponseModel = await auditorRepository.getRecyclerForm4Data(
-          "eyJpdiI6IkEvQXNUbkZJOG5IeGxOZTV0dGdjdWc9PSIsInZhbHVlIjoiUlVQQWxQa1g4SnJBSTJmZ2JkU2I5Zz09IiwibWFjIjoiNjRjNzMyZTUzOWEwNzc1YTNiNjcwYjc0MzE4ODVkNjZkYzQ0ZDA0MGJlMWJjYzJmODkxNWFiZjgyNjFhYWI3OCIsInRhZyI6IiJ9");
+          isRetreader: isRetreader,
+          userId:
+              "eyJpdiI6IkM3MlV2dWJ4d24xKzd0OHR0Mzh1NVE9PSIsInZhbHVlIjoiV0drbnlDRHFlRXY1TDJ6M2MzRVBGdz09IiwibWFjIjoiNDM0NDE0NzhmOTRiYmFiMWU5NjQ2NmNhNzU2NjI5YmY4NmFhMGU3Yzc5OTFlYzRhNzg5ZmQ4ZjVkZGFmMmE5YiIsInRhZyI6IiJ9");
       if (_auditorRecycler4ResponseModel?.isSuccess == true) {
         _auditorRecycler4ResponseModel?.data =
             AuditorRecyclerForm4ResponseModel.fromJson(
@@ -631,12 +658,15 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<AuditorRecyclerForm5ResponseModel?>?> getRecycler5Data(
-    BuildContext context,
-  ) async {
+      BuildContext context,
+      {String userId = "",
+      bool isRetreader = false}) async {
     state = ViewState.busy;
     try {
       _auditorRecycler5ResponseModel = await auditorRepository.getRecyclerForm5Data(
-          "eyJpdiI6IkM3MlV2dWJ4d24xKzd0OHR0Mzh1NVE9PSIsInZhbHVlIjoiV0drbnlDRHFlRXY1TDJ6M2MzRVBGdz09IiwibWFjIjoiNDM0NDE0NzhmOTRiYmFiMWU5NjQ2NmNhNzU2NjI5YmY4NmFhMGU3Yzc5OTFlYzRhNzg5ZmQ4ZjVkZGFmMmE5YiIsInRhZyI6IiJ9");
+          isRetreader: isRetreader,
+          userId:
+              "eyJpdiI6IkM3MlV2dWJ4d24xKzd0OHR0Mzh1NVE9PSIsInZhbHVlIjoiV0drbnlDRHFlRXY1TDJ6M2MzRVBGdz09IiwibWFjIjoiNDM0NDE0NzhmOTRiYmFiMWU5NjQ2NmNhNzU2NjI5YmY4NmFhMGU3Yzc5OTFlYzRhNzg5ZmQ4ZjVkZGFmMmE5YiIsInRhZyI6IiJ9");
       if (_auditorRecycler5ResponseModel?.isSuccess == true) {
         _auditorRecycler5ResponseModel?.data =
             AuditorRecyclerForm5ResponseModel.fromJson(
@@ -784,18 +814,16 @@ class RecyclerFormViewModel extends BaseViewModel {
             break;
         }
 
-        // for (int i = count; i > 1; i--) {
-        //   DocumentRequestModel requestModel = DocumentRequestModel(
-        //       aaddhar: aadharFile,
-        //       airPollutionControlDevices: pollutionFile,
-        //       authorizedPersonPan: panNoFile,
-        //       geoTaggedVideoUpload: videoFile,
-        //       lastYearElectricityBill: powerFile,
-        //       otherMachineries: machineFile[i]);
-        //   if (context.mounted) {
-        //    await postDocumentData(context, requestModel, type);
-        //   }
-        // }
+        DocumentRequestModel requestModel = DocumentRequestModel(
+          aaddhar: aadharFile,
+          airPollutionControlDevices: pollutionFile,
+          authorizedPersonPan: panNoFile,
+          geoTaggedVideoUpload: videoFile,
+          lastYearElectricityBill: powerFile,
+        );
+        if (context.mounted) {
+          await postDocumentData(context, requestModel, type: fieldName);
+        }
       }
     } else {
       switch (fieldName) {
@@ -819,10 +847,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           controller.text = "";
           videoFilePath = null;
           break;
-        // case RecyclerForm1.video:
-        // controller.text = "";
-        // machineFilePath = null;
-        // break;
       }
 
       updateUI();
@@ -883,10 +907,27 @@ class RecyclerFormViewModel extends BaseViewModel {
         case RecyclerForm1.video:
           helperFunctions.openFile(videoFilePath ?? '');
           break;
-        // case RecyclerForm1.machine:
-        //   helperFunctions.openFile(machineFilePath ?? '');
-        //   break;
       }
+    }
+  }
+
+  void handleOnMachineTap(
+    BuildContext context,
+    TextEditingController controller,
+  ) async {
+    if (controller.text.isEmpty) {
+      var res = await openMachineFileManager(context);
+
+      if (res != null) {
+        controller.text = res.files.isEmpty ? "" : res.files.first.name;
+        updateUI();
+        helperFunctions.logger(uploadControllerList.length.toString());
+
+        machineFile.add(await MultipartFile.fromFile(res.files.first.path ?? '',
+            filename: res.files.first.name));
+      }
+    } else {
+      helperFunctions.openFile(machineFilePath[count - 1] ?? '');
     }
   }
 
@@ -909,6 +950,21 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void summaryFormView() {
+    if (_auditorRecycler1ResponseModel != null) {
+      Map<String, dynamic>? data = _auditorRecycler1ResponseModel
+          ?.data?.data?.generalInfo?.detailsOfMachinery;
+      data?.entries.forEach(
+        (element) {
+          nw?.add(Nw.fromJson(element.value));
+          plantMachineryControllerList.add(TextEditingController());
+          plantMachineyRadioList.add("1");
+          updateUI();
+        },
+      );
+      HelperFunctions().logger(nw.toString());
+      HelperFunctions().logger(data.toString());
+    }
+    updateUI();
     final data = _auditorRecycler1ResponseModel?.data?.data?.auditSummary;
     gstRemarkController.text = data?.gstNo?.auditRemark ?? '';
     companyPanRemarkController.text = data?.companyPan?.auditRemark ?? '';
@@ -1110,17 +1166,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           videoFileName = file.path.split('/').last;
           updateUI();
           break;
-        // case RecyclerForm1.machine:
-        //   for (int i = count; i > 1; i++) {
-        //     final file = File(result.files.single.path ?? "");
-        //     machineFilePath = file.path;
-        //     machineFileSizeModel[i] =
-        //         await getFileSize(machineFilePath ?? "", 1);
-        //     fileSize = machineFileSizeModel[i]?.fileSize ?? "0 B";
-        //     machineFileName[i] = file.path.split('/').last;
-        //     updateUI();
-        //   }
-        //   break;
       }
     } else {
       fileError = messageConstant.pleaseSelectFile;
@@ -1382,93 +1427,25 @@ class RecyclerFormViewModel extends BaseViewModel {
     }
   }
 
-  void addData() {
-    AuditorRecyclerForm1RequestModel recyclerForm1RequestModel =
-        AuditorRecyclerForm1RequestModel(
-            generalInfo: GenerralInfoRequest(
-                gstNo: AddressLine(
-                    auditConfirmedStatus: radioGst,
-                    auditRemark: gstRemarkController.text),
-                companyPan: AddressLine(
-                    auditConfirmedStatus: radioPanOfCompany,
-                    auditRemark: companyPanRemarkController.text),
-                companyIec: AddressLine(
-                    auditConfirmedStatus: radioIec,
-                    auditRemark: companyRemarkIECController.text),
-                cto: AddressLine(
-                    auditConfirmedStatus: radioCto,
-                    auditRemark: recyclerRemakrCTOController.text),
-                authorizationUnderHomwRules: AddressLine(
-                    auditConfirmedStatus: radioAuthorization,
-                    auditRemark: remarkAuthorizationController.text),
-                addressLine1: AddressLine(
-                    auditConfirmedStatus: radioRecyclingDetails,
-                    auditRemark: remarkRecyclingDetailsController.text),
-                gpsLocationRecycler:
-                    GpsLocationRecycler(auditConfirmedStatus: radioGps),
-                gpsLocationAuditor: GpsLocationAuditorRequest(
-                  auditConfirmedStatus: radioGps,
-                  auditRemark: gpsAuditorRemarkController.text,
-                  additionalData: GpsLocationAuditorAdditionalDataRequest(
-                      lat: gpsAuditorLatitude.text,
-                      long: gpsAuditorLongitude.text),
-                ),
-                //TODO File Upload changes
-                authorizedPersonAdhar: AirPollutionControlDevicesRequest(
-                    auditRemark: remarkAadharController.text,
-                    auditConfirmedStatus: radioAadharCard,
-                    auditDocument: aadharFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest()),
-                authorizedPersonPan: AirPollutionControlDevicesRequest(
-                    auditRemark: remarkPanNoController.text,
-                    auditConfirmedStatus: radioPanNo,
-                    auditDocument: panNoFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest()),
-                //TODO
-                otherMachineries: OtherMachineriesRequest(
-                    additionalData: OtherMachineriesAdditionalDataRequest(
-                        om: [OmRequest()])),
-                lastYearElectricityBill: AirPollutionControlDevicesRequest(
-                    auditRemark: remarkPowerController.text,
-                    auditConfirmedStatus: radioPowerConsumption,
-                    auditDocument: powerFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest()),
-                airPollutionControlDevices: AirPollutionControlDevicesRequest(
-                    auditRemark: remakrsPollutionController.text,
-                    auditConfirmedStatus: radioPollution,
-                    auditDocument: pollutionFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest()),
-                geoTaggedVideoUpload: AirPollutionControlDevicesRequest(
-                    auditRemark: remarkVideoController.text,
-                    auditConfirmedStatus: radioPlant,
-                    auditDocument: videoFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest())));
-  }
-
-  Future<void> postDocumentData(BuildContext context,
-      DocumentRequestModel request, RecyclerForm1 type) async {
+  Future<void> postDocumentData(
+      BuildContext context, DocumentRequestModel request,
+      {RecyclerForm1? type}) async {
     state = ViewState.busy;
     APIResponse<DocumentResponseModel?>? response;
     try {
-      if (formKey.currentState?.validate() ?? false) {
-        helperFunctions.logger("message >>>> ${request.toJson()}");
-        response = await auditorRepository.postDocumentRequest(request);
-        if (response?.isSuccess == true) {
-          response?.data =
-              DocumentResponseModel.fromJson(response.completeResponse);
-          if (context.mounted) {
-            state = ViewState.idle;
+      helperFunctions.logger("message >>>> ${request.toJson()}");
+      response = await auditorRepository.postDocumentRequest(request);
+      if (response?.isSuccess == true) {
+        response?.data =
+            DocumentResponseModel.fromJson(response.completeResponse);
+        if (context.mounted) {
+          state = ViewState.idle;
+          if (type != null) {
             setUploadFileData(type, response);
+          } else {
+            setMachineUploadFileData(response);
           }
         }
-      } else {
-        helperFunctions.commonErrorSnackBar(
-            context, messageConstant.somethingWentWrong);
       }
     } catch (e) {
       helperFunctions.logger('$e');
@@ -1476,25 +1453,61 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.idle;
   }
 
+  Future getAuditorFile(BuildContext context) async {
+    state = ViewState.busy;
+    try {
+      APIResponse value = await auditorRepository.getDownloadFile("");
+      if (value.isSuccess == true) {
+        helperFunctions.downloadAndStoreFile(
+            name: "Certificate", response: value);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+        if (context.mounted) {
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
+        }
+      }
+    } catch (error) {
+      helperFunctions.logger("$error");
+    }
+    state = ViewState.idle;
+    return null;
+  }
+
   void setUploadFileData(
       RecyclerForm1 type, APIResponse<DocumentResponseModel?>? response) {
     switch (type) {
       case RecyclerForm1.aadhar:
         aadharDocument = response?.data?.data;
+        aadharFile = null;
         break;
       case RecyclerForm1.pollution:
         airPollutionControlDevicesDocument = response?.data?.data;
+        pollutionFile = null;
         break;
       case RecyclerForm1.panNo:
         authorizedPersonPanDocument = response?.data?.data;
+        panNoFile = null;
         break;
       case RecyclerForm1.video:
         geoTaggedVideoUploadDocument = response?.data?.data;
+        videoFile = null;
         break;
       case RecyclerForm1.power:
         lastYearElectricityBillDocument = response?.data?.data;
+        powerFile = null;
         break;
     }
+    updateUI();
+  }
+
+  void setMachineUploadFileData(APIResponse<DocumentResponseModel?>? response) {
+    otherMachineriesDocument.add(response?.data?.data);
+    machineFile.clear();
+    helperFunctions.logger(machineFile.length.toString());
+    updateUI();
   }
 
   void formValidation(BuildContext context, String? userType) {
@@ -1515,26 +1528,17 @@ class RecyclerFormViewModel extends BaseViewModel {
           updateUI();
           helperFunctions.logger(uploadControllerList.length.toString());
 
-          for (int i = 0; i < count; i++) {
-            machineFile.add(await MultipartFile.fromFile(
-                res.files.first.path ?? '',
-                filename: res.files.first.name));
+          machineFile.add(await MultipartFile.fromFile(
+              res.files.first.path ?? '',
+              filename: res.files.first.name));
+
+          DocumentRequestModel requestModel =
+              DocumentRequestModel(otherMachineries: machineFile.first);
+          if (context.mounted) {
+            await postDocumentData(context, requestModel);
           }
         }
       }
-
-      // for (int i = count; i > 1; i--) {
-      //   DocumentRequestModel requestModel = DocumentRequestModel(
-      //       aaddhar: aadharFile,
-      //       airPollutionControlDevices: pollutionFile,
-      //       authorizedPersonPan: panNoFile,
-      //       geoTaggedVideoUpload: videoFile,
-      //       lastYearElectricityBill: powerFile,
-      //       otherMachineries: machineFile[i]);
-      //   if (context.mounted) {
-      //    await postDocumentData(context, requestModel, type);
-      //   }
-      // }
     } else {
       controller.text = "";
       machineFilePath = [];
@@ -1567,8 +1571,200 @@ class RecyclerFormViewModel extends BaseViewModel {
     return null;
   }
 
+  List<OmRequest> getOmRequest() {
+    for (int i = 0; i < controllerList.length; i++) {
+      OmRequest omRequest = OmRequest(
+          auditDocument: uploadControllerList[i].text,
+          value: controllerList[i].text,
+          fileKey: otherMachineriesDocument[i]?.fileKey,
+          fileLink: otherMachineriesDocument[i]?.fileUrl);
+      omRequestList.add(omRequest);
+    }
+    return omRequestList;
+  }
+
+//Submit is "SavedAsDraft" to post data as Save as Draft, anyother value means submit
+  Future<void> postForm1Data(BuildContext context,
+      {String userId = "",
+      bool isRetreader = false,
+      String submit = "SaveAsDraft"}) async {
+    AuditorRecyclerForm1RequestModel requestModel =
+        AuditorRecyclerForm1RequestModel(
+            submit: submit,
+            generalInfo: GenerralInfoRequest(
+                gstNo: AddressLine(
+                    auditConfirmedStatus: radioGst,
+                    auditRemark: gstRemarkController.text),
+                companyPan: AddressLine(
+                    auditConfirmedStatus: radioPanOfCompany,
+                    auditRemark: companyPanRemarkController.text),
+                companyIec: AddressLine(
+                    auditConfirmedStatus: radioIec,
+                    auditRemark: companyRemarkIECController.text),
+                cto: AddressLine(
+                    auditConfirmedStatus: radioCto,
+                    auditRemark: recyclerRemakrCTOController.text),
+                authorizationUnderHomwRules: AddressLine(
+                    auditConfirmedStatus: radioAuthorization,
+                    auditRemark: remarkAuthorizationController.text),
+                addressLine1: AddressLine(
+                    auditConfirmedStatus: radioRecyclingDetails,
+                    auditRemark: remarkRecyclingDetailsController.text),
+                gpsLocationRecycler:
+                    GpsLocationRecycler(auditConfirmedStatus: radioGps),
+                gpsLocationAuditor: GpsLocationAuditorRequest(
+                  auditConfirmedStatus: radioGps,
+                  auditRemark: gpsAuditorRemarkController.text,
+                  additionalData: GpsLocationAuditorAdditionalDataRequest(
+                      lat: gpsAuditorLatitude.text,
+                      long: gpsAuditorLongitude.text),
+                ),
+                authorizedPersonAdhar: AirPollutionControlDevicesRequest(
+                    auditRemark: remarkAadharController.text,
+                    auditConfirmedStatus: radioAadharCard,
+                    auditDocument: aadharFileName,
+                    additionalData:
+                        AirPollutionControlDevicesAdditionalDataRequest(
+                            fileKey: aadharDocument?.fileKey ?? '',
+                            fileLink: aadharDocument?.fileUrl ?? '')),
+                authorizedPersonPan: AirPollutionControlDevicesRequest(
+                    auditRemark: remarkPanNoController.text,
+                    auditConfirmedStatus: radioPanNo,
+                    auditDocument: panNoFileName,
+                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                        fileKey: authorizedPersonPanDocument?.fileKey ?? '',
+                        fileLink: authorizedPersonPanDocument?.fileUrl ?? '')),
+                otherMachineries: OtherMachineriesRequest(
+                    additionalData: OtherMachineriesAdditionalDataRequest(
+                        om: getOmRequest())),
+                lastYearElectricityBill: AirPollutionControlDevicesRequest(
+                    auditRemark: remarkPowerController.text,
+                    auditConfirmedStatus: radioPowerConsumption,
+                    auditDocument: powerFileName,
+                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                        fileKey: lastYearElectricityBillDocument?.fileKey ?? '',
+                        fileLink:
+                            lastYearElectricityBillDocument?.fileUrl ?? '')),
+                airPollutionControlDevices: AirPollutionControlDevicesRequest(
+                    auditRemark: remakrsPollutionController.text,
+                    auditConfirmedStatus: radioPollution,
+                    auditDocument: pollutionFileName,
+                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                        fileKey:
+                            airPollutionControlDevicesDocument?.fileKey ?? '',
+                        fileLink:
+                            airPollutionControlDevicesDocument?.fileUrl ?? '')),
+                geoTaggedVideoUpload: AirPollutionControlDevicesRequest(
+                    auditRemark: remarkVideoController.text,
+                    auditConfirmedStatus: radioPlant,
+                    auditDocument: videoFileName,
+                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                        fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '',
+                        fileLink:
+                            geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
+
+    state = ViewState.busy;
+    try {
+      final res = await auditorRepository.postRecyclerForm1Data(requestModel,
+          userId: userId, isRetreader: isRetreader);
+      if (res?.isSuccess == true) {
+        if (context.mounted) {
+          HelperFunctions()
+              .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          await getRecycler2Data(context,
+              isRetreader: isRetreader, userId: userId);
+        }
+      } else {
+        final apiError = res?.error?.errorsList;
+
+        gstNoAuditRemarkError =
+            (apiError?.generalInfoGstNoAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.generalInfoGstNoAuditRemark?.first ?? "";
+        companyPanAuditRemarkError =
+            (apiError?.generalInfoCompanyPanAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.generalInfoCompanyPanAuditRemark?.first ?? "";
+        ctoAuditRemarkError =
+            (apiError?.generalInfoCtoAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.generalInfoCtoAuditRemark?.first ?? "";
+        authorizationUnderHomwRulesAuditRemarkError =
+            (apiError?.generalInfoAuthorizationUnderHomwRulesAuditRemark ?? [])
+                    .isEmpty
+                ? ""
+                : apiError?.generalInfoAuthorizationUnderHomwRulesAuditRemark
+                        ?.first ??
+                    "";
+        addressLine1AuditRemarkError =
+            (apiError?.generalInfoAddressLine1AuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.generalInfoAddressLine1AuditRemark?.first ?? "";
+        gpsLocationAuditorAdditionalDataLatError =
+            (apiError?.generalInfoGpsLocationAuditorAdditionalDataLat ?? [])
+                    .isEmpty
+                ? ""
+                : apiError?.generalInfoGpsLocationAuditorAdditionalDataLat
+                        ?.first ??
+                    "";
+        gpsLocationAuditorAdditionalDataLongError =
+            (apiError?.generalInfoGpsLocationAuditorAdditionalDataLong ?? [])
+                    .isEmpty
+                ? ""
+                : apiError?.generalInfoGpsLocationAuditorAdditionalDataLong
+                        ?.first ??
+                    "";
+        gpsLocationAuditorAuditRemarkError =
+            (apiError?.generalInfoGpsLocationAuditorAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.generalInfoGpsLocationAuditorAuditRemark?.first ??
+                    "";
+        lastYearElectricityBillAuditDocumentError =
+            (apiError?.generalInfoLastYearElectricityBillAuditDocument ?? [])
+                    .isEmpty
+                ? ""
+                : apiError?.generalInfoLastYearElectricityBillAuditDocument
+                        ?.first ??
+                    "";
+        gpsLocationAuditorAuditRemarkError =
+            (apiError?.generalInfoGpsLocationAuditorAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.generalInfoGpsLocationAuditorAuditRemark?.first ??
+                    "";
+        lastYearElectricityBillAuditRemarkError =
+            (apiError?.generalInfoLastYearElectricityBillAuditRemark ?? [])
+                    .isEmpty
+                ? ""
+                : apiError?.generalInfoLastYearElectricityBillAuditRemark
+                        ?.first ??
+                    "";
+        geoTaggedVideoUploadAuditDocumentError =
+            (apiError?.generalInfoGeoTaggedVideoUploadAuditDocument ?? [])
+                    .isEmpty
+                ? ""
+                : apiError
+                        ?.generalInfoGeoTaggedVideoUploadAuditDocument?.first ??
+                    "";
+        geoTaggedVideoUploadAuditRemarkError =
+            (apiError?.generalInfoGeoTaggedVideoUploadAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.generalInfoGeoTaggedVideoUploadAuditRemark?.first ??
+                    "";
+      }
+    } catch (e) {
+      if (context.mounted) {
+        HelperFunctions()
+            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+      }
+    }
+    updateUI();
+    state = ViewState.idle;
+  }
+
   Future<void> postForm4Data(BuildContext context,
-      {String? id, String? submit}) async {
+      {String userId = "",
+      bool isRetreader = false,
+      String submit = "SaveAsDraft"}) async {
     AuditorRecyclerForm4RequestModel requestModel =
         AuditorRecyclerForm4RequestModel(
             productionInfo: ProductionInfoRequest(
@@ -1583,16 +1779,16 @@ class RecyclerFormViewModel extends BaseViewModel {
                   additionalData: BuyersAdditionalRequestData(
                       numberOfBuyersContacted: buyersController.text)),
             ),
-            submit: submit ?? '');
+            submit: submit);
     state = ViewState.busy;
     try {
-      final res =
-          await auditorRepository.postRecyclerForm4Data(requestModel, id: id);
+      final res = await auditorRepository.postRecyclerForm4Data(requestModel,
+          userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          await getRecycler5Data(context);
+          await getRecycler5Data(context, isRetreader: isRetreader);
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -1641,7 +1837,9 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<void> postForm5Data(BuildContext context,
-      {String? id, String submit = "SaveAsDraft"}) async {
+      {String userId = "",
+      bool isRetreader = false,
+      String submit = "SaveAsDraft"}) async {
     AuditorRecyclerForm5RequestModel requestModel =
         AuditorRecyclerForm5RequestModel(
             submit: submit,
@@ -1686,4 +1884,9 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
     state = ViewState.idle;
   }
+}
+
+class Details {
+  final Nw? nw;
+  Details(this.nw);
 }
