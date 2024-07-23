@@ -31,9 +31,12 @@ class AuditorRepository {
   final _apiRoutes = APIRoutes();
   final _apiBase = APIBase();
 
-  Future getAuditStatus({String? api}) async {
-    APIResponse<AddDataResponseModel>? response =
-        await _apiBase.getRequest(api ?? "", isAuthorizationRequired: true);
+  Future getAuditStatus({String? id, String? status}) async {
+    APIResponse<AddDataResponseModel>? response = await _apiBase.getRequest(
+        status == "assigned"
+            ? "${_apiRoutes.auditorPerformAcknowledge}/$id"
+            : "${_apiRoutes.auditorStartAcknowlege}/$id",
+        isAuthorizationRequired: true);
     return response;
   }
 
@@ -90,12 +93,35 @@ class AuditorRepository {
     return response;
   }
 
-  Future getAuditPlanListData({String? search, String? page}) async {
-    APIResponse<AuditPlanListResponseModel?>? response = await _apiBase.getRequest(
-        search == null
-            ? "${_apiRoutes.auditorAuditPlanListAPIRoute}?page=$page"
-            : "${_apiRoutes.auditorAuditPlanListAPIRoute}?page=$page&name=$search",
-        isAuthorizationRequired: true);
+  Future getAuditPlanListData({
+    String? search,
+    String? page,
+    AuditPlanListResponseModel? request,
+    List<String>? statusList,
+    List<String>? unitTypeList,
+  }) async {
+    String url = "${_apiRoutes.auditorAuditPlanListAPIRoute}?page=$page";
+
+    if (search != null) {
+      url += "&name=$search";
+    }
+
+    if (statusList != null && statusList.isNotEmpty) {
+      for (String status in statusList) {
+        url += "&status[]=$status";
+      }
+    }
+
+    if (unitTypeList != null && unitTypeList.isNotEmpty) {
+      for (String unitType in unitTypeList) {
+        url += "&unit_type[]=$unitType";
+      }
+    }
+    APIResponse<AuditPlanListResponseModel?>? response =
+        await _apiBase.getRequest(
+      url,
+      isAuthorizationRequired: true,
+    );
     return response;
   }
 

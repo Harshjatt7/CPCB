@@ -25,6 +25,8 @@ class _ProducerForm1State extends State<ProducerForm1> {
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
+    viewModel.getProducerForm1Data(id: widget.id);
+
     super.initState();
   }
 
@@ -54,6 +56,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
               isLastStep: false,
               isSummaryScreen: false,
               onNextOrSubmit: () async {
+                // Provider.of<CommonStepperViewModel>(context, listen: false).index =viewModel.index;
                 await viewModel.postForm1Data(context, id: widget.id);
               },
               onSavedDraft: () async {

@@ -1,7 +1,9 @@
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants/enums/state_enums.dart';
@@ -25,6 +27,7 @@ class _ProducerForm3State extends State<ProducerForm3> {
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
+    viewModel.getProducerForm3Data(id: widget.id);
     super.initState();
   }
 
@@ -33,49 +36,41 @@ class _ProducerForm3State extends State<ProducerForm3> {
     return Consumer<ProducerFormsViewModel>(
       builder: (context, viewModel, child) {
         return Stack(children: [
-          Opacity(
-            opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Stack(
-                    children: [
-                      widget.isSummaryScreen == true
-                          ? CommonSingleChildScrollView(
-                              child: viewReportView(context, viewModel))
-                          : CommonSingleChildScrollView(
-                              child: fillFormView(context, viewModel)),
-                      Positioned(
-                          bottom: 0,
-                          left: 10,
-                          right: 10,
-                          child: StepperButton(
-                            isLastStep: false,
-                            isSummaryScreen: false,
-                            onNextOrSubmit: () async {
-                              await viewModel.postForm3Data(context,
-                                  id: widget.id);
-                            },
-                            onSavedDraft: () async {
-                              await viewModel.postForm3Data(context,
-                                  id: widget.id, saveAsDraft: "SaveAsDraft");
-                            },
-                          ))
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          if (viewModel.state == ViewState.busy)
-            
-             Center(
-                child: CircularProgressIndicator(
-                  color: viewModel.appColor.black,
+          Column(
+            children: [
+              Expanded(
+                child: Opacity(
+                  opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
+                  child: widget.isSummaryScreen == true
+                      ? CommonSingleChildScrollView(
+                          child: viewReportView(context, viewModel))
+                      : CommonSingleChildScrollView(
+                          child: fillFormView(context, viewModel)),
                 ),
               ),
-            
+              Positioned(
+                  bottom: 0,
+                  left: 10,
+                  right: 10,
+                  child: StepperButton(
+                    isLastStep: false,
+                    isSummaryScreen: false,
+                    onNextOrSubmit: () async {
+                      await viewModel.postForm3Data(context, id: widget.id);
+                    },
+                    onSavedDraft: () async {
+                      await viewModel.postForm3Data(context,
+                          id: widget.id, saveAsDraft: "SaveAsDraft");
+                    },
+                  ))
+            ],
+          ),
+          if (viewModel.state == ViewState.busy)
+            Center(
+              child: CircularProgressIndicator(
+                color: viewModel.appColor.black,
+              ),
+            ),
         ]);
       },
     );

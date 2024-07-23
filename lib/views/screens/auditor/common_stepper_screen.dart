@@ -14,8 +14,9 @@ class CommonStepperScreen extends StatelessWidget {
 
   final List<Widget> forms;
   final bool? isLoading;
+  final void Function()? onLeadingTapped;
 
-  const CommonStepperScreen({super.key, this.checkUser, required this.forms,this.isLoading=false});
+  const CommonStepperScreen({super.key, this.checkUser, required this.forms,this.isLoading=false,this.onLeadingTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +50,7 @@ class CommonStepperScreen extends StatelessWidget {
           children: [
             CommonAppBar(
               title: "Audit Form - ${checkUser?.userType}",
-              onLeadingTapped: () {
-                viewModel.onBackButton(context);
-              },
+              onLeadingTapped: onLeadingTapped,
             ),
             Container(
                 decoration: BoxDecoration(

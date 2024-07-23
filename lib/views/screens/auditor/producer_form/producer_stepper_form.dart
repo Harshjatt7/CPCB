@@ -21,38 +21,24 @@ class _ProdcerStepperState extends State<ProducerStepper> {
     return BaseView<ProducerFormsViewModel>(
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
+              onLeadingTapped: () {
+                viewModel.onBackButton(context);
+              },
               checkUser: CheckUserAndSummaryScreen(
                 isSummaryScreen: true,
                 userType: widget.userDetails?.userType,
                 id: widget.userDetails?.id,
+                index: widget.userDetails?.index,
               ),
-              forms: widget.userDetails?.progress == 0
-                  ? [
-                      form1(widget.userDetails?.id),
-                      form2(widget.userDetails?.id),
-                      form3(widget.userDetails?.id),
-                    ]
-                  : widget.userDetails?.progress == 33
-                      ? [
-                          form2(widget.userDetails?.id),
-                          form3(widget.userDetails?.id),
-                        ]
-                      : [
-                          form3(widget.userDetails?.id),
-                        ]);
+              forms: [
+                if (viewModel.index == 1) form1(widget.userDetails?.id),
+                if (viewModel.index == 2) form2(widget.userDetails?.id),
+                if (viewModel.index == 3) form3(widget.userDetails?.id),
+              ]);
         },
         onModelReady: (viewModel) async {
-          // viewModel.initalizeGroupValues();
-          if (widget.userDetails?.progress == 0) {
-            await viewModel.getProducerForm1Data(id: widget.userDetails?.id);
-          }
-          if (widget.userDetails?.progress == 33) {
-            await viewModel.getProducerForm2Data(id: widget.userDetails?.id);
-          }
-          if (widget.userDetails?.progress == 66) {
-            await viewModel.getProducerForm3Data(id: widget.userDetails?.id);
-          }
-          viewModel.counter = 0;
+          viewModel.getIndex(widget.userDetails?.progress);
+          viewModel.initalizeGroupValues();
         },
         viewModel: ProducerFormsViewModel());
   }
@@ -70,6 +56,8 @@ class _ProdcerStepperState extends State<ProducerStepper> {
   }
 
   Widget form3(String? id) {
-    return ProducerForm3(id: id);
+    return ProducerForm3(
+      id: id,
+    );
   }
 }
