@@ -4,7 +4,7 @@ AddDataResponseModel addDataResponseModelFromJson(String str) =>
     AddDataResponseModel.fromJson(json.decode(str));
 
 class AddDataResponseModel {
-    String? status;
+    num? status;
     String? message;
     bool? draftMode;
 

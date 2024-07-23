@@ -48,6 +48,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   String retreadedDateError = "";
 
   Future<void> addRetreadedData(BuildContext context) async {
+    state = ViewState.busy;
     APIResponse<AddDataResponseModel?>? apiResponse;
     RetreaderRequestModel readerRequestModel = RetreaderRequestModel(
       financialYear: changeDropdown,
@@ -62,17 +63,16 @@ class RetreadedAddDataViewModel extends BaseViewModel {
       retreadedDate: dateController.text,
     );
     if (formKey.currentState?.validate() ?? false) {
-      state = ViewState.busy;
       apiResponse = await _retreaderRepo.postRetreaderData(readerRequestModel);
       if (apiResponse?.isSuccess == true) {
         apiResponse?.data =
             AddDataResponseModel.fromJson(apiResponse.completeResponse);
         if (context.mounted) {
+           state = ViewState.idle;
           helperFunctions.commonSuccessSnackBar(
               context,
               apiResponse?.data?.message ??
                   messageConstant.successfullySubmitted);
-          state = ViewState.idle;
           MaterialAppViewModel.selectedPageIndex = 2;
           Navigator.pushNamedAndRemoveUntil(
               context,

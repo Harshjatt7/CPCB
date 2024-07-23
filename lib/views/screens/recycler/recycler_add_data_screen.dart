@@ -14,6 +14,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localization/localization.dart';
 
 class RecyclerAddDataScreen extends StatelessWidget {
   final AppColor appColor = AppColor();
@@ -134,7 +135,7 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: viewModel.stringConstants.date,
+          hintText: viewModel.stringConstants.date.i18n(),
           isMandatory: true,
           isReadOnly: true,
           disabledBgColor: appColor.transparent,

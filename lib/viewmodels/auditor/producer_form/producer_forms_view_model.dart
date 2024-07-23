@@ -1,15 +1,11 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/request/auditor/producer/produer_form_1_request_model.dart';
-import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form1_response_model.dart';
-import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_list_view_model.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../constants/enums/state_enums.dart';
 import '../../../constants/routes_constant.dart';
@@ -22,7 +18,6 @@ import '../../../models/response/auditor/producer/producer_form_3_response_model
 import '../../../models/response/base_response_model.dart';
 import '../../../models/response/common/file_size_model.dart';
 import '../../../theme/app_color.dart';
-import '../auditor_recycler_stepper_viewmodel.dart';
 
 class ProducerFormsViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
