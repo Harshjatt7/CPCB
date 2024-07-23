@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';

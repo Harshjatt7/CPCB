@@ -99,6 +99,18 @@ class ErrorsList {
   List<String>? productionInfoBuyersAdditionalDataNumberOfBuyersContacted;
   List<String>? productionInfoBuyersAuditRemark;
   List<String>? wasteWaterGenerationAndDisposalSummaryAuditRemark;
+  List<String>? generalInfoGstNoAuditRemark;
+  List<String>? generalInfoCompanyPanAuditRemark;
+  List<String>? generalInfoCtoAuditRemark;
+  List<String>? generalInfoAuthorizationUnderHomwRulesAuditRemark;
+  List<String>? generalInfoAddressLine1AuditRemark;
+  List<String>? generalInfoGpsLocationAuditorAdditionalDataLat;
+  List<String>? generalInfoGpsLocationAuditorAdditionalDataLong;
+  List<String>? generalInfoGpsLocationAuditorAuditRemark;
+  List<String>? generalInfoLastYearElectricityBillAuditDocument;
+  List<String>? generalInfoLastYearElectricityBillAuditRemark;
+  List<String>? generalInfoGeoTaggedVideoUploadAuditDocument;
+  List<String>? generalInfoGeoTaggedVideoUploadAuditRemark;
 
   ErrorsList({
     this.financialYear,
@@ -159,6 +171,18 @@ class ErrorsList {
     this.productionInfoBuyersAdditionalDataNumberOfBuyersContacted,
     this.productionInfoBuyersAuditRemark,
     this.wasteWaterGenerationAndDisposalSummaryAuditRemark,
+    this.generalInfoAddressLine1AuditRemark,
+    this.generalInfoAuthorizationUnderHomwRulesAuditRemark,
+    this.generalInfoCompanyPanAuditRemark,
+    this.generalInfoCtoAuditRemark,
+    this.generalInfoGpsLocationAuditorAdditionalDataLat,
+    this.generalInfoGstNoAuditRemark,
+    this.generalInfoGpsLocationAuditorAdditionalDataLong,
+    this.generalInfoGpsLocationAuditorAuditRemark,
+    this.generalInfoLastYearElectricityBillAuditDocument,
+    this.generalInfoLastYearElectricityBillAuditRemark,
+    this.generalInfoGeoTaggedVideoUploadAuditDocument,
+    this.generalInfoGeoTaggedVideoUploadAuditRemark,
   });
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
@@ -438,5 +462,73 @@ class ErrorsList {
                 : List<String>.from(json[
                         "wasteWaterGenerationAndDisposal.summary.audit_remark"]!
                     .map((x) => x)),
+        generalInfoGstNoAuditRemark:
+            json["generalInfo.gstNo.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.gstNo.audit_remark"]!.map((x) => x)),
+        generalInfoCompanyPanAuditRemark:
+            json["generalInfo.companyPan.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.companyPan.audit_remark"]!.map((x) => x)),
+        generalInfoCtoAuditRemark: json["generalInfo.cto.audit_remark"] == null
+            ? []
+            : List<String>.from(
+                json["generalInfo.cto.audit_remark"]!.map((x) => x)),
+        generalInfoAuthorizationUnderHomwRulesAuditRemark:
+            json["generalInfo.authorizationUnderHomwRules.audit_remark"] == null
+                ? []
+                : List<String>.from(json[
+                        "generalInfo.authorizationUnderHomwRules.audit_remark"]!
+                    .map((x) => x)),
+        generalInfoAddressLine1AuditRemark:
+            json["generalInfo.addressLine1.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.addressLine1.audit_remark"]!
+                        .map((x) => x)),
+        generalInfoGpsLocationAuditorAdditionalDataLat:
+            json["generalInfo.gpsLocationAuditor.additional_data.lat"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.gpsLocationAuditor.additional_data.lat"]!
+                        .map((x) => x)),
+        generalInfoGpsLocationAuditorAdditionalDataLong:
+            json["generalInfo.gpsLocationAuditor.additional_data.long"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.gpsLocationAuditor.additional_data.long"]!
+                        .map((x) => x)),
+        generalInfoGpsLocationAuditorAuditRemark:
+            json["generalInfo.gpsLocationAuditor.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.gpsLocationAuditor.audit_remark"]!
+                        .map((x) => x)),
+        generalInfoLastYearElectricityBillAuditDocument:
+            json["generalInfo.lastYearElectricityBill.audit_document"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.lastYearElectricityBill.audit_document"]!
+                        .map((x) => x)),
+        generalInfoLastYearElectricityBillAuditRemark:
+            json["generalInfo.lastYearElectricityBill.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.lastYearElectricityBill.audit_remark"]!
+                        .map((x) => x)),
+        generalInfoGeoTaggedVideoUploadAuditDocument:
+            json["generalInfo.geoTaggedVideoUpload.audit_document"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.geoTaggedVideoUpload.audit_document"]!
+                        .map((x) => x)),
+        generalInfoGeoTaggedVideoUploadAuditRemark:
+            json["generalInfo.geoTaggedVideoUpload.audit_remark"] == null
+                ? []
+                : List<String>.from(
+                    json["generalInfo.geoTaggedVideoUpload.audit_remark"]!
+                        .map((x) => x)),
       );
 }

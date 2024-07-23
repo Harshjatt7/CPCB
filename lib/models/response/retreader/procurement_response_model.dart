@@ -15,7 +15,8 @@ class ProcurementResponseModel {
       ProcurementResponseModel(
         data: json["data"] == null
             ? []
-            : List<ProcurementAddData>.from(json["data"]!.map((x) => ProcurementAddData.fromJson(x))),
+            : List<ProcurementAddData>.from(
+                json["data"]!.map((x) => ProcurementAddData.fromJson(x))),
         links: json["links"] == null ? null : Links.fromJson(json["links"]),
         meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
         status: json["status"],
@@ -35,23 +36,25 @@ class ProcurementAddData {
   int? isOpeningBalance;
   dynamic openingBalance;
   String? purchasedQuantity;
+  String? quantityReceived;
 
-  ProcurementAddData({
-    this.financeYear,
-    this.sellerName,
-    this.sellerMobile,
-    this.sellerAddress,
-    this.invoiceNumber,
-    this.sellerGstNo,
-    this.rawMaterial,
-    this.isPublished,
-    this.purchasedDate,
-    this.isOpeningBalance,
-    this.openingBalance,
-    this.purchasedQuantity,
-  });
+  ProcurementAddData(
+      {this.financeYear,
+      this.sellerName,
+      this.sellerMobile,
+      this.sellerAddress,
+      this.invoiceNumber,
+      this.sellerGstNo,
+      this.rawMaterial,
+      this.isPublished,
+      this.purchasedDate,
+      this.isOpeningBalance,
+      this.openingBalance,
+      this.purchasedQuantity,
+      this.quantityReceived});
 
-  factory ProcurementAddData.fromJson(Map<String, dynamic> json) => ProcurementAddData(
+  factory ProcurementAddData.fromJson(Map<String, dynamic> json) =>
+      ProcurementAddData(
         financeYear: json["finance_year"],
         sellerName: json["seller_name"],
         sellerMobile: json["seller_mobile"],
@@ -64,6 +67,7 @@ class ProcurementAddData {
         isOpeningBalance: json["is_opening_balance"],
         openingBalance: json["opening_balance"],
         purchasedQuantity: json["purchased_quantity"],
+        quantityReceived: json["quantity_received"],
       );
 }
 
@@ -111,11 +115,9 @@ class Meta {
         currentPage: json["current_page"],
         from: json["from"],
         lastPage: json["last_page"],
-
         path: json["path"],
         perPage: json["per_page"],
         to: json["to"],
         total: json["total"],
       );
 }
-
