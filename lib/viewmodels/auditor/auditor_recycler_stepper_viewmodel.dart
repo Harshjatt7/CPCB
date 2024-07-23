@@ -34,7 +34,7 @@ class CommonStepperViewModel extends BaseViewModel {
   }
 
   void onBackButton(BuildContext context) {
-    if (index > 1) {
+    if ((index) > 1) {
       index--;
       updateUI();
     } else {

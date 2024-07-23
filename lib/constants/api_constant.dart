@@ -95,6 +95,9 @@ class APIRoutes {
   final String auditorRecyclerForm3PostAPIRoute =
       "api/auditor/recyclerChecklist/store-procurement-information";
 
+  final String auditorPerformAcknowledge ="api/auditor/perform-acknowledge";
+  final String auditorStartAcknowlege ="api/auditor/perform-start";
+
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
   final String initiateRegistrationWebUrl = "initiateRegistration";

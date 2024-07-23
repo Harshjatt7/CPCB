@@ -5,7 +5,7 @@ import 'package:cpcb_tyre/views/widgets/app_components/common_row_heading_list.d
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class CommonExpansionTile extends StatefulWidget {
+class CommonExpansionTileTest extends StatefulWidget {
   final String title;
   bool? isChecked;
   bool? isShowHide;
@@ -13,7 +13,7 @@ class CommonExpansionTile extends StatefulWidget {
   final List<String> selectedList;
   final FilterTypes type;
   final Function? listCallBack;
-  CommonExpansionTile(
+  CommonExpansionTileTest(
       {super.key,
       required this.title,
       this.isChecked,
@@ -24,10 +24,10 @@ class CommonExpansionTile extends StatefulWidget {
       this.listCallBack});
 
   @override
-  State<CommonExpansionTile> createState() => _CommonExpansionTileState();
+  State<CommonExpansionTileTest> createState() => _CommonExpansionTileState();
 }
 
-class _CommonExpansionTileState extends State<CommonExpansionTile> {
+class _CommonExpansionTileState extends State<CommonExpansionTileTest> {
   final _appColor = AppColor();
   List<String> localList = [];
 
@@ -52,6 +52,11 @@ class _CommonExpansionTileState extends State<CommonExpansionTile> {
       case FilterTypes.unitType:
         widget.isChecked = value;
         widget.isShowHide = isShowHide;
+        break;
+      case FilterTypes.district:
+        widget.isChecked = value;
+        widget.isShowHide = isShowHide;
+        break;
         // isStateShowHide = false;
         // isCurrentShowHide = false;
 
@@ -66,7 +71,7 @@ class _CommonExpansionTileState extends State<CommonExpansionTile> {
         //   stateExpansionTileController.collapse();
         // }
         //unitExpansionTileController.expand();
-        break;
+        
       case FilterTypes.currentStatus:
         widget.isChecked = value;
         widget.isShowHide = isShowHide;

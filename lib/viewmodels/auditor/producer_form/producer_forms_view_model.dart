@@ -1,7 +1,10 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/request/auditor/producer/produer_form_1_request_model.dart';
+import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form1_response_model.dart';
+import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_list_view_model.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
@@ -117,7 +120,8 @@ class ProducerFormsViewModel extends BaseViewModel {
   APIResponse<ProducerForm2ResponseModel?>? _producerForm2ResponseModel;
   APIResponse<ProducerForm2ResponseModel?>? get producerForm2ResponseModel =>
       _producerForm2ResponseModel;
-  ProducerSalesData? producerForm2Data;
+  AuditSummaryForm2Response? producerForm2DataAuditData;
+  ProducerForm2SalesData? producerForm2Data;
 
   // Form 3
   String? radioMisreporting;
@@ -137,45 +141,63 @@ class ProducerFormsViewModel extends BaseViewModel {
   int counter = 0;
 
   String getTitle(int counter) {
-    counter = 0;
     String title = '(${String.fromCharCode(65 + counter)}). ';
     updateUI();
     return title;
   }
 
   int index = 1;
-
   int totalIndex = 0;
-  void getUser(String? user) {
-    switch (user) {
-      case "Producer":
-        totalIndex = 3;
+
+  void onNextButton(BuildContext context, String? user) {
+    if (index < 3) {
+      index++;
+      updateUI();
+    }
+  }
+
+  void onBackButton(BuildContext context) {
+    if (index > 1) {
+      index--;
+      updateUI();
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
+  void getIndex(num? progress) {
+    switch (progress) {
+      case 0:
+        index = 1;
         break;
-      case "Recycler":
-        totalIndex = 5;
+      case 33:
+        index = 2;
+        break;
+      case 66 || 100:
+        index = 3;
         break;
       default:
-        totalIndex = 3;
-        break;
+        index = 1;
     }
     updateUI();
   }
-  // void initalizeGroupValues() {
-  //   radioCompanyDetail ;
-  //   radioCategoryOfProducer ;
-  //   radioGst =;
-  //   radioPanOfCompany = "1";
-  //   radioCin = "1";
-  //   radioIec = "1";
-  //   radioMisreportingP1 = "1";
-  //   radioMisreportingP3 = "1";
-  //   radioMisreportingP2 = "1";
-  //   radioMisreportingP4 = "1";
-  //   radioMisreportingP5 = "1";
-  //   radioMisreportingP6 = "1";
-  //   radioMisreporting = "1";
-  //   radioInformation = "1";
-  // }
+
+  void initalizeGroupValues() {
+    radioCompanyDetail = "1";
+    radioCategoryOfProducer = "1";
+    radioGst = "1";
+    radioPanOfCompany = "1";
+    radioCin = "1";
+    radioIec = "1";
+    radioMisreportingP1 = "1";
+    radioMisreportingP3 = "1";
+    radioMisreportingP2 = "1";
+    radioMisreportingP4 = "1";
+    radioMisreportingP5 = "1";
+    radioMisreportingP6 = "1";
+    radioMisreporting = "1";
+    radioInformation = "1";
+  }
 
   Future<void> postForm3Data(BuildContext context,
       {String? id, String? saveAsDraft}) async {
@@ -292,8 +314,11 @@ class ProducerFormsViewModel extends BaseViewModel {
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           if (saveAsDraft == null) {
             if (context.mounted) {
-              Provider.of<CommonStepperViewModel>(context, listen: false)
-                  .onNextButton(context, "Producer");
+              // Provider.of<CommonStepperViewModel>(context, listen: false)
+              //     .index=index;
+              // Provider.of<CommonStepperViewModel>(context, listen: false)
+              //     .onNextButton(context, "Producer");
+              onNextButton(context, "Producer");
             }
           }
         }
@@ -319,19 +344,26 @@ class ProducerFormsViewModel extends BaseViewModel {
             _producerForm2ResponseModel?.completeResponse);
 
         producerForm2Data = _producerForm2ResponseModel?.data?.data?.salesData;
-        final data = _producerForm2ResponseModel?.data?.data?.salesData;
-        radioMisreportingP1 =
-            data?.p1?.isEmpty == true ? "1" : data?.p1?[0].selectStatus;
-        radioMisreportingP2 =
-            data?.p2?.isEmpty == true ? "1" : data?.p2?[0].selectStatus;
-        radioMisreportingP3 =
-            data?.p3?.isEmpty == true ? "1" : data?.p3?[0].selectStatus;
-        radioMisreportingP4 =
-            data?.p4?.isEmpty == true ? "1" : data?.p4?[0].selectStatus;
-        radioMisreportingP5 =
-            data?.p5?.isEmpty == true ? "1" : data?.p5?[0].selectStatus;
-        radioMisreportingP6 =
-            data?.p6?.isEmpty == true ? "1" : data?.p6?[0].selectStatus;
+        producerForm2DataAuditData =
+            _producerForm2ResponseModel?.data?.data?.auditSummary;
+        radioMisreportingP1 = producerForm2DataAuditData
+            ?.salesP1?.auditConfirmedStatus
+            .toString();
+        radioMisreportingP2 = producerForm2DataAuditData
+            ?.salesP2?.auditConfirmedStatus
+            .toString();
+        radioMisreportingP3 = producerForm2DataAuditData
+            ?.salesP3?.auditConfirmedStatus
+            .toString();
+        radioMisreportingP4 = producerForm2DataAuditData
+            ?.salesP4?.auditConfirmedStatus
+            .toString();
+        radioMisreportingP5 = producerForm2DataAuditData
+            ?.salesP5?.auditConfirmedStatus
+            .toString();
+        radioMisreportingP6 = producerForm2DataAuditData
+            ?.salesP6?.auditConfirmedStatus
+            .toString();
         await getProducerForm3Data(id: id);
       } else {
         helperFunctions.logger("No response");
@@ -439,8 +471,9 @@ class ProducerFormsViewModel extends BaseViewModel {
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           if (saveAsDraft == null) {
             if (context.mounted) {
-              Provider.of<CommonStepperViewModel>(context, listen: false)
-                  .onNextButton(context, "Producer");
+              // Provider.of<CommonStepperViewModel>(context, listen: false)
+              //     .onNextButton(context, "Producer");
+              onNextButton(context, "Producer");
             }
           }
         }
