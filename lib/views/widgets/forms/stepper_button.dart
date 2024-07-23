@@ -31,9 +31,7 @@ class StepperButton extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     top: 18, bottom: 18, left: 16, right: 8),
                 child: CommonButtonWidget(
-                  onPressed: () {
-                    onSavedDraft;
-                  },
+                  onPressed: onSavedDraft,
                   label: StringConstants().savedAsDraft,
                   borderColor: AppColor().darkGreen,
                   color: AppColor().white,

@@ -1,4 +1,3 @@
-import 'package:cpcb_tyre/views/widgets/app_components/common_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/producer_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:flutter/material.dart';
@@ -13,57 +12,70 @@ import '../../../widgets/app_components/common_title_widget.dart';
 import '../../../widgets/forms/stepper_button.dart';
 
 // ignore: must_be_immutable
-class ProducerForm2 extends StatelessWidget {
+class ProducerForm2 extends StatefulWidget {
   final bool? isSummaryScreen;
   final String? id;
-  ProducerFormsViewModel viewModel;
-  ProducerForm2({super.key, this.isSummaryScreen, this.id,required this.viewModel});
+  final num? progress;
+  const ProducerForm2(
+      {super.key, this.isSummaryScreen, this.id, this.progress});
+
+  @override
+  State<ProducerForm2> createState() => _ProducerForm2State();
+}
+
+class _ProducerForm2State extends State<ProducerForm2> {
+  late ProducerFormsViewModel viewModel;
+
+  @override
+  void initState() {
+    viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
+    viewModel.getProducerForm2Data(id: widget.id);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Consumer<ProducerFormsViewModel>(
       builder: (context, value, child) {
         return Stack(
           children: [
-            Opacity(
-              opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        isSummaryScreen == true
-                            ? CommonSingleChildScrollView(
-                                child: viewReportView(viewModel, context))
-                            : CommonSingleChildScrollView(
-                                child: fillFormView(viewModel, context)),
-                        Positioned(
-                            bottom: 0,
-                            left: 10,
-                            right: 10,
-                            child: StepperButton(
-                              isLastStep: false,
-                              isSummaryScreen: false,
-                              onNextOrSubmit: () async {
-                                await viewModel.postForm2Data(context, id: id);
-                              },
-                              onSavedDraft: () async {
-                                await viewModel.postForm2Data(context, id: id);
-                              },
-                            ))
-                      ],
-                    ),
+            Column(
+              children: [
+                Expanded(
+                  child: Opacity(
+                    opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
+                    child: widget.isSummaryScreen == true
+                        ? CommonSingleChildScrollView(
+                            child: viewReportView(viewModel, context))
+                        : CommonSingleChildScrollView(
+                            child: fillFormView(viewModel, context)),
                   ),
-                ],
-              ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 10,
+                  right: 10,
+                  child: StepperButton(
+                    isLastStep: false,
+                    isSummaryScreen: false,
+                    onNextOrSubmit: () async {
+                      viewModel.counter = 0;
+                      await viewModel.postForm2Data(context, id: widget.id);
+                    },
+                    onSavedDraft: () async {
+                      viewModel.counter = 0;
+                      await viewModel.postForm2Data(context,
+                          id: widget.id, saveAsDraft: "SaveAsDraft");
+                    },
+                  ),
+                ),
+              ],
             ),
             if (viewModel.state == ViewState.busy)
-              Positioned.fill(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: viewModel.appColor.black,
-                  ),
+              Center(
+                child: CircularProgressIndicator(
+                  color: viewModel.appColor.black,
                 ),
               ),
           ],
@@ -90,7 +102,7 @@ class ProducerForm2 extends StatelessWidget {
           const SizedBox(
             height: 7,
           ),
-          CommonDataTable(headingList: viewModel.producerHeadingList),
+          ProducerDataTable(headingList: viewModel.producerHeadingList),
           const SizedBox(
             height: 24,
           ),
@@ -105,13 +117,15 @@ class ProducerForm2 extends StatelessWidget {
           const SizedBox(
             height: 7,
           ),
-          CommonDataTable(headingList: viewModel.producerHeadingList),
+          ProducerDataTable(headingList: viewModel.producerHeadingList),
         ],
       ),
     );
   }
 
   Padding fillFormView(ProducerFormsViewModel viewModel, BuildContext context) {
+    viewModel.counter=0;
+    viewModel.updateUI();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -205,7 +219,7 @@ class ProducerForm2 extends StatelessWidget {
     String? radioTitle,
     String? groupValue,
     Function(String?)? onRadioChanged,
-    List<P1>? list,
+    List<Producer>? list,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,7 +239,11 @@ class ProducerForm2 extends StatelessWidget {
         const SizedBox(
           height: 7,
         ),
-        ProducerDataTable(headingList: viewModel.producerHeadingList, list: list),
+        ProducerDataTable(
+            headingList: viewModel.producerHeadingList, list: list),
+        const SizedBox(
+          height: 24,
+        ),
       ],
     );
   }

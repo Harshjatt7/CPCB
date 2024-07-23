@@ -10,11 +10,25 @@ import '../../../../viewmodels/auditor/producer_form/producer_forms_view_model.d
 import '../../../widgets/components/common_text_widget.dart';
 
 // ignore: must_be_immutable
-class ProducerForm1 extends StatelessWidget {
+class ProducerForm1 extends StatefulWidget {
   final bool? isSummaryScreen;
   final String? id;
-  ProducerFormsViewModel viewModel;
-  ProducerForm1({super.key, this.isSummaryScreen, this.id,required this.viewModel});
+
+  const ProducerForm1({super.key, this.isSummaryScreen, this.id});
+
+  @override
+  State<ProducerForm1> createState() => _ProducerForm1State();
+}
+
+class _ProducerForm1State extends State<ProducerForm1> {
+  late ProducerFormsViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
+    viewModel.getProducerForm1Data(id: widget.id);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +37,15 @@ class ProducerForm1 extends StatelessWidget {
         children: [
           Opacity(
             opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
-            child: isSummaryScreen == true
+            child: widget.isSummaryScreen == true
                 ? CommonSingleChildScrollView(child: viewReportView(viewModel))
                 : CommonSingleChildScrollView(
                     child: fillFormView(viewModel, context)),
           ),
           if (viewModel.state == ViewState.busy)
-            Positioned.fill(
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: viewModel.appColor.black,
-                ),
+            Center(
+              child: CircularProgressIndicator(
+                color: viewModel.appColor.black,
               ),
             ),
           Positioned(
@@ -44,10 +56,12 @@ class ProducerForm1 extends StatelessWidget {
               isLastStep: false,
               isSummaryScreen: false,
               onNextOrSubmit: () async {
-                await viewModel.postForm1Data(context, id: id);
+                // Provider.of<CommonStepperViewModel>(context, listen: false).index =viewModel.index;
+                await viewModel.postForm1Data(context, id: widget.id);
               },
               onSavedDraft: () async {
-                await viewModel.postForm1Data(context, id: id);
+                await viewModel.postForm1Data(context,
+                    id: widget.id, saveAsDraft: "SaveAsDraft");
               },
             ),
           ),

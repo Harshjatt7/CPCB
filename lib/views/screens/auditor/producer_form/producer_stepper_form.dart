@@ -21,34 +21,43 @@ class _ProdcerStepperState extends State<ProducerStepper> {
     return BaseView<ProducerFormsViewModel>(
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
+              onLeadingTapped: () {
+                viewModel.onBackButton(context);
+              },
               checkUser: CheckUserAndSummaryScreen(
-                  isSummaryScreen: false,
-                  userType: widget.userDetails?.userType,
-                  id: widget.userDetails?.id),
+                isSummaryScreen: true,
+                userType: widget.userDetails?.userType,
+                id: widget.userDetails?.id,
+                index: widget.userDetails?.index,
+              ),
               forms: [
-                form1(widget.userDetails?.id,viewModel: viewModel),
-                form2(widget.userDetails?.id,viewModel: viewModel),
-                form3(widget.userDetails?.id,viewModel: viewModel),
+                if (viewModel.index == 1) form1(widget.userDetails?.id),
+                if (viewModel.index == 2) form2(widget.userDetails?.id),
+                if (viewModel.index == 3) form3(widget.userDetails?.id),
               ]);
         },
         onModelReady: (viewModel) async {
+          viewModel.getIndex(widget.userDetails?.progress);
           viewModel.initalizeGroupValues();
-          viewModel.getProducerForm1Data(id: widget.userDetails?.id);
-          viewModel.counter = 0;
-          
         },
         viewModel: ProducerFormsViewModel());
   }
 
-  Widget form1(String? id, {required ProducerFormsViewModel viewModel}) {
-    return ProducerForm1(id: id,viewModel: viewModel,);
+  Widget form1(
+    String? id,
+  ) {
+    return ProducerForm1(
+      id: id,
+    );
   }
 
-  Widget form2(String? id,{required ProducerFormsViewModel viewModel}) {
-    return ProducerForm2(id: id,viewModel: viewModel);
+  Widget form2(String? id) {
+    return ProducerForm2(id: id);
   }
 
-  Widget form3(String? id,{required ProducerFormsViewModel viewModel}) {
-    return ProducerForm3(id: id,viewModel: viewModel);
+  Widget form3(String? id) {
+    return ProducerForm3(
+      id: id,
+    );
   }
 }

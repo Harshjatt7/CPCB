@@ -69,7 +69,8 @@ class APIRoutes {
   final String auditorProducerForm3RequestAPIRoute =
       "api/auditor/checklist/producer/summary-report-store";
   final String auditorProducerForm3ResponseAPIRoute =
-      "api/auditor/checklist/producer/producer-sales-data";
+      "api/auditor/checklist/producer/summary-report";
+
   final String auditorRecyclerForm1APIRoute = "api/auditor/recyclerChecklist/";
   final String auditorRecyclerForm2APIRoute =
       "api/auditor/checklist/recycler/processing-capacity/";
@@ -108,6 +109,16 @@ class APIRoutes {
   final String retreaderFileUploadAPIRoute =
       "api/auditor/retreaderChecklist/file-upload/mobile";
   final String auditorUploadFileViewer = "api/view-file/";
+  final String auditorRecyclerForm1PostAPIRoute =
+      "api/auditor/recyclerChecklist/store-general-information/";
+  final String auditorRecyclerForm2PostAPIRoute =
+      "api/auditor/checklist/recycler/processing-capacity-store";
+  final String auditorRecyclerForm3PostAPIRoute =
+      "api/auditor/recyclerChecklist/store-procurement-information";
+
+  final String auditorPerformAcknowledge ="api/auditor/perform-acknowledge";
+  final String auditorStartAcknowlege ="api/auditor/perform-start";
+
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
   final String initiateRegistrationWebUrl = "initiateRegistration";

@@ -18,8 +18,8 @@ class ProducerForm3RequestModel {
 }
 
 class SummaryReport {
-    MissReporting? missReporting;
-    FalseInformation? falseInformation;
+    MissReportingResponse? missReporting;
+    FalseInformationResponse? falseInformation;
 
     SummaryReport({
         this.missReporting,
@@ -32,12 +32,12 @@ class SummaryReport {
     };
 }
 
-class FalseInformation {
+class FalseInformationResponse {
     String? auditConfirmedStatus;
     String? auditRemark;
-    FalseInformationAdditionalData? additionalData;
+    FalseInformationAdditionalDataResponse? additionalData;
 
-    FalseInformation({
+    FalseInformationResponse({
         this.auditConfirmedStatus,
         this.auditRemark,
         this.additionalData,
@@ -50,10 +50,10 @@ class FalseInformation {
     };
 }
 
-class FalseInformationAdditionalData {
+class FalseInformationAdditionalDataResponse {
     String? overallSummary;
 
-    FalseInformationAdditionalData({
+    FalseInformationAdditionalDataResponse({
         this.overallSummary,
     });
 
@@ -62,11 +62,11 @@ class FalseInformationAdditionalData {
     };
 }
 
-class MissReporting {
+class MissReportingResponse {
     String? auditConfirmedStatus;
-    MissReportingAdditionalData? additionalData;
+    MissReportingAdditionalDataResponse? additionalData;
 
-    MissReporting({
+    MissReportingResponse({
         this.auditConfirmedStatus,
         this.additionalData,
     });
@@ -77,10 +77,10 @@ class MissReporting {
     };
 }
 
-class MissReportingAdditionalData {
+class MissReportingAdditionalDataResponse {
     String? deviationValue;
 
-    MissReportingAdditionalData({
+    MissReportingAdditionalDataResponse({
         this.deviationValue,
     });
 

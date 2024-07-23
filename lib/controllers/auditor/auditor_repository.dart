@@ -20,6 +20,8 @@ import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form5_respon
 import 'package:dio/dio.dart';
 
 import '../../models/request/auditor/producer/producer_form_2_request_model.dart';
+import '../../models/request/auditor/recycler/recycler_form_2_request_model.dart';
+import '../../models/request/auditor/recycler/recycler_form_3_request_model.dart';
 import '../../models/response/auditor/audit_list_response_model.dart';
 import '../../models/response/auditor/audit_plan_detail_response_model.dart';
 import '../../models/response/auditor/producer/producer_form_3_response_model.dart';
@@ -28,6 +30,15 @@ import '../../models/response/common/add_data_response_model.dart';
 class AuditorRepository {
   final _apiRoutes = APIRoutes();
   final _apiBase = APIBase();
+
+  Future getAuditStatus({String? id, String? status}) async {
+    APIResponse<AddDataResponseModel>? response = await _apiBase.getRequest(
+        status == "assigned"
+            ? "${_apiRoutes.auditorPerformAcknowledge}/$id"
+            : "${_apiRoutes.auditorStartAcknowlege}/$id",
+        isAuthorizationRequired: true);
+    return response;
+  }
 
   Future<APIResponse<AddDataResponseModel?>?> postProducerForm3Data(
       ProducerForm3RequestModel requestModel,
@@ -82,12 +93,35 @@ class AuditorRepository {
     return response;
   }
 
-  Future getAuditPlanListData({String? search, String? page}) async {
-    APIResponse<AuditPlanListResponseModel?>? response = await _apiBase.getRequest(
-        search == null
-            ? "${_apiRoutes.auditorAuditPlanListAPIRoute}?page=$page"
-            : "${_apiRoutes.auditorAuditPlanListAPIRoute}?page=$page&search=$search",
-        isAuthorizationRequired: true);
+  Future getAuditPlanListData({
+    String? search,
+    String? page,
+    AuditPlanListResponseModel? request,
+    List<String>? statusList,
+    List<String>? unitTypeList,
+  }) async {
+    String url = "${_apiRoutes.auditorAuditPlanListAPIRoute}?page=$page";
+
+    if (search != null) {
+      url += "&name=$search";
+    }
+
+    if (statusList != null && statusList.isNotEmpty) {
+      for (String status in statusList) {
+        url += "&status[]=$status";
+      }
+    }
+
+    if (unitTypeList != null && unitTypeList.isNotEmpty) {
+      for (String unitType in unitTypeList) {
+        url += "&unit_type[]=$unitType";
+      }
+    }
+    APIResponse<AuditPlanListResponseModel?>? response =
+        await _apiBase.getRequest(
+      url,
+      isAuthorizationRequired: true,
+    );
     return response;
   }
 
@@ -187,6 +221,18 @@ class AuditorRepository {
     return response;
   }
 
+  Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm2Data(
+      RecyclerForm2RequestModel requestModel,
+      {String? id}) async {
+    Map<String, dynamic> request = requestModel.toJson();
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
+      "${_apiRoutes.auditorRecyclerForm2PostAPIRoute}/$id",
+      data: request,
+      isAuthorizationRequired: true,
+    );
+    return response;
+  }
+
   Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm4Data(
       AuditorRecyclerForm4RequestModel requestModel,
       {String userId = "",
@@ -196,6 +242,18 @@ class AuditorRepository {
       isRetreader == true
           ? "${_apiRoutes.auditorRetreaderForm4RequestAPIRoute}$userId"
           : "${_apiRoutes.auditorRecyclerForm4RequestAPIRoute}$userId",
+      data: request,
+      isAuthorizationRequired: true,
+    );
+    return response;
+  }
+
+  Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm3Data(
+      RecyclerForm3RequestModel requestModel,
+      {String? id}) async {
+    Map<String, dynamic> request = requestModel.toJson();
+    APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
+      "${_apiRoutes.auditorRecyclerForm3PostAPIRoute}/$id",
       data: request,
       isAuthorizationRequired: true,
     );

@@ -7,7 +7,7 @@ import '../../../models/response/auditor/producer/producer_form_2_response_model
 class CommonProducerDataRow extends StatelessWidget {
   const CommonProducerDataRow(
       {super.key, required this.demoModel, this.onTap, required this.isOdd});
-  final P1? demoModel;
+  final Producer? demoModel;
   final void Function()? onTap;
   final bool isOdd;
 

@@ -1,17 +1,18 @@
-import 'package:cpcb_tyre/constants/string_constant.dart';
-import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_button_widget.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
-import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import '../../../../constants/string_constant.dart';
+import '../../../../theme/app_color.dart';
+import '../components/common_button_widget.dart';
+import '../components/common_single_child_scrollview.dart';
+import '../components/common_text_widget.dart';
+
 
 // ignore: must_be_immutable
 class FilterBottomSheet extends StatefulWidget {
   final List<Widget> filterTiles;
   final void Function()? onTitleUpdated;
   final void Function()? onClose;
-  final void Function()? onApply;
+  final VoidCallback? onApply;
 
   const FilterBottomSheet(
       {super.key,
@@ -42,12 +43,12 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               width: 56,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  color: _appColor.black20),
+                  color: _appColor.black),
             ),
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 child: CommonTextWidget(
                   _stringConstants.filter,
                   style: Theme.of(context)
@@ -60,11 +61,15 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             Column(
               children:
                   List<Widget>.generate(widget.filterTiles.length, (index) {
-                return widget.filterTiles[index];
+                return Column(
+                  children: [
+                    widget.filterTiles[index],
+                  ],
+                );
               }),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
                 children: [
                   Flexible(
@@ -80,12 +85,16 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       padding: const EdgeInsets.only(right: 24),
                       child: CommonButtonWidget(
                         label: _stringConstants.apply,
-                        color: _appColor.darkGreen,
+                        color: _appColor.black10,
                         labelStyle: Theme.of(context)
                             .textTheme
                             .labelMedium!
                             .copyWith(color: _appColor.white),
-                        onPressed: widget.onApply,
+                        onPressed: () {
+                          if (widget.onApply != null) {
+                            widget.onApply!();
+                          }
+                        },
                       ),
                     ),
                   ),

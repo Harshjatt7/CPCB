@@ -1,57 +1,61 @@
 import 'dart:convert';
 
-String producerForm1RequestModelToJson(ProducerForm1RequestModel data) => json.encode(data.toJson());
+String producerForm1RequestModelToJson(ProducerForm1RequestModel data) =>
+    json.encode(data.toJson());
 
 class ProducerForm1RequestModel {
-    CompanyDetails? companyDetails;
+  CompanyDetails? companyDetails;
+  String? submit;
 
-    ProducerForm1RequestModel({
-        this.companyDetails,
-    });
+  ProducerForm1RequestModel({
+    this.companyDetails,
+    this.submit,
+  });
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "companyDetails": companyDetails?.toJson(),
-    };
+        "submit": submit,
+      };
 }
 
 class CompanyDetails {
-    CompanyData? companyNameAddress;
-    CompanyData? producerCategory;
-    CompanyData? companyGst;
-    CompanyData? companyPan;
-    CompanyData? companyCin;
-    CompanyData? companyIec;
+  CompanyData? companyNameAddress;
+  CompanyData? producerCategory;
+  CompanyData? companyGst;
+  CompanyData? companyPan;
+  CompanyData? companyCin;
+  CompanyData? companyIec;
 
-    CompanyDetails({
-        this.companyNameAddress,
-        this.producerCategory,
-        this.companyGst,
-        this.companyPan,
-        this.companyCin,
-        this.companyIec,
-    });
+  CompanyDetails({
+    this.companyNameAddress,
+    this.producerCategory,
+    this.companyGst,
+    this.companyPan,
+    this.companyCin,
+    this.companyIec,
+  });
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "companyNameAddress": companyNameAddress?.toJson(),
         "producerCategory": producerCategory?.toJson(),
         "companyGst": companyGst?.toJson(),
         "companyPan": companyPan?.toJson(),
         "companyCin": companyCin?.toJson(),
         "companyIec": companyIec?.toJson(),
-    };
+      };
 }
 
 class CompanyData {
-    String? auditConfirmedStatus;
-    String? auditRemark;
+  String? auditConfirmedStatus;
+  String? auditRemark;
 
-    CompanyData({
-        this.auditConfirmedStatus,
-        this.auditRemark,
-    });
+  CompanyData({
+    this.auditConfirmedStatus,
+    this.auditRemark,
+  });
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "audit_confirmed_status": auditConfirmedStatus,
         "audit_remark": auditRemark,
-    };
+      };
 }

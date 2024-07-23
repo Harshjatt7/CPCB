@@ -27,6 +27,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../models/request/auditor/recycler/recycler_form_2_request_model.dart';
+import '../../../models/request/auditor/recycler/recycler_form_3_request_model.dart';
+
 class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
@@ -234,6 +237,229 @@ class RecyclerFormViewModel extends BaseViewModel {
   List<DocumentData?> otherMachineriesDocument = [];
   DocumentData? geoTaggedVideoUploadDocument;
 
+//Form 2
+  String? contactedSuppliersError;
+  String? contactedAuditRemarkError;
+  String? verifiedSuppliersError;
+  String? verifiedAuditRemarkError;
+  String? physicallyContactedSuppliersError;
+  String? physicallyContactedAuditRemarkError;
+  String? physicallyVerifiedSuppliersError;
+  String? physicallyVerifiedAuditRemarkError;
+
+//Form 3
+  String? capacityTypeofEndProductError;
+  String? plantProductionCapacityError;
+  String? endProductProducedAuditDayError;
+  String? plantPerYearError;
+  String? plantPerDayError;
+  String? plantPerShiftError;
+  String? actualProcessingCapacityError;
+  String? powerOnAuditDayError;
+  String? totalElectricityConsumptionError;
+
+  String? saveAsDraft = "";
+
+  Future<void> recyclerPostForm2Data(BuildContext context, {String? id}) async {
+    state = ViewState.busy;
+    RecyclerForm2RequestModel requestModel = RecyclerForm2RequestModel(
+      processingCapacity: ProcessingCapacityRequest(
+        planCapacityAssesment: PlanCapacityAssesmentRequest(
+          additionalData: PlanCapacityAssesmentRequestAdditionalData(
+            typeOfEndProduct: typeOfEndProduct,
+            plantProductionCapacity: plantProductionCapacityController.text,
+            endProductProducedOnAuditDay: endProductProducedController.text,
+            plantOperationalPerYear: hoursPlantOperationalController.text,
+            plantOperationalPerDay: daysPlantOperationalController.text,
+            plantOperationalPerShift: shiftPlantOperationalController.text,
+            actualProcessingCapacityRequestDerived:
+                actualProcessingCapacityController.text.isNotEmpty
+                    ? int.parse(
+                        actualProcessingCapacityController.text,
+                      )
+                    : 0,
+          ),
+        ),
+        valueComparable: ValueComparableRequest(
+          auditConfirmedStatus: radioxy,
+          additionalData: ValueComparableRequestAdditionalData(
+            actualProcessingCapacityRequest:
+                actualProcessingCapacityController.text,
+            differenceInActualProcessing:
+                differenceInActualProccessingController.text.isEmpty
+                    ? int.parse(differenceInActualProccessingController.text)
+                    : 0,
+          ),
+        ),
+        electricityVerification: ElectricityVerificationRequest(
+          additionalData: ElectricityVerificationRequestAdditionalData(
+            powerOnAuditDay: powerConsumptionController.text,
+            totalElectricityConsumption: totalElectricityController.text,
+            annualPowerConsumption:
+                int.parse(actualAverageAnnualController.text),
+          ),
+        ),
+        cAndDComparable: CAndDComparableRequest(
+          auditConfirmedStatus: radiocd,
+          auditRemark: areValuedCandDController.text,
+        ),
+      ),
+      submit: saveAsDraft ?? "",
+    );
+
+    try {
+      final res =
+          await auditorRepository.postRecyclerForm2Data(requestModel, id: id);
+      if (res?.isSuccess == true) {
+        if (context.mounted) {
+          HelperFunctions()
+              .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          // await getProducerForm2Data(id: id);
+        }
+      } else {
+        final apiError = res?.error?.errorsList;
+
+        capacityTypeofEndProductError =
+            (apiError?.capacityTypeofEndProduct ?? []).isEmpty
+                ? ""
+                : apiError?.capacityTypeofEndProduct?.first ?? "";
+        plantProductionCapacityError =
+            (apiError?.plantProductionCapacity ?? []).isEmpty
+                ? ""
+                : apiError?.plantProductionCapacity?.first ?? "";
+        endProductProducedAuditDayError =
+            (apiError?.endProductProducedAuditDay ?? []).isEmpty
+                ? ""
+                : apiError?.endProductProducedAuditDay?.first ?? "";
+        plantPerYearError = (apiError?.plantPerYear ?? []).isEmpty
+            ? ""
+            : apiError?.plantPerYear?.first ?? "";
+        plantPerDayError = (apiError?.plantPerDay ?? []).isEmpty
+            ? ""
+            : apiError?.plantPerDay?.first ?? "";
+        plantPerShiftError = (apiError?.plantPerShift ?? []).isEmpty
+            ? ""
+            : apiError?.plantPerShift?.first ?? "";
+        actualProcessingCapacityError =
+            (apiError?.actualProcessingCapacity ?? []).isEmpty
+                ? ""
+                : apiError?.actualProcessingCapacity?.first ?? "";
+        powerOnAuditDayError = (apiError?.powerOnAuditDay ?? []).isEmpty
+            ? ""
+            : apiError?.powerOnAuditDay?.first ?? "";
+        totalElectricityConsumptionError =
+            (apiError?.totalElectricityConsumption ?? []).isEmpty
+                ? ""
+                : apiError?.totalElectricityConsumption?.first ?? "";
+      }
+    } catch (e) {
+      if (context.mounted) {
+        HelperFunctions()
+            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+      }
+    }
+    updateUI();
+    state = ViewState.idle;
+  }
+
+  Future<void> recyclerPostForm3Data(BuildContext context, {String? id}) async {
+    state = ViewState.busy;
+    RecyclerForm3RequestModel requestModel = RecyclerForm3RequestModel(
+      procurementInfo: ProcurementInfoRequest(
+        contacted: ContactedRequest(
+          additionalData: ContactedRequestAdditionalData(
+              suppliers: aContactController.text.isNotEmpty
+                  ? int.parse(aContactController.text)
+                  : null),
+          auditConfirmedStatus: radioAContact,
+          auditRemark: aContactRemarksController.text,
+        ),
+        physicallyContacted: ContactedRequest(
+            auditConfirmedStatus: radioAVerified,
+            auditRemark: aVerifiedRemakrsController.text,
+            additionalData: ContactedRequestAdditionalData(
+                suppliers: aVerifiedController.text.isNotEmpty
+                    ? int.parse(aVerifiedController.text)
+                    : null)),
+        physicallyVerified: VerifiedRequest(
+          auditConfirmedStatus: radioBVerified,
+          auditRemark: bVerifiedRemakrsController.text,
+          additionalData: PhysicallyVerifiedRequestAdditionalData(
+            suppliers: bVerifiedController.text.isNotEmpty
+                ? int.parse(bVerifiedController.text)
+                : null,
+            suppliersNotVerifiedRequest: bNotVerifiedController.text.isNotEmpty
+                ? int.parse(bNotVerifiedController.text)
+                : null,
+          ),
+        ),
+        verified: VerifiedRequest(
+          auditConfirmedStatus: radioBContact,
+          auditRemark: bContactRemarksController.text,
+          additionalData: PhysicallyVerifiedRequestAdditionalData(
+            suppliers: bContactController.text.isNotEmpty
+                ? int.parse(bContactController.text)
+                : null,
+            suppliersNotVerifiedRequest: bNotVerifiedController.text.isNotEmpty
+                ? int.parse(bNotVerifiedController.text)
+                : null,
+          ),
+        ),
+      ),
+      submit: saveAsDraft ?? "SaveAsDraft",
+    );
+    HelperFunctions().logger("${requestModel.toJson()}");
+    try {
+      final res =
+          await auditorRepository.postRecyclerForm3Data(requestModel, id: id);
+      if (res?.isSuccess == true) {
+        if (context.mounted) {
+          HelperFunctions()
+              .commonSuccessSnackBar(context, res?.data?.message ?? "");
+        }
+      } else {
+        final apiError = res?.error?.errorsList;
+
+        contactedSuppliersError = (apiError?.contactedSuppliers ?? []).isEmpty
+            ? ""
+            : apiError?.contactedSuppliers?.first ?? "";
+        contactedAuditRemarkError =
+            (apiError?.contactedAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.contactedAuditRemark?.first ?? "";
+        verifiedSuppliersError = (apiError?.verifiedSuppliers ?? []).isEmpty
+            ? ""
+            : apiError?.verifiedSuppliers?.first ?? "";
+        verifiedAuditRemarkError = (apiError?.verifiedAuditRemark ?? []).isEmpty
+            ? ""
+            : apiError?.verifiedAuditRemark?.first ?? "";
+        physicallyContactedSuppliersError =
+            (apiError?.physicallyContactedSuppliers ?? []).isEmpty
+                ? ""
+                : apiError?.physicallyContactedSuppliers?.first ?? "";
+        physicallyContactedAuditRemarkError =
+            (apiError?.physicallyContactedAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.physicallyContactedAuditRemark?.first ?? "";
+        physicallyVerifiedSuppliersError =
+            (apiError?.physicallyVerifiedSuppliers ?? []).isEmpty
+                ? ""
+                : apiError?.physicallyVerifiedSuppliers?.first ?? "";
+        physicallyVerifiedAuditRemarkError =
+            (apiError?.physicallyVerifiedAuditRemark ?? []).isEmpty
+                ? ""
+                : apiError?.physicallyVerifiedAuditRemark?.first ?? "";
+
+      }
+    } catch (e) {
+      if (context.mounted) {
+        HelperFunctions()
+            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+      }
+    }
+    updateUI();
+    state = ViewState.idle;
+  }
   List<String> recyclerHeadingList = [
     "Name of Plant Machinery",
     "Capacity of Plant Machinery",
