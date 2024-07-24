@@ -491,7 +491,8 @@ class Form1Data {
         generalInfo: json["generalInfo"] == null
             ? null
             : GeneralInfoStep1Data.fromJson(json["generalInfo"]),
-        auditSummary: json["auditSummary"] == null
+        auditSummary: (json["auditSummary"] == null ||
+                (json["auditSummary"] != null && json["auditSummary"] == []))
             ? null
             : AuditSummary.fromJson(json["auditSummary"]),
       );
@@ -868,7 +869,12 @@ class GeneralInfoStep1Data {
         long: json["long"],
         authorizedPersonAdhar: json["authorizedPersonAdhar"],
         authorizedPersonPan: json["authorizedPersonPan"],
-        detailsOfMachinery: json["detailsOfMachinery"],
+        detailsOfMachinery: (json["detailsOfMachinery"] == null ||
+                (json["detailsOfMachinery"] != null &&
+                    json["detailsOfMachinery"] == []))
+            ? null
+            : json["detailsOfMachinery"],
+
         // .forEach(
         //   (key, value) {
         //     json["detailsOfMachinery"][key] = Nw.fromJson(value);
