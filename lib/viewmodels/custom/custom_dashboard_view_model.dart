@@ -58,11 +58,10 @@ class CustomDashboardViewModel extends BaseViewModel {
         tempData.clear();
         customData?.forEach((e) {
           tempData.add(CustomData(
-            email: e.email,
-            mobileNumber: e.mobileNumber,
-            stateName: e.stateName,
-            name: e.name
-          ));
+              email: e.email,
+              mobileNumber: e.mobileNumber,
+              stateName: e.stateName,
+              name: e.name));
         });
       }
     }
@@ -267,7 +266,7 @@ class CustomDashboardViewModel extends BaseViewModel {
             return FilterBottomSheet(
               filterTiles: [
                 CommonExpansionTile(
-                  tempSelectedList: [],
+                    tempSelectedList: [],
                     title: StringConstants().state,
                     listCallBack: (value) {
                       newStateList = value;
@@ -279,7 +278,7 @@ class CustomDashboardViewModel extends BaseViewModel {
                     selectedList: selectedStateList,
                     type: FilterTypes.state),
                 CommonExpansionTile(
-                  tempSelectedList: [],
+                    tempSelectedList: [],
                     title: StringConstants().unitType,
                     isChecked: isUnitChecked,
                     isShowHide: isUnitShowHide,
@@ -287,7 +286,7 @@ class CustomDashboardViewModel extends BaseViewModel {
                     selectedList: selectedUnitList,
                     type: FilterTypes.unitType),
                 CommonExpansionTile(
-                  tempSelectedList: [],
+                    tempSelectedList: [],
                     listCallBack: (value) {
                       selectedCurrentList = value;
                       log("selectedCurrentList is $selectedCurrentList");

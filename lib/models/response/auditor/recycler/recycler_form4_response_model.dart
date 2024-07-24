@@ -69,6 +69,8 @@ class EprDatum {
   dynamic sourceTyre;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? invoiceLink;
+  String? invoiceLinkApi;
 
   EprDatum({
     this.id,
@@ -104,6 +106,8 @@ class EprDatum {
     this.sourceTyre,
     this.createdAt,
     this.updatedAt,
+    this.invoiceLink,
+    this.invoiceLinkApi,
   });
 
   factory EprDatum.fromJson(Map<String, dynamic> json) => EprDatum(
@@ -146,6 +150,8 @@ class EprDatum {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
+        invoiceLink: json["invoiceLink"],
+        invoiceLinkApi: json["invoiceLinkApi"],
       );
 }
 

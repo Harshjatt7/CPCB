@@ -646,10 +646,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
 
     try {
-      _auditorRecycler3ResponseModel = await auditorRepository.getRecyclerForm3Data(
-          isRetreader: isRetreader,
-          userId:
-              "eyJpdiI6IkM3MlV2dWJ4d24xKzd0OHR0Mzh1NVE9PSIsInZhbHVlIjoiV0drbnlDRHFlRXY1TDJ6M2MzRVBGdz09IiwibWFjIjoiNDM0NDE0NzhmOTRiYmFiMWU5NjQ2NmNhNzU2NjI5YmY4NmFhMGU3Yzc5OTFlYzRhNzg5ZmQ4ZjVkZGFmMmE5YiIsInRhZyI6IiJ9");
+      _auditorRecycler3ResponseModel = await auditorRepository
+          .getRecyclerForm3Data(isRetreader: isRetreader, userId: userId);
       if (_auditorRecycler3ResponseModel?.isSuccess == true) {
         _auditorRecycler3ResponseModel?.data =
             AuditorRecyclerForm3ResponseModel.fromJson(
@@ -1513,6 +1511,31 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
     try {
       APIResponse value = await auditorRepository.getDownloadFile(key);
+
+      if (value.isSuccess == true) {
+        helperFunctions.downloadAndStoreFile(
+            name: "${DateTime.now().millisecond}", response: value);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+        if (context.mounted) {
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
+        }
+      }
+    } catch (error) {
+      helperFunctions.logger("$error");
+    }
+    state = ViewState.idle;
+    return null;
+  }
+
+  Future getViewEntriesFile(BuildContext context, String url) async {
+    state = ViewState.busy;
+    try {
+      APIResponse value =
+          await auditorRepository.getViewEntriesDownloadFile(url);
 
       if (value.isSuccess == true) {
         helperFunctions.downloadAndStoreFile(

@@ -41,7 +41,8 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
-    viewModel.getRecycler3Data(context, isRetreader: widget.isRetreader,userId: widget.id??"");
+    viewModel.getRecycler3Data(context,
+        isRetreader: widget.isRetreader, userId: widget.id ?? "");
     super.initState();
   }
 
@@ -78,8 +79,8 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                     widget.isSummaryScreen == true
                         ? viewModel.onNextButton(context)
                         : await viewModel.recyclerPostForm3Data(context,
-                        id: widget.id,
-                        isRetreader: widget.userType == "Retreader");
+                            id: widget.id,
+                            isRetreader: widget.userType == "Retreader");
                   },
                   onSavedDraft: () async {
                     await viewModel.recyclerPostForm3Data(context,
@@ -109,8 +110,10 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
-                      context, AppRoutes.auditorRecyclerProcurementScreen,
-                      arguments: viewModel.procurementData);
+                    context,
+                    AppRoutes.auditorRecyclerProcurementScreen,
+                    arguments: viewModel,
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 32),
@@ -118,9 +121,10 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                     useLocalization: true,
                     stringConstants.viewEntries,
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        color: appColor.blue100,
-                        decoration: TextDecoration.underline,
-                        decorationColor: appColor.blue100,),
+                          color: appColor.blue100,
+                          decoration: TextDecoration.underline,
+                          decorationColor: appColor.blue100,
+                        ),
                   ),
                 ),
               )
@@ -182,7 +186,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 onTap: () {
                   Navigator.pushNamed(
                       context, AppRoutes.auditorRecyclerProcurementScreen,
-                      arguments: viewModel.procurementData);
+                      arguments: viewModel);
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 32),
