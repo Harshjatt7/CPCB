@@ -59,6 +59,8 @@ class ProcurementDatum {
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
+  String? invoiceLink;
+  String? invoiceLinkApi;
 
   ProcurementDatum({
     this.id,
@@ -81,6 +83,8 @@ class ProcurementDatum {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.invoiceLink,
+    this.invoiceLinkApi,
   });
 
   factory ProcurementDatum.fromJson(Map<String, dynamic> json) =>
@@ -109,6 +113,8 @@ class ProcurementDatum {
             ? null
             : DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
+        invoiceLink: json["invoiceLink"],
+        invoiceLinkApi: json["invoiceLinkApi"],
       );
 }
 

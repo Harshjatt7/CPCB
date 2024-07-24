@@ -1,5 +1,7 @@
+import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
@@ -44,37 +46,37 @@ class AuditorViewEntriesCard extends StatelessWidget {
             children: [
               CommonTextWidget(supplierName ?? "",
                   style: Theme.of(context).textTheme.displayMedium),
-              // if (isDetailProduct == false)
-              //   InkWell(
-              //     onTap: onEditTap,
-              //     child: CommonImageWidget(
-              //         imageSource: ImageConstants().editIcon,
-              //         isNetworkImage: false),
-              //   ),
-              // if (isDetailProduct == true)
-              //   Row(
-              //     children: [
-              //       InkWell(
-              //         onTap: onViewTap,
-              //         child: CommonImageWidget(
-              //           imageSource: ImageConstants().viewEyes,
-              //           isNetworkImage: false,
-              //           imageColor: AppColor().darkGreen,
-              //         ),
-              //       ),
-              //       const SizedBox(
-              //         width: 5,
-              //       ),
-              //       InkWell(
-              //         onTap: onDownloadTap,
-              //         child: CommonImageWidget(
-              //           imageSource: ImageConstants().fileUpload,
-              //           isNetworkImage: false,
-              //           imageColor: AppColor().darkGreen,
-              //         ),
-              //       ),
-              //     ],
-              //   )
+              if (isDetailProduct == false)
+                InkWell(
+                  onTap: onEditTap,
+                  child: CommonImageWidget(
+                      imageSource: ImageConstants().editIcon,
+                      isNetworkImage: false),
+                ),
+              if (isDetailProduct == true)
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: onViewTap,
+                      child: CommonImageWidget(
+                        imageSource: ImageConstants().viewEyes,
+                        isNetworkImage: false,
+                        imageColor: AppColor().darkGreen,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    InkWell(
+                      onTap: onDownloadTap,
+                      child: CommonImageWidget(
+                        imageSource: ImageConstants().fileUpload,
+                        isNetworkImage: false,
+                        imageColor: AppColor().darkGreen,
+                      ),
+                    ),
+                  ],
+                )
             ],
           ),
           const SizedBox(height: 8),
@@ -92,7 +94,9 @@ class AuditorViewEntriesCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4,),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 4,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
