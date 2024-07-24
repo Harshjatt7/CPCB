@@ -4,10 +4,13 @@ import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollvie
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/response/auditor/producer/producer_form_2_response_model.dart';
+
 class ProducerDataTable extends StatelessWidget {
-  ProducerDataTable({super.key, required this.headingList});
+  ProducerDataTable({super.key, required this.headingList, this.list});
   final ScrollController scrollController = ScrollController();
   final List<String> headingList;
+  final List<Producer>? list;
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
@@ -15,11 +18,13 @@ class ProducerDataTable extends StatelessWidget {
       thickness: 5,
       controller: scrollController,
       thumbVisibility: true,
+      scrollbarOrientation: ScrollbarOrientation.bottom,
       interactive: true,
       child: CommonSingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        controller: scrollController,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -36,13 +41,13 @@ class ProducerDataTable extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: List.generate(
-                      producerHeadingList.length,
+                      headingList.length,
                       (index) => SizedBox(
                             width: 150,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               child: CommonTextWidget(
-                                producerHeadingList[index],
+                                headingList[index],
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
@@ -61,9 +66,9 @@ class ProducerDataTable extends StatelessWidget {
                     border: Border.all(color: AppColor().grey40)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(list.length, (index) {
+                  children: List.generate(list?.length ?? 0, (index) {
                     return CommonProducerDataRow(
-                      demoModel: list[index],
+                      demoModel: list?[index],
                       isOdd: index % 2 == 0,
                     );
                   }),
@@ -76,17 +81,3 @@ class ProducerDataTable extends StatelessWidget {
     );
   }
 }
-
-List<String> producerHeadingList = [
-  "Type of Tyre",
-  "Financial Year",
-  "Motorcycle",
-  "Passenger Car",
-  "Scooter",
-  "Truck",
-  "Bus",
-  "LCV",
-  "T Rear",
-  "Other",
-  "Total"
-];

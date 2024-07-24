@@ -55,8 +55,8 @@ class CommonAuditorRecyclerForm1Tile extends StatelessWidget {
         CommonRadioButton(
             isMandatory: isMandatory ?? false,
             groupValue: groupValue ?? "",
-            value1: stringConstants.notConfirmed,
-            value2: stringConstants.confirmed,
+            value1: stringConstants.radioValue1,
+            value2: stringConstants.radioValue2,
             label1: stringConstants.notConfirmed,
             label2: stringConstants.confirmed,
             onChanged: onChanged),

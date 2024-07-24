@@ -1,3 +1,6 @@
+import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
+import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form3_reponse_model.dart';
+import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form4_response_model.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_summary_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_stepper_form.dart';
@@ -66,14 +69,27 @@ class PageRouter {
       case AppRoutes.auditorHomeScreen:
         return _getPageRoute(AuditorHomeScreen(), settings);
       case AppRoutes.auditorRecyclerProcurementScreen:
-        return _getPageRoute(const RecyclerProcurementList(), settings);
+        List<ProcurementDatum>? procurementData =
+            settings.arguments as List<ProcurementDatum>?;
+        return _getPageRoute(
+            RecyclerProcurementList(
+              procurementData: procurementData,
+            ),
+            settings);
       case AppRoutes.auditorRecyclerDetailScreen:
-        return _getPageRoute(const RecyclerDetailScreen(), settings);
+        List<EprDatum>? eprData = settings.arguments as List<EprDatum>?;
+        return _getPageRoute(
+            RecyclerDetailScreen(
+              eprData: eprData,
+            ),
+            settings);
       case AppRoutes.auditorProducerStepperScreen:
-        return _getPageRoute(const ProducerStepper(), settings);
+      CheckUserAndSummaryScreen userDetails = settings.arguments as CheckUserAndSummaryScreen;
+        return _getPageRoute(ProducerStepper(userDetails: userDetails), settings);
       case AppRoutes.auditorRecyclerStepperScreen:
-        return _getPageRoute(const RecyclerStepper(), settings);
-        
+      CheckUserAndSummaryScreen userDetails = settings.arguments as CheckUserAndSummaryScreen;
+        return _getPageRoute(RecyclerStepper(userDetails: userDetails), settings);
+
       // Will be displayed if no specified route is found.
       default:
         return MaterialPageRoute(

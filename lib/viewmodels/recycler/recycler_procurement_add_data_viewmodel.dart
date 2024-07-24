@@ -189,7 +189,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           : rawMaterialDropdownValue,
       sellerAddress: addressController.text,
       sellerGstNo: gstController.text,
-      sourceTyres: tyreSourceDropdownValue,
+      sourceTyres: tyreSourceDropdownValue?.toLowerCase(),
       invoiceNumber: invoiceNumberController.text,
       sellerMobile: sellerMobileController.text,
       sellerName: sellerNameController.text,
@@ -356,7 +356,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           .numbericWithDotValidation(quantityReceivedController.text);
     }
   }
-  
+
   String? valueValidation(TextEditingController controller) {
     if (controller.text.isEmpty) {
       return messageConstant.pleaseProvideValue;

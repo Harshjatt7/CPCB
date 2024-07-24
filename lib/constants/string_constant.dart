@@ -27,6 +27,7 @@ class StringConstants {
   final String typeOfProducerLabel = "type-of-producer-label";
   final String typeOfTyreLabel = "type-of-tyre-label";
   final String financialYearLabel = "financial-year-label";
+  final String year="year";
   final String chooseMonthLabel = "choose-month-label";
   final String motorcycleLabel = "motorcycle-label";
   final String passengerCarLabel = "passenger-car-label";
@@ -53,6 +54,8 @@ class StringConstants {
   final String quantityOfWasteGenerated = "quantity-of-waste-generated";
   final String retreadedDate = "retreaded-date";
   final String date = "date";
+  final String radioValue1 = "0";
+  final String radioValue2 = "1";
   final String addRetreadedData = "add-retreaded-data";
   final String nameOfWasteTyreSupplier = "name-of-waste-tyre-supplier";
   final String contactDetails = "contact-details";
@@ -303,9 +306,9 @@ class StringConstants {
   final String etpCapacity = "etp-capacity";
   final String summaryOfAuditTitle = "summary-of-audit-title";
   final String summaryOfAudit = "summary-of-audit";
-  final String textHere="text-here";
-  final String auditsStart="audits-start";
-  final String pendingAudits="pending-audits";
-  final String completedAudits="completed-audits";
-  final String agency="Agency";
+  final String textHere = "text-here";
+  final String auditsStart = "audits-start";
+  final String pendingAudits = "pending-audits";
+  final String completedAudits = "completed-audits";
+  final String agency = "Agency";
 }

@@ -2,10 +2,12 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/response/auditor/producer/producer_form_2_response_model.dart';
+
 class CommonProducerDataRow extends StatelessWidget {
   const CommonProducerDataRow(
       {super.key, required this.demoModel, this.onTap, required this.isOdd});
-  final DemoModel demoModel;
+  final Producer? demoModel;
   final void Function()? onTap;
   final bool isOdd;
 
@@ -22,7 +24,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
               child: CommonTextWidget(
-                demoModel.typeOfTyre ?? '',
+                demoModel?.typeOfTyreManufacture ?? '',
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall!
@@ -37,7 +39,7 @@ class CommonProducerDataRow extends StatelessWidget {
               child: GestureDetector(
                 onTap: onTap,
                 child: CommonTextWidget(
-                  demoModel.financialYear ?? '',
+                  demoModel?.financialYear ?? '',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         color: AppColor().black02,
@@ -51,7 +53,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.motorcycle ?? '',
+                demoModel?.motorCycle ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -65,7 +67,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.passengerCar ?? '',
+                demoModel?.passengerCar ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -79,7 +81,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.scooter ?? '',
+                demoModel?.scooter ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -93,7 +95,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.truck ?? '',
+                demoModel?.truck ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -107,7 +109,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.bus ?? '',
+                demoModel?.bus ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -121,7 +123,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.lcv ?? '',
+                demoModel?.lcv ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -135,7 +137,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.tRear ?? '',
+                demoModel?.tRear ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -149,7 +151,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: CommonTextWidget(
-                demoModel.other ?? '',
+                demoModel?.other ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -163,7 +165,7 @@ class CommonProducerDataRow extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 20),
               child: CommonTextWidget(
-                demoModel.total ?? '',
+                demoModel?.total ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -177,83 +179,3 @@ class CommonProducerDataRow extends StatelessWidget {
     );
   }
 }
-
-List<String> producerDemoList = [
-  "Radial",
-  "Aadhaar Card",
-  "1100",
-  "1100",
-  "100",
-  "1100",
-  "110",
-  "1121",
-  "1321",
-  "3313",
-  "1313"
-];
-
-class DemoModel {
-  String? typeOfTyre;
-  String? financialYear;
-  String? passengerCar;
-  String? scooter;
-  String? bus;
-  String? lcv;
-  String? truck;
-  String? motorcycle;
-  String? total;
-  String? tRear;
-  String? other;
-
-  DemoModel(
-      {this.typeOfTyre,
-      this.financialYear,
-      this.passengerCar,
-      this.scooter,
-      this.bus,
-      this.lcv,
-      this.truck,
-      this.motorcycle,
-      this.total,
-      this.tRear,
-      this.other});
-}
-
-List<DemoModel> list = [
-  DemoModel(
-      bus: "12",
-      lcv: "132",
-      total: "876",
-      truck: "123",
-      financialYear: "Aadhaar Card",
-      motorcycle: "78",
-      other: "44",
-      passengerCar: "23",
-      scooter: "212",
-      tRear: "22",
-      typeOfTyre: "Radial"),
-  DemoModel(
-      bus: "12",
-      lcv: "132",
-      total: "876",
-      truck: "123",
-      financialYear: "Driving License",
-      motorcycle: "78",
-      other: "44",
-      passengerCar: "23",
-      scooter: "212",
-      tRear: "22",
-      typeOfTyre: "Biasply"),
-  DemoModel(
-      bus: "12",
-      lcv: "132",
-      total: "876",
-      truck: "123",
-      financialYear: "PAN No",
-      motorcycle: "78",
-      other: "44",
-      passengerCar: "23",
-      scooter: "212",
-      tRear: "22",
-      typeOfTyre: "Solid"),
-];

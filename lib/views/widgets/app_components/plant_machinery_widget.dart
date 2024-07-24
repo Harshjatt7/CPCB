@@ -110,7 +110,7 @@ class PlantMachineryWidget extends StatelessWidget {
             ],
           ),
           ListView.builder(
-            itemCount: count,
+            itemCount: controllerList?.length ?? 0,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
@@ -143,10 +143,12 @@ class PlantMachineryWidget extends StatelessWidget {
                             ? appColor.white
                             : appColor.black10,
                         icon: isReadOnly == false
-                            ? (uploadControllerList?[index].text.isEmpty ??
-                                    false
-                                ? imageConstants.fileUpload
-                                : imageConstants.removeIcon)
+                            ? (uploadControllerList?.length == index+1)
+                                ? (uploadControllerList?[index].text.isEmpty ??
+                                        false
+                                    ? imageConstants.fileUpload
+                                    : imageConstants.removeIcon)
+                                : null
                             : null,
                         onTap: onTap,
                         onSuffixTap: onSuffixTap,

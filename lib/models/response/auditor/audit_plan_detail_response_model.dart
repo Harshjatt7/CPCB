@@ -37,6 +37,7 @@ class AuditPlanDetailData {
   String? address;
   String? gstin;
   RouteData? routeData;
+  String? createdOn;
 
   AuditPlanDetailData({
     this.id,
@@ -55,6 +56,7 @@ class AuditPlanDetailData {
     this.address,
     this.gstin,
     this.routeData,
+    this.createdOn,
   });
 
   factory AuditPlanDetailData.fromJson(Map<String, dynamic> json) =>
@@ -75,6 +77,7 @@ class AuditPlanDetailData {
         statusPercentage: json["status_percentage"],
         address: json["address"],
         gstin: json["gstin"],
+        createdOn: json["created_on"],
         routeData: json["routeData"] == null
             ? null
             : RouteData.fromJson(json["routeData"]),

@@ -56,13 +56,68 @@ class APIRoutes {
       "api/recycler/download-certificate";
   final String auditorDashboardAPIRoute = "api/auditor/dashboard";
   final String auditorAuditPlanListAPIRoute = "api/auditor/audit-plans";
-  final String auditorAuditPlanDetailAPIRoute = "api/auditor/audit-plan-details";
+  final String auditorAuditPlanDetailAPIRoute =
+      "api/auditor/audit-plan-details";
+  final String auditorProducerForm1ResponseAPIRoute =
+      "api/auditor/checklist/producer/company-details";
+  final String auditorProducerForm1RequestAPIRoute =
+      "api/auditor/checklist/producer/company-details-store";
+  final String auditorProducerForm2ResponseAPIRoute =
+      "api/auditor/checklist/producer/producer-sales-data";
+  final String auditorProducerForm2RequestAPIRoute =
+      "api/auditor/checklist/producer/producer-sales-data-store";
+  final String auditorProducerForm3RequestAPIRoute =
+      "api/auditor/checklist/producer/summary-report-store";
+  final String auditorProducerForm3ResponseAPIRoute =
+      "api/auditor/checklist/producer/summary-report";
+
   final String auditorRecyclerForm1APIRoute = "api/auditor/recyclerChecklist/";
   final String auditorRecyclerForm2APIRoute =
       "api/auditor/checklist/recycler/processing-capacity/";
-  final String fileUploadAPIRoute = "api/auditor/recyclerChecklist/file-upload";
-  final String auditorRecyclerForm1PostAPIRoute="api/auditor/recyclerChecklist/store-general-information/";
-  
+  final String auditorRecyclerForm3APIRoute =
+      "api/auditor/recyclerChecklist/procurement-information/";
+  final String auditorRecyclerForm4APIRoute =
+      "api/auditor/recyclerChecklist/production-information/";
+  final String auditorRecyclerForm5APIRoute =
+      "api/auditor/recyclerChecklist/waste-water-generation-and-disposal/";
+  final String auditorRetreaderForm1APIRoute =
+      "api/auditor/retreaderChecklist/";
+  final String auditorRetreaderForm2APIRoute =
+      "api/auditor/checklist/retreader/processing-capacity/";
+  final String auditorRetreaderForm3APIRoute =
+      "api/auditor/retreaderChecklist/procurement-information/";
+  final String auditorRetreaderForm4APIRoute =
+      "api/auditor/retreaderChecklist/production-information/";
+  final String auditorRetreaderForm5APIRoute =
+      "api/auditor/retreaderChecklist/waste-water-generation-and-disposal/";
+
+  final String auditorRecyclerForm1RequestAPIRoute =
+      "api/auditor/recyclerChecklist/store-general-information/";
+  final String auditorRecyclerForm4RequestAPIRoute =
+      "api/auditor/reyclerChecklist/store-production-information/";
+  final String auditorRecyclerForm5RequestAPIRoute =
+      "api/auditor/reyclerChecklist/store-waste-water-generation-and-disposal/";
+  final String auditorRetreaderForm1RequestAPIRoute =
+      "api/auditor/retreaderChecklist/store-general-information/";
+  final String auditorRetreaderForm4RequestAPIRoute =
+      "api/auditor/retreaderChecklist/store-production-information/";
+  final String auditorRetreaderForm5RequestAPIRoute =
+      "api/auditor/retreaderChecklist/store-waste-water-generation-and-disposal/";
+
+  final String recyclerFileUploadAPIRoute =
+      "api/auditor/recyclerChecklist/file-upload/mobile";
+  final String retreaderFileUploadAPIRoute =
+      "api/auditor/retreaderChecklist/file-upload/mobile";
+  final String auditorUploadFileViewer = "api/view-file/";
+  final String auditorRecyclerForm1PostAPIRoute =
+      "api/auditor/recyclerChecklist/store-general-information/";
+  final String auditorRecyclerForm2PostAPIRoute =
+      "api/auditor/checklist/recycler/processing-capacity-store";
+  final String auditorRecyclerForm3PostAPIRoute =
+      "api/auditor/recyclerChecklist/store-procurement-information";
+
+  final String auditorPerformAcknowledge ="api/auditor/perform-acknowledge";
+  final String auditorStartAcknowlege ="api/auditor/perform-start";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
@@ -75,6 +130,7 @@ extension ApiBaseURL on ApiEnvironments {
       case ApiEnvironments.dev:
         return "https://dev-cpcb-tyre.writso.com/";
       case ApiEnvironments.qa:
+        // return "http://192.168.4.228:8000/";
         return "https://qa2-cpcb-tyre.writso.com/";
       case ApiEnvironments.prod:
         return "PROD BASE URL";

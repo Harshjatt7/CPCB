@@ -31,29 +31,30 @@ class AuditorFormTile extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool? isReadOnly;
   final bool? isSummaryScreen;
-  AuditorFormTile({
-    super.key,
-    this.groupValue,
-    this.title,
-    this.isMandatory = false,
-    this.onChanged,
-    this.isUpload = false,
-    this.titleStyle,
-    this.isRadioField = false,
-    this.radioPadding,
-    this.remarkController,
-    this.uploadedFileName,
-    this.disableController,
-    this.onTap,
-    this.uploadController,
-    this.onSuffixTap,
-    this.uploadValidator,
-    this.filePath,
-    this.isRemarkMandatory,
-    this.validator,
-    this.isSummaryScreen = false,
-    this.isReadOnly,
-  });
+  final bool? isUploadReadOnly;
+  AuditorFormTile(
+      {super.key,
+      this.groupValue,
+      this.title,
+      this.isMandatory = false,
+      this.onChanged,
+      this.isUpload = false,
+      this.titleStyle,
+      this.isRadioField = false,
+      this.radioPadding,
+      this.remarkController,
+      this.uploadedFileName,
+      this.disableController,
+      this.onTap,
+      this.uploadController,
+      this.onSuffixTap,
+      this.uploadValidator,
+      this.filePath,
+      this.isRemarkMandatory,
+      this.validator,
+      this.isSummaryScreen = false,
+      this.isReadOnly,
+      this.isUploadReadOnly});
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +67,8 @@ class AuditorFormTile extends StatelessWidget {
             isMandatory: isMandatory,
             title: title,
             groupValue: groupValue ?? "",
-            value1: stringConstants.notConfirmed,
-            value2: stringConstants.confirmed,
+            value1: stringConstants.radioValue1,
+            value2: stringConstants.radioValue2,
             label1: stringConstants.notConfirmed,
             label2: stringConstants.confirmed,
             onChanged: onChanged,
@@ -77,6 +78,7 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
+              
                 isReadOnly: true,
                 hintText: title ?? '',
                 isMandatory: false,
@@ -101,13 +103,15 @@ class AuditorFormTile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
               isDocument: true,
-              isReadOnly: isReadOnly,
+              isReadOnly: isUploadReadOnly ?? isReadOnly,
               hintText: stringConstants.upload,
-              icon: isSummaryScreen == false
-                  ? uploadController?.text.isEmpty ?? false
-                      ? imageConstants.fileUpload
-                      : imageConstants.removeIcon
-                  : null,
+              icon: isUploadReadOnly == true
+                  ? null
+                  : isSummaryScreen == false
+                      ? uploadController?.text.isEmpty ?? false
+                          ? imageConstants.fileUpload
+                          : imageConstants.removeIcon
+                      : null,
               onTap: onTap,
               onSuffixTap: onSuffixTap,
               validator: uploadValidator,

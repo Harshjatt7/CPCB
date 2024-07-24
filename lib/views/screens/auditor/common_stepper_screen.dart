@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
@@ -12,19 +13,22 @@ class CommonStepperScreen extends StatelessWidget {
   final CheckUserAndSummaryScreen? checkUser;
 
   final List<Widget> forms;
+  final bool? isLoading;
+  final void Function()? onLeadingTapped;
 
-  const CommonStepperScreen(
-      {super.key, this.checkUser, required this.forms});
+  const CommonStepperScreen({super.key, this.checkUser, required this.forms,this.isLoading=false,this.onLeadingTapped});
 
   @override
   Widget build(BuildContext context) {
     return BaseView<CommonStepperViewModel>(
+      
         onModelReady: (viewModel) {
           viewModel.getUser(checkUser?.userType.toString());
         },
         viewModel: CommonStepperViewModel(),
         builder: (context, viewModel, child) {
           return CustomScaffold(
+            isLoading: viewModel.state == ViewState.busy,
             resizeToBottomInset: true,
             onWillPop: () async {
               viewModel.onBackButton(context);
@@ -46,9 +50,7 @@ class CommonStepperScreen extends StatelessWidget {
           children: [
             CommonAppBar(
               title: "Audit Form - ${checkUser?.userType}",
-              onLeadingTapped: () {
-                viewModel.onBackButton(context);
-              },
+              onLeadingTapped: onLeadingTapped,
             ),
             Container(
                 decoration: BoxDecoration(

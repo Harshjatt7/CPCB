@@ -1,16 +1,18 @@
+import 'package:cpcb_tyre/models/response/auditor/producer/producer_form_2_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_producer_data_row.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CommonDataTable extends StatelessWidget {
-  CommonDataTable({super.key, required this.headingList});
+  CommonDataTable({super.key, required this.headingList, this.list});
   final ScrollController scrollController = ScrollController();
   final List<String> headingList;
+  final List<Producer>? list;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 210,
+      height: 150,
       child: Scrollbar(
         radius: const Radius.circular(5),
         thickness: 5,
@@ -65,9 +67,9 @@ class CommonDataTable extends StatelessWidget {
                       border: Border.all(color: AppColor().grey40)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(list.length, (index) {
+                    children: List.generate(list?.length ?? 1, (index) {
                       return CommonProducerDataRow(
-                        demoModel: list[index],
+                        demoModel: list?[index],
                         isOdd: index % 2 == 0,
                       );
                     }),

@@ -1,4 +1,3 @@
-
 class RecyclerProcurementRequestModel {
   String? invoiceFile;
   String? financeYear;
@@ -27,16 +26,16 @@ class RecyclerProcurementRequestModel {
   });
 
   Map<String, dynamic> toJson() => {
-    "invoice_file": invoiceFile,
-    "finance_year": financeYear,
-    "source_tyre": sourceTyres,
-    "seller_name": sellerName,
-    "seller_mobile": sellerMobile,
-    "seller_address": sellerAddress,
-    "raw_material": rawMaterial,
-    "purchased_quantity": purchasedQuantity,
-    "invoice_number": invoiceNumber,
-    "seller_gst_no": sellerGstNo,
-    "purchased_date": purchasedDate,
-  };
+        "invoice_file": invoiceFile,
+        "finance_year": financeYear,
+        "source_tyre": sourceTyres,
+        "seller_name": sellerName,
+        "seller_mobile": sellerMobile,
+        "seller_address": sellerAddress,
+        "raw_material": rawMaterial,
+        "purchased_quantity": purchasedQuantity,
+        "invoice_number": invoiceNumber,
+        "seller_gst_no": sellerGstNo,
+        "purchased_date": purchasedDate,
+      };
 }

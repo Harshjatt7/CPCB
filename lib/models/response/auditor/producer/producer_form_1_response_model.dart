@@ -1,125 +1,147 @@
-
 import 'dart:convert';
 
-ProducerForm1ResponseModel producerForm1ResponseModelFromJson(String str) => ProducerForm1ResponseModel.fromJson(json.decode(str));
+ProducerForm1ResponseModel producerForm1ResponseModelFromJson(String str) =>
+    ProducerForm1ResponseModel.fromJson(json.decode(str));
 
 class ProducerForm1ResponseModel {
-    ProducerForm1Data? data;
+  ProducerForm1ProducerForm1Data? data;
 
-    ProducerForm1ResponseModel({
-        this.data,
-    });
+  ProducerForm1ResponseModel({
+    this.data,
+  });
 
-    factory ProducerForm1ResponseModel.fromJson(Map<String, dynamic> json) => ProducerForm1ResponseModel(
-        data: json["data"] == null ? null : ProducerForm1Data.fromJson(json["data"]),
-    );
+  factory ProducerForm1ResponseModel.fromJson(Map<String, dynamic> json) =>
+      ProducerForm1ResponseModel(
+        data: json["data"] == null
+            ? null
+            : ProducerForm1ProducerForm1Data.fromJson(json["data"]),
+      );
 }
 
-class ProducerForm1Data {
-    String? auditPlanId;
-    CompanyDetails? companyDetails;
-    AuditSummary? auditSummary;
+class ProducerForm1ProducerForm1Data {
+  String? auditPlanId;
+  CompanyDetailsResponse? companyDetails;
+  AuditSummary? auditSummary;
 
-    ProducerForm1Data({
-        this.auditPlanId,
-        this.companyDetails,
-        this.auditSummary,
-    });
+  ProducerForm1ProducerForm1Data({
+    this.auditPlanId,
+    this.companyDetails,
+    this.auditSummary,
+  });
 
-    factory ProducerForm1Data.fromJson(Map<String, dynamic> json) => ProducerForm1Data(
+  factory ProducerForm1ProducerForm1Data.fromJson(Map<String, dynamic> json) =>
+      ProducerForm1ProducerForm1Data(
         auditPlanId: json["auditPlanId"],
-        companyDetails: json["companyDetails"] == null ? null : CompanyDetails.fromJson(json["companyDetails"]),
-        auditSummary: json["auditSummary"] == null ? null : AuditSummary.fromJson(json["auditSummary"]),
-    );
-
+        companyDetails: json["companyDetails"] == null
+            ? null
+            : CompanyDetailsResponse.fromJson(json["companyDetails"]),
+        auditSummary: json["auditSummary"] == null
+            ? null
+            : AuditSummary.fromJson(json["auditSummary"]),
+      );
 }
 
 class AuditSummary {
-    CompanyCin? companyNameAddress;
-    CompanyCin? producerCategory;
-    CompanyCin? companyGst;
-    CompanyCin? companyPan;
-    CompanyCin? companyCin;
-    CompanyCin? companyIec;
+  CompanyCin? companyNameAddress;
+  CompanyCin? producerCategory;
+  CompanyCin? companyGst;
+  CompanyCin? companyPan;
+  CompanyCin? companyCin;
+  CompanyCin? companyIec;
 
-    AuditSummary({
-        this.companyNameAddress,
-        this.producerCategory,
-        this.companyGst,
-        this.companyPan,
-        this.companyCin,
-        this.companyIec,
-    });
+  AuditSummary({
+    this.companyNameAddress,
+    this.producerCategory,
+    this.companyGst,
+    this.companyPan,
+    this.companyCin,
+    this.companyIec,
+  });
 
-    factory AuditSummary.fromJson(Map<String, dynamic> json) => AuditSummary(
-        companyNameAddress: json["companyNameAddress"] == null ? null : CompanyCin.fromJson(json["companyNameAddress"]),
-        producerCategory: json["producerCategory"] == null ? null : CompanyCin.fromJson(json["producerCategory"]),
-        companyGst: json["companyGst"] == null ? null : CompanyCin.fromJson(json["companyGst"]),
-        companyPan: json["companyPan"] == null ? null : CompanyCin.fromJson(json["companyPan"]),
-        companyCin: json["companyCin"] == null ? null : CompanyCin.fromJson(json["companyCin"]),
-        companyIec: json["companyIec"] == null ? null : CompanyCin.fromJson(json["companyIec"]),
-    );
-
+  factory AuditSummary.fromJson(Map<String, dynamic> json) => AuditSummary(
+        companyNameAddress: json["companyNameAddress"] == null
+            ? null
+            : CompanyCin.fromJson(json["companyNameAddress"]),
+        producerCategory: json["producerCategory"] == null
+            ? null
+            : CompanyCin.fromJson(json["producerCategory"]),
+        companyGst: json["companyGst"] == null
+            ? null
+            : CompanyCin.fromJson(json["companyGst"]),
+        companyPan: json["companyPan"] == null
+            ? null
+            : CompanyCin.fromJson(json["companyPan"]),
+        companyCin: json["companyCin"] == null
+            ? null
+            : CompanyCin.fromJson(json["companyCin"]),
+        companyIec: json["companyIec"] == null
+            ? null
+            : CompanyCin.fromJson(json["companyIec"]),
+      );
 }
 
 class CompanyCin {
-    dynamic auditValue;
-    dynamic auditDocument;
-    String? auditRemark;
-    int? auditConfirmedStatus;
-    List<dynamic>? additionalProducerForm1Data;
+  dynamic auditValue;
+  dynamic auditDocument;
+  String? auditRemark;
+  int? auditConfirmedStatus;
+  List<dynamic>? additionalProducerForm1ProducerForm1Data;
 
-    CompanyCin({
-        this.auditValue,
-        this.auditDocument,
-        this.auditRemark,
-        this.auditConfirmedStatus,
-        this.additionalProducerForm1Data,
-    });
+  CompanyCin({
+    this.auditValue,
+    this.auditDocument,
+    this.auditRemark,
+    this.auditConfirmedStatus,
+    this.additionalProducerForm1ProducerForm1Data,
+  });
 
-    factory CompanyCin.fromJson(Map<String, dynamic> json) => CompanyCin(
+  factory CompanyCin.fromJson(Map<String, dynamic> json) => CompanyCin(
         auditValue: json["audit_value"],
         auditDocument: json["audit_document"],
         auditRemark: json["audit_remark"],
         auditConfirmedStatus: json["audit_confirmed_status"],
-        additionalProducerForm1Data: json["additional_data"] == null ? [] : List<dynamic>.from(json["additional_data"]!.map((x) => x)),
-    );
+        additionalProducerForm1ProducerForm1Data:
+            json["additional_data"] == null
+                ? []
+                : List<dynamic>.from(json["additional_data"]!.map((x) => x)),
+      );
 }
 
-class CompanyDetails {
-    String? companyNameAndAddress;
-    String? categoryOfProducer;
-    String? gstNo;
-    String? gstFilePath;
-    String? panOfCompany;
-    String? panFilePath;
-    String? cinNo;
-    String? cinFilePath;
-    String? iec;
-    String? iecFilePath;
-    String? gstFileName;
-    String? panFileName;
-    String? cinFileName;
-    String? iecFileName;
+class CompanyDetailsResponse {
+  String? companyNameAndAddress;
+  String? categoryOfProducer;
+  String? gstNo;
+  String? gstFilePath;
+  String? panOfCompany;
+  String? panFilePath;
+  String? cinNo;
+  String? cinFilePath;
+  String? iec;
+  String? iecFilePath;
+  String? gstFileName;
+  String? panFileName;
+  String? cinFileName;
+  String? iecFileName;
 
-    CompanyDetails({
-        this.companyNameAndAddress,
-        this.categoryOfProducer,
-        this.gstNo,
-        this.gstFilePath,
-        this.panOfCompany,
-        this.panFilePath,
-        this.cinNo,
-        this.cinFilePath,
-        this.iec,
-        this.iecFilePath,
-        this.gstFileName,
-        this.panFileName,
-        this.cinFileName,
-        this.iecFileName,
-    });
+  CompanyDetailsResponse({
+    this.companyNameAndAddress,
+    this.categoryOfProducer,
+    this.gstNo,
+    this.gstFilePath,
+    this.panOfCompany,
+    this.panFilePath,
+    this.cinNo,
+    this.cinFilePath,
+    this.iec,
+    this.iecFilePath,
+    this.gstFileName,
+    this.panFileName,
+    this.cinFileName,
+    this.iecFileName,
+  });
 
-    factory CompanyDetails.fromJson(Map<String, dynamic> json) => CompanyDetails(
+  factory CompanyDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      CompanyDetailsResponse(
         companyNameAndAddress: json["companyNameAndAddress"],
         categoryOfProducer: json["categoryOfProducer"],
         gstNo: json["gstNo"],
@@ -134,6 +156,5 @@ class CompanyDetails {
         panFileName: json["panFileName"],
         cinFileName: json["cinFileName"],
         iecFileName: json["iecFileName"],
-    );
-
+      );
 }
