@@ -288,5 +288,6 @@
     "completed-audits": "Completed Audits",
     "agency": "Agency",
     "rooted-device-desc": "This application is not supported for rooted device. Please try installing on a non rooted device.",
-    "rooted-device-detected": "Rooted Device Detected!!"
+    "rooted-device-detected": "Rooted Device Detected!!",
+    "write-comment": "Write Comment"
 }

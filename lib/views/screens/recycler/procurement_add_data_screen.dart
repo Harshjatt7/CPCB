@@ -15,6 +15,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localization/localization.dart';
 
 class RecyclerProcurementAddDataScreen extends StatelessWidget {
   final ImageConstants imageConstants = ImageConstants();
@@ -151,7 +152,7 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
           validator: (value) {
             return viewModel.dateValidation();
           },
-          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial,
+          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial.i18n(),
           isMandatory: true,
           icon: imageConstants.calendar,
           controller: viewModel.dateController),

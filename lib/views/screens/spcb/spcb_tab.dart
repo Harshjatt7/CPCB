@@ -35,8 +35,7 @@ class SpcbCommonTab extends StatelessWidget {
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
-            notification.metrics.extentAfter == 0) {
-        }
+            notification.metrics.extentAfter == 0) {}
         return false;
       },
       child: CommonSingleChildScrollView(

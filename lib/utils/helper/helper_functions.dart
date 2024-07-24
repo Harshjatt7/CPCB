@@ -512,7 +512,6 @@ class HelperFunctions {
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(12)))),
                 dialogTheme: DialogTheme(
-
                     backgroundColor: appColor.white,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12)))),
