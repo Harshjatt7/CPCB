@@ -449,7 +449,6 @@ class RecyclerFormViewModel extends BaseViewModel {
             (apiError?.physicallyVerifiedAuditRemark ?? []).isEmpty
                 ? ""
                 : apiError?.physicallyVerifiedAuditRemark?.first ?? "";
-
       }
     } catch (e) {
       if (context.mounted) {
@@ -460,6 +459,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
     state = ViewState.idle;
   }
+
   List<String> recyclerHeadingList = [
     "Name of Plant Machinery",
     "Capacity of Plant Machinery",
@@ -893,7 +893,11 @@ class RecyclerFormViewModel extends BaseViewModel {
     } else {
       switch (fieldName) {
         case RecyclerForm1.aadhar:
-          helperFunctions.openFile(aadharFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(context, aadharDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(aadharFilePath ?? '');
+          }
           break;
         case RecyclerForm1.panNo:
           helperFunctions.openFile(panNoFilePath ?? '');
@@ -902,7 +906,12 @@ class RecyclerFormViewModel extends BaseViewModel {
           helperFunctions.openFile(panNoFilePath ?? '');
           break;
         case RecyclerForm1.power:
-          helperFunctions.openFile(powerFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(
+                context, lastYearElectricityBillDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(powerFilePath ?? '');
+          }
           break;
         case RecyclerForm1.video:
           helperFunctions.openFile(videoFilePath ?? '');
@@ -953,6 +962,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     if (_auditorRecycler1ResponseModel != null) {
       Map<String, dynamic>? data = _auditorRecycler1ResponseModel
           ?.data?.data?.generalInfo?.detailsOfMachinery;
+
       data?.entries.forEach(
         (element) {
           nw?.add(Nw.fromJson(element.value));
@@ -965,6 +975,20 @@ class RecyclerFormViewModel extends BaseViewModel {
       HelperFunctions().logger(data.toString());
     }
     updateUI();
+    aadharDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonAdhar?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonAdhar?.additionalData?.fileLink ??
+            '');
+    lastYearElectricityBillDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.lastYearElectricityBill?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.lastYearElectricityBill?.additionalData?.fileLink ??
+            '');
     final data = _auditorRecycler1ResponseModel?.data?.data?.auditSummary;
     gstRemarkController.text = data?.gstNo?.auditRemark ?? '';
     companyPanRemarkController.text = data?.companyPan?.auditRemark ?? '';
@@ -1122,6 +1146,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     fileError = null;
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.custom, allowedExtensions: ["JPEG", "PNG"]);
+
     if (result != null) {
       switch (fieldName) {
         case RecyclerForm1.aadhar:
@@ -1202,9 +1227,8 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<FilePickerResult?> pickVideo() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-    );
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.video);
 
     if (result != null) {
       String path = result.files.single.path!;
@@ -1213,8 +1237,8 @@ class RecyclerFormViewModel extends BaseViewModel {
       videoSize = await file.length();
 
       videoDuration = await _getVideoDuration(path);
-      updateUI();
     }
+    updateUI();
     return result;
   }
 
@@ -1453,13 +1477,13 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.idle;
   }
 
-  Future getAuditorFile(BuildContext context) async {
+  Future getAuditorFile(BuildContext context, String key) async {
     state = ViewState.busy;
     try {
-      APIResponse value = await auditorRepository.getDownloadFile("");
+      APIResponse value = await auditorRepository.getDownloadFile(key);
       if (value.isSuccess == true) {
         helperFunctions.downloadAndStoreFile(
-            name: "Certificate", response: value);
+            name: "${DateTime.now().millisecond}", response: value);
         state = ViewState.idle;
         return value;
       } else {

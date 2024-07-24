@@ -75,8 +75,11 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                   onNextOrSubmit: () async {
                     await viewModel.recyclerPostForm2Data(context,
                         id: widget.id);
-                    Provider.of<CommonStepperViewModel>(context, listen: false)
-                        .onNextButton(context, "Recycler");
+                    if (context.mounted) {
+                      Provider.of<CommonStepperViewModel>(context,
+                              listen: false)
+                          .onNextButton(context, "Recycler");
+                    }
                   },
                   onSavedDraft: () async {
                     viewModel.saveAsDraft = "SaveAsDraft";

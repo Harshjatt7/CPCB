@@ -542,7 +542,7 @@ class HelperFunctions {
     String tempPath = appDir!.path;
 
     String fileName =
-        '$name${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.pdf';
+        '$name${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}';
     File file = File('$tempPath/$fileName');
     if (!await file.exists()) {
       await file.create(recursive: true);

@@ -894,19 +894,21 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         icon: viewModel.uploadVideoController.text.isEmpty
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
-                        onTap: () {
-                          viewModel.handleOnTap(
-                            context,
-                            RecyclerForm1.video,
-                            viewModel.uploadVideoController,
-                          );
+                        onTap: () async {
+                          await viewModel.pickVideo();
+                          // viewModel.handleOnTap(
+                          //   context,
+                          //   RecyclerForm1.video,
+                          //   viewModel.uploadVideoController,
+                          // );
                         },
-                        onSuffixTap: () {
-                          viewModel.handleOnSuffixTap(
-                            context,
-                            RecyclerForm1.power,
-                            viewModel.uploadVideoController,
-                          );
+                        onSuffixTap: () async {
+                          await viewModel.pickVideo();
+                          // viewModel.handleOnSuffixTap(
+                          //   context,
+                          //   RecyclerForm1.video,
+                          //   viewModel.uploadVideoController,
+                          // );
                         },
                         validator: (value) {
                           return viewModel.videoValidation();
