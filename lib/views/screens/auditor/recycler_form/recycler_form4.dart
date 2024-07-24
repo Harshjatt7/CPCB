@@ -39,7 +39,8 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
-    viewModel.getRecycler4Data(context, isRetreader: widget.isRetreader,userId: widget.id??"");
+    viewModel.getRecycler4Data(context,
+        isRetreader: widget.isRetreader, userId: widget.id ?? "");
     super.initState();
   }
 
@@ -73,13 +74,12 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
                   isLastStep: false,
                   isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                   widget.isSummaryScreen == true
+                    widget.isSummaryScreen == true
                         ? viewModel.onNextButton(context)
-                        :  await viewModel.postForm4Data(context,
-                        submit: '',
-                        isRetreader: widget.userType == "Retreader",
-                        userId: widget.id ?? '');
-                  
+                        : await viewModel.postForm4Data(context,
+                            submit: '',
+                            isRetreader: widget.userType == "Retreader",
+                            userId: widget.id ?? '');
                   },
                   onSavedDraft: () async {
                     await viewModel.postForm4Data(context,

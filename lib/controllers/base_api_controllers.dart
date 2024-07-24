@@ -363,6 +363,8 @@ class APIBase {
       Response resp = response ?? Response(requestOptions: RequestOptions());
       return APIResponse<T>(
         completeResponse: resp.data,
+        //To Check The Filetype from response
+        headers: resp.headers['content-type'],
         isSuccess:
             resp.statusCode == 200 || resp.statusCode == 201 ? true : false,
       );

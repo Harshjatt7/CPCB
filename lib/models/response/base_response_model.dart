@@ -4,15 +4,16 @@ interface class APIResponse<T> {
   final bool? isSuccess;
 
   T? data;
+  final List<String>? headers;
 
   dynamic completeResponse;
 
   final ErrorResponseModel? error;
 
-  APIResponse({
-    this.isSuccess,
-    this.data,
-    this.completeResponse,
-    this.error,
-  });
+  APIResponse(
+      {this.isSuccess,
+      this.data,
+      this.completeResponse,
+      this.error,
+      this.headers});
 }
