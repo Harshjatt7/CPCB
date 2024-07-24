@@ -3,7 +3,6 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/auditor_form_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_auditor_recycler_form1_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
@@ -22,14 +21,17 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AuditorRecyclerForm1 extends StatefulWidget {
+  final bool? isSummaryScreen;
+  final bool isRetreader;
+  final String? id;
+  final String? userType;
+
   const AuditorRecyclerForm1(
       {super.key,
       this.isSummaryScreen = false,
       this.isRetreader = false,
-      this.id});
-  final bool? isSummaryScreen;
-  final bool isRetreader;
-  final String? id;
+      this.id,
+      this.userType});
 
   @override
   State<AuditorRecyclerForm1> createState() => _AuditorRecyclerForm1State();
@@ -77,9 +79,12 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 child: StepperButton(
                   isLastStep: false,
                   isSummaryScreen: false,
-                  onNextOrSubmit: () {
-                    Provider.of<CommonStepperViewModel>(context, listen: false)
-                        .onNextButton(context, "Recycler");
+                  onNextOrSubmit: () async {
+                    await viewModel.getRecycler2Data(context);
+                    viewModel.onNextButton(context);
+
+                    // await viewModel.postForm1Data(context,
+                    //     userId: widget.id ?? "",isRetreader: widget.userType=="Retreader");
                   },
                 ))
           ],
@@ -386,7 +391,11 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         isReadOnly: true,
                         hintText: stringConstants.uploadVideo,
                         isMandatory: false,
-                        controller: viewModel.uploadVideoController),
+                        controller: viewModel.uploadVideoController,
+                        // onTap: (){
+                        //   viewModel.pickVideo();
+                        // },
+                        ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
@@ -904,7 +913,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         onSuffixTap: () {
                           viewModel.handleOnSuffixTap(
                             context,
-                            RecyclerForm1.power,
+                            RecyclerForm1.video,
                             viewModel.uploadVideoController,
                           );
                         },

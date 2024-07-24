@@ -258,9 +258,49 @@ class RecyclerFormViewModel extends BaseViewModel {
   String? powerOnAuditDayError;
   String? totalElectricityConsumptionError;
 
-  String? saveAsDraft = "";
+  int index = 1;
 
-  Future<void> recyclerPostForm2Data(BuildContext context, {String? id}) async {
+  void onNextButton(BuildContext context) {
+    if (index < 5) {
+      index++;
+      updateUI();
+    }
+  }
+
+  void onBackButton(BuildContext context) {
+    if (index > 1) {
+      index--;
+      updateUI();
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
+  void getIndex(num? progress) {
+    switch (progress) {
+      case 0:
+        index = 1;
+        break;
+      case 20:
+        index = 2;
+        break;
+      case 40:
+        index = 3;
+        break;
+      case 60:
+        index = 4;
+        break;
+      case 80 || 100:
+        index = 5;
+        break;
+      default:
+        index = 1;
+    }
+    updateUI();
+  }
+
+  Future<void> recyclerPostForm2Data(BuildContext context,
+      {String? id, bool? isRetreader, String? saveAsDraft}) async {
     state = ViewState.busy;
     RecyclerForm2RequestModel requestModel = RecyclerForm2RequestModel(
       processingCapacity: ProcessingCapacityRequest(
@@ -308,12 +348,14 @@ class RecyclerFormViewModel extends BaseViewModel {
     );
 
     try {
-      final res =
-          await auditorRepository.postRecyclerForm2Data(requestModel, id: id);
+      final res = await auditorRepository.postRecyclerForm2Data(requestModel,
+          id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
+          await getRecycler3Data(context);
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          onNextButton(context);
           // await getProducerForm2Data(id: id);
         }
       } else {
@@ -362,7 +404,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.idle;
   }
 
-  Future<void> recyclerPostForm3Data(BuildContext context, {String? id}) async {
+  Future<void> recyclerPostForm3Data(BuildContext context,
+      {String? id, bool? isRetreader, String? saveAsDraft}) async {
     state = ViewState.busy;
     RecyclerForm3RequestModel requestModel = RecyclerForm3RequestModel(
       procurementInfo: ProcurementInfoRequest(
@@ -408,14 +451,15 @@ class RecyclerFormViewModel extends BaseViewModel {
       ),
       submit: saveAsDraft ?? "SaveAsDraft",
     );
-    HelperFunctions().logger("${requestModel.toJson()}");
     try {
-      final res =
-          await auditorRepository.postRecyclerForm3Data(requestModel, id: id);
+      final res = await auditorRepository.postRecyclerForm3Data(requestModel,
+          id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          await getRecycler4Data(context);
+          onNextButton(context);
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -449,7 +493,6 @@ class RecyclerFormViewModel extends BaseViewModel {
             (apiError?.physicallyVerifiedAuditRemark ?? []).isEmpty
                 ? ""
                 : apiError?.physicallyVerifiedAuditRemark?.first ?? "";
-
       }
     } catch (e) {
       if (context.mounted) {
@@ -460,6 +503,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
     state = ViewState.idle;
   }
+
   List<String> recyclerHeadingList = [
     "Name of Plant Machinery",
     "Capacity of Plant Machinery",
@@ -495,10 +539,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
 
     try {
-      _auditorRecycler1ResponseModel = await auditorRepository.getRecyclerForm1Data(
-          isRetreader: isRetreader,
-          userId:
-              "eyJpdiI6ImJYVTE0SDl6TXAwNE1HUEFqbmhoTEE9PSIsInZhbHVlIjoieXI3aHFvOW1CV2NLR2kxS3hvd1R6Zz09IiwibWFjIjoiZmI4OTVmNmY3Y2E2N2NlMTU2Mzg2OTIwMzllMmUwZjVjYzk3Mjk2MmJlMmI0YWZjMzBkNDZkNGQ1ZDY1ODI1MyIsInRhZyI6IiJ9");
+      _auditorRecycler1ResponseModel = await auditorRepository
+          .getRecyclerForm1Data(isRetreader: isRetreader, userId: userId);
       if (_auditorRecycler1ResponseModel?.isSuccess == true) {
         _auditorRecycler1ResponseModel?.data =
             AuditorRecyclerForm1ResponseModel.fromJson(
@@ -663,10 +705,8 @@ class RecyclerFormViewModel extends BaseViewModel {
       bool isRetreader = false}) async {
     state = ViewState.busy;
     try {
-      _auditorRecycler5ResponseModel = await auditorRepository.getRecyclerForm5Data(
-          isRetreader: isRetreader,
-          userId:
-              "eyJpdiI6IkM3MlV2dWJ4d24xKzd0OHR0Mzh1NVE9PSIsInZhbHVlIjoiV0drbnlDRHFlRXY1TDJ6M2MzRVBGdz09IiwibWFjIjoiNDM0NDE0NzhmOTRiYmFiMWU5NjQ2NmNhNzU2NjI5YmY4NmFhMGU3Yzc5OTFlYzRhNzg5ZmQ4ZjVkZGFmMmE5YiIsInRhZyI6IiJ9");
+      _auditorRecycler5ResponseModel = await auditorRepository
+          .getRecyclerForm5Data(isRetreader: isRetreader, userId: userId);
       if (_auditorRecycler5ResponseModel?.isSuccess == true) {
         _auditorRecycler5ResponseModel?.data =
             AuditorRecyclerForm5ResponseModel.fromJson(
@@ -1121,7 +1161,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       BuildContext context, RecyclerForm1 fieldName) async {
     fileError = null;
     FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ["JPEG", "PNG"]);
+        .pickFiles(type: FileType.custom, allowedExtensions: ["JPEG", "PNG","MP4"]);
     if (result != null) {
       switch (fieldName) {
         case RecyclerForm1.aadhar:
@@ -1377,55 +1417,6 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   final formKey = GlobalKey<FormState>();
-  int index = 1;
-
-  int totalIndex = 0;
-  void getUser(String? user) {
-    switch (user) {
-      case "Producer":
-        totalIndex = 3;
-        break;
-      case "Recycler":
-        totalIndex = 5;
-        break;
-      default:
-        totalIndex = 3;
-        break;
-    }
-    updateUI();
-  }
-
-  void onBackButton(BuildContext context) {
-    if (index > 1) {
-      index--;
-      updateUI();
-    } else {
-      Navigator.pop(context);
-    }
-  }
-
-  void onNextButton(BuildContext context, String? user) {
-    switch (user) {
-      case "Producer":
-        if (index < 3) {
-          index++;
-          updateUI();
-        }
-        break;
-      case "Recycler":
-        if (index < 5) {
-          index++;
-          updateUI();
-        }
-        break;
-      default:
-        if (index < 5) {
-          index++;
-          updateUI();
-        }
-        break;
-    }
-  }
 
   Future<void> postDocumentData(
       BuildContext context, DocumentRequestModel request,
@@ -1433,7 +1424,6 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
     APIResponse<DocumentResponseModel?>? response;
     try {
-      helperFunctions.logger("message >>>> ${request.toJson()}");
       response = await auditorRepository.postDocumentRequest(request);
       if (response?.isSuccess == true) {
         response?.data =
@@ -1510,9 +1500,9 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
   }
 
-  void formValidation(BuildContext context, String? userType) {
+  void formValidation(BuildContext context) {
     if (formKey.currentState?.validate() ?? false) {
-      onNextButton(context, userType);
+      onNextButton(context);
     } else {}
   }
 
@@ -1671,6 +1661,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          onNextButton(context);
           await getRecycler2Data(context,
               isRetreader: isRetreader, userId: userId);
         }
@@ -1788,6 +1779,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          onNextButton(context);
           await getRecycler5Data(context, isRetreader: isRetreader);
         }
       } else {
@@ -1859,11 +1851,13 @@ class RecyclerFormViewModel extends BaseViewModel {
                         auditRemark: summmaryRemakrController.text)));
     state = ViewState.busy;
     try {
-      final res = await auditorRepository.postRecyclerForm5Data(requestModel);
+      final res = await auditorRepository.postRecyclerForm5Data(requestModel,
+          isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          onNextButton(context);
         }
       } else {
         final apiError = res?.error?.errorsList;

@@ -113,11 +113,14 @@ class APIRoutes {
       "api/auditor/recyclerChecklist/store-general-information/";
   final String auditorRecyclerForm2PostAPIRoute =
       "api/auditor/checklist/recycler/processing-capacity-store";
+  final String auditorRetreaderForm2PostAPIRoute =
+      "api/auditor/checklist/retreader/processing-capacity-store";
   final String auditorRecyclerForm3PostAPIRoute =
       "api/auditor/recyclerChecklist/store-procurement-information";
-
-  final String auditorPerformAcknowledge ="api/auditor/perform-acknowledge";
-  final String auditorStartAcknowlege ="api/auditor/perform-start";
+  final String auditorRetreaderForm3PostAPIRoute =
+      "api/auditor/recyclerChecklist/store-procurement-information";
+  final String auditorPerformAcknowledge = "api/auditor/perform-acknowledge";
+  final String auditorStartAcknowlege = "api/auditor/perform-start";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";

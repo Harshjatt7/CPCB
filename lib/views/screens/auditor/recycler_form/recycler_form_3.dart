@@ -16,14 +16,17 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm3 extends StatefulWidget {
-  const AuditorRecyclerForm3(
-      {super.key,
-      this.isSummaryScreen = false,
-      this.isRetreader = false,
-      this.id});
   final bool? isSummaryScreen;
   final bool isRetreader;
   final String? id;
+  final String? userType;
+  const AuditorRecyclerForm3({
+    super.key,
+    this.isSummaryScreen = false,
+    this.isRetreader = false,
+    this.id,
+    this.userType,
+  });
 
   @override
   State<AuditorRecyclerForm3> createState() => _AuditorRecyclerForm3State();
@@ -72,9 +75,14 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                   isSummaryScreen: false,
                   onNextOrSubmit: () async {
                     await viewModel.recyclerPostForm3Data(context,
-                        id: widget.id);
-                    // Provider.of<CommonStepperViewModel>(context, listen: false)
-                    //     .onNextButton(context, "Recycler");
+                        id: widget.id,
+                        isRetreader: widget.userType == "Retreader");
+                  },
+                  onSavedDraft: () async {
+                    await viewModel.recyclerPostForm3Data(context,
+                        id: widget.id,
+                        isRetreader: widget.userType == "Retreader",
+                        saveAsDraft: "SaveAsDraft");
                   },
                 ))
           ],
@@ -188,47 +196,47 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
             ],
           ),
           commonRecyclerForm3Tile(
-              title: stringConstants.noOfSuppliersContacted,
-              groupValue: viewModel.radioAContact,
-              textEditingController: viewModel.aContactController,
-              remakrsController: viewModel.aContactRemarksController,
-              onChanged: (value) {
-                viewModel.radioAContact = value ?? '';
-                viewModel.updateUI();
-              },
-              // remarkValidator: (value) {
-              //   return viewModel
-              //       .emptyValidation(viewModel.aContactRemarksController);
-              // },
-              // validator: (value) {
-              //   return viewModel.emptyValidation(viewModel.aContactController);
-              // }
-              ),
+            title: stringConstants.noOfSuppliersContacted,
+            groupValue: viewModel.radioAContact,
+            textEditingController: viewModel.aContactController,
+            remakrsController: viewModel.aContactRemarksController,
+            onChanged: (value) {
+              viewModel.radioAContact = value ?? '';
+              viewModel.updateUI();
+            },
+            // remarkValidator: (value) {
+            //   return viewModel
+            //       .emptyValidation(viewModel.aContactRemarksController);
+            // },
+            // validator: (value) {
+            //   return viewModel.emptyValidation(viewModel.aContactController);
+            // }
+          ),
           if (viewModel.contactedSuppliersError?.isNotEmpty ?? false)
             showErrorMessage(context, viewModel.contactedSuppliersError ?? ""),
           if (viewModel.contactedAuditRemarkError?.isNotEmpty ?? false)
             showErrorMessage(
                 context, viewModel.contactedAuditRemarkError ?? ""),
           commonRecyclerForm3Tile(
-              title: stringConstants.noOfSuppliersDetailsVerified,
-              isDisable: true,
-              notVerifiedTitle: stringConstants.noOfSupplierSDetailsNotVerified,
-              groupValue: viewModel.radioAVerified,
-              textEditingController: viewModel.aVerifiedController,
-              remakrsController: viewModel.aVerifiedRemakrsController,
-              disableController: viewModel.aNotVerifiedController,
-              onChanged: (value) {
-                viewModel.radioAVerified = value ?? "";
-                viewModel.updateUI();
-              },
-              // remarkValidator: (value) {
-              //   return viewModel.emptyValidation(viewModel.aVerifiedController);
-              // },
-              // validator: (value) {
-              //   return viewModel
-              //       .emptyValidation(viewModel.aVerifiedRemakrsController);
-              // }
-              ),
+            title: stringConstants.noOfSuppliersDetailsVerified,
+            isDisable: true,
+            notVerifiedTitle: stringConstants.noOfSupplierSDetailsNotVerified,
+            groupValue: viewModel.radioAVerified,
+            textEditingController: viewModel.aVerifiedController,
+            remakrsController: viewModel.aVerifiedRemakrsController,
+            disableController: viewModel.aNotVerifiedController,
+            onChanged: (value) {
+              viewModel.radioAVerified = value ?? "";
+              viewModel.updateUI();
+            },
+            // remarkValidator: (value) {
+            //   return viewModel.emptyValidation(viewModel.aVerifiedController);
+            // },
+            // validator: (value) {
+            //   return viewModel
+            //       .emptyValidation(viewModel.aVerifiedRemakrsController);
+            // }
+          ),
           if (viewModel.verifiedSuppliersError?.isNotEmpty ?? false)
             showErrorMessage(context, viewModel.verifiedSuppliersError ?? ""),
           if (viewModel.verifiedAuditRemarkError?.isNotEmpty ?? false)

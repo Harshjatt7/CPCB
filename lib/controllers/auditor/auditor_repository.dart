@@ -152,7 +152,7 @@ class AuditorRepository {
   }
 
   Future<APIResponse<AuditorRecyclerForm1ResponseModel?>?> getRecyclerForm1Data(
-      {String userId = '', bool isRetreader = false}) async {
+      {String? userId, bool isRetreader = false}) async {
     APIResponse<AuditorRecyclerForm1ResponseModel?>? response =
         await _apiBase.getRequest(
             isRetreader == true
@@ -223,10 +223,13 @@ class AuditorRepository {
 
   Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm2Data(
       RecyclerForm2RequestModel requestModel,
-      {String? id}) async {
+      {String? id,
+      bool? isRetreader}) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
-      "${_apiRoutes.auditorRecyclerForm2PostAPIRoute}/$id",
+      isRetreader == true
+          ? "${_apiRoutes.auditorRetreaderForm2PostAPIRoute}$id"
+          : "${_apiRoutes.auditorRecyclerForm2PostAPIRoute}/$id",
       data: request,
       isAuthorizationRequired: true,
     );
@@ -250,10 +253,13 @@ class AuditorRepository {
 
   Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm3Data(
       RecyclerForm3RequestModel requestModel,
-      {String? id}) async {
+      {String? id,
+      bool? isRetreader}) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
-      "${_apiRoutes.auditorRecyclerForm3PostAPIRoute}/$id",
+      isRetreader == true
+          ? "${_apiRoutes.auditorRetreaderForm3PostAPIRoute}$id"
+          : "${_apiRoutes.auditorRecyclerForm3PostAPIRoute}/$id",
       data: request,
       isAuthorizationRequired: true,
     );

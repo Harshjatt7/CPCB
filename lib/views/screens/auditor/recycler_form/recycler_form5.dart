@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
@@ -17,14 +16,16 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm5 extends StatefulWidget {
+  final bool? isSummaryScreen;
+  final bool isRetreader;
+  final String? id;
+  final String? userType;
   const AuditorRecyclerForm5(
       {super.key,
       this.isSummaryScreen = false,
       this.isRetreader = false,
-      this.id});
-  final bool? isSummaryScreen;
-  final bool isRetreader;
-  final String? id;
+      this.id,
+      this.userType});
 
   @override
   State<AuditorRecyclerForm5> createState() => _AuditorRecyclerForm5State();
@@ -71,17 +72,16 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
                   isLastStep: false,
                   isSummaryScreen: false,
                   onNextOrSubmit: () async {
-                    Provider.of<CommonStepperViewModel>(context, listen: false)
-                        .onNextButton(context, "Recycler");
                     await viewModel.postForm5Data(context,
                         submit: '',
                         userId: widget.id ?? '',
-                        isRetreader: widget.isRetreader);
+                        isRetreader: widget.userType == "Retreader");
+                 
                   },
                   onSavedDraft: () async {
                     await viewModel.postForm5Data(context,
                         userId: widget.id ?? '',
-                        isRetreader: widget.isRetreader);
+                        isRetreader: widget.userType == "Retreader");
                   },
                 ))
           ],

@@ -142,7 +142,6 @@ class ProducerFormsViewModel extends BaseViewModel {
   }
 
   int index = 1;
-  int totalIndex = 0;
 
   void onNextButton(BuildContext context, String? user) {
     if (index < 3) {
