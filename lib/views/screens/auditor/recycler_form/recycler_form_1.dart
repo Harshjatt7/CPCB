@@ -3,7 +3,6 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/auditor_form_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_auditor_recycler_form1_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
@@ -22,14 +21,17 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AuditorRecyclerForm1 extends StatefulWidget {
+  final bool? isSummaryScreen;
+  final bool isRetreader;
+  final String? id;
+  final String? userType;
+
   const AuditorRecyclerForm1(
       {super.key,
       this.isSummaryScreen = false,
       this.isRetreader = false,
-      this.id});
-  final bool? isSummaryScreen;
-  final bool isRetreader;
-  final String? id;
+      this.id,
+      this.userType});
 
   @override
   State<AuditorRecyclerForm1> createState() => _AuditorRecyclerForm1State();
@@ -44,7 +46,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
-
+    viewModel.getRecycler1Data(context,
+        isRetreader: widget.isRetreader, userId: widget.id ?? "");
     super.initState();
   }
 
@@ -76,10 +79,19 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 right: 10,
                 child: StepperButton(
                   isLastStep: false,
-                  isSummaryScreen: false,
-                  onNextOrSubmit: () {
-                    Provider.of<CommonStepperViewModel>(context, listen: false)
-                        .onNextButton(context, "Recycler");
+                  isSummaryScreen: widget.isSummaryScreen,
+                  onNextOrSubmit: () async {
+                    widget.isSummaryScreen == true
+                        ? viewModel.onNextButton(context)
+                        : await viewModel.postForm1Data(context,
+                            userId: widget.id ?? "",
+                            isRetreader: widget.userType == "Retreader");
+                  },
+                  onSavedDraft: () async {
+                    await viewModel.postForm1Data(context,
+                        userId: widget.id ?? "",
+                        isRetreader: widget.userType == "Retreader",
+                        submit: "SaveAsDraft");
                   },
                 ))
           ],
@@ -382,11 +394,15 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: CommonTextFormFieldWidget(
-                        isDocument: true,
-                        isReadOnly: true,
-                        hintText: stringConstants.uploadVideo,
-                        isMandatory: false,
-                        controller: viewModel.uploadVideoController),
+                      isDocument: true,
+                      isReadOnly: true,
+                      hintText: stringConstants.uploadVideo,
+                      isMandatory: false,
+                      controller: viewModel.uploadVideoController,
+                      // onTap: (){
+                      //   viewModel.pickVideo();
+                      // },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
@@ -904,7 +920,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         onSuffixTap: () {
                           viewModel.handleOnSuffixTap(
                             context,
-                            RecyclerForm1.power,
+                            RecyclerForm1.video,
                             viewModel.uploadVideoController,
                           );
                         },

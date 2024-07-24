@@ -51,11 +51,15 @@ TextEditingController sellerMobileController =
   String wasteTyreSupplierGstError = '';
   String wasteGeneratedQtyError = '';
   String recycledDateError = '';
+  String sourceTyreError = '';
 
   List financialYearList = <String>[];
   List tyreOfRecyclerMaterialList = <String>[];
+  List tyreSource = <String>[];
   String? recycledTyreDropdownValue;
   String? recycledTyreDropdownError;
+  String? tyreSourceDropdownError;
+  String? tyreSourceDropdownValue;
 
   Future<APIResponse<AddRecyclerDataConstantsResponseModel?>?>
       getRecyclerDataConstants() async {
@@ -88,6 +92,14 @@ TextEditingController sellerMobileController =
     }
   }
 
+
+  void changetyreSourceDropdownValue(newValue) {
+    tyreSourceDropdownValue = newValue;
+    updateUI();
+    if (tyreSourceDropdownValue == null) {
+      tyreSourceDropdownError = messageConstant.mandatoryTyreSource;
+    }
+  }
   void changeRawMaterialDropdownValue(newValue) {
     recycledTyreDropdownValue = newValue;
     updateUI();

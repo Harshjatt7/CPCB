@@ -14,7 +14,7 @@ class ProducerForm1 extends StatefulWidget {
   final bool? isSummaryScreen;
   final String? id;
 
-  const ProducerForm1({super.key, this.isSummaryScreen, this.id});
+  const ProducerForm1({super.key, this.isSummaryScreen=false, this.id});
 
   @override
   State<ProducerForm1> createState() => _ProducerForm1State();
@@ -54,10 +54,11 @@ class _ProducerForm1State extends State<ProducerForm1> {
             right: 10,
             child: StepperButton(
               isLastStep: false,
-              isSummaryScreen: false,
+              isSummaryScreen: widget.isSummaryScreen,
               onNextOrSubmit: () async {
-                // Provider.of<CommonStepperViewModel>(context, listen: false).index =viewModel.index;
-                await viewModel.postForm1Data(context, id: widget.id);
+               widget.isSummaryScreen == true
+                        ? viewModel.onNextButton(context)
+                        :  await viewModel.postForm1Data(context, id: widget.id);
               },
               onSavedDraft: () async {
                 await viewModel.postForm1Data(context,

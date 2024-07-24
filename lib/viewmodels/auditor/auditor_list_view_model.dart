@@ -131,17 +131,17 @@ class AuditorListViewModel extends BaseViewModel {
           .getAuditStatus(status: "acknowledged", id: auditPlanDetail?.id);
 
       if (context.mounted) {
-        getIndex(auditPlanDetail?.statusPercentage);
         navigateToStepperScreen(
           context,
           auditPlanDetail,
           index,
         );
-        await getAuditPlanDetail(context, id: auditPlanDetail?.id);
       }
+    } else if (auditPlanDetail?.status == "completed") {
+      navigateToStepperScreen(context, auditPlanDetail, index,
+          isSummaryScreen: true);
     } else {
       if (context.mounted) {
-        getIndex(auditPlanDetail?.statusPercentage);
         navigateToStepperScreen(context, auditPlanDetail, index);
         await getAuditPlanDetail(context, id: auditPlanDetail?.id);
       }
@@ -159,7 +159,7 @@ class AuditorListViewModel extends BaseViewModel {
       case 33:
         index = 2;
         break;
-      case 66 || 100:
+      case 66:
         index = 3;
         break;
       default:
@@ -191,7 +191,8 @@ class AuditorListViewModel extends BaseViewModel {
   }
 
   void navigateToStepperScreen(
-      BuildContext context, AuditPlanDetailData? auditPlanDetail, num? index) {
+      BuildContext context, AuditPlanDetailData? auditPlanDetail, num? index,
+      {bool? isSummaryScreen}) {
     if (context.mounted) {
       Navigator.pushNamed(
         context,
@@ -203,6 +204,8 @@ class AuditorListViewModel extends BaseViewModel {
           userType: auditPlanDetail?.legalName,
           progress: auditPlanDetail?.statusPercentage,
           index: index,
+          isSummaryScreen:
+              auditPlanDetail?.status == "completed" ? true : false,
         ),
       );
     }

@@ -1,7 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
@@ -17,14 +16,16 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm2 extends StatefulWidget {
+  final bool? isSummaryScreen;
+  final bool isRetreader;
+  final String? id;
+  final String? userType;
   const AuditorRecyclerForm2(
       {super.key,
       this.isSummaryScreen = false,
       this.isRetreader = false,
-      this.id});
-  final bool? isSummaryScreen;
-  final bool isRetreader;
-  final String? id;
+      this.id,
+      this.userType});
 
   @override
   State<AuditorRecyclerForm2> createState() => _AuditorRecyclerForm2State();
@@ -40,6 +41,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.getRecycler2Data(context,
+        isRetreader: widget.isRetreader, userId: widget.id ?? "");
     super.initState();
   }
 
@@ -55,7 +58,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                   ? CommonSingleChildScrollView(
                       child: summaryForm2View(viewModel, context))
                   : CommonSingleChildScrollView(
-                      child: form2View(viewModel, context, widget.isRetreader)),
+                      child: form2View(
+                          viewModel, context, widget.userType == "Retreader")),
             ),
             if (viewModel.state == ViewState.busy)
               Positioned.fill(
@@ -71,17 +75,17 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                 right: 10,
                 child: StepperButton(
                   isLastStep: false,
-                  isSummaryScreen: false,
+                  isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                    await viewModel.recyclerPostForm2Data(context,
-                        id: widget.id);
-                    Provider.of<CommonStepperViewModel>(context, listen: false)
-                        .onNextButton(context, "Recycler");
+                    widget.isSummaryScreen == true
+                        ? viewModel.onNextButton(context)
+                        : await viewModel.recyclerPostForm2Data(context,
+                            id: widget.id,
+                            isRetreader: widget.userType == "Retreader");
                   },
                   onSavedDraft: () async {
-                    viewModel.saveAsDraft = "SaveAsDraft";
                     await viewModel.recyclerPostForm2Data(context,
-                        id: widget.id);
+                        id: widget.id, saveAsDraft: "SaveAsDraft");
                   },
                 ))
           ],
@@ -245,7 +249,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               isMandatory: true,
             ),
           ),
-          isRetreader == false
+          (widget.userType == "Retreader") == false
               ? Padding(
                   padding: const EdgeInsets.symmetric(),
                   child: CommonDropdownTextFormField(
