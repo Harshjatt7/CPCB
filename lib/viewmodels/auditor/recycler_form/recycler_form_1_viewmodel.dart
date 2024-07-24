@@ -756,7 +756,6 @@ class RecyclerFormViewModel extends BaseViewModel {
         count == uploadControllerList.length + 1) {
       TextEditingController tempController = TextEditingController();
       TextEditingController tempUploadController = TextEditingController();
-// MultipartFile? multiPartFile=
       controllerList.add(tempController);
       uploadControllerList.add(tempUploadController);
       updateUI();
@@ -820,13 +819,11 @@ class RecyclerFormViewModel extends BaseViewModel {
     return null;
   }
 
-  void handleOnSuffixTap(
-    BuildContext context,
-    RecyclerForm1 fieldName,
-    TextEditingController controller,
-  ) async {
+  void handleOnSuffixTap(BuildContext context, RecyclerForm1 fieldName,
+      TextEditingController controller,
+      {bool isVideo = false}) async {
     if (controller.text.isEmpty) {
-      var res = await openFileManager(context, fieldName);
+      var res = await openFileManager(context, fieldName, isVideo: isVideo);
 
       if (res != null) {
         controller.text = res.files.isEmpty ? "" : res.files.first.name;
@@ -896,13 +893,11 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
   }
 
-  void handleOnTap(
-    BuildContext context,
-    RecyclerForm1 fieldName,
-    TextEditingController controller,
-  ) async {
+  void handleOnTap(BuildContext context, RecyclerForm1 fieldName,
+      TextEditingController controller,
+      {bool isVideo = false}) async {
     if (controller.text.isEmpty) {
-      var res = await openFileManager(context, fieldName);
+      var res = await openFileManager(context, fieldName, isVideo: isVideo);
 
       if (res != null) {
         controller.text = res.files.isEmpty ? "" : res.files.first.name;
@@ -934,19 +929,42 @@ class RecyclerFormViewModel extends BaseViewModel {
     } else {
       switch (fieldName) {
         case RecyclerForm1.aadhar:
-          helperFunctions.openFile(aadharFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(context, aadharDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(aadharFilePath ?? '');
+          }
           break;
         case RecyclerForm1.panNo:
-          helperFunctions.openFile(panNoFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(context, authorizedPersonPanDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(panNoFilePath ?? '');
+          }
           break;
         case RecyclerForm1.pollution:
-          helperFunctions.openFile(panNoFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(
+                context, airPollutionControlDevicesDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(pollutionFilePath ?? '');
+          }
           break;
         case RecyclerForm1.power:
-          helperFunctions.openFile(powerFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(
+                context, lastYearElectricityBillDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(powerFilePath ?? '');
+          }
           break;
         case RecyclerForm1.video:
-          helperFunctions.openFile(videoFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(
+                context, geoTaggedVideoUploadDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(videoFilePath ?? '');
+          }
           break;
       }
     }
@@ -968,7 +986,12 @@ class RecyclerFormViewModel extends BaseViewModel {
             filename: res.files.first.name));
       }
     } else {
-      helperFunctions.openFile(machineFilePath[count - 1] ?? '');
+      if (_auditorRecycler1ResponseModel != null) {
+        getAuditorFile(
+            context, otherMachineriesDocument[count - 1]?.fileKey ?? '');
+      } else {
+        helperFunctions.openFile(machineFilePath[count - 1] ?? '');
+      }
     }
   }
 
@@ -994,6 +1017,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     if (_auditorRecycler1ResponseModel != null) {
       Map<String, dynamic>? data = _auditorRecycler1ResponseModel
           ?.data?.data?.generalInfo?.detailsOfMachinery;
+
       data?.entries.forEach(
         (element) {
           nw?.add(Nw.fromJson(element.value));
@@ -1006,6 +1030,41 @@ class RecyclerFormViewModel extends BaseViewModel {
       HelperFunctions().logger(data.toString());
     }
     updateUI();
+    aadharDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonAdhar?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonAdhar?.additionalData?.fileLink ??
+            '');
+    lastYearElectricityBillDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.lastYearElectricityBill?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.lastYearElectricityBill?.additionalData?.fileLink ??
+            '');
+    authorizedPersonPanDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonPan?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonPan?.additionalData?.fileLink ??
+            '');
+    airPollutionControlDevicesDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.airPollutionControlDevices?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.airPollutionControlDevices?.additionalData?.fileLink ??
+            '');
+    geoTaggedVideoUploadDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.geoTaggedVideoUpload?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.geoTaggedVideoUpload?.additionalData?.fileLink ??
+            '');
     final data = _auditorRecycler1ResponseModel?.data?.data?.auditSummary;
     gstRemarkController.text = data?.gstNo?.auditRemark ?? '';
     companyPanRemarkController.text = data?.companyPan?.auditRemark ?? '';
@@ -1159,10 +1218,13 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<FilePickerResult?> openFileManager(
-      BuildContext context, RecyclerForm1 fieldName) async {
+      BuildContext context, RecyclerForm1 fieldName,
+      {bool isVideo = false}) async {
     fileError = null;
-    FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ["JPEG", "PNG","MP4"]);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: isVideo == true ? ["MP4"] : ["JPEG", "PNG"]);
+
     if (result != null) {
       switch (fieldName) {
         case RecyclerForm1.aadhar:
@@ -1199,8 +1261,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           updateUI();
           break;
         case RecyclerForm1.video:
-          FilePickerResult? res = await pickVideo();
-          final file = File(res?.files.single.path ?? '');
+          final file = File(result.files.single.path ?? '');
           videoFilePath = file.path;
           videoFileSizeModel = await getFileSize(videoFilePath ?? "", 1);
           fileSize = videoFileSizeModel?.fileSize ?? "0 B";
@@ -1243,9 +1304,8 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<FilePickerResult?> pickVideo() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.video,
-    );
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.video);
 
     if (result != null) {
       String path = result.files.single.path!;
@@ -1254,8 +1314,8 @@ class RecyclerFormViewModel extends BaseViewModel {
       videoSize = await file.length();
 
       videoDuration = await _getVideoDuration(path);
-      updateUI();
     }
+    updateUI();
     return result;
   }
 
@@ -1444,13 +1504,14 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.idle;
   }
 
-  Future getAuditorFile(BuildContext context) async {
+  Future getAuditorFile(BuildContext context, String key) async {
     state = ViewState.busy;
     try {
-      APIResponse value = await auditorRepository.getDownloadFile("");
+      APIResponse value = await auditorRepository.getDownloadFile(key);
+
       if (value.isSuccess == true) {
         helperFunctions.downloadAndStoreFile(
-            name: "Certificate", response: value);
+            name: "${DateTime.now().millisecond}", response: value);
         state = ViewState.idle;
         return value;
       } else {
@@ -1852,8 +1913,8 @@ class RecyclerFormViewModel extends BaseViewModel {
       final res = await auditorRepository.postRecyclerForm5Data(requestModel,
           isRetreader: isRetreader,userId: userId);
       if (res?.isSuccess == true) {
-         onNextButton(context);
         if (context.mounted) {
+         onNextButton(context);
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
         }
@@ -1877,9 +1938,4 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
     state = ViewState.idle;
   }
-}
-
-class Details {
-  final Nw? nw;
-  Details(this.nw);
 }
