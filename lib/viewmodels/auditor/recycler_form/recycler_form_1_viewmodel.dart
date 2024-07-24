@@ -715,7 +715,6 @@ class RecyclerFormViewModel extends BaseViewModel {
         count == uploadControllerList.length + 1) {
       TextEditingController tempController = TextEditingController();
       TextEditingController tempUploadController = TextEditingController();
-// MultipartFile? multiPartFile=
       controllerList.add(tempController);
       uploadControllerList.add(tempUploadController);
       updateUI();
@@ -779,13 +778,11 @@ class RecyclerFormViewModel extends BaseViewModel {
     return null;
   }
 
-  void handleOnSuffixTap(
-    BuildContext context,
-    RecyclerForm1 fieldName,
-    TextEditingController controller,
-  ) async {
+  void handleOnSuffixTap(BuildContext context, RecyclerForm1 fieldName,
+      TextEditingController controller,
+      {bool isVideo = false}) async {
     if (controller.text.isEmpty) {
-      var res = await openFileManager(context, fieldName);
+      var res = await openFileManager(context, fieldName, isVideo: isVideo);
 
       if (res != null) {
         controller.text = res.files.isEmpty ? "" : res.files.first.name;
@@ -855,13 +852,11 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
   }
 
-  void handleOnTap(
-    BuildContext context,
-    RecyclerForm1 fieldName,
-    TextEditingController controller,
-  ) async {
+  void handleOnTap(BuildContext context, RecyclerForm1 fieldName,
+      TextEditingController controller,
+      {bool isVideo = false}) async {
     if (controller.text.isEmpty) {
-      var res = await openFileManager(context, fieldName);
+      var res = await openFileManager(context, fieldName, isVideo: isVideo);
 
       if (res != null) {
         controller.text = res.files.isEmpty ? "" : res.files.first.name;
@@ -900,10 +895,19 @@ class RecyclerFormViewModel extends BaseViewModel {
           }
           break;
         case RecyclerForm1.panNo:
-          helperFunctions.openFile(panNoFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(context, authorizedPersonPanDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(panNoFilePath ?? '');
+          }
           break;
         case RecyclerForm1.pollution:
-          helperFunctions.openFile(panNoFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(
+                context, airPollutionControlDevicesDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(pollutionFilePath ?? '');
+          }
           break;
         case RecyclerForm1.power:
           if (_auditorRecycler1ResponseModel != null) {
@@ -914,7 +918,12 @@ class RecyclerFormViewModel extends BaseViewModel {
           }
           break;
         case RecyclerForm1.video:
-          helperFunctions.openFile(videoFilePath ?? '');
+          if (_auditorRecycler1ResponseModel != null) {
+            getAuditorFile(
+                context, geoTaggedVideoUploadDocument?.fileKey ?? '');
+          } else {
+            helperFunctions.openFile(videoFilePath ?? '');
+          }
           break;
       }
     }
@@ -936,7 +945,12 @@ class RecyclerFormViewModel extends BaseViewModel {
             filename: res.files.first.name));
       }
     } else {
-      helperFunctions.openFile(machineFilePath[count - 1] ?? '');
+      if (_auditorRecycler1ResponseModel != null) {
+        getAuditorFile(
+            context, otherMachineriesDocument[count - 1]?.fileKey ?? '');
+      } else {
+        helperFunctions.openFile(machineFilePath[count - 1] ?? '');
+      }
     }
   }
 
@@ -988,6 +1002,27 @@ class RecyclerFormViewModel extends BaseViewModel {
             '',
         fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.lastYearElectricityBill?.additionalData?.fileLink ??
+            '');
+    authorizedPersonPanDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonPan?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonPan?.additionalData?.fileLink ??
+            '');
+    airPollutionControlDevicesDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.airPollutionControlDevices?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.airPollutionControlDevices?.additionalData?.fileLink ??
+            '');
+    geoTaggedVideoUploadDocument = DocumentData(
+        fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.geoTaggedVideoUpload?.additionalData?.fileKey ??
+            '',
+        fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.geoTaggedVideoUpload?.additionalData?.fileLink ??
             '');
     final data = _auditorRecycler1ResponseModel?.data?.data?.auditSummary;
     gstRemarkController.text = data?.gstNo?.auditRemark ?? '';
@@ -1142,10 +1177,12 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   Future<FilePickerResult?> openFileManager(
-      BuildContext context, RecyclerForm1 fieldName) async {
+      BuildContext context, RecyclerForm1 fieldName,
+      {bool isVideo = false}) async {
     fileError = null;
-    FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ["JPEG", "PNG"]);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: isVideo == true ? ["MP4"] : ["JPEG", "PNG"]);
 
     if (result != null) {
       switch (fieldName) {
@@ -1183,8 +1220,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           updateUI();
           break;
         case RecyclerForm1.video:
-          FilePickerResult? res = await pickVideo();
-          final file = File(res?.files.single.path ?? '');
+          final file = File(result.files.single.path ?? '');
           videoFilePath = file.path;
           videoFileSizeModel = await getFileSize(videoFilePath ?? "", 1);
           fileSize = videoFileSizeModel?.fileSize ?? "0 B";
@@ -1481,6 +1517,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
     try {
       APIResponse value = await auditorRepository.getDownloadFile(key);
+
       if (value.isSuccess == true) {
         helperFunctions.downloadAndStoreFile(
             name: "${DateTime.now().millisecond}", response: value);
@@ -1908,9 +1945,4 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
     state = ViewState.idle;
   }
-}
-
-class Details {
-  final Nw? nw;
-  Details(this.nw);
 }

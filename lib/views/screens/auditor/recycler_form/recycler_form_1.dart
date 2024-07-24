@@ -78,8 +78,18 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isLastStep: false,
                   isSummaryScreen: false,
                   onNextOrSubmit: () {
+                    viewModel.postForm1Data(context,
+                        isRetreader: widget.isRetreader,
+                        submit: '',
+                        userId: widget.id ?? '');
                     Provider.of<CommonStepperViewModel>(context, listen: false)
                         .onNextButton(context, "Recycler");
+                    viewModel.getRecycler2Data(context);
+                  },
+                  onSavedDraft: () {
+                    viewModel.postForm1Data(context,
+                        isRetreader: widget.isRetreader,
+                        userId: widget.id ?? '');
                   },
                 ))
           ],
@@ -895,20 +905,18 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
                         onTap: () async {
-                          await viewModel.pickVideo();
-                          // viewModel.handleOnTap(
-                          //   context,
-                          //   RecyclerForm1.video,
-                          //   viewModel.uploadVideoController,
-                          // );
+                          // await viewModel.pickVideo();
+                          viewModel.handleOnTap(context, RecyclerForm1.video,
+                              viewModel.uploadVideoController,
+                              isVideo: true);
                         },
                         onSuffixTap: () async {
-                          await viewModel.pickVideo();
-                          // viewModel.handleOnSuffixTap(
-                          //   context,
-                          //   RecyclerForm1.video,
-                          //   viewModel.uploadVideoController,
-                          // );
+                          // await viewModel.pickVideo();
+                          viewModel.handleOnSuffixTap(
+                              context,
+                              RecyclerForm1.video,
+                              viewModel.uploadVideoController,
+                              isVideo: true);
                         },
                         validator: (value) {
                           return viewModel.videoValidation();

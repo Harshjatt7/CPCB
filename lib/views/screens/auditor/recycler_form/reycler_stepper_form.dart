@@ -26,21 +26,26 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
               isLoading: viewModel.state == ViewState.busy,
-              checkUser:  CheckUserAndSummaryScreen(
+              checkUser: CheckUserAndSummaryScreen(
                   isSummaryScreen: false,
                   userType: widget.userDetails?.userType,
                   id: widget.userDetails?.id),
               forms: [
-                const AuditorRecyclerForm1(),
+                AuditorRecyclerForm1(
+                  id: widget.userDetails?.id,
+                ),
                 AuditorRecyclerForm2(
                   id: widget.userDetails?.id,
-                  isRetreader: true,
                 ),
-                AuditorRecyclerForm3(id: widget.userDetails?.id),
+                AuditorRecyclerForm3(
+                  id: widget.userDetails?.id,
+                ),
                 AuditorRecyclerForm4(
                   id: widget.userDetails?.id,
                 ),
-                const AuditorRecyclerForm5()
+                AuditorRecyclerForm5(
+                  id: widget.userDetails?.id,
+                )
               ]);
         },
         onModelReady: (viewModel) async {
@@ -49,23 +54,9 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
           viewModel.textForm2Listener();
           viewModel.textForm3Listener();
           await viewModel.getCurrentLocation();
-          // if (context.mounted) {
-          //   await viewModel.getRecycler1Data(context);
-          // }
-          if (context.mounted) {
-            await viewModel.getRecycler2Data(
-              context,
-            );
-          }
-          if (context.mounted) {
-            await viewModel.getRecycler3Data(
-              context,
-            );
-          }
           if (context.mounted) {
             await viewModel.getRecycler1Data(context);
           }
-        
         },
         viewModel: RecyclerFormViewModel());
   }

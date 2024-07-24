@@ -512,7 +512,6 @@ class HelperFunctions {
                                 style: BorderStyle.solid),
                             borderRadius: BorderRadius.circular(12)))),
                 dialogTheme: DialogTheme(
-
                     backgroundColor: appColor.white,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12)))),
@@ -534,15 +533,21 @@ class HelperFunctions {
   }
 
   ///[downloadAndStoreFile] To Download and Store File in Device
-  Future<void> downloadAndStoreFile(
-      {String? name, APIResponse? response}) async {
+  Future<void> downloadAndStoreFile({
+    String? name,
+    APIResponse? response,
+  }) async {
     final Directory? appDir = Platform.isAndroid
         ? await getExternalStorageDirectory()
         : await getApplicationDocumentsDirectory();
-    String tempPath = appDir!.path;
+    String tempPath = appDir?.path ?? '';
 
-    String fileName =
-        '$name${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}';
+    final contentType =
+        response?.headers == null ? '' : response?.headers?[0] ?? '';
+    final extension = contentType.split('/');
+    logger(extension[1].toString());
+
+    String fileName = '$name${getPath(extension[1])}';
     File file = File('$tempPath/$fileName');
     if (!await file.exists()) {
       await file.create(recursive: true);
@@ -550,6 +555,21 @@ class HelperFunctions {
     await file.writeAsBytes(response?.completeResponse);
     HelperFunctions().logger(file.path);
     await openFile(file.path);
+  }
+
+  String getPath(String extension) {
+    switch (extension) {
+      case "pdf":
+        return '${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.pdf';
+      case "png":
+        return '${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.png';
+      case "jpeg":
+        return '${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.jpeg';
+      case "mp4":
+        return '${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.mp4';
+      default:
+        return '${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}';
+    }
   }
 
   Future<void> openFile(String filePath) async {
