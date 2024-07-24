@@ -28,12 +28,18 @@ class _ProdcerStepperState extends State<ProducerStepper> {
                 isSummaryScreen: widget.userDetails?.isSummaryScreen,
                 userType: widget.userDetails?.userType,
                 id: widget.userDetails?.id,
-                index: widget.userDetails?.index,
+                index: viewModel.index,
               ),
               forms: [
-                if (viewModel.index == 1) form1(widget.userDetails?.id,widget.userDetails?.isSummaryScreen),
-                if (viewModel.index == 2) form2(widget.userDetails?.id,widget.userDetails?.isSummaryScreen),
-                if (viewModel.index == 3) form3(widget.userDetails?.id,widget.userDetails?.isSummaryScreen),
+                if (viewModel.index == 1)
+                  form1(widget.userDetails?.id,
+                      widget.userDetails?.isSummaryScreen),
+                if (viewModel.index == 2)
+                  form2(widget.userDetails?.id,
+                      widget.userDetails?.isSummaryScreen),
+                if (viewModel.index == 3)
+                  form3(widget.userDetails?.id,
+                      widget.userDetails?.isSummaryScreen),
               ]);
         },
         onModelReady: (viewModel) async {
@@ -43,10 +49,7 @@ class _ProdcerStepperState extends State<ProducerStepper> {
         viewModel: ProducerFormsViewModel());
   }
 
-  Widget form1(
-    String? id,
-    bool? isSummaryScreen
-  ) {
+  Widget form1(String? id, bool? isSummaryScreen) {
     return ProducerForm1(
       id: id,
       isSummaryScreen: isSummaryScreen,
@@ -54,7 +57,10 @@ class _ProdcerStepperState extends State<ProducerStepper> {
   }
 
   Widget form2(String? id, bool? isSummaryScreen) {
-    return ProducerForm2(id: id,isSummaryScreen: isSummaryScreen,);
+    return ProducerForm2(
+      id: id,
+      isSummaryScreen: isSummaryScreen,
+    );
   }
 
   Widget form3(String? id, bool? isSummaryScreen) {
