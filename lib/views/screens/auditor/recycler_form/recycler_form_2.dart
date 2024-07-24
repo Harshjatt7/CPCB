@@ -41,6 +41,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.getRecycler2Data(context,
+        isRetreader: widget.isRetreader, userId: widget.id ?? "");
     super.initState();
   }
 
@@ -56,7 +58,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                   ? CommonSingleChildScrollView(
                       child: summaryForm2View(viewModel, context))
                   : CommonSingleChildScrollView(
-                      child: form2View(viewModel, context, widget.userType=="Retreader")),
+                      child: form2View(
+                          viewModel, context, widget.userType == "Retreader")),
             ),
             if (viewModel.state == ViewState.busy)
               Positioned.fill(
@@ -72,15 +75,17 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                 right: 10,
                 child: StepperButton(
                   isLastStep: false,
-                  isSummaryScreen: false,
+                  isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                    await viewModel.recyclerPostForm2Data(context,
-                        id: widget.id,isRetreader: widget.userType=="Retreader");
-                   
+                    widget.isSummaryScreen == true
+                        ? viewModel.onNextButton(context)
+                        : await viewModel.recyclerPostForm2Data(context,
+                            id: widget.id,
+                            isRetreader: widget.userType == "Retreader");
                   },
                   onSavedDraft: () async {
                     await viewModel.recyclerPostForm2Data(context,
-                        id: widget.id,saveAsDraft: "SaveAsDraft");
+                        id: widget.id, saveAsDraft: "SaveAsDraft");
                   },
                 ))
           ],
@@ -244,7 +249,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               isMandatory: true,
             ),
           ),
-          (widget.userType=="Retreader") == false
+          (widget.userType == "Retreader") == false
               ? Padding(
                   padding: const EdgeInsets.symmetric(),
                   child: CommonDropdownTextFormField(

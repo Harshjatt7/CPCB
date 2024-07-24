@@ -41,6 +41,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.getRecycler3Data(context, isRetreader: widget.isRetreader,userId: widget.id??"");
     super.initState();
   }
 
@@ -72,9 +73,11 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 right: 10,
                 child: StepperButton(
                   isLastStep: false,
-                  isSummaryScreen: false,
+                  isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                    await viewModel.recyclerPostForm3Data(context,
+                    widget.isSummaryScreen == true
+                        ? viewModel.onNextButton(context)
+                        : await viewModel.recyclerPostForm3Data(context,
                         id: widget.id,
                         isRetreader: widget.userType == "Retreader");
                   },
@@ -117,7 +120,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         color: appColor.blue100,
                         decoration: TextDecoration.underline,
-                        decorationColor: appColor.blue100),
+                        decorationColor: appColor.blue100,),
                   ),
                 ),
               )

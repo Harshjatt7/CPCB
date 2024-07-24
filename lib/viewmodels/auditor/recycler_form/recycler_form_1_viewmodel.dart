@@ -264,6 +264,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     if (index < 5) {
       index++;
       updateUI();
+    }else{
+      Navigator.pop(context);
     }
   }
 
@@ -352,7 +354,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          await getRecycler3Data(context);
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
@@ -458,7 +459,6 @@ class RecyclerFormViewModel extends BaseViewModel {
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          await getRecycler4Data(context);
           onNextButton(context);
         }
       } else {
@@ -676,7 +676,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       _auditorRecycler4ResponseModel = await auditorRepository.getRecyclerForm4Data(
           isRetreader: isRetreader,
           userId:
-              "eyJpdiI6IkM3MlV2dWJ4d24xKzd0OHR0Mzh1NVE9PSIsInZhbHVlIjoiV0drbnlDRHFlRXY1TDJ6M2MzRVBGdz09IiwibWFjIjoiNDM0NDE0NzhmOTRiYmFiMWU5NjQ2NmNhNzU2NjI5YmY4NmFhMGU3Yzc5OTFlYzRhNzg5ZmQ4ZjVkZGFmMmE5YiIsInRhZyI6IiJ9");
+              userId);
       if (_auditorRecycler4ResponseModel?.isSuccess == true) {
         _auditorRecycler4ResponseModel?.data =
             AuditorRecyclerForm4ResponseModel.fromJson(
@@ -1662,8 +1662,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
-          await getRecycler2Data(context,
-              isRetreader: isRetreader, userId: userId);
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -1780,7 +1778,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
-          await getRecycler5Data(context, isRetreader: isRetreader);
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -1852,13 +1849,14 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
     try {
       final res = await auditorRepository.postRecyclerForm5Data(requestModel,
-          isRetreader: isRetreader);
+          isRetreader: isRetreader,userId: userId);
       if (res?.isSuccess == true) {
+         onNextButton(context);
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          onNextButton(context);
         }
+        
       } else {
         final apiError = res?.error?.errorsList;
         summaryAuditRemarkError =

@@ -117,6 +117,8 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                                             .data?[index].invoiceNumber,
                                         typeOfRaw:
                                             viewModel.data?[index].rawMaterial,
+                                        tyreSource:
+                                            viewModel.data?[index].sourceTyre,
                                         date:
                                             '${viewModel.data?[index].purchasedDate}',
                                         quantityReceived: viewModel

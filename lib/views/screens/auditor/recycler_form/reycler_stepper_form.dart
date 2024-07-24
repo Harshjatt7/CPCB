@@ -25,9 +25,9 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
     return BaseView<RecyclerFormViewModel>(
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
-            onLeadingTapped: () {
-              viewModel.onBackButton(context);
-            },
+              onLeadingTapped: () {
+                viewModel.onBackButton(context);
+              },
               isLoading: viewModel.state == ViewState.busy,
               checkUser: CheckUserAndSummaryScreen(
                   isSummaryScreen: false,
@@ -35,15 +35,20 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
                   id: widget.userDetails?.id),
               forms: [
                 if (viewModel.index == 1)
-                  form1(widget.userDetails?.id, widget.userDetails?.userType),
+                  form1(widget.userDetails?.id, widget.userDetails?.userType,
+                      widget.userDetails?.isSummaryScreen),
                 if (viewModel.index == 2)
-                  form2(widget.userDetails?.id, widget.userDetails?.userType),
+                  form2(widget.userDetails?.id, widget.userDetails?.userType,
+                      widget.userDetails?.isSummaryScreen),
                 if (viewModel.index == 3)
-                  form3(widget.userDetails?.id, widget.userDetails?.userType),
+                  form3(widget.userDetails?.id, widget.userDetails?.userType,
+                      widget.userDetails?.isSummaryScreen),
                 if (viewModel.index == 4)
-                  form4(widget.userDetails?.id, widget.userDetails?.userType),
+                  form4(widget.userDetails?.id, widget.userDetails?.userType,
+                      widget.userDetails?.isSummaryScreen),
                 if (viewModel.index == 5)
-                  form5(widget.userDetails?.id, widget.userDetails?.userType),
+                  form5(widget.userDetails?.id, widget.userDetails?.userType,
+                      widget.userDetails?.isSummaryScreen),
               ]);
         },
         onModelReady: (viewModel) async {
@@ -53,67 +58,72 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
           viewModel.textForm2Listener();
           viewModel.textForm3Listener();
           await viewModel.getCurrentLocation();
-          if (context.mounted) {
-            await viewModel.getRecycler1Data(context,
-                userId: widget.userDetails?.id ?? "",
-                isRetreader: widget.userDetails?.userType == "Retreader");
-          }
-          if (context.mounted) {
-            await viewModel.getRecycler2Data(context,
-                userId: widget.userDetails?.id ?? "",
-                isRetreader: widget.userDetails?.userType == "Retreader");
-          }
-          if (context.mounted) {
-            await viewModel.getRecycler3Data(context,
-                userId: widget.userDetails?.id ?? "",
-                isRetreader: widget.userDetails?.userType == "Retreader");
-          }
-          if (context.mounted) {
-            await viewModel.getRecycler4Data(context,
-                userId: widget.userDetails?.id ?? "",
-                isRetreader: widget.userDetails?.userType == "Retreader");
-          }
-          if (context.mounted) {
-            await viewModel.getRecycler5Data(context,
-                userId: widget.userDetails?.id ?? "",
-                isRetreader: widget.userDetails?.userType == "Retreader");
-          }
+          // if (context.mounted) {
+          //   await viewModel.getRecycler1Data(context,
+          //       userId: widget.userDetails?.id ?? "",
+          //       isRetreader: widget.userDetails?.userType == "Retreader");
+          // }
+          // if (context.mounted) {
+          //   await viewModel.getRecycler2Data(context,
+          //       userId: widget.userDetails?.id ?? "",
+          //       isRetreader: widget.userDetails?.userType == "Retreader");
+          // }
+          // if (context.mounted) {
+          //   await viewModel.getRecycler3Data(context,
+          //       userId: widget.userDetails?.id ?? "",
+          //       isRetreader: widget.userDetails?.userType == "Retreader");
+          // }
+          // if (context.mounted) {
+          //   await viewModel.getRecycler4Data(context,
+          //       userId: widget.userDetails?.id ?? "",
+          //       isRetreader: widget.userDetails?.userType == "Retreader");
+          // }
+          // if (context.mounted) {
+          //   await viewModel.getRecycler5Data(context,
+          //       userId: widget.userDetails?.id ?? "",
+          //       isRetreader: widget.userDetails?.userType == "Retreader");
+          // }
         },
         viewModel: RecyclerFormViewModel());
   }
 
-  Widget form1(String? id, String? userType) {
+  Widget form1(String? id, String? userType, bool? isSummaryScreen) {
     return AuditorRecyclerForm1(
       id: id,
       userType: userType,
+      isSummaryScreen: isSummaryScreen,
     );
   }
 
-  Widget form2(String? id, String? userType) {
+  Widget form2(String? id, String? userType, bool? isSummaryScreen) {
     return AuditorRecyclerForm2(
       id: id,
       userType: userType,
+      isSummaryScreen: isSummaryScreen,
     );
   }
 
-  Widget form3(String? id, String? userType) {
+  Widget form3(String? id, String? userType, bool? isSummaryScreen) {
     return AuditorRecyclerForm3(
       id: id,
       userType: userType,
+      isSummaryScreen: isSummaryScreen,
     );
   }
 
-  Widget form4(String? id, String? userType) {
+  Widget form4(String? id, String? userType, bool? isSummaryScreen) {
     return AuditorRecyclerForm4(
       id: id,
       userType: userType,
+      isSummaryScreen: isSummaryScreen,
     );
   }
 
-  Widget form5(String? id, String? userType) {
+  Widget form5(String? id, String? userType, bool? isSummaryScreen) {
     return AuditorRecyclerForm5(
       id: id,
       userType: userType,
+      isSummaryScreen: isSummaryScreen,
     );
   }
 }

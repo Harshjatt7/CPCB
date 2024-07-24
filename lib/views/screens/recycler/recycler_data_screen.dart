@@ -101,6 +101,7 @@ class RecyclerDataScreen extends StatelessWidget {
                       typeOfRaw: recyclerDetails?.typeOfRecycledMaterial ?? "",
                       date: recyclerDetails?.recycledDate ?? "",
                       year: recyclerDetails?.financialYear ?? "",
+                      // tyreSource: recyclerDetails?.tyreSource ?? "",
                     ),
                   );
                 },

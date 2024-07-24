@@ -143,7 +143,7 @@ class ProducerFormsViewModel extends BaseViewModel {
 
   int index = 1;
 
-  void onNextButton(BuildContext context, String? user) {
+  void onNextButton(BuildContext context) {
     if (index < 3) {
       index++;
       updateUI();
@@ -167,7 +167,7 @@ class ProducerFormsViewModel extends BaseViewModel {
       case 33:
         index = 2;
         break;
-      case 66 || 100:
+      case 66:
         index = 3;
         break;
       default:
@@ -312,7 +312,7 @@ class ProducerFormsViewModel extends BaseViewModel {
               //     .index=index;
               // Provider.of<CommonStepperViewModel>(context, listen: false)
               //     .onNextButton(context, "Producer");
-              onNextButton(context, "Producer");
+              onNextButton(context);
             }
           }
         }
@@ -467,7 +467,7 @@ class ProducerFormsViewModel extends BaseViewModel {
             if (context.mounted) {
               // Provider.of<CommonStepperViewModel>(context, listen: false)
               //     .onNextButton(context, "Producer");
-              onNextButton(context, "Producer");
+              onNextButton(context);
             }
           }
         }

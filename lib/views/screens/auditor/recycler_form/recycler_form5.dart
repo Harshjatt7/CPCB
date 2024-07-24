@@ -40,6 +40,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.getRecycler5Data(context,
+        isRetreader: widget.isRetreader, userId: widget.id ?? "");
     super.initState();
   }
 
@@ -69,14 +71,15 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
                 left: 10,
                 right: 10,
                 child: StepperButton(
-                  isLastStep: false,
-                  isSummaryScreen: false,
+                  isLastStep: true,
+                  isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                    await viewModel.postForm5Data(context,
-                        submit: '',
-                        userId: widget.id ?? '',
-                        isRetreader: widget.userType == "Retreader");
-                 
+                    widget.isSummaryScreen == true
+                        ? viewModel.onNextButton(context)
+                        : await viewModel.postForm5Data(context,
+                            submit: '',
+                            userId: widget.id ?? '',
+                            isRetreader: widget.userType == "Retreader");
                   },
                   onSavedDraft: () async {
                     await viewModel.postForm5Data(context,

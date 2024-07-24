@@ -46,7 +46,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
-
+    viewModel.getRecycler1Data(context,
+        isRetreader: widget.isRetreader, userId: widget.id ?? "");
     super.initState();
   }
 
@@ -78,13 +79,19 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 right: 10,
                 child: StepperButton(
                   isLastStep: false,
-                  isSummaryScreen: false,
+                  isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                    await viewModel.getRecycler2Data(context);
-                    viewModel.onNextButton(context);
-
-                    // await viewModel.postForm1Data(context,
-                    //     userId: widget.id ?? "",isRetreader: widget.userType=="Retreader");
+                    widget.isSummaryScreen == true
+                        ? viewModel.onNextButton(context)
+                        : await viewModel.postForm1Data(context,
+                            userId: widget.id ?? "",
+                            isRetreader: widget.userType == "Retreader");
+                  },
+                  onSavedDraft: () async {
+                    await viewModel.postForm1Data(context,
+                        userId: widget.id ?? "",
+                        isRetreader: widget.userType == "Retreader",
+                        submit: "SaveAsDraft");
                   },
                 ))
           ],
@@ -387,15 +394,15 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: CommonTextFormFieldWidget(
-                        isDocument: true,
-                        isReadOnly: true,
-                        hintText: stringConstants.uploadVideo,
-                        isMandatory: false,
-                        controller: viewModel.uploadVideoController,
-                        // onTap: (){
-                        //   viewModel.pickVideo();
-                        // },
-                        ),
+                      isDocument: true,
+                      isReadOnly: true,
+                      hintText: stringConstants.uploadVideo,
+                      isMandatory: false,
+                      controller: viewModel.uploadVideoController,
+                      // onTap: (){
+                      //   viewModel.pickVideo();
+                      // },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),

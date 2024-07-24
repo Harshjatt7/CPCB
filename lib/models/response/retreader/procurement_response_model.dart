@@ -37,6 +37,7 @@ class ProcurementAddData {
   dynamic openingBalance;
   String? purchasedQuantity;
   String? quantityReceived;
+  String? sourceTyre;
 
   ProcurementAddData(
       {this.financeYear,
@@ -51,7 +52,9 @@ class ProcurementAddData {
       this.isOpeningBalance,
       this.openingBalance,
       this.purchasedQuantity,
-      this.quantityReceived});
+      this.quantityReceived,
+      this.sourceTyre,
+      });
 
   factory ProcurementAddData.fromJson(Map<String, dynamic> json) =>
       ProcurementAddData(
@@ -68,6 +71,7 @@ class ProcurementAddData {
         openingBalance: json["opening_balance"],
         purchasedQuantity: json["purchased_quantity"],
         quantityReceived: json["quantity_received"],
+        sourceTyre: json["source_tyre"],
       );
 }
 
