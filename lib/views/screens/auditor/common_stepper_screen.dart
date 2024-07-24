@@ -16,12 +16,16 @@ class CommonStepperScreen extends StatelessWidget {
   final bool? isLoading;
   final void Function()? onLeadingTapped;
 
-  const CommonStepperScreen({super.key, this.checkUser, required this.forms,this.isLoading=false,this.onLeadingTapped});
+  const CommonStepperScreen(
+      {super.key,
+      this.checkUser,
+      required this.forms,
+      this.isLoading = false,
+      this.onLeadingTapped});
 
   @override
   Widget build(BuildContext context) {
     return BaseView<CommonStepperViewModel>(
-      
         onModelReady: (viewModel) {
           viewModel.getUser(checkUser?.userType.toString());
         },
@@ -61,7 +65,8 @@ class CommonStepperScreen extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                   child: CommonProgressBar(
                     percentage:
-                        ((viewModel.index - 1) / viewModel.totalIndex) * 100,
+                        (((checkUser?.index ?? 1) - 1) / viewModel.totalIndex) *
+                            100,
                   ),
                 )),
           ],

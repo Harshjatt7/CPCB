@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form4.dart';
@@ -8,6 +9,7 @@ import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_2.da
 import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_form_3.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
 
@@ -30,9 +32,11 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
               },
               isLoading: viewModel.state == ViewState.busy,
               checkUser: CheckUserAndSummaryScreen(
-                  isSummaryScreen: false,
-                  userType: widget.userDetails?.userType,
-                  id: widget.userDetails?.id),
+                isSummaryScreen: false,
+                userType: widget.userDetails?.userType,
+                id: widget.userDetails?.id,
+                index: viewModel.index,
+              ),
               forms: [
                 if (viewModel.index == 1)
                   form1(widget.userDetails?.id, widget.userDetails?.userType,

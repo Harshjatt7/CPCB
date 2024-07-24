@@ -96,14 +96,13 @@ class APIRoutes {
   final String auditorRecyclerForm4RequestAPIRoute =
      "api/auditor/retreaderChecklist/store-production-information";
   final String auditorRecyclerForm5RequestAPIRoute =
-      "api/auditor/reyclerChecklist/store-waste-water-generation-and-disposal";
+      "api/auditor/recyclerChecklist/store-waste-water-generation-and-disposal";
   final String auditorRetreaderForm1RequestAPIRoute =
       "api/auditor/retreaderChecklist/store-general-information";
   final String auditorRetreaderForm4RequestAPIRoute =
       "api/auditor/retreaderChecklist/store-production-information";
   final String auditorRetreaderForm5RequestAPIRoute =
       "api/auditor/retreaderChecklist/store-waste-water-generation-and-disposal";
-
   final String recyclerFileUploadAPIRoute =
       "api/auditor/recyclerChecklist/file-upload/mobile";
   final String retreaderFileUploadAPIRoute =

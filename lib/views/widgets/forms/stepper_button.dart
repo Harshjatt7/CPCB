@@ -61,7 +61,7 @@ class StepperButton extends StatelessWidget {
                     .textTheme
                     .labelMedium
                     ?.copyWith(color: AppColor().white),
-                onPressed: (isLastStep == true || isSummaryScreen == true)
+                onPressed: (isLastStep == true && isSummaryScreen == true)
                     ? null
                     : onNextOrSubmit,
               ),

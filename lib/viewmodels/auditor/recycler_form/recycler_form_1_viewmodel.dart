@@ -20,15 +20,19 @@ import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form5_respon
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../constants/routes_constant.dart';
 import '../../../models/request/auditor/recycler/recycler_form_2_request_model.dart';
 import '../../../models/request/auditor/recycler/recycler_form_3_request_model.dart';
+import '../../material_app_viewmodel.dart';
 
 class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
@@ -353,12 +357,14 @@ class RecyclerFormViewModel extends BaseViewModel {
       final res = await auditorRepository.postRecyclerForm2Data(requestModel,
           id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
+        // Provider.of<CommonStepperViewModel>(context).index = index;
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          onNextButton(context);
+
           // await getProducerForm2Data(id: id);
         }
+        onNextButton(context);
       } else {
         final apiError = res?.error?.errorsList;
 
@@ -450,13 +456,14 @@ class RecyclerFormViewModel extends BaseViewModel {
           ),
         ),
       ),
-      submit: saveAsDraft ?? "SaveAsDraft",
+      submit: saveAsDraft ?? "",
     );
     try {
       final res = await auditorRepository.postRecyclerForm3Data(requestModel,
           id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
+          // Provider.of<CommonStepperViewModel>(context).index = index;
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
@@ -1742,6 +1749,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
+          // Provider.of<CommonStepperViewModel>(context).index = index;
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
@@ -1858,6 +1866,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
+          // Provider.of<CommonStepperViewModel>(context).index = index;
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
@@ -1935,9 +1944,15 @@ class RecyclerFormViewModel extends BaseViewModel {
           isRetreader: isRetreader, userId: userId);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          onNextButton(context);
+          // Provider.of<CommonStepperViewModel>(context).index = index;
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          onNextButton(context);
+          MaterialAppViewModel.selectedPageIndex = 1;
+          Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.auditorHomeScreen,
+              ModalRoute.withName(AppRoutes.auditorHomeScreen));
         }
       } else {
         final apiError = res?.error?.errorsList;

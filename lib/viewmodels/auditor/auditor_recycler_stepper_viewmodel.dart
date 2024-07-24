@@ -27,7 +27,7 @@ class CommonStepperViewModel extends BaseViewModel {
         totalIndex = 5;
         break;
       default:
-        totalIndex = 3;
+        totalIndex = 5;
         break;
     }
     updateUI();
