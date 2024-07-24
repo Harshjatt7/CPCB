@@ -1,4 +1,4 @@
-package com.example.cpcb_tyre
+package com.cpcb.tyre
 
 import io.flutter.embedding.android.FlutterActivity
 
