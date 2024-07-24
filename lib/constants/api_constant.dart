@@ -71,53 +71,56 @@ class APIRoutes {
   final String auditorProducerForm3ResponseAPIRoute =
       "api/auditor/checklist/producer/summary-report";
 
-  final String auditorRecyclerForm1APIRoute = "api/auditor/recyclerChecklist/";
+  final String auditorRecyclerForm1APIRoute = "api/auditor/recyclerChecklist";
   final String auditorRecyclerForm2APIRoute =
-      "api/auditor/checklist/recycler/processing-capacity/";
+      "api/auditor/checklist/recycler/processing-capacity";
   final String auditorRecyclerForm3APIRoute =
-      "api/auditor/recyclerChecklist/procurement-information/";
+      "api/auditor/recyclerChecklist/procurement-information";
   final String auditorRecyclerForm4APIRoute =
-      "api/auditor/recyclerChecklist/production-information/";
+      "api/auditor/recyclerChecklist/production-information";
   final String auditorRecyclerForm5APIRoute =
-      "api/auditor/recyclerChecklist/waste-water-generation-and-disposal/";
+      "api/auditor/recyclerChecklist/waste-water-generation-and-disposal";
   final String auditorRetreaderForm1APIRoute =
-      "api/auditor/retreaderChecklist/";
+      "api/auditor/retreaderChecklist";
   final String auditorRetreaderForm2APIRoute =
-      "api/auditor/checklist/retreader/processing-capacity/";
+      "api/auditor/checklist/retreader/processing-capacity";
   final String auditorRetreaderForm3APIRoute =
-      "api/auditor/retreaderChecklist/procurement-information/";
+      "api/auditor/retreaderChecklist/procurement-information";
   final String auditorRetreaderForm4APIRoute =
-      "api/auditor/retreaderChecklist/production-information/";
+      "api/auditor/retreaderChecklist/production-information";
   final String auditorRetreaderForm5APIRoute =
-      "api/auditor/retreaderChecklist/waste-water-generation-and-disposal/";
+      "api/auditor/retreaderChecklist/waste-water-generation-and-disposal";
 
   final String auditorRecyclerForm1RequestAPIRoute =
-      "api/auditor/recyclerChecklist/store-general-information/";
+      "api/auditor/recyclerChecklist/store-general-information";
   final String auditorRecyclerForm4RequestAPIRoute =
-      "api/auditor/reyclerChecklist/store-production-information/";
+     "api/auditor/retreaderChecklist/store-production-information";
   final String auditorRecyclerForm5RequestAPIRoute =
-      "api/auditor/reyclerChecklist/store-waste-water-generation-and-disposal/";
+      "api/auditor/reyclerChecklist/store-waste-water-generation-and-disposal";
   final String auditorRetreaderForm1RequestAPIRoute =
-      "api/auditor/retreaderChecklist/store-general-information/";
+      "api/auditor/retreaderChecklist/store-general-information";
   final String auditorRetreaderForm4RequestAPIRoute =
-      "api/auditor/retreaderChecklist/store-production-information/";
+      "api/auditor/retreaderChecklist/store-production-information";
   final String auditorRetreaderForm5RequestAPIRoute =
-      "api/auditor/retreaderChecklist/store-waste-water-generation-and-disposal/";
+      "api/auditor/retreaderChecklist/store-waste-water-generation-and-disposal";
 
   final String recyclerFileUploadAPIRoute =
       "api/auditor/recyclerChecklist/file-upload/mobile";
   final String retreaderFileUploadAPIRoute =
       "api/auditor/retreaderChecklist/file-upload/mobile";
-  final String auditorUploadFileViewer = "api/view-file/";
+  final String auditorUploadFileViewer = "api/view-file";
   final String auditorRecyclerForm1PostAPIRoute =
-      "api/auditor/recyclerChecklist/store-general-information/";
+      "api/auditor/recyclerChecklist/store-general-information";
   final String auditorRecyclerForm2PostAPIRoute =
       "api/auditor/checklist/recycler/processing-capacity-store";
+  final String auditorRetreaderForm2PostAPIRoute =
+      "api/auditor/checklist/retreader/processing-capacity-store";
   final String auditorRecyclerForm3PostAPIRoute =
       "api/auditor/recyclerChecklist/store-procurement-information";
-
-  final String auditorPerformAcknowledge ="api/auditor/perform-acknowledge";
-  final String auditorStartAcknowlege ="api/auditor/perform-start";
+  final String auditorRetreaderForm3PostAPIRoute =
+      "api/auditor/retreaderChecklist/store-procurement-information";
+  final String auditorPerformAcknowledge = "api/auditor/perform-acknowledge";
+  final String auditorStartAcknowlege = "api/auditor/perform-start";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";

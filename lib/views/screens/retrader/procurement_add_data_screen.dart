@@ -15,6 +15,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localization/localization.dart';
 
 class ProcurementAddDataScreen extends StatelessWidget {
   final ImageConstants imageConstants = ImageConstants();
@@ -141,7 +142,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           isReadOnly: true,
           disabledBgColor: appColor.transparent,
-          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial,
+          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial.i18n(),
           isMandatory: true,
           onTap: () async {
             viewModel.date = await HelperFunctions()

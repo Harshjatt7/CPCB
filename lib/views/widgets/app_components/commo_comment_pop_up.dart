@@ -42,7 +42,7 @@ class CommonCommentPopUp extends StatelessWidget {
             children: [
               CommonTextWidget(
                 labelText ?? '',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               const SizedBox(
                 height: 20,

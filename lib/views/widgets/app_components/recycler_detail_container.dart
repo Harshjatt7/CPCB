@@ -20,11 +20,12 @@ class RecyclerDetailsContainer extends StatelessWidget {
       this.typeOfRaw,
       this.date,
       this.year,
-      this.isRetraderContainer = false});
+      this.isRetraderContainer = false,
+      this.tyreSource});
   final String name;
   final String? contactDetails;
   final String? address;
-
+  final String? tyreSource;
   final String? gstNumber;
   final String? typeOfRaw;
   final String? qtyProcessed;
@@ -63,6 +64,8 @@ class RecyclerDetailsContainer extends StatelessWidget {
               "${stringConstants.qtyWasteLabel.i18n()} ${wasteQty ?? ''}"),
           retraderDetailsCard(context,
               "${stringConstants.typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
+          retraderDetailsCard(context,
+              "${stringConstants.tyreSourceLabel.i18n()}: ${tyreSource ?? ''}"),
           Divider(
             color: appColor.black10,
           ),

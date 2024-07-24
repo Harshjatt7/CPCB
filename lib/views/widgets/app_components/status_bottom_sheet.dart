@@ -11,7 +11,9 @@ class StatusBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuditorBottomSheet(
-      status: auditPlanDetail?.routeData?.name,
+      status: auditPlanDetail?.status == "completed"
+          ? "View Report"
+          : auditPlanDetail?.routeData?.name,
       progress: auditPlanDetail?.statusPercentage?.toDouble(),
       unitName: auditPlanDetail?.unitName,
       unitRegisteration: auditPlanDetail?.regNum,

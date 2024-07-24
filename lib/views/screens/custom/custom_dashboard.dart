@@ -26,7 +26,7 @@ class CustomDashboardScreen extends StatelessWidget {
           isLoading: viewModel.state == ViewState.busy,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(
-                (viewModel.isSearchExpanded == true) ? 175 : 155),
+                (viewModel.isSearchExpanded == true) ? 180 : 155),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -58,13 +58,14 @@ class _ProducerForm2State extends State<ProducerForm2> {
                   right: 10,
                   child: StepperButton(
                     isLastStep: false,
-                    isSummaryScreen: false,
+                    isSummaryScreen: widget.isSummaryScreen,
                     onNextOrSubmit: () async {
-                      viewModel.counter = 0;
-                      await viewModel.postForm2Data(context, id: widget.id);
+                      widget.isSummaryScreen == true
+                          ? viewModel.onNextButton(context)
+                          : await viewModel.postForm2Data(context,
+                              id: widget.id);
                     },
                     onSavedDraft: () async {
-                      viewModel.counter = 0;
                       await viewModel.postForm2Data(context,
                           id: widget.id, saveAsDraft: "SaveAsDraft");
                     },
@@ -124,7 +125,7 @@ class _ProducerForm2State extends State<ProducerForm2> {
   }
 
   Padding fillFormView(ProducerFormsViewModel viewModel, BuildContext context) {
-    viewModel.counter=0;
+    viewModel.counter = 0;
     viewModel.updateUI();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),

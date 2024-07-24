@@ -101,7 +101,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     APIResponse<AddDataResponseModel?>? response;
     try {
       if (formKey.currentState?.validate() ?? false) {
-        helperFunctions.logger("message >>>> ${request.toJson()}");
         response = await _retreaderRepo.postProcurementData(request);
         if (response?.isSuccess == true) {
           response?.data =

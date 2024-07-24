@@ -2,7 +2,6 @@ import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
@@ -17,14 +16,16 @@ import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
 class AuditorRecyclerForm4 extends StatefulWidget {
+  final bool? isSummaryScreen;
+  final bool isRetreader;
+  final String? id;
+  final String? userType;
   const AuditorRecyclerForm4(
       {super.key,
       this.isSummaryScreen = false,
       this.id,
-      this.isRetreader = false});
-  final bool? isSummaryScreen;
-  final String? id;
-  final bool isRetreader;
+      this.isRetreader = false,
+      this.userType});
 
   @override
   State<AuditorRecyclerForm4> createState() => _AuditorRecyclerForm4State();
@@ -38,6 +39,8 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.getRecycler4Data(context,
+        isRetreader: widget.isRetreader, userId: widget.id ?? "");
     super.initState();
   }
 
@@ -69,21 +72,18 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
                 right: 10,
                 child: StepperButton(
                   isLastStep: false,
-                  isSummaryScreen: false,
+                  isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                    await viewModel.postForm4Data(context,
-                        submit: '',
-                        isRetreader: widget.isRetreader,
-                        userId: widget.id ?? '');
-                    if (context.mounted) {
-                      Provider.of<CommonStepperViewModel>(context,
-                              listen: false)
-                          .onNextButton(context, "Recycler");
-                    }
+                    widget.isSummaryScreen == true
+                        ? viewModel.onNextButton(context)
+                        : await viewModel.postForm4Data(context,
+                            submit: '',
+                            isRetreader: widget.userType == "Retreader",
+                            userId: widget.id ?? '');
                   },
                   onSavedDraft: () async {
                     await viewModel.postForm4Data(context,
-                        isRetreader: widget.isRetreader,
+                        isRetreader: widget.userType == "Retreader",
                         userId: widget.id ?? '');
                   },
                 ))

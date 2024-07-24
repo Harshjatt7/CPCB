@@ -17,6 +17,7 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
     this.typeOfRaw,
     this.date,
     this.year,
+    this.tyreSource
   });
   final String name;
   final String? invoiceNumber;
@@ -24,6 +25,7 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
   final String? quantityReceived;
   final String? date;
   final String? year;
+  final String? tyreSource;
   final ImageConstants imageConstants = ImageConstants();
   final StringConstants stringConstants = StringConstants();
   final AppColor appColor = AppColor();
@@ -53,6 +55,8 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
               "${stringConstants.typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
           retraderDetailsCard(context,
               "${stringConstants.quantityReceived.i18n()} ${quantityReceived ?? ''}"),
+          retraderDetailsCard(context,
+              "${stringConstants.tyreSourceLabel.i18n()}: ${tyreSource ?? ''}"),
           Divider(
             color: appColor.black10,
           ),

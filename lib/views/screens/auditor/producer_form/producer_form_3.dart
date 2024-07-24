@@ -51,10 +51,13 @@ class _ProducerForm3State extends State<ProducerForm3> {
                   left: 10,
                   right: 10,
                   child: StepperButton(
-                    isLastStep: false,
-                    isSummaryScreen: false,
+                    isLastStep: true,
+                    isSummaryScreen: widget.isSummaryScreen,
                     onNextOrSubmit: () async {
-                      await viewModel.postForm3Data(context, id: widget.id);
+                      widget.isSummaryScreen == true
+                          ? viewModel.onNextButton(context)
+                          : await viewModel.postForm3Data(context,
+                              id: widget.id);
                     },
                     onSavedDraft: () async {
                       await viewModel.postForm3Data(context,

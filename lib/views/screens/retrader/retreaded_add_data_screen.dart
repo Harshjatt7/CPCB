@@ -14,6 +14,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localization/localization.dart';
 
 class RetreadedAddDataScreen extends StatelessWidget {
   final int? page;
@@ -126,7 +127,7 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          hintText: viewModel.stringConstants.retreadedDate,
+          hintText: viewModel.stringConstants.retreadedDate.i18n(),
           isMandatory: true,
           isReadOnly: true,
           validator: (value) {
