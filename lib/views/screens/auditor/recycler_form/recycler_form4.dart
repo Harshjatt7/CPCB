@@ -71,12 +71,15 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
                   isLastStep: false,
                   isSummaryScreen: false,
                   onNextOrSubmit: () async {
-                    Provider.of<CommonStepperViewModel>(context, listen: false)
-                        .onNextButton(context, "Recycler");
                     await viewModel.postForm4Data(context,
                         submit: '',
                         isRetreader: widget.isRetreader,
                         userId: widget.id ?? '');
+                    if (context.mounted) {
+                      Provider.of<CommonStepperViewModel>(context,
+                              listen: false)
+                          .onNextButton(context, "Recycler");
+                    }
                   },
                   onSavedDraft: () async {
                     await viewModel.postForm4Data(context,

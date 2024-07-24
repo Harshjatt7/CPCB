@@ -77,17 +77,19 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 child: StepperButton(
                   isLastStep: false,
                   isSummaryScreen: false,
-                  onNextOrSubmit: () {
-                    viewModel.postForm1Data(context,
+                  onNextOrSubmit: () async {
+                    await viewModel.postForm1Data(context,
                         isRetreader: widget.isRetreader,
                         submit: '',
                         userId: widget.id ?? '');
-                    Provider.of<CommonStepperViewModel>(context, listen: false)
-                        .onNextButton(context, "Recycler");
-                    viewModel.getRecycler2Data(context);
+                    if (context.mounted) {
+                      Provider.of<CommonStepperViewModel>(context,
+                              listen: false)
+                          .onNextButton(context, "Recycler");
+                    }
                   },
-                  onSavedDraft: () {
-                    viewModel.postForm1Data(context,
+                  onSavedDraft: () async {
+                    await viewModel.postForm1Data(context,
                         isRetreader: widget.isRetreader,
                         userId: widget.id ?? '');
                   },
