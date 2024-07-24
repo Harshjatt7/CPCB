@@ -15,6 +15,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localization/localization.dart';
 
 class ProcurementAddDataScreen extends StatelessWidget {
   final ImageConstants imageConstants = ImageConstants();
@@ -51,7 +52,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         if (viewModel.supplierNameError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.supplierNameError ?? ''),
-                        contactDetailsField(viewModel),
+                      
                         supplierContactDetailsField(viewModel),
                         if (viewModel.supplierContactError?.isNotEmpty ?? false)
                           showErrorMessage(
@@ -141,7 +142,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           isReadOnly: true,
           disabledBgColor: appColor.transparent,
-          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial,
+          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial.i18n(),
           isMandatory: true,
           onTap: () async {
             viewModel.date = await HelperFunctions()
@@ -274,21 +275,6 @@ class ProcurementAddDataScreen extends StatelessWidget {
     );
   }
 
-  Padding contactDetailsField(ProcurementAddDataViewModel viewModel) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: CommonTextFormFieldWidget(
-          inputFormatters: [LengthLimitingTextInputFormatter(10)],
-          hintText: viewModel.stringConstants.contactDetails,
-          textInputType: TextInputType.number,
-          isMandatory: true,
-          validator: (value) {
-            return viewModel.contactDetailsValidation();
-          },
-          controller: viewModel.contactDetailsController),
-    );
-  }
-
   Padding supplierNameField(ProcurementAddDataViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -306,6 +292,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonDropdownTextFormField(
+        isMandatory: true,
         error: viewModel.yearDropdownError,
         onTap: () {
           viewModel.changeDropdownValue(viewModel.changeDropdown);

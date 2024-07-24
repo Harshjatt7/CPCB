@@ -21,12 +21,14 @@ class SpcbRepository {
     return response;
   }
 
-  Future getSpcbUserData({userType, String? page = "1", searchValue}) async {
+  Future getSpcbUserData({String? userType, String? page = "1", searchValue}) async {
     APIResponse<SpcbUsersResponseModel?>? response = await _apiBase.getRequest(
         searchValue == null
-            ? "${_apiRoutes.spcbGetAllUsersAPIRoute}${userType.toLowerCase()}?page=$page"
-            : "${_apiRoutes.spcbGetAllUsersAPIRoute}${userType.toLowerCase()}?page=$page&companyName=$searchValue",
+            ? "${_apiRoutes.spcbGetAllUsersAPIRoute}${userType ?? "producer"}?page=$page"
+            : "${_apiRoutes.spcbGetAllUsersAPIRoute}${userType ?? "producer"}?page=$page&companyName=$searchValue",
         isAuthorizationRequired: true);
     return response;
   }
 }
+
+

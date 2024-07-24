@@ -475,7 +475,6 @@ class HelperFunctions {
       if (dateTime != null) {
         formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
       }
-      // "${dt.day.toString().padLeft(2, '0')}/${dt.month.toString().padLeft(2, '0')}/${dt.year}";
 
       return formattedDate;
     } catch (err) {
@@ -487,6 +486,7 @@ class HelperFunctions {
   Future<DateTime?> datePicker(
       BuildContext context, DateTime firstDate, DateTime lastDate) {
     return showDatePicker(
+        locale: const Locale("en", "GB"),
         builder: (context, child) {
           return Theme(
               data: Theme.of(context).copyWith(
@@ -505,7 +505,6 @@ class HelperFunctions {
                                 fontWeight: FontWeight.bold,
                                 color: appColor
                                     .white), // color of button's letters
-
                         shape: RoundedRectangleBorder(
                             side: BorderSide(
                                 color: appColor.transparent,

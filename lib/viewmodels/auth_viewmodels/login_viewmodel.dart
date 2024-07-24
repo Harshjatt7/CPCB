@@ -96,7 +96,8 @@ class LoginViewModel extends BaseViewModel {
                   context, AppRoutes.adminHomeScreenRoute);
               break;
             case UserTypes.auditor:
-              Navigator.pushReplacementNamed(context, '');
+              Navigator.pushReplacementNamed(
+                  context, AppRoutes.auditorHomeScreen);
               break;
             case UserTypes.spcb:
               Navigator.pushReplacementNamed(

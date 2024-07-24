@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_appbar.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
+import '../../../constants/message_constant.dart';
 import '../../../theme/app_color.dart';
 import '../../../viewmodels/custom/custom_dashboard_view_model.dart';
 import '../../widgets/app_components/common_custom_listing_card.dart';
@@ -25,7 +26,7 @@ class CustomDashboardScreen extends StatelessWidget {
           isLoading: viewModel.state == ViewState.busy,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(
-                (viewModel.isSearchExpanded == true) ? 175 : 155),
+                (viewModel.isSearchExpanded == true) ? 180 : 155),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +55,7 @@ class CustomDashboardScreen extends StatelessWidget {
                         }
                       },
                       title: viewModel.stringConstants.dashboard,
-                      onSuffixTap: () {
+                      onSuffixTap: () async {
                         if (viewModel.searchController.text.isEmpty) {
                           viewModel.isSearchExpanded =
                               !viewModel.isSearchExpanded;
@@ -102,26 +103,32 @@ class CustomDashboardScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: List<Widget>.generate(
-                        viewModel.customData?.length ?? 0, (index) {
-                      final applicationData = viewModel.customData?[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CommonCustomListingCard(
-                          companyName: applicationData?.name,
-                          email: applicationData?.email,
-                          contactNumber: applicationData?.mobileNumber,
-                          state: applicationData?.stateName,
-                          onMenuTap: () {
-                            viewModel.downloadCertificate(
-                                context, applicationData?.id ?? '');
-                          },
+                  child: (viewModel.customData?.isEmpty ?? false) &&
+                          viewModel.state == ViewState.idle
+                      ? Center(
+                          child: CommonTextWidget(
+                              MessageConstant().noMatchingResultsFound))
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List<Widget>.generate(
+                              viewModel.customData?.length ?? 0, (index) {
+                            final applicationData =
+                                viewModel.customData?[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: CommonCustomListingCard(
+                                companyName: applicationData?.name,
+                                email: applicationData?.email,
+                                contactNumber: applicationData?.mobileNumber,
+                                state: applicationData?.stateName,
+                                onMenuTap: () {
+                                  viewModel.downloadCertificate(
+                                      context, applicationData?.id ?? '');
+                                },
+                              ),
+                            );
+                          }),
                         ),
-                      );
-                    }),
-                  ),
                 ),
                 if (viewModel.state == ViewState.parallelBusy)
                   const Positioned(

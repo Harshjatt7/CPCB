@@ -30,7 +30,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   TextEditingController nameOfWasteTyreSupplierController =
       TextEditingController();
-  TextEditingController contactDetailsController = TextEditingController();
   TextEditingController supplierContactDetailsController =
       TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -102,7 +101,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
     APIResponse<AddDataResponseModel?>? response;
     try {
       if (formKey.currentState?.validate() ?? false) {
-        helperFunctions.logger("message >>>> ${request.toJson()}");
         response = await _retreaderRepo.postProcurementData(request);
         if (response?.isSuccess == true) {
           response?.data =
@@ -161,10 +159,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
       helperFunctions.logger('$e');
     }
     state = ViewState.idle;
-  }
-
-  String? contactDetailsValidation() {
-    return Validations().validatePhone(contactDetailsController.text);
   }
 
   String? supplierContactDetailsValidation() {
@@ -298,7 +292,6 @@ class ProcurementAddDataViewModel extends BaseViewModel {
             uploadInvoice: uploadInvoiceDoc,
             financialYear: changeDropdown,
             sellerName: nameOfWasteTyreSupplierController.text,
-            contactDetails: contactDetailsController.text,
             supplierAddress: addressController.text,
             typeOfRawMaterial: typeOfRawMaterialController.text,
             purchaseQuantity: quantityReceivedController.text,

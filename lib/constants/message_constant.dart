@@ -29,4 +29,12 @@ class MessageConstant {
   final String quantityProducedMoreValidation =
       "quantity-produced-more-validation";
   final String mandatoryTyreSource = "mandatory-tyre-source";
+  final String onlyNumericAllow = "only-numeric-allow";
+  final String financialYearValidationMessage =
+      "financial-year-validation-message";
+  final String retreadedDateValidationMessage =
+      "It is mandatory to add retreaded date";
+  final String rootedDeviceDesc =
+      "This application is not supported for rooted device. Please try installing on a non rooted device.";
+  final String rootedDeviceDetected = "rooted-device-detected";
 }

@@ -27,6 +27,7 @@ class StringConstants {
   final String typeOfProducerLabel = "type-of-producer-label";
   final String typeOfTyreLabel = "type-of-tyre-label";
   final String financialYearLabel = "financial-year-label";
+  final String year="year";
   final String chooseMonthLabel = "choose-month-label";
   final String motorcycleLabel = "motorcycle-label";
   final String passengerCarLabel = "passenger-car-label";
@@ -53,6 +54,8 @@ class StringConstants {
   final String quantityOfWasteGenerated = "quantity-of-waste-generated";
   final String retreadedDate = "retreaded-date";
   final String date = "date";
+  final String radioValue1 = "0";
+  final String radioValue2 = "1";
   final String addRetreadedData = "add-retreaded-data";
   final String nameOfWasteTyreSupplier = "name-of-waste-tyre-supplier";
   final String contactDetails = "contact-details";
@@ -72,6 +75,9 @@ class StringConstants {
   final String writeComment = "write-comment";
   final String spcbDashboard = "spcb-dashboard";
 
+  final String auditFormRecycler = "audit-form-recycler";
+  final String savedAsDraft = "save-as-draft";
+  final String next = "next";
 
   // Dashboard
   final String applicationNumber = "application-number";
@@ -166,6 +172,8 @@ class StringConstants {
 
   final String stateAuthorized = "state-authorized";
 
+  final String totalAudits = "total-audits";
+
   //User Types
   static const String admin = "Admin";
   static const String auditor = "Auditor";
@@ -198,4 +206,109 @@ class StringConstants {
   final String close = "close";
   final String options = "Options";
   final String downloadTransactionLabel = "download-transaction-label";
+  final String viewDetail = "view-detail";
+  final String unitName = "unit-name";
+  final String unitGstin = "unit-gstin";
+  final String unitRegisteration = "unit-registeration";
+  final String auditorUnitType = "auditor-unit-type";
+  final String unitAddress = "unit-address";
+  final String district = "district";
+  final String createdOn = "created-on";
+  final String auditorStartDate = "auditor-start-date";
+  final String auditorEndDate = "auditor-end-date";
+  final String quarterFinalYear = "quarter-final-year";
+  final String auditList = "audit-list";
+  //auditor forms
+  final String companyDetails = "company-details";
+  final String companyNameAddress = "name-address";
+  final String categoryOfProducer = "category-of-producer";
+  final String gst = "gst";
+  final String panOfCompany = "pan-of-company";
+  final String cin = "cin";
+  final String iec = "iec";
+  final String verificationA = "verification-a";
+  final String verificationB = "verification-b";
+  final String misreporting = "misreporting";
+  final String deviation = "deviation";
+  final String information = "information";
+  final String remarks = "remarks";
+  final String summary = "summary";
+  final String confirmed = "confirmed";
+  final String falseInformation = "false-information";
+  final String companyPanNo = "company-pan-no";
+  final String companyIec = "company-iec";
+  final String recyclerCto = "recycler-cto";
+  final String authorizationUnder = "authorization-under";
+  final String recyclingFacilityDetails = "recycling-facility-details";
+  final String gpsRecycler = "gps-recycler";
+  final String gpsLatitude = "gps-latitude";
+  final String gpsLongitude = "gps-longitude";
+  final String gpsAuditor = "gps-auditor";
+  final String notConfirmed = "not-confirmed";
+  final String remark = "remark";
+  final String authorizedPerson = "authorized-person";
+  final String authorizedAadharCard = "authorized-aadhar-card";
+  final String upload = "upload";
+  final String uploadFile = "upload-file";
+  final String authorizedPanNo = "authorized-pan-no";
+  final String plantMachineryTitle = "plant-machinery-title";
+  final String plantMachinery = "plant-machinery";
+  final String anyOtherPlant = "any-other-plant";
+  final String powerConsumption = "power-consumption";
+  final String electricityBill = "electricity-bill";
+  final String airPollution = "air-pollution";
+  final String detailsOfPollution = "details-of-pollution";
+  final String videoOfPlant = "video-of-plant";
+  final String uploadVideo = "upload-video";
+
+  final String balance = "balance";
+  final String invoiceNo = "invoice-no";
+  final String quantity = "quantity";
+  final String procurementList = "procurement-list";
+  final String detailsOnEndProducts = "details-on-end-products";
+  final String salesInvoice = "sales-invoice";
+  final String geotaggedPhotographs = "(C). Geotagged photographs of the Unit";
+  final String plantCapacityAssessment = "plant-capacity-assessment";
+  final String typeOfEndProduct = "type-of-end-product";
+  final String select = "select";
+  final String plantProductionCapacity = "plant-production-capacity";
+  final String enter = "enter";
+  final String endProductProduced = "end-product-produced";
+  final String daysPlantOperational = "days-plant-operational";
+  final String hoursPlantOperational = "hour-plant-operational";
+  final String shiftPlantOperational = "shift-plant-operational";
+  final String actualProcessingCapacity = "actual-processing-capacity";
+  final String areValueComparable = "are-value-comparable";
+  final String differenceInActualProccessing =
+      "difference-in-actual-processing";
+  final String totalQuantitySales = "total-quantity-sales";
+  final String uploadSales = "uploaded-sales";
+  final String electricityVerification = "electricity-verification";
+  final String powerConsumptionDuringAudit = "power-consumption-during-audit";
+  final String actualAverageAnnual = "actual-average-annual";
+  final String totalElectricityConsumed = "total-electricity-consumed";
+  final String areValuedCandD = "are-value-c-and-d";
+
+  final String verificationOfProcurement = "verification-of-procurement";
+  final String noOfSuppliersContacted = "no-of-suppliers-contact";
+  final String noOfSuppliersDetailsVerified =
+      "no-of-suppliers-details-verified";
+  final String noOfSupplierSDetailsNotVerified =
+      "no-of-suppliers-details-not-verified";
+  final String physicallyVisit = "physically-visit";
+  final String viewEntries = "view-entries";
+
+  final String verifyTheProduction = "verify-the-production";
+  final String noOfInvoices = "no-of-invoices";
+  final String noOfBuyers = "no-of-buyers";
+
+  final String whetherEtpInstalled = "whether-etp-installed";
+  final String etpCapacity = "etp-capacity";
+  final String summaryOfAuditTitle = "summary-of-audit-title";
+  final String summaryOfAudit = "summary-of-audit";
+  final String textHere = "text-here";
+  final String auditsStart = "audits-start";
+  final String pendingAudits = "pending-audits";
+  final String completedAudits = "completed-audits";
+  final String agency = "Agency";
 }

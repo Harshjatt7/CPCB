@@ -189,7 +189,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           : rawMaterialDropdownValue,
       sellerAddress: addressController.text,
       sellerGstNo: gstController.text,
-      sourceTyres: tyreSourceDropdownValue,
+      sourceTyres: tyreSourceDropdownValue?.toLowerCase(),
       invoiceNumber: invoiceNumberController.text,
       sellerMobile: sellerMobileController.text,
       sellerName: sellerNameController.text,
@@ -349,8 +349,12 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   }
 
   String? quantityReceivedValidation() {
-    return Validations()
-        .numbericWithDotValidation(quantityReceivedController.text);
+    if (quantityReceivedController.text.contains("0")) {
+      return "Quantity Should be greater than 0";
+    } else {
+      return Validations()
+          .numbericWithDotValidation(quantityReceivedController.text);
+    }
   }
 
   String? valueValidation(TextEditingController controller) {

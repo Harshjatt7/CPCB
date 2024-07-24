@@ -96,7 +96,8 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),
-                          child: (viewModel.data?.length ?? 0) == 0
+                          child: (viewModel.data?.isEmpty ??
+                                  true && viewModel.state == ViewState.idle)
                               ? Center(
                                   child: CommonTextWidget(
                                       MessageConstant().noMatchingResultsFound))
@@ -118,6 +119,8 @@ class RecyclerProcurementDataScreen extends StatelessWidget {
                                             viewModel.data?[index].rawMaterial,
                                         date:
                                             '${viewModel.data?[index].purchasedDate}',
+                                        quantityReceived: viewModel
+                                            .data?[index].quantityReceived,
                                         year:
                                             '${viewModel.data?[index].financeYear}',
                                       ),

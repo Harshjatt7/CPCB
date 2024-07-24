@@ -1,4 +1,12 @@
+import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
+import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form3_reponse_model.dart';
+import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form4_response_model.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
+import 'package:cpcb_tyre/views/screens/admin/admin_summary_screen.dart';
+import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_stepper_form.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_detail_view_entries_screen.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/recycler_procurement_list.dart';
+import 'package:cpcb_tyre/views/screens/auditor/recycler_form/reycler_stepper_form.dart';
 import 'package:cpcb_tyre/views/screens/auth/login_screen.dart';
 import 'package:cpcb_tyre/views/screens/custom/custom_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/onboarding/splash_screen.dart';
@@ -12,6 +20,7 @@ import 'package:cpcb_tyre/views/screens/spcb/spcb_home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
 import '../views/screens/admin/admin_homescreen.dart';
+import '../views/screens/auditor/auditor_home_screen.dart';
 import '../views/screens/producer/producer_home_screen.dart';
 import '../views/screens/producer/sales_data_screen.dart';
 
@@ -51,10 +60,36 @@ class PageRouter {
               userType: userType,
             ),
             settings);
+      case AppRoutes.adminSummaryScreenRoute:
+        return _getPageRoute(const AdminSummaryScreen(), settings);
       case AppRoutes.spcbHomeScreenRoute:
         return _getPageRoute(SpcbHomeScreen(), settings);
       case AppRoutes.customHomeScreenRoute:
         return _getPageRoute(const CustomHomeScreen(), settings);
+      case AppRoutes.auditorHomeScreen:
+        return _getPageRoute(AuditorHomeScreen(), settings);
+      case AppRoutes.auditorRecyclerProcurementScreen:
+        List<ProcurementDatum>? procurementData =
+            settings.arguments as List<ProcurementDatum>?;
+        return _getPageRoute(
+            RecyclerProcurementList(
+              procurementData: procurementData,
+            ),
+            settings);
+      case AppRoutes.auditorRecyclerDetailScreen:
+        List<EprDatum>? eprData = settings.arguments as List<EprDatum>?;
+        return _getPageRoute(
+            RecyclerDetailScreen(
+              eprData: eprData,
+            ),
+            settings);
+      case AppRoutes.auditorProducerStepperScreen:
+      CheckUserAndSummaryScreen userDetails = settings.arguments as CheckUserAndSummaryScreen;
+        return _getPageRoute(ProducerStepper(userDetails: userDetails), settings);
+      case AppRoutes.auditorRecyclerStepperScreen:
+      CheckUserAndSummaryScreen userDetails = settings.arguments as CheckUserAndSummaryScreen;
+        return _getPageRoute(RecyclerStepper(userDetails: userDetails), settings);
+
       // Will be displayed if no specified route is found.
       default:
         return MaterialPageRoute(

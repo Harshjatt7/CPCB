@@ -10,7 +10,7 @@ import '../flavors/main_common.dart';
 import '../models/response/base_response_model.dart';
 
 class MaterialAppViewModel extends BaseViewModel {
-  final HelperFunctions helperFunctions=HelperFunctions();
+  final HelperFunctions helperFunctions = HelperFunctions();
   int count = 1;
 
   void changeLanguage(BuildContext context) async {

@@ -10,8 +10,8 @@ import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/response/admin/admin_application_response_model.dart';
+import '../../models/response/admin/summary_response_model.dart';
 
 class AdminDashBoardViewmodel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
@@ -36,18 +36,49 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   EprOblicationsData? producerEprOblicationsData;
   CommonEprOblicationData? retreaderEprOblicationData;
   CommonEprOblicationData? recyclerEprOblicationData;
-
   int page = 1;
   List financialYearList = <String>[];
   List<ApplicationResponsedData>? data;
   String? yearDropdownValue;
   String? yearDropdownError;
-  String? changeDropdown;
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
   APIResponse<AdminApplicationResponseModel?>? _adminApplicationResponseModel;
   APIResponse<AdminApplicationResponseModel?>?
       get adminApplicationResponseModel => _adminApplicationResponseModel;
+  APIResponse<AdminSummaryResponseData?>? _adminSummaryResponseModel;
+  APIResponse<AdminSummaryResponseData?>? get adminSummaryResponseModel =>
+      _adminSummaryResponseModel;
+  SummaryDataResponse? summaryData;
+  bool isDashboard = true;
+  String? dashboardDropdownValue;
+  String? summaryDropdownValue;
+
+  Future<APIResponse<AdminSummaryResponseData?>?> getSummary(
+      BuildContext context) async {
+    state = ViewState.busy;
+    yearDropdownValue = summaryDropdownValue ?? financialYearList.last;
+    try {
+      _adminSummaryResponseModel = await _adminRepo
+          .getSummaryData(summaryDropdownValue ?? financialYearList.last);
+      if (_adminSummaryResponseModel?.isSuccess == true) {
+        _adminSummaryResponseModel?.data = AdminSummaryResponseData.fromJson(
+            _adminSummaryResponseModel?.completeResponse);
+        summaryData = _adminSummaryResponseModel?.data?.data;
+      } else {
+        if (context.mounted) {
+          helperFunctions.commonErrorSnackBar(
+              context, MessageConstant().somethingWentWrong);
+        }
+      }
+    } catch (err) {
+      helperFunctions.logger("$err");
+    }
+
+    state = ViewState.idle;
+
+    return _adminSummaryResponseModel;
+  }
 
   void addYear() {
     int year = 2022;
@@ -59,21 +90,25 @@ class AdminDashBoardViewmodel extends BaseViewModel {
   }
 
   void changeDropdownValue(newValue) {
-    changeDropdown = newValue??financialYearList.last;
-    if (changeDropdown != null) {
-      String startYear = changeDropdown!.split('-').first;
-      String lastYear = changeDropdown!.split('-').last;
+    if (isDashboard == true) {
+      dashboardDropdownValue = newValue ?? financialYearList.last;
+      summaryDropdownValue = newValue ?? financialYearList.last;
+    } else {
+      summaryDropdownValue = newValue ?? financialYearList.last;
+    }
+    if (summaryDropdownValue != null || dashboardDropdownValue != null) {
+      String startYear = summaryDropdownValue!.split('-').first;
+      String lastYear = summaryDropdownValue!.split('-').last;
       int stYear = int.parse(startYear);
       int edYear = int.parse(lastYear);
       startDate = DateTime(stYear, 4, 1);
       endDate = startYear == DateTime.now().year.toString()
           ? DateTime.now()
           : DateTime(edYear, 3, 31);
-
       updateUI();
     }
     updateUI();
-    if (changeDropdown == null) {
+    if (summaryDropdownValue == null || dashboardDropdownValue == null) {
       yearDropdownError = MessageConstant().pleaseSelectDropdownValue;
     }
   }
@@ -113,15 +148,13 @@ class AdminDashBoardViewmodel extends BaseViewModel {
     }
 
     state = ViewState.idle;
-
     return _eprApplicationResponseModel;
   }
 
   Future<APIResponse<ProducerEprOblicationsResponseModel?>?> getEprOblications(
       BuildContext context) async {
     state = ViewState.busy;
-    yearDropdownValue = changeDropdown??financialYearList.last;
-    HelperFunctions().logger('>>>>>>$changeDropdown ?? ""');
+    yearDropdownValue = dashboardDropdownValue ?? financialYearList.last;
     try {
       _eprOblicationResponseModel =
           await _adminRepo.getEprOblications(yearDropdownValue.toString());

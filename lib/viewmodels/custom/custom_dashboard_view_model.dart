@@ -14,7 +14,7 @@ import 'package:cpcb_tyre/views/widgets/components/filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/helper/debouncing_helper.dart';
-import '../../views/widgets/components/common_expansion_tile.dart';
+import '../../views/widgets/app_components/common_expansion_tile.dart';
 import '../../views/widgets/components/download_certificate_bottom_sheet.dart';
 
 class CustomDashboardViewModel extends BaseViewModel {
@@ -61,6 +61,7 @@ class CustomDashboardViewModel extends BaseViewModel {
             email: e.email,
             mobileNumber: e.mobileNumber,
             stateName: e.stateName,
+            name: e.name
           ));
         });
       }
@@ -174,7 +175,7 @@ class CustomDashboardViewModel extends BaseViewModel {
     });
   }
 
-  void getUpdatedList() async {
+  void getUpdatedList() {
     state = ViewState.busy;
     if (searchController.text.isEmpty || isSearchExpanded == false) {
       customData =
@@ -266,6 +267,7 @@ class CustomDashboardViewModel extends BaseViewModel {
             return FilterBottomSheet(
               filterTiles: [
                 CommonExpansionTile(
+                  tempSelectedList: [],
                     title: StringConstants().state,
                     listCallBack: (value) {
                       newStateList = value;
@@ -277,6 +279,7 @@ class CustomDashboardViewModel extends BaseViewModel {
                     selectedList: selectedStateList,
                     type: FilterTypes.state),
                 CommonExpansionTile(
+                  tempSelectedList: [],
                     title: StringConstants().unitType,
                     isChecked: isUnitChecked,
                     isShowHide: isUnitShowHide,
@@ -284,6 +287,7 @@ class CustomDashboardViewModel extends BaseViewModel {
                     selectedList: selectedUnitList,
                     type: FilterTypes.unitType),
                 CommonExpansionTile(
+                  tempSelectedList: [],
                     listCallBack: (value) {
                       selectedCurrentList = value;
                       log("selectedCurrentList is $selectedCurrentList");
@@ -295,9 +299,6 @@ class CustomDashboardViewModel extends BaseViewModel {
                     selectedList: selectedCurrentList,
                     type: FilterTypes.currentStatus),
               ],
-              stateList: stateList,
-              currentList: currentList,
-              unitList: unitList,
               onTitleUpdated: () {
                 setState(() {});
               },

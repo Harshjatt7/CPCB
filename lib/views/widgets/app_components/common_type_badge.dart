@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 
 class CommonTypeBadge extends StatelessWidget {
   const CommonTypeBadge(
-      {super.key, required this.text, this.backgroundColor, this.textColor,this.isAdmin});
+      {super.key,
+      required this.text,
+      this.backgroundColor,
+      this.textColor,
+      this.isAdmin,
+      this.textStyle});
   final String text;
   final Color? backgroundColor;
   final Color? textColor;
   final bool? isAdmin;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +27,15 @@ class CommonTypeBadge extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
         child: CommonTextWidget(
           text,
-          style: isAdmin==true?Theme.of(context)
-              .textTheme
-              .labelMedium
-              ?.copyWith(color: textColor ?? appColor.green): Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: textColor ?? appColor.green),
+          style: textStyle ?? (isAdmin == true
+              ? Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(color: textColor ?? appColor.green)
+              : Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: textColor ?? appColor.green)),
         ),
       ),
     );

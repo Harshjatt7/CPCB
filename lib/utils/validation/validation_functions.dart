@@ -1,7 +1,7 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
 
 class Validations {
-  final MessageConstant messageConstant=MessageConstant();
+  final MessageConstant messageConstant = MessageConstant();
   final RegExp passRegex =
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
 
@@ -81,6 +81,14 @@ class Validations {
       return null;
     }
   }
+  // String? validatePhone(String value) {
+  //   RegExp regex = RegExp(r'^(0[6-9]\d{9}|91[6-9]\d{9}|[6-9]\d{9})$');
+  //   if (!regex.hasMatch(value)) {
+  //     return 'Please enter a valid phone number';
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   String? numbericWithDotValidation(String value) {
     String pattern = r'^\d*\.?\d*$';
@@ -98,9 +106,9 @@ class Validations {
         r'^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9A-Z]{1}$';
     RegExp regExp = RegExp(pattern);
     if (value.toString().isEmpty) {
-      return "Please provide a value";
+      return "Please enter a valid GST number";
     } else if (!regExp.hasMatch(value)) {
-      return "Enter valid GST number";
+      return "Please enter a valid GST number";
     }
     return null;
   }
@@ -110,7 +118,18 @@ class Validations {
     //     r'^(((0[1-9])|([12][0-9])|(3[01]))-((0[0-9])|(1[012]))-((20[012]\d|19\d\d)|(1\d|2[3])))';
     // RegExp regExp = RegExp(pattern);
     if (value.toString().isEmpty) {
-      return "Please provide a Date";
+      return messageConstant.retreadedDateValidationMessage;
+    }
+    return null;
+  }
+
+  String? numberValidation(String value) {
+    String pattern = r'^[0-9]*$';
+    RegExp regExp = RegExp(pattern);
+    if (value.toString().isEmpty) {
+      return messageConstant.pleaseProvideValue;
+    } else if (!regExp.hasMatch(value)) {
+      return messageConstant.onlyNumericAllow;
     }
     return null;
   }

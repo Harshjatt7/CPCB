@@ -40,4 +40,11 @@ class CommonRepository {
         await _apiBase.getRequest(url, isMediaAuthorizationRequired: true);
     return response;
   }
+
+  Future getDownloadCertificate() async {
+    final response = await _apiBase.getRequest(
+        _apiRoutes.recyclerDownloadCertificateAPIRoute,
+        isMediaAuthorizationRequired: true);
+    return response;
+  }
 }

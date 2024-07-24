@@ -4,16 +4,22 @@ AddDataResponseModel addDataResponseModelFromJson(String str) =>
     AddDataResponseModel.fromJson(json.decode(str));
 
 class AddDataResponseModel {
-  String? message;
+    num? status;
+    String? message;
+    bool? draftMode;
 
-  AddDataResponseModel({
-    this.message,
-  });
+    AddDataResponseModel({
+        this.status,
+        this.message,
+        this.draftMode,
+    });
 
-  factory AddDataResponseModel.fromJson(Map<String, dynamic> json) =>
-      AddDataResponseModel(
+    factory AddDataResponseModel.fromJson(Map<String, dynamic> json) => AddDataResponseModel(
+        status: json["status"],
         message: json["message"],
-      );
+        draftMode: json["draft_mode"],
+    );
+
 }
 
 

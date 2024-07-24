@@ -77,13 +77,14 @@ class RecyclerDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
-        (viewModel.recyclerData ?? []).isEmpty
+        (viewModel.recyclerData?.isEmpty ??
+                true && viewModel.state == ViewState.idle)
             ? noResultsFoundView()
             : ListView.builder(
                 controller: viewModel.scrollController,
                 shrinkWrap: true,
                 physics: const PageScrollPhysics(),
-                itemCount: viewModel.recyclerData?.length,
+                itemCount: viewModel.recyclerData?.length ?? 0,
                 itemBuilder: (context, index) {
                   final recyclerDetails = viewModel.recyclerData?[index];
                   return Padding(

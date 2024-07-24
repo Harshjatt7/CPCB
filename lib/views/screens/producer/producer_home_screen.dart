@@ -1,4 +1,6 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/viewmodels/common_viewmodel/dashboard_viewmodel.dart';
+import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/screens/common_screens/dashboard_screen.dart';
 import 'package:cpcb_tyre/views/screens/common_screens/profile_screen.dart';
 import 'package:cpcb_tyre/views/screens/producer/sales_screen.dart';
@@ -16,23 +18,38 @@ class ProducerHomeScreen extends StatefulWidget {
 }
 
 class _ProducerHomePageState extends State<ProducerHomeScreen> {
-  final ImageConstants imageConstants=ImageConstants();
-  final AppColor appColor=AppColor();
+  final ImageConstants imageConstants = ImageConstants();
+  final AppColor appColor = AppColor();
   @override
   Widget build(BuildContext context) {
+    return BaseView<DashboardViewModel>(
+      viewModel: DashboardViewModel(),
+      onModelReady: (viewModel) async {
+        viewModel.getCurrentUserType(context);
+        await viewModel.getDasboardData(context);
+      },
+      builder: (context, viewModel, child) {
+        return homeScreenView(context, viewModel);
+      },
+    );
+  }
+
+  CommonScreenWithBottomNavigationBar homeScreenView(
+      BuildContext context, DashboardViewModel viewModel) {
     return CommonScreenWithBottomNavigationBar(bottomNavBarItems: [
       bottomNavigationBarWidget(
         imgSrc: imageConstants.homeTabIcon,
       ),
-      bottomNavigationBarWidget(
-        imgSrc: imageConstants.addSlaesDataIcon,
-      ),
+      if (viewModel.isRegistered == true)
+        bottomNavigationBarWidget(
+          imgSrc: imageConstants.addSlaesDataIcon,
+        ),
       bottomNavigationBarWidget(
         imgSrc: imageConstants.profileTabIcon,
       )
     ], screens: [
-      DashBoardScreen(),
-       SalesScreen(),
+      const DashBoardScreen(),
+      if (viewModel.isRegistered == true) SalesScreen(),
       ProfileScreen()
     ]);
   }

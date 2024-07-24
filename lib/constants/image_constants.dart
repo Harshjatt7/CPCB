@@ -70,4 +70,15 @@ class ImageConstants {
       "assets/images/icons/download_application_icon.svg";
   final String commentIcon = "assets/images/icons/comment_icon.svg";
   final String summaryIcon = "assets/images/icons/summary_icon.svg";
+
+  // Auditor Dashboard
+  final String auditorDashboardBackground =
+      "assets/images/background/auditor_background1.png";
+  final String auditorDashboardTotalIcon =
+      "assets/images/icons/audit_dashboard_total_icon.svg";
+  final String deleteIcon = "assets/images/icons/delete.svg";
+  final String plusIcon = "assets/images/icons/plus.svg";
+  final String viewEyes = "assets/images/icons/view_eyes.svg";
+  final String searchIconLarge = "assets/images/icons/search_icon_large.svg";
+  final String editIcon = "assets/images/icons/edit.svg";
 }

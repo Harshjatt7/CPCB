@@ -1,1 +1,1 @@
-enum FilterTypes { state, unitType, currentStatus }
+enum FilterTypes { state, unitType, currentStatus, district }

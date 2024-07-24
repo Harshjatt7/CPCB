@@ -42,8 +42,8 @@ class ApplicationResponsedData {
   String? markedBy;
   String? markedTo;
   String? year;
-  DateTime? firstReceived;
-  DateTime? lastReceived;
+  String? firstReceived;
+  String? lastReceived;
   num? applicationNumber;
 
   ApplicationResponsedData(
@@ -68,12 +68,8 @@ class ApplicationResponsedData {
           lastMarked: json["last_marked"],
           markedBy: json["marked_by"],
           markedTo: json["marked_to"],
-          firstReceived: json["first_received"] == null
-              ? null
-              : DateTime.parse(json["first_received"]),
-          lastReceived: json["last_received"] == null
-              ? null
-              : DateTime.parse(json["last_received"]),
+          firstReceived: json["first_received"],
+          lastReceived: json["last_received"],
           applicationNumber: json["application_no"],
           year: json["year"]);
 }

@@ -94,7 +94,7 @@ class ProcurementDataScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
-                        child: (viewModel.data?.length ?? 0) == 0
+                        child: (viewModel.data?.isEmpty ?? true && viewModel.state == ViewState.idle)
                             ? Center(
                                 child: CommonTextWidget(
                                     MessageConstant().noMatchingResultsFound))
@@ -107,7 +107,7 @@ class ProcurementDataScreen extends StatelessWidget {
                                         const EdgeInsets.symmetric(vertical: 8),
                                     child: CommonRetraderDataCard(
                                       name: viewModel.data?[index].sellerName ??
-                                          "",
+                                          "NA",
                                       contactDetails:
                                           viewModel.data?[index].sellerMobile,
                                       address:
