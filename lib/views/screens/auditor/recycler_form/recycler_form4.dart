@@ -106,7 +106,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
             onTap: () {
               Navigator.pushNamed(
                   context, AppRoutes.auditorRecyclerDetailScreen,
-                  arguments: viewModel.eprData);
+                  arguments: viewModel);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -150,7 +150,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
             onTap: () {
               Navigator.pushNamed(
                   context, AppRoutes.auditorRecyclerDetailScreen,
-                  arguments: viewModel.eprData);
+                  arguments: viewModel);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),

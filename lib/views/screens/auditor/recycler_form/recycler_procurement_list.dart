@@ -1,4 +1,6 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form3_reponse_model.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
@@ -12,12 +14,13 @@ import '../../../widgets/app_components/common_title_bar.dart';
 import '../../../widgets/components/common_appbar.dart';
 
 class RecyclerProcurementList extends StatelessWidget {
-  const RecyclerProcurementList({super.key, required this.procurementData});
-  final List<ProcurementDatum>? procurementData;
+  const RecyclerProcurementList({super.key, required this.viewModel});
+  final RecyclerFormViewModel? viewModel;
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isLoading: viewModel?.state == ViewState.busy,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(120),
         child: SafeArea(
@@ -49,12 +52,14 @@ class RecyclerProcurementList extends StatelessWidget {
           ),
         ),
       ),
-      body: procurmentListView(procurementData: procurementData),
+      body: procurmentListView(context,
+          procurementData: viewModel?.procurementData, viewModel: viewModel),
     );
   }
 
-  CommonSingleChildScrollView procurmentListView(
-      {List<ProcurementDatum>? procurementData}) {
+  CommonSingleChildScrollView procurmentListView(BuildContext context,
+      {List<ProcurementDatum>? procurementData,
+      RecyclerFormViewModel? viewModel}) {
     return CommonSingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -70,6 +75,10 @@ class RecyclerProcurementList extends StatelessWidget {
                 year: data?.financeYear ?? '',
                 quantity: data?.purchasedQuantity ?? '',
                 balance: data?.openingBalance ?? '',
+                onEditTap: () async {
+                  await viewModel?.getViewEntriesFile(
+                      context, data?.invoiceLinkApi ?? '');
+                },
               ),
             );
           }),

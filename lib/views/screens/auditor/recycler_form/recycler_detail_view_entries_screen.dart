@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form4_response_model.dart';
+import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
@@ -12,8 +13,8 @@ import '../../../widgets/app_components/common_title_bar.dart';
 import '../../../widgets/components/common_appbar.dart';
 
 class RecyclerDetailScreen extends StatelessWidget {
-  const RecyclerDetailScreen({super.key, required this.eprData});
-  final List<EprDatum>? eprData;
+  const RecyclerDetailScreen({super.key, required this.viewModel});
+  final RecyclerFormViewModel? viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +51,13 @@ class RecyclerDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: detailViewEntries(eprData: eprData),
+      body: detailViewEntries(context,
+          eprData: viewModel?.eprData, viewModel: viewModel),
     );
   }
 
-  CommonSingleChildScrollView detailViewEntries({List<EprDatum>? eprData}) {
+  CommonSingleChildScrollView detailViewEntries(BuildContext context,
+      {List<EprDatum>? eprData, RecyclerFormViewModel? viewModel}) {
     return CommonSingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -69,7 +72,11 @@ class RecyclerDetailScreen extends StatelessWidget {
                 invoiceNo: data?.invoiceNumber ?? '',
                 rawMaterial: data?.buyerAddress ?? '',
                 year: data?.financeYear ?? '',
-                salesInvoice: data?.invoiceAmout??'',
+                salesInvoice: data?.invoiceAmout ?? '',
+                onDownloadTap: () async {
+                  await viewModel?.getViewEntriesFile(
+                      context, data?.invoiceLinkApi ?? '');
+                },
               ),
             );
           }),
