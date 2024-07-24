@@ -545,6 +545,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         _auditorRecycler1ResponseModel?.data =
             AuditorRecyclerForm1ResponseModel.fromJson(
                 _auditorRecycler1ResponseModel?.completeResponse);
+
         generalInfoResponseData =
             _auditorRecycler1ResponseModel?.data?.data?.generalInfo;
         List<Om>? machineList = _auditorRecycler1ResponseModel?.data?.data
