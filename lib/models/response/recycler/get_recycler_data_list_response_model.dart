@@ -36,6 +36,7 @@ class RecyclerDataListData {
   num? producedQty;
   num? wasteGeneratedQty;
   String? recycledDate;
+  String? sourceTyres;
 
   RecyclerDataListData({
     this.financialYear,
@@ -48,7 +49,9 @@ class RecyclerDataListData {
     this.producedQty,
     this.wasteGeneratedQty,
     this.recycledDate,
+    this.sourceTyres,
   });
+
 
   factory RecyclerDataListData.fromJson(Map<String, dynamic> json) =>
       RecyclerDataListData(
@@ -62,5 +65,6 @@ class RecyclerDataListData {
         producedQty: json["produced_qty"],
         wasteGeneratedQty: json["waste_generated_qty"],
         recycledDate: json["recycled_date"],
+        sourceTyres:  json["source_tyre"],
       );
 }

@@ -55,7 +55,7 @@ TextEditingController sellerMobileController =
 
   List financialYearList = <String>[];
   List tyreOfRecyclerMaterialList = <String>[];
-  List tyreSource = <String>[];
+  List tyreSourceList = <String>[];
   String? recycledTyreDropdownValue;
   String? recycledTyreDropdownError;
   String? tyreSourceDropdownError;
@@ -72,6 +72,7 @@ TextEditingController sellerMobileController =
       financialYearList.addAll(response?.data?.data?.financialYear ?? []);
       tyreOfRecyclerMaterialList
           .addAll(response?.data?.data?.tyreOfRecyclerMaterial ?? []);
+      tyreSourceList.addAll(response?.data?.data?.sourceTyre??[]);
     }
     state = ViewState.idle;
     return response;

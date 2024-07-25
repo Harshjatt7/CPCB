@@ -14,6 +14,7 @@ class AddRecyclerDataRequestModel {
   num? producedQty;
   num? wasteGeneratedQty;
   String? recycledDate;
+  String? sourceTyres;
 
   AddRecyclerDataRequestModel({
     this.financialYear,
@@ -26,6 +27,7 @@ class AddRecyclerDataRequestModel {
     this.producedQty,
     this.wasteGeneratedQty,
     this.recycledDate,
+    this.sourceTyres,
   });
 
   Map<String, dynamic> toJson() => {
@@ -39,5 +41,6 @@ class AddRecyclerDataRequestModel {
         "produced_qty": producedQty,
         "waste_generated_qty": wasteGeneratedQty,
         "recycled_date": recycledDate,
+        "source_tyre": sourceTyres,
       };
 }

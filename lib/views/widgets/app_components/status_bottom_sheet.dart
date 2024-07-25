@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/models/response/auditor/audit_plan_detail_response_model.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 import 'auditor_bottom_sheet.dart';
@@ -23,7 +24,8 @@ class StatusBottomSheet extends StatelessWidget {
       district: auditPlanDetail?.district,
       state: auditPlanDetail?.state,
       currentStatus: auditPlanDetail?.status,
-      createdOn: auditPlanDetail?.createdOn,
+      createdOn:
+          HelperFunctions().getFormattedDate(dtstr: auditPlanDetail?.createdOn),
       startDate: auditPlanDetail?.startDate,
       endDate: auditPlanDetail?.endDate,
       onPressed: onPressed,
