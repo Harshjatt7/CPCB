@@ -529,4 +529,30 @@ class ProducerFormsViewModel extends BaseViewModel {
       HelperFunctions().logger("File URL is null");
     }
   }
+  Future getViewEntriesFile(BuildContext context, String url) async {
+    state = ViewState.busy;
+    try {
+      APIResponse value =
+          await _auditorRepository.getViewEntriesDownloadFile(url);
+
+      if (value.isSuccess == true) {
+        helperFunctions.downloadAndStoreFile(
+            name: "${DateTime.now().millisecond}", response: value);
+        state = ViewState.idle;
+        return value;
+      } else {
+        state = ViewState.idle;
+        if (context.mounted) {
+          helperFunctions.commonErrorSnackBar(
+              context, value.error?.message ?? '');
+        }
+      }
+    } catch (error) {
+      helperFunctions.logger("$error");
+    }
+    state = ViewState.idle;
+    return null;
+  }
+
+
 }

@@ -313,7 +313,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       case 60:
         index = 4;
         break;
-      case 80 || 100:
+      case 80:
         index = 5;
         break;
       default:

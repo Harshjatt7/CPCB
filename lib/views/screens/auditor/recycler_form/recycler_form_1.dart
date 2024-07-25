@@ -307,7 +307,6 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isDocument: true,
                   isReadOnly: true,
                   isSummaryScreen: widget.isSummaryScreen,
-                  
                 ),
               )
             ],

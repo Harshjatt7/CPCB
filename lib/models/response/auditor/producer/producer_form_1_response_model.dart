@@ -122,6 +122,10 @@ class CompanyDetailsResponse {
   String? panFileName;
   String? cinFileName;
   String? iecFileName;
+  String? gstApiFilePath;
+  String? panApiFilePath;
+  String? cinApiFilePath;
+  String? iecApiFilePath;
 
   CompanyDetailsResponse({
     this.companyNameAndAddress,
@@ -138,6 +142,10 @@ class CompanyDetailsResponse {
     this.panFileName,
     this.cinFileName,
     this.iecFileName,
+    this.gstApiFilePath,
+    this.panApiFilePath,
+    this.cinApiFilePath,
+    this.iecApiFilePath,
   });
 
   factory CompanyDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -156,5 +164,9 @@ class CompanyDetailsResponse {
         panFileName: json["panFileName"],
         cinFileName: json["cinFileName"],
         iecFileName: json["iecFileName"],
+        gstApiFilePath: json["gstApiFilePath"],
+        panApiFilePath: json["panApiFilePath"],
+        cinApiFilePath: json["cinApiFilePath"],
+        iecApiFilePath: json["iecApiFilePath"],
       );
 }
