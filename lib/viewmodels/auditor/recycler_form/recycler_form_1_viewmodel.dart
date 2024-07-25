@@ -37,7 +37,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
   final helperFunctions = HelperFunctions();
-
+  TextEditingController? endProductDataListController = TextEditingController();
   List<CheckboxFilterModel> endProductsList = [];
   List<String> selectedEndProductsData = [];
   List<String> emptyendProductsList = [];
@@ -54,6 +54,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         selectedEndProductsData.remove(endProductsList[index].title);
       }
     }
+    endProductDataListController?.text = selectedEndProductsData.join(",");
   }
 
   TextEditingController gstController = TextEditingController();
@@ -618,10 +619,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
 
     try {
-      _auditorRecycler2ResponseModel = await auditorRepository.getRecyclerForm2Data(
-          isRetreader: isRetreader,
-          userId:
-              "eyJpdiI6IkRzVzY2SENNOUF0dDM4bnZDK2t2N1E9PSIsInZhbHVlIjoiYk1VRm1ZWnQ0eXJHdWxoZW1TaGpXZz09IiwibWFjIjoiZDRlOGE5YTM5MzA0MjJmYzYzMGZjNDE2MzM2ZWJiNzg4YmJhZTcyMWNlNGMxNGY0ZTdlMzExYTQwZTlhZmJkZiIsInRhZyI6IiJ9");
+      _auditorRecycler2ResponseModel = await auditorRepository
+          .getRecyclerForm2Data(isRetreader: isRetreader, userId: userId);
       if (_auditorRecycler2ResponseModel?.isSuccess == true) {
         _auditorRecycler2ResponseModel?.data =
             AuditorRecyclerForm2ResponseModel.fromJson(

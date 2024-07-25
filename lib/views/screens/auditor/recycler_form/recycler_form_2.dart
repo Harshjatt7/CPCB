@@ -1,9 +1,9 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
-import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_mandatory_title.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
@@ -251,93 +251,87 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
             ),
           ),
           (widget.userType == "Retreader") == false
-              ? InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context1) {
-                        return Dialog(
-                          insetPadding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6)),
-                          backgroundColor: AppColor().white,
-                          surfaceTintColor: AppColor().white,
-                          child: StatefulBuilder(builder: (context, setState) {
-                            return Container(
-                              height: MediaQuery.of(context).size.height * .42,
-                              width: MediaQuery.of(context).size.width * .9,
-                              // padding: const EdgeInsets.all(24),
-                              margin: const EdgeInsets.all(8),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: AppColor().white,
-                                  borderRadius: BorderRadius.circular(6)),
-                              child: ListView.builder(
-                                  itemCount: viewModel.endProductsList.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 16),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Checkbox(
-                                              materialTapTargetSize:
-                                                  MaterialTapTargetSize
-                                                      .shrinkWrap,
-                                              value: viewModel
-                                                  .endProductsList[index]
-                                                  .isChecked,
-                                              activeColor: AppColor().green,
-                                              onChanged: (val) {
-                                                viewModel.updateCheckBox(
-                                                    val ?? false, index);
-                                                HelperFunctions().logger(
-                                                    "${viewModel.selectedEndProductsData}");
-                                                setState(() {});
-                                              }),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10),
-                                              child: CommonTextWidget(viewModel
-                                                  .endProductsList[index]
-                                                  .title),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  }),
-                            );
-                          }),
-                        );
-                      },
-                    ).whenComplete(() {
-                      viewModel.updateUI();
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(),
-                    child: CommonDropdownTextFormField(
-                      bgColor: appColor.white,
-                      labelText: viewModel.selectedEndProductsData.isNotEmpty
-                          ? viewModel.selectedEndProductsData[0]
-                          : stringConstants.select,
-                      dropDownItem: viewModel.emptyendProductsList,
-                      error: viewModel.endProductDropDownError,
-                      value: viewModel.endProductDropdownValue,
-                      onTap: () {
-                        // viewModel.endProductChangeDropDown(
-                        //     viewModel.endProductDropdownValue);
-                      },
-                      onChanged: (value) {
-                        // viewModel.endProductChangeDropDown(value);
-
-                        // viewModel.endProductDropDownError = null;
-                      },
-                    ),
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(),
+                  child: CommonTextFormFieldWidget(
+                    isMandatory: true,
+                    bgColor: appColor.white,
+                    hintText: stringConstants.select,
+                    icon: ImageConstants().dropdownIcon,
+                    controller: viewModel.endProductDataListController ??
+                        TextEditingController(),
+                    isReadOnly: true,
+                    disabledBgColor: appColor.white,
+                    onTap: (){
+                      
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context1) {
+                          return Dialog(
+                            insetPadding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6)),
+                            backgroundColor: AppColor().white,
+                            surfaceTintColor: AppColor().white,
+                            child:
+                                StatefulBuilder(builder: (context, setState) {
+                              return Container(
+                                height:
+                                    MediaQuery.of(context).size.height * .42,
+                                width: MediaQuery.of(context).size.width * .9,
+                                // padding: const EdgeInsets.all(24),
+                                margin: const EdgeInsets.all(8),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: AppColor().white,
+                                    borderRadius: BorderRadius.circular(6)),
+                                child: ListView.builder(
+                                    itemCount: viewModel.endProductsList.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10, horizontal: 16),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Checkbox(
+                                                materialTapTargetSize:
+                                                    MaterialTapTargetSize
+                                                        .shrinkWrap,
+                                                value: viewModel
+                                                    .endProductsList[index]
+                                                    .isChecked,
+                                                activeColor: AppColor().green,
+                                                onChanged: (val) {
+                                                  viewModel.updateCheckBox(
+                                                      val ?? false, index);
+                                                  HelperFunctions().logger(
+                                                      "${viewModel.selectedEndProductsData}");
+                                                  setState(() {});
+                                                }),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 10),
+                                                child: CommonTextWidget(
+                                                    viewModel
+                                                        .endProductsList[index]
+                                                        .title),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }),
+                              );
+                            }),
+                          );
+                        },
+                      ).whenComplete(() {
+                        viewModel.updateUI();
+                      });
+                    },
                   ),
                 )
               : CommonTextFormFieldWidget(
