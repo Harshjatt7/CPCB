@@ -181,7 +181,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
     String purchasedDate = '$date';
     RecyclerProcurementRequestModel request = RecyclerProcurementRequestModel(
       financeYear: financialYearDropdownValue,
-      invoiceFile: uploadInvoiceDoc?.filename,
+      invoiceFile: uploadInvoiceDoc,
       purchasedDate: purchasedDate.split(' ').first,
       purchasedQuantity: quantityReceivedController.text,
       rawMaterial: rawMaterialDropdownValue == "Scrap tyre/used tyre/cut tyre"
