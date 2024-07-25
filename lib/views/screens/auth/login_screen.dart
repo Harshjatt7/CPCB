@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/api_constant.dart';
+import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
@@ -170,17 +171,25 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    InkWell(
-                      onTap: () async {
-                        launchUrl(Uri.parse(APIRoutes.baseUrl +
-                            APIRoutes().forgotPasswordWebUrl));
-                      },
-                      child: CommonTextWidget(
-                        stringConstants.forgotPassLabel,
-                        style: context.textThemeHelper.displayMedium?.copyWith(
-                            color: appColor.green, fontWeight: FontWeight.w600),
+                    if (viewmodel.selectedUserType?.toLowerCase() ==
+                            AdminUserTypes.producer.text ||
+                        viewmodel.selectedUserType?.toLowerCase() ==
+                            AdminUserTypes.recycler.text ||
+                        viewmodel.selectedUserType?.toLowerCase() ==
+                            AdminUserTypes.retreader.text)
+                      InkWell(
+                        onTap: () async {
+                          launchUrl(Uri.parse(APIRoutes.baseUrl +
+                              APIRoutes().forgotPasswordWebUrl));
+                        },
+                        child: CommonTextWidget(
+                          stringConstants.forgotPassLabel,
+                          style: context.textThemeHelper.displayMedium
+                              ?.copyWith(
+                                  color: appColor.green,
+                                  fontWeight: FontWeight.w600),
+                        ),
                       ),
-                    ),
                     const SizedBox(
                       height: 24,
                     ),

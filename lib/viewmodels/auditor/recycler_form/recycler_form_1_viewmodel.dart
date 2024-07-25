@@ -113,15 +113,15 @@ class RecyclerFormViewModel extends BaseViewModel {
   TextEditingController actualAverageAnnualController = TextEditingController();
   TextEditingController totalElectricityController = TextEditingController();
   TextEditingController areValuedCandDController = TextEditingController();
-  TextEditingController aContactController = TextEditingController();
-  TextEditingController aContactRemarksController = TextEditingController();
-  TextEditingController aVerifiedController = TextEditingController();
-  TextEditingController aVerifiedRemakrsController = TextEditingController();
+  TextEditingController procurementInfoContact = TextEditingController();
+  TextEditingController procurementInfoContactRemarks = TextEditingController();
+  TextEditingController procurementInfoAuditVerified = TextEditingController();
+  TextEditingController procurmentInfoVerifiedRemark = TextEditingController();
   TextEditingController aNotVerifiedController = TextEditingController();
-  TextEditingController bContactController = TextEditingController();
-  TextEditingController bContactRemarksController = TextEditingController();
-  TextEditingController bVerifiedController = TextEditingController();
-  TextEditingController bVerifiedRemakrsController = TextEditingController();
+  TextEditingController physicallyContactedValue = TextEditingController();
+  TextEditingController physicallyContactedRemark = TextEditingController();
+  TextEditingController physicallyVerifiedValue = TextEditingController();
+  TextEditingController physicallyVerifiedRemark = TextEditingController();
   TextEditingController bNotVerifiedController = TextEditingController();
   TextEditingController invoiceController = TextEditingController();
   TextEditingController remakrsInvoiceController = TextEditingController();
@@ -146,10 +146,10 @@ class RecyclerFormViewModel extends BaseViewModel {
   String radioPlant = "";
   String radioxy = '1';
   String radiocd = '1';
-  String radioAContact = '1';
-  String radioAVerified = '1';
-  String radioBContact = '1';
-  String radioBVerified = '1';
+  String radioProcurementInfoContact = '1';
+  String radioProcurementInfoVerified = '1';
+  String radioProcurementInfoPhysicallyContacted = '1';
+  String radioProcurementInfoPhysicallyVerified = '1';
   String radioInvoice = '1';
   String radioBuyer = '1';
   String radioInstalled = '1';
@@ -182,6 +182,8 @@ class RecyclerFormViewModel extends BaseViewModel {
   String? fileSize;
   List<String?> machineFileSize = [];
   double? fileSizeNum;
+
+  List<Om> machineList = [];
 
   String? aadharFileName;
   String? panNoFileName;
@@ -375,14 +377,12 @@ class RecyclerFormViewModel extends BaseViewModel {
       final res = await auditorRepository.postRecyclerForm2Data(requestModel,
           id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
-        // Provider.of<CommonStepperViewModel>(context).index = index;
         if (context.mounted) {
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
 
-          // await getProducerForm2Data(id: id);
+          onNextButton(context);
         }
-        onNextButton(context);
       } else {
         final apiError = res?.error?.errorsList;
 
@@ -436,25 +436,25 @@ class RecyclerFormViewModel extends BaseViewModel {
       procurementInfo: ProcurementInfoRequest(
         contacted: ContactedRequest(
           additionalData: ContactedRequestAdditionalData(
-              suppliers: aContactController.text.isNotEmpty
-                  ? int.parse(aContactController.text)
+              suppliers: procurementInfoContact.text.isNotEmpty
+                  ? int.parse(procurementInfoContact.text)
                   : null),
-          auditConfirmedStatus: radioAContact,
-          auditRemark: aContactRemarksController.text,
+          auditConfirmedStatus: radioProcurementInfoContact,
+          auditRemark: procurementInfoContactRemarks.text,
         ),
         physicallyContacted: ContactedRequest(
-            auditConfirmedStatus: radioAVerified,
-            auditRemark: aVerifiedRemakrsController.text,
+            auditConfirmedStatus: radioProcurementInfoVerified,
+            auditRemark: procurmentInfoVerifiedRemark.text,
             additionalData: ContactedRequestAdditionalData(
-                suppliers: aVerifiedController.text.isNotEmpty
-                    ? int.parse(aVerifiedController.text)
+                suppliers: physicallyContactedValue.text.isNotEmpty
+                    ? int.parse(physicallyContactedValue.text)
                     : null)),
         physicallyVerified: VerifiedRequest(
-          auditConfirmedStatus: radioBVerified,
-          auditRemark: bVerifiedRemakrsController.text,
+          auditConfirmedStatus: radioProcurementInfoPhysicallyVerified,
+          auditRemark: physicallyVerifiedRemark.text,
           additionalData: PhysicallyVerifiedRequestAdditionalData(
-            suppliers: bVerifiedController.text.isNotEmpty
-                ? int.parse(bVerifiedController.text)
+            suppliers: physicallyVerifiedValue.text.isNotEmpty
+                ? int.parse(physicallyVerifiedValue.text)
                 : null,
             suppliersNotVerifiedRequest: bNotVerifiedController.text.isNotEmpty
                 ? int.parse(bNotVerifiedController.text)
@@ -462,11 +462,11 @@ class RecyclerFormViewModel extends BaseViewModel {
           ),
         ),
         verified: VerifiedRequest(
-          auditConfirmedStatus: radioBContact,
-          auditRemark: bContactRemarksController.text,
+          auditConfirmedStatus: radioProcurementInfoPhysicallyContacted,
+          auditRemark: physicallyContactedRemark.text,
           additionalData: PhysicallyVerifiedRequestAdditionalData(
-            suppliers: bContactController.text.isNotEmpty
-                ? int.parse(bContactController.text)
+            suppliers: procurementInfoAuditVerified.text.isNotEmpty
+                ? int.parse(procurementInfoAuditVerified.text)
                 : null,
             suppliersNotVerifiedRequest: bNotVerifiedController.text.isNotEmpty
                 ? int.parse(bNotVerifiedController.text)
@@ -481,7 +481,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          // Provider.of<CommonStepperViewModel>(context).index = index;
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
@@ -573,8 +572,8 @@ class RecyclerFormViewModel extends BaseViewModel {
 
         generalInfoResponseData =
             _auditorRecycler1ResponseModel?.data?.data?.generalInfo;
-        List<Om>? machineList = _auditorRecycler1ResponseModel?.data?.data
-                ?.auditSummary?.otherMachineries?.additionalData?.om ??
+        machineList = _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.otherMachineries?.additionalData?.om ??
             [];
 
         count = machineList.length;
@@ -584,6 +583,10 @@ class RecyclerFormViewModel extends BaseViewModel {
         for (int i = 0; i < machineList.length; i++) {
           uploadControllerList[i].text = machineList[i].auditDocument ?? '';
           controllerList[i].text = machineList[i].value ?? '';
+          otherMachineriesDocument.add(DocumentData(
+              fileKey: machineList[i].fileKey,
+              fileUrl: machineList[i].fileLink));
+          machineFileSizeModel.add(FileSizeModel(fileSize: '', fileSizeNum: 0));
         }
         updateUI();
       } else {
@@ -1084,6 +1087,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.geoTaggedVideoUpload?.additionalData?.fileLink ??
             '');
+
     final data = _auditorRecycler1ResponseModel?.data?.data?.auditSummary;
     gstRemarkController.text = data?.gstNo?.auditRemark ?? '';
     companyPanRemarkController.text = data?.companyPan?.auditRemark ?? '';
@@ -1121,22 +1125,25 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     remarkVideoController.text = data?.geoTaggedVideoUpload?.auditRemark ?? '';
     uploadVideoController.text = data?.geoTaggedVideoUpload?.auditRemark ?? '';
-    radioGst = "${data?.gstNo?.auditConfirmedStatus ?? ''}";
-    radioPanOfCompany = "${data?.companyPan?.auditConfirmedStatus ?? ''}";
-    radioIec = "${data?.companyIec?.auditConfirmedStatus ?? ''}";
-    radioCto = "${data?.cto?.auditConfirmedStatus ?? ''}";
+
+    radioGst = "${data?.gstNo?.auditConfirmedStatus ?? '1'}";
+
+    radioPanOfCompany = "${data?.companyPan?.auditConfirmedStatus ?? '1'}";
+    radioIec = "${data?.companyIec?.auditConfirmedStatus ?? '1'}";
+    radioCto = "${data?.cto?.auditConfirmedStatus ?? '1'}";
     radioAuthorization =
-        "${data?.authorizationUnderHomwRules?.auditConfirmedStatus ?? ''}";
-    radioRecyclingDetails = "${data?.addressLine1?.auditConfirmedStatus ?? ''}";
-    radioGps = "${data?.gpsLocationAuditor?.auditConfirmedStatus ?? ''}";
+        "${data?.authorizationUnderHomwRules?.auditConfirmedStatus ?? '1'}";
+    radioRecyclingDetails =
+        "${data?.addressLine1?.auditConfirmedStatus ?? '1'}";
+    radioGps = "${data?.gpsLocationAuditor?.auditConfirmedStatus ?? '1'}";
     radioAadharCard =
-        "${data?.authorizedPersonAdhar?.auditConfirmedStatus ?? ''}";
-    radioPanNo = "${data?.companyPan?.auditConfirmedStatus ?? ''}";
+        "${data?.authorizedPersonAdhar?.auditConfirmedStatus ?? '1'}";
+    radioPanNo = "${data?.companyPan?.auditConfirmedStatus ?? '1'}";
     radioPowerConsumption =
-        "${data?.lastYearElectricityBill?.auditConfirmedStatus ?? ''}";
+        "${data?.lastYearElectricityBill?.auditConfirmedStatus ?? '1'}";
     radioPollution =
-        "${data?.airPollutionControlDevices?.auditConfirmedStatus ?? ''}";
-    radioPlant = "${data?.geoTaggedVideoUpload?.auditConfirmedStatus ?? ''}";
+        "${data?.airPollutionControlDevices?.auditConfirmedStatus ?? '1'}";
+    radioPlant = "${data?.geoTaggedVideoUpload?.auditConfirmedStatus ?? '1'}";
   }
 
   void summaryForm2View() {
@@ -1166,6 +1173,10 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     typeOfProductController.text =
         planCapacityAssesment?.additionalData?.typeOfEndProduct?.first ?? '';
+    selectedEndProductsData =
+        planCapacityAssesment?.additionalData?.typeOfEndProduct ?? [];
+    endProductDataListController?.text = selectedEndProductsData.join(",");
+
     // endProductDropdownValue =
     //     planCapacityAssesment?.additionalData?.typeOfEndProduct?.first;
     plantProductionCapacityController.text =
@@ -1201,51 +1212,65 @@ class RecyclerFormViewModel extends BaseViewModel {
         electricityVerification?.additionalData?.totalElectricityConsumption ??
             '';
     areValuedCandDController.text = cAndDComparable?.auditRemark ?? '';
-    radioxy = "${valueComparable?.auditConfirmedStatus ?? ''}";
-    radiocd = "${cAndDComparable?.auditConfirmedStatus ?? ''}";
+    radioxy = "${valueComparable?.auditConfirmedStatus ?? '1'}";
+    radiocd = "${cAndDComparable?.auditConfirmedStatus ?? '1'}";
   }
 
   void summaryForm3View() {
-    aContactController.text = procurementInfo?.contacted?.auditValue ?? '';
-    aContactRemarksController.text =
+    procurementInfoContact.text =
+        procurementInfo?.contacted?.additionalData?.suppliers.toString() ?? '';
+    procurementInfoContactRemarks.text =
         procurementInfo?.contacted?.auditRemark ?? '';
-    aVerifiedController.text = procurementInfo?.verified?.auditValue ?? '';
-    aVerifiedRemakrsController.text =
+    procurementInfoAuditVerified.text = procurementInfo
+            ?.verified?.additionalData?.suppliersNotVerified
+            .toString() ??
+        '';
+    procurmentInfoVerifiedRemark.text =
         procurementInfo?.verified?.auditRemark ?? '';
-    bContactController.text =
-        procurementInfo?.physicallyContacted?.auditValue ?? '';
-    bContactRemarksController.text =
+    physicallyContactedValue.text = procurementInfo
+            ?.physicallyContacted?.additionalData?.suppliers
+            .toString() ??
+        '';
+    physicallyContactedRemark.text =
         procurementInfo?.physicallyContacted?.auditRemark ?? '';
-    bVerifiedController.text =
-        procurementInfo?.physicallyVerified?.auditValue ?? '';
-    bVerifiedRemakrsController.text =
+    physicallyVerifiedValue.text = procurementInfo
+            ?.physicallyVerified?.additionalData?.suppliersNotVerified
+            .toString() ??
+        '';
+    physicallyVerifiedRemark.text =
         procurementInfo?.physicallyVerified?.auditRemark ?? '';
-    radioAContact = "${procurementInfo?.contacted?.auditConfirmedStatus ?? ''}";
-    radioAVerified = "${procurementInfo?.verified?.auditConfirmedStatus ?? ''}";
-    radioBContact =
-        "${procurementInfo?.physicallyContacted?.auditConfirmedStatus ?? ''}";
-    radioBVerified =
-        "${procurementInfo?.physicallyContacted?.auditConfirmedStatus ?? ''}";
+    radioProcurementInfoContact =
+        "${procurementInfo?.contacted?.auditConfirmedStatus ?? '1'}";
+    radioProcurementInfoVerified =
+        "${procurementInfo?.verified?.auditConfirmedStatus ?? '1'}";
+    radioProcurementInfoPhysicallyContacted =
+        "${procurementInfo?.physicallyContacted?.auditConfirmedStatus ?? '1'}";
+    radioProcurementInfoPhysicallyVerified =
+        "${procurementInfo?.physicallyVerified?.auditConfirmedStatus ?? '1'}";
   }
 
   void summaryForm4View() {
-    invoiceController.text = productionInfo?.invoice?.auditValue ?? '';
+    invoiceController.text =
+        productionInfo?.invoice?.additionalData?.numberOfSuppliersContacted ??
+            '';
     remakrsInvoiceController.text = productionInfo?.invoice?.auditRemark ?? '';
-    buyersController.text = productionInfo?.invoice?.auditValue ?? '';
+    buyersController.text =
+        productionInfo?.invoice?.additionalData?.numberOfSuppliersContacted ??
+            '';
     remakrsBuyerController.text = productionInfo?.buyers?.auditRemark ?? '';
-    radioBuyer = "${productionInfo?.buyers?.auditConfirmedStatus ?? ''}";
-    radioInvoice = "${productionInfo?.buyers?.auditConfirmedStatus ?? ''}";
+    radioBuyer = "${productionInfo?.buyers?.auditConfirmedStatus ?? '1'}";
+    radioInvoice = "${productionInfo?.buyers?.auditConfirmedStatus ?? '1'}";
   }
 
   void summaryForm5View() {
     etpRemarksInstalledController.text =
         wasteWaterGenerationAndDisposal?.etpInstalled?.auditRemark ?? '';
     radioInstalled =
-        "${wasteWaterGenerationAndDisposal?.etpInstalled?.auditConfirmedStatus ?? ''}";
+        "${wasteWaterGenerationAndDisposal?.etpInstalled?.auditConfirmedStatus ?? '1'}";
     etpCapacityController.text =
         wasteWaterGenerationAndDisposal?.etpCapacity?.auditValue ?? '';
     radioCapacity =
-        "${wasteWaterGenerationAndDisposal?.etpCapacity?.auditConfirmedStatus ?? ''}";
+        "${wasteWaterGenerationAndDisposal?.etpCapacity?.auditConfirmedStatus ?? '1'}";
     etpRemarksCapacityController.text =
         wasteWaterGenerationAndDisposal?.etpCapacity?.auditRemark ?? '';
     summmaryRemakrController.text =
@@ -1456,38 +1481,42 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void textForm3Listener() {
-    aContactController.addListener(() {
+    procurementInfoContact.addListener(() {
       totalValueA();
     });
-    aVerifiedController.addListener(() {
+    procurementInfoAuditVerified.addListener(() {
       totalValueA();
     });
-    bContactController.addListener(() {
+    physicallyContactedValue.addListener(() {
       totalValueB();
     });
-    bVerifiedController.addListener(() {
+    physicallyVerifiedValue.addListener(() {
       totalValueB();
     });
   }
 
   void totalValueA() {
-    int supplierContact = int.parse(
-        aContactController.text.isEmpty ? "0" : aContactController.text);
-    int verified = int.parse(
-        aVerifiedController.text.isEmpty ? "0" : aVerifiedController.text);
-    if (aContactController.text.isNotEmpty ||
-        aVerifiedController.text.isNotEmpty) {
+    int supplierContact = int.parse(procurementInfoContact.text.isEmpty
+        ? "0"
+        : procurementInfoContact.text);
+    int verified = int.parse(procurementInfoAuditVerified.text.isEmpty
+        ? "0"
+        : procurementInfoAuditVerified.text);
+    if (procurementInfoContact.text.isNotEmpty ||
+        procurementInfoAuditVerified.text.isNotEmpty) {
       aNotVerifiedController.text = (supplierContact - verified).toString();
     }
   }
 
   void totalValueB() {
-    int supplierContact = int.parse(
-        bContactController.text.isEmpty ? "0" : bContactController.text);
-    int verified = int.parse(
-        bVerifiedController.text.isEmpty ? "0" : bVerifiedController.text);
-    if (bContactController.text.isNotEmpty ||
-        bVerifiedController.text.isNotEmpty) {
+    int supplierContact = int.parse(physicallyContactedValue.text.isEmpty
+        ? "0"
+        : physicallyContactedValue.text);
+    int verified = int.parse(physicallyVerifiedValue.text.isEmpty
+        ? "0"
+        : physicallyVerifiedValue.text);
+    if (physicallyContactedValue.text.isNotEmpty ||
+        physicallyVerifiedValue.text.isNotEmpty) {
       bNotVerifiedController.text = (supplierContact - verified).toString();
     }
   }
@@ -1781,7 +1810,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          // Provider.of<CommonStepperViewModel>(context).index = index;
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
@@ -1898,7 +1926,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          // Provider.of<CommonStepperViewModel>(context).index = index;
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);
@@ -1976,7 +2003,6 @@ class RecyclerFormViewModel extends BaseViewModel {
           isRetreader: isRetreader, userId: userId);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          // Provider.of<CommonStepperViewModel>(context).index = index;
           HelperFunctions()
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           onNextButton(context);

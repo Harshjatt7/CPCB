@@ -32,7 +32,9 @@ class RecyclerForm3Data {
             : List<ProcurementDatum>.from(json["procurementData"]!
                 .map((x) => ProcurementDatum.fromJson(x))),
         auditPlanId: json["auditPlanId"],
-        procurementInfo: json["procurementInfo"] == null
+        procurementInfo: (json["procurementInfo"] == null ||
+                (json["procurementInfo"] != null &&
+                    json["procurementInfo"].length == 0))
             ? null
             : ProcurementInfo.fromJson(json["procurementInfo"]),
       );
@@ -175,7 +177,7 @@ class Contacted {
 }
 
 class ContactedAdditionalData {
-  dynamic suppliers;
+  int? suppliers;
 
   ContactedAdditionalData({
     this.suppliers,
