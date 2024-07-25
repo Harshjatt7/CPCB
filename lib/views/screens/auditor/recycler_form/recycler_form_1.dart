@@ -930,6 +930,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         icon: viewModel.uploadVideoController.text.isEmpty
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
+                          
                         onTap: () async {
                           viewModel.handleOnTap(context, RecyclerForm1.video,
                               viewModel.uploadVideoController,
