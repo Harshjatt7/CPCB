@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/producer_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +30,6 @@ class _ProducerForm2State extends State<ProducerForm2> {
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
-    viewModel.getProducerForm2Data(id: widget.id);
-
     super.initState();
   }
 
@@ -40,38 +39,39 @@ class _ProducerForm2State extends State<ProducerForm2> {
       builder: (context, value, child) {
         return Stack(
           children: [
-            Column(
-              children: [
-                Expanded(
-                  child: Opacity(
-                    opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
-                    child: widget.isSummaryScreen == true
-                        ? CommonSingleChildScrollView(
-                            child: viewReportView(viewModel, context))
-                        : CommonSingleChildScrollView(
-                            child: fillFormView(viewModel, context)),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 10,
-                  right: 10,
-                  child: StepperButton(
-                    isLastStep: false,
-                    isSummaryScreen: widget.isSummaryScreen,
-                    onNextOrSubmit: () async {
-                      widget.isSummaryScreen == true
-                          ? viewModel.onNextButton(context)
-                          : await viewModel.postForm2Data(context,
-                              id: widget.id);
-                    },
-                    onSavedDraft: () async {
-                      await viewModel.postForm2Data(context,
-                          id: widget.id, saveAsDraft: "SaveAsDraft");
-                    },
-                  ),
-                ),
-              ],
+            Opacity(
+              opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
+              child: widget.isSummaryScreen == true
+                  ? SizedBox(
+                      height: Responsive().screenHeight(context) * 0.8,
+                      child: CommonSingleChildScrollView(
+                        child: viewReportView(viewModel, context),
+                      ),
+                    )
+                  : SizedBox(
+                      height: Responsive().screenHeight(context) * 0.8,
+                      child: CommonSingleChildScrollView(
+                        child: fillFormView(viewModel, context),
+                      ),
+                    ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 10,
+              right: 10,
+              child: StepperButton(
+                isLastStep: false,
+                isSummaryScreen: widget.isSummaryScreen,
+                onNextOrSubmit: () async {
+                  widget.isSummaryScreen == true
+                      ? viewModel.onNextButton(context,widget.id??"")
+                      : await viewModel.postForm2Data(context, id: widget.id);
+                },
+                onSavedDraft: () async {
+                  await viewModel.postForm2Data(context,
+                      id: widget.id, saveAsDraft: "SaveAsDraft");
+                },
+              ),
             ),
             if (viewModel.state == ViewState.busy)
               Center(
@@ -87,46 +87,72 @@ class _ProducerForm2State extends State<ProducerForm2> {
 
   Padding viewReportView(
       ProducerFormsViewModel viewModel, BuildContext context) {
+    viewModel.setCounter();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CommonTitleWidget(label: viewModel.stringConstants.verificationA),
-          AuditorFormTile(
-            title: viewModel.stringConstants.misreporting.i18n(),
-            groupValue: viewModel.radioMisreportingP1,
-            titleStyle: Theme.of(context).textTheme.labelSmall,
-            isRadioField: true,
-            radioPadding: const EdgeInsets.symmetric(vertical: 7),
-          ),
-          const SizedBox(
-            height: 7,
-          ),
-          ProducerDataTable(headingList: viewModel.producerHeadingList),
-          const SizedBox(
-            height: 24,
-          ),
-          CommonTitleWidget(label: viewModel.stringConstants.verificationB),
-          AuditorFormTile(
-            title: viewModel.stringConstants.misreporting.i18n(),
-            groupValue: viewModel.radioMisreportingP3,
-            titleStyle: Theme.of(context).textTheme.labelSmall,
-            isRadioField: true,
-            radioPadding: const EdgeInsets.symmetric(vertical: 7),
-          ),
-          const SizedBox(
-            height: 7,
-          ),
-          ProducerDataTable(headingList: viewModel.producerHeadingList),
+          if (viewModel.producerForm2Data?.p1?.isNotEmpty == true)
+            buildProducerSalesData(
+              context,
+              title:
+                  "${viewModel.getTitle(viewModel.counter++)}Verification of Sales data for producers P1",
+              radioTitle: viewModel.stringConstants.misreporting.i18n(),
+              groupValue: viewModel.radioMisreportingP1,
+              list: viewModel.producerForm2Data?.p1,
+            ),
+          if (viewModel.producerForm2Data?.p2?.isNotEmpty == true)
+            buildProducerSalesData(
+              context,
+              title:
+                  "${viewModel.getTitle(viewModel.counter++)}Verification of Sales data for producers P2",
+              radioTitle: viewModel.stringConstants.misreporting.i18n(),
+              groupValue: viewModel.radioMisreportingP2,
+              list: viewModel.producerForm2Data?.p2,
+            ),
+          if (viewModel.producerForm2Data?.p3?.isNotEmpty == true)
+            buildProducerSalesData(
+              context,
+              title:
+                  "${viewModel.getTitle(viewModel.counter++)}Verification of Sales data for producers P3",
+              radioTitle: viewModel.stringConstants.misreporting.i18n(),
+              groupValue: viewModel.radioMisreportingP3,
+              list: viewModel.producerForm2Data?.p3,
+            ),
+          if (viewModel.producerForm2Data?.p4?.isNotEmpty == true)
+            buildProducerSalesData(
+              context,
+              title:
+                  "${viewModel.getTitle(viewModel.counter++)}Verification of Sales data for producers P4",
+              radioTitle: viewModel.stringConstants.misreporting.i18n(),
+              groupValue: viewModel.radioMisreportingP4,
+              list: viewModel.producerForm2Data?.p4,
+            ),
+          if (viewModel.producerForm2Data?.p5?.isNotEmpty == true)
+            buildProducerSalesData(
+              context,
+              title:
+                  "${viewModel.getTitle(viewModel.counter++)}Verification of Sales data for producers P5",
+              radioTitle: viewModel.stringConstants.misreporting.i18n(),
+              groupValue: viewModel.radioMisreportingP5,
+              list: viewModel.producerForm2Data?.p5,
+            ),
+          if (viewModel.producerForm2Data?.p6?.isNotEmpty == true)
+            buildProducerSalesData(
+              context,
+              title:
+                  "${viewModel.getTitle(viewModel.counter++)}Verification of Sales data for producers P6",
+              radioTitle: viewModel.stringConstants.misreporting.i18n(),
+              groupValue: viewModel.radioMisreportingP6,
+              list: viewModel.producerForm2Data?.p6,
+            ),
         ],
       ),
     );
   }
 
   Padding fillFormView(ProducerFormsViewModel viewModel, BuildContext context) {
-    viewModel.counter = 0;
-    viewModel.updateUI();
+    viewModel.setCounter();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(

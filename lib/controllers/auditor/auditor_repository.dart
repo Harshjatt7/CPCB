@@ -301,6 +301,7 @@ class AuditorRepository {
         isMediaAuthorizationRequired: true);
     return response;
   }
+
 // TODO Kashish, You have to use this below request in which {url} is apilink
   Future getViewEntriesDownloadFile(String url) async {
     final response =

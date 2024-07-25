@@ -135,28 +135,60 @@ class ProducerFormsViewModel extends BaseViewModel {
 
   int counter = 0;
 
+  void setCounter() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      counter = 0;
+      updateUI();
+    });
+  }
+
   String getTitle(int counter) {
     String title = '(${String.fromCharCode(65 + counter)}). ';
-    updateUI();
     return title;
   }
 
   int index = 1;
 
-  void onNextButton(BuildContext context) {
-    if (index < 3) {
-      index++;
-      updateUI();
-    }
+  void onNextButton(BuildContext context, String id) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (index < 3) {
+        index++;
+        switch (index) {
+          case 1:
+            await getProducerForm1Data(id: id);
+            break;
+          case 2:
+            await getProducerForm2Data(id: id);
+            break;
+          case 3:
+            await getProducerForm3Data(id: id);
+            break;
+        }
+        updateUI();
+      }
+    });
   }
 
-  void onBackButton(BuildContext context) {
-    if (index > 1) {
-      index--;
-      updateUI();
-    } else {
-      Navigator.pop(context);
-    }
+  Future<void> onBackButton(BuildContext context, String id) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (index > 1) {
+        index--;
+        switch (index) {
+          case 1:
+            await getProducerForm1Data(id: id);
+            break;
+          case 2:
+            await getProducerForm2Data(id: id);
+            break;
+          case 3:
+            await getProducerForm3Data(id: id);
+            break;
+        }
+        updateUI();
+      } else {
+        Navigator.pop(context);
+      }
+    });
   }
 
   void getIndex(num? progress) {
@@ -240,7 +272,7 @@ class ProducerFormsViewModel extends BaseViewModel {
             .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
       }
     }
-    updateUI();
+    // updateUI();
     state = ViewState.idle;
   }
 
@@ -312,9 +344,11 @@ class ProducerFormsViewModel extends BaseViewModel {
               //     .index=index;
               // Provider.of<CommonStepperViewModel>(context, listen: false)
               //     .onNextButton(context, "Producer");
-              onNextButton(context);
+              onNextButton(context, id ?? "");
             }
           }
+          onNextButton(context, id ?? "");
+          await getProducerForm3Data();
         }
       }
     } catch (e) {
@@ -323,8 +357,9 @@ class ProducerFormsViewModel extends BaseViewModel {
             .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
       }
     }
-    updateUI();
+
     state = ViewState.idle;
+    updateUI();
   }
 
   Future<APIResponse<ProducerForm2ResponseModel?>?> getProducerForm2Data(
@@ -358,15 +393,15 @@ class ProducerFormsViewModel extends BaseViewModel {
         radioMisreportingP6 = producerForm2DataAuditData
             ?.salesP6?.auditConfirmedStatus
             .toString();
-        await getProducerForm3Data(id: id);
       } else {
         helperFunctions.logger("No response");
       }
     } catch (err) {
       helperFunctions.logger("$err");
     }
-    updateUI();
+
     state = ViewState.idle;
+    updateUI();
     return _producerForm2ResponseModel;
   }
 
@@ -420,8 +455,6 @@ class ProducerFormsViewModel extends BaseViewModel {
         panFilePath = producerForm1Data?.panFilePath;
         cinFilePath = producerForm1Data?.cinFilePath;
         iecFilePath = producerForm1Data?.iecFilePath;
-
-        await getProducerForm2Data(id: id);
       } else {
         helperFunctions.logger("No response");
       }
@@ -435,6 +468,7 @@ class ProducerFormsViewModel extends BaseViewModel {
 
   Future<void> postForm1Data(BuildContext context,
       {String? id, String? saveAsDraft}) async {
+    state = ViewState.busy;
     ProducerForm1RequestModel requestModel = ProducerForm1RequestModel(
       companyDetails: CompanyDetails(
         companyNameAddress: CompanyData(
@@ -455,7 +489,7 @@ class ProducerFormsViewModel extends BaseViewModel {
       ),
       submit: saveAsDraft ?? "",
     );
-    state = ViewState.busy;
+
     try {
       final res =
           await _auditorRepository.postProducerForm1Data(requestModel, id: id);
@@ -465,11 +499,11 @@ class ProducerFormsViewModel extends BaseViewModel {
               .commonSuccessSnackBar(context, res?.data?.message ?? "");
           if (saveAsDraft == null) {
             if (context.mounted) {
-              // Provider.of<CommonStepperViewModel>(context, listen: false)
-              //     .onNextButton(context, "Producer");
-              onNextButton(context);
+              onNextButton(context, id ?? "");
             }
           }
+          onNextButton(context, id ?? "");
+          await getProducerForm2Data(id: id);
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -529,6 +563,7 @@ class ProducerFormsViewModel extends BaseViewModel {
       HelperFunctions().logger("File URL is null");
     }
   }
+
   Future getViewEntriesFile(BuildContext context, String url) async {
     state = ViewState.busy;
     try {
@@ -553,6 +588,4 @@ class ProducerFormsViewModel extends BaseViewModel {
     state = ViewState.idle;
     return null;
   }
-
-
 }

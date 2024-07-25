@@ -1,6 +1,8 @@
+import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,7 @@ class _ProducerForm3State extends State<ProducerForm3> {
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
-    viewModel.getProducerForm3Data(id: widget.id);
+
     super.initState();
   }
 
@@ -34,38 +36,37 @@ class _ProducerForm3State extends State<ProducerForm3> {
     return Consumer<ProducerFormsViewModel>(
       builder: (context, viewModel, child) {
         return Stack(children: [
-          Column(
-            children: [
-              Expanded(
-                child: Opacity(
-                  opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
-                  child: widget.isSummaryScreen == true
-                      ? CommonSingleChildScrollView(
-                          child: viewReportView(context, viewModel))
-                      : CommonSingleChildScrollView(
-                          child: fillFormView(context, viewModel)),
-                ),
-              ),
-              Positioned(
-                  bottom: 0,
-                  left: 10,
-                  right: 10,
-                  child: StepperButton(
-                    isLastStep: true,
-                    isSummaryScreen: widget.isSummaryScreen,
-                    onNextOrSubmit: () async {
-                      widget.isSummaryScreen == true
-                          ? viewModel.onNextButton(context)
-                          : await viewModel.postForm3Data(context,
-                              id: widget.id);
-                    },
-                    onSavedDraft: () async {
-                      await viewModel.postForm3Data(context,
-                          id: widget.id, saveAsDraft: "SaveAsDraft");
-                    },
-                  ))
-            ],
+          Opacity(
+            opacity: viewModel.state == ViewState.busy ? 0.5 : 1.0,
+            child: widget.isSummaryScreen == true
+                ? SizedBox(
+                    height: Responsive().givenHeight * .8,
+                    child: CommonSingleChildScrollView(
+                        child: viewReportView(context, viewModel)),
+                  )
+                : SizedBox(
+                    height: Responsive().givenHeight * .8,
+                    child: CommonSingleChildScrollView(
+                        child: fillFormView(context, viewModel)),
+                  ),
           ),
+          Positioned(
+              bottom: 0,
+              left: 10,
+              right: 10,
+              child: StepperButton(
+                isLastStep: true,
+                isSummaryScreen: widget.isSummaryScreen,
+                onNextOrSubmit: () async {
+                  widget.isSummaryScreen == true
+                      ? viewModel.onNextButton(context, widget.id ?? "")
+                      : await viewModel.postForm3Data(context, id: widget.id);
+                },
+                onSavedDraft: () async {
+                  await viewModel.postForm3Data(context,
+                      id: widget.id, saveAsDraft: "SaveAsDraft");
+                },
+              )),
           if (viewModel.state == ViewState.busy)
             Center(
               child: CircularProgressIndicator(

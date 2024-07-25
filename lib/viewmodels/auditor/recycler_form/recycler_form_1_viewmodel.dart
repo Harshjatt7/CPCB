@@ -576,7 +576,7 @@ class RecyclerFormViewModel extends BaseViewModel {
                 ?.otherMachineries?.additionalData?.om ??
             [];
 
-        count = machineList.length;
+        count = machineList.isEmpty ? 1 : machineList.length;
         updatePlantMachine();
         disableFormView();
         summaryFormView();

@@ -22,7 +22,8 @@ class _ProdcerStepperState extends State<ProducerStepper> {
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
               onLeadingTapped: () {
-                viewModel.onBackButton(context);
+                  viewModel.onBackButton(context, widget.userDetails?.id ?? "");
+               
               },
               checkUser: CheckUserAndSummaryScreen(
                 isSummaryScreen: widget.userDetails?.isSummaryScreen,
@@ -45,6 +46,7 @@ class _ProdcerStepperState extends State<ProducerStepper> {
         onModelReady: (viewModel) async {
           viewModel.getIndex(widget.userDetails?.progress);
           viewModel.initalizeGroupValues();
+          _loadInitialData(viewModel);
         },
         viewModel: ProducerFormsViewModel());
   }
@@ -68,5 +70,22 @@ class _ProdcerStepperState extends State<ProducerStepper> {
       id: id,
       isSummaryScreen: isSummaryScreen,
     );
+  }
+
+  Future<void> _loadInitialData(ProducerFormsViewModel viewModel) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      switch (viewModel.index) {
+        case 1:
+          await viewModel.getProducerForm1Data(id: widget.userDetails?.id);
+          break;
+        case 2:
+          await viewModel.getProducerForm2Data(id: widget.userDetails?.id);
+          break;
+        case 3:
+          await viewModel.getProducerForm3Data(id: widget.userDetails?.id);
+          break;
+      }
+      viewModel.updateUI();
+    });
   }
 }

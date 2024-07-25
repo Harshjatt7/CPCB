@@ -105,7 +105,7 @@ class AuditorFormTile extends StatelessWidget {
               isDocument: true,
               isReadOnly: isUploadReadOnly ?? isReadOnly,
               hintText: stringConstants.upload,
-              icon: isUploadReadOnly == true
+              icon: (isUploadReadOnly == true && isReadOnly == true && isUpload == true)
                   ? null
                   : isSummaryScreen == false
                       ? uploadController?.text.isEmpty ?? false

@@ -25,8 +25,6 @@ class _ProducerForm1State extends State<ProducerForm1> {
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
-    viewModel.getProducerForm1Data(id: widget.id);
-
     super.initState();
   }
 
@@ -57,7 +55,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
               isSummaryScreen: widget.isSummaryScreen,
               onNextOrSubmit: () async {
                 widget.isSummaryScreen == true
-                    ? viewModel.onNextButton(context)
+                    ? viewModel.onNextButton(context, widget.id ?? "")
                     : await viewModel.postForm1Data(context, id: widget.id);
               },
               onSavedDraft: () async {
@@ -170,7 +168,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
             isUpload: true,
             groupValue: viewModel.radioCin,
             remarkController: viewModel.cinRemark,
-            uploadController: viewModel.cinController,
+            uploadController: viewModel.cinFileName,
             filePath: viewModel.cinFilePath,
             isUploadReadOnly: true,
             onChanged: (value) {
@@ -191,7 +189,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
             isUpload: true,
             groupValue: viewModel.radioIec,
             remarkController: viewModel.iecRemark,
-            uploadController: viewModel.iecController,
+            uploadController: viewModel.iecFileName,
             filePath: viewModel.iecFilePath,
             isUploadReadOnly: true,
             onChanged: (value) {
@@ -246,7 +244,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
             disableController: viewModel.disabledGst,
             groupValue: viewModel.radioGst,
             remarkController: viewModel.gstRemark,
-            uploadController: viewModel.gstController,
+            uploadController: viewModel.gstFileName,
             filePath: viewModel.gstFilePath,
             isReadOnly: true,
             onTap: () {
@@ -261,7 +259,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
             disableController: viewModel.disabledPan,
             groupValue: viewModel.radioPanOfCompany,
             remarkController: viewModel.panOfCompanyRemark,
-            uploadController: viewModel.panController,
+            uploadController: viewModel.panFileName,
             filePath: viewModel.panFilePath,
             isReadOnly: true,
             onTap: () {
@@ -275,7 +273,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
             groupValue: viewModel.radioCin,
             disableController: viewModel.disabledCin,
             remarkController: viewModel.cinRemark,
-            uploadController: viewModel.cinController,
+            uploadController: viewModel.cinFileName,
             filePath: viewModel.cinFilePath,
             isReadOnly: true,
             onTap: () {
@@ -290,7 +288,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
             disableController: viewModel.disabledIec,
             groupValue: viewModel.radioIec,
             remarkController: viewModel.iecRemark,
-            uploadController: viewModel.iecController,
+            uploadController: viewModel.iecFileName,
             filePath: viewModel.iecFilePath,
             isReadOnly: true,
             onTap: () {
