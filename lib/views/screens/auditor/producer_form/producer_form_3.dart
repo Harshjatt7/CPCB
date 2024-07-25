@@ -175,9 +175,9 @@ class _ProducerForm3State extends State<ProducerForm3> {
             hintText: viewModel.stringConstants.remarks.i18n(),
             isMandatory: true,
             controller: viewModel.remarkController,
-            validator: (value) {
-              return viewModel.validate(viewModel.remarkController.text);
-            },
+            // validator: (value) {
+            //   return viewModel.validate(viewModel.remarkController.text);
+            // },
             maxLength: 100,
             maxLines: 3,
           ),
@@ -191,9 +191,9 @@ class _ProducerForm3State extends State<ProducerForm3> {
             hintText: viewModel.stringConstants.summary.i18n(),
             isMandatory: true,
             controller: viewModel.summaryController,
-            validator: (value) {
-              return viewModel.validate(viewModel.summaryController.text);
-            },
+            // validator: (value) {
+            //   return viewModel.validate(viewModel.summaryController.text);
+            // },
             maxLength: 500,
             maxLines: 3,
           ),

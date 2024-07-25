@@ -14,7 +14,7 @@ class ProducerForm1 extends StatefulWidget {
   final bool? isSummaryScreen;
   final String? id;
 
-  const ProducerForm1({super.key, this.isSummaryScreen=false, this.id});
+  const ProducerForm1({super.key, this.isSummaryScreen = false, this.id});
 
   @override
   State<ProducerForm1> createState() => _ProducerForm1State();
@@ -56,9 +56,9 @@ class _ProducerForm1State extends State<ProducerForm1> {
               isLastStep: false,
               isSummaryScreen: widget.isSummaryScreen,
               onNextOrSubmit: () async {
-               widget.isSummaryScreen == true
-                        ? viewModel.onNextButton(context)
-                        :  await viewModel.postForm1Data(context, id: widget.id);
+                widget.isSummaryScreen == true
+                    ? viewModel.onNextButton(context)
+                    : await viewModel.postForm1Data(context, id: widget.id);
               },
               onSavedDraft: () async {
                 await viewModel.postForm1Data(context,
@@ -127,8 +127,10 @@ class _ProducerForm1State extends State<ProducerForm1> {
               viewModel.updateUI();
             },
             onTap: () {
-              viewModel.handleOnTap(
-                  context, viewModel.gstFileName.text, viewModel.gstFilePath);
+              viewModel.getViewEntriesFile(
+                  context, viewModel.producerForm1Data?.gstApiFilePath ?? "");
+              // viewModel.handleOnTap(
+              //     context, viewModel.gstFileName.text, viewModel.gstFilePath);
             },
             // validator: (value) {
             //   return viewModel.validate(viewModel.gstRemark.text);
@@ -151,8 +153,10 @@ class _ProducerForm1State extends State<ProducerForm1> {
               viewModel.updateUI();
             },
             onTap: () {
-              viewModel.handleOnTap(
-                  context, viewModel.panFileName.text, viewModel.panFilePath);
+              viewModel.getViewEntriesFile(
+                  context, viewModel.producerForm1Data?.panApiFilePath ?? "");
+              // viewModel.handleOnTap(
+              //     context, viewModel.panFileName.text, viewModel.panFilePath);
             },
             // validator: (value) {
             //   return viewModel.validate(viewModel.panOfCompanyRemark.text);
@@ -174,8 +178,10 @@ class _ProducerForm1State extends State<ProducerForm1> {
               viewModel.updateUI();
             },
             onTap: () {
-              viewModel.handleOnTap(
-                  context, viewModel.cinFileName.text, viewModel.cinFilePath);
+              viewModel.getViewEntriesFile(
+                  context, viewModel.producerForm1Data?.cinApiFilePath ?? "");
+              // viewModel.handleOnTap(
+              //     context, viewModel.cinFileName.text, viewModel.cinFilePath);
             },
           ),
           AuditorFormTile(
@@ -193,9 +199,11 @@ class _ProducerForm1State extends State<ProducerForm1> {
               viewModel.updateUI();
             },
             onTap: () {
-              viewModel.handleOnTap(
-                  context, viewModel.iecFileName.text, viewModel.iecFilePath);
-              viewModel.updateUI();
+              viewModel.getViewEntriesFile(
+                  context, viewModel.producerForm1Data?.iecApiFilePath ?? "");
+              // viewModel.handleOnTap(
+              //     context, viewModel.iecFileName.text, viewModel.iecFilePath);
+              // viewModel.updateUI();
             },
             // validator: (value) {
             //   return viewModel.validate(viewModel.iecRemark.text);
@@ -238,6 +246,10 @@ class _ProducerForm1State extends State<ProducerForm1> {
             uploadController: viewModel.gstController,
             filePath: viewModel.gstFilePath,
             isReadOnly: true,
+            onTap: () {
+              viewModel.getViewEntriesFile(
+                  context, viewModel.producerForm1Data?.gstApiFilePath ?? "");
+            },
           ),
           AuditorFormTile(
             isMandatory: true,
@@ -248,6 +260,10 @@ class _ProducerForm1State extends State<ProducerForm1> {
             uploadController: viewModel.panController,
             filePath: viewModel.panFilePath,
             isReadOnly: true,
+            onTap: () {
+              viewModel.getViewEntriesFile(
+                  context, viewModel.producerForm1Data?.panApiFilePath ?? "");
+            },
           ),
           AuditorFormTile(
             title: viewModel.stringConstants.cin.i18n(),
@@ -257,6 +273,10 @@ class _ProducerForm1State extends State<ProducerForm1> {
             uploadController: viewModel.cinController,
             filePath: viewModel.cinFilePath,
             isReadOnly: true,
+            onTap: () {
+              viewModel.getViewEntriesFile(
+                  context, viewModel.producerForm1Data?.cinApiFilePath ?? "");
+            },
           ),
           AuditorFormTile(
             isMandatory: true,
@@ -267,6 +287,10 @@ class _ProducerForm1State extends State<ProducerForm1> {
             uploadController: viewModel.iecController,
             filePath: viewModel.iecFilePath,
             isReadOnly: true,
+            onTap: () {
+              viewModel.getViewEntriesFile(
+                  context, viewModel.producerForm1Data?.iecFilePath ?? "");
+            },
           ),
         ],
       ),

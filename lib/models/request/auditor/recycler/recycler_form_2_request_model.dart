@@ -124,7 +124,8 @@ class PlanCapacityAssesmentRequestAdditionalData {
         "plant_operational_per_year": plantOperationalPerYear,
         "plant_operational_per_shift": plantOperationalPerShift,
         "plant_operational_per_day": plantOperationalPerDay,
-        "actual_processing_capacity_derived": actualProcessingCapacityRequestDerived,
+        "actual_processing_capacity_derived":
+            actualProcessingCapacityRequestDerived,
       };
 }
 
@@ -152,7 +153,8 @@ class ValueComparableRequestAdditionalData {
     this.differenceInActualProcessing,
   });
 
-  factory ValueComparableRequestAdditionalData.fromJson(Map<String, dynamic> json) =>
+  factory ValueComparableRequestAdditionalData.fromJson(
+          Map<String, dynamic> json) =>
       ValueComparableRequestAdditionalData(
         actualProcessingCapacityRequest: json["actual_processing_capacity"],
         differenceInActualProcessing: json["difference_in_actual_processing"],

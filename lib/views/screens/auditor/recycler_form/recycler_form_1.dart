@@ -83,10 +83,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   onNextOrSubmit: () async {
                     widget.isSummaryScreen == true
                         ? viewModel.onNextButton(context)
-                        : viewModel.onNextButton(context);
-                        // await viewModel.postForm1Data(context,
-                        //     userId: widget.id ?? "",
-                        //     isRetreader: widget.userType == "Retreader");
+                        : await viewModel.postForm1Data(context,
+                            userId: widget.id ?? "",
+                            isRetreader: widget.userType == "Retreader");
                   },
                   onSavedDraft: () async {
                     await viewModel.postForm1Data(context,

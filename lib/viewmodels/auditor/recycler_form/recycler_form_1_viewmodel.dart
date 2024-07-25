@@ -20,24 +20,41 @@ import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form5_respon
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_recycler_stepper_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../constants/routes_constant.dart';
 import '../../../models/request/auditor/recycler/recycler_form_2_request_model.dart';
 import '../../../models/request/auditor/recycler/recycler_form_3_request_model.dart';
+import '../../../models/response/filter/checkbox_filter_model.dart';
 import '../../material_app_viewmodel.dart';
 
 class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
   final helperFunctions = HelperFunctions();
+
+  List<CheckboxFilterModel> endProductsList = [];
+  List<String> selectedEndProductsData = [];
+  List<String> emptyendProductsList = [];
+  void updateCheckBox(bool val, int index) {
+    endProductsList[index].isChecked =
+        !(endProductsList[index].isChecked ?? false);
+
+    if (val == true) {
+      if (!(selectedEndProductsData.contains(endProductsList[index].title))) {
+        selectedEndProductsData.add(endProductsList[index].title);
+      }
+    } else {
+      if ((selectedEndProductsData.contains(endProductsList[index].title))) {
+        selectedEndProductsData.remove(endProductsList[index].title);
+      }
+    }
+  }
 
   TextEditingController gstController = TextEditingController();
   TextEditingController gstRemarkController = TextEditingController();
@@ -143,7 +160,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   String? endProductDropDownError;
 
   List installList = <String>[];
-  List<String> typeOfEndProduct = [];
+  List<String> typeOfEndProduct = ["Select"];
 
   MultipartFile? aadharFile;
   MultipartFile? panNoFile;
@@ -296,7 +313,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       case 60:
         index = 4;
         break;
-      case 80 || 100:
+      case 80:
         index = 5;
         break;
       default:
@@ -312,7 +329,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       processingCapacity: ProcessingCapacityRequest(
         planCapacityAssesment: PlanCapacityAssesmentRequest(
           additionalData: PlanCapacityAssesmentRequestAdditionalData(
-            typeOfEndProduct: typeOfEndProduct,
+            typeOfEndProduct: selectedEndProductsData,
             plantProductionCapacity: plantProductionCapacityController.text,
             endProductProducedOnAuditDay: endProductProducedController.text,
             plantOperationalPerYear: hoursPlantOperationalController.text,
@@ -1124,6 +1141,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void summaryForm2View() {
+    typeOfEndProduct.clear();
     if (endProductsData != null) {
       typeOfEndProduct.add(endProductsData?.scrumRubber ?? '');
       typeOfEndProduct.add(endProductsData?.crumRubber ?? '');
@@ -1132,6 +1150,21 @@ class RecyclerFormViewModel extends BaseViewModel {
       typeOfEndProduct.add(endProductsData?.pyrolisisOilBatch ?? '');
       typeOfEndProduct.add(endProductsData?.pyrolisisOilContinuous ?? '');
     }
+    if (endProductsData != null) {
+      endProductsList
+          .add(CheckboxFilterModel(title: endProductsData?.scrumRubber ?? ''));
+      endProductsList
+          .add(CheckboxFilterModel(title: endProductsData?.crumRubber ?? ''));
+      endProductsList
+          .add(CheckboxFilterModel(title: endProductsData?.crmb ?? ''));
+      endProductsList.add(
+          CheckboxFilterModel(title: endProductsData?.recoveredCarbon ?? ''));
+      endProductsList.add(
+          CheckboxFilterModel(title: endProductsData?.pyrolisisOilBatch ?? ''));
+      endProductsList.add(CheckboxFilterModel(
+          title: endProductsData?.pyrolisisOilContinuous ?? ''));
+    }
+
     typeOfProductController.text =
         planCapacityAssesment?.additionalData?.typeOfEndProduct?.first ?? '';
     // endProductDropdownValue =

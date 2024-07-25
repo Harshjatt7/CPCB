@@ -3,7 +3,6 @@
 //     final errorResponseModel = errorResponseModelFromJson(jsonString);
 
 import 'dart:convert';
-
 ErrorResponseModel errorResponseModelFromJson(String str) =>
     ErrorResponseModel.fromJson(json.decode(str));
 
@@ -289,10 +288,10 @@ class ErrorsList {
             ? []
             : List<String>.from(
                 json["companyDetails.companyPan.audit_remark"]!.map((x) => x)),
-        gstRemark: json["companyDetails.companyPan.audit_remark"] == null
+        gstRemark: json["companyDetails.companyGst.audit_remark"] == null
             ? []
             : List<String>.from(
-                json["companyDetails.companyPan.audit_remark"]!.map((x) => x)),
+                json["companyDetails.companyGst.audit_remark"]!.map((x) => x)),
         iecRemark: json["companyDetails.companyIec.audit_remark"] == null
             ? []
             : List<String>.from(
