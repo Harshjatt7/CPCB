@@ -57,17 +57,6 @@ class AuditorViewEntriesCard extends StatelessWidget {
                 Row(
                   children: [
                     InkWell(
-                      onTap: onViewTap,
-                      child: CommonImageWidget(
-                        imageSource: ImageConstants().viewEyes,
-                        isNetworkImage: false,
-                        imageColor: AppColor().darkGreen,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    InkWell(
                       onTap: onDownloadTap,
                       child: CommonImageWidget(
                         imageSource: ImageConstants().fileUpload,

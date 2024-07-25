@@ -29,7 +29,9 @@ class Data {
             : List<EprDatum>.from(
                 json["eprData"]!.map((x) => EprDatum.fromJson(x))),
         auditPlanId: json["auditPlanId"],
-        productionInfo: json["productionInfo"] == null
+        productionInfo: (json["productionInfo"] == null ||
+                (json["productionInfo"] != null &&
+                    json["productionInfo"].length == 0))
             ? null
             : ProductionInfo.fromJson(json["productionInfo"]),
       );
