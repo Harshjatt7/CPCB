@@ -177,7 +177,7 @@ class Contacted {
 }
 
 class ContactedAdditionalData {
-  dynamic suppliers;
+  int? suppliers;
 
   ContactedAdditionalData({
     this.suppliers,
