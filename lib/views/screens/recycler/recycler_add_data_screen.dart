@@ -106,9 +106,9 @@ class RecyclerAddDataScreen extends StatelessWidget {
               if (viewModel.wasteTyreSupplierAddressError.isNotEmpty)
                 showErrorMessage(
                     context, viewModel.wasteTyreSupplierAddressError),
-              // tyreSourceDropdown(viewModel),
-              // if (viewModel.sourceTyreError.isNotEmpty)
-              //   showErrorMessage(context, viewModel.sourceTyreError),
+              tyreSourceDropdown(viewModel),
+              if (viewModel.sourceTyreError.isNotEmpty)
+                showErrorMessage(context, viewModel.sourceTyreError),
               recycledTyreField(viewModel),
               if (viewModel.recycledTyreError.isNotEmpty)
                 showErrorMessage(context, viewModel.recycledTyreError),
@@ -231,29 +231,29 @@ class RecyclerAddDataScreen extends StatelessWidget {
     );
   }
 
-  // Padding tyreSourceDropdown(RecyclerAddDataViewModel viewModel) {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(vertical: 8),
-  //     child: CommonDropdownTextFormField(
-  //       isMandatory: true,
-  //       error: viewModel.tyreSourceDropdownError,
-  //       onTap: () {
-  //         viewModel.changetyreSourceDropdownValue(
-  //           viewModel.tyreSourceDropdownValue,
-  //         );
-  //       },
-  //       value: viewModel.tyreSourceDropdownValue,
-  //       labelText: viewModel.stringConstants.tyreSourceLabel,
-  //       dropDownItem: viewModel.tyreSource,
-  //       onChanged: (value) {
-  //         viewModel.changetyreSourceDropdownValue(
-  //           value,
-  //         );
-  //         viewModel.tyreSourceDropdownError = null;
-  //       },
-  //     ),
-  //   );
-  // }
+  Padding tyreSourceDropdown(RecyclerAddDataViewModel viewModel) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: CommonDropdownTextFormField(
+        isMandatory: true,
+        error: viewModel.tyreSourceDropdownError,
+        onTap: () {
+          viewModel.changetyreSourceDropdownValue(
+            viewModel.tyreSourceDropdownValue,
+          );
+        },
+        value: viewModel.tyreSourceDropdownValue,
+        labelText: viewModel.stringConstants.tyreSourceLabel,
+        dropDownItem: viewModel.tyreSourceList,
+        onChanged: (value) {
+          viewModel.changetyreSourceDropdownValue(
+            value,
+          );
+          viewModel.tyreSourceDropdownError = null;
+        },
+      ),
+    );
+  }
 
   Padding recycledTyreField(RecyclerAddDataViewModel viewModel) {
     return Padding(
