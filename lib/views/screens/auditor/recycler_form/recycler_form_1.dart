@@ -307,31 +307,31 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isDocument: true,
                   isReadOnly: true,
                   isSummaryScreen: widget.isSummaryScreen,
-                  onTap: () {
-                    viewModel.handleOnMachineTap(context,
-                        viewModel.uploadControllerList[viewModel.count - 1]);
-                  },
-                  onSuffixTap: () async {
-                    await viewModel.handleOnMachineSuffixTap(context,
-                        viewModel.uploadControllerList[viewModel.count - 1]);
-                  },
-                  uploadValidator: (value) {
-                    if (viewModel.machineFileSizeModel.isNotEmpty) {
-                      int i = 0;
-                      if (viewModel.uploadControllerList.length - 2 > 0) {
-                        i = viewModel.uploadControllerList.length - 2;
-                      }
-                      return viewModel
-                          .uploadValidation(viewModel.machineFileSizeModel[i]);
-                    }
-                    return null;
-                  },
-                  onAdd: () {
-                    viewModel.onAdd();
-                  },
-                  onDelete: () {
-                    viewModel.onDelete();
-                  },
+                  // onTap: () {
+                  //   viewModel.handleOnMachineTap(context,
+                  //       viewModel.uploadControllerList[viewModel.count - 1]);
+                  // },
+                  // onSuffixTap: () async {
+                  //   await viewModel.handleOnMachineSuffixTap(context,
+                  //       viewModel.uploadControllerList[viewModel.count - 1]);
+                  // },
+                  // uploadValidator: (value) {
+                  //   if (viewModel.machineFileSizeModel.isNotEmpty) {
+                  //     int i = 0;
+                  //     if (viewModel.uploadControllerList.length - 2 > 0) {
+                  //       i = viewModel.uploadControllerList.length - 2;
+                  //     }
+                  //     return viewModel
+                  //         .uploadValidation(viewModel.machineFileSizeModel[i]);
+                  //   }
+                  //   return null;
+                  // },
+                  // onAdd: () {
+                  //   viewModel.onAdd();
+                  // },
+                  // onDelete: () {
+                  //   viewModel.onDelete();
+                  // },
                 ),
               )
             ],
@@ -424,9 +424,6 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       hintText: stringConstants.uploadVideo,
                       isMandatory: false,
                       controller: viewModel.uploadVideoController,
-                      // onTap: (){
-                      //   viewModel.pickVideo();
-                      // },
                     ),
                   ),
                   Padding(
@@ -930,7 +927,6 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         icon: viewModel.uploadVideoController.text.isEmpty
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
-                          
                         onTap: () async {
                           viewModel.handleOnTap(context, RecyclerForm1.video,
                               viewModel.uploadVideoController,
