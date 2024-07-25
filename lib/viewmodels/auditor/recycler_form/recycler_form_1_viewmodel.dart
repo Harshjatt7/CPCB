@@ -1173,6 +1173,10 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     typeOfProductController.text =
         planCapacityAssesment?.additionalData?.typeOfEndProduct?.first ?? '';
+    selectedEndProductsData =
+        planCapacityAssesment?.additionalData?.typeOfEndProduct ?? [];
+    endProductDataListController?.text = selectedEndProductsData.join(",");
+
     // endProductDropdownValue =
     //     planCapacityAssesment?.additionalData?.typeOfEndProduct?.first;
     plantProductionCapacityController.text =
@@ -1213,19 +1217,26 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void summaryForm3View() {
-    procurementInfoContact.text = procurementInfo?.contacted?.auditValue ?? '';
+    procurementInfoContact.text =
+        procurementInfo?.contacted?.additionalData?.suppliers.toString() ?? '';
     procurementInfoContactRemarks.text =
         procurementInfo?.contacted?.auditRemark ?? '';
-    procurementInfoAuditVerified.text =
-        procurementInfo?.verified?.auditValue ?? '';
+    procurementInfoAuditVerified.text = procurementInfo
+            ?.verified?.additionalData?.suppliersNotVerified
+            .toString() ??
+        '';
     procurmentInfoVerifiedRemark.text =
         procurementInfo?.verified?.auditRemark ?? '';
-    physicallyContactedValue.text =
-        procurementInfo?.physicallyContacted?.auditValue ?? '';
+    physicallyContactedValue.text = procurementInfo
+            ?.physicallyContacted?.additionalData?.suppliers
+            .toString() ??
+        '';
     physicallyContactedRemark.text =
         procurementInfo?.physicallyContacted?.auditRemark ?? '';
-    physicallyVerifiedValue.text =
-        procurementInfo?.physicallyVerified?.auditValue ?? '';
+    physicallyVerifiedValue.text = procurementInfo
+            ?.physicallyVerified?.additionalData?.suppliersNotVerified
+            .toString() ??
+        '';
     physicallyVerifiedRemark.text =
         procurementInfo?.physicallyVerified?.auditRemark ?? '';
     radioProcurementInfoContact =
@@ -1239,9 +1250,13 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void summaryForm4View() {
-    invoiceController.text = productionInfo?.invoice?.auditValue ?? '';
+    invoiceController.text =
+        productionInfo?.invoice?.additionalData?.numberOfSuppliersContacted ??
+            '';
     remakrsInvoiceController.text = productionInfo?.invoice?.auditRemark ?? '';
-    buyersController.text = productionInfo?.invoice?.auditValue ?? '';
+    buyersController.text =
+        productionInfo?.invoice?.additionalData?.numberOfSuppliersContacted ??
+            '';
     remakrsBuyerController.text = productionInfo?.buyers?.auditRemark ?? '';
     radioBuyer = "${productionInfo?.buyers?.auditConfirmedStatus ?? '1'}";
     radioInvoice = "${productionInfo?.buyers?.auditConfirmedStatus ?? '1'}";
