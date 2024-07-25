@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form4_response_model.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
@@ -19,6 +20,7 @@ class RecyclerDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isLoading: viewModel?.state == ViewState.busy,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(120),
         child: SafeArea(

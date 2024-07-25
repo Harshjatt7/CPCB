@@ -35,7 +35,9 @@ class ProducerForm1ProducerForm1Data {
         companyDetails: json["companyDetails"] == null
             ? null
             : CompanyDetailsResponse.fromJson(json["companyDetails"]),
-        auditSummary: json["auditSummary"] == null
+        auditSummary: (json["auditSummary"] == null ||
+                (json["auditSummary"] != null &&
+                    json["auditSummary"].length == 0))
             ? null
             : AuditSummary.fromJson(json["auditSummary"]),
       );

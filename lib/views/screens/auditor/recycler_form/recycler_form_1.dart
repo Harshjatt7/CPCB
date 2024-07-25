@@ -83,10 +83,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   onNextOrSubmit: () async {
                     widget.isSummaryScreen == true
                         ? viewModel.onNextButton(context)
-                        : viewModel.onNextButton(context);
-                        // await viewModel.postForm1Data(context,
-                        //     userId: widget.id ?? "",
-                        //     isRetreader: widget.userType == "Retreader");
+                        : await viewModel.postForm1Data(context,
+                            userId: widget.id ?? "",
+                            isRetreader: widget.userType == "Retreader");
                   },
                   onSavedDraft: () async {
                     await viewModel.postForm1Data(context,
@@ -308,6 +307,31 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isDocument: true,
                   isReadOnly: true,
                   isSummaryScreen: widget.isSummaryScreen,
+                  onTap: () {
+                    viewModel.handleOnMachineTap(context,
+                        viewModel.uploadControllerList[viewModel.count - 1]);
+                  },
+                  onSuffixTap: () async {
+                    await viewModel.handleOnMachineSuffixTap(context,
+                        viewModel.uploadControllerList[viewModel.count - 1]);
+                  },
+                  uploadValidator: (value) {
+                    if (viewModel.machineFileSizeModel.isNotEmpty) {
+                      int i = 0;
+                      if (viewModel.uploadControllerList.length - 2 > 0) {
+                        i = viewModel.uploadControllerList.length - 2;
+                      }
+                      return viewModel
+                          .uploadValidation(viewModel.machineFileSizeModel[i]);
+                    }
+                    return null;
+                  },
+                  onAdd: () {
+                    viewModel.onAdd();
+                  },
+                  onDelete: () {
+                    viewModel.onDelete();
+                  },
                 ),
               )
             ],
@@ -735,11 +759,6 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   onTap: () {
                     viewModel.handleOnMachineTap(context,
                         viewModel.uploadControllerList[viewModel.count - 1]);
-                    // viewModel.handleOnTap(
-                    //     context,
-                    //     RecyclerForm1.machine,
-                    //     viewModel.uploadControllerList[viewModel.count - 1],
-                    //     viewModel.machineFile);
                   },
                   onSuffixTap: () async {
                     await viewModel.handleOnMachineSuffixTap(context,
@@ -912,13 +931,11 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
                         onTap: () async {
-                          // await viewModel.pickVideo();
                           viewModel.handleOnTap(context, RecyclerForm1.video,
                               viewModel.uploadVideoController,
                               isVideo: true);
                         },
                         onSuffixTap: () async {
-                          // await viewModel.pickVideo();
                           viewModel.handleOnSuffixTap(
                               context,
                               RecyclerForm1.video,
