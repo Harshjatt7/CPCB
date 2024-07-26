@@ -248,14 +248,15 @@ class ProducerFormsViewModel extends BaseViewModel {
           await _auditorRepository.postProducerForm3Data(requestModel, id: id);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, res?.data?.message ?? "");
-
-          MaterialAppViewModel.selectedPageIndex = 1;
-          Navigator.pushNamedAndRemoveUntil(
-              context,
-              AppRoutes.auditorHomeScreen,
-              ModalRoute.withName(AppRoutes.auditorHomeScreen));
+          HelperFunctions().commonSuccessSnackBar(
+              context, res?.data?.message ?? "Data Successfuly Added");
+          if (saveAsDraft == null) {
+            MaterialAppViewModel.selectedPageIndex = 1;
+            Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.auditorHomeScreen,
+                ModalRoute.withName(AppRoutes.auditorHomeScreen));
+          }
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -336,19 +337,14 @@ class ProducerFormsViewModel extends BaseViewModel {
           await _auditorRepository.postProducerForm2Data(requestModel, id: id);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          HelperFunctions().commonSuccessSnackBar(
+              context, res?.data?.message ?? "Data Successfuly Added");
           if (saveAsDraft == null) {
             if (context.mounted) {
-              // Provider.of<CommonStepperViewModel>(context, listen: false)
-              //     .index=index;
-              // Provider.of<CommonStepperViewModel>(context, listen: false)
-              //     .onNextButton(context, "Producer");
               onNextButton(context, id ?? "");
+              await getProducerForm3Data();
             }
           }
-          onNextButton(context, id ?? "");
-          await getProducerForm3Data();
         }
       }
     } catch (e) {
@@ -495,15 +491,13 @@ class ProducerFormsViewModel extends BaseViewModel {
           await _auditorRepository.postProducerForm1Data(requestModel, id: id);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, res?.data?.message ?? "");
+          HelperFunctions().commonSuccessSnackBar(
+              context, res?.data?.message ?? "Data Successfuly Added");
           if (saveAsDraft == null) {
             if (context.mounted) {
               onNextButton(context, id ?? "");
             }
           }
-          onNextButton(context, id ?? "");
-          await getProducerForm2Data(id: id);
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -579,7 +573,7 @@ class ProducerFormsViewModel extends BaseViewModel {
         state = ViewState.idle;
         if (context.mounted) {
           helperFunctions.commonErrorSnackBar(
-              context, value.error?.message ?? '');
+              context, value.error?.message ?? "Data Successfuly Added");
         }
       }
     } catch (error) {

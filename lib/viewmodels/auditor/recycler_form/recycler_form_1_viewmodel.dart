@@ -284,22 +284,71 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   int index = 1;
 
-  void onNextButton(BuildContext context) {
-    if (index < 5) {
-      index++;
-      updateUI();
-    } else {
-      Navigator.pop(context);
-    }
+  Future<void> onNextButton(
+      BuildContext context, String id, bool isRetreader) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (index < 5) {
+        index++;
+        switch (index) {
+          case 1:
+            await getRecycler1Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+          case 2:
+            await getRecycler2Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+          case 3:
+            await getRecycler3Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+          case 4:
+            await getRecycler4Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+          case 5:
+            await getRecycler5Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+        }
+        updateUI();
+      } else {
+        Navigator.pop(context);
+      }
+    });
   }
 
-  void onBackButton(BuildContext context) {
-    if (index > 1) {
-      index--;
-      updateUI();
-    } else {
-      Navigator.pop(context);
-    }
+  void onBackButton(BuildContext context, String id, bool isRetreader) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (index > 1) {
+        index--;
+        switch (index) {
+          case 1:
+            await getRecycler1Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+          case 2:
+            await getRecycler2Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+          case 3:
+            await getRecycler3Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+          case 4:
+            await getRecycler4Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+          case 5:
+            await getRecycler5Data(context,
+                userId: id, isRetreader: isRetreader);
+            break;
+        }
+        updateUI();
+      } else {
+        Navigator.pop(context);
+      }
+    });
   }
 
   void getIndex(num? progress) {
@@ -378,10 +427,13 @@ class RecyclerFormViewModel extends BaseViewModel {
           id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, res?.data?.message ?? "");
-
-          onNextButton(context);
+          HelperFunctions().commonSuccessSnackBar(
+              context, res?.data?.message ?? "Data Successfuly Added");
+          if (saveAsDraft == null) {
+            if (context.mounted) {
+              onNextButton(context, id ?? "", isRetreader ?? false);
+            }
+          }
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -481,9 +533,13 @@ class RecyclerFormViewModel extends BaseViewModel {
           id: id, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          onNextButton(context);
+          HelperFunctions().commonSuccessSnackBar(
+              context, res?.data?.message ?? "Data Successfuly Added");
+          if (saveAsDraft == null) {
+            if (context.mounted) {
+              onNextButton(context, id ?? "", isRetreader ?? false);
+            }
+          }
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -1651,9 +1707,9 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
   }
 
-  void formValidation(BuildContext context) {
+  void formValidation(BuildContext context, String id, bool isRetreader) {
     if (formKey.currentState?.validate() ?? false) {
-      onNextButton(context);
+      onNextButton(context, id, isRetreader);
     } else {}
   }
 
@@ -1728,91 +1784,89 @@ class RecyclerFormViewModel extends BaseViewModel {
   Future<void> postForm1Data(BuildContext context,
       {String userId = "",
       bool isRetreader = false,
-      String submit = "SaveAsDraft"}) async {
-    AuditorRecyclerForm1RequestModel requestModel =
-        AuditorRecyclerForm1RequestModel(
-            submit: submit,
-            generalInfo: GenerralInfoRequest(
-                gstNo: AddressLine(
-                    auditConfirmedStatus: radioGst,
-                    auditRemark: gstRemarkController.text),
-                companyPan: AddressLine(
-                    auditConfirmedStatus: radioPanOfCompany,
-                    auditRemark: companyPanRemarkController.text),
-                companyIec: AddressLine(
-                    auditConfirmedStatus: radioIec,
-                    auditRemark: companyRemarkIECController.text),
-                cto: AddressLine(
-                    auditConfirmedStatus: radioCto,
-                    auditRemark: recyclerRemakrCTOController.text),
-                authorizationUnderHomwRules: AddressLine(
-                    auditConfirmedStatus: radioAuthorization,
-                    auditRemark: remarkAuthorizationController.text),
-                addressLine1: AddressLine(
-                    auditConfirmedStatus: radioRecyclingDetails,
-                    auditRemark: remarkRecyclingDetailsController.text),
-                gpsLocationRecycler:
-                    GpsLocationRecycler(auditConfirmedStatus: radioGps),
-                gpsLocationAuditor: GpsLocationAuditorRequest(
-                  auditConfirmedStatus: radioGps,
-                  auditRemark: gpsAuditorRemarkController.text,
-                  additionalData: GpsLocationAuditorAdditionalDataRequest(
-                      lat: gpsAuditorLatitude.text,
-                      long: gpsAuditorLongitude.text),
-                ),
-                authorizedPersonAdhar: AirPollutionControlDevicesRequest(
-                    auditRemark: remarkAadharController.text,
-                    auditConfirmedStatus: radioAadharCard,
-                    auditDocument: aadharFileName,
-                    additionalData:
-                        AirPollutionControlDevicesAdditionalDataRequest(
-                            fileKey: aadharDocument?.fileKey ?? '',
-                            fileLink: aadharDocument?.fileUrl ?? '')),
-                authorizedPersonPan: AirPollutionControlDevicesRequest(
-                    auditRemark: remarkPanNoController.text,
-                    auditConfirmedStatus: radioPanNo,
-                    auditDocument: panNoFileName,
-                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
-                        fileKey: authorizedPersonPanDocument?.fileKey ?? '',
-                        fileLink: authorizedPersonPanDocument?.fileUrl ?? '')),
-                otherMachineries: OtherMachineriesRequest(
-                    additionalData: OtherMachineriesAdditionalDataRequest(
-                        om: getOmRequest())),
-                lastYearElectricityBill: AirPollutionControlDevicesRequest(
-                    auditRemark: remarkPowerController.text,
-                    auditConfirmedStatus: radioPowerConsumption,
-                    auditDocument: powerFileName,
-                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
-                        fileKey: lastYearElectricityBillDocument?.fileKey ?? '',
-                        fileLink:
-                            lastYearElectricityBillDocument?.fileUrl ?? '')),
-                airPollutionControlDevices: AirPollutionControlDevicesRequest(
-                    auditRemark: remakrsPollutionController.text,
-                    auditConfirmedStatus: radioPollution,
-                    auditDocument: pollutionFileName,
-                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
-                        fileKey:
-                            airPollutionControlDevicesDocument?.fileKey ?? '',
-                        fileLink:
-                            airPollutionControlDevicesDocument?.fileUrl ?? '')),
-                geoTaggedVideoUpload: AirPollutionControlDevicesRequest(
-                    auditRemark: remarkVideoController.text,
-                    auditConfirmedStatus: radioPlant,
-                    auditDocument: videoFileName,
-                    additionalData: AirPollutionControlDevicesAdditionalDataRequest(
-                        fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '',
-                        fileLink:
-                            geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
-
+      String submit = ""}) async {
     state = ViewState.busy;
     try {
+      AuditorRecyclerForm1RequestModel requestModel =
+          AuditorRecyclerForm1RequestModel(
+              submit: submit,
+              generalInfo: GenerralInfoRequest(
+                  gstNo: AddressLine(
+                      auditConfirmedStatus: radioGst,
+                      auditRemark: gstRemarkController.text),
+                  companyPan: AddressLine(
+                      auditConfirmedStatus: radioPanOfCompany,
+                      auditRemark: companyPanRemarkController.text),
+                  companyIec: AddressLine(
+                      auditConfirmedStatus: radioIec,
+                      auditRemark: companyRemarkIECController.text),
+                  cto: AddressLine(
+                      auditConfirmedStatus: radioCto,
+                      auditRemark: recyclerRemakrCTOController.text),
+                  authorizationUnderHomwRules: AddressLine(
+                      auditConfirmedStatus: radioAuthorization,
+                      auditRemark: remarkAuthorizationController.text),
+                  addressLine1: AddressLine(
+                      auditConfirmedStatus: radioRecyclingDetails,
+                      auditRemark: remarkRecyclingDetailsController.text),
+                  gpsLocationRecycler:
+                      GpsLocationRecycler(auditConfirmedStatus: radioGps),
+                  gpsLocationAuditor: GpsLocationAuditorRequest(
+                    auditConfirmedStatus: radioGps,
+                    auditRemark: gpsAuditorRemarkController.text,
+                    additionalData: GpsLocationAuditorAdditionalDataRequest(
+                        lat: gpsAuditorLatitude.text,
+                        long: gpsAuditorLongitude.text),
+                  ),
+                  authorizedPersonAdhar: AirPollutionControlDevicesRequest(
+                      auditRemark: remarkAadharController.text,
+                      auditConfirmedStatus: radioAadharCard,
+                      auditDocument: aadharFileName,
+                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                          fileKey: aadharDocument?.fileKey ?? '',
+                          fileLink: aadharDocument?.fileUrl ?? '')),
+                  authorizedPersonPan: AirPollutionControlDevicesRequest(
+                      auditRemark: remarkPanNoController.text,
+                      auditConfirmedStatus: radioPanNo,
+                      auditDocument: panNoFileName,
+                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                          fileKey: authorizedPersonPanDocument?.fileKey ?? '',
+                          fileLink:
+                              authorizedPersonPanDocument?.fileUrl ?? '')),
+                  otherMachineries: OtherMachineriesRequest(
+                      additionalData: OtherMachineriesAdditionalDataRequest(
+                          om: getOmRequest())),
+                  lastYearElectricityBill: AirPollutionControlDevicesRequest(
+                      auditRemark: remarkPowerController.text,
+                      auditConfirmedStatus: radioPowerConsumption,
+                      auditDocument: powerFileName,
+                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                          fileKey:
+                              lastYearElectricityBillDocument?.fileKey ?? '',
+                          fileLink:
+                              lastYearElectricityBillDocument?.fileUrl ?? '')),
+                  airPollutionControlDevices: AirPollutionControlDevicesRequest(
+                      auditRemark: remakrsPollutionController.text,
+                      auditConfirmedStatus: radioPollution,
+                      auditDocument: pollutionFileName,
+                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                          fileKey:
+                              airPollutionControlDevicesDocument?.fileKey ?? '',
+                          fileLink: airPollutionControlDevicesDocument?.fileUrl ??
+                              '')),
+                  geoTaggedVideoUpload:
+                      AirPollutionControlDevicesRequest(auditRemark: remarkVideoController.text, auditConfirmedStatus: radioPlant, auditDocument: videoFileName, additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
+
       final res = await auditorRepository.postRecyclerForm1Data(requestModel,
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
-        if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          onNextButton(context);
+        HelperFunctions().commonSuccessSnackBar(
+            context, res?.data?.message ?? "Data Successfuly Added");
+
+        if (submit == "") {
+          if (context.mounted) {
+            onNextButton(context, userId, isRetreader);
+          }
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -1926,9 +1980,13 @@ class RecyclerFormViewModel extends BaseViewModel {
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          onNextButton(context);
+          HelperFunctions().commonSuccessSnackBar(
+              context, res?.data?.message ?? "Data Successfuly Added");
+          if (submit == "") {
+            if (context.mounted) {
+              onNextButton(context, userId, isRetreader);
+            }
+          }
         }
       } else {
         final apiError = res?.error?.errorsList;
@@ -2003,14 +2061,17 @@ class RecyclerFormViewModel extends BaseViewModel {
           isRetreader: isRetreader, userId: userId);
       if (res?.isSuccess == true) {
         if (context.mounted) {
-          HelperFunctions()
-              .commonSuccessSnackBar(context, res?.data?.message ?? "");
-          onNextButton(context);
-          MaterialAppViewModel.selectedPageIndex = 1;
-          Navigator.pushNamedAndRemoveUntil(
-              context,
-              AppRoutes.auditorHomeScreen,
-              ModalRoute.withName(AppRoutes.auditorHomeScreen));
+          HelperFunctions().commonSuccessSnackBar(
+              context, res?.data?.message ?? "Data Successfuly Added");
+          if (submit == "") {
+            if (context.mounted) {
+              MaterialAppViewModel.selectedPageIndex = 1;
+              Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.auditorHomeScreen,
+                  ModalRoute.withName(AppRoutes.auditorHomeScreen));
+            }
+          }
         }
       } else {
         final apiError = res?.error?.errorsList;

@@ -26,7 +26,8 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
               onLeadingTapped: () {
-                viewModel.onBackButton(context);
+                viewModel.onBackButton(context, widget.userDetails?.id ?? "",
+                    widget.userDetails?.userType == "Retreader");
               },
               isLoading: viewModel.state == ViewState.busy,
               checkUser: CheckUserAndSummaryScreen(
@@ -60,31 +61,7 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
           viewModel.textForm2Listener();
           viewModel.textForm3Listener();
           await viewModel.getCurrentLocation();
-          // if (context.mounted) {
-          //   await viewModel.getRecycler1Data(context,
-          //       userId: widget.userDetails?.id ?? "",
-          //       isRetreader: widget.userDetails?.userType == "Retreader");
-          // }
-          // if (context.mounted) {
-          //   await viewModel.getRecycler2Data(context,
-          //       userId: widget.userDetails?.id ?? "",
-          //       isRetreader: widget.userDetails?.userType == "Retreader");
-          // }
-          // if (context.mounted) {
-          //   await viewModel.getRecycler3Data(context,
-          //       userId: widget.userDetails?.id ?? "",
-          //       isRetreader: widget.userDetails?.userType == "Retreader");
-          // }
-          // if (context.mounted) {
-          //   await viewModel.getRecycler4Data(context,
-          //       userId: widget.userDetails?.id ?? "",
-          //       isRetreader: widget.userDetails?.userType == "Retreader");
-          // }
-          // if (context.mounted) {
-          //   await viewModel.getRecycler5Data(context,
-          //       userId: widget.userDetails?.id ?? "",
-          //       isRetreader: widget.userDetails?.userType == "Retreader");
-          // }
+          _loadInitialData(viewModel);
         },
         viewModel: RecyclerFormViewModel());
   }
@@ -127,5 +104,38 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
       userType: userType,
       isSummaryScreen: isSummaryScreen,
     );
+  }
+
+  Future<void> _loadInitialData(RecyclerFormViewModel viewModel) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      switch (viewModel.index) {
+        case 1:
+          await viewModel.getRecycler1Data(context,
+              userId: widget.userDetails?.id ?? "",
+              isRetreader: widget.userDetails?.userType == "Retreader");
+          break;
+        case 2:
+          await viewModel.getRecycler2Data(context,
+              userId: widget.userDetails?.id ?? "",
+              isRetreader: widget.userDetails?.userType == "Retreader");
+          break;
+        case 3:
+          await viewModel.getRecycler3Data(context,
+              userId: widget.userDetails?.id ?? "",
+              isRetreader: widget.userDetails?.userType == "Retreader");
+          break;
+        case 4:
+          await viewModel.getRecycler4Data(context,
+              userId: widget.userDetails?.id ?? "",
+              isRetreader: widget.userDetails?.userType == "Retreader");
+          break;
+        case 5:
+          await viewModel.getRecycler5Data(context,
+              userId: widget.userDetails?.id ?? "",
+              isRetreader: widget.userDetails?.userType == "Retreader");
+          break;
+      }
+      viewModel.updateUI();
+    });
   }
 }
