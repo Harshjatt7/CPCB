@@ -26,6 +26,7 @@ class _ProducerForm3State extends State<ProducerForm3> {
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
+        viewModel.initializeForm2TextEditingControllers();
 
     super.initState();
   }
@@ -93,7 +94,8 @@ class _ProducerForm3State extends State<ProducerForm3> {
           CommonTextFormFieldWidget(
             hintText: viewModel.stringConstants.deviation,
             isMandatory: false,
-            controller: viewModel.deviationController,
+            controller:
+                viewModel.deviationController ?? TextEditingController(),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             isReadOnly: true,
             disabledBgColor: viewModel.appColor.black10,
@@ -111,7 +113,7 @@ class _ProducerForm3State extends State<ProducerForm3> {
             isMultiline: true,
             hintText: viewModel.stringConstants.remarks.i18n(),
             isMandatory: true,
-            controller: viewModel.remarkController,
+            controller: viewModel.remarkController ?? TextEditingController(),
             isReadOnly: true,
             maxLength: 100,
             maxLines: 3,
@@ -124,7 +126,7 @@ class _ProducerForm3State extends State<ProducerForm3> {
             isMultiline: true,
             hintText: viewModel.stringConstants.summary.i18n(),
             isMandatory: true,
-            controller: viewModel.summaryController,
+            controller: viewModel.summaryController ?? TextEditingController(),
             isReadOnly: true,
             maxLength: 500,
             maxLines: 3,
@@ -154,7 +156,8 @@ class _ProducerForm3State extends State<ProducerForm3> {
           CommonTextFormFieldWidget(
             hintText: viewModel.stringConstants.deviation,
             isMandatory: false,
-            controller: viewModel.deviationController,
+            controller:
+                viewModel.deviationController ?? TextEditingController(),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
           const SizedBox(
@@ -174,7 +177,7 @@ class _ProducerForm3State extends State<ProducerForm3> {
             isMultiline: true,
             hintText: viewModel.stringConstants.remarks.i18n(),
             isMandatory: true,
-            controller: viewModel.remarkController,
+            controller: viewModel.remarkController ?? TextEditingController(),
             // validator: (value) {
             //   return viewModel.validate(viewModel.remarkController.text);
             // },
@@ -190,7 +193,7 @@ class _ProducerForm3State extends State<ProducerForm3> {
             isMultiline: true,
             hintText: viewModel.stringConstants.summary.i18n(),
             isMandatory: true,
-            controller: viewModel.summaryController,
+            controller: viewModel.summaryController ?? TextEditingController(),
             // validator: (value) {
             //   return viewModel.validate(viewModel.summaryController.text);
             // },

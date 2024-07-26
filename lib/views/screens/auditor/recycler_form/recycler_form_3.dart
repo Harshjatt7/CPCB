@@ -12,6 +12,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
@@ -41,6 +42,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.initializeForm3TextEditingController();
     super.initState();
   }
 
@@ -75,7 +77,8 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                   isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
                     widget.isSummaryScreen == true
-                        ? viewModel.onNextButton(context,widget.id??"",widget.isRetreader)
+                        ? viewModel.onNextButton(
+                            context, widget.id ?? "", widget.isRetreader)
                         : await viewModel.recyclerPostForm3Data(context,
                             id: widget.id,
                             isRetreader: widget.userType == "Retreader");
@@ -176,8 +179,10 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
         children: [
           Row(
             children: [
-              CommonTitleWidget(
-                  label: stringConstants.verificationOfProcurement),
+              Flexible(
+                child: CommonTitleWidget(
+                    label: stringConstants.verificationOfProcurement),
+              ),
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(

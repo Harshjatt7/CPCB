@@ -356,7 +356,7 @@ class ValueComparable {
 
 class ValueComparableAdditionalData {
   String? actualProcessingCapacity;
-  int? differenceInActualProcessing;
+  num? differenceInActualProcessing;
 
   ValueComparableAdditionalData({
     this.actualProcessingCapacity,

@@ -25,6 +25,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
+    viewModel.initializeForm1TextEditingControllers();
     super.initState();
   }
 
