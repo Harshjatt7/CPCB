@@ -1773,8 +1773,12 @@ class RecyclerFormViewModel extends BaseViewModel {
       OmRequest omRequest = OmRequest(
           auditDocument: uploadControllerList[i].text,
           value: controllerList[i].text,
-          fileKey: otherMachineriesDocument[i]?.fileKey,
-          fileLink: otherMachineriesDocument[i]?.fileUrl);
+          fileKey: otherMachineriesDocument.isNotEmpty
+              ? otherMachineriesDocument[i]?.fileKey
+              : "",
+          fileLink: otherMachineriesDocument.isNotEmpty
+              ? otherMachineriesDocument[i]?.fileUrl
+              : "");
       omRequestList.add(omRequest);
     }
     return omRequestList;
