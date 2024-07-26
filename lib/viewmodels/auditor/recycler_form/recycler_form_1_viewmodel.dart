@@ -712,8 +712,8 @@ class RecyclerFormViewModel extends BaseViewModel {
         disableFormView();
         summaryFormView();
         for (int i = 0; i < machineList.length; i++) {
-          uploadControllerList[i]?.text = machineList[i].auditDocument ?? '';
-          controllerList[i]?.text = machineList[i].value ?? '';
+          uploadControllerList[i].text = machineList[i].auditDocument ?? '';
+          controllerList[i].text = machineList[i].value ?? '';
           otherMachineriesDocument.add(DocumentData(
               fileKey: machineList[i].fileKey,
               fileUrl: machineList[i].fileLink));
@@ -909,7 +909,6 @@ class RecyclerFormViewModel extends BaseViewModel {
         count == uploadControllerList.length + 1) {
       TextEditingController? tempController = TextEditingController();
       TextEditingController? tempUploadController = TextEditingController();
-      ;
       controllerList.add(tempController);
       uploadControllerList.add(tempUploadController);
       updateUI();
@@ -1188,12 +1187,18 @@ class RecyclerFormViewModel extends BaseViewModel {
         fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.authorizedPersonAdhar?.additionalData?.fileKey ??
             '',
+        fileName: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonAdhar?.auditDocument ??
+            '',
         fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.authorizedPersonAdhar?.additionalData?.fileLink ??
             '');
     lastYearElectricityBillDocument = DocumentData(
         fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.lastYearElectricityBill?.additionalData?.fileKey ??
+            '',
+        fileName: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.lastYearElectricityBill?.auditDocument ??
             '',
         fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.lastYearElectricityBill?.additionalData?.fileLink ??
@@ -1202,6 +1207,9 @@ class RecyclerFormViewModel extends BaseViewModel {
         fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.authorizedPersonPan?.additionalData?.fileKey ??
             '',
+        fileName: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.authorizedPersonPan?.auditDocument ??
+            '',
         fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.authorizedPersonPan?.additionalData?.fileLink ??
             '');
@@ -1209,12 +1217,18 @@ class RecyclerFormViewModel extends BaseViewModel {
         fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.airPollutionControlDevices?.additionalData?.fileKey ??
             '',
+        fileName: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.airPollutionControlDevices?.auditDocument ??
+            '',
         fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.airPollutionControlDevices?.additionalData?.fileLink ??
             '');
     geoTaggedVideoUploadDocument = DocumentData(
         fileKey: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.geoTaggedVideoUpload?.additionalData?.fileKey ??
+            '',
+        fileName: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+                ?.geoTaggedVideoUpload?.auditDocument ??
             '',
         fileUrl: _auditorRecycler1ResponseModel?.data?.data?.auditSummary
                 ?.geoTaggedVideoUpload?.additionalData?.fileLink ??
@@ -1427,6 +1441,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           aadharFileSizeModel = await getFileSize(aadharFilePath ?? "", 1);
           fileSize = aadharFileSizeModel?.fileSize ?? "0 B";
           aadharFileName = file.path.split('/').last;
+          aadharDocument?.fileName = aadharFileName;
           updateUI();
           break;
         case RecyclerForm1.panNo:
@@ -1435,6 +1450,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           panNoFileSizeModel = await getFileSize(panNoFilePath ?? "", 1);
           fileSize = panNoFileSizeModel?.fileSize ?? "0 B";
           panNoFileName = file.path.split('/').last;
+          authorizedPersonPanDocument?.fileName = panNoFileName;
           updateUI();
           break;
         case RecyclerForm1.pollution:
@@ -1444,6 +1460,7 @@ class RecyclerFormViewModel extends BaseViewModel {
               await getFileSize(pollutionFilePath ?? "", 1);
           fileSize = pollutionFileSizeModel?.fileSize ?? "0 B";
           pollutionFileName = file.path.split('/').last;
+          airPollutionControlDevicesDocument?.fileName = pollutionFileName;
           updateUI();
           break;
         case RecyclerForm1.power:
@@ -1452,6 +1469,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           powerFileSizeModel = await getFileSize(powerFilePath ?? "", 1);
           fileSize = powerFileSizeModel?.fileSize ?? "0 B";
           powerFileName = file.path.split('/').last;
+          lastYearElectricityBillDocument?.fileName = powerFileName;
           updateUI();
           break;
         case RecyclerForm1.video:
@@ -1460,6 +1478,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           videoFileSizeModel = await getFileSize(videoFilePath ?? "", 1);
           fileSize = videoFileSizeModel?.fileSize ?? "0 B";
           videoFileName = file.path.split('/').last;
+          geoTaggedVideoUploadDocument?.fileName = videoFileName;
           updateUI();
           break;
       }
@@ -1856,16 +1875,20 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   List<OmRequest> getOmRequest() {
     for (int i = 0; i < controllerList.length; i++) {
-      OmRequest omRequest = OmRequest(
-          auditDocument: uploadControllerList[i]?.text,
-          value: controllerList[i]?.text,
-          fileKey: otherMachineriesDocument.isNotEmpty
-              ? otherMachineriesDocument[i]?.fileKey
-              : "",
-          fileLink: otherMachineriesDocument.isNotEmpty
-              ? otherMachineriesDocument[i]?.fileUrl
-              : "");
-      omRequestList.add(omRequest);
+      if (otherMachineriesDocument[i]?.fileKey?.isEmpty ?? false) {
+        OmRequest omRequest = OmRequest(
+          auditDocument: uploadControllerList[i].text,
+          value: controllerList[i].text,
+        );
+        omRequestList.add(omRequest);
+      } else {
+        OmRequest omRequest = OmRequest(
+            auditDocument: uploadControllerList[i].text,
+            value: controllerList[i].text,
+            fileKey: otherMachineriesDocument[i]?.fileKey,
+            fileLink: otherMachineriesDocument[i]?.fileUrl);
+        omRequestList.add(omRequest);
+      }
     }
     return omRequestList;
   }
@@ -1911,14 +1934,16 @@ class RecyclerFormViewModel extends BaseViewModel {
                   authorizedPersonAdhar: AirPollutionControlDevicesRequest(
                       auditRemark: remarkAadharController?.text,
                       auditConfirmedStatus: radioAadharCard,
-                      auditDocument: aadharFileName,
-                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(
-                          fileKey: aadharDocument?.fileKey ?? '',
-                          fileLink: aadharDocument?.fileUrl ?? '')),
+                      auditDocument: aadharDocument?.fileName ?? '',
+                      additionalData:
+                          AirPollutionControlDevicesAdditionalDataRequest(
+                              fileKey: aadharDocument?.fileKey ?? '',
+                              fileLink: aadharDocument?.fileUrl ?? '')),
                   authorizedPersonPan: AirPollutionControlDevicesRequest(
                       auditRemark: remarkPanNoController?.text,
                       auditConfirmedStatus: radioPanNo,
-                      auditDocument: panNoFileName,
+                      auditDocument:
+                          authorizedPersonPanDocument?.fileName ?? '',
                       additionalData: AirPollutionControlDevicesAdditionalDataRequest(
                           fileKey: authorizedPersonPanDocument?.fileKey ?? '',
                           fileLink:
@@ -1928,8 +1953,9 @@ class RecyclerFormViewModel extends BaseViewModel {
                           om: getOmRequest())),
                   lastYearElectricityBill: AirPollutionControlDevicesRequest(
                       auditRemark: remarkPowerController?.text,
-                      auditConfirmedStatus: radioPowerConsumption,
-                      auditDocument: powerFileName,
+                      auditConfirmedStatus:
+                          lastYearElectricityBillDocument?.fileName ?? '',
+                      auditDocument: lastYearElectricityBillDocument?.fileName,
                       additionalData: AirPollutionControlDevicesAdditionalDataRequest(
                           fileKey:
                               lastYearElectricityBillDocument?.fileKey ?? '',
@@ -1938,20 +1964,26 @@ class RecyclerFormViewModel extends BaseViewModel {
                   airPollutionControlDevices: AirPollutionControlDevicesRequest(
                       auditRemark: remakrsPollutionController?.text,
                       auditConfirmedStatus: radioPollution,
-                      auditDocument: pollutionFileName,
-                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(
-                          fileKey:
-                              airPollutionControlDevicesDocument?.fileKey ?? '',
-                          fileLink: airPollutionControlDevicesDocument?.fileUrl ??
-                              '')),
-                  geoTaggedVideoUpload:
-                      AirPollutionControlDevicesRequest(auditRemark: remarkVideoController?.text, auditConfirmedStatus: radioPlant, auditDocument: videoFileName, additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
+                      auditDocument: pollutionFileName ??
+                          airPollutionControlDevicesDocument?.fileName ??
+                          '',
+                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: airPollutionControlDevicesDocument?.fileKey ?? '', fileLink: airPollutionControlDevicesDocument?.fileUrl ?? '')),
+                  geoTaggedVideoUpload: AirPollutionControlDevicesRequest(auditRemark: remarkVideoController?.text, auditConfirmedStatus: radioPlant, auditDocument: geoTaggedVideoUploadDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
 
       final res = await auditorRepository.postRecyclerForm1Data(requestModel,
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
-        HelperFunctions().commonSuccessSnackBar(
-            context, res?.data?.message ?? "Data Successfuly Added");
+        machineFile.clear();
+        machineFileName.clear();
+        machineFilePath.clear();
+        machineFileSize.clear();
+        machineFileSizeModel.clear();
+        otherMachineriesDocument.clear();
+        nw?.clear();
+        if (context.mounted) {
+          HelperFunctions().commonSuccessSnackBar(
+              context, res?.data?.message ?? "Data Successfuly Added");
+        }
 
         if (submit == "") {
           if (context.mounted) {
@@ -2182,4 +2214,31 @@ class RecyclerFormViewModel extends BaseViewModel {
     updateUI();
     state = ViewState.idle;
   }
+}
+
+class AddMachineModel {
+  FileSizeModel? machineFileSizeModel;
+  String? machineFileName;
+  Om? machineList;
+  String? machineFileSize;
+  String? machineFilePath;
+  MultipartFile? machineFile;
+  DocumentData? otherMachineriesDocument;
+  OmRequest? omRequestList;
+  FileSizeModel? fileSizeModelList;
+  TextEditingController uploadControllerList;
+  TextEditingController controllerList;
+  AddMachineModel({
+    required this.controllerList,
+    required this.uploadControllerList,
+    this.fileSizeModelList,
+    this.omRequestList,
+    this.otherMachineriesDocument,
+    this.machineFile,
+    this.machineFilePath,
+    this.machineFileSize,
+    this.machineList,
+    this.machineFileName,
+    this.machineFileSizeModel,
+  });
 }

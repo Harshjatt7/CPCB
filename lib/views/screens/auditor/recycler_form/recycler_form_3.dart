@@ -12,7 +12,6 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/forms/stepper_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:localization/localization.dart';
 import 'package:provider/provider.dart';
 
