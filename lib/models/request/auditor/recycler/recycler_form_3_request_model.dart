@@ -89,7 +89,7 @@ class VerifiedRequest {
 
 class PhysicallyVerifiedRequestAdditionalData {
   num? suppliers;
-  int? suppliersNotVerifiedRequest;
+  num? suppliersNotVerifiedRequest;
 
   PhysicallyVerifiedRequestAdditionalData({
     this.suppliers,
