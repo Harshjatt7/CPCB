@@ -305,25 +305,25 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isDocument: true,
                   isReadOnly: true,
                   isSummaryScreen: widget.isSummaryScreen,
-                  // onTap: () {
-                  //   viewModel.handleOnMachineTap(context,
-                  //       viewModel.uploadControllerList[viewModel.count - 1]);
-                  // },
-                  // onSuffixTap: () async {
-                  //   await viewModel.handleOnMachineSuffixTap(context,
-                  //       viewModel.uploadControllerList[viewModel.count - 1]);
-                  // },
-                  // uploadValidator: (value) {
-                  //   if (viewModel.machineFileSizeModel.isNotEmpty) {
-                  //     int i = 0;
-                  //     if (viewModel.uploadControllerList.length - 2 > 0) {
-                  //       i = viewModel.uploadControllerList.length - 2;
-                  //     }
-                  //     return viewModel
-                  //         .uploadValidation(viewModel.machineFileSizeModel[i]);
-                  //   }
-                  //   return null;
-                  // },
+                  onTap: () {
+                    viewModel.handleOnMachineTap(context,
+                        viewModel.uploadControllerList[viewModel.count - 1]);
+                  },
+                  onSuffixTap: () async {
+                    await viewModel.handleOnMachineSuffixTap(context,
+                        viewModel.uploadControllerList[viewModel.count - 1]);
+                  },
+                  uploadValidator: (value) {
+                    if (viewModel.machineFileSizeModel.isNotEmpty) {
+                      int i = 0;
+                      if (viewModel.uploadControllerList.length - 2 > 0) {
+                        i = viewModel.uploadControllerList.length - 2;
+                      }
+                      return viewModel
+                          .uploadValidation(viewModel.machineFileSizeModel[i]);
+                    }
+                    return null;
+                  },
                   // onAdd: () {
                   //   viewModel.onAdd();
                   // },

@@ -389,7 +389,7 @@ class RecyclerFormViewModel extends BaseViewModel {
             plantOperationalPerShift: shiftPlantOperationalController.text,
             actualProcessingCapacityRequestDerived:
                 actualProcessingCapacityController.text.isNotEmpty
-                    ? int.parse(
+                    ? double.parse(
                         actualProcessingCapacityController.text,
                       )
                     : 0,
@@ -401,8 +401,8 @@ class RecyclerFormViewModel extends BaseViewModel {
             actualProcessingCapacityRequest:
                 actualProcessingCapacityController.text,
             differenceInActualProcessing:
-                differenceInActualProccessingController.text.isEmpty
-                    ? int.parse(differenceInActualProccessingController.text)
+                differenceInActualProccessingController.text.isNotEmpty
+                    ? double.parse(differenceInActualProccessingController.text)
                     : 0,
           ),
         ),
@@ -411,7 +411,9 @@ class RecyclerFormViewModel extends BaseViewModel {
             powerOnAuditDay: powerConsumptionController.text,
             totalElectricityConsumption: totalElectricityController.text,
             annualPowerConsumption:
-                int.parse(actualAverageAnnualController.text),
+                actualAverageAnnualController.text.isNotEmpty
+                    ? double.parse(actualAverageAnnualController.text)
+                    : 0,
           ),
         ),
         cAndDComparable: CAndDComparableRequest(
@@ -489,7 +491,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         contacted: ContactedRequest(
           additionalData: ContactedRequestAdditionalData(
               suppliers: procurementInfoContact.text.isNotEmpty
-                  ? int.parse(procurementInfoContact.text)
+                  ? double.parse(procurementInfoContact.text)
                   : null),
           auditConfirmedStatus: radioProcurementInfoContact,
           auditRemark: procurementInfoContactRemarks.text,
@@ -499,17 +501,17 @@ class RecyclerFormViewModel extends BaseViewModel {
             auditRemark: procurmentInfoVerifiedRemark.text,
             additionalData: ContactedRequestAdditionalData(
                 suppliers: physicallyContactedValue.text.isNotEmpty
-                    ? int.parse(physicallyContactedValue.text)
+                    ? double.parse(physicallyContactedValue.text)
                     : null)),
         physicallyVerified: VerifiedRequest(
           auditConfirmedStatus: radioProcurementInfoPhysicallyVerified,
           auditRemark: physicallyVerifiedRemark.text,
           additionalData: PhysicallyVerifiedRequestAdditionalData(
             suppliers: physicallyVerifiedValue.text.isNotEmpty
-                ? int.parse(physicallyVerifiedValue.text)
+                ? double.parse(physicallyVerifiedValue.text)
                 : null,
             suppliersNotVerifiedRequest: bNotVerifiedController.text.isNotEmpty
-                ? int.parse(bNotVerifiedController.text)
+                ? double.parse(bNotVerifiedController.text)
                 : null,
           ),
         ),
@@ -518,10 +520,10 @@ class RecyclerFormViewModel extends BaseViewModel {
           auditRemark: physicallyContactedRemark.text,
           additionalData: PhysicallyVerifiedRequestAdditionalData(
             suppliers: procurementInfoAuditVerified.text.isNotEmpty
-                ? int.parse(procurementInfoAuditVerified.text)
+                ? double.parse(procurementInfoAuditVerified.text)
                 : null,
             suppliersNotVerifiedRequest: bNotVerifiedController.text.isNotEmpty
-                ? int.parse(bNotVerifiedController.text)
+                ? double.parse(bNotVerifiedController.text)
                 : null,
           ),
         ),
@@ -1064,7 +1066,9 @@ class RecyclerFormViewModel extends BaseViewModel {
             filename: res.files.first.name));
       }
     } else {
-      if (_auditorRecycler1ResponseModel != null) {
+      if (_auditorRecycler1ResponseModel?.data?.data?.auditSummary
+              ?.otherMachineries?.additionalData?.om !=
+          null) {
         getAuditorFile(
             context, otherMachineriesDocument[count - 1]?.fileKey ?? '');
       } else {
@@ -1180,7 +1184,8 @@ class RecyclerFormViewModel extends BaseViewModel {
         data?.airPollutionControlDevices?.auditDocument ?? '';
 
     remarkVideoController.text = data?.geoTaggedVideoUpload?.auditRemark ?? '';
-    uploadVideoController.text = data?.geoTaggedVideoUpload?.auditRemark ?? '';
+    uploadVideoController.text =
+        data?.geoTaggedVideoUpload?.auditDocument ?? '';
 
     radioGst = "${data?.gstNo?.auditConfirmedStatus ?? '1'}";
 
@@ -1256,9 +1261,9 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     differenceInActualProccessingController.text =
         "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
-
-    uploadSalesController.text =
-        "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
+//TODO talk with API team
+    uploadSalesController.text = '5';
+    // "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
     powerConsumptionController.text =
         electricityVerification?.additionalData?.powerOnAuditDay ?? '';
     actualAverageAnnualController.text =

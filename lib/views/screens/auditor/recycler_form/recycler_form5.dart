@@ -73,7 +73,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
                   isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
                     widget.isSummaryScreen == true
-                        ? viewModel.onNextButton(context,widget.id??"",widget.isRetreader)
+                        ? viewModel.onNextButton(
+                            context, widget.id ?? "", widget.isRetreader)
                         : await viewModel.postForm5Data(context,
                             submit: '',
                             userId: widget.id ?? '',
@@ -269,6 +270,7 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
             child: CommonTextFormFieldWidget(
               maxLength: 500,
               maxLines: 4,
+              isMultiline: true,
               validator: (value) {
                 return viewModel.summaryValidation();
               },
