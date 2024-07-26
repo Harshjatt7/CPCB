@@ -33,7 +33,7 @@ class AuditorRecyclerForm2ResponseModel {
 class Data {
   String? auditPlanId;
   EndProducts? endProducts;
-  int? quantityOfSales;
+  num? quantityOfSales;
   ProcessingCapacity? processingCapacity;
 
   Data({
@@ -141,7 +141,7 @@ class CAndDComparable {
   dynamic auditValue;
   dynamic auditDocument;
   String? auditRemark;
-  int? auditConfirmedStatus;
+  num? auditConfirmedStatus;
   List<dynamic>? additionalData;
 
   CAndDComparable({
@@ -178,7 +178,7 @@ class ElectricityVerification {
   dynamic auditValue;
   dynamic auditDocument;
   dynamic auditRemark;
-  int? auditConfirmedStatus;
+  num? auditConfirmedStatus;
   ElectricityVerificationAdditionalData? additionalData;
 
   ElectricityVerification({
@@ -213,7 +213,7 @@ class ElectricityVerification {
 class ElectricityVerificationAdditionalData {
   String? powerOnAuditDay;
   String? totalElectricityConsumption;
-  int? annualPowerConsumption;
+  num? annualPowerConsumption;
 
   ElectricityVerificationAdditionalData({
     this.powerOnAuditDay,
@@ -240,7 +240,7 @@ class PlanCapacityAssesment {
   dynamic auditValue;
   dynamic auditDocument;
   dynamic auditRemark;
-  int? auditConfirmedStatus;
+  num? auditConfirmedStatus;
   PlanCapacityAssesmentAdditionalData? additionalData;
 
   PlanCapacityAssesment({
@@ -279,7 +279,7 @@ class PlanCapacityAssesmentAdditionalData {
   String? plantOperationalPerYear;
   String? plantOperationalPerShift;
   String? plantOperationalPerDay;
-  int? actualProcessingCapacityDerived;
+  num? actualProcessingCapacityDerived;
 
   PlanCapacityAssesmentAdditionalData({
     this.typeOfEndProduct,
@@ -323,7 +323,7 @@ class ValueComparable {
   dynamic auditValue;
   dynamic auditDocument;
   dynamic auditRemark;
-  int? auditConfirmedStatus;
+  num? auditConfirmedStatus;
   ValueComparableAdditionalData? additionalData;
 
   ValueComparable({
@@ -356,7 +356,7 @@ class ValueComparable {
 
 class ValueComparableAdditionalData {
   String? actualProcessingCapacity;
-  int? differenceInActualProcessing;
+  num? differenceInActualProcessing;
 
   ValueComparableAdditionalData({
     this.actualProcessingCapacity,
