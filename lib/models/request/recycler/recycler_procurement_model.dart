@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
+
 class RecyclerProcurementRequestModel {
-  String? invoiceFile;
+  MultipartFile? invoiceFile;
   String? financeYear;
   String? sourceTyres;
   String? sellerName;

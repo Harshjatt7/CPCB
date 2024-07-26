@@ -83,8 +83,8 @@ class AuditSummary {
 }
 
 class CompanyCin {
-  dynamic auditValue;
-  dynamic auditDocument;
+  String? auditValue;
+  String? auditDocument;
   String? auditRemark;
   int? auditConfirmedStatus;
   List<dynamic>? additionalProducerForm1ProducerForm1Data;
