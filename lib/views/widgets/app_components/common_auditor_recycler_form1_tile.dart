@@ -17,7 +17,7 @@ class CommonAuditorRecyclerForm1Tile extends StatelessWidget {
       this.isDisableField = true,
       this.viewModel,
       this.disableController,
-      this.remarksController,
+      required this.remarksController,
       this.uploadController,
       this.isDocument = false,
       this.onTap,
@@ -36,7 +36,7 @@ class CommonAuditorRecyclerForm1Tile extends StatelessWidget {
   final bool? isDisableField;
   final RecyclerFormViewModel? viewModel;
   final TextEditingController? disableController;
-  final TextEditingController? remarksController;
+  final TextEditingController remarksController;
   final TextEditingController? uploadController;
   final bool? isDocument;
   final void Function()? onTap;
@@ -79,7 +79,7 @@ class CommonAuditorRecyclerForm1Tile extends StatelessWidget {
               hintText: stringConstants.remarks.i18n(),
               isMandatory: false,
               validator: remarksValidator,
-              controller: remarksController ?? TextEditingController()),
+              controller: remarksController),
         ),
         if (isUpload == true)
           Padding(

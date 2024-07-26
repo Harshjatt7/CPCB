@@ -26,24 +26,24 @@ class ProducerFormsViewModel extends BaseViewModel {
   final appColor = AppColor();
 
   //Form 1
-  TextEditingController disabledCompanyNameRemark = TextEditingController();
-  TextEditingController disabledCategoryOfProducer = TextEditingController();
-  TextEditingController disabledGst = TextEditingController();
-  TextEditingController disabledPan = TextEditingController();
-  TextEditingController disabledCin = TextEditingController();
-  TextEditingController disabledIec = TextEditingController();
+  TextEditingController? disabledCompanyNameRemark;
+  TextEditingController? disabledCategoryOfProducer;
+  TextEditingController? disabledGst;
+  TextEditingController? disabledPan;
+  TextEditingController? disabledCin;
+  TextEditingController? disabledIec;
 
-  TextEditingController companyNameRemark = TextEditingController();
-  TextEditingController categoryOfProducerRemark = TextEditingController();
-  TextEditingController gstRemark = TextEditingController();
-  TextEditingController panOfCompanyRemark = TextEditingController();
-  TextEditingController cinRemark = TextEditingController();
-  TextEditingController iecRemark = TextEditingController();
+  TextEditingController? companyNameRemark;
+  TextEditingController? categoryOfProducerRemark;
+  TextEditingController? gstRemark;
+  TextEditingController? panOfCompanyRemark;
+  TextEditingController? cinRemark;
+  TextEditingController? iecRemark;
 
-  TextEditingController iecController = TextEditingController();
-  TextEditingController cinController = TextEditingController();
-  TextEditingController panController = TextEditingController();
-  TextEditingController gstController = TextEditingController();
+  TextEditingController? iecController;
+  TextEditingController? cinController;
+  TextEditingController? panController;
+  TextEditingController? gstController;
 
   String? radioCompanyDetail;
   String? radioCategoryOfProducer;
@@ -76,10 +76,10 @@ class ProducerFormsViewModel extends BaseViewModel {
   String panOfCompanyRemarkError = "";
   String iecRemarkError = "";
 
-  TextEditingController gstFileName = TextEditingController();
-  TextEditingController panFileName = TextEditingController();
-  TextEditingController cinFileName = TextEditingController();
-  TextEditingController iecFileName = TextEditingController();
+  TextEditingController? gstFileName;
+  TextEditingController? panFileName;
+  TextEditingController? cinFileName;
+  TextEditingController? iecFileName;
 
   final _auditorRepository = AuditorRepository();
   ProducerForm1RequestModel? data;
@@ -121,9 +121,9 @@ class ProducerFormsViewModel extends BaseViewModel {
   // Form 3
   String? radioMisreporting;
   String? radioInformation;
-  TextEditingController deviationController = TextEditingController();
-  TextEditingController remarkController = TextEditingController();
-  TextEditingController summaryController = TextEditingController();
+  TextEditingController? deviationController;
+  TextEditingController? remarkController;
+  TextEditingController? summaryController;
   APIResponse<ProducerForm3ResponseModel?>? _producerForm3ResponseModel;
   APIResponse<ProducerForm3ResponseModel?>? get producerForm3ResponseModel =>
       _producerForm3ResponseModel;
@@ -134,6 +134,34 @@ class ProducerFormsViewModel extends BaseViewModel {
   int page = 1;
 
   int counter = 0;
+  void initializeForm1TextEditingControllers() {
+    disabledCompanyNameRemark = TextEditingController();
+    disabledCategoryOfProducer = TextEditingController();
+    disabledGst = TextEditingController();
+    disabledPan = TextEditingController();
+    disabledCin = TextEditingController();
+    disabledIec = TextEditingController();
+    companyNameRemark = TextEditingController();
+    categoryOfProducerRemark = TextEditingController();
+    gstRemark = TextEditingController();
+    panOfCompanyRemark = TextEditingController();
+    cinRemark = TextEditingController();
+    iecRemark = TextEditingController();
+    iecController = TextEditingController();
+    cinController = TextEditingController();
+    panController = TextEditingController();
+    gstController = TextEditingController();
+    gstFileName = TextEditingController();
+    panFileName = TextEditingController();
+    cinFileName = TextEditingController();
+    iecFileName = TextEditingController();
+  }
+
+  void initializeForm2TextEditingControllers() {
+    deviationController = TextEditingController();
+    remarkController = TextEditingController();
+    summaryController = TextEditingController();
+  }
 
   void setCounter() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -155,13 +183,13 @@ class ProducerFormsViewModel extends BaseViewModel {
         index++;
         switch (index) {
           case 1:
-            await getProducerForm1Data(id: id);
+            await getProducerForm1Data(context, id: id);
             break;
           case 2:
-            await getProducerForm2Data(id: id);
+            await getProducerForm2Data(context, id: id);
             break;
           case 3:
-            await getProducerForm3Data(id: id);
+            await getProducerForm3Data(context, id: id);
             break;
         }
         updateUI();
@@ -175,16 +203,18 @@ class ProducerFormsViewModel extends BaseViewModel {
         index--;
         switch (index) {
           case 1:
-            await getProducerForm1Data(id: id);
+            await getProducerForm1Data(context, id: id);
             break;
           case 2:
-            await getProducerForm2Data(id: id);
+            await getProducerForm2Data(context, id: id);
             break;
           case 3:
-            await getProducerForm3Data(id: id);
+            await getProducerForm3Data(context, id: id);
             break;
         }
-        updateUI();
+        if (context.mounted) {
+          updateUI();
+        }
       } else {
         Navigator.pop(context);
       }
@@ -232,13 +262,13 @@ class ProducerFormsViewModel extends BaseViewModel {
         missReporting: MissReportingResponse(
           auditConfirmedStatus: radioMisreporting,
           additionalData: MissReportingAdditionalDataResponse(
-              deviationValue: deviationController.text),
+              deviationValue: deviationController?.text),
         ),
         falseInformation: FalseInformationResponse(
             auditConfirmedStatus: radioInformation,
-            auditRemark: remarkController.text,
+            auditRemark: remarkController?.text,
             additionalData: FalseInformationAdditionalDataResponse(
-                overallSummary: summaryController.text)),
+                overallSummary: summaryController?.text)),
       ),
       submit: saveAsDraft ?? "",
     );
@@ -278,8 +308,11 @@ class ProducerFormsViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<ProducerForm3ResponseModel?>?> getProducerForm3Data(
+      BuildContext context,
       {String? id}) async {
     state = ViewState.busy;
+    auditRemarkError = "";
+    summaryError = "";
     try {
       _producerForm3ResponseModel =
           await _auditorRepository.getProducerForm3Data(id: id);
@@ -289,15 +322,15 @@ class ProducerFormsViewModel extends BaseViewModel {
 
         producerForm3Data =
             _producerForm3ResponseModel?.data?.data?.auditSummary;
-        deviationController.text =
+        deviationController?.text =
             producerForm3Data?.missReporting?.additionalData?.deviationValue ??
                 "";
         // contoller .text =
         //     producerForm3Data?.missReporting?.additionalData?.deviationValue ??
         //         "";
-        remarkController.text =
+        remarkController?.text =
             producerForm3Data?.falseInformation?.auditRemark ?? "";
-        summaryController.text = producerForm3Data
+        summaryController?.text = producerForm3Data
                 ?.falseInformation?.additionalData?.overallSummary ??
             "";
         radioMisreporting =
@@ -313,7 +346,9 @@ class ProducerFormsViewModel extends BaseViewModel {
     } catch (err) {
       helperFunctions.logger("$err");
     }
-    updateUI();
+    if (context.mounted) {
+      updateUI();
+    }
     state = ViewState.idle;
     return _producerForm3ResponseModel;
   }
@@ -342,7 +377,6 @@ class ProducerFormsViewModel extends BaseViewModel {
           if (saveAsDraft == null) {
             if (context.mounted) {
               onNextButton(context, id ?? "");
-              await getProducerForm3Data();
             }
           }
         }
@@ -359,6 +393,7 @@ class ProducerFormsViewModel extends BaseViewModel {
   }
 
   Future<APIResponse<ProducerForm2ResponseModel?>?> getProducerForm2Data(
+      BuildContext context,
       {String? id}) async {
     state = ViewState.busy;
     try {
@@ -397,13 +432,22 @@ class ProducerFormsViewModel extends BaseViewModel {
     }
 
     state = ViewState.idle;
-    updateUI();
+    if (context.mounted) {
+      updateUI();
+    }
     return _producerForm2ResponseModel;
   }
 
   Future<APIResponse<ProducerForm1ResponseModel?>?> getProducerForm1Data(
+      BuildContext context,
       {String? id}) async {
     state = ViewState.busy;
+    companyNameRemarkError = "";
+    companyNameRemarkError = "";
+    categoryOfProducerRemarkError = "";
+    gstRemarkError = "";
+    panOfCompanyRemarkError = "";
+    iecRemarkError = "";
     try {
       _producerForm1ResponseModel =
           await _auditorRepository.getProducerForm1Data(id: id);
@@ -414,23 +458,23 @@ class ProducerFormsViewModel extends BaseViewModel {
         producerForm1Data =
             _producerForm1ResponseModel?.data?.data?.companyDetails;
 
-        disabledCompanyNameRemark.text =
+        disabledCompanyNameRemark?.text =
             producerForm1Data?.companyNameAndAddress ?? "";
-        disabledCategoryOfProducer.text =
+        disabledCategoryOfProducer?.text =
             producerForm1Data?.categoryOfProducer ?? "";
-        disabledGst.text = producerForm1Data?.gstNo ?? "";
-        disabledPan.text = producerForm1Data?.panOfCompany ?? "";
-        disabledCin.text = producerForm1Data?.cinNo ?? "";
-        disabledIec.text = producerForm1Data?.iec ?? "";
+        disabledGst?.text = producerForm1Data?.gstNo ?? "";
+        disabledPan?.text = producerForm1Data?.panOfCompany ?? "";
+        disabledCin?.text = producerForm1Data?.cinNo ?? "";
+        disabledIec?.text = producerForm1Data?.iec ?? "";
 
         final data = _producerForm1ResponseModel?.data?.data?.auditSummary;
-        companyNameRemark.text = data?.companyNameAddress?.auditRemark ?? "";
-        categoryOfProducerRemark.text =
+        companyNameRemark?.text = data?.companyNameAddress?.auditRemark ?? "";
+        categoryOfProducerRemark?.text =
             data?.producerCategory?.auditRemark ?? "";
-        gstRemark.text = data?.companyGst?.auditRemark ?? "";
-        panOfCompanyRemark.text = data?.companyPan?.auditRemark ?? "";
-        cinRemark.text = data?.companyCin?.auditRemark ?? "";
-        iecRemark.text = data?.companyIec?.auditRemark ?? "";
+        gstRemark?.text = data?.companyGst?.auditRemark ?? "";
+        panOfCompanyRemark?.text = data?.companyPan?.auditRemark ?? "";
+        cinRemark?.text = data?.companyCin?.auditRemark ?? "";
+        iecRemark?.text = data?.companyIec?.auditRemark ?? "";
 
         radioCompanyDetail =
             data?.companyNameAddress?.auditConfirmedStatus.toString() ?? "1";
@@ -442,10 +486,10 @@ class ProducerFormsViewModel extends BaseViewModel {
         radioCin = data?.companyCin?.auditConfirmedStatus.toString() ?? "1";
         radioIec = data?.companyIec?.auditConfirmedStatus.toString() ?? "1";
 
-        gstFileName.text = producerForm1Data?.gstFileName ?? "";
-        panFileName.text = producerForm1Data?.panFileName ?? "";
-        cinFileName.text = producerForm1Data?.cinFileName ?? "";
-        iecFileName.text = producerForm1Data?.iecFileName ?? "";
+        gstFileName?.text = producerForm1Data?.gstFileName ?? "";
+        panFileName?.text = producerForm1Data?.panFileName ?? "";
+        cinFileName?.text = producerForm1Data?.cinFileName ?? "";
+        iecFileName?.text = producerForm1Data?.iecFileName ?? "";
 
         gstFilePath = producerForm1Data?.gstFilePath;
         panFilePath = producerForm1Data?.panFilePath;
@@ -457,7 +501,9 @@ class ProducerFormsViewModel extends BaseViewModel {
     } catch (err) {
       helperFunctions.logger("$err");
     }
-    updateUI();
+    if (context.mounted) {
+      updateUI();
+    }
     state = ViewState.idle;
     return _producerForm1ResponseModel;
   }
@@ -469,19 +515,19 @@ class ProducerFormsViewModel extends BaseViewModel {
       companyDetails: CompanyDetails(
         companyNameAddress: CompanyData(
             auditConfirmedStatus: radioCompanyDetail,
-            auditRemark: companyNameRemark.text),
+            auditRemark: companyNameRemark?.text),
         producerCategory: CompanyData(
             auditConfirmedStatus: radioCategoryOfProducer,
-            auditRemark: categoryOfProducerRemark.text),
+            auditRemark: categoryOfProducerRemark?.text),
         companyGst: CompanyData(
-            auditConfirmedStatus: radioGst, auditRemark: gstRemark.text),
+            auditConfirmedStatus: radioGst, auditRemark: gstRemark?.text),
         companyPan: CompanyData(
             auditConfirmedStatus: radioPanOfCompany,
-            auditRemark: panOfCompanyRemark.text),
+            auditRemark: panOfCompanyRemark?.text),
         companyCin: CompanyData(
-            auditConfirmedStatus: radioCin, auditRemark: cinRemark.text),
+            auditConfirmedStatus: radioCin, auditRemark: cinRemark?.text),
         companyIec: CompanyData(
-            auditConfirmedStatus: radioIec, auditRemark: iecRemark.text),
+            auditConfirmedStatus: radioIec, auditRemark: iecRemark?.text),
       ),
       submit: saveAsDraft ?? "",
     );

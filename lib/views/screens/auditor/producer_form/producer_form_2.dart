@@ -64,7 +64,7 @@ class _ProducerForm2State extends State<ProducerForm2> {
                 isSummaryScreen: widget.isSummaryScreen,
                 onNextOrSubmit: () async {
                   widget.isSummaryScreen == true
-                      ? viewModel.onNextButton(context,widget.id??"")
+                      ? viewModel.onNextButton(context, widget.id ?? "")
                       : await viewModel.postForm2Data(context, id: widget.id);
                 },
                 onSavedDraft: () async {
@@ -87,7 +87,9 @@ class _ProducerForm2State extends State<ProducerForm2> {
 
   Padding viewReportView(
       ProducerFormsViewModel viewModel, BuildContext context) {
-    viewModel.setCounter();
+    if (mounted) {
+      viewModel.setCounter();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -152,7 +154,9 @@ class _ProducerForm2State extends State<ProducerForm2> {
   }
 
   Padding fillFormView(ProducerFormsViewModel viewModel, BuildContext context) {
-    viewModel.setCounter();
+    if (mounted) {
+      viewModel.setCounter();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
