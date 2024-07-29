@@ -25,7 +25,6 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../constants/routes_constant.dart';
@@ -33,7 +32,6 @@ import '../../../models/request/auditor/recycler/recycler_form_2_request_model.d
 import '../../../models/request/auditor/recycler/recycler_form_3_request_model.dart';
 import '../../../models/response/filter/checkbox_filter_model.dart';
 import '../../material_app_viewmodel.dart';
-import '../auditor_list_view_model.dart';
 
 class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
@@ -249,6 +247,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     daysPlantOperationalController = TextEditingController();
     endProductProducedController = TextEditingController();
     plantProductionCapacityController = TextEditingController();
+    textForm2Listener();
   }
 
   void initializeForm3TextEditingController() {
@@ -262,6 +261,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     procurmentInfoVerifiedRemark = TextEditingController();
     procurementInfoContactRemarks = TextEditingController();
     aNotVerifiedController = TextEditingController();
+    textForm3Listener();
   }
 
   void initializeForm4TextEditingController() {
@@ -1353,8 +1353,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     differenceInActualProccessingController?.text =
         "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
 //TODO talk with API team
-    uploadSalesController?.text = '5';
-    // "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
+    uploadSalesController?.text =
+        "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
     powerConsumptionController?.text =
         electricityVerification?.additionalData?.powerOnAuditDay ?? '';
     actualAverageAnnualController?.text =
@@ -1422,8 +1422,10 @@ class RecyclerFormViewModel extends BaseViewModel {
         wasteWaterGenerationAndDisposal?.etpInstalled?.auditRemark ?? '';
     radioInstalled =
         "${wasteWaterGenerationAndDisposal?.etpInstalled?.auditConfirmedStatus ?? '1'}";
-    etpCapacityController?.text =
-        wasteWaterGenerationAndDisposal?.etpCapacity?.auditValue ?? '';
+    etpCapacityController?.text = wasteWaterGenerationAndDisposal
+            ?.etpCapacity?.additionalData?.capacity
+            .toString() ??
+        '';
     radioCapacity =
         "${wasteWaterGenerationAndDisposal?.etpCapacity?.auditConfirmedStatus ?? '1'}";
     etpRemarksCapacityController?.text =

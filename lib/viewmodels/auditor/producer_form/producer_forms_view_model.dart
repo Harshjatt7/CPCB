@@ -2,12 +2,10 @@ import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/models/request/auditor/producer/produer_form_1_request_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/auditor_list_view_model.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../constants/enums/state_enums.dart';
 import '../../../constants/routes_constant.dart';

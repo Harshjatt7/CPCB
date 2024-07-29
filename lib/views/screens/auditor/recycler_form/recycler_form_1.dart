@@ -296,6 +296,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: RecyclerDataTable(
+                  isSummary: widget.isSummaryScreen,
                   machineControllerList: viewModel.plantMachineryControllerList,
                   radioList: viewModel.plantMachineyRadioList,
                   nwList: viewModel.nw ?? [],
@@ -330,7 +331,6 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     }
                     return null;
                   },
-                 
                 ),
               )
             ],
@@ -749,6 +749,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: RecyclerDataTable(
+                  isSummary: widget.isSummaryScreen,
                   machineControllerList: viewModel.plantMachineryControllerList,
                   radioList: viewModel.plantMachineyRadioList,
                   nwList: viewModel.nw ?? [],

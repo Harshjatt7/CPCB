@@ -14,6 +14,7 @@ class CommonRecyclerDataRow extends StatefulWidget {
       required this.isOdd,
       required this.machineController,
       required this.index,
+      this.isSummary = false,
       required this.groupValue});
   final Nw? nwModel;
   final void Function()? onTap;
@@ -21,6 +22,7 @@ class CommonRecyclerDataRow extends StatefulWidget {
   final int index;
   final TextEditingController machineController;
   String groupValue;
+  final bool? isSummary;
 
   @override
   State<CommonRecyclerDataRow> createState() => _CommonRecyclerDataRowState();
@@ -97,8 +99,10 @@ class _CommonRecyclerDataRowState extends State<CommonRecyclerDataRow> {
                   ),
                   groupValue: widget.groupValue,
                   onChanged: (value) {
-                    widget.groupValue = value ?? '';
-                    setState(() {});
+                    if (widget.isSummary == false) {
+                      widget.groupValue = value ?? '';
+                      setState(() {});
+                    }
                   },
                 ),
                 CommonTextWidget(
@@ -121,8 +125,10 @@ class _CommonRecyclerDataRowState extends State<CommonRecyclerDataRow> {
                     },
                   ),
                   onChanged: (value) {
-                    widget.groupValue = value ?? '';
-                    setState(() {});
+                    if (widget.isSummary == false) {
+                      widget.groupValue = value ?? '';
+                      setState(() {});
+                    }
                   },
                 ),
                 CommonTextWidget(
@@ -138,6 +144,7 @@ class _CommonRecyclerDataRowState extends State<CommonRecyclerDataRow> {
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
               child: CommonTextFormFieldWidget(
                   hintText: stringConstants.remarks,
+                  isReadOnly: widget.isSummary,
                   isMandatory: false,
                   controller: widget.machineController),
             ),
