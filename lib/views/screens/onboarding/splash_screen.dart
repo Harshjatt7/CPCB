@@ -1,5 +1,4 @@
 import 'package:cpcb_tyre/constants/image_constants.dart';
-import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/viewmodels/onborading/splash_viewmodel.dart';
@@ -7,9 +6,6 @@ import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_image_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import '../../widgets/app_components/success_failure_popup.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});

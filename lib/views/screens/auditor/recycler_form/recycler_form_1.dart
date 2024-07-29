@@ -318,7 +318,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   },
                   onSuffixTap: (index) async {
                     await viewModel.handleOnMachineSuffixTap(
-                        context, viewModel.uploadControllerList[index]);
+                        context, viewModel.uploadControllerList[index], index);
                   },
                   uploadValidator: (value) {
                     if (viewModel.machineFileSizeModel.isNotEmpty) {
@@ -769,7 +769,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   },
                   onSuffixTap: (index) async {
                     await viewModel.handleOnMachineSuffixTap(
-                        context, viewModel.uploadControllerList[index]);
+                        context, viewModel.uploadControllerList[index], index);
                   },
                   uploadValidator: (value) {
                     if (viewModel.machineFileSizeModel.isNotEmpty) {

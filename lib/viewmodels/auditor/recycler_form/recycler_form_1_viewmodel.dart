@@ -201,7 +201,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   Duration? videoDuration;
   int videoSize = 0;
 
-  void initializeForm1TextEditingControllers() {
+  void initializeForm1TextEditingControllers() async {
     remarkVideoController = TextEditingController();
     uploadVideoController = TextEditingController();
     remarkPowerController = TextEditingController();
@@ -229,6 +229,9 @@ class RecyclerFormViewModel extends BaseViewModel {
     uploadPanNoController = TextEditingController();
     uploadAadharController = TextEditingController();
     remakrsPollutionController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await getCurrentLocation();
+    });
   }
 
   void initializeForm2TextEditingController() {
@@ -955,8 +958,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     currentLocation = position;
     gpsAuditorLatitude?.text = "${currentLocation?.longitude}";
     gpsAuditorLongitude?.text = "${currentLocation?.latitude}";
-    HelperFunctions().logger("${currentLocation?.longitude ?? 0}");
-    HelperFunctions().logger("${currentLocation?.latitude ?? 0}");
+    HelperFunctions().logger("${gpsAuditorLatitude?.text ?? 0}");
+    HelperFunctions().logger("${gpsAuditorLongitude?.text ?? 0}");
     state = ViewState.idle;
     updateUI();
   }
@@ -1323,8 +1326,8 @@ class RecyclerFormViewModel extends BaseViewModel {
           title: endProductsData?.pyrolisisOilContinuous ?? ''));
     }
 
-    typeOfProductController?.text =
-        planCapacityAssesment?.additionalData?.typeOfEndProduct?.first ?? '';
+    // typeOfProductController?.text =
+    //     planCapacityAssesment?.additionalData?.typeOfEndProduct?.first ?? '';
     selectedEndProductsData =
         planCapacityAssesment?.additionalData?.typeOfEndProduct ?? [];
     endProductDataListController?.text = selectedEndProductsData.join(",");
@@ -1827,10 +1830,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     } else {}
   }
 
-  Future<void> handleOnMachineSuffixTap(
-    BuildContext context,
-    TextEditingController? controller,
-  ) async {
+  Future<void> handleOnMachineSuffixTap(BuildContext context,
+      TextEditingController? controller, int index) async {
     if (controller?.text.isEmpty ?? false) {
       if (context.mounted) {
         var res = await openMachineFileManager(context);
@@ -1853,6 +1854,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     } else {
       controller?.text = "";
       machineFilePath = [];
+      otherMachineriesDocument.removeAt(index);
 
       updateUI();
     }

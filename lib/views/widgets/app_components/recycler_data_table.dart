@@ -26,7 +26,7 @@ class RecyclerDataTable extends StatelessWidget {
       child: Scrollbar(
         radius: const Radius.circular(5),
         thickness: 5,
-        // controller: scrollController,
+        controller: scrollController,
         thumbVisibility: true,
         interactive: true,
         child: CommonSingleChildScrollView(
