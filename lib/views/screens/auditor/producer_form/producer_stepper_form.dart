@@ -22,8 +22,7 @@ class _ProdcerStepperState extends State<ProducerStepper> {
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
               onLeadingTapped: () {
-                  viewModel.onBackButton(context, widget.userDetails?.id ?? "");
-               
+                viewModel.onBackButton(context, widget.userDetails?.id ?? "");
               },
               checkUser: CheckUserAndSummaryScreen(
                 isSummaryScreen: widget.userDetails?.isSummaryScreen,
@@ -76,13 +75,16 @@ class _ProdcerStepperState extends State<ProducerStepper> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       switch (viewModel.index) {
         case 1:
-          await viewModel.getProducerForm1Data(id: widget.userDetails?.id);
+          await viewModel.getProducerForm1Data(context,
+              id: widget.userDetails?.id);
           break;
         case 2:
-          await viewModel.getProducerForm2Data(id: widget.userDetails?.id);
+          await viewModel.getProducerForm2Data(context,
+              id: widget.userDetails?.id);
           break;
         case 3:
-          await viewModel.getProducerForm3Data(id: widget.userDetails?.id);
+          await viewModel.getProducerForm3Data(context,
+              id: widget.userDetails?.id);
           break;
       }
       viewModel.updateUI();

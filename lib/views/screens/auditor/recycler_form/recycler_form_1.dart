@@ -41,11 +41,11 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
   final AppColor appColor = AppColor();
   final stringConstants = StringConstants();
   ScrollController? controller;
-
   late RecyclerFormViewModel viewModel;
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.initializeForm1TextEditingControllers();
     super.initState();
   }
 
@@ -80,7 +80,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
                     widget.isSummaryScreen == true
-                        ? viewModel.onNextButton(context,widget.id??"",widget.isRetreader)
+                        ? viewModel.onNextButton(
+                            context, widget.id ?? "", widget.isRetreader)
                         : await viewModel.postForm1Data(context,
                             userId: widget.id ?? "",
                             isRetreader: widget.userType == "Retreader");
@@ -177,7 +178,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isReadOnly: true,
                       hintText: stringConstants.gpsLatitude,
                       isMandatory: false,
-                      controller: viewModel.gpsRecyclerLatitude),
+                      controller: viewModel.gpsRecyclerLatitude ??
+                          TextEditingController()),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -186,7 +188,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isReadOnly: true,
                       hintText: stringConstants.gpsLongitude,
                       isMandatory: false,
-                      controller: viewModel.gpsRecyclerLongitude),
+                      controller: viewModel.gpsRecyclerLongitude ??
+                          TextEditingController()),
                 ),
               ],
             ),
@@ -210,7 +213,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     hintText: stringConstants.gpsLatitude,
                     isMandatory: false,
                     isReadOnly: true,
-                    controller: viewModel.gpsAuditorLatitude),
+                    controller: viewModel.gpsAuditorLatitude ??
+                        TextEditingController()),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
@@ -218,7 +222,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     hintText: stringConstants.gpsLongitude,
                     isMandatory: false,
                     isReadOnly: true,
-                    controller: viewModel.gpsAuditorLongitude),
+                    controller: viewModel.gpsAuditorLongitude ??
+                        TextEditingController()),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -239,7 +244,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     maxLength: 100,
                     isMandatory: false,
                     isReadOnly: true,
-                    controller: viewModel.gpsAuditorRemarkController),
+                    controller: viewModel.gpsAuditorRemarkController ??
+                        TextEditingController()),
               )
             ],
           ),
@@ -361,7 +367,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         hintText: stringConstants.uploadFile,
                         isMandatory: false,
                         isReadOnly: true,
-                        controller: viewModel.uploadPowerController),
+                        controller: viewModel.uploadPowerController ??
+                            TextEditingController()),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
@@ -370,7 +377,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isReadOnly: true,
                       hintText: stringConstants.remarks.i18n(),
                       maxLength: 100,
-                      controller: viewModel.remarkPowerController,
+                      controller: viewModel.remarkPowerController ??
+                          TextEditingController(),
                     ),
                   )
                 ],
@@ -390,7 +398,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               isReadOnly: true,
               viewModel: viewModel,
               disableController: viewModel.pollutionController,
-              remarksController: viewModel.remakrsPollutionController,
+              remarksController: viewModel.remakrsPollutionController ??
+                  TextEditingController(),
               uploadController: viewModel.uploadPollutionController,
               isDocument: true,
             ),
@@ -421,7 +430,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isReadOnly: true,
                       hintText: stringConstants.uploadVideo,
                       isMandatory: false,
-                      controller: viewModel.uploadVideoController,
+                      controller: viewModel.uploadVideoController ??
+                          TextEditingController(),
                     ),
                   ),
                   Padding(
@@ -430,7 +440,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isMandatory: false,
                       hintText: stringConstants.remarks.i18n(),
                       maxLength: 100,
-                      controller: viewModel.remarkVideoController,
+                      controller: viewModel.remarkVideoController ??
+                          TextEditingController(),
                       isReadOnly: true,
                     ),
                   )
@@ -573,7 +584,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isReadOnly: true,
                       hintText: stringConstants.gpsLatitude,
                       isMandatory: false,
-                      controller: viewModel.gpsRecyclerLatitude),
+                      controller: viewModel.gpsRecyclerLatitude ??
+                          TextEditingController()),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -582,7 +594,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isReadOnly: true,
                       hintText: stringConstants.gpsLongitude,
                       isMandatory: false,
-                      controller: viewModel.gpsRecyclerLongitude),
+                      controller: viewModel.gpsRecyclerLongitude ??
+                          TextEditingController()),
                 ),
               ],
             ),
@@ -611,7 +624,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       return viewModel
                           .emptyValidation(viewModel.gpsAuditorLatitude);
                     },
-                    controller: viewModel.gpsAuditorLatitude),
+                    controller: viewModel.gpsAuditorLatitude ??
+                        TextEditingController()),
               ),
               if (viewModel.gpsLocationAuditorAdditionalDataLatError.isNotEmpty)
                 showErrorMessage(context,
@@ -625,7 +639,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       return viewModel
                           .emptyValidation(viewModel.gpsAuditorLongitude);
                     },
-                    controller: viewModel.gpsAuditorLongitude),
+                    controller: viewModel.gpsAuditorLongitude ??
+                        TextEditingController()),
               ),
               if (viewModel
                   .gpsLocationAuditorAdditionalDataLongError.isNotEmpty)
@@ -653,7 +668,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       return viewModel.emptyValidation(
                           viewModel.gpsAuditorRemarkController);
                     },
-                    controller: viewModel.gpsAuditorRemarkController),
+                    controller: viewModel.gpsAuditorRemarkController ??
+                        TextEditingController()),
               ),
               if (viewModel.gpsLocationAuditorAuditRemarkError.isNotEmpty)
                 showErrorMessage(
@@ -806,7 +822,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: CommonTextFormFieldWidget(
-                        icon: viewModel.uploadPowerController.text.isEmpty
+                        icon: viewModel.uploadPowerController?.text.isEmpty ??
+                                false
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
                         isDocument: true,
@@ -830,7 +847,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         },
                         hintText: stringConstants.uploadFile,
                         isMandatory: false,
-                        controller: viewModel.uploadPowerController),
+                        controller: viewModel.uploadPowerController ??
+                            TextEditingController()),
                   ),
                   if (viewModel
                       .lastYearElectricityBillAuditDocumentError.isNotEmpty)
@@ -842,7 +860,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isMandatory: false,
                       hintText: stringConstants.remarks.i18n(),
                       maxLength: 100,
-                      controller: viewModel.remarkPowerController,
+                      controller: viewModel.remarkPowerController ??
+                          TextEditingController(),
                       validator: (value) {
                         return viewModel
                             .emptyValidation(viewModel.remarkPowerController);
@@ -869,7 +888,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               isUpload: true,
               viewModel: viewModel,
               disableController: viewModel.pollutionController,
-              remarksController: viewModel.remakrsPollutionController,
+              remarksController: viewModel.remakrsPollutionController ??
+                  TextEditingController(),
               uploadController: viewModel.uploadPollutionController,
               onChanged: (value) {
                 viewModel.radioPollution = value ?? "";
@@ -922,7 +942,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: CommonTextFormFieldWidget(
                         isDocument: true,
-                        icon: viewModel.uploadVideoController.text.isEmpty
+                        icon: viewModel.uploadVideoController?.text.isEmpty ??
+                                false
                             ? viewModel.imageConstants.fileUpload
                             : viewModel.imageConstants.removeIcon,
                         onTap: () async {
@@ -942,7 +963,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         },
                         hintText: stringConstants.uploadVideo,
                         isMandatory: false,
-                        controller: viewModel.uploadVideoController),
+                        controller: viewModel.uploadVideoController ??
+                            TextEditingController()),
                   ),
                   if (viewModel
                       .geoTaggedVideoUploadAuditDocumentError.isNotEmpty)
@@ -954,7 +976,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isMandatory: false,
                       hintText: stringConstants.remarks.i18n(),
                       maxLength: 100,
-                      controller: viewModel.remarkVideoController,
+                      controller: viewModel.remarkVideoController ??
+                          TextEditingController(),
                       validator: (value) {
                         return viewModel
                             .emptyValidation(viewModel.remarkVideoController);

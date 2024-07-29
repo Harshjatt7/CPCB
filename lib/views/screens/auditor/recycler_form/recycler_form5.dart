@@ -40,6 +40,7 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.initializeForm5TextEditingController();
     super.initState();
   }
 
@@ -121,7 +122,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
                 isReadOnly: widget.isSummaryScreen,
                 hintText: stringConstants.remarks.i18n(),
                 isMandatory: false,
-                controller: viewModel.etpRemarksInstalledController),
+                controller: viewModel.etpRemarksInstalledController ??
+                    TextEditingController()),
           ),
           formRadioButton(
             groupValue: viewModel.radioInstalled,
@@ -139,7 +141,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
               isReadOnly: widget.isSummaryScreen,
               hintText: stringConstants.enter,
               isMandatory: false,
-              controller: viewModel.etpCapacityController,
+              controller:
+                  viewModel.etpCapacityController ?? TextEditingController(),
             ),
           ),
           Padding(
@@ -150,7 +153,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
                 isReadOnly: widget.isSummaryScreen,
                 hintText: stringConstants.remarks.i18n(),
                 isMandatory: false,
-                controller: viewModel.etpRemarksCapacityController),
+                controller: viewModel.etpRemarksCapacityController ??
+                    TextEditingController()),
           ),
           formRadioButton(
             groupValue: viewModel.radioCapacity,
@@ -176,7 +180,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
               maxLines: 4,
               isMandatory: false,
               hintText: stringConstants.textHere.i18n(),
-              controller: viewModel.summmaryRemakrController,
+              controller:
+                  viewModel.summmaryRemakrController ?? TextEditingController(),
             ),
           )
         ],
@@ -212,7 +217,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
             child: CommonTextFormFieldWidget(
                 hintText: stringConstants.remarks.i18n(),
                 isMandatory: false,
-                controller: viewModel.etpRemarksInstalledController),
+                controller: viewModel.etpRemarksInstalledController ??
+                    TextEditingController()),
           ),
           formRadioButton(
             groupValue: viewModel.radioInstalled,
@@ -234,7 +240,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
               isMandatory: false,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               textInputType: TextInputType.number,
-              controller: viewModel.etpCapacityController,
+              controller:
+                  viewModel.etpCapacityController ?? TextEditingController(),
             ),
           ),
           Padding(
@@ -244,7 +251,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
             child: CommonTextFormFieldWidget(
                 hintText: stringConstants.remarks.i18n(),
                 isMandatory: false,
-                controller: viewModel.etpRemarksCapacityController),
+                controller: viewModel.etpRemarksCapacityController ??
+                    TextEditingController()),
           ),
           formRadioButton(
             groupValue: viewModel.radioCapacity,
@@ -276,7 +284,8 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
               },
               isMandatory: false,
               hintText: stringConstants.textHere.i18n(),
-              controller: viewModel.summmaryRemakrController,
+              controller:
+                  viewModel.summmaryRemakrController ?? TextEditingController(),
             ),
           ),
           if (viewModel.summaryAuditRemarkError.isNotEmpty)

@@ -37,7 +37,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
   final helperFunctions = HelperFunctions();
-  TextEditingController? endProductDataListController = TextEditingController();
+  TextEditingController? endProductDataListController;
   List<CheckboxFilterModel> endProductsList = [];
   List<String> selectedEndProductsData = [];
   List<String> emptyendProductsList = [];
@@ -57,80 +57,74 @@ class RecyclerFormViewModel extends BaseViewModel {
     endProductDataListController?.text = selectedEndProductsData.join(",");
   }
 
-  TextEditingController gstController = TextEditingController();
-  TextEditingController gstRemarkController = TextEditingController();
-  TextEditingController companyPanController = TextEditingController();
-  TextEditingController companyPanRemarkController = TextEditingController();
-  TextEditingController companyIECController = TextEditingController();
-  TextEditingController companyRemarkIECController = TextEditingController();
-  TextEditingController recyclerCTOController = TextEditingController();
-  TextEditingController recyclerRemakrCTOController = TextEditingController();
-  TextEditingController authorizationController = TextEditingController();
-  TextEditingController remarkAuthorizationController = TextEditingController();
+  TextEditingController? gstController;
+  TextEditingController? gstRemarkController;
+  TextEditingController? companyPanController;
+  TextEditingController? companyPanRemarkController;
+  TextEditingController? companyIECController;
+  TextEditingController? companyRemarkIECController;
+  TextEditingController? recyclerCTOController;
+  TextEditingController? recyclerRemakrCTOController;
+  TextEditingController? authorizationController;
+  TextEditingController? remarkAuthorizationController;
 
-  TextEditingController recyclingDetailsController = TextEditingController();
-  TextEditingController remarkRecyclingDetailsController =
+  TextEditingController? recyclingDetailsController;
+  TextEditingController? remarkRecyclingDetailsController =
       TextEditingController();
-  TextEditingController gpsRecyclerLatitude = TextEditingController();
-  TextEditingController gpsRecyclerLongitude = TextEditingController();
-  TextEditingController gpsAuditorLatitude = TextEditingController();
-  TextEditingController gpsAuditorLongitude = TextEditingController();
-  TextEditingController gpsAuditorRemarkController = TextEditingController();
+  TextEditingController? gpsRecyclerLatitude;
+  TextEditingController? gpsRecyclerLongitude;
+  TextEditingController? gpsAuditorLatitude;
+  TextEditingController? gpsAuditorLongitude;
+  TextEditingController? gpsAuditorRemarkController;
 
-  TextEditingController aadharController = TextEditingController();
-  TextEditingController remarkAadharController = TextEditingController();
-  TextEditingController uploadAadharController = TextEditingController();
-  TextEditingController panNoController = TextEditingController();
-  TextEditingController remarkPanNoController = TextEditingController();
-  TextEditingController uploadPanNoController = TextEditingController();
+  TextEditingController? aadharController;
+  TextEditingController? remarkAadharController;
+  TextEditingController? uploadAadharController;
+  TextEditingController? panNoController;
+  TextEditingController? remarkPanNoController;
+  TextEditingController? uploadPanNoController;
 
-  TextEditingController uploadPowerController = TextEditingController();
-  TextEditingController remarkPowerController = TextEditingController();
+  TextEditingController? uploadPowerController;
+  TextEditingController? remarkPowerController;
 
-  TextEditingController pollutionController = TextEditingController();
-  TextEditingController remakrsPollutionController = TextEditingController();
-  TextEditingController uploadPollutionController = TextEditingController();
+  TextEditingController? pollutionController;
+  TextEditingController? remakrsPollutionController;
+  TextEditingController? uploadPollutionController;
 
-  TextEditingController remarkVideoController = TextEditingController();
-  TextEditingController uploadVideoController = TextEditingController();
-  TextEditingController typeOfProductController = TextEditingController();
-  TextEditingController plantProductionCapacityController =
-      TextEditingController();
-  TextEditingController endProductProducedController = TextEditingController();
-  TextEditingController daysPlantOperationalController =
-      TextEditingController();
-  TextEditingController hoursPlantOperationalController =
-      TextEditingController();
-  TextEditingController shiftPlantOperationalController =
-      TextEditingController();
-  TextEditingController actualProcessingCapacityController =
-      TextEditingController();
-  TextEditingController differenceInActualProccessingController =
-      TextEditingController();
-  TextEditingController totalQuantitySalesController = TextEditingController();
-  TextEditingController uploadSalesController = TextEditingController();
-  TextEditingController powerConsumptionController = TextEditingController();
-  TextEditingController actualAverageAnnualController = TextEditingController();
-  TextEditingController totalElectricityController = TextEditingController();
-  TextEditingController areValuedCandDController = TextEditingController();
-  TextEditingController procurementInfoContact = TextEditingController();
-  TextEditingController procurementInfoContactRemarks = TextEditingController();
-  TextEditingController procurementInfoAuditVerified = TextEditingController();
-  TextEditingController procurmentInfoVerifiedRemark = TextEditingController();
-  TextEditingController aNotVerifiedController = TextEditingController();
-  TextEditingController physicallyContactedValue = TextEditingController();
-  TextEditingController physicallyContactedRemark = TextEditingController();
-  TextEditingController physicallyVerifiedValue = TextEditingController();
-  TextEditingController physicallyVerifiedRemark = TextEditingController();
-  TextEditingController bNotVerifiedController = TextEditingController();
-  TextEditingController invoiceController = TextEditingController();
-  TextEditingController remakrsInvoiceController = TextEditingController();
-  TextEditingController buyersController = TextEditingController();
-  TextEditingController remakrsBuyerController = TextEditingController();
-  TextEditingController etpCapacityController = TextEditingController();
-  TextEditingController etpRemarksInstalledController = TextEditingController();
-  TextEditingController etpRemarksCapacityController = TextEditingController();
-  TextEditingController summmaryRemakrController = TextEditingController();
+  TextEditingController? remarkVideoController;
+  TextEditingController? uploadVideoController;
+  TextEditingController? typeOfProductController;
+  TextEditingController? plantProductionCapacityController;
+  TextEditingController? endProductProducedController;
+  TextEditingController? daysPlantOperationalController;
+  TextEditingController? hoursPlantOperationalController;
+  TextEditingController? shiftPlantOperationalController;
+  TextEditingController? actualProcessingCapacityController;
+  TextEditingController? differenceInActualProccessingController;
+  TextEditingController? totalQuantitySalesController;
+  TextEditingController? uploadSalesController;
+  TextEditingController? powerConsumptionController;
+  TextEditingController? actualAverageAnnualController;
+  TextEditingController? totalElectricityController;
+  TextEditingController? areValuedCandDController;
+  TextEditingController? procurementInfoContact;
+  TextEditingController? procurementInfoContactRemarks;
+  TextEditingController? procurementInfoAuditVerified;
+  TextEditingController? procurmentInfoVerifiedRemark;
+  TextEditingController? aNotVerifiedController;
+  TextEditingController? physicallyContactedValue;
+  TextEditingController? physicallyContactedRemark;
+  TextEditingController? physicallyVerifiedValue;
+  TextEditingController? physicallyVerifiedRemark;
+  TextEditingController? bNotVerifiedController;
+  TextEditingController? invoiceController;
+  TextEditingController? remakrsInvoiceController;
+  TextEditingController? buyersController;
+  TextEditingController? remakrsBuyerController;
+  TextEditingController? etpCapacityController;
+  TextEditingController? etpRemarksInstalledController;
+  TextEditingController? etpRemarksCapacityController;
+  TextEditingController? summmaryRemakrController;
 
   String radioGst = "";
   String radioPanOfCompany = "";
@@ -206,8 +200,83 @@ class RecyclerFormViewModel extends BaseViewModel {
   Duration? videoDuration;
   int videoSize = 0;
 
+  void initializeForm1TextEditingControllers() {
+    remarkVideoController = TextEditingController();
+    uploadVideoController = TextEditingController();
+    remarkPowerController = TextEditingController();
+    uploadPowerController = TextEditingController();
+    gpsAuditorRemarkController = TextEditingController();
+    gpsAuditorLongitude = TextEditingController();
+    gpsAuditorLatitude = TextEditingController();
+    gpsRecyclerLongitude = TextEditingController();
+    gpsRecyclerLatitude = TextEditingController();
+    pollutionController = TextEditingController();
+    panNoController = TextEditingController();
+    aadharController = TextEditingController();
+    recyclingDetailsController = TextEditingController();
+    authorizationController = TextEditingController();
+    recyclerCTOController = TextEditingController();
+    companyRemarkIECController = TextEditingController();
+    companyPanRemarkController = TextEditingController();
+    gstRemarkController = TextEditingController();
+    remarkPanNoController = TextEditingController();
+    remarkAadharController = TextEditingController();
+    remarkRecyclingDetailsController = TextEditingController();
+    remarkAuthorizationController = TextEditingController();
+    recyclerRemakrCTOController = TextEditingController();
+    uploadPollutionController = TextEditingController();
+    uploadPanNoController = TextEditingController();
+    uploadAadharController = TextEditingController();
+    remakrsPollutionController = TextEditingController();
+  }
+
+  void initializeForm2TextEditingController() {
+    areValuedCandDController = TextEditingController();
+    endProductDataListController = TextEditingController();
+    typeOfProductController = TextEditingController();
+    totalElectricityController = TextEditingController();
+    actualAverageAnnualController = TextEditingController();
+    powerConsumptionController = TextEditingController();
+    uploadSalesController = TextEditingController();
+    totalQuantitySalesController = TextEditingController();
+    differenceInActualProccessingController = TextEditingController();
+    actualProcessingCapacityController = TextEditingController();
+    shiftPlantOperationalController = TextEditingController();
+    hoursPlantOperationalController = TextEditingController();
+    daysPlantOperationalController = TextEditingController();
+    endProductProducedController = TextEditingController();
+    plantProductionCapacityController = TextEditingController();
+  }
+
+  void initializeForm3TextEditingController() {
+    physicallyVerifiedValue = TextEditingController();
+    physicallyContactedValue = TextEditingController();
+    procurementInfoAuditVerified = TextEditingController();
+    procurementInfoContact = TextEditingController();
+    bNotVerifiedController = TextEditingController();
+    physicallyVerifiedRemark = TextEditingController();
+    physicallyContactedRemark = TextEditingController();
+    procurmentInfoVerifiedRemark = TextEditingController();
+    procurementInfoContactRemarks = TextEditingController();
+    aNotVerifiedController = TextEditingController();
+  }
+
+  void initializeForm4TextEditingController() {
+    remakrsBuyerController = TextEditingController();
+    buyersController = TextEditingController();
+    remakrsInvoiceController = TextEditingController();
+    invoiceController = TextEditingController();
+  }
+
+  void initializeForm5TextEditingController() {
+    summmaryRemakrController = TextEditingController();
+    etpRemarksCapacityController = TextEditingController();
+    etpCapacityController = TextEditingController();
+    etpRemarksInstalledController = TextEditingController();
+  }
+
   final imageConstants = ImageConstants();
-  TextEditingController uploadInvoiceController = TextEditingController();
+  TextEditingController? uploadInvoiceController;
   List<TextEditingController> controllerList = [];
   List<TextEditingController> uploadControllerList = [];
   List<TextEditingController> plantMachineryControllerList = [];
@@ -382,15 +451,15 @@ class RecyclerFormViewModel extends BaseViewModel {
         planCapacityAssesment: PlanCapacityAssesmentRequest(
           additionalData: PlanCapacityAssesmentRequestAdditionalData(
             typeOfEndProduct: selectedEndProductsData,
-            plantProductionCapacity: plantProductionCapacityController.text,
-            endProductProducedOnAuditDay: endProductProducedController.text,
-            plantOperationalPerYear: hoursPlantOperationalController.text,
-            plantOperationalPerDay: daysPlantOperationalController.text,
-            plantOperationalPerShift: shiftPlantOperationalController.text,
+            plantProductionCapacity: plantProductionCapacityController?.text,
+            endProductProducedOnAuditDay: endProductProducedController?.text,
+            plantOperationalPerYear: hoursPlantOperationalController?.text,
+            plantOperationalPerDay: daysPlantOperationalController?.text,
+            plantOperationalPerShift: shiftPlantOperationalController?.text,
             actualProcessingCapacityRequestDerived:
-                actualProcessingCapacityController.text.isNotEmpty
+                actualProcessingCapacityController?.text.isNotEmpty ?? false
                     ? double.parse(
-                        actualProcessingCapacityController.text,
+                        actualProcessingCapacityController?.text ?? "",
                       )
                     : 0,
           ),
@@ -399,26 +468,28 @@ class RecyclerFormViewModel extends BaseViewModel {
           auditConfirmedStatus: radioxy,
           additionalData: ValueComparableRequestAdditionalData(
             actualProcessingCapacityRequest:
-                actualProcessingCapacityController.text,
+                actualProcessingCapacityController?.text,
             differenceInActualProcessing:
-                differenceInActualProccessingController.text.isNotEmpty
-                    ? double.parse(differenceInActualProccessingController.text)
+                differenceInActualProccessingController?.text.isNotEmpty ??
+                        false
+                    ? double.parse(
+                        differenceInActualProccessingController?.text ?? "")
                     : 0,
           ),
         ),
         electricityVerification: ElectricityVerificationRequest(
           additionalData: ElectricityVerificationRequestAdditionalData(
-            powerOnAuditDay: powerConsumptionController.text,
-            totalElectricityConsumption: totalElectricityController.text,
+            powerOnAuditDay: powerConsumptionController?.text,
+            totalElectricityConsumption: totalElectricityController?.text,
             annualPowerConsumption:
-                actualAverageAnnualController.text.isNotEmpty
-                    ? double.parse(actualAverageAnnualController.text)
+                actualAverageAnnualController?.text.isNotEmpty ?? false
+                    ? double.parse(actualAverageAnnualController?.text ?? "")
                     : 0,
           ),
         ),
         cAndDComparable: CAndDComparableRequest(
           auditConfirmedStatus: radiocd,
-          auditRemark: areValuedCandDController.text,
+          auditRemark: areValuedCandDController?.text,
         ),
       ),
       submit: saveAsDraft ?? "",
@@ -490,41 +561,43 @@ class RecyclerFormViewModel extends BaseViewModel {
       procurementInfo: ProcurementInfoRequest(
         contacted: ContactedRequest(
           additionalData: ContactedRequestAdditionalData(
-              suppliers: procurementInfoContact.text.isNotEmpty
-                  ? double.parse(procurementInfoContact.text)
+              suppliers: procurementInfoContact?.text.isNotEmpty ?? false
+                  ? double.parse(procurementInfoContact?.text ?? "")
                   : null),
           auditConfirmedStatus: radioProcurementInfoContact,
-          auditRemark: procurementInfoContactRemarks.text,
+          auditRemark: procurementInfoContactRemarks?.text,
         ),
         physicallyContacted: ContactedRequest(
             auditConfirmedStatus: radioProcurementInfoVerified,
-            auditRemark: procurmentInfoVerifiedRemark.text,
+            auditRemark: procurmentInfoVerifiedRemark?.text,
             additionalData: ContactedRequestAdditionalData(
-                suppliers: physicallyContactedValue.text.isNotEmpty
-                    ? double.parse(physicallyContactedValue.text)
+                suppliers: physicallyContactedValue?.text.isNotEmpty ?? false
+                    ? double.parse(physicallyContactedValue?.text ?? "")
                     : null)),
         physicallyVerified: VerifiedRequest(
           auditConfirmedStatus: radioProcurementInfoPhysicallyVerified,
-          auditRemark: physicallyVerifiedRemark.text,
+          auditRemark: physicallyVerifiedRemark?.text,
           additionalData: PhysicallyVerifiedRequestAdditionalData(
-            suppliers: physicallyVerifiedValue.text.isNotEmpty
-                ? double.parse(physicallyVerifiedValue.text)
+            suppliers: physicallyVerifiedValue?.text.isNotEmpty ?? false
+                ? double.parse(physicallyVerifiedValue?.text ?? "")
                 : null,
-            suppliersNotVerifiedRequest: bNotVerifiedController.text.isNotEmpty
-                ? double.parse(bNotVerifiedController.text)
-                : null,
+            suppliersNotVerifiedRequest:
+                bNotVerifiedController?.text.isNotEmpty ?? false
+                    ? double.parse(bNotVerifiedController?.text ?? "")
+                    : null,
           ),
         ),
         verified: VerifiedRequest(
           auditConfirmedStatus: radioProcurementInfoPhysicallyContacted,
-          auditRemark: physicallyContactedRemark.text,
+          auditRemark: physicallyContactedRemark?.text,
           additionalData: PhysicallyVerifiedRequestAdditionalData(
-            suppliers: procurementInfoAuditVerified.text.isNotEmpty
-                ? double.parse(procurementInfoAuditVerified.text)
+            suppliers: procurementInfoAuditVerified?.text.isNotEmpty ?? false
+                ? double.parse(procurementInfoAuditVerified?.text ?? "")
                 : null,
-            suppliersNotVerifiedRequest: bNotVerifiedController.text.isNotEmpty
-                ? double.parse(bNotVerifiedController.text)
-                : null,
+            suppliersNotVerifiedRequest:
+                bNotVerifiedController?.text.isNotEmpty ?? false
+                    ? double.parse(bNotVerifiedController?.text ?? "")
+                    : null,
           ),
         ),
       ),
@@ -664,8 +737,8 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   void updatePlantMachine() {
     for (int i = count; i > 1; i--) {
-      TextEditingController tempController = TextEditingController();
-      TextEditingController tempUploadController = TextEditingController();
+      TextEditingController? tempController = TextEditingController();
+      TextEditingController? tempUploadController = TextEditingController();
 
       controllerList.add(tempController);
       uploadControllerList.add(tempUploadController);
@@ -697,7 +770,7 @@ class RecyclerFormViewModel extends BaseViewModel {
             ?.data?.data?.processingCapacity?.electricityVerification;
         valueComparable = _auditorRecycler2ResponseModel
             ?.data?.data?.processingCapacity?.valueComparable;
-        totalQuantitySalesController.text =
+        totalQuantitySalesController?.text =
             "${_auditorRecycler2ResponseModel?.data?.data?.quantityOfSales ?? ""}";
         summaryForm2View();
         updateUI();
@@ -809,8 +882,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     return _auditorRecycler5ResponseModel;
   }
 
-  String? emptyValidation(TextEditingController controller) {
-    if (controller.text.isEmpty) {
+  String? emptyValidation(TextEditingController? controller) {
+    if (controller?.text.isEmpty ?? false) {
       return messageConstant.pleaseProvideValue;
     }
     return null;
@@ -834,8 +907,8 @@ class RecyclerFormViewModel extends BaseViewModel {
   void addController() {
     if (count == controllerList.length + 1 &&
         count == uploadControllerList.length + 1) {
-      TextEditingController tempController = TextEditingController();
-      TextEditingController tempUploadController = TextEditingController();
+      TextEditingController? tempController = TextEditingController();
+      TextEditingController? tempUploadController = TextEditingController();
       controllerList.add(tempController);
       uploadControllerList.add(tempUploadController);
       updateUI();
@@ -852,8 +925,8 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void onAdd() {
-    if ((controllerList[count - 1].text.isNotEmpty &&
-        uploadControllerList[count - 1].text.isNotEmpty)) {
+    if (((controllerList[count - 1].text.isNotEmpty) &&
+        (uploadControllerList[count - 1].text.isNotEmpty))) {
       count++;
       addController();
       HelperFunctions().logger(controllerList.length.toString());
@@ -873,8 +946,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
     Position? position = await determinePosition();
     currentLocation = position;
-    gpsAuditorLatitude.text = "${currentLocation?.longitude}";
-    gpsAuditorLongitude.text = "${currentLocation?.latitude}";
+    gpsAuditorLatitude?.text = "${currentLocation?.longitude}";
+    gpsAuditorLongitude?.text = "${currentLocation?.latitude}";
     HelperFunctions().logger("${currentLocation?.longitude ?? 0}");
     HelperFunctions().logger("${currentLocation?.latitude ?? 0}");
     state = ViewState.idle;
@@ -900,13 +973,13 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void handleOnSuffixTap(BuildContext context, RecyclerForm1 fieldName,
-      TextEditingController controller,
+      TextEditingController? controller,
       {bool isVideo = false}) async {
-    if (controller.text.isEmpty) {
+    if (controller?.text.isEmpty ?? false) {
       var res = await openFileManager(context, fieldName, isVideo: isVideo);
 
       if (res != null) {
-        controller.text = res.files.isEmpty ? "" : res.files.first.name;
+        controller?.text = res.files.isEmpty ? "" : res.files.first.name;
         switch (fieldName) {
           case RecyclerForm1.aadhar:
             aadharFile = await MultipartFile.fromFile(
@@ -946,41 +1019,39 @@ class RecyclerFormViewModel extends BaseViewModel {
     } else {
       switch (fieldName) {
         case RecyclerForm1.aadhar:
-          controller.text = "";
+          controller?.text = "";
           aadharFilePath = null;
           break;
         case RecyclerForm1.panNo:
-          controller.text = "";
+          controller?.text = "";
           panNoFilePath = null;
           break;
         case RecyclerForm1.pollution:
-          controller.text = "";
+          controller?.text = "";
           pollutionFilePath = null;
           break;
         case RecyclerForm1.power:
-          controller.text = "";
+          controller?.text = "";
           powerFilePath = null;
           break;
         case RecyclerForm1.video:
-          controller.text = "";
+          controller?.text = "";
           videoFilePath = null;
           break;
       }
-
-      updateUI();
     }
 
     updateUI();
   }
 
   void handleOnTap(BuildContext context, RecyclerForm1 fieldName,
-      TextEditingController controller,
+      TextEditingController? controller,
       {bool isVideo = false}) async {
-    if (controller.text.isEmpty) {
+    if (controller?.text.isEmpty ?? false) {
       var res = await openFileManager(context, fieldName, isVideo: isVideo);
 
       if (res != null) {
-        controller.text = res.files.isEmpty ? "" : res.files.first.name;
+        controller?.text = res.files.isEmpty ? "" : res.files.first.name;
         switch (fieldName) {
           case RecyclerForm1.aadhar:
             aadharFile = await MultipartFile.fromFile(
@@ -1052,13 +1123,13 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   void handleOnMachineTap(
     BuildContext context,
-    TextEditingController controller,
+    TextEditingController? controller,
   ) async {
-    if (controller.text.isEmpty) {
+    if (controller?.text.isEmpty ?? false) {
       var res = await openMachineFileManager(context);
 
       if (res != null) {
-        controller.text = res.files.isEmpty ? "" : res.files.first.name;
+        controller?.text = res.files.isEmpty ? "" : res.files.first.name;
         updateUI();
         helperFunctions.logger(uploadControllerList.length.toString());
 
@@ -1078,20 +1149,20 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void disableFormView() {
-    gstController.text = generalInfoResponseData?.gstNo ?? '';
-    companyPanController.text = generalInfoResponseData?.companyPan ?? '';
-    companyIECController.text = generalInfoResponseData?.companyIec ?? '';
-    recyclerCTOController.text = generalInfoResponseData?.cto ?? '';
-    authorizationController.text =
+    gstController?.text = generalInfoResponseData?.gstNo ?? '';
+    companyPanController?.text = generalInfoResponseData?.companyPan ?? '';
+    companyIECController?.text = generalInfoResponseData?.companyIec ?? '';
+    recyclerCTOController?.text = generalInfoResponseData?.cto ?? '';
+    authorizationController?.text =
         generalInfoResponseData?.authorizationUnderHomwRules ?? '';
-    recyclingDetailsController.text =
+    recyclingDetailsController?.text =
         generalInfoResponseData?.addressLine1 ?? '';
-    gpsRecyclerLatitude.text = generalInfoResponseData?.lat ?? '';
-    gpsRecyclerLongitude.text = generalInfoResponseData?.long ?? '';
-    aadharController.text =
+    gpsRecyclerLatitude?.text = generalInfoResponseData?.lat ?? '';
+    gpsRecyclerLongitude?.text = generalInfoResponseData?.long ?? '';
+    aadharController?.text =
         generalInfoResponseData?.authorizedPersonAdhar ?? '';
-    panNoController.text = generalInfoResponseData?.authorizedPersonPan ?? "";
-    pollutionController.text =
+    panNoController?.text = generalInfoResponseData?.authorizedPersonPan ?? "";
+    pollutionController?.text =
         generalInfoResponseData?.airPollutionControlDevices ?? '';
   }
 
@@ -1164,42 +1235,43 @@ class RecyclerFormViewModel extends BaseViewModel {
             '');
 
     final data = _auditorRecycler1ResponseModel?.data?.data?.auditSummary;
-    gstRemarkController.text = data?.gstNo?.auditRemark ?? '';
-    companyPanRemarkController.text = data?.companyPan?.auditRemark ?? '';
-    companyRemarkIECController.text = data?.companyIec?.auditRemark ?? '';
-    recyclerRemakrCTOController.text = data?.cto?.auditRemark ?? '';
-    remarkAuthorizationController.text =
+    gstRemarkController?.text = data?.gstNo?.auditRemark ?? '';
+    companyPanRemarkController?.text = data?.companyPan?.auditRemark ?? '';
+    companyRemarkIECController?.text = data?.companyIec?.auditRemark ?? '';
+    recyclerRemakrCTOController?.text = data?.cto?.auditRemark ?? '';
+    remarkAuthorizationController?.text =
         data?.authorizationUnderHomwRules?.auditRemark ?? '';
 
-    remarkRecyclingDetailsController.text =
+    remarkRecyclingDetailsController?.text =
         data?.addressLine1?.auditRemark ?? '';
 
-    gpsAuditorLatitude.text =
+    gpsAuditorLatitude?.text =
         data?.gpsLocationAuditor?.additionalData?.lat ?? '';
-    gpsAuditorLongitude.text =
+    gpsAuditorLongitude?.text =
         data?.gpsLocationAuditor?.additionalData?.long ?? '';
-    gpsAuditorRemarkController.text =
+    gpsAuditorRemarkController?.text =
         data?.gpsLocationAuditor?.auditRemark ?? '';
 
-    remarkAadharController.text =
+    remarkAadharController?.text =
         data?.authorizedPersonAdhar?.auditRemark ?? '';
-    uploadAadharController.text =
+    uploadAadharController?.text =
         data?.authorizedPersonAdhar?.auditDocument ?? '';
-    remarkPanNoController.text = data?.authorizedPersonPan?.auditRemark ?? '';
-    uploadPanNoController.text = data?.authorizedPersonPan?.auditDocument ?? '';
+    remarkPanNoController?.text = data?.authorizedPersonPan?.auditRemark ?? '';
+    uploadPanNoController?.text =
+        data?.authorizedPersonPan?.auditDocument ?? '';
 
-    uploadPowerController.text =
+    uploadPowerController?.text =
         data?.lastYearElectricityBill?.auditDocument ?? '';
-    remarkPowerController.text =
+    remarkPowerController?.text =
         data?.lastYearElectricityBill?.auditRemark ?? '';
 
-    remakrsPollutionController.text =
+    remakrsPollutionController?.text =
         data?.airPollutionControlDevices?.auditRemark ?? '';
-    uploadPollutionController.text =
+    uploadPollutionController?.text =
         data?.airPollutionControlDevices?.auditDocument ?? '';
 
-    remarkVideoController.text = data?.geoTaggedVideoUpload?.auditRemark ?? '';
-    uploadVideoController.text =
+    remarkVideoController?.text = data?.geoTaggedVideoUpload?.auditRemark ?? '';
+    uploadVideoController?.text =
         data?.geoTaggedVideoUpload?.auditDocument ?? '';
 
     radioGst = "${data?.gstNo?.auditConfirmedStatus ?? '1'}";
@@ -1247,7 +1319,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           title: endProductsData?.pyrolisisOilContinuous ?? ''));
     }
 
-    typeOfProductController.text =
+    typeOfProductController?.text =
         planCapacityAssesment?.additionalData?.typeOfEndProduct?.first ?? '';
     selectedEndProductsData =
         planCapacityAssesment?.additionalData?.typeOfEndProduct ?? [];
@@ -1255,65 +1327,65 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     // endProductDropdownValue =
     //     planCapacityAssesment?.additionalData?.typeOfEndProduct?.first;
-    plantProductionCapacityController.text =
+    plantProductionCapacityController?.text =
         planCapacityAssesment?.additionalData?.plantProductionCapacity ?? '';
 
-    endProductProducedController.text =
+    endProductProducedController?.text =
         planCapacityAssesment?.additionalData?.endProductProducedOnAuditDay ??
             '';
 //daysPlantOperational is plantOperationalPerYear
-    daysPlantOperationalController.text =
+    daysPlantOperationalController?.text =
         planCapacityAssesment?.additionalData?.plantOperationalPerYear ?? '';
 //hoursPlantOperational is plantOperationalPerShift
-    hoursPlantOperationalController.text =
+    hoursPlantOperationalController?.text =
         planCapacityAssesment?.additionalData?.plantOperationalPerShift ?? '';
 //shiftPlantOperational is PlantOperationalPerDay
-    shiftPlantOperationalController.text =
+    shiftPlantOperationalController?.text =
         planCapacityAssesment?.additionalData?.plantOperationalPerDay ?? '';
 
-    actualProcessingCapacityController.text =
+    actualProcessingCapacityController?.text =
         "${planCapacityAssesment?.additionalData?.actualProcessingCapacityDerived ?? ''}";
 
-    differenceInActualProccessingController.text =
+    differenceInActualProccessingController?.text =
         "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
 //TODO talk with API team
-    uploadSalesController.text = '5';
+    uploadSalesController?.text = '5';
     // "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
-    powerConsumptionController.text =
+    powerConsumptionController?.text =
         electricityVerification?.additionalData?.powerOnAuditDay ?? '';
-    actualAverageAnnualController.text =
+    actualAverageAnnualController?.text =
         "${electricityVerification?.additionalData?.annualPowerConsumption ?? ''}";
 
-    totalElectricityController.text =
+    totalElectricityController?.text =
         electricityVerification?.additionalData?.totalElectricityConsumption ??
             '';
-    areValuedCandDController.text = cAndDComparable?.auditRemark ?? '';
+    areValuedCandDController?.text = cAndDComparable?.auditRemark ?? '';
     radioxy = "${valueComparable?.auditConfirmedStatus ?? '1'}";
     radiocd = "${cAndDComparable?.auditConfirmedStatus ?? '1'}";
   }
 
   void summaryForm3View() {
-    procurementInfoContact.text =
+    procurementInfoContact?.text =
         procurementInfo?.contacted?.additionalData?.suppliers.toString() ?? '';
-    procurementInfoContactRemarks.text =
+    procurementInfoContactRemarks?.text =
         procurementInfo?.contacted?.auditRemark ?? '';
-    procurementInfoAuditVerified.text = procurementInfo
+    procurementInfoAuditVerified?.text = procurementInfo
             ?.verified?.additionalData?.suppliersNotVerified
             .toString() ??
         '';
-    procurmentInfoVerifiedRemark.text =
+    procurmentInfoVerifiedRemark?.text =
         procurementInfo?.verified?.auditRemark ?? '';
-    physicallyContactedValue.text = procurementInfo
+    physicallyContactedValue?.text = procurementInfo
             ?.physicallyContacted?.additionalData?.suppliers
             .toString() ??
         '';
-    physicallyContactedRemark.text =
+    physicallyContactedRemark?.text =
         procurementInfo?.physicallyContacted?.auditRemark ?? '';
-    physicallyVerifiedValue.text = procurementInfo
+    physicallyVerifiedValue?.text = procurementInfo
             ?.physicallyVerified?.additionalData?.suppliersNotVerified
             .toString() ??
         '';
-    physicallyVerifiedRemark.text =
+    physicallyVerifiedRemark?.text =
         procurementInfo?.physicallyVerified?.auditRemark ?? '';
     radioProcurementInfoContact =
         "${procurementInfo?.contacted?.auditConfirmedStatus ?? '1'}";
@@ -1326,30 +1398,30 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void summaryForm4View() {
-    invoiceController.text =
+    invoiceController?.text =
         productionInfo?.invoice?.additionalData?.numberOfSuppliersContacted ??
             '';
-    remakrsInvoiceController.text = productionInfo?.invoice?.auditRemark ?? '';
-    buyersController.text =
+    remakrsInvoiceController?.text = productionInfo?.invoice?.auditRemark ?? '';
+    buyersController?.text =
         productionInfo?.invoice?.additionalData?.numberOfSuppliersContacted ??
             '';
-    remakrsBuyerController.text = productionInfo?.buyers?.auditRemark ?? '';
+    remakrsBuyerController?.text = productionInfo?.buyers?.auditRemark ?? '';
     radioBuyer = "${productionInfo?.buyers?.auditConfirmedStatus ?? '1'}";
     radioInvoice = "${productionInfo?.buyers?.auditConfirmedStatus ?? '1'}";
   }
 
   void summaryForm5View() {
-    etpRemarksInstalledController.text =
+    etpRemarksInstalledController?.text =
         wasteWaterGenerationAndDisposal?.etpInstalled?.auditRemark ?? '';
     radioInstalled =
         "${wasteWaterGenerationAndDisposal?.etpInstalled?.auditConfirmedStatus ?? '1'}";
-    etpCapacityController.text =
+    etpCapacityController?.text =
         wasteWaterGenerationAndDisposal?.etpCapacity?.auditValue ?? '';
     radioCapacity =
         "${wasteWaterGenerationAndDisposal?.etpCapacity?.auditConfirmedStatus ?? '1'}";
-    etpRemarksCapacityController.text =
+    etpRemarksCapacityController?.text =
         wasteWaterGenerationAndDisposal?.etpCapacity?.auditRemark ?? '';
-    summmaryRemakrController.text =
+    summmaryRemakrController?.text =
         wasteWaterGenerationAndDisposal?.summary?.auditRemark ?? '';
   }
 
@@ -1433,7 +1505,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   String? videoValidation() {
-    if (uploadVideoController.text.isEmpty) {
+    if (uploadVideoController?.text.isEmpty ?? false) {
       return messageConstant.pleaseProvideValue;
     }
     if (videoSize > 100 * 1024 * 1024) {
@@ -1483,127 +1555,135 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void textForm2Listener() {
-    plantProductionCapacityController.addListener(() {
+    plantProductionCapacityController?.addListener(() {
       actualProcessingValue();
     });
-    endProductProducedController.addListener(() {
+    endProductProducedController?.addListener(() {
       actualProcessingValue();
     });
-    daysPlantOperationalController.addListener(() {
+    daysPlantOperationalController?.addListener(() {
       actualProcessingValue();
     });
-    hoursPlantOperationalController.addListener(() {
+    hoursPlantOperationalController?.addListener(() {
       actualProcessingValue();
     });
-    shiftPlantOperationalController.addListener(() {
+    shiftPlantOperationalController?.addListener(() {
       actualProcessingValue();
     });
-    actualProcessingCapacityController.addListener(() {
+    actualProcessingCapacityController?.addListener(() {
       differenceInActualProcessingValue();
     });
-    powerConsumptionController.addListener(() {
+    powerConsumptionController?.addListener(() {
       actualAveragePowerValue();
     });
   }
 
   void actualAveragePowerValue() {
-    int a = int.parse(powerConsumptionController.text.isEmpty
+    int a = int.parse((powerConsumptionController?.text.isEmpty ?? false)
         ? "1"
-        : powerConsumptionController.text);
-    int b = int.parse(endProductProducedController.text.isEmpty
+        : powerConsumptionController?.text ?? "");
+    int b = int.parse((endProductProducedController?.text.isEmpty ?? false)
         ? "1"
-        : endProductProducedController.text);
-    int z = int.parse(totalQuantitySalesController.text.isEmpty
+        : endProductProducedController?.text ?? "");
+    int z = int.parse((totalQuantitySalesController?.text.isEmpty ?? false)
         ? "1"
-        : totalQuantitySalesController.text);
+        : totalQuantitySalesController?.text ?? "");
 
-    if (powerConsumptionController.text.isNotEmpty ||
-        endProductProducedController.text.isNotEmpty ||
-        totalQuantitySalesController.text.isNotEmpty) {
-      actualAverageAnnualController.text = (a / b - z).toString();
+    if (powerConsumptionController?.text.isNotEmpty ??
+        false ||
+            (endProductProducedController?.text.isNotEmpty ?? false) ||
+            (totalQuantitySalesController?.text.isNotEmpty ?? false)) {
+      actualAverageAnnualController?.text = (a / b - z).toString();
     }
   }
 
   void differenceInActualProcessingValue() {
-    int y = int.parse(actualProcessingCapacityController.text.isEmpty
+    int y = int.parse(actualProcessingCapacityController?.text.isEmpty ?? false
         ? "1"
-        : actualProcessingCapacityController.text);
-    int z = int.parse(totalQuantitySalesController.text.isEmpty
+        : actualProcessingCapacityController?.text ?? "");
+    int z = int.parse(totalQuantitySalesController?.text.isEmpty ?? false
         ? "1"
-        : totalQuantitySalesController.text);
+        : totalQuantitySalesController?.text ?? "");
 
-    if (differenceInActualProccessingController.text.isNotEmpty) {
-      uploadSalesController.text = (y - 1.05 * z).toString();
+    if (differenceInActualProccessingController?.text.isNotEmpty ?? false) {
+      uploadSalesController?.text = (y - 1.05 * z).toString();
     }
   }
 
   void actualProcessingValue() {
-    int endProduct = int.parse(endProductProducedController.text.isEmpty
-        ? "1"
-        : endProductProducedController.text);
-    int daysPlant = int.parse(daysPlantOperationalController.text.isEmpty
-        ? "1"
-        : daysPlantOperationalController.text);
-    int hoursPlant = int.parse(hoursPlantOperationalController.text.isEmpty
-        ? "1"
-        : hoursPlantOperationalController.text);
-    int shiftPlant = int.parse(shiftPlantOperationalController.text.isEmpty
-        ? "1"
-        : shiftPlantOperationalController.text);
+    int endProduct = int.parse(
+        endProductProducedController?.text.isEmpty ?? false
+            ? "1"
+            : endProductProducedController?.text ?? "");
+    int daysPlant = int.parse(
+        daysPlantOperationalController?.text.isEmpty ?? false
+            ? "1"
+            : daysPlantOperationalController?.text ?? "");
+    int hoursPlant = int.parse(
+        hoursPlantOperationalController?.text.isEmpty ?? false
+            ? "1"
+            : hoursPlantOperationalController?.text ?? "");
+    int shiftPlant = int.parse(
+        shiftPlantOperationalController?.text.isEmpty ?? false
+            ? "1"
+            : shiftPlantOperationalController?.text ?? "");
 
-    if (plantProductionCapacityController.text.isNotEmpty ||
-        endProductProducedController.text.isNotEmpty ||
-        daysPlantOperationalController.text.isNotEmpty ||
-        hoursPlantOperationalController.text.isNotEmpty ||
-        shiftPlantOperationalController.text.isNotEmpty) {
-      actualProcessingCapacityController.text =
+    if (plantProductionCapacityController?.text.isNotEmpty ??
+        false ||
+            (endProductProducedController?.text.isNotEmpty ?? false) ||
+            (daysPlantOperationalController?.text.isNotEmpty ?? false) ||
+            (hoursPlantOperationalController?.text.isNotEmpty ?? false) ||
+            (shiftPlantOperationalController?.text.isNotEmpty ?? false)) {
+      actualProcessingCapacityController?.text =
           (endProduct * daysPlant * hoursPlant * shiftPlant).toString();
     }
   }
 
   void textForm3Listener() {
-    procurementInfoContact.addListener(() {
+    procurementInfoContact?.addListener(() {
       totalValueA();
     });
-    procurementInfoAuditVerified.addListener(() {
+    procurementInfoAuditVerified?.addListener(() {
       totalValueA();
     });
-    physicallyContactedValue.addListener(() {
+    physicallyContactedValue?.addListener(() {
       totalValueB();
     });
-    physicallyVerifiedValue.addListener(() {
+    physicallyVerifiedValue?.addListener(() {
       totalValueB();
     });
   }
 
   void totalValueA() {
-    int supplierContact = int.parse(procurementInfoContact.text.isEmpty
+    int supplierContact = int.parse(
+        procurementInfoContact?.text.isEmpty ?? false
+            ? "0"
+            : procurementInfoContact?.text ?? "");
+    int verified = int.parse(procurementInfoAuditVerified?.text.isEmpty ?? false
         ? "0"
-        : procurementInfoContact.text);
-    int verified = int.parse(procurementInfoAuditVerified.text.isEmpty
-        ? "0"
-        : procurementInfoAuditVerified.text);
-    if (procurementInfoContact.text.isNotEmpty ||
-        procurementInfoAuditVerified.text.isNotEmpty) {
-      aNotVerifiedController.text = (supplierContact - verified).toString();
+        : procurementInfoAuditVerified?.text ?? "");
+    if (procurementInfoContact?.text.isNotEmpty ??
+        false || (procurementInfoAuditVerified?.text.isNotEmpty ?? false)) {
+      aNotVerifiedController?.text = (supplierContact - verified).toString();
     }
   }
 
   void totalValueB() {
-    int supplierContact = int.parse(physicallyContactedValue.text.isEmpty
+    int supplierContact = int.parse(
+        physicallyContactedValue?.text.isEmpty ?? false
+            ? "0"
+            : physicallyContactedValue?.text ?? "");
+    int verified = int.parse(physicallyVerifiedValue?.text.isEmpty ?? false
         ? "0"
-        : physicallyContactedValue.text);
-    int verified = int.parse(physicallyVerifiedValue.text.isEmpty
-        ? "0"
-        : physicallyVerifiedValue.text);
-    if (physicallyContactedValue.text.isNotEmpty ||
-        physicallyVerifiedValue.text.isNotEmpty) {
-      bNotVerifiedController.text = (supplierContact - verified).toString();
+        : physicallyVerifiedValue?.text ?? "");
+    if (physicallyContactedValue?.text.isNotEmpty ??
+        false || (physicallyVerifiedValue?.text.isNotEmpty ?? false)) {
+      bNotVerifiedController?.text = (supplierContact - verified).toString();
     }
   }
 
   String? summaryValidation() {
-    if (summmaryRemakrController.text.isEmpty) {
+    if (summmaryRemakrController?.text.isEmpty ?? false) {
       return messageConstant.pleaseProvideValue;
     }
     return null;
@@ -1740,13 +1820,13 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   Future<void> handleOnMachineSuffixTap(
     BuildContext context,
-    TextEditingController controller,
+    TextEditingController? controller,
   ) async {
-    if (controller.text.isEmpty) {
+    if (controller?.text.isEmpty ?? false) {
       if (context.mounted) {
         var res = await openMachineFileManager(context);
         if (res != null) {
-          controller.text = res.files.isEmpty ? "" : res.files.first.name;
+          controller?.text = res.files.isEmpty ? "" : res.files.first.name;
           updateUI();
           helperFunctions.logger(uploadControllerList.length.toString());
 
@@ -1762,7 +1842,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         }
       }
     } else {
-      controller.text = "";
+      controller?.text = "";
       machineFilePath = [];
 
       updateUI();
@@ -1826,33 +1906,33 @@ class RecyclerFormViewModel extends BaseViewModel {
               generalInfo: GenerralInfoRequest(
                   gstNo: AddressLine(
                       auditConfirmedStatus: radioGst,
-                      auditRemark: gstRemarkController.text),
+                      auditRemark: gstRemarkController?.text),
                   companyPan: AddressLine(
                       auditConfirmedStatus: radioPanOfCompany,
-                      auditRemark: companyPanRemarkController.text),
+                      auditRemark: companyPanRemarkController?.text),
                   companyIec: AddressLine(
                       auditConfirmedStatus: radioIec,
-                      auditRemark: companyRemarkIECController.text),
+                      auditRemark: companyRemarkIECController?.text),
                   cto: AddressLine(
                       auditConfirmedStatus: radioCto,
-                      auditRemark: recyclerRemakrCTOController.text),
+                      auditRemark: recyclerRemakrCTOController?.text),
                   authorizationUnderHomwRules: AddressLine(
                       auditConfirmedStatus: radioAuthorization,
-                      auditRemark: remarkAuthorizationController.text),
+                      auditRemark: remarkAuthorizationController?.text),
                   addressLine1: AddressLine(
                       auditConfirmedStatus: radioRecyclingDetails,
-                      auditRemark: remarkRecyclingDetailsController.text),
+                      auditRemark: remarkRecyclingDetailsController?.text),
                   gpsLocationRecycler:
                       GpsLocationRecycler(auditConfirmedStatus: radioGps),
                   gpsLocationAuditor: GpsLocationAuditorRequest(
                     auditConfirmedStatus: radioGps,
-                    auditRemark: gpsAuditorRemarkController.text,
+                    auditRemark: gpsAuditorRemarkController?.text,
                     additionalData: GpsLocationAuditorAdditionalDataRequest(
-                        lat: gpsAuditorLatitude.text,
-                        long: gpsAuditorLongitude.text),
+                        lat: gpsAuditorLatitude?.text,
+                        long: gpsAuditorLongitude?.text),
                   ),
                   authorizedPersonAdhar: AirPollutionControlDevicesRequest(
-                      auditRemark: remarkAadharController.text,
+                      auditRemark: remarkAadharController?.text,
                       auditConfirmedStatus: radioAadharCard,
                       auditDocument: aadharDocument?.fileName ?? '',
                       additionalData:
@@ -1860,7 +1940,7 @@ class RecyclerFormViewModel extends BaseViewModel {
                               fileKey: aadharDocument?.fileKey ?? '',
                               fileLink: aadharDocument?.fileUrl ?? '')),
                   authorizedPersonPan: AirPollutionControlDevicesRequest(
-                      auditRemark: remarkPanNoController.text,
+                      auditRemark: remarkPanNoController?.text,
                       auditConfirmedStatus: radioPanNo,
                       auditDocument:
                           authorizedPersonPanDocument?.fileName ?? '',
@@ -1872,7 +1952,7 @@ class RecyclerFormViewModel extends BaseViewModel {
                       additionalData: OtherMachineriesAdditionalDataRequest(
                           om: getOmRequest())),
                   lastYearElectricityBill: AirPollutionControlDevicesRequest(
-                      auditRemark: remarkPowerController.text,
+                      auditRemark: remarkPowerController?.text,
                       auditConfirmedStatus:
                           lastYearElectricityBillDocument?.fileName ?? '',
                       auditDocument: lastYearElectricityBillDocument?.fileName,
@@ -1882,13 +1962,13 @@ class RecyclerFormViewModel extends BaseViewModel {
                           fileLink:
                               lastYearElectricityBillDocument?.fileUrl ?? '')),
                   airPollutionControlDevices: AirPollutionControlDevicesRequest(
-                      auditRemark: remakrsPollutionController.text,
+                      auditRemark: remakrsPollutionController?.text,
                       auditConfirmedStatus: radioPollution,
                       auditDocument: pollutionFileName ??
                           airPollutionControlDevicesDocument?.fileName ??
                           '',
                       additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: airPollutionControlDevicesDocument?.fileKey ?? '', fileLink: airPollutionControlDevicesDocument?.fileUrl ?? '')),
-                  geoTaggedVideoUpload: AirPollutionControlDevicesRequest(auditRemark: remarkVideoController.text, auditConfirmedStatus: radioPlant, auditDocument: geoTaggedVideoUploadDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
+                  geoTaggedVideoUpload: AirPollutionControlDevicesRequest(auditRemark: remarkVideoController?.text, auditConfirmedStatus: radioPlant, auditDocument: geoTaggedVideoUploadDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
 
       final res = await auditorRepository.postRecyclerForm1Data(requestModel,
           userId: userId, isRetreader: isRetreader);
@@ -2008,14 +2088,14 @@ class RecyclerFormViewModel extends BaseViewModel {
             productionInfo: ProductionInfoRequest(
               invoice: InvoiceRequest(
                   auditConfirmedStatus: radioInvoice,
-                  auditRemark: remakrsInvoiceController.text,
+                  auditRemark: remakrsInvoiceController?.text,
                   additionalData: InvoiceAdditionalRequestData(
-                      numberOfSuppliersContacted: invoiceController.text)),
+                      numberOfSuppliersContacted: invoiceController?.text)),
               buyers: BuyersRequest(
                   auditConfirmedStatus: radioBuyer,
-                  auditRemark: remakrsBuyerController.text,
+                  auditRemark: remakrsBuyerController?.text,
                   additionalData: BuyersAdditionalRequestData(
-                      numberOfBuyersContacted: buyersController.text)),
+                      numberOfBuyersContacted: buyersController?.text)),
             ),
             submit: submit);
     state = ViewState.busy;
@@ -2089,16 +2169,16 @@ class RecyclerFormViewModel extends BaseViewModel {
                 InvoiceAdditionalRequestDataRequest(
                     etpInstalled: EtpInstalledRequest(
                         auditConfirmedStatus: radioInstalled,
-                        auditRemark: etpRemarksInstalledController.text,
+                        auditRemark: etpRemarksInstalledController?.text,
                         additionalData: EtpInstalledAdditionalDataRequest(
                             operational: installDropdownValue)),
                     etpCapacity: EtpCapacityRequest(
                         auditConfirmedStatus: radioCapacity,
-                        auditRemark: etpRemarksCapacityController.text,
+                        auditRemark: etpRemarksCapacityController?.text,
                         additionalData: EtpCapacityAdditionalDataRequest(
-                            capacity: etpCapacityController.text)),
+                            capacity: etpCapacityController?.text)),
                     summary: SummaryRequest(
-                        auditRemark: summmaryRemakrController.text)));
+                        auditRemark: summmaryRemakrController?.text)));
     state = ViewState.busy;
     try {
       final res = await auditorRepository.postRecyclerForm5Data(requestModel,

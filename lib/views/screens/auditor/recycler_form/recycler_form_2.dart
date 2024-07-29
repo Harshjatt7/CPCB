@@ -42,6 +42,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
   @override
   void initState() {
     viewModel = Provider.of<RecyclerFormViewModel>(context, listen: false);
+    viewModel.initializeForm2TextEditingController();
     super.initState();
   }
 
@@ -77,7 +78,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                   isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
                     widget.isSummaryScreen == true
-                        ? viewModel.onNextButton(context,widget.id??"",widget.isRetreader)
+                        ? viewModel.onNextButton(
+                            context, widget.id ?? "", widget.isRetreader)
                         : await viewModel.recyclerPostForm2Data(context,
                             id: widget.id,
                             isRetreader: widget.userType == "Retreader");
@@ -114,7 +116,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
             child: CommonTextFormFieldWidget(
                 bgColor: appColor.black10,
                 hintText: stringConstants.select,
-                controller: viewModel.typeOfProductController,
+                controller: viewModel.typeOfProductController ??
+                    TextEditingController(),
                 isReadOnly: true,
                 isMandatory: false,
                 onChanged: null),
@@ -222,7 +225,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
             child: CommonTextFormFieldWidget(
                 isReadOnly: true,
                 bgColor: appColor.white,
-                controller: viewModel.areValuedCandDController,
+                controller: viewModel.areValuedCandDController ??
+                    TextEditingController(),
                 maxLength: 100,
                 isMandatory: false,
                 hintText: stringConstants.remarks.i18n()),
@@ -260,8 +264,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                         TextEditingController(),
                     isReadOnly: true,
                     disabledBgColor: appColor.white,
-                    onTap: (){
-                      
+                    onTap: () {
                       showDialog(
                         context: context,
                         builder: (BuildContext context1) {
@@ -496,7 +499,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
                 bgColor: appColor.white,
-                controller: viewModel.areValuedCandDController,
+                controller: viewModel.areValuedCandDController ??
+                    TextEditingController(),
                 maxLength: 100,
                 isMandatory: false,
                 validator: (value) {
