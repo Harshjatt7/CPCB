@@ -346,10 +346,10 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           commonRecyclerForm2Tile(
               title: stringConstants.plantProductionCapacity,
               hintText: stringConstants.enter,
-              validator: (value) {
-                return viewModel.emptyValidation(
-                    viewModel.plantProductionCapacityController);
-              },
+              // validator: (value) {
+              //   return viewModel.emptyValidation(
+              //       viewModel.plantProductionCapacityController);
+              // },
               textEditingController:
                   viewModel.plantProductionCapacityController),
           if (viewModel.plantProductionCapacityError?.isNotEmpty ?? false)
@@ -358,10 +358,10 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           commonRecyclerForm2Tile(
               title: stringConstants.endProductProduced,
               hintText: stringConstants.enter,
-              validator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.endProductProducedController);
-              },
+              // validator: (value) {
+              //   return viewModel
+              //       .emptyValidation(viewModel.endProductProducedController);
+              // },
               textEditingController: viewModel.endProductProducedController),
           if (viewModel.capacityTypeofEndProductError?.isNotEmpty ?? false)
             showErrorMessage(
@@ -369,20 +369,20 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
           commonRecyclerForm2Tile(
               title: stringConstants.daysPlantOperational,
               hintText: stringConstants.enter,
-              validator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.daysPlantOperationalController);
-              },
+              // validator: (value) {
+              //   return viewModel
+              //       .emptyValidation(viewModel.daysPlantOperationalController);
+              // },
               textEditingController: viewModel.daysPlantOperationalController),
           if (viewModel.plantPerDayError?.isNotEmpty ?? false)
             showErrorMessage(context, viewModel.plantPerDayError ?? ""),
           commonRecyclerForm2Tile(
               title: stringConstants.hoursPlantOperational,
               hintText: stringConstants.enter,
-              validator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.hoursPlantOperationalController);
-              },
+              // validator: (value) {
+              //   return viewModel
+              //       .emptyValidation(viewModel.hoursPlantOperationalController);
+              // },
               textEditingController: viewModel.hoursPlantOperationalController),
           if (viewModel.plantPerYearError?.isNotEmpty ?? false)
             showErrorMessage(context, viewModel.plantPerYearError ?? ""),
@@ -390,10 +390,10 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
             title: stringConstants.shiftPlantOperational,
             hintText: stringConstants.enter,
             textEditingController: viewModel.shiftPlantOperationalController,
-            validator: (value) {
-              return viewModel
-                  .emptyValidation(viewModel.shiftPlantOperationalController);
-            },
+            // validator: (value) {
+            //   return viewModel
+            //       .emptyValidation(viewModel.shiftPlantOperationalController);
+            // },
           ),
           if (viewModel.plantPerShiftError?.isNotEmpty ?? false)
             showErrorMessage(context, viewModel.plantPerShiftError ?? ""),
@@ -426,10 +426,10 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               hintText: stringConstants.enter,
               textEditingController:
                   viewModel.differenceInActualProccessingController,
-              validator: (value) {
-                return viewModel.emptyValidation(
-                    viewModel.differenceInActualProccessingController);
-              },
+              // validator: (value) {
+              //   return viewModel.emptyValidation(
+              //       viewModel.differenceInActualProccessingController);
+              // },
               isDisable: false),
           commonRecyclerForm2Tile(
               title: stringConstants.totalQuantitySales,
@@ -450,10 +450,10 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               title: stringConstants.powerConsumptionDuringAudit,
               hintText: stringConstants.enter,
               textEditingController: viewModel.powerConsumptionController,
-              validator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.powerConsumptionController);
-              },
+              // validator: (value) {
+              //   return viewModel
+              //       .emptyValidation(viewModel.powerConsumptionController);
+              // },
               isDisable: false),
           if (viewModel.powerOnAuditDayError?.isNotEmpty ?? false)
             showErrorMessage(context, viewModel.powerOnAuditDayError ?? ""),
@@ -466,10 +466,10 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
               title: stringConstants.totalElectricityConsumed,
               hintText: stringConstants.enter,
               textEditingController: viewModel.totalElectricityController,
-              validator: (value) {
-                return viewModel
-                    .emptyValidation(viewModel.totalElectricityController);
-              },
+              // validator: (value) {
+              //   return viewModel
+              //       .emptyValidation(viewModel.totalElectricityController);
+              // },
               isDisable: false),
           if (viewModel.totalElectricityConsumptionError?.isNotEmpty ?? false)
             showErrorMessage(
@@ -503,10 +503,10 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                     TextEditingController(),
                 maxLength: 100,
                 isMandatory: false,
-                validator: (value) {
-                  return viewModel
-                      .emptyValidation(viewModel.areValuedCandDController);
-                },
+                // validator: (value) {
+                //   return viewModel
+                //       .emptyValidation(viewModel.areValuedCandDController);
+                // },
                 hintText: stringConstants.remarks.i18n()),
           )
         ],

@@ -251,7 +251,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
               isMandatory: false,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               textInputType: TextInputType.number,
-              validator: validator,
+              // validator: validator,
               controller: controller ?? TextEditingController()),
         ),
         if (notVerifiedError != null)
@@ -262,7 +262,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
               isReadOnly: isSummaryScreen,
               bgColor: appColor.white,
               hintText: stringConstants.remarks.i18n(),
-              validator: remarkValidator,
+              // validator: remarkValidator,
               isMandatory: false,
               controller: remarkController ?? TextEditingController()),
         ),

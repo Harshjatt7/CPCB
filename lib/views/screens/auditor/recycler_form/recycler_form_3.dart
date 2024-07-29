@@ -336,7 +336,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                   isMandatory: false,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   textInputType: TextInputType.number,
-                  validator: validator,
+                  // validator: validator,
                   controller: textEditingController ?? TextEditingController()),
               if (valueError?.isNotEmpty ?? false)
                 showErrorMessage(context, valueError ?? ""),
@@ -352,7 +352,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 isReadOnly: isSummaryScreen,
                 hintText: stringConstants.remarks.i18n(),
                 isMandatory: false,
-                validator: remarkValidator,
+                // validator: remarkValidator,
                 controller: remakrsController ?? TextEditingController(),
               ),
               if (remarkError?.isNotEmpty ?? false)
