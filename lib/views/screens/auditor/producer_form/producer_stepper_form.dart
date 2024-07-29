@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/viewmodels/auditor/auditor_list_view_model.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/producer_form/producer_forms_view_model.dart';
 import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_1.dart';
@@ -5,7 +6,10 @@ import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_2.da
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_3.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../../constants/routes_constant.dart';
 import '../../../../models/screen_or_widegt_arguments/user_type_and_summary.dart';
+import '../../../../viewmodels/material_app_viewmodel.dart';
 
 class ProducerStepper extends StatefulWidget {
   final CheckUserAndSummaryScreen? userDetails;
@@ -21,8 +25,16 @@ class _ProdcerStepperState extends State<ProducerStepper> {
     return BaseView<ProducerFormsViewModel>(
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
-              onLeadingTapped: () {
-                viewModel.onBackButton(context, widget.userDetails?.id ?? "");
+              onLeadingTapped: () async {
+                if (viewModel.index == 1) {
+                 MaterialAppViewModel.selectedPageIndex = 1;
+              Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.auditorHomeScreen,
+                  ModalRoute.withName(AppRoutes.auditorHomeScreen));
+                } else {
+                  viewModel.onBackButton(context, widget.userDetails?.id ?? "");
+                }
               },
               checkUser: CheckUserAndSummaryScreen(
                 isSummaryScreen: widget.userDetails?.isSummaryScreen,
