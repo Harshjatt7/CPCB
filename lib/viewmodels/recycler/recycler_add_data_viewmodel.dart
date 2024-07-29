@@ -35,8 +35,7 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   TextEditingController quantityProducedController = TextEditingController();
   TextEditingController quantityOfWasteGeneratedController =
       TextEditingController();
-TextEditingController sellerMobileController =
-      TextEditingController();
+  TextEditingController sellerMobileController = TextEditingController();
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
   DateTime? date;
@@ -72,7 +71,11 @@ TextEditingController sellerMobileController =
       financialYearList.addAll(response?.data?.data?.financialYear ?? []);
       tyreOfRecyclerMaterialList
           .addAll(response?.data?.data?.tyreOfRecyclerMaterial ?? []);
-      tyreSourceList.addAll(response?.data?.data?.sourceTyre??[]);
+      if (response?.data?.data?.sourceTyre != null) {
+        tyreSourceList
+            .add(response?.data?.data?.sourceTyre?.domestically ?? "");
+        tyreSourceList.add(response?.data?.data?.sourceTyre?.imported ?? "");
+      }
     }
     state = ViewState.idle;
     return response;
@@ -93,7 +96,6 @@ TextEditingController sellerMobileController =
     }
   }
 
-
   void changetyreSourceDropdownValue(newValue) {
     tyreSourceDropdownValue = newValue;
     updateUI();
@@ -101,6 +103,7 @@ TextEditingController sellerMobileController =
       tyreSourceDropdownError = messageConstant.mandatoryTyreSource;
     }
   }
+
   void changeRawMaterialDropdownValue(newValue) {
     recycledTyreDropdownValue = newValue;
     updateUI();
@@ -173,17 +176,18 @@ TextEditingController sellerMobileController =
   Future addRecyclerData(BuildContext context) async {
     String recyclerDate = '$date';
     AddRecyclerDataRequestModel? request = AddRecyclerDataRequestModel(
-        financialYear: financialYearDropdownValue,
-        wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
-        wasteTyreSupplierAddress: addressController.text,
-        wasteTyreSupplierContact: sellerMobileController.text,
-        recycledTyre: recycledTyreDropdownValue,
-        wasteTyreSupplierGst: gstController.text,
-        processedQty: double.parse(quantityProcessedController.text),
-        producedQty: double.parse(quantityProducedController.text),
-        wasteGeneratedQty:
-            double.parse(quantityOfWasteGeneratedController.text),
-        recycledDate: recyclerDate.split(' ').first);
+      financialYear: financialYearDropdownValue,
+      wasteTyreSupplierName: nameOfWasteTyreSupplierController.text,
+      wasteTyreSupplierAddress: addressController.text,
+      wasteTyreSupplierContact: sellerMobileController.text,
+      recycledTyre: recycledTyreDropdownValue,
+      wasteTyreSupplierGst: gstController.text,
+      processedQty: double.parse(quantityProcessedController.text),
+      producedQty: double.parse(quantityProducedController.text),
+      wasteGeneratedQty: double.parse(quantityOfWasteGeneratedController.text),
+      recycledDate: recyclerDate.split(' ').first,
+      sourceTyres: tyreSourceDropdownValue?.toLowerCase(),
+    );
     await postRecyclerData(request, context);
   }
 

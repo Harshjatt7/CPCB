@@ -27,7 +27,7 @@ class StringConstants {
   final String typeOfProducerLabel = "type-of-producer-label";
   final String typeOfTyreLabel = "type-of-tyre-label";
   final String financialYearLabel = "financial-year-label";
-  final String year="year";
+  final String year = "year";
   final String chooseMonthLabel = "choose-month-label";
   final String motorcycleLabel = "motorcycle-label";
   final String passengerCarLabel = "passenger-car-label";
