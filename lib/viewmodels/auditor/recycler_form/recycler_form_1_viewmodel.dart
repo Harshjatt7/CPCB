@@ -1899,6 +1899,8 @@ class RecyclerFormViewModel extends BaseViewModel {
         machineFileSize.clear();
         machineFileSizeModel.clear();
         otherMachineriesDocument.clear();
+        machineList.clear();
+        omRequestList.clear();
         nw?.clear();
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
