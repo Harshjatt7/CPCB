@@ -428,6 +428,7 @@ class SpcbDashboardViewModel extends BaseViewModel {
               regNum: e.regNum,
               registrationDate: e.registrationDate,
               stateName: e.stateName,
+              paymentDate: e.paymentDate,
               userId: e.userId));
         });
       }
