@@ -59,7 +59,8 @@ class SpcbCommonTab extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: CommonSpcbCard(
                                 companyName: applicationData?.name,
-                                date: applicationData?.registrationDate,
+                                date: applicationData?.registrationDate ??
+                                    applicationData?.paymentDate,
                                 address: applicationData?.addressLine1,
                                 state: applicationData?.stateName,
                                 applicationNumber: applicationData?.stateName,

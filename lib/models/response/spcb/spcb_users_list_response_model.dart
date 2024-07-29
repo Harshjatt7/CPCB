@@ -93,15 +93,16 @@ class Data {
   String? name;
   String? addressLine1;
   int? userId;
+  String? paymentDate;
 
-  Data({
-    this.regNum,
-    this.registrationDate,
-    this.stateName,
-    this.name,
-    this.addressLine1,
-    this.userId,
-  });
+  Data(
+      {this.regNum,
+      this.registrationDate,
+      this.stateName,
+      this.name,
+      this.addressLine1,
+      this.userId,
+      this.paymentDate});
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         regNum: json["reg_num"],
@@ -110,6 +111,7 @@ class Data {
         name: json["name"],
         addressLine1: json["addressLine1"],
         userId: json["userId"],
+        paymentDate: json["paymentDate"],
       );
 }
 

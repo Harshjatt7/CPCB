@@ -156,25 +156,25 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                                   ?.registrationExpiryDate ??
                                               ""),
                                     ),
-                                  if (viewModel.data?.downloadApplication ==
-                                      true)
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 16),
-                                      child: CommonButtonWidget(
-                                        onPressed: () async {
-                                          await viewModel
-                                              .getDownloadApplication(context);
-                                        },
-                                        label: viewModel.stringConstants
-                                            .downloadApplication,
-                                        color: appColor.darkGreen,
-                                        labelStyle: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium!
-                                            .copyWith(color: appColor.white),
-                                      ),
-                                    ),
+                                  // if (viewModel.data?.downloadApplication ==
+                                  //     true)
+                                  //   Padding(
+                                  //     padding: const EdgeInsets.symmetric(
+                                  //         vertical: 16),
+                                  //     child: CommonButtonWidget(
+                                  //       onPressed: () async {
+                                  //         await viewModel
+                                  //             .getDownloadApplication(context);
+                                  //       },
+                                  //       label: viewModel.stringConstants
+                                  //           .downloadApplication,
+                                  //       color: appColor.darkGreen,
+                                  //       labelStyle: Theme.of(context)
+                                  //           .textTheme
+                                  //           .labelMedium!
+                                  //           .copyWith(color: appColor.white),
+                                  //     ),
+                                  //   ),
                                   if (viewModel.data?.downloadInvoice == true)
                                     CommonButtonWidget(
                                       onPressed: () async {
