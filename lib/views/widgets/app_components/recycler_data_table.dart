@@ -3,7 +3,6 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_recycler_data_row.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RecyclerDataTable extends StatelessWidget {
@@ -12,12 +11,14 @@ class RecyclerDataTable extends StatelessWidget {
       required this.headingList,
       required this.nwList,
       required this.machineControllerList,
+      this.isSummary = false,
       required this.radioList});
   final List<String> headingList;
   final List<Nw> nwList;
   final List<TextEditingController> machineControllerList;
   final List<String> radioList;
   final ScrollController scrollController = ScrollController();
+  final bool? isSummary;
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
@@ -83,6 +84,7 @@ class RecyclerDataTable extends StatelessWidget {
                       nwModel: nwList[index],
                       groupValue: radioList[index],
                       isOdd: index % 2 == 0,
+                      isSummary: isSummary,
                     );
                   }),
                 ),

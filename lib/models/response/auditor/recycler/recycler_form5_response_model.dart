@@ -87,7 +87,7 @@ class EtpCapacity {
 }
 
 class EtpCapacityAdditionalData {
-  dynamic capacity;
+  String? capacity;
 
   EtpCapacityAdditionalData({
     this.capacity,

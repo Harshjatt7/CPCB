@@ -38,8 +38,8 @@ class Data {
 }
 
 class EprDatum {
-  int? id;
-  int? userId;
+  num? id;
+  num? userId;
   String? name;
   String? address;
   String? mobile;
@@ -60,15 +60,15 @@ class EprDatum {
   dynamic materialModifiedCrumb;
   dynamic materialCrumb;
   String? materialPyrolysis;
-  int? materialReclaimedWeight;
-  int? materialRecoveredWeight;
-  int? materialModifiedCrumbWeight;
-  int? materialCrumbWeight;
-  int? materialPyrolysisWeght;
+  num? materialReclaimedWeight;
+  num? materialRecoveredWeight;
+  num? materialModifiedCrumbWeight;
+  num? materialCrumbWeight;
+  num? materialPyrolysisWeght;
   String? invoiceFile;
   String? buyerName;
   String? buyerAddress;
-  dynamic sourceTyre;
+  String? sourceTyre;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? invoiceLink;
@@ -174,8 +174,8 @@ class ProductionInfo {
 }
 
 class Buyers {
-  dynamic auditValue;
-  dynamic auditDocument;
+  String? auditValue;
+  String? auditDocument;
   String? auditRemark;
   int? auditConfirmedStatus;
   BuyersAdditionalData? additionalData;
@@ -213,8 +213,8 @@ class BuyersAdditionalData {
 }
 
 class Invoice {
-  dynamic auditValue;
-  dynamic auditDocument;
+  String? auditValue;
+  String? auditDocument;
   String? auditRemark;
   int? auditConfirmedStatus;
   InvoiceAdditionalData? additionalData;
