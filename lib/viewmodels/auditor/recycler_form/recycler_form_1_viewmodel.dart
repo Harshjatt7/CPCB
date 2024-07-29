@@ -25,6 +25,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../constants/routes_constant.dart';
@@ -32,6 +33,7 @@ import '../../../models/request/auditor/recycler/recycler_form_2_request_model.d
 import '../../../models/request/auditor/recycler/recycler_form_3_request_model.dart';
 import '../../../models/response/filter/checkbox_filter_model.dart';
 import '../../material_app_viewmodel.dart';
+import '../auditor_list_view_model.dart';
 
 class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
@@ -389,7 +391,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     });
   }
 
-  void onBackButton(BuildContext context, String id, bool isRetreader) {
+  void onBackButton(BuildContext context, String id, bool isRetreader) async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (index > 1) {
         index--;
@@ -415,11 +417,14 @@ class RecyclerFormViewModel extends BaseViewModel {
                 userId: id, isRetreader: isRetreader);
             break;
         }
-        updateUI();
       } else {
-        Navigator.pop(context);
+        MaterialAppViewModel.selectedPageIndex = 1;
+        Navigator.pushNamedAndRemoveUntil(context, AppRoutes.auditorHomeScreen,
+            ModalRoute.withName(AppRoutes.auditorHomeScreen));
       }
     });
+
+    updateUI();
   }
 
   void getIndex(num? progress) {
