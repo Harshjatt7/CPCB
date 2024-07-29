@@ -107,13 +107,14 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            child: CommonDropdownTextFormField(
-              hideIcon: widget.isSummaryScreen,
+            child: CommonTextFormFieldWidget(
               bgColor: AppColor().black10,
-              labelText: stringConstants.select,
-              dropDownItem: const ["Yes", "No"],
-              value: viewModel.installDropdownValue,
+              isReadOnly: true,
+              controller:
+                  viewModel.selectDropDownController ?? TextEditingController(),
+              hintText: stringConstants.select,
               onChanged: null,
+              isMandatory: false,
             ),
           ),
           Padding(
@@ -279,9 +280,9 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
               maxLength: 500,
               maxLines: 4,
               isMultiline: true,
-              validator: (value) {
-                return viewModel.summaryValidation();
-              },
+              // validator: (value) {
+              //   return viewModel.summaryValidation();
+              // },
               isMandatory: false,
               hintText: stringConstants.textHere.i18n(),
               controller:

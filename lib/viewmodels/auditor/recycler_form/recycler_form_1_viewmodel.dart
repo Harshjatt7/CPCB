@@ -125,6 +125,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   TextEditingController? etpRemarksInstalledController;
   TextEditingController? etpRemarksCapacityController;
   TextEditingController? summmaryRemakrController;
+  TextEditingController? selectDropDownController;
 
   String radioGst = "";
   String radioPanOfCompany = "";
@@ -273,6 +274,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     etpRemarksCapacityController = TextEditingController();
     etpCapacityController = TextEditingController();
     etpRemarksInstalledController = TextEditingController();
+    selectDropDownController = TextEditingController();
   }
 
   final imageConstants = ImageConstants();
@@ -1121,10 +1123,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     }
   }
 
-  void handleOnMachineTap(
-    BuildContext context,
-    TextEditingController? controller,
-  ) async {
+  void handleOnMachineTap(BuildContext context,
+      TextEditingController? controller, int index) async {
     if (controller?.text.isEmpty ?? false) {
       var res = await openMachineFileManager(context);
 
@@ -1140,10 +1140,9 @@ class RecyclerFormViewModel extends BaseViewModel {
       if (_auditorRecycler1ResponseModel?.data?.data?.auditSummary
               ?.otherMachineries?.additionalData?.om !=
           null) {
-        getAuditorFile(
-            context, otherMachineriesDocument[count - 1]?.fileKey ?? '');
+        getAuditorFile(context, otherMachineriesDocument[index]?.fileKey ?? '');
       } else {
-        helperFunctions.openFile(machineFilePath[count - 1] ?? '');
+        helperFunctions.openFile(machineFilePath[index] ?? '');
       }
     }
   }
@@ -1411,6 +1410,9 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void summaryForm5View() {
+    selectDropDownController?.text = wasteWaterGenerationAndDisposal
+            ?.etpInstalled?.additionalData?.operational ??
+        '';
     etpRemarksInstalledController?.text =
         wasteWaterGenerationAndDisposal?.etpInstalled?.auditRemark ?? '';
     radioInstalled =

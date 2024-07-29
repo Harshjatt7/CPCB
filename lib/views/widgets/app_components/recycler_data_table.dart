@@ -3,6 +3,7 @@ import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_recycler_data_row.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RecyclerDataTable extends StatelessWidget {
@@ -19,12 +20,12 @@ class RecyclerDataTable extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
+    return CupertinoScrollbar(
       radius: const Radius.circular(5),
       thickness: 5,
       controller: scrollController,
       thumbVisibility: true,
-      interactive: true,
+      // interactive: true,
       child: CommonSingleChildScrollView(
         controller: scrollController,
         scrollDirection: Axis.horizontal,

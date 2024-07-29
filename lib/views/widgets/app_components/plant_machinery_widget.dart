@@ -20,20 +20,24 @@ class PlantMachineryWidget extends StatelessWidget {
       this.onSuffixTap,
       this.isSummaryScreen = false,
       this.controllerList});
-  final AppColor appColor = AppColor();
   final void Function()? onAdd;
   final void Function()? onDelete;
   final int count;
   final List<TextEditingController>? controllerList;
   final List<TextEditingController>? uploadControllerList;
   final bool isDocument;
-  final void Function()? onTap;
-  final void Function()? onSuffixTap;
-  final StringConstants stringConstants = StringConstants();
-  final ImageConstants imageConstants = ImageConstants();
+  final void Function(int index)? onTap;
+  final void Function(int index)? onSuffixTap;
   final String? Function(String?)? uploadValidator;
   final bool? isReadOnly;
   final bool? isSummaryScreen;
+
+  final AppColor appColor = AppColor();
+
+  final StringConstants stringConstants = StringConstants();
+
+  final ImageConstants imageConstants = ImageConstants();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -143,15 +147,29 @@ class PlantMachineryWidget extends StatelessWidget {
                             ? appColor.white
                             : appColor.black10,
                         icon: isReadOnly == false
-                            ? (uploadControllerList?.length == index+1)
+                            ? (uploadControllerList?.length == index + 1)
                                 ? (uploadControllerList?[index].text.isEmpty ??
                                         false
                                     ? imageConstants.fileUpload
                                     : imageConstants.removeIcon)
                                 : null
                             : null,
-                        onTap: onTap,
-                        onSuffixTap: onSuffixTap,
+                        onTap: () {
+                          if (onTap != null) {
+                            onTap!(index);
+                          }
+                          // if (context.mounted) {
+                          //   setState(() {});
+                          // }
+                        },
+                        onSuffixTap: () {
+                          if (onSuffixTap != null) {
+                            onSuffixTap!(index);
+                          }
+                          // if (context.mounted) {
+                          //   setState(() {});
+                          // }
+                        },
                         validator: uploadValidator,
                       ),
                     )
