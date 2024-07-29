@@ -9,16 +9,15 @@ import 'package:localization/localization.dart';
 import '../../../constants/string_constant.dart';
 
 class RecyclerProcurementDetailsContainer extends StatelessWidget {
-  RecyclerProcurementDetailsContainer({
-    super.key,
-    required this.name,
-    this.invoiceNumber,
-    this.quantityReceived,
-    this.typeOfRaw,
-    this.date,
-    this.year,
-    this.tyreSource
-  });
+  RecyclerProcurementDetailsContainer(
+      {super.key,
+      required this.name,
+      this.invoiceNumber,
+      this.quantityReceived,
+      this.typeOfRaw,
+      this.date,
+      this.year,
+      this.tyreSource});
   final String name;
   final String? invoiceNumber;
   final String? typeOfRaw;
@@ -54,7 +53,7 @@ class RecyclerProcurementDetailsContainer extends StatelessWidget {
           retraderDetailsCard(context,
               "${stringConstants.typeOfRawMaterialLabel.i18n()} ${typeOfRaw ?? ''}"),
           retraderDetailsCard(context,
-              "${stringConstants.quantityReceived.i18n()} ${quantityReceived ?? ''}"),
+              "${stringConstants.quantityReceived.i18n()}: ${quantityReceived ?? ''}"),
           retraderDetailsCard(context,
               "${stringConstants.tyreSourceLabel.i18n()}: ${tyreSource ?? ''}"),
           Divider(

@@ -149,6 +149,7 @@ class RecyclerDataViewModel extends BaseViewModel {
               financialYear: e.financialYear,
               typeOfRecycledMaterial: e.typeOfRecycledMaterial,
               //: e.id,
+              sourceTyres: e.sourceTyres?.toLowerCase(),
               wasteGeneratedQty: e.wasteGeneratedQty,
               processedQty: e.processedQty,
               producedQty: e.producedQty,

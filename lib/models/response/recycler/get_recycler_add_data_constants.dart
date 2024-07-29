@@ -17,7 +17,7 @@ class AddRecyclerDataConstantsResponseModel {
 class AddRecyclerDataConstantsData {
   List<String>? tyreOfRecyclerMaterial;
   List<String>? financialYear;
-  List<String>? sourceTyre;
+  SourceTyre? sourceTyre;
 
   AddRecyclerDataConstantsData({
     this.tyreOfRecyclerMaterial,
@@ -34,7 +34,27 @@ class AddRecyclerDataConstantsData {
             ? []
             : List<String>.from(json["financialYear"]!.map((x) => x)),
         sourceTyre: json["source_tyre"] == null
-            ? []
-            : List<String>.from(json["source_tyre"]!.map((x) => x)),
+            ? null
+            : SourceTyre.fromJson(json["source_tyre"]),
       );
+}
+
+class SourceTyre {
+  String? domestically;
+  String? imported;
+
+  SourceTyre({
+    this.domestically,
+    this.imported,
+  });
+
+  factory SourceTyre.fromJson(Map<String, dynamic> json) => SourceTyre(
+        domestically: json["domestically"],
+        imported: json["imported"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "domestically": domestically,
+        "imported": imported,
+      };
 }
