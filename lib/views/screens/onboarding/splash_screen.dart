@@ -19,38 +19,42 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<SplashViewModel>(
         onModelReady: (viewmodel) async {
-          await viewmodel.initPlatformState(context);
+          //await viewmodel.initPlatformState(context);
+          await viewmodel.wait(context);
         },
         viewModel: SplashViewModel(),
         builder: (context, viewmodel, child) {
-          WidgetsBinding.instance.addPostFrameCallback((value) {
-            if (viewmodel.isJailbroken == true) {
-              showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      scrollable: true,
-                      backgroundColor: AppColor().transparent,
-                      insetPadding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                      ),
-                      content: SuccessFailedDialog(
-                        giveStaticDialogHeight: false,
-                        description: MessageConstant().rootedDeviceDesc,
-                        title: MessageConstant().rootedDeviceDetected,
-                        buttonText: "OK",
-                        titleStyle: Theme.of(context).textTheme.headlineSmall,
-                        onTap: () {
-                          // Close the app on okay button
-                          SystemChannels.platform
-                              .invokeMethod('SystemNavigator.pop');
-                        },
-                      ),
-                    );
-                  });
-            }
-          });
+          // TODO: root detection disabled
+          // WidgetsBinding.instance.addPostFrameCallback((value) {
+          //   if (viewmodel.isJailbroken == true) {
+          //     showDialog(
+          //         barrierDismissible: false,
+          //         context: context,
+          //         builder: (BuildContext context) {
+          //           return AlertDialog(
+          //             scrollable: true,
+          //             backgroundColor: AppColor().transparent,
+          //             insetPadding: const EdgeInsets.symmetric(
+          //               horizontal: 12,
+          //             ),
+          //             content: SuccessFailedDialog(
+          //               giveStaticDialogHeight: false,
+          //               description: MessageConstant().rootedDeviceDesc,
+          //               title: MessageConstant().rootedDeviceDetected,
+          //               buttonText: "OK",
+          //               titleStyle: Theme.of(context).textTheme.headlineSmall,
+          //               onTap: () {
+          //                 // Close the app on okay button
+          //                 SystemChannels.platform
+          //                     .invokeMethod('SystemNavigator.pop');
+          //               },
+          //             ),
+          //           );
+          //         });
+
+          //   }
+          // });
+
           return CustomScaffold(
               showAppBar: false,
               body: Container(
