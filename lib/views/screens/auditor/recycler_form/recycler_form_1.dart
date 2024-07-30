@@ -87,7 +87,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     widget.isSummaryScreen == true
                         ? viewModel.onNextButton(
                             context, widget.id ?? "", widget.isRetreader)
-                        : await viewModel.postForm1Data(context,
+                        : await viewModel.formValidation(context,
                             userId: widget.id ?? "",
                             isRetreader: widget.userType == "Retreader");
                   },
@@ -701,42 +701,47 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   viewModel.uploadAadharController,
                 );
               },
-              uploadValidator: (value) {
-                return viewModel
-                    .uploadValidation(viewModel.aadharFileSizeModel);
-              },
+              // uploadValidator: (value) {
+              //   return viewModel
+              //       .uploadValidation(viewModel.aadharFileSizeModel);
+              // },
             ),
+            if (viewModel.aadhaarcardError.isNotEmpty)
+              showErrorMessage(context, viewModel.aadhaarcardError),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: AuditorFormTile(
-                  isMandatory: false,
-                  groupValue: viewModel.radioPanNo,
-                  title: stringConstants.authorizedPanNo.i18n(),
-                  isUpload: true,
-                  disableController: viewModel.panNoController,
-                  remarkController: viewModel.remarkPanNoController,
-                  uploadController: viewModel.uploadPanNoController,
-                  onChanged: (value) {
-                    viewModel.radioPanNo = value ?? "";
-                    viewModel.updateUI();
-                  },
-                  filePath: viewModel.panNoFilePath,
-                  onTap: () {
-                    viewModel.handleOnTap(context, RecyclerForm1.panNo,
-                        viewModel.uploadPanNoController);
-                  },
-                  onSuffixTap: () {
-                    viewModel.handleOnSuffixTap(
-                      context,
-                      RecyclerForm1.panNo,
-                      viewModel.uploadPanNoController,
-                    );
-                  },
-                  uploadValidator: (value) {
-                    return viewModel
-                        .uploadValidation(viewModel.panNoFileSizeModel);
-                  }),
+                isMandatory: false,
+                groupValue: viewModel.radioPanNo,
+                title: stringConstants.authorizedPanNo.i18n(),
+                isUpload: true,
+                disableController: viewModel.panNoController,
+                remarkController: viewModel.remarkPanNoController,
+                uploadController: viewModel.uploadPanNoController,
+                onChanged: (value) {
+                  viewModel.radioPanNo = value ?? "";
+                  viewModel.updateUI();
+                },
+                filePath: viewModel.panNoFilePath,
+                onTap: () {
+                  viewModel.handleOnTap(context, RecyclerForm1.panNo,
+                      viewModel.uploadPanNoController);
+                },
+                onSuffixTap: () {
+                  viewModel.handleOnSuffixTap(
+                    context,
+                    RecyclerForm1.panNo,
+                    viewModel.uploadPanNoController,
+                  );
+                },
+                // uploadValidator: (value) {
+                //   return viewModel
+                //       .uploadValidation(viewModel.panNoFileSizeModel);
+                // }
+              ),
             ),
+            if (viewModel.authorizedPersonPanError.isNotEmpty)
+              showErrorMessage(context, viewModel.authorizedPersonPanError),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -767,6 +772,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: PlantMachineryWidget(
+                    errorMessage: viewModel.otherMachineriesError,
                     controllerList: viewModel.controllerList,
                     uploadControllerList: viewModel.uploadControllerList,
                     count: viewModel.count,
@@ -858,15 +864,18 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                               isPdf: true,
                             );
                           },
-                          validator: (value) {
-                            return viewModel
-                                .uploadValidation(viewModel.powerFileSizeModel);
-                          },
+                          // validator: (value) {
+                          //   return viewModel
+                          //       .uploadValidation(viewModel.powerFileSizeModel);
+                          // },
                           hintText: stringConstants.uploadFile,
                           isMandatory: false,
                           controller: viewModel.uploadPowerController ??
                               TextEditingController()),
                     ),
+                    if (viewModel.lastYearElectricityBillError.isNotEmpty)
+                      showErrorMessage(
+                          context, viewModel.lastYearElectricityBillError),
                     if (viewModel
                         .lastYearElectricityBillAuditDocumentError.isNotEmpty)
                       showErrorMessage(context,
@@ -879,10 +888,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         maxLength: 100,
                         controller: viewModel.remarkPowerController ??
                             TextEditingController(),
-                        validator: (value) {
-                          return viewModel
-                              .emptyValidation(viewModel.remarkPowerController);
-                        },
+                        // validator: (value) {
+                        //   return viewModel
+                        //       .emptyValidation(viewModel.remarkPowerController);
+                        // },
                       ),
                     ),
                     if (viewModel
@@ -912,10 +921,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   viewModel.radioPollution = value ?? "";
                   viewModel.updateUI();
                 },
-                uploadValidator: (value) {
-                  return viewModel
-                      .uploadValidation(viewModel.pollutionFileSizeModel);
-                },
+                // uploadValidator: (value) {
+                //   return viewModel
+                //       .uploadValidation(viewModel.pollutionFileSizeModel);
+                // },
                 isDocument: true,
                 onTap: () {
                   viewModel.handleOnTap(
@@ -933,6 +942,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 },
               ),
             ),
+            if (viewModel.airPollutionControlDevicesError.isNotEmpty)
+              showErrorMessage(
+                  context, viewModel.airPollutionControlDevicesError),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: CommonTitleWidget(label: stringConstants.videoOfPlant),
@@ -983,6 +995,9 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                           controller: viewModel.uploadVideoController ??
                               TextEditingController()),
                     ),
+                    if (viewModel.geoTaggedVideoUploadError.isNotEmpty)
+                      showErrorMessage(
+                          context, viewModel.geoTaggedVideoUploadError),
                     if (viewModel
                         .geoTaggedVideoUploadAuditDocumentError.isNotEmpty)
                       showErrorMessage(context,

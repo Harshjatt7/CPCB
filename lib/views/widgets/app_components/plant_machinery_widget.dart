@@ -20,6 +20,7 @@ class PlantMachineryWidget extends StatelessWidget {
       this.onSuffixTap,
       this.validator,
       this.isSummaryScreen = false,
+      this.errorMessage = "",
       this.controllerList});
   final void Function()? onAdd;
   final void Function()? onDelete;
@@ -33,6 +34,7 @@ class PlantMachineryWidget extends StatelessWidget {
   final bool? isReadOnly;
   final String? Function(String? value, int index)? validator;
   final bool? isSummaryScreen;
+  final String errorMessage;
 
   final AppColor appColor = AppColor();
 
@@ -181,13 +183,32 @@ class PlantMachineryWidget extends StatelessWidget {
                           }
                         },
                       ),
-                    )
+                    ),
+                    if (errorMessage.isNotEmpty &&
+                        index + 1 == (uploadControllerList?.length ?? 1))
+                      showErrorMessage(context, errorMessage),
                   ],
                 ),
               );
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: appColor.red),
+        ),
       ),
     );
   }
