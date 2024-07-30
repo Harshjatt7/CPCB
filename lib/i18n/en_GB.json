@@ -289,5 +289,8 @@
     "agency": "Agency",
     "rooted-device-desc": "This application is not supported for rooted device. Please try installing on a non rooted device.",
     "rooted-device-detected": "Rooted Device Detected!!",
-    "write-comment": "Write Comment"
+    "write-comment": "Write Comment",
+    "photograph-of-extra-machinery":"Photograph of extra machinery can be uploaded in png,jpeg (2mb) format and photographs should be geotagged",
+    "upload-geotagged-photograph":"Upload geotagged photograph in pdf format(2mb)",
+    "electricity-bills-pdf":"Electricity bills should be in pdf format, text upload pdf"
 }

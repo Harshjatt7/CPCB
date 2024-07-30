@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_radio_button.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_text_form_field_widget.dart';
@@ -23,10 +24,12 @@ class ProducerForm3 extends StatefulWidget {
 
 class _ProducerForm3State extends State<ProducerForm3> {
   late ProducerFormsViewModel viewModel;
+  final storeKeyConstants = StoreKeyConstants();
+
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
-        viewModel.initializeForm2TextEditingControllers();
+    viewModel.initializeForm2TextEditingControllers();
 
     super.initState();
   }
@@ -64,7 +67,8 @@ class _ProducerForm3State extends State<ProducerForm3> {
                 },
                 onSavedDraft: () async {
                   await viewModel.postForm3Data(context,
-                      id: widget.id, saveAsDraft: "SaveAsDraft");
+                      id: widget.id,
+                      saveAsDraft: storeKeyConstants.saveAsDraft);
                 },
               )),
           if (viewModel.state == ViewState.busy)

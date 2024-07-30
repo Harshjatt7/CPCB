@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/routes_constant.dart';
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
@@ -37,6 +38,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
   final StringConstants stringConstants = StringConstants();
   ScrollController? controller;
   late RecyclerFormViewModel viewModel;
+  final storeKeyConstants = StoreKeyConstants();
 
   @override
   void initState() {
@@ -86,7 +88,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                     await viewModel.recyclerPostForm3Data(context,
                         id: widget.id,
                         isRetreader: widget.userType == "Retreader",
-                        saveAsDraft: "SaveAsDraft");
+                        saveAsDraft: storeKeyConstants.saveAsDraft);
                   },
                 ))
           ],
