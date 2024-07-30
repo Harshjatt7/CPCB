@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/auditor/auditor_repository.dart';
 import 'package:cpcb_tyre/models/request/auditor/document_request_model.dart';
@@ -36,6 +37,7 @@ import '../../material_app_viewmodel.dart';
 class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
+  final storeKeyConstants=StoreKeyConstants();
   final helperFunctions = HelperFunctions();
   TextEditingController? endProductDataListController;
   List<CheckboxFilterModel> endProductsList = [];
@@ -201,7 +203,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   Duration? videoDuration;
   int videoSize = 0;
 
-  void initializeForm1TextEditingControllers() {
+  void initializeForm1TextEditingControllers() async {
     remarkVideoController = TextEditingController();
     uploadVideoController = TextEditingController();
     remarkPowerController = TextEditingController();
@@ -229,6 +231,9 @@ class RecyclerFormViewModel extends BaseViewModel {
     uploadPanNoController = TextEditingController();
     uploadAadharController = TextEditingController();
     remakrsPollutionController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await getCurrentLocation();
+    });
   }
 
   void initializeForm2TextEditingController() {
@@ -955,8 +960,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     currentLocation = position;
     gpsAuditorLatitude?.text = "${currentLocation?.longitude}";
     gpsAuditorLongitude?.text = "${currentLocation?.latitude}";
-    HelperFunctions().logger("${currentLocation?.longitude ?? 0}");
-    HelperFunctions().logger("${currentLocation?.latitude ?? 0}");
+    HelperFunctions().logger("${gpsAuditorLatitude?.text ?? 0}");
+    HelperFunctions().logger("${gpsAuditorLongitude?.text ?? 0}");
     state = ViewState.idle;
     updateUI();
   }
@@ -1323,8 +1328,8 @@ class RecyclerFormViewModel extends BaseViewModel {
           title: endProductsData?.pyrolisisOilContinuous ?? ''));
     }
 
-    typeOfProductController?.text =
-        planCapacityAssesment?.additionalData?.typeOfEndProduct?.first ?? '';
+    // typeOfProductController?.text =
+    //     planCapacityAssesment?.additionalData?.typeOfEndProduct?.first ?? '';
     selectedEndProductsData =
         planCapacityAssesment?.additionalData?.typeOfEndProduct ?? [];
     endProductDataListController?.text = selectedEndProductsData.join(",");
@@ -1827,10 +1832,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     } else {}
   }
 
-  Future<void> handleOnMachineSuffixTap(
-    BuildContext context,
-    TextEditingController? controller,
-  ) async {
+  Future<void> handleOnMachineSuffixTap(BuildContext context,
+      TextEditingController? controller, int index) async {
     if (controller?.text.isEmpty ?? false) {
       if (context.mounted) {
         var res = await openMachineFileManager(context);
@@ -1853,6 +1856,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     } else {
       controller?.text = "";
       machineFilePath = [];
+      otherMachineriesDocument.removeAt(index);
 
       updateUI();
     }
@@ -1963,7 +1967,7 @@ class RecyclerFormViewModel extends BaseViewModel {
                   lastYearElectricityBill: AirPollutionControlDevicesRequest(
                       auditRemark: remarkPowerController?.text,
                       auditConfirmedStatus:
-                          lastYearElectricityBillDocument?.fileName ?? '',
+                          radioPowerConsumption,
                       auditDocument: lastYearElectricityBillDocument?.fileName,
                       additionalData: AirPollutionControlDevicesAdditionalDataRequest(
                           fileKey:
@@ -1982,15 +1986,17 @@ class RecyclerFormViewModel extends BaseViewModel {
       final res = await auditorRepository.postRecyclerForm1Data(requestModel,
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
-        machineFile.clear();
-        machineFileName.clear();
-        machineFilePath.clear();
-        machineFileSize.clear();
-        machineFileSizeModel.clear();
-        otherMachineriesDocument.clear();
-        machineList.clear();
-        omRequestList.clear();
-        nw?.clear();
+        if (submit != storeKeyConstants.saveAsDraft) {
+          machineFile.clear();
+          machineFileName.clear();
+          machineFilePath.clear();
+          machineFileSize.clear();
+          machineFileSizeModel.clear();
+          otherMachineriesDocument.clear();
+          machineList.clear();
+          omRequestList.clear();
+          nw?.clear();
+        }
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
               context, res?.data?.message ?? "Data Successfuly Added");
@@ -2080,8 +2086,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       }
     } catch (e) {
       if (context.mounted) {
-        HelperFunctions()
-            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+        HelperFunctions().commonErrorSnackBar(context, e.toString());
       }
     }
     updateUI();

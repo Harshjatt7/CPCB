@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/utils/helper/responsive_helper.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/producer_data_table.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
@@ -26,6 +27,7 @@ class ProducerForm2 extends StatefulWidget {
 
 class _ProducerForm2State extends State<ProducerForm2> {
   late ProducerFormsViewModel viewModel;
+  final storeKeyConstants = StoreKeyConstants();
 
   @override
   void initState() {
@@ -69,7 +71,8 @@ class _ProducerForm2State extends State<ProducerForm2> {
                 },
                 onSavedDraft: () async {
                   await viewModel.postForm2Data(context,
-                      id: widget.id, saveAsDraft: "SaveAsDraft");
+                      id: widget.id,
+                      saveAsDraft: storeKeyConstants.saveAsDraft);
                 },
               ),
             ),

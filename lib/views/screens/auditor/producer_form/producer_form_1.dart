@@ -1,4 +1,5 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/auditor_form_tile.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_title_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/common_single_child_scrollview.dart';
@@ -22,6 +23,7 @@ class ProducerForm1 extends StatefulWidget {
 
 class _ProducerForm1State extends State<ProducerForm1> {
   late ProducerFormsViewModel viewModel;
+  final storeKeyConstants = StoreKeyConstants();
   @override
   void initState() {
     viewModel = Provider.of<ProducerFormsViewModel>(context, listen: false);
@@ -61,7 +63,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
               },
               onSavedDraft: () async {
                 await viewModel.postForm1Data(context,
-                    id: widget.id, saveAsDraft: "SaveAsDraft");
+                    id: widget.id, saveAsDraft: storeKeyConstants.saveAsDraft);
               },
             ),
           ),

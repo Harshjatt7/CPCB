@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
@@ -34,6 +35,7 @@ class AuditorRecyclerForm2 extends StatefulWidget {
 
 class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
   final AppColor appColor = AppColor();
+  final storeKeyConstants = StoreKeyConstants();
 
   final StringConstants stringConstants = StringConstants();
   ScrollController? controller;
@@ -86,7 +88,8 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                   },
                   onSavedDraft: () async {
                     await viewModel.recyclerPostForm2Data(context,
-                        id: widget.id, saveAsDraft: "SaveAsDraft");
+                        id: widget.id,
+                        saveAsDraft: storeKeyConstants.saveAsDraft);
                   },
                 ))
           ],

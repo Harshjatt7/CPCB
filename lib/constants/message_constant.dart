@@ -37,4 +37,9 @@ class MessageConstant {
   final String rootedDeviceDesc =
       "This application is not supported for rooted device. Please try installing on a non rooted device.";
   final String rootedDeviceDetected = "rooted-device-detected";
+  //TODO
+  final String anyOtherMachineLabel="photograph-of-extra-machinery";
+  final String uploadGeotaggedPhotograph="upload-geotagged-photograph";
+  final String electricityBillsPdf="electricity-bills-pdf";
+  
 }
