@@ -14,7 +14,7 @@ class RecyclerRepository {
   final _apiBase = APIBase();
   final _apiRoutes = APIRoutes();
 
-  Future getRecyclerData({String? page = "1", searchValue}) async {
+  Future<APIResponse<RecyclerDataListResponseModel?>?> getRecyclerData({String? page = "1", searchValue}) async {
     APIResponse<RecyclerDataListResponseModel?>? response =
         await _apiBase.getRequest(
             searchValue == null
@@ -54,7 +54,7 @@ class RecyclerRepository {
     return response;
   }
 
-  Future getRecyclerProcurementConstantData() async {
+  Future<APIResponse<RecyclerProcurementConstantsResponseData?>?> getRecyclerProcurementConstantData() async {
     APIResponse<RecyclerProcurementConstantsResponseData?>? response =
         await _apiBase.getRequest(
             _apiRoutes.reyclerProcurementConstantDataAPIRoute,
@@ -63,7 +63,7 @@ class RecyclerRepository {
     return response;
   }
 
-  Future getProcurementData({String? page = '1', companyName}) async {
+  Future<APIResponse<ProcurementResponseModel?>?> getProcurementData({String? page = '1', companyName}) async {
     APIResponse<ProcurementResponseModel?>? response = await _apiBase.getRequest(
         companyName == null
             ? "${_apiRoutes.retreaderGetProcurementDataAPIRoute}?page=$page"

@@ -10,6 +10,7 @@ import 'package:cpcb_tyre/models/request/retreader/procurement_request_model.dar
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
+import 'package:cpcb_tyre/models/response/retreader/get_raw_material_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -27,6 +28,9 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   String? yearDropdownValue;
   String? yearDropdownError;
   String? changeDropdown;
+  String? rawMaterialDropdownValue;
+  String? rawMaterialDropdownError;
+  List<String> typeOfRawMaterial = <String>[];
 
   TextEditingController nameOfWasteTyreSupplierController =
       TextEditingController();
@@ -66,6 +70,10 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   String newText = '';
   FilePickerResult? pickedFile;
 
+  APIResponse<RawMaterialResponseModel?>? _rawMaterialResponseModel;
+  APIResponse<RawMaterialResponseModel?>? get rawMaterialResponseModel =>
+      _rawMaterialResponseModel;
+
   Future<FilePickerResult?> openFileManager(context) async {
     fileError = null;
     FilePickerResult? result = await FilePicker.platform
@@ -93,6 +101,41 @@ class ProcurementAddDataViewModel extends BaseViewModel {
 
   String? nameValidation() {
     return Validations().validateName(nameOfWasteTyreSupplierController.text);
+  }
+
+  void changeRawMaterialDropdownValue(newValue) {
+    rawMaterialDropdownValue = newValue;
+    if (rawMaterialDropdownValue == null) {
+      rawMaterialDropdownError = messageConstant.mandatoryTypeRawMaterial;
+    }
+    updateUI();
+  }
+
+  Future<APIResponse<RawMaterialResponseModel?>?> getRawMaterialData() async {
+    state = ViewState.busy;
+
+    typeOfRawMaterial = [];
+    try {
+      _rawMaterialResponseModel =
+          await _retreaderRepo.getRetreaderRawMaterial();
+      if (_rawMaterialResponseModel?.isSuccess == true) {
+        _rawMaterialResponseModel?.data = RawMaterialResponseModel.fromJson(
+            _rawMaterialResponseModel?.completeResponse);
+
+        if (_rawMaterialResponseModel?.data?.data?.biasPly != null) {
+          typeOfRawMaterial
+              .add(_rawMaterialResponseModel?.data?.data?.biasPly ?? "");
+          typeOfRawMaterial
+              .add(_rawMaterialResponseModel?.data?.data?.radial ?? "");
+        }
+      } else {
+        helperFunctions.logger(messageConstant.somethingWentWrong);
+      }
+    } catch (err) {
+      helperFunctions.logger("$err");
+    }
+    state = ViewState.idle;
+    return _rawMaterialResponseModel;
   }
 
   Future<void> postProcurementData(
@@ -293,7 +336,7 @@ class ProcurementAddDataViewModel extends BaseViewModel {
             financialYear: changeDropdown,
             sellerName: nameOfWasteTyreSupplierController.text,
             supplierAddress: addressController.text,
-            typeOfRawMaterial: typeOfRawMaterialController.text,
+            typeOfRawMaterial: rawMaterialDropdownValue,
             purchaseQuantity: quantityReceivedController.text,
             invoiceNumber: invoiceNumberController.text,
             supplierGstNo: gstController.text,

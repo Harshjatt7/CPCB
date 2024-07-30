@@ -26,8 +26,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<ProcurementAddDataViewModel>(
         viewModel: ProcurementAddDataViewModel(),
-        onModelReady: (viewModel) {
+        onModelReady: (viewModel) async {
           viewModel.addYear();
+          await viewModel.getRawMaterialData();
         },
         builder: (context, viewModel, child) {
           return CustomScaffold(
@@ -52,7 +53,6 @@ class ProcurementAddDataScreen extends StatelessWidget {
                         if (viewModel.supplierNameError?.isNotEmpty ?? false)
                           showErrorMessage(
                               context, viewModel.supplierNameError ?? ''),
-                      
                         supplierContactDetailsField(viewModel),
                         if (viewModel.supplierContactError?.isNotEmpty ?? false)
                           showErrorMessage(
@@ -142,7 +142,8 @@ class ProcurementAddDataScreen extends StatelessWidget {
       child: CommonTextFormFieldWidget(
           isReadOnly: true,
           disabledBgColor: appColor.transparent,
-          hintText: viewModel.stringConstants.dateOfPurchaseOfRawMaterial.i18n(),
+          hintText:
+              viewModel.stringConstants.dateOfPurchaseOfRawMaterial.i18n(),
           isMandatory: true,
           onTap: () async {
             viewModel.date = await HelperFunctions()
@@ -236,14 +237,24 @@ class ProcurementAddDataScreen extends StatelessWidget {
   Padding typeOfRawMaterialField(ProcurementAddDataViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: CommonTextFormFieldWidget(
-          hintText: viewModel.stringConstants.typeOfRawMaterial,
-          isMandatory: true,
-          validator: (value) {
-            return viewModel
-                .valueValidation(viewModel.typeOfRawMaterialController);
-          },
-          controller: viewModel.typeOfRawMaterialController),
+      child: CommonDropdownTextFormField(
+        isMandatory: true,
+        error: viewModel.rawMaterialDropdownError,
+        onTap: () {
+          viewModel.changeRawMaterialDropdownValue(
+            viewModel.rawMaterialDropdownValue,
+          );
+        },
+        value: viewModel.rawMaterialDropdownValue,
+        labelText: viewModel.stringConstants.typeOfRawMaterial,
+        dropDownItem: viewModel.typeOfRawMaterial,
+        onChanged: (value) {
+          viewModel.changeRawMaterialDropdownValue(
+            value,
+          );
+          viewModel.rawMaterialDropdownError = null;
+        },
+      ),
     );
   }
 
