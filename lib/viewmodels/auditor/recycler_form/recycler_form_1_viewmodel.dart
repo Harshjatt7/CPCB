@@ -37,7 +37,7 @@ import '../../material_app_viewmodel.dart';
 class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
-  final storeKeyConstants=StoreKeyConstants();
+  final storeKeyConstants = StoreKeyConstants();
   final helperFunctions = HelperFunctions();
   TextEditingController? endProductDataListController;
   List<CheckboxFilterModel> endProductsList = [];
@@ -339,6 +339,20 @@ class RecyclerFormViewModel extends BaseViewModel {
   List<DocumentData?> otherMachineriesDocument = [];
   DocumentData? geoTaggedVideoUploadDocument;
 
+  //Form1
+  String gstNoAuditRemarkError = "";
+  String companyPanAuditRemarkError = "";
+  String ctoAuditRemarkError = "";
+  String authorizationUnderHomwRulesAuditRemarkError = "";
+  String addressLine1AuditRemarkError = "";
+  String gpsLocationAuditorAdditionalDataLatError = "";
+  String gpsLocationAuditorAdditionalDataLongError = "";
+  String gpsLocationAuditorAuditRemarkError = "";
+  String lastYearElectricityBillAuditDocumentError = "";
+  String lastYearElectricityBillAuditRemarkError = "";
+  String geoTaggedVideoUploadAuditDocumentError = "";
+  String geoTaggedVideoUploadAuditRemarkError = "";
+
 //Form 2
   String? contactedSuppliersError;
   String? contactedAuditRemarkError;
@@ -359,6 +373,17 @@ class RecyclerFormViewModel extends BaseViewModel {
   String? actualProcessingCapacityError;
   String? powerOnAuditDayError;
   String? totalElectricityConsumptionError;
+
+  //Form4
+  String invoiceAuditConfirmedStatusError = "";
+  String invoiceAdditionalDataNumberOfSuppliersContactedError = "";
+  String invoiceAuditRemarkError = "";
+  String buyersAuditConfirmedStatusError = "";
+  String buyersAdditionalDataNumberOfBuyersContactedError = "";
+  String buyersAuditRemarkError = "";
+
+  //Form5
+  String summaryAuditRemarkError = "";
 
   int index = 1;
 
@@ -679,31 +704,23 @@ class RecyclerFormViewModel extends BaseViewModel {
     "Remarks",
   ];
 
-  String invoiceAuditConfirmedStatusError = "";
-  String invoiceAdditionalDataNumberOfSuppliersContactedError = "";
-  String invoiceAuditRemarkError = "";
-  String buyersAuditConfirmedStatusError = "";
-  String buyersAdditionalDataNumberOfBuyersContactedError = "";
-  String buyersAuditRemarkError = "";
-  String summaryAuditRemarkError = "";
-  String gstNoAuditRemarkError = "";
-  String companyPanAuditRemarkError = "";
-  String ctoAuditRemarkError = "";
-  String authorizationUnderHomwRulesAuditRemarkError = "";
-  String addressLine1AuditRemarkError = "";
-  String gpsLocationAuditorAdditionalDataLatError = "";
-  String gpsLocationAuditorAdditionalDataLongError = "";
-  String gpsLocationAuditorAuditRemarkError = "";
-  String lastYearElectricityBillAuditDocumentError = "";
-  String lastYearElectricityBillAuditRemarkError = "";
-  String geoTaggedVideoUploadAuditDocumentError = "";
-  String geoTaggedVideoUploadAuditRemarkError = "";
-
   Future<APIResponse<AuditorRecyclerForm1ResponseModel?>?> getRecycler1Data(
       BuildContext context,
       {String userId = "",
       bool isRetreader = false}) async {
     state = ViewState.busy;
+    gstNoAuditRemarkError = "";
+    companyPanAuditRemarkError = "";
+    ctoAuditRemarkError = "";
+    authorizationUnderHomwRulesAuditRemarkError = "";
+    addressLine1AuditRemarkError = "";
+    gpsLocationAuditorAdditionalDataLatError = "";
+    gpsLocationAuditorAdditionalDataLongError = "";
+    gpsLocationAuditorAuditRemarkError = "";
+    lastYearElectricityBillAuditDocumentError = "";
+    lastYearElectricityBillAuditRemarkError = "";
+    geoTaggedVideoUploadAuditDocumentError = "";
+    geoTaggedVideoUploadAuditRemarkError = "";
 
     try {
       _auditorRecycler1ResponseModel = await auditorRepository
@@ -763,6 +780,14 @@ class RecyclerFormViewModel extends BaseViewModel {
       {String userId = "",
       bool isRetreader = false}) async {
     state = ViewState.busy;
+    contactedSuppliersError = "";
+    contactedAuditRemarkError = "";
+    verifiedSuppliersError = "";
+    verifiedAuditRemarkError = "";
+    physicallyContactedSuppliersError = "";
+    physicallyContactedAuditRemarkError = "";
+    physicallyVerifiedSuppliersError = "";
+    physicallyVerifiedAuditRemarkError = "";
 
     try {
       _auditorRecycler2ResponseModel = await auditorRepository
@@ -806,6 +831,15 @@ class RecyclerFormViewModel extends BaseViewModel {
       {String userId = "",
       bool isRetreader = false}) async {
     state = ViewState.busy;
+    capacityTypeofEndProductError = "";
+    plantProductionCapacityError = "";
+    endProductProducedAuditDayError = "";
+    plantPerYearError = "";
+    plantPerDayError = "";
+    plantPerShiftError = "";
+    actualProcessingCapacityError = "";
+    powerOnAuditDayError = "";
+    totalElectricityConsumptionError = "";
 
     try {
       _auditorRecycler3ResponseModel = await auditorRepository
@@ -840,6 +874,13 @@ class RecyclerFormViewModel extends BaseViewModel {
       {String userId = "",
       bool isRetreader = false}) async {
     state = ViewState.busy;
+    invoiceAuditConfirmedStatusError = "";
+    invoiceAdditionalDataNumberOfSuppliersContactedError = "";
+    invoiceAuditRemarkError = "";
+    buyersAuditConfirmedStatusError = "";
+    buyersAdditionalDataNumberOfBuyersContactedError = "";
+    buyersAuditRemarkError = "";
+
     try {
       _auditorRecycler4ResponseModel = await auditorRepository
           .getRecyclerForm4Data(isRetreader: isRetreader, userId: userId);
@@ -870,6 +911,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       {String userId = "",
       bool isRetreader = false}) async {
     state = ViewState.busy;
+    summaryAuditRemarkError = '';
     try {
       _auditorRecycler5ResponseModel = await auditorRepository
           .getRecyclerForm5Data(isRetreader: isRetreader, userId: userId);
@@ -1972,8 +2014,7 @@ class RecyclerFormViewModel extends BaseViewModel {
                           om: getOmRequest())),
                   lastYearElectricityBill: AirPollutionControlDevicesRequest(
                       auditRemark: remarkPowerController?.text,
-                      auditConfirmedStatus:
-                          radioPowerConsumption,
+                      auditConfirmedStatus: radioPowerConsumption,
                       auditDocument: lastYearElectricityBillDocument?.fileName,
                       additionalData: AirPollutionControlDevicesAdditionalDataRequest(
                           fileKey:
@@ -1986,7 +2027,8 @@ class RecyclerFormViewModel extends BaseViewModel {
                       auditDocument: pollutionFileName ??
                           airPollutionControlDevicesDocument?.fileName ??
                           '',
-                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: airPollutionControlDevicesDocument?.fileKey ?? '', fileLink: airPollutionControlDevicesDocument?.fileUrl ?? '')),
+                      additionalData:
+                          AirPollutionControlDevicesAdditionalDataRequest(fileKey: airPollutionControlDevicesDocument?.fileKey ?? '', fileLink: airPollutionControlDevicesDocument?.fileUrl ?? '')),
                   geoTaggedVideoUpload: AirPollutionControlDevicesRequest(auditRemark: remarkVideoController?.text, auditConfirmedStatus: radioPlant, auditDocument: geoTaggedVideoUploadDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
 
       final res = await auditorRepository.postRecyclerForm1Data(requestModel,
