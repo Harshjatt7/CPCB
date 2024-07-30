@@ -986,9 +986,10 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   void handleOnSuffixTap(BuildContext context, RecyclerForm1 fieldName,
       TextEditingController? controller,
-      {bool isVideo = false}) async {
+      {bool isVideo = false, bool isPdf = false}) async {
     if (controller?.text.isEmpty ?? false) {
-      var res = await openFileManager(context, fieldName, isVideo: isVideo);
+      var res = await openFileManager(context, fieldName,
+          isVideo: isVideo, isPdf: isPdf);
 
       if (res != null) {
         controller?.text = res.files.isEmpty ? "" : res.files.first.name;
@@ -1058,9 +1059,10 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   void handleOnTap(BuildContext context, RecyclerForm1 fieldName,
       TextEditingController? controller,
-      {bool isVideo = false}) async {
+      {bool isVideo = false, bool isPdf = false}) async {
     if (controller?.text.isEmpty ?? false) {
-      var res = await openFileManager(context, fieldName, isVideo: isVideo);
+      var res = await openFileManager(context, fieldName,
+          isVideo: isVideo, isPdf: isPdf);
 
       if (res != null) {
         controller?.text = res.files.isEmpty ? "" : res.files.first.name;
@@ -1441,11 +1443,15 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   Future<FilePickerResult?> openFileManager(
       BuildContext context, RecyclerForm1 fieldName,
-      {bool isVideo = false}) async {
+      {bool isVideo = false, bool isPdf = false}) async {
     fileError = null;
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: isVideo == true ? ["MP4"] : ["JPEG", "PNG"]);
+        allowedExtensions: isVideo == true
+            ? ["MP4"]
+            : isPdf
+                ? ["PDF"]
+                : ["JPEG", "PNG"]);
 
     if (result != null) {
       switch (fieldName) {

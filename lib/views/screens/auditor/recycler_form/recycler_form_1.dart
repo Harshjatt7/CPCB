@@ -845,6 +845,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                             context,
                             RecyclerForm1.power,
                             viewModel.uploadPowerController,
+                            isPdf: true,
                           );
                         },
                         onSuffixTap: () {
@@ -852,6 +853,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                             context,
                             RecyclerForm1.power,
                             viewModel.uploadPowerController,
+                            isPdf: true,
                           );
                         },
                         validator: (value) {
