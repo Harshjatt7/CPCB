@@ -79,9 +79,9 @@ class AdminApplicationReceivedScreen extends StatelessWidget {
                                       "${applicationData?.applicationNumber}",
                                   markedTo: applicationData?.markedTo,
                                   lastMarked: applicationData?.lastMarked,
-                                  // date: helperFunctions.getFormattedDate(
-                                  //   dtstr: applicationData?.lastReceived,
-                                  // ),
+                                  date: helperFunctions.getFormattedDate(
+                                    dtstr: applicationData?.lastReceived,
+                                  ),
                                 ),
                               );
                             }),

@@ -57,7 +57,6 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
         onModelReady: (viewModel) async {
           viewModel.getIndex(widget.userDetails?.progress);
           viewModel.initalizeGroupValues();
-          viewModel.addController();
           // viewModel.textForm2Listener();
           // viewModel.textForm3Listener();
           // await viewModel.getCurrentLocation();

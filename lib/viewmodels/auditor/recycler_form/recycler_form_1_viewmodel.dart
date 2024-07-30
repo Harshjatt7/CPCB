@@ -352,6 +352,12 @@ class RecyclerFormViewModel extends BaseViewModel {
   String lastYearElectricityBillAuditRemarkError = "";
   String geoTaggedVideoUploadAuditDocumentError = "";
   String geoTaggedVideoUploadAuditRemarkError = "";
+  String otherMachineriesError = "";
+  String aadhaarcardError = "";
+  String authorizedPersonPanError = "";
+  String lastYearElectricityBillError = "";
+  String airPollutionControlDevicesError = "";
+  String geoTaggedVideoUploadError = "";
 
 //Form 2
   String? contactedSuppliersError;
@@ -744,6 +750,7 @@ class RecyclerFormViewModel extends BaseViewModel {
           uploadControllerList[i].text = machineList[i].auditDocument ?? '';
           controllerList[i].text = machineList[i].value ?? '';
           otherMachineriesDocument.add(DocumentData(
+              fileName: machineList[i].auditDocument,
               fileKey: machineList[i].fileKey,
               fileUrl: machineList[i].fileLink));
           machineFileSizeModel.add(FileSizeModel(fileSize: '', fileSizeNum: 0));
@@ -765,13 +772,17 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   void updatePlantMachine() {
-    for (int i = count; i > 1; i--) {
-      TextEditingController? tempController = TextEditingController();
-      TextEditingController? tempUploadController = TextEditingController();
+    if (machineList.isNotEmpty) {
+      for (int i = 0; i < machineList.length; i++) {
+        TextEditingController? tempController = TextEditingController();
+        TextEditingController? tempUploadController = TextEditingController();
 
-      controllerList.add(tempController);
-      uploadControllerList.add(tempUploadController);
-      updateUI();
+        controllerList.add(tempController);
+        uploadControllerList.add(tempUploadController);
+        updateUI();
+      }
+    } else {
+      addController();
     }
   }
 
@@ -1607,8 +1618,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       {TextEditingController? controller}) {
     if (controller?.text.isEmpty ?? false) {
       return messageConstant.pleaseProvideValue;
-    }
-    if (fileSizeModel?.fileSize.contains("MB") ?? false) {
+    } else if (fileSizeModel?.fileSize.contains("MB") ?? false) {
       if (fileSizeModel!.fileSizeNum > 2.0) {
         return messageConstant.maxFileSize;
       }
@@ -1959,186 +1969,191 @@ class RecyclerFormViewModel extends BaseViewModel {
       {String userId = "",
       bool isRetreader = false,
       String submit = ""}) async {
-    state = ViewState.busy;
-    try {
-      AuditorRecyclerForm1RequestModel requestModel =
-          AuditorRecyclerForm1RequestModel(
-              submit: submit,
-              generalInfo: GenerralInfoRequest(
-                  gstNo: AddressLine(
-                      auditConfirmedStatus: radioGst,
-                      auditRemark: gstRemarkController?.text),
-                  companyPan: AddressLine(
-                      auditConfirmedStatus: radioPanOfCompany,
-                      auditRemark: companyPanRemarkController?.text),
-                  companyIec: AddressLine(
-                      auditConfirmedStatus: radioIec,
-                      auditRemark: companyRemarkIECController?.text),
-                  cto: AddressLine(
-                      auditConfirmedStatus: radioCto,
-                      auditRemark: recyclerRemakrCTOController?.text),
-                  authorizationUnderHomwRules: AddressLine(
-                      auditConfirmedStatus: radioAuthorization,
-                      auditRemark: remarkAuthorizationController?.text),
-                  addressLine1: AddressLine(
-                      auditConfirmedStatus: radioRecyclingDetails,
-                      auditRemark: remarkRecyclingDetailsController?.text),
-                  gpsLocationRecycler:
-                      GpsLocationRecycler(auditConfirmedStatus: radioGps),
-                  gpsLocationAuditor: GpsLocationAuditorRequest(
-                    auditConfirmedStatus: radioGps,
-                    auditRemark: gpsAuditorRemarkController?.text,
-                    additionalData: GpsLocationAuditorAdditionalDataRequest(
-                        lat: gpsAuditorLatitude?.text,
-                        long: gpsAuditorLongitude?.text),
-                  ),
-                  authorizedPersonAdhar: AirPollutionControlDevicesRequest(
-                      auditRemark: remarkAadharController?.text,
-                      auditConfirmedStatus: radioAadharCard,
-                      auditDocument: aadharDocument?.fileName ?? '',
-                      additionalData:
-                          AirPollutionControlDevicesAdditionalDataRequest(
-                              fileKey: aadharDocument?.fileKey ?? '',
-                              fileLink: aadharDocument?.fileUrl ?? '')),
-                  authorizedPersonPan: AirPollutionControlDevicesRequest(
-                      auditRemark: remarkPanNoController?.text,
-                      auditConfirmedStatus: radioPanNo,
-                      auditDocument:
-                          authorizedPersonPanDocument?.fileName ?? '',
-                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(
-                          fileKey: authorizedPersonPanDocument?.fileKey ?? '',
-                          fileLink:
-                              authorizedPersonPanDocument?.fileUrl ?? '')),
-                  otherMachineries: OtherMachineriesRequest(
-                      additionalData: OtherMachineriesAdditionalDataRequest(
-                          om: getOmRequest())),
-                  lastYearElectricityBill: AirPollutionControlDevicesRequest(
-                      auditRemark: remarkPowerController?.text,
-                      auditConfirmedStatus: radioPowerConsumption,
-                      auditDocument: lastYearElectricityBillDocument?.fileName,
-                      additionalData: AirPollutionControlDevicesAdditionalDataRequest(
-                          fileKey:
-                              lastYearElectricityBillDocument?.fileKey ?? '',
-                          fileLink:
-                              lastYearElectricityBillDocument?.fileUrl ?? '')),
-                  airPollutionControlDevices: AirPollutionControlDevicesRequest(
-                      auditRemark: remakrsPollutionController?.text,
-                      auditConfirmedStatus: radioPollution,
-                      auditDocument: pollutionFileName ??
-                          airPollutionControlDevicesDocument?.fileName ??
-                          '',
-                      additionalData:
-                          AirPollutionControlDevicesAdditionalDataRequest(fileKey: airPollutionControlDevicesDocument?.fileKey ?? '', fileLink: airPollutionControlDevicesDocument?.fileUrl ?? '')),
-                  geoTaggedVideoUpload: AirPollutionControlDevicesRequest(auditRemark: remarkVideoController?.text, auditConfirmedStatus: radioPlant, auditDocument: geoTaggedVideoUploadDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
+    if (formKey.currentState?.validate() ?? false) {
+      state = ViewState.busy;
+      try {
+        AuditorRecyclerForm1RequestModel requestModel =
+            AuditorRecyclerForm1RequestModel(
+                submit: submit,
+                generalInfo: GenerralInfoRequest(
+                    gstNo: AddressLine(
+                        auditConfirmedStatus: radioGst,
+                        auditRemark: gstRemarkController?.text),
+                    companyPan: AddressLine(
+                        auditConfirmedStatus: radioPanOfCompany,
+                        auditRemark: companyPanRemarkController?.text),
+                    companyIec: AddressLine(
+                        auditConfirmedStatus: radioIec,
+                        auditRemark: companyRemarkIECController?.text),
+                    cto: AddressLine(
+                        auditConfirmedStatus: radioCto,
+                        auditRemark: recyclerRemakrCTOController?.text),
+                    authorizationUnderHomwRules: AddressLine(
+                        auditConfirmedStatus: radioAuthorization,
+                        auditRemark: remarkAuthorizationController?.text),
+                    addressLine1: AddressLine(
+                        auditConfirmedStatus: radioRecyclingDetails,
+                        auditRemark: remarkRecyclingDetailsController?.text),
+                    gpsLocationRecycler:
+                        GpsLocationRecycler(auditConfirmedStatus: radioGps),
+                    gpsLocationAuditor: GpsLocationAuditorRequest(
+                      auditConfirmedStatus: radioGps,
+                      auditRemark: gpsAuditorRemarkController?.text,
+                      additionalData: GpsLocationAuditorAdditionalDataRequest(
+                          lat: gpsAuditorLatitude?.text,
+                          long: gpsAuditorLongitude?.text),
+                    ),
+                    authorizedPersonAdhar: AirPollutionControlDevicesRequest(
+                        auditRemark: remarkAadharController?.text,
+                        auditConfirmedStatus: radioAadharCard,
+                        auditDocument: aadharDocument?.fileName ?? '',
+                        additionalData:
+                            AirPollutionControlDevicesAdditionalDataRequest(
+                                fileKey: aadharDocument?.fileKey ?? '',
+                                fileLink: aadharDocument?.fileUrl ?? '')),
+                    authorizedPersonPan: AirPollutionControlDevicesRequest(
+                        auditRemark: remarkPanNoController?.text,
+                        auditConfirmedStatus: radioPanNo,
+                        auditDocument:
+                            authorizedPersonPanDocument?.fileName ?? '',
+                        additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                            fileKey: authorizedPersonPanDocument?.fileKey ?? '',
+                            fileLink:
+                                authorizedPersonPanDocument?.fileUrl ?? '')),
+                    otherMachineries: OtherMachineriesRequest(
+                        additionalData: OtherMachineriesAdditionalDataRequest(
+                            om: getOmRequest())),
+                    lastYearElectricityBill: AirPollutionControlDevicesRequest(
+                        auditRemark: remarkPowerController?.text,
+                        auditConfirmedStatus: radioPowerConsumption,
+                        auditDocument:
+                            lastYearElectricityBillDocument?.fileName,
+                        additionalData: AirPollutionControlDevicesAdditionalDataRequest(
+                            fileKey:
+                                lastYearElectricityBillDocument?.fileKey ?? '',
+                            fileLink: lastYearElectricityBillDocument?.fileUrl ??
+                                '')),
+                    airPollutionControlDevices:
+                        AirPollutionControlDevicesRequest(auditRemark: remakrsPollutionController?.text, auditConfirmedStatus: radioPollution, auditDocument: pollutionFileName ?? airPollutionControlDevicesDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: airPollutionControlDevicesDocument?.fileKey ?? '', fileLink: airPollutionControlDevicesDocument?.fileUrl ?? '')),
+                    geoTaggedVideoUpload: AirPollutionControlDevicesRequest(auditRemark: remarkVideoController?.text, auditConfirmedStatus: radioPlant, auditDocument: geoTaggedVideoUploadDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
 
-      final res = await auditorRepository.postRecyclerForm1Data(requestModel,
-          userId: userId, isRetreader: isRetreader);
-      if (res?.isSuccess == true) {
-        if (submit != storeKeyConstants.saveAsDraft) {
-          machineFile.clear();
-          machineFileName.clear();
-          machineFilePath.clear();
-          machineFileSize.clear();
-          machineFileSizeModel.clear();
-          otherMachineriesDocument.clear();
-          machineList.clear();
-          omRequestList.clear();
-          nw?.clear();
-        }
-        if (context.mounted) {
-          HelperFunctions().commonSuccessSnackBar(
-              context, res?.data?.message ?? "Data Successfuly Added");
-        }
-
-        if (submit == "") {
-          if (context.mounted) {
-            onNextButton(context, userId, isRetreader);
+        final res = await auditorRepository.postRecyclerForm1Data(requestModel,
+            userId: userId, isRetreader: isRetreader);
+        if (res?.isSuccess == true) {
+          if (submit != storeKeyConstants.saveAsDraft) {
+            machineFile.clear();
+            machineFileName.clear();
+            machineFilePath.clear();
+            machineFileSize.clear();
+            machineFileSizeModel.clear();
+            otherMachineriesDocument.clear();
+            machineList.clear();
+            omRequestList.clear();
+            nw?.clear();
+            plantMachineyRadioList.clear();
+            plantMachineryControllerList.clear();
+            uploadControllerList.clear();
+            controllerList.clear();
           }
-        }
-      } else {
-        final apiError = res?.error?.errorsList;
+          if (context.mounted) {
+            HelperFunctions().commonSuccessSnackBar(
+                context, res?.data?.message ?? "Data Successfuly Added");
+          }
 
-        gstNoAuditRemarkError =
-            (apiError?.generalInfoGstNoAuditRemark ?? []).isEmpty
-                ? ""
-                : apiError?.generalInfoGstNoAuditRemark?.first ?? "";
-        companyPanAuditRemarkError =
-            (apiError?.generalInfoCompanyPanAuditRemark ?? []).isEmpty
-                ? ""
-                : apiError?.generalInfoCompanyPanAuditRemark?.first ?? "";
-        ctoAuditRemarkError =
-            (apiError?.generalInfoCtoAuditRemark ?? []).isEmpty
-                ? ""
-                : apiError?.generalInfoCtoAuditRemark?.first ?? "";
-        authorizationUnderHomwRulesAuditRemarkError =
-            (apiError?.generalInfoAuthorizationUnderHomwRulesAuditRemark ?? [])
-                    .isEmpty
-                ? ""
-                : apiError?.generalInfoAuthorizationUnderHomwRulesAuditRemark
-                        ?.first ??
-                    "";
-        addressLine1AuditRemarkError =
-            (apiError?.generalInfoAddressLine1AuditRemark ?? []).isEmpty
-                ? ""
-                : apiError?.generalInfoAddressLine1AuditRemark?.first ?? "";
-        gpsLocationAuditorAdditionalDataLatError =
-            (apiError?.generalInfoGpsLocationAuditorAdditionalDataLat ?? [])
-                    .isEmpty
-                ? ""
-                : apiError?.generalInfoGpsLocationAuditorAdditionalDataLat
-                        ?.first ??
-                    "";
-        gpsLocationAuditorAdditionalDataLongError =
-            (apiError?.generalInfoGpsLocationAuditorAdditionalDataLong ?? [])
-                    .isEmpty
-                ? ""
-                : apiError?.generalInfoGpsLocationAuditorAdditionalDataLong
-                        ?.first ??
-                    "";
-        gpsLocationAuditorAuditRemarkError =
-            (apiError?.generalInfoGpsLocationAuditorAuditRemark ?? []).isEmpty
-                ? ""
-                : apiError?.generalInfoGpsLocationAuditorAuditRemark?.first ??
-                    "";
-        lastYearElectricityBillAuditDocumentError =
-            (apiError?.generalInfoLastYearElectricityBillAuditDocument ?? [])
-                    .isEmpty
-                ? ""
-                : apiError?.generalInfoLastYearElectricityBillAuditDocument
-                        ?.first ??
-                    "";
-        gpsLocationAuditorAuditRemarkError =
-            (apiError?.generalInfoGpsLocationAuditorAuditRemark ?? []).isEmpty
-                ? ""
-                : apiError?.generalInfoGpsLocationAuditorAuditRemark?.first ??
-                    "";
-        lastYearElectricityBillAuditRemarkError =
-            (apiError?.generalInfoLastYearElectricityBillAuditRemark ?? [])
-                    .isEmpty
-                ? ""
-                : apiError?.generalInfoLastYearElectricityBillAuditRemark
-                        ?.first ??
-                    "";
-        geoTaggedVideoUploadAuditDocumentError =
-            (apiError?.generalInfoGeoTaggedVideoUploadAuditDocument ?? [])
-                    .isEmpty
-                ? ""
-                : apiError
-                        ?.generalInfoGeoTaggedVideoUploadAuditDocument?.first ??
-                    "";
-        geoTaggedVideoUploadAuditRemarkError =
-            (apiError?.generalInfoGeoTaggedVideoUploadAuditRemark ?? []).isEmpty
-                ? ""
-                : apiError?.generalInfoGeoTaggedVideoUploadAuditRemark?.first ??
-                    "";
+          if (submit == "") {
+            if (context.mounted) {
+              onNextButton(context, userId, isRetreader);
+            }
+          }
+        } else {
+          final apiError = res?.error?.errorsList;
+
+          gstNoAuditRemarkError =
+              (apiError?.generalInfoGstNoAuditRemark ?? []).isEmpty
+                  ? ""
+                  : apiError?.generalInfoGstNoAuditRemark?.first ?? "";
+          companyPanAuditRemarkError =
+              (apiError?.generalInfoCompanyPanAuditRemark ?? []).isEmpty
+                  ? ""
+                  : apiError?.generalInfoCompanyPanAuditRemark?.first ?? "";
+          ctoAuditRemarkError =
+              (apiError?.generalInfoCtoAuditRemark ?? []).isEmpty
+                  ? ""
+                  : apiError?.generalInfoCtoAuditRemark?.first ?? "";
+          authorizationUnderHomwRulesAuditRemarkError =
+              (apiError?.generalInfoAuthorizationUnderHomwRulesAuditRemark ??
+                          [])
+                      .isEmpty
+                  ? ""
+                  : apiError?.generalInfoAuthorizationUnderHomwRulesAuditRemark
+                          ?.first ??
+                      "";
+          addressLine1AuditRemarkError =
+              (apiError?.generalInfoAddressLine1AuditRemark ?? []).isEmpty
+                  ? ""
+                  : apiError?.generalInfoAddressLine1AuditRemark?.first ?? "";
+          gpsLocationAuditorAdditionalDataLatError =
+              (apiError?.generalInfoGpsLocationAuditorAdditionalDataLat ?? [])
+                      .isEmpty
+                  ? ""
+                  : apiError?.generalInfoGpsLocationAuditorAdditionalDataLat
+                          ?.first ??
+                      "";
+          gpsLocationAuditorAdditionalDataLongError =
+              (apiError?.generalInfoGpsLocationAuditorAdditionalDataLong ?? [])
+                      .isEmpty
+                  ? ""
+                  : apiError?.generalInfoGpsLocationAuditorAdditionalDataLong
+                          ?.first ??
+                      "";
+          gpsLocationAuditorAuditRemarkError =
+              (apiError?.generalInfoGpsLocationAuditorAuditRemark ?? []).isEmpty
+                  ? ""
+                  : apiError?.generalInfoGpsLocationAuditorAuditRemark?.first ??
+                      "";
+          lastYearElectricityBillAuditDocumentError =
+              (apiError?.generalInfoLastYearElectricityBillAuditDocument ?? [])
+                      .isEmpty
+                  ? ""
+                  : apiError?.generalInfoLastYearElectricityBillAuditDocument
+                          ?.first ??
+                      "";
+          gpsLocationAuditorAuditRemarkError =
+              (apiError?.generalInfoGpsLocationAuditorAuditRemark ?? []).isEmpty
+                  ? ""
+                  : apiError?.generalInfoGpsLocationAuditorAuditRemark?.first ??
+                      "";
+          lastYearElectricityBillAuditRemarkError =
+              (apiError?.generalInfoLastYearElectricityBillAuditRemark ?? [])
+                      .isEmpty
+                  ? ""
+                  : apiError?.generalInfoLastYearElectricityBillAuditRemark
+                          ?.first ??
+                      "";
+          geoTaggedVideoUploadAuditDocumentError =
+              (apiError?.generalInfoGeoTaggedVideoUploadAuditDocument ?? [])
+                      .isEmpty
+                  ? ""
+                  : apiError?.generalInfoGeoTaggedVideoUploadAuditDocument
+                          ?.first ??
+                      "";
+          geoTaggedVideoUploadAuditRemarkError =
+              (apiError?.generalInfoGeoTaggedVideoUploadAuditRemark ?? [])
+                      .isEmpty
+                  ? ""
+                  : apiError
+                          ?.generalInfoGeoTaggedVideoUploadAuditRemark?.first ??
+                      "";
+        }
+      } catch (e) {
+        if (context.mounted) {
+          HelperFunctions()
+              .commonErrorSnackBar(context, messageConstant.somethingWentWrong);
+        }
       }
-    } catch (e) {
-      if (context.mounted) {
-        HelperFunctions().commonErrorSnackBar(context, e.toString());
-      }
+      state = ViewState.idle;
     }
     updateUI();
-    state = ViewState.idle;
   }
 
   Future<void> postForm4Data(BuildContext context,
@@ -2209,6 +2224,28 @@ class RecyclerFormViewModel extends BaseViewModel {
             (apiError?.productionInfoBuyersAuditRemark ?? []).isEmpty
                 ? ""
                 : apiError?.productionInfoBuyersAuditRemark?.first ?? "";
+        otherMachineriesError = (apiError?.otherMachineries ?? []).isEmpty
+            ? ""
+            : apiError?.otherMachineries?.first ?? "";
+        aadhaarcardError = (apiError?.aadhaarcard ?? []).isEmpty
+            ? ""
+            : apiError?.aadhaarcard?.first ?? "";
+
+        authorizedPersonPanError = (apiError?.authorizedPersonPan ?? []).isEmpty
+            ? ""
+            : apiError?.authorizedPersonPan?.first ?? "";
+        lastYearElectricityBillError =
+            (apiError?.lastYearElectricityBill ?? []).isEmpty
+                ? ""
+                : apiError?.lastYearElectricityBill?.first ?? "";
+        airPollutionControlDevicesError =
+            (apiError?.airPollutionControlDevices ?? []).isEmpty
+                ? ""
+                : apiError?.airPollutionControlDevices?.first ?? "";
+        geoTaggedVideoUploadError =
+            (apiError?.geoTaggedVideoUpload ?? []).isEmpty
+                ? ""
+                : apiError?.geoTaggedVideoUpload?.first ?? "";
       }
     } catch (e) {
       if (context.mounted) {
