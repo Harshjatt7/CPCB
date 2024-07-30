@@ -1,5 +1,7 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
@@ -40,6 +42,9 @@ class AuditorRecyclerForm1 extends StatefulWidget {
 class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
   final AppColor appColor = AppColor();
   final stringConstants = StringConstants();
+  final messageConstant = MessageConstant();
+  final storeKeyConstants = StoreKeyConstants();
+
   ScrollController? controller;
   late RecyclerFormViewModel viewModel;
   @override
@@ -90,7 +95,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     await viewModel.postForm1Data(context,
                         userId: widget.id ?? "",
                         isRetreader: widget.userType == "Retreader",
-                        submit: "SaveAsDraft");
+                        submit: storeKeyConstants.saveAsDraft);
                   },
                 ))
           ],
@@ -302,6 +307,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   nwList: viewModel.nw ?? [],
                   headingList: viewModel.recyclerHeadingList,
                 ),
+              ),
+              CommonRichText(
+                title: messageConstant.anyOtherMachineLabel.i18n(),
+                isMandatory: false,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -756,6 +765,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   headingList: viewModel.recyclerHeadingList,
                 ),
               ),
+              CommonRichText(
+                title: messageConstant.anyOtherMachineLabel.i18n(),
+                isMandatory: false,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: PlantMachineryWidget(
@@ -815,6 +828,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   CommonRichText(
                       title: stringConstants.electricityBill.i18n(),
                       isMandatory: true),
+                  CommonRichText(
+                    title: messageConstant.electricityBillsPdf.i18n(),
+                    isMandatory: false,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: CommonTextFormFieldWidget(

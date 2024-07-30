@@ -5,6 +5,7 @@ import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/constants/message_constant.dart';
+import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/auditor/auditor_repository.dart';
 import 'package:cpcb_tyre/models/request/auditor/document_request_model.dart';
@@ -36,6 +37,7 @@ import '../../material_app_viewmodel.dart';
 class RecyclerFormViewModel extends BaseViewModel {
   final stringConstants = StringConstants();
   final messageConstant = MessageConstant();
+  final storeKeyConstants=StoreKeyConstants();
   final helperFunctions = HelperFunctions();
   TextEditingController? endProductDataListController;
   List<CheckboxFilterModel> endProductsList = [];
@@ -1965,7 +1967,7 @@ class RecyclerFormViewModel extends BaseViewModel {
                   lastYearElectricityBill: AirPollutionControlDevicesRequest(
                       auditRemark: remarkPowerController?.text,
                       auditConfirmedStatus:
-                          lastYearElectricityBillDocument?.fileName ?? '',
+                          radioPowerConsumption,
                       auditDocument: lastYearElectricityBillDocument?.fileName,
                       additionalData: AirPollutionControlDevicesAdditionalDataRequest(
                           fileKey:
@@ -1984,15 +1986,17 @@ class RecyclerFormViewModel extends BaseViewModel {
       final res = await auditorRepository.postRecyclerForm1Data(requestModel,
           userId: userId, isRetreader: isRetreader);
       if (res?.isSuccess == true) {
-        machineFile.clear();
-        machineFileName.clear();
-        machineFilePath.clear();
-        machineFileSize.clear();
-        machineFileSizeModel.clear();
-        otherMachineriesDocument.clear();
-        machineList.clear();
-        omRequestList.clear();
-        nw?.clear();
+        if (submit != storeKeyConstants.saveAsDraft) {
+          machineFile.clear();
+          machineFileName.clear();
+          machineFilePath.clear();
+          machineFileSize.clear();
+          machineFileSizeModel.clear();
+          otherMachineriesDocument.clear();
+          machineList.clear();
+          omRequestList.clear();
+          nw?.clear();
+        }
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
               context, res?.data?.message ?? "Data Successfuly Added");
@@ -2082,8 +2086,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       }
     } catch (e) {
       if (context.mounted) {
-        HelperFunctions()
-            .commonErrorSnackBar(context, stringConstants.somethingWentWrong);
+        HelperFunctions().commonErrorSnackBar(context, e.toString());
       }
     }
     updateUI();

@@ -69,7 +69,7 @@ class PlantMachineryWidget extends StatelessWidget {
               if (isReadOnly == false)
                 Flexible(
                   flex: 1,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: onAdd,
                     child: Container(
                       padding: const EdgeInsets.all(10),
@@ -93,7 +93,7 @@ class PlantMachineryWidget extends StatelessWidget {
               if (isReadOnly == false)
                 Flexible(
                   flex: 1,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: onDelete,
                     child: Container(
                       padding: const EdgeInsets.all(10),
