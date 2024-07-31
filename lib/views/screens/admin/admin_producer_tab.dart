@@ -68,6 +68,7 @@ class AdminProducerTab extends StatelessWidget {
               count: helperFunctions.precisionFormat(
                   adminDashBoardViewmodel.totalEprObligations())),
           CommonTotalApplicationCard(
+            title: stringConstants.eprApplicationReceived,
             totalApplication: "${producerData?.applications ?? ''}",
             onTap: () {
               Navigator.pushNamed(

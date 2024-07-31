@@ -39,6 +39,7 @@ class ProducerSalesList extends StatelessWidget {
   final AppColor appColor = AppColor();
   @override
   Widget build(BuildContext context) {
+    bool? isWeight = true;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -123,15 +124,18 @@ class ProducerSalesList extends StatelessWidget {
           ),
           Row(
             children: [
-              saleItemWidget(context, imageConstants.calendarIcon, year),
+              saleItemWidget(context, imageConstants.calendarIcon, year,
+                  isWeight: true),
               const SizedBox(
                 width: 32,
               ),
-              saleItemWidget(context, imageConstants.calendarIcon, month),
+              saleItemWidget(context, imageConstants.calendarIcon, month,
+                  isWeight: true),
               const SizedBox(
                 width: 32,
               ),
-              saleItemWidget(context, imageConstants.mdiTireIcon, count),
+              saleItemWidget(context, imageConstants.mdiTireIcon, count,
+                  isWeight: true),
             ],
           ),
         ],
@@ -139,7 +143,8 @@ class ProducerSalesList extends StatelessWidget {
     );
   }
 
-  Widget saleItemWidget(BuildContext context, String image, String count) {
+  Widget saleItemWidget(BuildContext context, String image, String count,
+      {bool? isWeight}) {
     return Row(
       children: [
         CommonImageWidget(
@@ -150,7 +155,7 @@ class ProducerSalesList extends StatelessWidget {
           width: 8,
         ),
         CommonTextWidget(
-          count,
+          isWeight == true ? count : "$count MT",
           maxLines: 1,
           style: Theme.of(context)
               .textTheme
