@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/enums/filter_enums.dart';
@@ -179,23 +178,23 @@ class AuditorListScreen extends StatelessWidget {
                         },
                         filterTiles: [
                           CommonExpansionTile(
-                              tempSelectedList:
-                                  viewModel.tempSelectedUnitTypeList,
-                              title: "Unit Type",
-                              listCallBack: (value) {
-                                viewModel.tempSelectedUnitTypeList.clear();
-                                viewModel.tempSelectedUnitTypeList
-                                    .addAll(value);
-                                viewModel.tempSelectedUnitTypeList =
-                                    LinkedHashSet<String>.from(
-                                            viewModel.tempSelectedUnitTypeList)
-                                        .toList();
-                              },
-                              isChecked: viewModel.isUnitTypeChecked,
-                              isShowHide: viewModel.isUnitTypeShowHide,
-                              checkBoxList: viewModel.unitTypeList,
-                              selectedList: viewModel.selectedUnitTypeList,
-                              type: FilterTypes.unitType),
+                            tempSelectedList:
+                                viewModel.tempSelectedUnitTypeList,
+                            title: "Unit Type",
+                            listCallBack: (value) {
+                              viewModel.tempSelectedUnitTypeList.clear();
+                              viewModel.tempSelectedUnitTypeList.addAll(value);
+                              viewModel.tempSelectedUnitTypeList =
+                                  LinkedHashSet<String>.from(
+                                          viewModel.tempSelectedUnitTypeList)
+                                      .toList();
+                            },
+                            isChecked: viewModel.isUnitTypeChecked,
+                            isShowHide: viewModel.isUnitTypeShowHide,
+                            checkBoxList: viewModel.unitTypeList,
+                            selectedList: viewModel.selectedUnitTypeList,
+                            type: FilterTypes.unitType,
+                          ),
                           CommonExpansionTile(
                               tempSelectedList:
                                   viewModel.tempSelectedCurrentStatusList,
@@ -217,7 +216,10 @@ class AuditorListScreen extends StatelessWidget {
                         ])),
               );
             },
-          ).whenComplete(() {});
+          ).whenComplete(() {
+            viewModel.tempSelectedCurrentStatusList.clear();
+            viewModel.tempSelectedUnitTypeList.clear();
+          });
         },
       ),
     );

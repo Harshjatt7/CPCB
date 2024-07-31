@@ -24,16 +24,14 @@ class CommonExpansionTile extends StatefulWidget {
       required this.tempSelectedList,
       required this.type,
       this.listCallBack});
-
   @override
   State<CommonExpansionTile> createState() => _CommonExpansionTileState();
 }
-
 class _CommonExpansionTileState extends State<CommonExpansionTile> {
   final _appColor = AppColor();
   List<String> tempSelectedList = [];
-
   int countOfFalse = 0;
+  bool? mainIsChecked = false;
 
   @override
   void initState() {
@@ -41,6 +39,7 @@ class _CommonExpansionTileState extends State<CommonExpansionTile> {
       if (widget.selectedList.contains(element.title)) {
         element.isChecked = true;
         tempSelectedList.add(element.title);
+        widget.tempSelectedList.add(element.title);
       } else {
         element.isChecked = false;
         countOfFalse++;
@@ -55,28 +54,30 @@ class _CommonExpansionTileState extends State<CommonExpansionTile> {
       widget.isChecked = true;
     }
 
+    mainIsChecked = widget.isChecked;
+
     super.initState();
   }
 
   void updateState(FilterTypes types, {bool? value, bool? isShowHide}) {
     switch (types) {
       case FilterTypes.state:
-        widget.isChecked = value;
+        mainIsChecked = value;
         widget.isShowHide = isShowHide;
 
         break;
       case FilterTypes.unitType:
-        widget.isChecked = value;
+        mainIsChecked = value;
         widget.isShowHide = isShowHide;
 
         break;
       case FilterTypes.currentStatus:
-        widget.isChecked = value;
+        mainIsChecked = value;
         widget.isShowHide = isShowHide;
 
         break;
       case FilterTypes.district:
-        widget.isChecked = value;
+        mainIsChecked = value;
         widget.isShowHide = isShowHide;
         break;
     }
@@ -99,12 +100,12 @@ class _CommonExpansionTileState extends State<CommonExpansionTile> {
               : Icons.keyboard_arrow_right,
         ),
         onExpansionChanged: (val) {
-          updateState(widget.type, isShowHide: val, value: widget.isChecked);
+          updateState(widget.type, isShowHide: val, value: mainIsChecked);
           setState(() {});
         },
         title: CommonFilterViewHeading(
           checkboxFilterModel: CheckboxFilterModel(
-              title: widget.title, isChecked: widget.isChecked),
+              title: widget.title, isChecked: mainIsChecked),
           updateState: (value) {
             updateState(widget.type,
                 value: value, isShowHide: widget.isShowHide);

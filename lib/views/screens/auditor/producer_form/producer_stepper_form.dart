@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/enums/state_enums.dart';
 import 'package:cpcb_tyre/viewmodels/auditor/producer_form/producer_forms_view_model.dart';
 import 'package:cpcb_tyre/views/screens/auditor/common_stepper_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_form_1.dart';
@@ -22,7 +23,10 @@ class _ProdcerStepperState extends State<ProducerStepper> {
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
               onLeadingTapped: () async {
-                viewModel.onBackButton(context, widget.userDetails?.id ?? "");
+                if (viewModel.state != ViewState.busy) {
+                  await viewModel.onBackButton(
+                      context, widget.userDetails?.id ?? "");
+                }
               },
               checkUser: CheckUserAndSummaryScreen(
                 isSummaryScreen: widget.userDetails?.isSummaryScreen,
