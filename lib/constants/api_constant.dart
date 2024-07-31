@@ -80,8 +80,7 @@ class APIRoutes {
       "api/auditor/recyclerChecklist/production-information";
   final String auditorRecyclerForm5APIRoute =
       "api/auditor/recyclerChecklist/waste-water-generation-and-disposal";
-  final String auditorRetreaderForm1APIRoute =
-      "api/auditor/retreaderChecklist";
+  final String auditorRetreaderForm1APIRoute = "api/auditor/retreaderChecklist";
   final String auditorRetreaderForm2APIRoute =
       "api/auditor/checklist/retreader/processing-capacity";
   final String auditorRetreaderForm3APIRoute =
@@ -94,7 +93,7 @@ class APIRoutes {
   final String auditorRecyclerForm1RequestAPIRoute =
       "api/auditor/recyclerChecklist/store-general-information";
   final String auditorRecyclerForm4RequestAPIRoute =
-     "api/auditor/retreaderChecklist/store-production-information";
+      "api/auditor/retreaderChecklist/store-production-information";
   final String auditorRecyclerForm5RequestAPIRoute =
       "api/auditor/recyclerChecklist/store-waste-water-generation-and-disposal";
   final String auditorRetreaderForm1RequestAPIRoute =
@@ -120,6 +119,7 @@ class APIRoutes {
       "api/auditor/retreaderChecklist/store-procurement-information";
   final String auditorPerformAcknowledge = "api/auditor/perform-acknowledge";
   final String auditorStartAcknowlege = "api/auditor/perform-start";
+  final String retreaderGetRawMaterial = "api/retreader/get-raw-material-types";
 
   // WEB URLs
   final String forgotPasswordWebUrl = "forgotPassword";
