@@ -12,12 +12,15 @@ class CommonTotalApplicationCard extends StatelessWidget {
   final StringConstants stringConstants = StringConstants();
   final AppColor appColor = AppColor();
   final bool? isAuditor;
+  final String? title;
 
-  CommonTotalApplicationCard(
-      {super.key,
-      required this.totalApplication,
-      required this.onTap,
-      this.isAuditor = false});
+  CommonTotalApplicationCard({
+    super.key,
+    required this.totalApplication,
+    required this.onTap,
+    this.isAuditor = false,
+    this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class CommonTotalApplicationCard extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: CommonTextWidget(
-                stringConstants.totalApplicationReceived,
+                title ?? "",
                 style: Theme.of(context).textTheme.labelMedium,
               ),
             ),
