@@ -79,12 +79,14 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                   isLastStep: false,
                   isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                    widget.isSummaryScreen == true
-                        ? viewModel.onNextButton(
-                            context, widget.id ?? "", widget.isRetreader)
-                        : await viewModel.recyclerPostForm2Data(context,
-                            id: widget.id,
-                            isRetreader: widget.userType == "Retreader");
+                    if (viewModel.state != ViewState.busy) {
+                      widget.isSummaryScreen == true
+                          ? viewModel.onNextButton(
+                              context, widget.id ?? "", widget.isRetreader)
+                          : await viewModel.recyclerPostForm2Data(context,
+                              id: widget.id,
+                              isRetreader: widget.userType == "Retreader");
+                    }
                   },
                   onSavedDraft: () async {
                     await viewModel.recyclerPostForm2Data(context,

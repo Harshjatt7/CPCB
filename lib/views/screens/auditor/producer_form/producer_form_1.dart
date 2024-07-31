@@ -57,9 +57,11 @@ class _ProducerForm1State extends State<ProducerForm1> {
               isLastStep: false,
               isSummaryScreen: widget.isSummaryScreen,
               onNextOrSubmit: () async {
-                widget.isSummaryScreen == true
-                    ? viewModel.onNextButton(context, widget.id ?? "")
-                    : await viewModel.postForm1Data(context, id: widget.id);
+                if (viewModel.state != ViewState.busy) {
+                  widget.isSummaryScreen == true
+                      ? viewModel.onNextButton(context, widget.id ?? "")
+                      : await viewModel.postForm1Data(context, id: widget.id);
+                }
               },
               onSavedDraft: () async {
                 await viewModel.postForm1Data(context,

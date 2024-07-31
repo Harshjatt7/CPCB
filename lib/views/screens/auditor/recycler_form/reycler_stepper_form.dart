@@ -26,8 +26,10 @@ class _ProdcerStepperState extends State<RecyclerStepper> {
         builder: (context, viewModel, child) {
           return CommonStepperScreen(
               onLeadingTapped: () {
-                viewModel.onBackButton(context, widget.userDetails?.id ?? "",
-                    widget.userDetails?.userType == "Retreader");
+                if (viewModel.state != ViewState.busy) {
+                  viewModel.onBackButton(context, widget.userDetails?.id ?? "",
+                      widget.userDetails?.userType == "Retreader");
+                }
               },
               isLoading: viewModel.state == ViewState.busy,
               checkUser: CheckUserAndSummaryScreen(
