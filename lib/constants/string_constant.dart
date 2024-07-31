@@ -311,4 +311,6 @@ class StringConstants {
   final String pendingAudits = "pending-audits";
   final String completedAudits = "completed-audits";
   final String agency = "Agency";
+  final String available = "available";
+  final String notAvailable = "not-available";
 }
