@@ -158,13 +158,14 @@ class _CommonTextFormFieldWidgetNewState
                   color: error != null ? appColor.red : appColor.black20),
               borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
+            enableInteractiveSelection:
+                widget.isPasswordField == true ? false : true,
             onChanged: widget.onChanged,
             onTap: widget.onTap,
             inputFormatters: widget.inputFormatters ??
                 [
                   FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@. ]')),
                 ],
-            enableInteractiveSelection: true,
             controller: widget.controller,
             focusNode: widget.isReadOnly == true
                 ? AlwaysDisabledFocusNode()
