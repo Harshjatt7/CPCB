@@ -3,6 +3,7 @@
 //     final errorResponseModel = errorResponseModelFromJson(jsonString);
 
 import 'dart:convert';
+
 ErrorResponseModel errorResponseModelFromJson(String str) =>
     ErrorResponseModel.fromJson(json.decode(str));
 
@@ -110,6 +111,12 @@ class ErrorsList {
   List<String>? generalInfoLastYearElectricityBillAuditRemark;
   List<String>? generalInfoGeoTaggedVideoUploadAuditDocument;
   List<String>? generalInfoGeoTaggedVideoUploadAuditRemark;
+  List<String>? otherMachineries;
+  List<String>? aadhaarcard;
+  List<String>? authorizedPersonPan;
+  List<String>? lastYearElectricityBill;
+  List<String>? airPollutionControlDevices;
+  List<String>? geoTaggedVideoUpload;
 
   ErrorsList({
     this.financialYear,
@@ -182,6 +189,12 @@ class ErrorsList {
     this.generalInfoLastYearElectricityBillAuditRemark,
     this.generalInfoGeoTaggedVideoUploadAuditDocument,
     this.generalInfoGeoTaggedVideoUploadAuditRemark,
+    this.otherMachineries,
+    this.aadhaarcard,
+    this.authorizedPersonPan,
+    this.lastYearElectricityBill,
+    this.airPollutionControlDevices,
+    this.geoTaggedVideoUpload,
   });
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
@@ -529,5 +542,24 @@ class ErrorsList {
                 : List<String>.from(
                     json["generalInfo.geoTaggedVideoUpload.audit_remark"]!
                         .map((x) => x)),
+        otherMachineries: json["otherMachineries"] == null
+            ? []
+            : List<String>.from(json["otherMachineries"]!.map((x) => x)),
+        aadhaarcard: json["aadhaar-card"] == null
+            ? []
+            : List<String>.from(json["aadhaar-card"]!.map((x) => x)),
+        authorizedPersonPan: json["authorizedPersonPan"] == null
+            ? []
+            : List<String>.from(json["authorizedPersonPan"]!.map((x) => x)),
+        lastYearElectricityBill: json["lastYearElectricityBill"] == null
+            ? []
+            : List<String>.from(json["lastYearElectricityBill"]!.map((x) => x)),
+        airPollutionControlDevices: json["airPollutionControlDevices"] == null
+            ? []
+            : List<String>.from(
+                json["airPollutionControlDevices"]!.map((x) => x)),
+        geoTaggedVideoUpload: json["geoTaggedVideoUpload"] == null
+            ? []
+            : List<String>.from(json["geoTaggedVideoUpload"]!.map((x) => x)),
       );
 }

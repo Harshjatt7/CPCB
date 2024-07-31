@@ -18,7 +18,9 @@ class PlantMachineryWidget extends StatelessWidget {
       this.isReadOnly = false,
       this.onTap,
       this.onSuffixTap,
+      this.validator,
       this.isSummaryScreen = false,
+      this.errorMessage = "",
       this.controllerList});
   final void Function()? onAdd;
   final void Function()? onDelete;
@@ -28,9 +30,11 @@ class PlantMachineryWidget extends StatelessWidget {
   final bool isDocument;
   final void Function(int index)? onTap;
   final void Function(int index)? onSuffixTap;
-  final String? Function(String?)? uploadValidator;
+  final String? Function(String? value, int index)? uploadValidator;
   final bool? isReadOnly;
+  final String? Function(String? value, int index)? validator;
   final bool? isSummaryScreen;
+  final String errorMessage;
 
   final AppColor appColor = AppColor();
 
@@ -130,6 +134,13 @@ class PlantMachineryWidget extends StatelessWidget {
                           bgColor: appColor.white,
                           hintText: stringConstants.anyOtherPlant,
                           isMandatory: false,
+                          validator: (value) {
+                            if (validator != null) {
+                              return validator!(value, index);
+                            } else {
+                              return null;
+                            }
+                          },
                           controller: controllerList?[index] ??
                               TextEditingController()),
                     ),
@@ -158,27 +169,46 @@ class PlantMachineryWidget extends StatelessWidget {
                           if (onTap != null) {
                             onTap!(index);
                           }
-                          // if (context.mounted) {
-                          //   setState(() {});
-                          // }
                         },
                         onSuffixTap: () {
                           if (onSuffixTap != null) {
                             onSuffixTap!(index);
                           }
-                          // if (context.mounted) {
-                          //   setState(() {});
-                          // }
                         },
-                        validator: uploadValidator,
+                        validator: (value) {
+                          if (uploadValidator != null) {
+                            return uploadValidator!(value, index);
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
-                    )
+                    ),
+                    if (errorMessage.isNotEmpty &&
+                        index + 1 == (uploadControllerList?.length ?? 1))
+                      showErrorMessage(context, errorMessage),
                   ],
                 ),
               );
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: appColor.red),
+        ),
       ),
     );
   }
