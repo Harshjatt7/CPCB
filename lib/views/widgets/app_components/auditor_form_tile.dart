@@ -32,6 +32,7 @@ class AuditorFormTile extends StatelessWidget {
   final bool? isReadOnly;
   final bool? isSummaryScreen;
   final bool? isUploadReadOnly;
+  final bool? isSensitive;
   AuditorFormTile(
       {super.key,
       this.groupValue,
@@ -54,7 +55,9 @@ class AuditorFormTile extends StatelessWidget {
       this.validator,
       this.isSummaryScreen = false,
       this.isReadOnly,
-      this.isUploadReadOnly});
+      this.isUploadReadOnly,
+      this.isSensitive=false,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,7 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
-              
+                isDocument: isSensitive,
                 isReadOnly: true,
                 hintText: title ?? '',
                 isMandatory: false,

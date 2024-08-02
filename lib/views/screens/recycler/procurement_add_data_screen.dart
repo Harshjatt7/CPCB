@@ -169,7 +169,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
             return viewModel.gstNumberValidation();
           },
           isMandatory: true,
-          controller: viewModel.gstController),
+          controller: viewModel.gstController,
+          isSensitive: true,
+          ),
     );
   }
 
