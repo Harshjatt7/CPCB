@@ -129,6 +129,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
               viewModel.radioGst = value ?? '';
               viewModel.updateUI();
             },
+            isSensitive: true,
             onTap: () {
               viewModel.getViewEntriesFile(
                   context, viewModel.producerForm1Data?.gstApiFilePath ?? "");
@@ -252,6 +253,7 @@ class _ProducerForm1State extends State<ProducerForm1> {
             uploadController: viewModel.gstFileName,
             filePath: viewModel.gstFilePath,
             isReadOnly: true,
+            isSensitive: true,
             onTap: () {
               viewModel.getViewEntriesFile(
                   context, viewModel.producerForm1Data?.gstApiFilePath ?? "");

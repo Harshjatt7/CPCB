@@ -171,7 +171,9 @@ class ProcurementAddDataScreen extends StatelessWidget {
           },
           isLastField: true,
           isMandatory: true,
-          controller: viewModel.gstController),
+          controller: viewModel.gstController,
+          isSensitive: true,
+          ),
     );
   }
 

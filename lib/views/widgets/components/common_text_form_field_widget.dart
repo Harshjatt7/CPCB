@@ -32,6 +32,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
   final int? maxLength;
   final int? maxLines;
   final bool? isMultiline;
+  final bool? isSensitive;
 
   /// [CommonTextFormFieldWidget] will be used as the common text field in this project.
   ///
@@ -83,6 +84,7 @@ class CommonTextFormFieldWidget extends StatefulWidget {
     this.maxLines,
     this.maxLength,
     this.isMultiline,
+    this.isSensitive,
   });
 
   @override
@@ -158,13 +160,14 @@ class _CommonTextFormFieldWidgetNewState
                   color: error != null ? appColor.red : appColor.black20),
               borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
+            enableInteractiveSelection:
+                widget.isSensitive == true? false : true,
             onChanged: widget.onChanged,
             onTap: widget.onTap,
             inputFormatters: widget.inputFormatters ??
                 [
                   FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@. ]')),
                 ],
-            enableInteractiveSelection: true,
             controller: widget.controller,
             focusNode: widget.isReadOnly == true
                 ? AlwaysDisabledFocusNode()

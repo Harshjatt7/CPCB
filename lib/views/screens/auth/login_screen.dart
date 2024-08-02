@@ -121,6 +121,7 @@ class LoginScreen extends StatelessWidget {
                       validator: (val) {
                         return viewmodel.emailValidation();
                       },
+                      isSensitive: true,
                     ),
                     const SizedBox(
                       height: 16,
@@ -135,6 +136,7 @@ class LoginScreen extends StatelessWidget {
                         viewmodel.isObscure = !viewmodel.isObscure;
                       },
                       isPasswordField: true,
+                      isSensitive: true,
                       // validator: (val) {
                       // return viewmodel.passValidation();
                       // },
