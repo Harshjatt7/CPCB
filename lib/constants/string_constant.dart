@@ -122,7 +122,9 @@ class StringConstants {
       "new-tyre-imported-with-imported-vehicles";
   final String newTyreImportedExclusively = "new-tyre-imported-exclusively";
   final String wasteTyreImporter = "waste-tyre-importer";
-  final String totalApplicationReceived = "total-application-received";
+  final String eprApplicationReceived = "epr-application-received";
+  final String totalRecyclerApplication = "total-recycler-application";
+  final String totalRetreaderApplication = "total-retreader-application";
   final String totalApplication = "total-application";
   final String eprApplications = "epr-applications";
   final String applicationsUnderProcess = "applications-under-process";
@@ -311,4 +313,6 @@ class StringConstants {
   final String pendingAudits = "pending-audits";
   final String completedAudits = "completed-audits";
   final String agency = "Agency";
+  final String available = "available";
+  final String notAvailable = "not-available";
 }

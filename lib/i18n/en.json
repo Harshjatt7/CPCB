@@ -134,7 +134,9 @@
     "new-tyre-imported-with-imported-vehicles": "New tyre imported with imported vehicles",
     "new-tyre-imported-exclusively": "New tyre imported exclusively for new vehicles manufactured domestically",
     "waste-tyre-importer": "Waste tyre importer",
-    "total-application-received": "Total Application Received",
+    "epr-application-received": "EPR Applications Received",
+    "total-recycler-application": "Total Recycler Applications",
+    "total-retreader-application": "Total Retreader Applications",
     "total-application": "Total Application",
     "epr-applications": "EPR applications",
     "applications-under-process": "Applications under process",
@@ -235,7 +237,7 @@
     "plant-machinery": "Plant Machinery",
     "any-other-plant": "Any other plant machinery",
     "power-consumption": "(D). Power Consumption",
-    "electricity-bill": "Electricity bills of last financial year",
+    "electricity-bill": "Electricity bills of last financial year to last month",
     "air-pollution": "(E). Air Pollution control devices",
     "details-of-pollution": "Details of Pollution Control System",
     "video-of-plant": "(F). Video of Plant",
@@ -293,5 +295,7 @@
     "write-comment": "Write Comment",
     "photograph-of-extra-machinery": "Photograph of extra machinery can be uploaded in png,jpeg (2mb) format and photographs should be geotagged",
     "upload-geotagged-photograph": "Upload geotagged photograph in pdf format(2mb)",
-    "electricity-bills-pdf": "Electricity bills should be in pdf format, text upload pdf"
+    "electricity-bills-pdf": "Electricity bills should be in pdf format, text upload pdf",
+    "available":"Available",
+    "not-available":"Not Available"
 }

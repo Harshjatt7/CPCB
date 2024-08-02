@@ -19,7 +19,7 @@ class AdminRetreaderTab extends StatelessWidget {
   final EPRApplicationData? retreaderData;
   final CommonEprOblicationData? retreaderCommonData;
   final HelperFunctions helperFunctions = HelperFunctions();
-
+  final stringConstants = StringConstants();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,8 +34,8 @@ class AdminRetreaderTab extends StatelessWidget {
             transferred: helperFunctions.precisionFormat(
                 retreaderCommonData?.retreadedTyre?.creditTransfered),
           ),
-          
           CommonTotalApplicationCard(
+            title: stringConstants.totalRetreaderApplication,
             totalApplication: "${retreaderData?.applications}",
             onTap: () {
               Navigator.pushNamed(

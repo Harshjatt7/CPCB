@@ -76,6 +76,7 @@ class AdminRecyclerTab extends StatelessWidget {
                 adminDashBoardViewmodel.totalRecyclerTransferred()),
           ),
           CommonTotalApplicationCard(
+            title: stringConstants.totalRecyclerApplication,
             totalApplication: "${recyclerData?.applications}",
             onTap: () {
               Navigator.pushNamed(

@@ -1681,7 +1681,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         : totalQuantitySalesController?.text ?? "");
 
     if (differenceInActualProccessingController?.text.isNotEmpty ?? false) {
-      uploadSalesController?.text = (y - 1.05 * z).toString();
+      uploadSalesController?.text = (1.05 * y - z).toString();
     }
   }
 
