@@ -125,6 +125,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
             disableController: viewModel.gstController,
             remarkController: viewModel.gstRemarkController,
             isReadOnly: true,
+            isSensitive: true,
           ),
           AuditorFormTile(
             isReadOnly: true,
@@ -271,6 +272,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
             isReadOnly: true,
             filePath: viewModel.aadharFilePath,
             isSummaryScreen: widget.isSummaryScreen,
+            isSensitive: true,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -472,6 +474,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 HelperFunctions().logger(viewModel.radioGst);
                 viewModel.updateUI();
               },
+              isSensitive: true,
               // validator: (value) {
               //   return viewModel.emptyValidation(viewModel.gstRemarkController);
               // },
@@ -696,6 +699,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                 viewModel.handleOnTap(context, RecyclerForm1.aadhar,
                     viewModel.uploadAadharController);
               },
+              isSensitive: true,
               onSuffixTap: () {
                 viewModel.handleOnSuffixTap(
                   context,

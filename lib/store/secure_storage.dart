@@ -24,7 +24,7 @@ class SecureStorage {
   }
 
   static IOSOptions _getIOSOptions() {
-    return const IOSOptions(accessibility: KeychainAccessibility.first_unlock);
+    return const IOSOptions(accessibility: KeychainAccessibility.unlocked);
   }
 
   // Store sensitive information
