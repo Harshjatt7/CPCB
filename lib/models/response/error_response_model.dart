@@ -117,6 +117,7 @@ class ErrorsList {
   List<String>? lastYearElectricityBill;
   List<String>? airPollutionControlDevices;
   List<String>? geoTaggedVideoUpload;
+  List<String>? invoiceFile;
 
   ErrorsList({
     this.financialYear,
@@ -195,6 +196,7 @@ class ErrorsList {
     this.lastYearElectricityBill,
     this.airPollutionControlDevices,
     this.geoTaggedVideoUpload,
+    this.invoiceFile,
   });
 
   factory ErrorsList.fromJson(Map<String, dynamic> json) => ErrorsList(
@@ -561,5 +563,8 @@ class ErrorsList {
         geoTaggedVideoUpload: json["geoTaggedVideoUpload"] == null
             ? []
             : List<String>.from(json["geoTaggedVideoUpload"]!.map((x) => x)),
+        invoiceFile: json["invoice_file"] == null
+            ? []
+            : List<String>.from(json["invoice_file"]!.map((x) => x)),
       );
 }

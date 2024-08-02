@@ -70,6 +70,7 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
   String? gstNumberError;
   String? purchaseDateError;
   String? sourceTyreError;
+  String? invoiceError;
 
   String? changeDropdown;
   String newText = '';
@@ -240,6 +241,9 @@ class RecyclerProcurementAddDataViewModel extends BaseViewModel {
           uploadInvoiceError = (apiError?.procurementInvoiceFile ?? []).isEmpty
               ? ""
               : apiError?.procurementInvoiceFile?.first ?? "";
+          invoiceError = (apiError?.invoiceFile ?? []).isEmpty
+              ? ""
+              : apiError?.invoiceFile?.first ?? "";
           invoiceNumberError = (apiError?.invoiceNumber ?? []).isEmpty
               ? ""
               : apiError?.invoiceNumber?.first ?? "";
