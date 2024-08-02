@@ -74,9 +74,9 @@ class RecyclerProcurementAddDataScreen extends StatelessWidget {
                           showErrorMessage(
                               context, viewModel.quantityReceivedError ?? ''),
                         uploadInvoiceField(viewModel, context),
-                        if (viewModel.uploadInvoiceError?.isNotEmpty ?? false)
+                        if (viewModel.invoiceError?.isNotEmpty ?? false)
                           showErrorMessage(
-                              context, viewModel.uploadInvoiceError ?? ''),
+                              context, viewModel.invoiceError ?? ''),
                         invoiceNumberField(viewModel),
                         if (viewModel.invoiceNumberError?.isNotEmpty ?? false)
                           showErrorMessage(
