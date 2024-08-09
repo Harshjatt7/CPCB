@@ -6,15 +6,18 @@ String recyclerForm2RequestModelToJson(RecyclerForm2RequestModel data) =>
 class RecyclerForm2RequestModel {
   ProcessingCapacityRequest? processingCapacity;
   String? submit;
+  String? auditPlanId;
 
   RecyclerForm2RequestModel({
     this.processingCapacity,
     this.submit,
+    this.auditPlanId,
   });
 
   Map<String, dynamic> toJson() => {
         "processingCapacity": processingCapacity?.toJson(),
         "submit": submit,
+        "auditPlanId": auditPlanId,
       };
 }
 

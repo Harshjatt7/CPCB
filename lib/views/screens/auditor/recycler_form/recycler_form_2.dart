@@ -109,24 +109,28 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonTitleWidget(label: stringConstants.plantCapacityAssessment),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: CommonMandatoryTitle(
-              title: stringConstants.typeOfEndProduct,
-              isMandatory: true,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(),
-            child: CommonTextFormFieldWidget(
-                bgColor: appColor.black10,
-                hintText: stringConstants.select,
-                controller: viewModel.typeOfProductController ??
-                    TextEditingController(),
-                isReadOnly: true,
-                isMandatory: false,
-                onChanged: null),
-          ),
+          (widget.userType == "Retreader") == true
+              ? const SizedBox()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: CommonMandatoryTitle(
+                    title: stringConstants.typeOfEndProduct,
+                    isMandatory: true,
+                  ),
+                ),
+          (widget.userType == "Retreader") == true
+              ? const SizedBox()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(),
+                  child: CommonTextFormFieldWidget(
+                      bgColor: appColor.black10,
+                      hintText: stringConstants.select,
+                      controller: viewModel.typeOfProductController ??
+                          TextEditingController(),
+                      isReadOnly: true,
+                      isMandatory: false,
+                      onChanged: null),
+                ),
           commonRecyclerForm2Tile(
               title: stringConstants.plantProductionCapacity,
               hintText: stringConstants.enter,
@@ -250,13 +254,15 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonTitleWidget(label: stringConstants.plantCapacityAssessment),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: CommonMandatoryTitle(
-              title: stringConstants.typeOfEndProduct,
-              isMandatory: true,
-            ),
-          ),
+          (widget.userType == "Retreader") == true
+              ? const SizedBox()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: CommonMandatoryTitle(
+                    title: stringConstants.typeOfEndProduct,
+                    isMandatory: true,
+                  ),
+                ),
           (widget.userType == "Retreader") == false
               ? Padding(
                   padding: const EdgeInsets.symmetric(),
@@ -340,11 +346,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                     },
                   ),
                 )
-              : CommonTextFormFieldWidget(
-                  hintText: stringConstants.enter,
-                  isReadOnly: true,
-                  isMandatory: false,
-                  controller: TextEditingController()),
+              : const SizedBox(),
           if (viewModel.capacityTypeofEndProductError?.isNotEmpty ?? false)
             showErrorMessage(
                 context, viewModel.capacityTypeofEndProductError ?? ""),

@@ -6,15 +6,18 @@ String producerForm1RequestModelToJson(ProducerForm1RequestModel data) =>
 class ProducerForm1RequestModel {
   CompanyDetails? companyDetails;
   String? submit;
+  String? auditPlanId;
 
   ProducerForm1RequestModel({
     this.companyDetails,
     this.submit,
+    this.auditPlanId,
   });
 
   Map<String, dynamic> toJson() => {
         "companyDetails": companyDetails?.toJson(),
         "submit": submit,
+        "auditPlanId": auditPlanId,
       };
 }
 

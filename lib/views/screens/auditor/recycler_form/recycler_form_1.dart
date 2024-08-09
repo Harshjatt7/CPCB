@@ -84,14 +84,14 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   isLastStep: false,
                   isSummaryScreen: widget.isSummaryScreen,
                   onNextOrSubmit: () async {
-                           if (viewModel.state != ViewState.busy) {
-                    widget.isSummaryScreen == true
-                        ? viewModel.onNextButton(
-                            context, widget.id ?? "", widget.isRetreader)
-                        : await viewModel.formValidation(context,
-                            userId: widget.id ?? "",
-                            isRetreader: widget.userType == "Retreader");
-                           }
+                    if (viewModel.state != ViewState.busy) {
+                      widget.isSummaryScreen == true
+                          ? viewModel.onNextButton(
+                              context, widget.id ?? "", widget.isRetreader)
+                          : await viewModel.formValidation(context,
+                              userId: widget.id ?? "",
+                              isRetreader: widget.userType == "Retreader");
+                    }
                   },
                   onSavedDraft: () async {
                     await viewModel.postForm1Data(context,
@@ -125,7 +125,6 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
             disableController: viewModel.gstController,
             remarkController: viewModel.gstRemarkController,
             isReadOnly: true,
-            isSensitive: true,
           ),
           AuditorFormTile(
             isReadOnly: true,
@@ -273,6 +272,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
             filePath: viewModel.aadharFilePath,
             isSummaryScreen: widget.isSummaryScreen,
             isSensitive: true,
+            onTap: () {
+              viewModel.handleOnTap(context, RecyclerForm1.aadhar,
+                  viewModel.uploadAadharController);
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -287,6 +290,10 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               remarkController: viewModel.remarkPanNoController,
               uploadController: viewModel.uploadPanNoController,
               filePath: viewModel.panNoFilePath,
+              onTap: () {
+                viewModel.handleOnTap(context, RecyclerForm1.panNo,
+                    viewModel.uploadPanNoController);
+              },
             ),
           ),
           Column(
@@ -329,10 +336,6 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     viewModel.handleOnMachineTap(
                         context, viewModel.uploadControllerList[index], index);
                   },
-                  onSuffixTap: (index) async {
-                    await viewModel.handleOnMachineSuffixTap(
-                        context, viewModel.uploadControllerList[index], index);
-                  },
                 ),
               )
             ],
@@ -364,6 +367,14 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                         hintText: stringConstants.uploadFile,
                         isMandatory: false,
                         isReadOnly: true,
+                        onTap: () {
+                          viewModel.handleOnTap(
+                            context,
+                            RecyclerForm1.power,
+                            viewModel.uploadPowerController,
+                            isPdf: true,
+                          );
+                        },
                         controller: viewModel.uploadPowerController ??
                             TextEditingController()),
                   ),
@@ -398,6 +409,13 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
               remarksController: viewModel.remakrsPollutionController ??
                   TextEditingController(),
               uploadController: viewModel.uploadPollutionController,
+              onTap: () {
+                viewModel.handleOnTap(
+                  context,
+                  RecyclerForm1.pollution,
+                  viewModel.uploadPollutionController,
+                );
+              },
               isDocument: true,
             ),
           ),
@@ -427,6 +445,11 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                       isReadOnly: true,
                       hintText: stringConstants.uploadVideo,
                       isMandatory: false,
+                      onTap: () async {
+                        viewModel.handleOnTap(context, RecyclerForm1.video,
+                            viewModel.uploadVideoController,
+                            isVideo: true);
+                      },
                       controller: viewModel.uploadVideoController ??
                           TextEditingController(),
                     ),
@@ -769,6 +792,7 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                     radioList: viewModel.plantMachineyRadioList,
                     nwList: viewModel.nw ?? [],
                     headingList: viewModel.recyclerHeadingList,
+                    remarkError: viewModel.detailsOfMachineryRemarkError,
                   ),
                 ),
                 CommonRichText(

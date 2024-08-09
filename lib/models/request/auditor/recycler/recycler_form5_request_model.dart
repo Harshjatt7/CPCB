@@ -1,27 +1,19 @@
 class AuditorRecyclerForm5RequestModel {
   InvoiceAdditionalRequestDataRequest? wasteWaterGenerationAndDisposal;
   String? submit;
+  String? auditPlanId;
 
   AuditorRecyclerForm5RequestModel({
     this.wasteWaterGenerationAndDisposal,
     this.submit,
+    this.auditPlanId,
   });
-
-  factory AuditorRecyclerForm5RequestModel.fromJson(
-          Map<String, dynamic> json) =>
-      AuditorRecyclerForm5RequestModel(
-        wasteWaterGenerationAndDisposal:
-            json["wasteWaterGenerationAndDisposal"] == null
-                ? null
-                : InvoiceAdditionalRequestDataRequest.fromJson(
-                    json["wasteWaterGenerationAndDisposal"]),
-        submit: json["submit"],
-      );
 
   Map<String, dynamic> toJson() => {
         "wasteWaterGenerationAndDisposal":
             wasteWaterGenerationAndDisposal?.toJson(),
         "submit": submit,
+        "auditPlanId": auditPlanId,
       };
 }
 
@@ -35,18 +27,6 @@ class InvoiceAdditionalRequestDataRequest {
     this.etpCapacity,
     this.summary,
   });
-
-  factory InvoiceAdditionalRequestDataRequest.fromJson(Map<String, dynamic> json) =>
-      InvoiceAdditionalRequestDataRequest(
-        etpInstalled: json["etpInstalled"] == null
-            ? null
-            : EtpInstalledRequest.fromJson(json["etpInstalled"]),
-        etpCapacity: json["etpCapacity"] == null
-            ? null
-            : EtpCapacityRequest.fromJson(json["etpCapacity"]),
-        summary:
-            json["summary"] == null ? null : SummaryRequest.fromJson(json["summary"]),
-      );
 
   Map<String, dynamic> toJson() => {
         "etpInstalled": etpInstalled?.toJson(),
@@ -66,14 +46,6 @@ class EtpCapacityRequest {
     this.auditRemark,
   });
 
-  factory EtpCapacityRequest.fromJson(Map<String, dynamic> json) => EtpCapacityRequest(
-        auditConfirmedStatus: json["audit_confirmed_status"],
-        additionalData: json["additional_data"] == null
-            ? null
-            : EtpCapacityAdditionalDataRequest.fromJson(json["additional_data"]),
-        auditRemark: json["audit_remark"],
-      );
-
   Map<String, dynamic> toJson() => {
         "audit_confirmed_status": auditConfirmedStatus,
         "additional_data": additionalData?.toJson(),
@@ -87,11 +59,6 @@ class EtpCapacityAdditionalDataRequest {
   EtpCapacityAdditionalDataRequest({
     this.capacity,
   });
-
-  factory EtpCapacityAdditionalDataRequest.fromJson(Map<String, dynamic> json) =>
-      EtpCapacityAdditionalDataRequest(
-        capacity: json["capacity"],
-      );
 
   Map<String, dynamic> toJson() => {
         "capacity": capacity,
@@ -109,14 +76,6 @@ class EtpInstalledRequest {
     this.auditRemark,
   });
 
-  factory EtpInstalledRequest.fromJson(Map<String, dynamic> json) => EtpInstalledRequest(
-        auditConfirmedStatus: json["audit_confirmed_status"],
-        additionalData: json["additional_data"] == null
-            ? null
-            : EtpInstalledAdditionalDataRequest.fromJson(json["additional_data"]),
-        auditRemark: json["audit_remark"],
-      );
-
   Map<String, dynamic> toJson() => {
         "audit_confirmed_status": auditConfirmedStatus,
         "additional_data": additionalData?.toJson(),
@@ -131,11 +90,6 @@ class EtpInstalledAdditionalDataRequest {
     this.operational,
   });
 
-  factory EtpInstalledAdditionalDataRequest.fromJson(Map<String, dynamic> json) =>
-      EtpInstalledAdditionalDataRequest(
-        operational: json["operational"],
-      );
-
   Map<String, dynamic> toJson() => {
         "operational": operational,
       };
@@ -147,10 +101,6 @@ class SummaryRequest {
   SummaryRequest({
     this.auditRemark,
   });
-
-  factory SummaryRequest.fromJson(Map<String, dynamic> json) => SummaryRequest(
-        auditRemark: json["audit_remark"],
-      );
 
   Map<String, dynamic> toJson() => {
         "audit_remark": auditRemark,

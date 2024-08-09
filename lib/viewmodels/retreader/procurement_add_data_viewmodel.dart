@@ -205,7 +205,10 @@ class ProcurementAddDataViewModel extends BaseViewModel {
   }
 
   String? supplierContactDetailsValidation() {
-    return Validations().validatePhone(supplierContactDetailsController.text);
+    if (supplierContactDetailsController.text.isNotEmpty) {
+      return Validations().validatePhone(supplierContactDetailsController.text);
+    }
+    return null;
   }
 
   Future<FileSizeModel> getFileSize(String filepath, int decimals) async {

@@ -8,6 +8,7 @@ import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/store_key_constants.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/auditor/auditor_repository.dart';
+import 'package:cpcb_tyre/models/request/auditor/auditor_post_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/document_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form1_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form4_request_model.dart';
@@ -205,33 +206,43 @@ class RecyclerFormViewModel extends BaseViewModel {
   Position? position;
 
   void initializeForm1TextEditingControllers() async {
+    gstController = TextEditingController();
+    gstRemarkController = TextEditingController();
+    companyPanController = TextEditingController();
+    companyPanRemarkController = TextEditingController();
+    companyIECController = TextEditingController();
+    companyRemarkIECController = TextEditingController();
+    recyclerCTOController = TextEditingController();
+    recyclerRemakrCTOController = TextEditingController();
+    authorizationController = TextEditingController();
+    remarkAuthorizationController = TextEditingController();
+
+    recyclingDetailsController = TextEditingController();
+    remarkRecyclingDetailsController = TextEditingController();
+
+    gpsRecyclerLatitude = TextEditingController();
+    gpsRecyclerLongitude = TextEditingController();
+    gpsAuditorLatitude = TextEditingController();
+    gpsAuditorLongitude = TextEditingController();
+    gpsAuditorRemarkController = TextEditingController();
+
+    aadharController = TextEditingController();
+    remarkAadharController = TextEditingController();
+    uploadAadharController = TextEditingController();
+    panNoController = TextEditingController();
+    remarkPanNoController = TextEditingController();
+    uploadPanNoController = TextEditingController();
+
+    uploadPowerController = TextEditingController();
+    remarkPowerController = TextEditingController();
+
+    pollutionController = TextEditingController();
+    remakrsPollutionController = TextEditingController();
+    uploadPollutionController = TextEditingController();
+
     remarkVideoController = TextEditingController();
     uploadVideoController = TextEditingController();
-    remarkPowerController = TextEditingController();
-    uploadPowerController = TextEditingController();
-    gpsAuditorRemarkController = TextEditingController();
-    gpsAuditorLongitude = TextEditingController();
-    gpsAuditorLatitude = TextEditingController();
-    gpsRecyclerLongitude = TextEditingController();
-    gpsRecyclerLatitude = TextEditingController();
-    pollutionController = TextEditingController();
-    panNoController = TextEditingController();
-    aadharController = TextEditingController();
-    recyclingDetailsController = TextEditingController();
-    authorizationController = TextEditingController();
-    recyclerCTOController = TextEditingController();
-    companyRemarkIECController = TextEditingController();
-    companyPanRemarkController = TextEditingController();
-    gstRemarkController = TextEditingController();
-    remarkPanNoController = TextEditingController();
-    remarkAadharController = TextEditingController();
-    remarkRecyclingDetailsController = TextEditingController();
-    remarkAuthorizationController = TextEditingController();
-    recyclerRemakrCTOController = TextEditingController();
-    uploadPollutionController = TextEditingController();
-    uploadPanNoController = TextEditingController();
-    uploadAadharController = TextEditingController();
-    remakrsPollutionController = TextEditingController();
+
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
     //   await getCurrentLocation();
     // });
@@ -324,6 +335,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   ProductionInfo? productionInfo;
   List<EprDatum>? eprData;
   List<Nw>? nw = [];
+  List<MachineryResponse>? detailOfMachineryList = [];
   ProcurementInfo? procurementInfo;
   List<ProcurementDatum>? procurementData;
   PlanCapacityAssesment? planCapacityAssesment;
@@ -342,6 +354,7 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   //Form1
   String gstNoAuditRemarkError = "";
+  String detailsOfMachineryRemarkError = "";
   String companyPanAuditRemarkError = "";
   String ctoAuditRemarkError = "";
   String authorizationUnderHomwRulesAuditRemarkError = "";
@@ -536,12 +549,13 @@ class RecyclerFormViewModel extends BaseViewModel {
           auditRemark: areValuedCandDController?.text,
         ),
       ),
+      auditPlanId: id,
       submit: saveAsDraft ?? "",
     );
 
     try {
       final res = await auditorRepository.postRecyclerForm2Data(requestModel,
-          id: id, isRetreader: isRetreader);
+          isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
@@ -645,11 +659,12 @@ class RecyclerFormViewModel extends BaseViewModel {
           ),
         ),
       ),
+      auditPlanId: id,
       submit: saveAsDraft ?? "",
     );
     try {
       final res = await auditorRepository.postRecyclerForm3Data(requestModel,
-          id: id, isRetreader: isRetreader);
+          isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
@@ -717,6 +732,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       bool isRetreader = false}) async {
     state = ViewState.busy;
     gstNoAuditRemarkError = "";
+    detailsOfMachineryRemarkError = "";
     companyPanAuditRemarkError = "";
     ctoAuditRemarkError = "";
     authorizationUnderHomwRulesAuditRemarkError = "";
@@ -731,7 +747,8 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     try {
       _auditorRecycler1ResponseModel = await auditorRepository
-          .getRecyclerForm1Data(isRetreader: isRetreader, userId: userId);
+          .getRecyclerForm1Data(AuditorPostModel(auditPlanId: userId),
+              isRetreader: isRetreader);
       if (_auditorRecycler1ResponseModel?.isSuccess == true) {
         await getCurrentLocation();
         _auditorRecycler1ResponseModel?.data =
@@ -804,7 +821,8 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     try {
       _auditorRecycler2ResponseModel = await auditorRepository
-          .getRecyclerForm2Data(isRetreader: isRetreader, userId: userId);
+          .getRecyclerForm2Data(AuditorPostModel(auditPlanId: userId),
+              isRetreader: isRetreader);
       if (_auditorRecycler2ResponseModel?.isSuccess == true) {
         _auditorRecycler2ResponseModel?.data =
             AuditorRecyclerForm2ResponseModel.fromJson(
@@ -856,7 +874,8 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     try {
       _auditorRecycler3ResponseModel = await auditorRepository
-          .getRecyclerForm3Data(isRetreader: isRetreader, userId: userId);
+          .getRecyclerForm3Data(AuditorPostModel(auditPlanId: userId),
+              isRetreader: isRetreader);
       if (_auditorRecycler3ResponseModel?.isSuccess == true) {
         _auditorRecycler3ResponseModel?.data =
             AuditorRecyclerForm3ResponseModel.fromJson(
@@ -896,7 +915,8 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     try {
       _auditorRecycler4ResponseModel = await auditorRepository
-          .getRecyclerForm4Data(isRetreader: isRetreader, userId: userId);
+          .getRecyclerForm4Data(AuditorPostModel(auditPlanId: userId),
+              isRetreader: isRetreader);
       if (_auditorRecycler4ResponseModel?.isSuccess == true) {
         _auditorRecycler4ResponseModel?.data =
             AuditorRecyclerForm4ResponseModel.fromJson(
@@ -927,7 +947,8 @@ class RecyclerFormViewModel extends BaseViewModel {
     summaryAuditRemarkError = '';
     try {
       _auditorRecycler5ResponseModel = await auditorRepository
-          .getRecyclerForm5Data(isRetreader: isRetreader, userId: userId);
+          .getRecyclerForm5Data(AuditorPostModel(auditPlanId: userId),
+              isRetreader: isRetreader);
       if (_auditorRecycler5ResponseModel?.isSuccess == true) {
         _auditorRecycler5ResponseModel?.data =
             AuditorRecyclerForm5ResponseModel.fromJson(
@@ -1243,6 +1264,23 @@ class RecyclerFormViewModel extends BaseViewModel {
       );
       HelperFunctions().logger(nw.toString());
       HelperFunctions().logger(data.toString());
+
+      Map<String, dynamic>? otherMachineSummaryData =
+          _auditorRecycler1ResponseModel?.data?.data?.auditSummary
+              ?.detailsOfMachinery?.additionalData?.machinery;
+      otherMachineSummaryData?.entries.forEach((element) {
+        detailOfMachineryList?.add(MachineryResponse.fromJson(element.value));
+        for (int i = 0; i < plantMachineryControllerList.length; i++) {
+          plantMachineryControllerList[i].text =
+              detailOfMachineryList?[i].auditRemark ?? '';
+        }
+        for (int i = 0; i < plantMachineyRadioList.length; i++) {
+          plantMachineyRadioList[i] =
+              detailOfMachineryList?[i].auditConfirmedStatus ?? '';
+        }
+        helperFunctions.logger(otherMachineSummaryData.toString());
+        helperFunctions.logger(detailOfMachineryList.toString());
+      });
     }
     updateUI();
     aadharDocument = DocumentData(
@@ -1680,7 +1718,7 @@ class RecyclerFormViewModel extends BaseViewModel {
         ? "1"
         : totalQuantitySalesController?.text ?? "");
 
-    if (differenceInActualProccessingController?.text.isNotEmpty ?? false) {
+    if (actualProcessingCapacityController?.text.isNotEmpty ?? false) {
       uploadSalesController?.text = (1.05 * y - z).toString();
     }
   }
@@ -1868,7 +1906,7 @@ class RecyclerFormViewModel extends BaseViewModel {
 
       if (value.isSuccess == true) {
         helperFunctions.downloadAndStoreFile(
-            name: "${DateTime.now().millisecond}", response: value);
+            name: "${DateTime.now().millisecond}.pdf", response: value);
         state = ViewState.idle;
         return value;
       } else {
@@ -1983,6 +2021,21 @@ class RecyclerFormViewModel extends BaseViewModel {
     return null;
   }
 
+  Map<String, Machinery>? getPlantMachinery() {
+    Map<String, Machinery> machineryMap = {};
+    if (plantMachineryControllerList.length == plantMachineyRadioList.length) {
+      for (int i = 0; i < plantMachineryControllerList.length; i++) {
+        machineryMap[(nw?[i].machineryId ?? '')] = Machinery(
+          auditConfirmedStatus: plantMachineyRadioList[i],
+          auditRemark: plantMachineryControllerList[i].text,
+        );
+      }
+      return machineryMap;
+    }
+    updateUI();
+    return null;
+  }
+
   List<OmRequest> getOmRequest() {
     if (controllerList[0].text.isNotEmpty ||
         uploadControllerList[0].text.isNotEmpty) {
@@ -2037,6 +2090,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       AuditorRecyclerForm1RequestModel requestModel =
           AuditorRecyclerForm1RequestModel(
               submit: submit,
+              auditPlanId: userId,
               generalInfo: GenerralInfoRequest(
                   gstNo: AddressLine(
                       auditConfirmedStatus: radioGst,
@@ -2085,6 +2139,9 @@ class RecyclerFormViewModel extends BaseViewModel {
                   otherMachineries: OtherMachineriesRequest(
                       additionalData: OtherMachineriesAdditionalDataRequest(
                           om: getOmRequest())),
+                  detailsOfMachinery: DetailsOfMachinery(
+                      additionalData: DetailsOfMachineryAdditionalData(
+                          machinery: getPlantMachinery())),
                   lastYearElectricityBill: AirPollutionControlDevicesRequest(
                       auditRemark: remarkPowerController?.text,
                       auditConfirmedStatus: radioPowerConsumption,
@@ -2094,18 +2151,12 @@ class RecyclerFormViewModel extends BaseViewModel {
                               lastYearElectricityBillDocument?.fileKey ?? '',
                           fileLink:
                               lastYearElectricityBillDocument?.fileUrl ?? '')),
-                  airPollutionControlDevices: AirPollutionControlDevicesRequest(
-                      auditRemark: remakrsPollutionController?.text,
-                      auditConfirmedStatus: radioPollution,
-                      auditDocument: pollutionFileName ??
-                          airPollutionControlDevicesDocument?.fileName ??
-                          '',
-                      additionalData:
-                          AirPollutionControlDevicesAdditionalDataRequest(fileKey: airPollutionControlDevicesDocument?.fileKey ?? '', fileLink: airPollutionControlDevicesDocument?.fileUrl ?? '')),
+                  airPollutionControlDevices:
+                      AirPollutionControlDevicesRequest(auditRemark: remakrsPollutionController?.text, auditConfirmedStatus: radioPollution, auditDocument: pollutionFileName ?? airPollutionControlDevicesDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: airPollutionControlDevicesDocument?.fileKey ?? '', fileLink: airPollutionControlDevicesDocument?.fileUrl ?? '')),
                   geoTaggedVideoUpload: AirPollutionControlDevicesRequest(auditRemark: remarkVideoController?.text, auditConfirmedStatus: radioPlant, auditDocument: geoTaggedVideoUploadDocument?.fileName ?? '', additionalData: AirPollutionControlDevicesAdditionalDataRequest(fileKey: geoTaggedVideoUploadDocument?.fileKey ?? '', fileLink: geoTaggedVideoUploadDocument?.fileUrl ?? ''))));
 
       final res = await auditorRepository.postRecyclerForm1Data(requestModel,
-          userId: userId, isRetreader: isRetreader);
+          isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (submit != storeKeyConstants.saveAsDraft) {
           machineFile.clear();
@@ -2134,6 +2185,10 @@ class RecyclerFormViewModel extends BaseViewModel {
         }
       } else {
         final apiError = res?.error?.errorsList;
+        detailsOfMachineryRemarkError =
+            (apiError?.detailsOfMachineryRemark ?? []).isEmpty
+                ? ""
+                : apiError?.detailsOfMachineryRemark?.first ?? '';
 
         gstNoAuditRemarkError =
             (apiError?.generalInfoGstNoAuditRemark ?? []).isEmpty
@@ -2238,11 +2293,12 @@ class RecyclerFormViewModel extends BaseViewModel {
                   additionalData: BuyersAdditionalRequestData(
                       numberOfBuyersContacted: buyersController?.text)),
             ),
+            auditPlanId: userId,
             submit: submit);
     state = ViewState.busy;
     try {
       final res = await auditorRepository.postRecyclerForm4Data(requestModel,
-          userId: userId, isRetreader: isRetreader);
+          isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
@@ -2306,6 +2362,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     AuditorRecyclerForm5RequestModel requestModel =
         AuditorRecyclerForm5RequestModel(
             submit: submit,
+            auditPlanId: userId,
             wasteWaterGenerationAndDisposal:
                 InvoiceAdditionalRequestDataRequest(
                     etpInstalled: EtpInstalledRequest(
@@ -2323,7 +2380,7 @@ class RecyclerFormViewModel extends BaseViewModel {
     state = ViewState.busy;
     try {
       final res = await auditorRepository.postRecyclerForm5Data(requestModel,
-          isRetreader: isRetreader, userId: userId);
+          isRetreader: isRetreader);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(

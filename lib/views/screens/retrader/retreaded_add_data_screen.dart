@@ -93,7 +93,6 @@ class RetreadedAddDataScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(
-                  inputFormatters: [LengthLimitingTextInputFormatter(10)],
                   hintText: viewModel.stringConstants.contactDetails,
                   isMandatory: false,
                   controller: viewModel.contactDetailsController,
@@ -169,7 +168,10 @@ class RetreadedAddDataScreen extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           hintText: viewModel.stringConstants.quantityProduced,
           validator: (value) {
-            return viewModel.quantityProducedValidation();
+            if (viewModel.producedQtyError.isEmpty) {
+              return viewModel.quantityProducedValidation();
+            }
+            return null;
           },
           isMandatory: true,
           controller: viewModel.quantityProducedController),
@@ -185,7 +187,10 @@ class RetreadedAddDataScreen extends StatelessWidget {
           hintText: viewModel.stringConstants.quantityProcessed,
           isMandatory: true,
           validator: (value) {
-            return viewModel.quantityProcessedValidation();
+            if (viewModel.processedQtyError.isEmpty) {
+              return viewModel.quantityProcessedValidation();
+            }
+            return null;
           },
           controller: viewModel.quantityProcessedController),
     );
@@ -195,15 +200,15 @@ class RetreadedAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          inputFormatters: [LengthLimitingTextInputFormatter(15)],
-          hintText: viewModel.stringConstants.gstNumberOfWasteTyreSupplier,
-          validator: (value) {
-            return viewModel.gstNumberValidation();
-          },
-          isMandatory: true,
-          controller: viewModel.gstController,
-          isSensitive: true,
-          ),
+        inputFormatters: [LengthLimitingTextInputFormatter(15)],
+        hintText: viewModel.stringConstants.gstNumberOfWasteTyreSupplier,
+        validator: (value) {
+          return viewModel.gstNumberValidation();
+        },
+        isMandatory: true,
+        controller: viewModel.gstController,
+        isSensitive: true,
+      ),
     );
   }
 
@@ -237,9 +242,9 @@ class RetreadedAddDataScreen extends StatelessWidget {
         hintText: viewModel.stringConstants.nameOfWasteTyreSupplier,
         isMandatory: false,
         controller: viewModel.nameOfWasteTyreSupplierController,
-        validator: (value) {
-          return viewModel.nameValidation();
-        },
+        // validator: (value) {
+        //   return viewModel.nameValidation();
+        // },
       ),
     );
   }

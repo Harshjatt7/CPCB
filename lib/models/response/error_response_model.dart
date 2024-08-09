@@ -118,6 +118,7 @@ class ErrorsList {
   List<String>? airPollutionControlDevices;
   List<String>? geoTaggedVideoUpload;
   List<String>? invoiceFile;
+  List<String>? detailsOfMachineryRemark;
 
   ErrorsList({
     this.financialYear,
@@ -145,6 +146,7 @@ class ErrorsList {
     this.producerType,
     this.typeOfTyreManufacture,
     this.month,
+    this.detailsOfMachineryRemark,
     this.total,
     this.complaint,
     this.companyNameAndAddressRemark,
@@ -566,5 +568,12 @@ class ErrorsList {
         invoiceFile: json["invoice_file"] == null
             ? []
             : List<String>.from(json["invoice_file"]!.map((x) => x)),
+        detailsOfMachineryRemark: json[
+                    "generalInfo.detailsOfMachinery.additional_data.machinery.Nw.audit_remark"] ==
+                null
+            ? []
+            : List<String>.from(json[
+                    "generalInfo.detailsOfMachinery.additional_data.machinery.Nw.audit_remark"]!
+                .map((x) => x)),
       );
 }

@@ -1,15 +1,15 @@
 class AuditorRecyclerForm1RequestModel {
   GenerralInfoRequest? generalInfo;
   String? submit;
+  String? auditPlanId;
 
-  AuditorRecyclerForm1RequestModel({
-    this.generalInfo,
-    this.submit,
-  });
+  AuditorRecyclerForm1RequestModel(
+      {this.generalInfo, this.submit, this.auditPlanId});
 
   Map<String, dynamic> toJson() => {
         "generalInfo": generalInfo?.toJson(),
         "submit": submit,
+        "auditPlanId": auditPlanId,
       };
 }
 
@@ -28,6 +28,7 @@ class GenerralInfoRequest {
   AirPollutionControlDevicesRequest? lastYearElectricityBill;
   AirPollutionControlDevicesRequest? airPollutionControlDevices;
   AirPollutionControlDevicesRequest? geoTaggedVideoUpload;
+  DetailsOfMachinery? detailsOfMachinery;
 
   GenerralInfoRequest({
     this.gstNo,
@@ -41,6 +42,7 @@ class GenerralInfoRequest {
     this.authorizedPersonAdhar,
     this.authorizedPersonPan,
     this.otherMachineries,
+    this.detailsOfMachinery,
     this.lastYearElectricityBill,
     this.airPollutionControlDevices,
     this.geoTaggedVideoUpload,
@@ -58,6 +60,7 @@ class GenerralInfoRequest {
         "authorizedPersonAdhar": authorizedPersonAdhar?.toJson(),
         "authorizedPersonPan": authorizedPersonPan?.toJson(),
         "otherMachineries": otherMachineries?.toJson(),
+        "detailsOfMachinery": detailsOfMachinery?.toJson(),
         "lastYearElectricityBill": lastYearElectricityBill?.toJson(),
         "airPollutionControlDevices": airPollutionControlDevices?.toJson(),
         "geoTaggedVideoUpload": geoTaggedVideoUpload?.toJson(),
@@ -113,6 +116,48 @@ class AirPollutionControlDevicesAdditionalDataRequest {
         "fileKey": fileKey,
         "fileLink": fileLink,
       };
+}
+
+class DetailsOfMachinery {
+  DetailsOfMachineryAdditionalData? additionalData;
+
+  DetailsOfMachinery({
+    this.additionalData,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "additional_data": additionalData?.toJson(),
+      };
+}
+
+class DetailsOfMachineryAdditionalData {
+  Map<String, Machinery>? machinery;
+
+  DetailsOfMachineryAdditionalData({
+    this.machinery,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'machinery':
+            machinery?.map((key, value) => MapEntry(key, value.toJson())),
+      };
+}
+
+class Machinery {
+  final String auditConfirmedStatus;
+  final String auditRemark;
+
+  Machinery({
+    required this.auditConfirmedStatus,
+    required this.auditRemark,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'audit_confirmed_status': auditConfirmedStatus,
+      'audit_remark': auditRemark,
+    };
+  }
 }
 
 class GpsLocationAuditorRequest {

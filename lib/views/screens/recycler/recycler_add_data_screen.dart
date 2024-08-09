@@ -161,7 +161,6 @@ class RecyclerAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          inputFormatters: [LengthLimitingTextInputFormatter(10)],
           hintText: viewModel.stringConstants.supplierContactDetails,
           textInputType: TextInputType.number,
           isMandatory: true,

@@ -39,7 +39,6 @@ class ProducerSalesList extends StatelessWidget {
   final AppColor appColor = AppColor();
   @override
   Widget build(BuildContext context) {
-    bool? isWeight = true;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
