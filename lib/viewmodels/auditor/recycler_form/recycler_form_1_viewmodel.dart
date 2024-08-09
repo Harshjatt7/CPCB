@@ -1816,6 +1816,7 @@ class RecyclerFormViewModel extends BaseViewModel {
   }
 
   final formKey = GlobalKey<FormState>();
+  final formKey2 = GlobalKey<FormState>();
 
   Future<void> postDocumentData(
       BuildContext context, DocumentRequestModel request,
@@ -2057,10 +2058,7 @@ class RecyclerFormViewModel extends BaseViewModel {
       }
       return omRequestList;
     } else {
-      OmRequest omRequest =
-          OmRequest(auditDocument: '', value: '', fileKey: '', fileLink: '');
-      omRequestList.add(omRequest);
-      return omRequestList;
+      return [];
     }
   }
 
@@ -2070,13 +2068,15 @@ class RecyclerFormViewModel extends BaseViewModel {
       String submit = ""}) async {
     if (controllerList[0].text.isNotEmpty ||
         uploadControllerList[0].text.isNotEmpty) {
-      if (formKey.currentState?.validate() ?? false) {
+      if ((formKey.currentState?.validate() ?? false)&& (formKey2.currentState?.validate()??false)) {
         postForm1Data(context,
             isRetreader: isRetreader, submit: submit, userId: userId);
       }
     } else {
-      postForm1Data(context,
-          isRetreader: isRetreader, submit: submit, userId: userId);
+      if (formKey2.currentState?.validate() ?? false) {
+        postForm1Data(context,
+            isRetreader: isRetreader, submit: submit, userId: userId);
+      }
     }
   }
 
