@@ -68,7 +68,7 @@ class RetreadedAddDataViewModel extends BaseViewModel {
         apiResponse?.data =
             AddDataResponseModel.fromJson(apiResponse.completeResponse);
         if (context.mounted) {
-           state = ViewState.idle;
+          state = ViewState.idle;
           helperFunctions.commonSuccessSnackBar(
               context,
               apiResponse?.data?.message ??
@@ -149,7 +149,10 @@ class RetreadedAddDataViewModel extends BaseViewModel {
   }
 
   String? contactDetailsValidation() {
-    return Validations().validatePhone(contactDetailsController.text);
+    if (contactDetailsController.text.isNotEmpty) {
+      return Validations().validatePhone(contactDetailsController.text);
+    }
+    return null;
   }
 
   String? quantityOfWasteGeneratedValidation() {

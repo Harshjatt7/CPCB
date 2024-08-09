@@ -181,6 +181,7 @@ class _AuditorRecyclerForm5State extends State<AuditorRecyclerForm5> {
               isReadOnly: widget.isSummaryScreen,
               maxLength: 500,
               maxLines: 4,
+              isMultiline: true,
               isMandatory: false,
               hintText: stringConstants.textHere.i18n(),
               controller:

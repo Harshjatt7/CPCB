@@ -86,7 +86,10 @@ class RecyclerAddDataViewModel extends BaseViewModel {
   }
 
   String? contactDetailsValidation() {
-    return Validations().validatePhone(sellerMobileController.text);
+    if (sellerMobileController.text.isNotEmpty) {
+      return Validations().validatePhone(sellerMobileController.text);
+    }
+    return null;
   }
 
   void addYear() {

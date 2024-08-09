@@ -56,12 +56,14 @@ class AuditSummary {
   AirPollutionControlDevices? lastYearElectricityBill;
   AirPollutionControlDevices? airPollutionControlDevices;
   AirPollutionControlDevices? geoTaggedVideoUpload;
+  DetailsOfMachineryResponse? detailsOfMachinery;
 
   AuditSummary({
     this.gstNo,
     this.companyPan,
     this.companyIec,
     this.cto,
+    this.detailsOfMachinery,
     this.authorizationUnderHomwRules,
     this.addressLine1,
     this.gpsLocationRecycler,
@@ -117,6 +119,9 @@ class AuditSummary {
         geoTaggedVideoUpload: json["geoTaggedVideoUpload"] == null
             ? null
             : AirPollutionControlDevices.fromJson(json["geoTaggedVideoUpload"]),
+        detailsOfMachinery: json["detailsOfMachinery"] == null
+            ? null
+            : DetailsOfMachineryResponse.fromJson(json["detailsOfMachinery"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -207,6 +212,75 @@ class AirPollutionControlDevices {
         "audit_confirmed_status": auditConfirmedStatus,
         "additional_data": additionalData?.toJson(),
       };
+}
+
+class DetailsOfMachineryResponse {
+  dynamic auditValue;
+  dynamic auditDocument;
+  dynamic auditRemark;
+  int? auditConfirmedStatus;
+  DetailsOfMachineryAdditionalDataResponse? additionalData;
+
+  DetailsOfMachineryResponse({
+    this.auditValue,
+    this.auditDocument,
+    this.auditRemark,
+    this.auditConfirmedStatus,
+    this.additionalData,
+  });
+
+  factory DetailsOfMachineryResponse.fromJson(Map<String, dynamic> json) =>
+      DetailsOfMachineryResponse(
+        auditValue: json["audit_value"],
+        auditDocument: json["audit_document"],
+        auditRemark: json["audit_remark"],
+        auditConfirmedStatus: json["audit_confirmed_status"],
+        additionalData: json["additional_data"] == null
+            ? null
+            : DetailsOfMachineryAdditionalDataResponse.fromJson(
+                json["additional_data"]),
+      );
+}
+
+class DetailsOfMachineryAdditionalDataResponse {
+  Map<String, dynamic>? machinery;
+
+  DetailsOfMachineryAdditionalDataResponse({
+    this.machinery,
+  });
+
+  factory DetailsOfMachineryAdditionalDataResponse.fromJson(
+          Map<String, dynamic> json) =>
+      DetailsOfMachineryAdditionalDataResponse(
+        machinery: (json["machinery"] == null ||
+                (json["machinery"] != null && json["machinery"].length == 0))
+            ? null
+            : json["machinery"],
+      );
+}
+
+class MachineryResponse {
+  final String? auditConfirmedStatus;
+  final String? auditRemark;
+
+  MachineryResponse({
+    this.auditConfirmedStatus,
+    this.auditRemark,
+  });
+
+  factory MachineryResponse.fromJson(Map<String, dynamic> json) {
+    return MachineryResponse(
+      auditConfirmedStatus: json['audit_confirmed_status'],
+      auditRemark: json['audit_remark'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'audit_confirmed_status': auditConfirmedStatus,
+      'audit_remark': auditRemark,
+    };
+  }
 }
 
 class AirPollutionControlDevicesAdditionalData {
@@ -443,15 +517,15 @@ class GeneralInfoStep1Data {
 //       };
 }
 
-// class DetailsOfMachinery {
+// class DetailsOfMachineryResponse {
 //   Nw? nw;
 
-//   DetailsOfMachinery({
+//   DetailsOfMachineryResponse({
 //     this.nw,
 //   });
 
-//   factory DetailsOfMachinery.fromJson(Map<String, dynamic> json) =>
-//       DetailsOfMachinery(
+//   factory DetailsOfMachineryResponse.fromJson(Map<String, dynamic> json) =>
+//       DetailsOfMachineryResponse(
 //         nw: json["Nw"] == null ? null : Nw.fromJson(json["Nw"]),
 //       );
 

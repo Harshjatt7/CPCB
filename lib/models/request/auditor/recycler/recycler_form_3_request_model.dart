@@ -6,15 +6,18 @@ String recyclerForm3RequestModelToJson(RecyclerForm3RequestModel data) =>
 class RecyclerForm3RequestModel {
   ProcurementInfoRequest? procurementInfo;
   String? submit;
+  String? auditPlanId;
 
   RecyclerForm3RequestModel({
     this.procurementInfo,
     this.submit,
+    this.auditPlanId,
   });
 
   Map<String, dynamic> toJson() => {
         "procurementInfo": procurementInfo?.toJson(),
         "submit": submit,
+        "auditPlanId": auditPlanId,
       };
 }
 

@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/request/auditor/auditor_post_request_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -117,8 +118,9 @@ class AuditorListViewModel extends BaseViewModel {
       BuildContext context, AuditPlanDetailData? auditPlanDetail) async {
     state = ViewState.busy;
     if (auditPlanDetail?.status == "assigned") {
-      await AuditorRepository()
-          .getAuditStatus(status: "assigned", id: auditPlanDetail?.id);
+      await AuditorRepository().getAuditStatus(
+          AuditorPostModel(auditPlanId: auditPlanDetail?.id),
+          status: "assigned");
       if (context.mounted) {
         await getAuditPlanDetail(context, id: auditPlanDetail?.id);
       }
@@ -127,8 +129,9 @@ class AuditorListViewModel extends BaseViewModel {
         viewBottomSheet(context, auditPlanDetail: updatedDetail);
       }
     } else if (auditPlanDetail?.status == "acknowledged") {
-      await AuditorRepository()
-          .getAuditStatus(status: "acknowledged", id: auditPlanDetail?.id);
+      await AuditorRepository().getAuditStatus(
+          AuditorPostModel(auditPlanId: auditPlanDetail?.id),
+          status: "acknowledged");
 
       if (context.mounted) {
         navigateToStepperScreen(
@@ -246,7 +249,8 @@ class AuditorListViewModel extends BaseViewModel {
     state = ViewState.busy;
 
     try {
-      _auditPlanDetailModel = await _auditorRepository.getAuditPlanDetail(id);
+      _auditPlanDetailModel = await _auditorRepository
+          .getAuditPlanDetail(AuditorPostModel(auditPlanId: id));
       if (_auditPlanDetailModel?.isSuccess == true) {
         _auditPlanDetailModel?.data = AuditPlanDetailResponseModel.fromJson(
             _auditPlanDetailModel?.completeResponse);

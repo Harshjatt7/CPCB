@@ -1,6 +1,7 @@
 //auditor's repo
 import 'package:cpcb_tyre/constants/api_constant.dart';
 import 'package:cpcb_tyre/controllers/base_api_controllers.dart';
+import 'package:cpcb_tyre/models/request/auditor/auditor_post_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/producer/producer_form_3_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form1_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/recycler/recycler_form4_request_model.dart';
@@ -17,6 +18,7 @@ import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form2_respon
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form3_reponse_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form4_response_model.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form5_response_model.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:dio/dio.dart';
 
 import '../../models/request/auditor/producer/producer_form_2_request_model.dart';
@@ -31,50 +33,54 @@ class AuditorRepository {
   final _apiRoutes = APIRoutes();
   final _apiBase = APIBase();
 
-  Future getAuditStatus({String? id, String? status}) async {
-    APIResponse<AddDataResponseModel>? response = await _apiBase.getRequest(
+  Future getAuditStatus(AuditorPostModel requestModel, {String? status}) async {
+    Map<String, dynamic> request = requestModel.toJson();
+    APIResponse<AddDataResponseModel>? response = await _apiBase.postRequest(
         status == "assigned"
-            ? "${_apiRoutes.auditorPerformAcknowledge}/$id"
-            : "${_apiRoutes.auditorStartAcknowlege}/$id",
+            ? _apiRoutes.auditorPerformAcknowledge
+            : _apiRoutes.auditorStartAcknowlege,
+        data: request,
         isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<AddDataResponseModel?>?> postProducerForm3Data(
-      ProducerForm3RequestModel requestModel,
-      {String? id}) async {
+    ProducerForm3RequestModel requestModel,
+  ) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
-      "${_apiRoutes.auditorProducerForm3RequestAPIRoute}/$id",
+      _apiRoutes.auditorProducerForm3RequestAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );
     return response;
   }
 
-  Future getProducerForm3Data({String? id}) async {
+  Future getProducerForm3Data(AuditorPostModel requestModel) async {
+    Map<String, dynamic> request = requestModel.toJson();
     APIResponse<ProducerForm3ResponseModel?>? response = await _apiBase
-        .getRequest("${_apiRoutes.auditorProducerForm3ResponseAPIRoute}/$id",
-            isAuthorizationRequired: true);
+        .postRequest(_apiRoutes.auditorProducerForm3ResponseAPIRoute,
+            data: request, isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<AddDataResponseModel?>?> postProducerForm2Data(
-      ProducerForm2RequestModel requestModel,
-      {String? id}) async {
+    ProducerForm2RequestModel requestModel,
+  ) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
-      "${_apiRoutes.auditorProducerForm2RequestAPIRoute}/$id",
+      _apiRoutes.auditorProducerForm2RequestAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );
     return response;
   }
 
-  Future getProducerForm2Data({String? id}) async {
+  Future getProducerForm2Data(AuditorPostModel requestModel) async {
+    Map<String, dynamic> request = requestModel.toJson();
     APIResponse<ProducerForm2ResponseModel?>? response = await _apiBase
-        .getRequest("${_apiRoutes.auditorProducerForm2ResponseAPIRoute}/$id",
-            isAuthorizationRequired: true);
+        .postRequest(_apiRoutes.auditorProducerForm2ResponseAPIRoute,
+            data: request, isAuthorizationRequired: true);
     return response;
   }
 
@@ -125,26 +131,29 @@ class AuditorRepository {
     return response;
   }
 
-  Future getAuditPlanDetail(String? id) async {
-    APIResponse<AuditPlanDetailResponseModel?>? response = await _apiBase
-        .getRequest("${_apiRoutes.auditorAuditPlanDetailAPIRoute}/$id",
-            isAuthorizationRequired: true);
+  Future getAuditPlanDetail(AuditorPostModel requestModel) async {
+    Map<String, dynamic> request = requestModel.toJson();
+
+    APIResponse<AuditPlanDetailResponseModel?>? response =
+        await _apiBase.postRequest(_apiRoutes.auditorAuditPlanDetailAPIRoute,
+            data: request, isAuthorizationRequired: true);
     return response;
   }
 
-  Future getProducerForm1Data({String? id}) async {
+  Future getProducerForm1Data(AuditorPostModel requestModel) async {
+    Map<String, dynamic> request = requestModel.toJson();
     APIResponse<ProducerForm1ResponseModel?>? response = await _apiBase
-        .getRequest("${_apiRoutes.auditorProducerForm1ResponseAPIRoute}/$id",
-            isAuthorizationRequired: true);
+        .postRequest(_apiRoutes.auditorProducerForm1ResponseAPIRoute,
+            data: request, isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<AddDataResponseModel?>?> postProducerForm1Data(
-      ProducerForm1RequestModel requestModel,
-      {String? id}) async {
+    ProducerForm1RequestModel requestModel,
+  ) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
-      "${_apiRoutes.auditorProducerForm1RequestAPIRoute}/$id",
+      _apiRoutes.auditorProducerForm1RequestAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );
@@ -152,69 +161,83 @@ class AuditorRepository {
   }
 
   Future<APIResponse<AuditorRecyclerForm1ResponseModel?>?> getRecyclerForm1Data(
-      {String? userId, bool isRetreader = false}) async {
+      AuditorPostModel requestModel,
+      {bool isRetreader = false}) async {
+    Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AuditorRecyclerForm1ResponseModel?>? response =
-        await _apiBase.getRequest(
+        await _apiBase.postRequest(
             isRetreader == true
-                ? "${_apiRoutes.auditorRetreaderForm1APIRoute}/$userId"
-                : "${_apiRoutes.auditorRecyclerForm1APIRoute}/$userId",
+                ? _apiRoutes.auditorRetreaderForm1APIRoute
+                : _apiRoutes.auditorRecyclerForm1APIRoute,
+            data: request,
             isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<AuditorRecyclerForm2ResponseModel?>?> getRecyclerForm2Data(
-      {String userId = "", bool isRetreader = false}) async {
+      AuditorPostModel requestModel,
+      {bool isRetreader = false}) async {
+    Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AuditorRecyclerForm2ResponseModel?>? response =
-        await _apiBase.getRequest(
+        await _apiBase.postRequest(
             isRetreader == true
-                ? "${_apiRoutes.auditorRetreaderForm2APIRoute}/$userId"
-                : "${_apiRoutes.auditorRecyclerForm2APIRoute}/$userId",
+                ? _apiRoutes.auditorRetreaderForm2APIRoute
+                : _apiRoutes.auditorRecyclerForm2APIRoute,
+            data: request,
             isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<AuditorRecyclerForm3ResponseModel?>?> getRecyclerForm3Data(
-      {String userId = "", bool isRetreader = false}) async {
+      AuditorPostModel requestModel,
+      {bool isRetreader = false}) async {
+    Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AuditorRecyclerForm3ResponseModel?>? response =
-        await _apiBase.getRequest(
+        await _apiBase.postRequest(
             isRetreader == true
-                ? "${_apiRoutes.auditorRetreaderForm3APIRoute}/$userId"
-                : "${_apiRoutes.auditorRecyclerForm3APIRoute}/$userId",
+                ? _apiRoutes.auditorRetreaderForm3APIRoute
+                : _apiRoutes.auditorRecyclerForm3APIRoute,
+            data: request,
             isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<AuditorRecyclerForm4ResponseModel?>?> getRecyclerForm4Data(
-      {String userId = "", bool isRetreader = false}) async {
+      AuditorPostModel requestModel,
+      {bool isRetreader = false}) async {
+    Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AuditorRecyclerForm4ResponseModel?>? response =
-        await _apiBase.getRequest(
+        await _apiBase.postRequest(
             isRetreader == true
-                ? "${_apiRoutes.auditorRetreaderForm4APIRoute}/$userId"
-                : "${_apiRoutes.auditorRecyclerForm4APIRoute}/$userId",
+                ? _apiRoutes.auditorRetreaderForm4APIRoute
+                : _apiRoutes.auditorRecyclerForm4APIRoute,
+            data: request,
             isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<AuditorRecyclerForm5ResponseModel?>?> getRecyclerForm5Data(
-      {String userId = "", bool isRetreader = false}) async {
+      AuditorPostModel requestModel,
+      {bool isRetreader = false}) async {
+    Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AuditorRecyclerForm5ResponseModel?>? response =
-        await _apiBase.getRequest(
+        await _apiBase.postRequest(
             isRetreader == true
-                ? "${_apiRoutes.auditorRetreaderForm5APIRoute}/$userId"
-                : "${_apiRoutes.auditorRecyclerForm5APIRoute}/$userId",
+                ? _apiRoutes.auditorRetreaderForm5APIRoute
+                : _apiRoutes.auditorRecyclerForm5APIRoute,
+            data: request,
             isAuthorizationRequired: true);
     return response;
   }
 
   Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm1Data(
       AuditorRecyclerForm1RequestModel requestModel,
-      {String userId = "",
-      bool isRetreader = false}) async {
+      {bool isRetreader = false}) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
       isRetreader == true
-          ? "${_apiRoutes.auditorRetreaderForm1RequestAPIRoute}/$userId"
-          : "${_apiRoutes.auditorRecyclerForm1RequestAPIRoute}/$userId",
+          ? _apiRoutes.auditorRetreaderForm1RequestAPIRoute
+          : _apiRoutes.auditorRecyclerForm1RequestAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );
@@ -223,13 +246,12 @@ class AuditorRepository {
 
   Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm2Data(
       RecyclerForm2RequestModel requestModel,
-      {String? id,
-      bool? isRetreader}) async {
+      {bool? isRetreader}) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
       isRetreader == true
-          ? "${_apiRoutes.auditorRetreaderForm2PostAPIRoute}/$id"
-          : "${_apiRoutes.auditorRecyclerForm2PostAPIRoute}/$id",
+          ? _apiRoutes.auditorRetreaderForm2PostAPIRoute
+          : _apiRoutes.auditorRecyclerForm2PostAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );
@@ -238,13 +260,12 @@ class AuditorRepository {
 
   Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm4Data(
       AuditorRecyclerForm4RequestModel requestModel,
-      {String userId = "",
-      bool isRetreader = false}) async {
+      {bool isRetreader = false}) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
       isRetreader == true
-          ? "${_apiRoutes.auditorRetreaderForm4RequestAPIRoute}/$userId"
-          : "${_apiRoutes.auditorRecyclerForm4RequestAPIRoute}/$userId",
+          ? _apiRoutes.auditorRetreaderForm4RequestAPIRoute
+          : _apiRoutes.auditorRecyclerForm4RequestAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );
@@ -253,13 +274,12 @@ class AuditorRepository {
 
   Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm3Data(
       RecyclerForm3RequestModel requestModel,
-      {String? id,
-      bool? isRetreader}) async {
+      {bool? isRetreader}) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
       isRetreader == true
-          ? "${_apiRoutes.auditorRetreaderForm3PostAPIRoute}/$id"
-          : "${_apiRoutes.auditorRecyclerForm3PostAPIRoute}/$id",
+          ? _apiRoutes.auditorRetreaderForm3PostAPIRoute
+          : _apiRoutes.auditorRecyclerForm3PostAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );
@@ -268,13 +288,12 @@ class AuditorRepository {
 
   Future<APIResponse<AddDataResponseModel?>?> postRecyclerForm5Data(
       AuditorRecyclerForm5RequestModel requestModel,
-      {String userId = "",
-      bool isRetreader = false}) async {
+      {bool isRetreader = false}) async {
     Map<String, dynamic> request = requestModel.toJson();
     APIResponse<AddDataResponseModel?>? response = await _apiBase.postRequest(
       isRetreader == true
-          ? "${_apiRoutes.auditorRetreaderForm5RequestAPIRoute}/$userId"
-          : "${_apiRoutes.auditorRecyclerForm5RequestAPIRoute}/$userId",
+          ? _apiRoutes.auditorRetreaderForm5RequestAPIRoute
+          : _apiRoutes.auditorRecyclerForm5RequestAPIRoute,
       data: request,
       isAuthorizationRequired: true,
     );
@@ -303,8 +322,15 @@ class AuditorRepository {
   }
 
   Future getViewEntriesDownloadFile(String url) async {
-    final response =
-        await _apiBase.getRequest(url, isMediaAuthorizationRequired: true);
+    final splitUrl = url.split('/api');
+    String? partAfterApi;
+    if (splitUrl.length > 1) {
+      partAfterApi = splitUrl[1];
+      HelperFunctions().logger("Part after /api: $partAfterApi");
+    }
+
+    final response = await _apiBase.getRequest("api$partAfterApi",
+        isMediaAuthorizationRequired: true);
     return response;
   }
 }

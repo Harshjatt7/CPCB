@@ -88,7 +88,7 @@ class RecyclerDetailScreen extends StatelessWidget {
                 rawMaterial: data?.buyerAddress ?? '',
                 year: data?.financeYear ?? '',
                 salesInvoice: data?.invoiceAmout ?? '',
-                onDownloadTap: () async {
+                onEditTap: () async {
                   await viewModel?.getViewEntriesFile(
                       context, data?.invoiceLinkApi ?? '');
                 },

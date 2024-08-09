@@ -81,7 +81,6 @@ class AuditorFormTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: CommonTextFormFieldWidget(
-                isDocument: isSensitive,
                 isReadOnly: true,
                 hintText: title ?? '',
                 isMandatory: false,

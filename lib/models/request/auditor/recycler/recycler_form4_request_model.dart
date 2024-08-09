@@ -1,15 +1,18 @@
 class AuditorRecyclerForm4RequestModel {
   ProductionInfoRequest? productionInfo;
   String? submit;
+  String? auditPlanId;
 
   AuditorRecyclerForm4RequestModel({
     this.productionInfo,
     this.submit,
+    this.auditPlanId,
   });
 
   Map<String, dynamic> toJson() => {
         "productionInfo": productionInfo?.toJson(),
         "submit": submit,
+        "auditPlanId": auditPlanId,
       };
 }
 

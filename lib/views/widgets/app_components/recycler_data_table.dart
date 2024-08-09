@@ -1,3 +1,4 @@
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form1_response_model.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_recycler_data_row.dart';
@@ -12,6 +13,7 @@ class RecyclerDataTable extends StatelessWidget {
       required this.nwList,
       required this.machineControllerList,
       this.isSummary = false,
+      this.remarkError,
       required this.radioList});
   final List<String> headingList;
   final List<Nw> nwList;
@@ -19,6 +21,7 @@ class RecyclerDataTable extends StatelessWidget {
   final List<String> radioList;
   final ScrollController scrollController = ScrollController();
   final bool? isSummary;
+  final String? remarkError;
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
@@ -85,6 +88,13 @@ class RecyclerDataTable extends StatelessWidget {
                       groupValue: radioList[index],
                       isOdd: index % 2 == 0,
                       isSummary: isSummary,
+                      remarkError: remarkError,
+                      validator: (value) {
+                        if (machineControllerList[index].text.isEmpty) {
+                          return MessageConstant().pleaseProvideValue;
+                        }
+                        return null;
+                      },
                     );
                   }),
                 ),

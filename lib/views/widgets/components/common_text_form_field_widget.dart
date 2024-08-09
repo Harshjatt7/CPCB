@@ -161,12 +161,13 @@ class _CommonTextFormFieldWidgetNewState
               borderRadius: BorderRadius.circular(5)),
           child: TextFormField(
             enableInteractiveSelection:
-                widget.isSensitive == true? false : true,
+                widget.isSensitive == true ? false : true,
             onChanged: widget.onChanged,
             onTap: widget.onTap,
             inputFormatters: widget.inputFormatters ??
                 [
-                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@. ]')),
+                  // ignore: valid_regexps
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9@._ -]')),
                 ],
             controller: widget.controller,
             focusNode: widget.isReadOnly == true

@@ -277,7 +277,7 @@ class ProcurementAddDataScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: CommonTextFormFieldWidget(
-          inputFormatters: [LengthLimitingTextInputFormatter(10)],
+          // inputFormatters: [LengthLimitingTextInputFormatter(10)],
           textInputType: TextInputType.number,
           hintText: viewModel.stringConstants.supplierContactDetails,
           isMandatory: true,

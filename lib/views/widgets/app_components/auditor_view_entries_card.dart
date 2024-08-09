@@ -9,8 +9,6 @@ import 'package:localization/localization.dart';
 class AuditorViewEntriesCard extends StatelessWidget {
   final bool? isDetailProduct;
   final VoidCallback? onEditTap;
-  final VoidCallback? onViewTap;
-  final VoidCallback? onDownloadTap;
   final String? supplierName;
   final String? invoiceNo;
   final String? rawMaterial;
@@ -22,8 +20,6 @@ class AuditorViewEntriesCard extends StatelessWidget {
       {super.key,
       this.isDetailProduct = false,
       this.onEditTap,
-      this.onViewTap,
-      this.onDownloadTap,
       this.supplierName,
       this.invoiceNo,
       this.quantity,
@@ -46,26 +42,15 @@ class AuditorViewEntriesCard extends StatelessWidget {
             children: [
               CommonTextWidget(supplierName ?? "",
                   style: Theme.of(context).textTheme.displayMedium),
-              if (isDetailProduct == false)
-                InkWell(
-                  onTap: onEditTap,
-                  child: CommonImageWidget(
-                      imageSource: ImageConstants().editIcon,
-                      isNetworkImage: false),
-                ),
-              if (isDetailProduct == true)
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: onDownloadTap,
-                      child: CommonImageWidget(
-                        imageSource: ImageConstants().fileUpload,
-                        isNetworkImage: false,
-                        imageColor: AppColor().darkGreen,
-                      ),
-                    ),
-                  ],
-                )
+              InkWell(
+                onTap: onEditTap,
+                child: CommonImageWidget(
+                    imageSource: ImageConstants().downloadApplicationIcon,
+                    imageColor: AppColor().black,
+                    height: 15,
+                    width: 15,
+                    isNetworkImage: false),
+              ),
             ],
           ),
           const SizedBox(height: 8),

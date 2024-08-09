@@ -1,5 +1,6 @@
 import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
+import 'package:cpcb_tyre/models/request/auditor/auditor_post_request_model.dart';
 import 'package:cpcb_tyre/models/request/auditor/producer/produer_form_1_request_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
@@ -272,12 +273,13 @@ class ProducerFormsViewModel extends BaseViewModel {
             additionalData: FalseInformationAdditionalDataResponse(
                 overallSummary: summaryController?.text)),
       ),
+      auditPlanId: id,
       submit: saveAsDraft ?? "",
     );
     state = ViewState.busy;
     try {
       final res =
-          await _auditorRepository.postProducerForm3Data(requestModel, id: id);
+          await _auditorRepository.postProducerForm3Data(requestModel);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
@@ -316,8 +318,8 @@ class ProducerFormsViewModel extends BaseViewModel {
     auditRemarkError = "";
     summaryError = "";
     try {
-      _producerForm3ResponseModel =
-          await _auditorRepository.getProducerForm3Data(id: id);
+      _producerForm3ResponseModel = await _auditorRepository
+          .getProducerForm3Data(AuditorPostModel(auditPlanId: id));
       if (_producerForm3ResponseModel?.isSuccess == true) {
         _producerForm3ResponseModel?.data = ProducerForm3ResponseModel.fromJson(
             _producerForm3ResponseModel?.completeResponse);
@@ -366,12 +368,12 @@ class ProducerFormsViewModel extends BaseViewModel {
         salesP5: ProducerSalesDetail(auditConfirmedStatus: radioMisreportingP5),
         salesP6: ProducerSalesDetail(auditConfirmedStatus: radioMisreportingP6),
       ),
+      auditPlanId: id,
       submit: saveAsDraft ?? "",
     );
     state = ViewState.busy;
     try {
-      final res =
-          await _auditorRepository.postProducerForm2Data(requestModel, id: id);
+      final res = await _auditorRepository.postProducerForm2Data(requestModel);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
@@ -399,8 +401,8 @@ class ProducerFormsViewModel extends BaseViewModel {
       {String? id}) async {
     state = ViewState.busy;
     try {
-      _producerForm2ResponseModel =
-          await _auditorRepository.getProducerForm2Data(id: id);
+      _producerForm2ResponseModel = await _auditorRepository
+          .getProducerForm2Data(AuditorPostModel(auditPlanId: id));
       if (_producerForm2ResponseModel?.isSuccess == true) {
         _producerForm2ResponseModel?.data = ProducerForm2ResponseModel.fromJson(
             _producerForm2ResponseModel?.completeResponse);
@@ -451,8 +453,8 @@ class ProducerFormsViewModel extends BaseViewModel {
     panOfCompanyRemarkError = "";
     iecRemarkError = "";
     try {
-      _producerForm1ResponseModel =
-          await _auditorRepository.getProducerForm1Data(id: id);
+      _producerForm1ResponseModel = await _auditorRepository
+          .getProducerForm1Data(AuditorPostModel(auditPlanId: id));
       if (_producerForm1ResponseModel?.isSuccess == true) {
         _producerForm1ResponseModel?.data = ProducerForm1ResponseModel.fromJson(
             _producerForm1ResponseModel?.completeResponse);
@@ -531,12 +533,12 @@ class ProducerFormsViewModel extends BaseViewModel {
         companyIec: CompanyData(
             auditConfirmedStatus: radioIec, auditRemark: iecRemark?.text),
       ),
+      auditPlanId: id,
       submit: saveAsDraft ?? "",
     );
 
     try {
-      final res =
-          await _auditorRepository.postProducerForm1Data(requestModel, id: id);
+      final res = await _auditorRepository.postProducerForm1Data(requestModel);
       if (res?.isSuccess == true) {
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(

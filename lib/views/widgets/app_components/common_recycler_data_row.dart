@@ -15,11 +15,15 @@ class CommonRecyclerDataRow extends StatefulWidget {
       required this.machineController,
       required this.index,
       this.isSummary = false,
+      this.validator,
+      this.remarkError,
       required this.groupValue});
   final Nw? nwModel;
   final void Function()? onTap;
+  final String? Function(String?)? validator;
   final bool isOdd;
   final int index;
+  final String? remarkError;
   final TextEditingController machineController;
   String groupValue;
   final bool? isSummary;
@@ -140,60 +144,44 @@ class _CommonRecyclerDataRowState extends State<CommonRecyclerDataRow> {
           ),
           SizedBox(
             width: 300,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
-              child: CommonTextFormFieldWidget(
-                  hintText: stringConstants.remarks,
-                  isReadOnly: widget.isSummary,
-                  isMandatory: false,
-                  controller: widget.machineController),
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 14, horizontal: 30),
+                  child: CommonTextFormFieldWidget(
+                      hintText: stringConstants.remarks,
+                      isReadOnly: widget.isSummary,
+                      isMandatory: false,
+                      validator: widget.validator,
+                      controller: widget.machineController),
+                ),
+                if (widget.remarkError?.isNotEmpty ?? false)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, bottom: 10),
+                    child: showErrorMessage(context, widget.remarkError ?? ''),
+                  ),
+              ],
             ),
           )
         ],
       ),
     );
   }
+
+  Widget showErrorMessage(BuildContext context, String message) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+        child: CommonTextWidget(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall
+              ?.copyWith(color: AppColor().red),
+        ),
+      ),
+    );
+  }
 }
-
-class DemoModel2 {
-  String? name;
-  String? capacity;
-  String? power;
-  String? action;
-  String? remarks;
-
-  DemoModel2({
-    this.name,
-    this.capacity,
-    this.power,
-    this.action,
-    this.remarks,
-  });
-}
-
-List<DemoModel2> list2 = [
-  DemoModel2(
-      name: "one",
-      capacity: "21",
-      power: "42",
-      action: "confirm",
-      remarks: "anything"),
-  DemoModel2(
-      name: "two",
-      capacity: "21",
-      power: "42",
-      action: "confirm",
-      remarks: "anything"),
-  DemoModel2(
-      name: "three",
-      capacity: "21",
-      power: "42",
-      action: "confirm",
-      remarks: "anything"),
-  DemoModel2(
-      name: "three",
-      capacity: "21",
-      power: "42",
-      action: "confirm",
-      remarks: "anything"),
-];
