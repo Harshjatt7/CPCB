@@ -117,7 +117,7 @@ class RetreaderDataScreen extends StatelessWidget {
                                       contactDetails:
                                           viewModel.data?[index].contactDetails,
                                       address: viewModel.data?[index]
-                                          .addressOfWasteTyreSupplier,
+                                          .addressOfWasteTyreSupplier??"NA",
                                       gstNumber:
                                           viewModel.data?[index].gstNumber,
                                       typeOfRaw: viewModel
