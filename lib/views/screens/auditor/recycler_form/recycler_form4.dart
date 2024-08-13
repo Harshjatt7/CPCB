@@ -194,7 +194,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
             remarkController: viewModel.remakrsBuyerController,
             groupValue: viewModel.radioBuyer,
             notVerifiedError:
-                viewModel.buyersAdditionalDataNumberOfBuyersContactedError,
+                viewModel.numberOfBuyerContactedError,
             remarkError: viewModel.buyersAuditRemarkError,
             radioError: viewModel.buyersAuditConfirmedStatusError,
             onChanged: (value) {
@@ -259,7 +259,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
         if (notVerifiedError != null)
           showErrorMessage(context, notVerifiedError),
         Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 16),
+          padding: const EdgeInsets.only(top: 8, bottom:16),
           child: CommonTextFormFieldWidget(
               isReadOnly: isSummaryScreen,
               bgColor: appColor.white,
@@ -268,7 +268,10 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
               isMandatory: false,
               controller: remarkController ?? TextEditingController()),
         ),
-        if (remarkError != null) showErrorMessage(context, remarkError),
+        if (remarkError != null) Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: showErrorMessage(context, remarkError),
+        ),
       ],
     );
   }

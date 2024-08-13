@@ -27,6 +27,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:localization/localization.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../constants/routes_constant.dart';
@@ -57,7 +58,8 @@ class RecyclerFormViewModel extends BaseViewModel {
         selectedEndProductsData.remove(endProductsList[index].title);
       }
     }
-    endProductDataListController?.text = selectedEndProductsData.join(",");
+    endProductDataListController?.text =
+        selectedEndProductsData.join(",").i18n();
   }
 
   TextEditingController? gstController;
@@ -353,25 +355,25 @@ class RecyclerFormViewModel extends BaseViewModel {
   DocumentData? geoTaggedVideoUploadDocument;
 
   //Form1
-  String gstNoAuditRemarkError = "";
-  String detailsOfMachineryRemarkError = "";
-  String companyPanAuditRemarkError = "";
-  String ctoAuditRemarkError = "";
-  String authorizationUnderHomwRulesAuditRemarkError = "";
-  String addressLine1AuditRemarkError = "";
-  String gpsLocationAuditorAdditionalDataLatError = "";
-  String gpsLocationAuditorAdditionalDataLongError = "";
-  String gpsLocationAuditorAuditRemarkError = "";
-  String lastYearElectricityBillAuditDocumentError = "";
-  String lastYearElectricityBillAuditRemarkError = "";
-  String geoTaggedVideoUploadAuditDocumentError = "";
-  String geoTaggedVideoUploadAuditRemarkError = "";
-  String otherMachineriesError = "";
-  String aadhaarcardError = "";
-  String authorizedPersonPanError = "";
-  String lastYearElectricityBillError = "";
-  String airPollutionControlDevicesError = "";
-  String geoTaggedVideoUploadError = "";
+  String? gstNoAuditRemarkError = "";
+  String? detailsOfMachineryRemarkError = "";
+  String? companyPanAuditRemarkError = "";
+  String? ctoAuditRemarkError = "";
+  String? authorizationUnderHomwRulesAuditRemarkError = "";
+  String? addressLine1AuditRemarkError = "";
+  String? gpsLocationAuditorAdditionalDataLatError = "";
+  String? gpsLocationAuditorAdditionalDataLongError = "";
+  String? gpsLocationAuditorAuditRemarkError = "";
+  String? lastYearElectricityBillAuditDocumentError = "";
+  String? lastYearElectricityBillAuditRemarkError = "";
+  String? geoTaggedVideoUploadAuditDocumentError = "";
+  String? geoTaggedVideoUploadAuditRemarkError = "";
+  String? otherMachineriesError = "";
+  String? aadhaarcardError = "";
+  String? authorizedPersonPanError = "";
+  String? lastYearElectricityBillError = "";
+  String? airPollutionControlDevicesError = "";
+  String? geoTaggedVideoUploadError = "";
 
 //Form 2
   String? contactedSuppliersError;
@@ -395,12 +397,13 @@ class RecyclerFormViewModel extends BaseViewModel {
   String? totalElectricityConsumptionError;
 
   //Form4
-  String invoiceAuditConfirmedStatusError = "";
-  String invoiceAdditionalDataNumberOfSuppliersContactedError = "";
-  String invoiceAuditRemarkError = "";
-  String buyersAuditConfirmedStatusError = "";
-  String buyersAdditionalDataNumberOfBuyersContactedError = "";
-  String buyersAuditRemarkError = "";
+  String? invoiceAuditConfirmedStatusError = "";
+  String? invoiceAdditionalDataNumberOfSuppliersContactedError = "";
+  String? invoiceAuditRemarkError = "";
+  String? buyersAuditConfirmedStatusError = "";
+  String? buyersAdditionalDataNumberOfBuyersContactedError = "";
+  String? buyersAuditRemarkError = "";
+  String? numberOfBuyerContactedError = "";
 
   //Form5
   String summaryAuditRemarkError = "";
@@ -731,19 +734,19 @@ class RecyclerFormViewModel extends BaseViewModel {
       {String userId = "",
       bool isRetreader = false}) async {
     state = ViewState.busy;
-    gstNoAuditRemarkError = "";
-    detailsOfMachineryRemarkError = "";
-    companyPanAuditRemarkError = "";
-    ctoAuditRemarkError = "";
-    authorizationUnderHomwRulesAuditRemarkError = "";
-    addressLine1AuditRemarkError = "";
-    gpsLocationAuditorAdditionalDataLatError = "";
-    gpsLocationAuditorAdditionalDataLongError = "";
-    gpsLocationAuditorAuditRemarkError = "";
-    lastYearElectricityBillAuditDocumentError = "";
-    lastYearElectricityBillAuditRemarkError = "";
-    geoTaggedVideoUploadAuditDocumentError = "";
-    geoTaggedVideoUploadAuditRemarkError = "";
+    gstNoAuditRemarkError = null;
+    detailsOfMachineryRemarkError = null;
+    companyPanAuditRemarkError = null;
+    ctoAuditRemarkError = null;
+    authorizationUnderHomwRulesAuditRemarkError = null;
+    addressLine1AuditRemarkError = null;
+    gpsLocationAuditorAdditionalDataLatError = null;
+    gpsLocationAuditorAdditionalDataLongError = null;
+    gpsLocationAuditorAuditRemarkError = null;
+    lastYearElectricityBillAuditDocumentError = null;
+    lastYearElectricityBillAuditRemarkError = null;
+    geoTaggedVideoUploadAuditDocumentError = null;
+    geoTaggedVideoUploadAuditRemarkError = null;
 
     try {
       _auditorRecycler1ResponseModel = await auditorRepository
@@ -906,12 +909,13 @@ class RecyclerFormViewModel extends BaseViewModel {
       {String userId = "",
       bool isRetreader = false}) async {
     state = ViewState.busy;
-    invoiceAuditConfirmedStatusError = "";
-    invoiceAdditionalDataNumberOfSuppliersContactedError = "";
-    invoiceAuditRemarkError = "";
-    buyersAuditConfirmedStatusError = "";
-    buyersAdditionalDataNumberOfBuyersContactedError = "";
-    buyersAuditRemarkError = "";
+    invoiceAuditConfirmedStatusError = null;
+    invoiceAdditionalDataNumberOfSuppliersContactedError = null;
+    invoiceAuditRemarkError = null;
+    buyersAuditConfirmedStatusError = null;
+    buyersAdditionalDataNumberOfBuyersContactedError = null;
+    buyersAuditRemarkError = null;
+    numberOfBuyerContactedError = null;
 
     try {
       _auditorRecycler4ResponseModel = await auditorRepository
@@ -1907,7 +1911,7 @@ class RecyclerFormViewModel extends BaseViewModel {
 
       if (value.isSuccess == true) {
         helperFunctions.downloadAndStoreFile(
-            name: "${DateTime.now().millisecond}.pdf", response: value);
+            name: "${DateTime.now().millisecond}", response: value);
         state = ViewState.idle;
         return value;
       } else {
@@ -2068,7 +2072,8 @@ class RecyclerFormViewModel extends BaseViewModel {
       String submit = ""}) async {
     if (controllerList[0].text.isNotEmpty ||
         uploadControllerList[0].text.isNotEmpty) {
-      if ((formKey.currentState?.validate() ?? false)&& (formKey2.currentState?.validate()??false)) {
+      if ((formKey.currentState?.validate() ?? false) &&
+          (formKey2.currentState?.validate() ?? false)) {
         postForm1Data(context,
             isRetreader: isRetreader, submit: submit, userId: userId);
       }
@@ -2172,6 +2177,9 @@ class RecyclerFormViewModel extends BaseViewModel {
           plantMachineryControllerList.clear();
           uploadControllerList.clear();
           controllerList.clear();
+          omRequestList.clear();
+        } else {
+          omRequestList.clear();
         }
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
@@ -2344,6 +2352,15 @@ class RecyclerFormViewModel extends BaseViewModel {
             (apiError?.productionInfoBuyersAuditRemark ?? []).isEmpty
                 ? ""
                 : apiError?.productionInfoBuyersAuditRemark?.first ?? "";
+        numberOfBuyerContactedError =
+            (apiError?.productionInfoBuyersAdditionalDataNumberOfBuyersContacted ??
+                        [])
+                    .isEmpty
+                ? ""
+                : apiError
+                        ?.productionInfoBuyersAdditionalDataNumberOfBuyersContacted
+                        ?.first ??
+                    "";
       }
     } catch (e) {
       if (context.mounted) {
