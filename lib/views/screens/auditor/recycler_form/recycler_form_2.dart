@@ -319,7 +319,7 @@ class _AuditorRecyclerForm2State extends State<AuditorRecyclerForm2> {
                                                   viewModel.updateCheckBox(
                                                       val ?? false, index);
                                                   HelperFunctions().logger(
-                                                      "${viewModel.selectedEndProductsData}");
+                                                      "ffffef${viewModel.selectedEndProductsData}");
                                                   setState(() {});
                                                 }),
                                             Expanded(

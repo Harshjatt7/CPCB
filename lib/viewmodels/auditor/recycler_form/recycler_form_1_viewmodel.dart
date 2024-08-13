@@ -1457,7 +1457,6 @@ class RecyclerFormViewModel extends BaseViewModel {
 
     differenceInActualProccessingController?.text =
         "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
-//TODO talk with API team
     uploadSalesController?.text =
         "${valueComparable?.additionalData?.differenceInActualProcessing ?? ''}";
     powerConsumptionController?.text =
@@ -1905,6 +1904,7 @@ class RecyclerFormViewModel extends BaseViewModel {
 
   Future getViewEntriesFile(BuildContext context, String url) async {
     state = ViewState.busy;
+    updateUI();
     try {
       APIResponse value =
           await auditorRepository.getViewEntriesDownloadFile(url);

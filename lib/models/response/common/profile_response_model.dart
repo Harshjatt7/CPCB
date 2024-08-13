@@ -46,6 +46,7 @@ class ProfileData {
   num? isPublished;
   String? companyEmail;
   String? agency;
+  List<String>? auditorStates;
 
   ProfileData(
       {this.id,
@@ -81,6 +82,7 @@ class ProfileData {
       this.whitelistedCompany,
       this.isPublished,
       this.companyEmail,
+      this.auditorStates,
       this.agency});
 
   factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
@@ -117,5 +119,8 @@ class ProfileData {
       whitelistedCompany: json["whitelisted_company"],
       isPublished: json["is_published"],
       companyEmail: json["companyEmail"],
+      auditorStates: json["auditorStates"] == null
+          ? []
+          : List<String>.from(json["auditorStates"]!.map((x) => x)),
       agency: json["agency"]);
 }

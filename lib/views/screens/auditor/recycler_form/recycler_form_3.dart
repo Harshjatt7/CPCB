@@ -116,7 +116,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                   Navigator.pushNamed(
                     context,
                     AppRoutes.auditorRecyclerProcurementScreen,
-                    arguments: viewModel,
+                    arguments: viewModel.procurementData ?? [],
                   );
                 },
                 child: Padding(
@@ -190,7 +190,7 @@ class _AuditorRecyclerForm3State extends State<AuditorRecyclerForm3> {
                 onTap: () {
                   Navigator.pushNamed(
                       context, AppRoutes.auditorRecyclerProcurementScreen,
-                      arguments: viewModel);
+                      arguments: viewModel.procurementData ?? []);
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(left: 32),

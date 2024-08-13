@@ -108,7 +108,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
             onTap: () {
               Navigator.pushNamed(
                   context, AppRoutes.auditorRecyclerDetailScreen,
-                  arguments: viewModel);
+                  arguments: viewModel.eprData);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -152,7 +152,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
             onTap: () {
               Navigator.pushNamed(
                   context, AppRoutes.auditorRecyclerDetailScreen,
-                  arguments: viewModel);
+                  arguments: viewModel.eprData);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -193,8 +193,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
             controller: viewModel.buyersController,
             remarkController: viewModel.remakrsBuyerController,
             groupValue: viewModel.radioBuyer,
-            notVerifiedError:
-                viewModel.numberOfBuyerContactedError,
+            notVerifiedError: viewModel.numberOfBuyerContactedError,
             remarkError: viewModel.buyersAuditRemarkError,
             radioError: viewModel.buyersAuditConfirmedStatusError,
             onChanged: (value) {
@@ -259,7 +258,7 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
         if (notVerifiedError != null)
           showErrorMessage(context, notVerifiedError),
         Padding(
-          padding: const EdgeInsets.only(top: 8, bottom:16),
+          padding: const EdgeInsets.only(top: 8, bottom: 16),
           child: CommonTextFormFieldWidget(
               isReadOnly: isSummaryScreen,
               bgColor: appColor.white,
@@ -268,10 +267,11 @@ class _AuditorRecyclerForm4State extends State<AuditorRecyclerForm4> {
               isMandatory: false,
               controller: remarkController ?? TextEditingController()),
         ),
-        if (remarkError != null) Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: showErrorMessage(context, remarkError),
-        ),
+        if (remarkError != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: showErrorMessage(context, remarkError),
+          ),
       ],
     );
   }

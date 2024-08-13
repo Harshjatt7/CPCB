@@ -1,6 +1,8 @@
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/image_constants.dart';
 import 'package:cpcb_tyre/theme/app_color.dart';
+import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/producer/sales_data_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/base_view.dart';
 import 'package:cpcb_tyre/views/widgets/app_components/common_dropdown_text_form_field.dart';
@@ -13,6 +15,7 @@ import 'package:cpcb_tyre/views/widgets/components/common_text_widget.dart';
 import 'package:cpcb_tyre/views/widgets/components/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localization/localization.dart';
 
 class SalesDataScreen extends StatelessWidget {
   SalesDataScreen({super.key});
@@ -151,27 +154,48 @@ class SalesDataScreen extends StatelessWidget {
               ),
               if (viewModel.financialYearError.isNotEmpty)
                 showErrorMessage(context, viewModel.financialYearError),
+              // Month is change to day to day wise
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(vertical: 8),
+              //   child: CommonDropdownTextFormField(
+              //     isMandatory: true,
+              //     error: viewModel.monthDropdownError,
+              //     onTap: () {
+              //       viewModel.changeDropdownValue(
+              //           SalesDataDropdown.month, viewModel.monthDropdownValue);
+              //     },
+              //     value: viewModel.monthDropdownValue,
+              //     labelText: viewModel.stringConstants.chooseMonthLabel,
+              //     dropDownItem: viewModel.monthList,
+              //     onChanged: (value) {
+              //       viewModel.changeDropdownValue(
+              //           SalesDataDropdown.month, value);
+              //       viewModel.monthDropdownError = null;
+              //     },
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: CommonDropdownTextFormField(
-                  isMandatory: true,
-                  error: viewModel.monthDropdownError,
-                  onTap: () {
-                    viewModel.changeDropdownValue(
-                        SalesDataDropdown.month, viewModel.monthDropdownValue);
-                  },
-                  value: viewModel.monthDropdownValue,
-                  labelText: viewModel.stringConstants.chooseMonthLabel,
-                  dropDownItem: viewModel.monthList,
-                  onChanged: (value) {
-                    viewModel.changeDropdownValue(
-                        SalesDataDropdown.month, value);
-                    viewModel.monthDropdownError = null;
-                  },
-                ),
+                child: CommonTextFormFieldWidget(
+                    hintText: viewModel.stringConstants.date.i18n(),
+                    isMandatory: true,
+                    isReadOnly: true,
+                    disabledBgColor: appColor.transparent,
+                    validator: (value) {
+                      return viewModel.dateValidation();
+                    },
+                    onTap: () async {
+                      viewModel.date = await HelperFunctions().datePicker(
+                          context, viewModel.startDate, viewModel.endDate);
+                      if (viewModel.date != null) {
+                        viewModel.dateTimeConvert();
+                      }
+                    },
+                    icon: ImageConstants().calendar,
+                    controller: viewModel.dateController),
               ),
-              if (viewModel.monthError.isNotEmpty)
-                showErrorMessage(context, viewModel.monthError),
+              // if (viewModel.monthError.isNotEmpty)
+              //   showErrorMessage(context, viewModel.monthError),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CommonTextFormFieldWidget(

@@ -105,7 +105,9 @@ class ProfileScreen extends StatelessWidget {
                           isBackgroundIcon: true,
                           image: imageConstants.passKey,
                           title: viewModel.stringConstants.stateAuthorized,
-                          subtitle: viewModel.data?.state ?? ""),
+                          subtitle: isAuditor == true
+                              ? viewModel.auditorList
+                              : viewModel.data?.state ?? ""),
                     ),
                   if (isAuditor == true)
                     Padding(

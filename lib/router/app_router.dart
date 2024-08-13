@@ -1,5 +1,5 @@
+import 'package:cpcb_tyre/models/response/auditor/recycler/recycler_form4_response_model.dart';
 import 'package:cpcb_tyre/models/screen_or_widegt_arguments/user_type_and_summary.dart';
-import 'package:cpcb_tyre/viewmodels/auditor/recycler_form/recycler_form_1_viewmodel.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_application_received_screen.dart';
 import 'package:cpcb_tyre/views/screens/admin/admin_summary_screen.dart';
 import 'package:cpcb_tyre/views/screens/auditor/producer_form/producer_stepper_form.dart';
@@ -18,6 +18,7 @@ import 'package:cpcb_tyre/views/screens/retrader/retreader_home_screen.dart';
 import 'package:cpcb_tyre/views/screens/spcb/spcb_home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants/routes_constant.dart';
+import '../models/response/auditor/recycler/recycler_form3_reponse_model.dart';
 import '../views/screens/admin/admin_homescreen.dart';
 import '../views/screens/auditor/auditor_home_screen.dart';
 import '../views/screens/producer/producer_home_screen.dart';
@@ -68,19 +69,19 @@ class PageRouter {
       case AppRoutes.auditorHomeScreen:
         return _getPageRoute(AuditorHomeScreen(), settings);
       case AppRoutes.auditorRecyclerProcurementScreen:
-        RecyclerFormViewModel viewModel =
-            settings.arguments as RecyclerFormViewModel;
+        List<ProcurementDatum> procurementData =
+            settings.arguments as List<ProcurementDatum>;
         return _getPageRoute(
             RecyclerProcurementList(
-              viewModel: viewModel,
+              //viewModel: viewModel,
+              procurementData: procurementData,
             ),
             settings);
       case AppRoutes.auditorRecyclerDetailScreen:
-        RecyclerFormViewModel viewModel =
-            settings.arguments as RecyclerFormViewModel;
+        List<EprDatum> eprData = settings.arguments as List<EprDatum>;
         return _getPageRoute(
             RecyclerDetailScreen(
-              viewModel: viewModel,
+              eprData: eprData,
             ),
             settings);
       case AppRoutes.auditorProducerStepperScreen:
