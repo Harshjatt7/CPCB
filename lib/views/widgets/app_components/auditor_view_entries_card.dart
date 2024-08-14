@@ -87,12 +87,7 @@ class AuditorViewEntriesCard extends StatelessWidget {
                           : "${StringConstants().quantity.i18n()}: ",
                       data: isDetailProduct == true ? salesInvoice : quantity),
                 ),
-                if (isDetailProduct == false)
-                  Flexible(
-                      flex: 1,
-                      child: buildRowData(context,
-                          label: "${StringConstants().balance.i18n()}: ",
-                          data: balance)),
+                
               ],
             ),
           )

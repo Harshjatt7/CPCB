@@ -11,63 +11,70 @@ import 'package:flutter/material.dart';
 import '../../../../constants/image_constants.dart';
 import '../../../widgets/app_components/auditor_view_entries_card.dart';
 import '../../../widgets/components/common_appbar.dart';
+import '../../base_view.dart';
 
 class RecyclerProcurementList extends StatelessWidget {
-  const RecyclerProcurementList({super.key, required this.viewModel});
-  final RecyclerFormViewModel? viewModel;
+  const RecyclerProcurementList({super.key, required this.procurementData});
+  final List<ProcurementDatum>? procurementData;
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      isLoading: viewModel?.state == ViewState.busy,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(120),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommonAppBar(
-                isIconBar: true,
-                showNotificationIcon: false,
-                image: ImageConstants().avatar,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: AppColor().black10,
-                    ),
-                  ),
-                ),
-                child: Row(
+    return BaseView<RecyclerFormViewModel>(
+        onModelReady: (viewmodel) {},
+        viewModel: RecyclerFormViewModel(),
+        builder: (context, viewModel, child) {
+          return CustomScaffold(
+            isLoading: viewModel.state == ViewState.busy,
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(120),
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: CommonImageWidget(
-                            imageSource: ImageConstants().arrowBack,
-                            isNetworkImage: false),
-                      ),
+                    CommonAppBar(
+                      isIconBar: true,
+                      showNotificationIcon: false,
+                      image: ImageConstants().avatar,
                     ),
                     Container(
-                        alignment: Alignment.topLeft,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
-                        child: CommonTextWidget("Procurement List",
-                            style: Theme.of(context).textTheme.labelLarge))
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: AppColor().black10,
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 12),
+                              child: CommonImageWidget(
+                                  imageSource: ImageConstants().arrowBack,
+                                  isNetworkImage: false),
+                            ),
+                          ),
+                          Container(
+                              alignment: Alignment.topLeft,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 10),
+                              child: CommonTextWidget("Procurement List",
+                                  style:
+                                      Theme.of(context).textTheme.labelLarge))
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-      body: procurmentListView(context,
-          procurementData: viewModel?.procurementData, viewModel: viewModel),
-    );
+            ),
+            body: procurmentListView(context,
+                procurementData: procurementData, viewModel: viewModel),
+          );
+        });
   }
 
   CommonSingleChildScrollView procurmentListView(BuildContext context,

@@ -9,6 +9,7 @@ import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
 import 'package:cpcb_tyre/models/response/producer/producer_constant_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
+import 'package:cpcb_tyre/utils/validation/validation_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
 import 'package:cpcb_tyre/viewmodels/material_app_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,9 @@ class SalesDataViewModel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
   final MessageConstant messageConstant = MessageConstant();
   final HelperFunctions helperFunctions = HelperFunctions();
-
+  DateTime? date;
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
   String? producerDropdownError;
   String? tyreDropdownError;
   String? yearDropdownError;
@@ -38,6 +41,7 @@ class SalesDataViewModel extends BaseViewModel {
   TextEditingController tRearController = TextEditingController();
   TextEditingController otherController = TextEditingController();
   TextEditingController totalController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
   List financialYearList = <String>[];
   List producerList = <String>[];
   List tyreList = <String>[];
@@ -74,6 +78,13 @@ class SalesDataViewModel extends BaseViewModel {
     return response;
   }
 
+  void dateTimeConvert() {
+    if (date != null) {
+      dateController.text = helperFunctions.getFormattedDate(date: date!);
+    }
+    helperFunctions.logger(dateController.text);
+  }
+
   String? getProducerType() {
     String? selectedValue = producerDropdownValue;
     String? selectedKey;
@@ -87,7 +98,12 @@ class SalesDataViewModel extends BaseViewModel {
     return selectedKey;
   }
 
+  String? dateValidation() {
+    return Validations().dateValidation(dateController.text);
+  }
+
   Future<APIResponse<AddDataResponseModel?>?> postProducerData(context) async {
+    String producerDate = "$date";
     String? producerKey = getProducerType();
     ProducerAddSalesRequestModel request = ProducerAddSalesRequestModel(
       producerType: producerKey,
@@ -96,7 +112,8 @@ class SalesDataViewModel extends BaseViewModel {
       motorCycle: int.parse(motorcycleController.text),
       total: int.parse(totalController.text),
       typeOfTyreManufacture: tyreDropdownValue,
-      month: getMonthValue(),
+      // month: getMonthValue(),
+      invoiceDate: producerDate.split(' ').first,
       passengerCar: int.parse(passengerCarController.text),
       scooter: int.parse(scooterController.text),
       truck: int.parse(truckController.text),
@@ -311,6 +328,16 @@ class SalesDataViewModel extends BaseViewModel {
         break;
       case SalesDataDropdown.financialYear:
         yearDropdownValue = changeDropdown;
+        if (yearDropdownValue != null) {
+          String startYear = yearDropdownValue!.split('-').first;
+          String lastYear = yearDropdownValue!.split('-').last;
+          int stYear = int.parse(startYear);
+          int edYear = int.parse(lastYear);
+          startDate = DateTime(stYear, 4, 1);
+          endDate = startYear == DateTime.now().year.toString()
+              ? DateTime.now()
+              : DateTime(edYear, 3, 31);
+        }
         if (yearDropdownValue == null) {
           yearDropdownError = messageConstant.pleaseSelectValue;
         }

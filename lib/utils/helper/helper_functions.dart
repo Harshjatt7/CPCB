@@ -568,7 +568,7 @@ class HelperFunctions {
       case "mp4":
         return '${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.mp4';
       default:
-        return '${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}';
+        return '${DateTime.timestamp().millisecond}${DateTime.timestamp().microsecond}.pdf';
     }
   }
 

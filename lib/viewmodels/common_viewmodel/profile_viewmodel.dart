@@ -17,6 +17,7 @@ class ProfileViewModel extends BaseViewModel {
   final StringConstants stringConstants = StringConstants();
   final StoreKeyConstants storeKeyConstants = StoreKeyConstants();
   final HelperFunctions helperFunctions = HelperFunctions();
+  String auditorList = '';
 
   final _commonRepo = CommonRepository();
   APIResponse<ProfileResponseModel?>? _profileResponseModel;
@@ -56,6 +57,7 @@ class ProfileViewModel extends BaseViewModel {
         _profileResponseModel?.data = ProfileResponseModel.fromJson(
             _profileResponseModel?.completeResponse);
         data = _profileResponseModel?.data?.data;
+        auditorList = data?.auditorStates?.join(",") ?? '';
         helperFunctions.logger('${data?.name}');
       } else {
         helperFunctions.logger("drfsxrfdesxfdsxf");

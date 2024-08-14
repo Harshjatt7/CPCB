@@ -24,7 +24,7 @@ class DownloadBottomSheet extends StatelessWidget {
 
   Widget downloadBottomSheet(BuildContext context) {
     return Container(
-      height: 280,
+      height: 220,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
       child: Column(
         children: [
@@ -60,14 +60,14 @@ class DownloadBottomSheet extends StatelessWidget {
                         imageSrc: imageConstants.downloadTransactionIcon,
                         color: appColor.darkGreen,
                         label: stringConstants.downloadTransactionLabel),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    CommonButtonWidget(
-                        onPressed: onDownloadApplicationTapped,
-                        imageSrc: imageConstants.downloadApplicationIcon,
-                        color: appColor.darkGreen,
-                        label: stringConstants.downloadApplicationBtnLabel),
+                    // const SizedBox(
+                    //   height: 16,
+                    // ),
+                    // CommonButtonWidget(
+                    //     onPressed: onDownloadApplicationTapped,
+                    //     imageSrc: imageConstants.downloadApplicationIcon,
+                    //     color: appColor.darkGreen,
+                    //     label: stringConstants.downloadApplicationBtnLabel),
                     const SizedBox(
                       height: 16,
                     ),
