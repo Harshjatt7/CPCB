@@ -132,8 +132,8 @@ extension ApiBaseURL on ApiEnvironments {
       case ApiEnvironments.dev:
         return "https://dev-cpcb-tyre.writso.com/";
       case ApiEnvironments.qa:
-        // return "http://192.168.4.228:8000/";
-      return "https://qa2-cpcb-tyre.writso.com/";
+        return "http://192.168.4.228:8000/";
+      // return "https://qa2-cpcb-tyre.writso.com/";
       case ApiEnvironments.prod:
         return "PROD BASE URL";
     }

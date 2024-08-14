@@ -1017,6 +1017,8 @@ class _AuditorRecyclerForm1State extends State<AuditorRecyclerForm1> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: CommonTextFormFieldWidget(
+                        isReadOnly: true,
+                        disabledBgColor: appColor.white,
                         isDocument: true,
                         icon: viewModel.uploadVideoController?.text.isEmpty ??
                                 false
