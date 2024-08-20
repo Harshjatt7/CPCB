@@ -1,19 +1,36 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:cpcb_tyre/constants/enums/enums.dart';
 import 'package:cpcb_tyre/constants/enums/state_enums.dart';
+import 'package:cpcb_tyre/constants/message_constant.dart';
 import 'package:cpcb_tyre/constants/string_constant.dart';
 import 'package:cpcb_tyre/controllers/spcb/spcb_repository.dart';
 import 'package:cpcb_tyre/models/request/spcb/spcb_complaint_request_model.dart';
 import 'package:cpcb_tyre/models/response/base_response_model.dart';
 import 'package:cpcb_tyre/models/response/common/add_data_response_model.dart';
+import 'package:cpcb_tyre/models/response/common/file_size_model.dart';
 import 'package:cpcb_tyre/models/response/spcb/spcb_users_list_response_model.dart';
 import 'package:cpcb_tyre/utils/helper/debouncing_helper.dart';
 import 'package:cpcb_tyre/utils/helper/helper_functions.dart';
 import 'package:cpcb_tyre/viewmodels/base_viewmodel.dart';
+import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class SpcbDashboardViewModel extends BaseViewModel {
   bool isSearchExpanded = false;
   TextEditingController searchController = TextEditingController();
+  TextEditingController uploadInvoiceController = TextEditingController();
+  final MessageConstant messageConstant = MessageConstant();
+  String? filePath;
+  String? fileError;
+  String? fileName;
+  String? fileSize;
+  double? fileSizeNum;
+  MultipartFile? uploadInvoiceDoc;
+
+  FileSizeModel? fileSizeModel;
   final helperFunctions = HelperFunctions();
   //String currentUser = AdminUserTypes.producer.text;
   AdminUserTypes currentUserType = AdminUserTypes.producer;
@@ -81,19 +98,107 @@ class SpcbDashboardViewModel extends BaseViewModel {
     await onProducerTab();
   }
 
+  Future<void> handleOnTap(BuildContext context) async {
+    if (uploadInvoiceController.text.isEmpty) {
+      var res = await openFileManager(context);
+
+      if (res != null) {
+        if (context.mounted) {
+          uploadInvoiceController.text =
+              res.files.isEmpty ? "" : res.files.first.name;
+          uploadInvoiceDoc = await MultipartFile.fromFile(
+              res.files.first.path ?? '',
+              filename: "uploadInvoice.pdf");
+        }
+      }
+    } else {
+      if (context.mounted) {
+        helperFunctions.openFile(filePath ?? '');
+      }
+    }
+  }
+
+  Future<void> handleOnSuffixTap(BuildContext context) async {
+    if (uploadInvoiceController.text.isEmpty) {
+      var res = await openFileManager(context);
+
+      if (res != null) {
+        if (context.mounted) {
+          uploadInvoiceController.text =
+              res.files.isEmpty ? "" : res.files.first.name;
+          uploadInvoiceDoc = await MultipartFile.fromFile(
+              res.files.first.path ?? '',
+              filename: "upload.pdf");
+        }
+      }
+    } else {
+      if (context.mounted) {
+        uploadInvoiceController.text = "";
+        filePath = null;
+      }
+      // updateUI();
+    }
+  }
+
+  Future<FilePickerResult?> openFileManager(context) async {
+    fileError = null;
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ["pdf"]);
+    if (result != null) {
+      final file = File(result.files.single.path ?? "");
+      filePath = file.path;
+      fileSizeModel = await getFileSize(filePath ?? '', 1);
+      fileSize = fileSizeModel?.fileSize ?? "0 B";
+      fileName = file.path.split('/').last;
+      updateUI();
+    } else {
+      fileError = messageConstant.pleaseSelectFile;
+      updateUI();
+    }
+    return result;
+  }
+
+  Future<FileSizeModel> getFileSize(String filepath, int decimals) async {
+    var file = File(filepath);
+    int bytes = await file.length();
+    if (bytes <= 0) {
+      return FileSizeModel(fileSize: "0 B", fileSizeNum: 0);
+    }
+    const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    var i = (log(bytes) / log(1024)).floor();
+    fileSizeNum = bytes / pow(1024, i);
+    return FileSizeModel(
+        fileSize:
+            '${(bytes / pow(1024, i)).toStringAsFixed(decimals)} ${suffixes[i]}',
+        fileSizeNum: fileSizeNum ?? 0);
+  }
+
+  String? uploadInvoiceValidation() {
+    if (uploadInvoiceController.text.isEmpty) {
+      return messageConstant.pleaseUploadInvoice;
+    }
+    if (fileSizeModel?.fileSize.contains("MB") ?? false) {
+      if (fileSizeModel!.fileSizeNum > 2.0) {
+        return messageConstant.maxFileSize;
+      }
+    }
+    return null;
+  }
+
   Future raiseComplaint(
     BuildContext context,
     String? query,
     int? userId,
   ) async {
     state = ViewState.busy;
-    SpcbComplaintRequestModel request =
-        SpcbComplaintRequestModel(complaint: query, userId: userId);
+    SpcbComplaintRequestModel request = SpcbComplaintRequestModel(
+        complaint: query, userId: userId, uploadFile: uploadInvoiceDoc);
     try {
       APIResponse<AddDataResponseModel>? res = await _spcbRepo.postComplaint(
         request,
       );
       if (res?.isSuccess == true) {
+        uploadInvoiceController.clear();
         if (context.mounted) {
           HelperFunctions().commonSuccessSnackBar(
               context, res?.completeResponse['message'] ?? "");

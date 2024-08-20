@@ -69,21 +69,47 @@ class SpcbCommonTab extends StatelessWidget {
                                     barrierDismissible: false,
                                     context: context,
                                     builder: (BuildContext ctx) {
-                                      return CommonCommentPopUp(
-                                          ctx: ctx,
-                                          controller: queryController,
-                                          labelText: stringConstants.addComment,
-                                          hintText: stringConstants.writeComment
-                                              .i18n(),
-                                          onSubmit: () async {
-                                            if (ctx.mounted) {
-                                              Navigator.pop(ctx);
-                                            }
-                                            await viewModel.raiseComplaint(
-                                                context,
-                                                queryController.text,
-                                                applicationData?.userId);
-                                          });
+                                      return StatefulBuilder(
+                                          builder: (context1, setState) {
+                                        return CommonCommentPopUp(
+                                            ctx: ctx,
+                                            controller: queryController,
+                                            labelText:
+                                                stringConstants.addComment,
+                                            hintText: stringConstants
+                                                .writeComment
+                                                .i18n(),
+                                            filePath: viewModel.filePath,
+                                            uploadInvoiceController: viewModel
+                                                .uploadInvoiceController,
+                                            onTap: () async {
+                                              if (context1.mounted) {
+                                                await viewModel
+                                                    .handleOnTap(context1);
+                                                setState(() {});
+                                              }
+                                            },
+                                            onSuffixTap: () async {
+                                              if (context1.mounted) {
+                                                await viewModel
+                                                    .handleOnSuffixTap(context1);
+                                                setState(() {});
+                                              }
+                                            },
+                                            validator: (value) {
+                                              return viewModel
+                                                  .uploadInvoiceValidation();
+                                            },
+                                            onSubmit: () async {
+                                              if (ctx.mounted) {
+                                                Navigator.pop(ctx);
+                                              }
+                                              await viewModel.raiseComplaint(
+                                                  context,
+                                                  queryController.text,
+                                                  applicationData?.userId);
+                                            });
+                                      });
                                     },
                                   );
                                 },
