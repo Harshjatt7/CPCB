@@ -29,6 +29,9 @@ class LoginViewModel extends BaseViewModel {
   String? changeDropdown;
   bool isObscure = true;
 
+
+  
+
   bool isBtnEnabled = false;
   UserTypes? currentUser;
   final _authRepo = AuthRepository();
